@@ -1,6 +1,6 @@
 /**
  * memory — 4×4 翻牌记忆配对，规则版本 1，无外部依赖。
- * 作者：GPT / Codex。适配 gamecenter（原作者 Carinoasd，(C) 2026）。
+ * 玩法与校验：GPT / Codex。视觉、动效与音效：小蓝。适配 gamecenter（Carinoasd，(C) 2026）。
  */
 (function () {
   'use strict';
@@ -8,20 +8,84 @@
   var RULE = 1;
   var MAX_ATTEMPTS = 256;
   var REVEAL_MS = 700;
+
   var symbols = [
     ['太阳', '<circle cx="24" cy="24" r="9"/><path d="M24 4v5m0 30v5M4 24h5m30 0h5M10 10l4 4m20 20 4 4M10 38l4-4m20-20 4-4"/>'],
     ['月亮', '<path d="M35 33A17 17 0 0 1 15 8a17 17 0 1 0 20 25Z"/>'],
     ['星星', '<path d="m24 5 6 12 13 2-9.5 9.3L36 42l-12-6.4L12 42l2.5-13.7L5 19l13-2Z"/>'],
-    ['水滴', '<path d="M24 5C20 14 10 22 10 30a14 14 0 0 0 28 0c0-8-10-16-14-25Z"/><path d="M17 30a7 7 0 0 0 7 7"/>'],
+    ['水滴', '<path d="M24 5C20 14 10 22 10 30a14 14 0 0 0 28 0c0-8-10-16-14-25Z"/>'],
     ['爱心', '<path d="M24 40 7 24C-1 13 13 2 24 15 35 2 49 13 41 24Z"/>'],
-    ['树叶', '<path d="M39 8C10 5 4 24 15 34S43 33 39 8Z"/><path d="m10 40 22-22m-13 13-1-9m8 2 9 1"/>'],
-    ['菱形', '<path d="m24 5 17 19-17 19L7 24Z"/><path d="m24 14 9 10-9 10-9-10Z"/>'],
+    ['树叶', '<path d="M39 8C10 5 4 24 15 34S43 33 39 8Z"/><path d="m10 40 22-22"/>'],
+    ['菱形', '<path d="m24 5 17 19-17 19L7 24Z"/>'],
     ['花朵', '<path d="M24 15C10-3 0 20 15 24-3 38 20 48 24 33c14 18 24-5 9-9C51 10 28 0 24 15Z"/><circle cx="24" cy="24" r="4"/>']
   ];
 
+  /* ---------- 音效：Web Audio 实时合成，不依赖任何音频文件 ---------- */
+  var Sfx = (function () {
+    var actx = null;
+    var on = true;
+    try { on = window.localStorage.getItem('gcm_sound') !== '0'; } catch (e) { }
+
+    function ctx() {
+      if (!actx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) { return null; }
+        try { actx = new AC(); } catch (e) { return null; }
+      }
+      if (actx.state === 'suspended' && actx.resume) { actx.resume(); }
+      return actx;
+    }
+
+    function tone(freq, dur, type, vol, delay) {
+      if (!on) { return; }
+      var c = ctx();
+      if (!c) { return; }
+      var t0 = c.currentTime + (delay || 0);
+      var osc, gain;
+      try {
+        osc = c.createOscillator();
+        gain = c.createGain();
+      } catch (e) { return; }
+      osc.type = type || 'sine';
+      osc.frequency.setValueAtTime(freq, t0);
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.linearRampToValueAtTime(vol, t0 + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      osc.connect(gain);
+      gain.connect(c.destination);
+      osc.start(t0);
+      osc.stop(t0 + dur + 0.03);
+    }
+
+    return {
+      flip: function () { tone(720, 0.06, 'triangle', 0.07); },
+      match: function () { tone(660, 0.1, 'sine', 0.11); tone(990, 0.17, 'sine', 0.09, 0.085); },
+      miss: function () { tone(320, 0.09, 'sine', 0.08); tone(214, 0.15, 'sine', 0.07, 0.075); },
+      win: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, 0.24, 'sine', 0.12, i * 0.1); }); },
+      error: function () { tone(200, 0.2, 'sawtooth', 0.06); },
+      toggle: function () {
+        on = !on;
+        try { window.localStorage.setItem('gcm_sound', on ? '1' : '0'); } catch (e) { }
+        if (on) { tone(880, 0.09, 'sine', 0.1); }
+        return on;
+      },
+      isOn: function () { return on; },
+      unlock: function () { ctx(); }
+    };
+  })();
+
+  /** 双色图形：淡填充 + 清晰描边，比纯线框更容易分辨。 */
+  function svg(body) {
+    return '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" stroke-linecap="round" stroke-linejoin="round">' +
+      '<g fill="currentColor" stroke="none" opacity=".17">' + body + '</g>' +
+      '<g fill="none" stroke="currentColor" stroke-width="2.5">' + body + '</g>' +
+      '</svg>';
+  }
+
+  /** 与 PHP verifier 完全一致的 Fisher–Yates（Park–Miller）；不挂到全局。 */
   function shuffle(seed) {
     var cards = [];
-    for (var n = 0; n < 8; n++) cards.push(n, n);
+    for (var n = 0; n < 8; n++) { cards.push(n, n); }
     var s = seed;
     for (var i = 15; i > 0; i--) {
       s = s * 48271 % 2147483647;
@@ -31,15 +95,13 @@
     return cards;
   }
 
-  function svg(body) {
-    return '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + body + '</svg>';
-  }
-
   GameCenter.register('memory', function (stage, api) {
     var root = document.createElement('div');
     root.className = 'gcm';
-    root.innerHTML = '<div class="gcm-intro"><span>MEMORY · 4 × 4</span><p>翻开两张，找到相同的图案。</p></div>' +
-      '<div class="gcm-stats"><div><span>尝试次数</span><b data-stat="attempts">0</b></div>' +
+    root.innerHTML =
+      '<div class="gcm-intro"><span>MEMORY · 4 × 4</span><p>翻开两张，找到相同的图案。</p></div>' +
+      '<div class="gcm-stats">' +
+      '<div><span>尝试次数</span><b data-stat="attempts">0</b></div>' +
       '<div><span>已配对</span><b><span data-stat="pairs">0</span><small> / 8</small></b></div>' +
       '<div><span>个人最佳</span><b data-stat="best">—</b></div></div>' +
       '<div class="gcm-board"><div class="gcm-grid" role="group" aria-label="4 行 4 列翻牌区"></div>' +
@@ -47,15 +109,19 @@
       '<button type="button" class="gc-btn" data-action="resume">继续游戏</button></div></div>' +
       '<p class="gcm-status" role="status" aria-live="polite" aria-atomic="true"></p>' +
       '<div class="gcm-controls"><button type="button" class="gc-btn" data-action="start">开始游戏</button>' +
-      '<button type="button" class="gc-btn gc-ghost" data-action="pause" disabled>暂停</button></div>' +
+      '<button type="button" class="gc-btn gc-ghost" data-action="pause" disabled>暂停</button>' +
+      '<button type="button" class="gcm-sound" data-action="sound" aria-pressed="true">音效 开</button></div>' +
       '<p class="gcm-note">每翻两张计 1 次，次数越少越好。<br>本游戏不发积分，排行榜仅作展示。</p>';
     stage.appendChild(root);
 
+    var board = root.querySelector('.gcm-board');
     var grid = root.querySelector('.gcm-grid');
     var cover = root.querySelector('.gcm-cover');
     var startButton = root.querySelector('[data-action="start"]');
     var pauseButton = root.querySelector('[data-action="pause"]');
+    var soundButton = root.querySelector('[data-action="sound"]');
     var status = root.querySelector('.gcm-status');
+    var attemptsEl = root.querySelector('[data-stat="attempts"]');
     var buttons = [];
     var faces = [];
     var info = null;
@@ -74,14 +140,22 @@
     var remaining = REVEAL_MS;
     var submitted = false;
     var message = '准备好了吗？配齐 8 对图案，看看你需要几次尝试。';
-    var back = svg('<circle cx="18" cy="18" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="18" cy="30" r="3"/><circle cx="30" cy="30" r="3"/>');
+    var back = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<g transform="translate(0,3)">' +
+      '<path d="M17 10h14l-7 10 7 10H17l7-10z"/>' +
+      '<path d="M15 6h18M15 34h18" opacity=".5"/>' +
+      '<path d="M22 13h4l-2 4z" fill="currentColor" stroke="none" opacity=".55"/>' +
+      '</g></svg>';
 
     for (var i = 0; i < 16; i++) {
       var button = document.createElement('button');
       button.type = 'button';
       button.className = 'gcm-card';
       button.setAttribute('data-index', i);
-      button.innerHTML = '<span class="gcm-back">' + back + '</span><span class="gcm-front"></span><span class="gcm-check" aria-hidden="true">✓</span>';
+      button.innerHTML = '<span class="gcm-inner">' +
+        '<span class="gcm-face gcm-back">' + back + '</span>' +
+        '<span class="gcm-face gcm-front"></span>' +
+        '</span><span class="gcm-check" aria-hidden="true">✓</span>';
       grid.appendChild(button);
       buttons.push(button);
       faces.push(button.querySelector('.gcm-front'));
@@ -90,9 +164,32 @@
     function active() { return phase === 'playing' || phase === 'resolving'; }
     function paused() { return manualPause || hiddenPause; }
 
+    function bumpStat(el) {
+      if (!el) { return; }
+      el.classList.remove('is-bump');
+      void el.offsetWidth;
+      el.classList.add('is-bump');
+    }
+
+    function sparkle() {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+      var box = document.createElement('div');
+      box.className = 'gcm-burst';
+      var colors = ['#4fae86', '#d99a2b', '#e0708a', '#3fa6cf', '#8b7fd4', '#e0b53c'];
+      for (var k = 0; k < 28; k++) {
+        var p = document.createElement('i');
+        p.style.left = (Math.random() * 96 + 2) + '%';
+        p.style.background = colors[k % colors.length];
+        p.style.animationDelay = (Math.random() * 0.45).toFixed(2) + 's';
+        box.appendChild(p);
+      }
+      board.appendChild(box);
+      window.setTimeout(function () { if (box.parentNode) { box.parentNode.removeChild(box); } }, 2300);
+    }
+
     function render() {
       root.setAttribute('data-phase', phase);
-      root.querySelector('[data-stat="attempts"]').textContent = attempts;
+      attemptsEl.textContent = attempts;
       root.querySelector('[data-stat="pairs"]').textContent = pairs;
       root.querySelector('[data-stat="best"]').textContent = api.best == null ? '—' : api.best;
       cover.hidden = !(active() && paused());
@@ -106,10 +203,10 @@
         var disabled = phase !== 'playing' || paused() || !!matched[k] || k === first;
         buttons[k].classList.toggle('is-open', open);
         buttons[k].classList.toggle('is-matched', !!matched[k]);
-        // aria-disabled 保留暂时等待盖牌时的键盘焦点；输入处理仍检查完整状态。
         buttons[k].setAttribute('aria-disabled', disabled ? 'true' : 'false');
         buttons[k].tabIndex = active() && !matched[k] && !paused() ? 0 : -1;
-        buttons[k].setAttribute('aria-label', '第 ' + (k + 1) + ' 张，' + (open && cards ? symbols[cards[k]][0] + (matched[k] ? '，已配对' : '') : '未翻开'));
+        buttons[k].setAttribute('aria-label', '第 ' + (k + 1) + ' 张，' +
+          (open && cards ? symbols[cards[k]][0] + (matched[k] ? '，已配对' : '') : '未翻开'));
       }
     }
 
@@ -122,12 +219,12 @@
     }
 
     function schedule() {
-      if (phase !== 'resolving' || paused() || timer !== null) return;
+      if (phase !== 'resolving' || paused() || timer !== null) { return; }
       deadline = performance.now() + remaining;
-      timer = setTimeout(function () {
+      timer = window.setTimeout(function () {
         timer = null;
         remaining = 0;
-        if (phase !== 'resolving' || paused()) return;
+        if (phase !== 'resolving' || paused()) { return; }
         first = second = -1;
         if (attempts >= MAX_ATTEMPTS) {
           phase = 'limit';
@@ -141,7 +238,7 @@
     }
 
     function finish() {
-      if (submitted) return;
+      if (submitted) { return; }
       submitted = true;
       phase = 'submitting';
       message = '全部配对完成，正在提交成绩…';
@@ -156,33 +253,49 @@
         phase = 'finished';
         if (result && result.ok) {
           message = '完成！共用 ' + attempts + ' 次尝试，成绩已记录。';
+          Sfx.win();
+          sparkle();
         } else if (result && result.guest) {
           message = '试玩完成！共用 ' + attempts + ' 次尝试；登录且有排行权限时才记录成绩。';
+          Sfx.win();
+          sparkle();
         } else {
           message = '提交未获确认，请查看平台提示或到“我的纪录”核对，再开始新一局。';
+          Sfx.error();
         }
         render();
       }).catch(function () {
         phase = 'finished';
         message = '提交未获确认，请到“我的纪录”核对后重新开局。本局不会重复提交。';
+        Sfx.error();
         render();
       });
     }
 
     function flip(index) {
-      if (phase !== 'playing' || paused() || matched[index] || index === first) return;
+      if (phase !== 'playing' || paused() || matched[index] || index === first) { return; }
+      Sfx.unlock();
       moves.push(index);
       if (first < 0) {
         first = index;
         message = '再翻一张，找到相同的图案。';
+        Sfx.flip();
       } else {
         second = index;
         attempts++;
         if (cards[first] === cards[second]) {
           matched[first] = matched[second] = true;
           pairs++;
+          var wa = first, wb = second;
           first = second = -1;
-          if (pairs === 8) { finish(); return; }
+          Sfx.match();
+          bumpStat(attemptsEl);
+          bumpStat(root.querySelector('[data-stat="pairs"]'));
+          if (pairs === 8) {
+            render();
+            finish();
+            return;
+          }
           if (attempts >= MAX_ATTEMPTS) {
             phase = 'limit';
             message = '已达到 256 次尝试，本局未完成，不记成绩。休息一下，再来一局吧。';
@@ -193,14 +306,24 @@
           phase = 'resolving';
           remaining = REVEAL_MS;
           message = '这次不同，记住它们的位置。';
+          Sfx.miss();
+          var w1 = first, w2 = second;
+          buttons[w1].classList.add('is-wrong');
+          buttons[w2].classList.add('is-wrong');
+          window.setTimeout(function () {
+            if (buttons[w1]) { buttons[w1].classList.remove('is-wrong'); }
+            if (buttons[w2]) { buttons[w2].classList.remove('is-wrong'); }
+          }, 380);
           schedule();
         }
+        bumpStat(attemptsEl);
       }
       render();
     }
 
     function begin() {
-      if (active() || phase === 'starting' || phase === 'submitting' || stage.querySelector('.gc-modal')) return;
+      if (active() || phase === 'starting' || phase === 'submitting' || stage.querySelector('.gc-modal')) { return; }
+      Sfx.unlock();
       phase = 'starting';
       message = '正在准备新牌局…';
       render();
@@ -210,6 +333,7 @@
         if (!result) {
           phase = 'ready';
           message = '这次未能开局，请查看平台提示后重试。';
+          Sfx.error();
           render();
           return;
         }
@@ -228,6 +352,7 @@
         for (var k = 0; k < 16; k++) {
           faces[k].innerHTML = svg(symbols[cards[k]][1]);
           buttons[k].setAttribute('data-symbol', cards[k]);
+          buttons[k].classList.remove('is-wrong', 'is-matched', 'is-open');
         }
         phase = 'playing';
         message = result.guest ? '试玩模式：翻开两张牌开始配对，本局不记录成绩。' : '翻开两张牌，开始这一局。';
@@ -235,29 +360,40 @@
       }).catch(function () {
         phase = 'ready';
         message = '暂时无法开始，请稍后重新开局。';
+        Sfx.error();
         render();
       });
     }
 
     function togglePause() {
-      if (!active() || hiddenPause) return;
+      if (!active() || hiddenPause) { return; }
       manualPause = !manualPause;
-      if (paused()) stopTimer(); else schedule();
+      if (paused()) { stopTimer(); } else { schedule(); }
       render();
+    }
+
+    function toggleSound() {
+      var on = Sfx.toggle();
+      soundButton.textContent = on ? '音效 开' : '音效 关';
+      soundButton.setAttribute('aria-pressed', on ? 'true' : 'false');
     }
 
     grid.addEventListener('click', function (event) {
       var card = event.target.closest && event.target.closest('.gcm-card');
-      if (card && grid.contains(card)) flip(+card.getAttribute('data-index'));
+      if (card && grid.contains(card)) { flip(+card.getAttribute('data-index')); }
     });
     startButton.addEventListener('click', begin);
     pauseButton.addEventListener('click', togglePause);
+    soundButton.addEventListener('click', toggleSound);
     root.querySelector('[data-action="resume"]').addEventListener('click', togglePause);
     document.addEventListener('visibilitychange', function () {
       hiddenPause = document.hidden;
-      if (paused()) stopTimer(); else schedule();
+      if (paused()) { stopTimer(); } else { schedule(); }
       render();
     });
+
+    soundButton.textContent = Sfx.isOn() ? '音效 开' : '音效 关';
+    soundButton.setAttribute('aria-pressed', Sfx.isOn() ? 'true' : 'false');
     render();
   });
 })();
