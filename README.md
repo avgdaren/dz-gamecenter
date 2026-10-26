@@ -17,7 +17,7 @@ Discuz! X5「游戏中心」插件的开发仓库 —— 天使动漫游戏中�
 - 前台入口：`plugin.php?id=gamecenter`
 - 后台入口：插件 → 游戏中心 → 遊戲管理
 
-**当前里程碑：准备阶段（源码基线已建立）** —— 详见 [docs/STATE.md](docs/STATE.md)
+**当前里程碑：v0 已交付；v1a 五子棋候选待本地验收** —— 详见 [docs/STATE.md](docs/STATE.md)
 
 ---
 
@@ -62,3 +62,13 @@ robocopy source\plugin\gamecenter E:\dzx5-env\www\source\plugin\gamecenter /E /C
 - 后端核心：`source/plugin/gamecenter/lib/core.php`
 - 最简示例：`source/plugin/gamecenter/games/_example/`
 - 带服务端校验的完整例子：`source/plugin/gamecenter/games/snake/`
+
+
+## 五子棋候选版
+
+本分支新增好友五子棋房间与三张联机表，插件候选版本 1.2.0。现有单机 SDK、memory 与 snake 保持原样；部署需要完整插件升级，不能只复制游戏目录。
+
+- 规则、接口、升级与回退：[docs/V1A-GOMOKU.md](docs/V1A-GOMOKU.md)
+- 自测结果、隔离数据库测试与小蓝验收：[tests/gomoku/README.md](tests/gomoku/README.md)
+- 本轮不发对战积分，不写单机最高分榜；通过本地集成验收后再合入 main。
+

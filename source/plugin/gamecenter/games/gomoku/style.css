@@ -1,0 +1,35 @@
+/* 作者：GPT / Codex。五子棋专用样式。 */
+.gcg{color:var(--gc-ink,#1d2733);max-width:650px;margin:auto;font-size:14px;line-height:1.6}
+.gcg *{box-sizing:border-box}
+.gcg [hidden]{display:none!important}
+.gcg .gcg-lobby,.gcg .gcg-join,.gcg .gcg-tools,.gcg .gcg-invite,.gcg .gcg-danger,.gcg .gcg-retry{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.gcg .gcg-lobby{justify-content:space-between}
+.gcg .gcg-join{margin:0}
+.gcg input{border:1px solid var(--gc-line,#d6dfe7);background:var(--gc-bg,#fff);color:var(--gc-ink,#1d2733);border-radius:7px;padding:8px;max-width:100%;min-width:0;font:inherit}
+.gcg .gcg-join input{width:150px;margin-left:6px}
+.gcg .gcg-status{min-height:3.2em;padding:12px 0;margin:0;font-size:13px;color:var(--gc-mut,#7a8594)}
+.gcg .gcg-seats{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;padding:8px 0 14px}
+.gcg .gcg-seats>div{overflow-wrap:anywhere}
+.gcg .gcg-seats>div:last-child{text-align:right}
+.gcg .gcg-clock{font-size:12px;font-weight:500;color:var(--gc-acc,#2f7ae5);white-space:nowrap}
+.gcg .gcg-board{position:relative;background:#e7c58f;border:1px solid #c8a267;max-width:550px;width:100%;margin:0 auto 14px;border-radius:9px;overflow:hidden;box-shadow:inset 0 0 20px rgba(90,53,12,.07)}
+.gcg .gcg-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;stroke:#9c7849;stroke-width:.75;fill:#88613b}
+.gcg .gcg-grid{position:relative;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));aspect-ratio:1;width:100%}
+.gcg .gcg-cell{appearance:none;position:relative;border:0;background:transparent;width:100%;min-width:0;padding:0;aspect-ratio:1;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.gcg .gcg-cell>span{position:absolute;inset:10%;border-radius:50%;pointer-events:none}
+.gcg .gcg-cell.black>span{background:radial-gradient(circle at 35% 28%,#5e6265,#1b1d20 66%,#08090a);box-shadow:1px 2px 3px #67482380}
+.gcg .gcg-cell.white>span{background:radial-gradient(circle at 35% 28%,#fff,#f3f0e7 66%,#d3cbb8);box-shadow:1px 2px 3px #67482380}
+.gcg .gcg-cell.selected:not(.black):not(.white)>span{border:2px solid #32699a;background:#ffffff80}
+.gcg .gcg-cell.last:after{content:"";position:absolute;left:43%;top:43%;width:14%;height:14%;background:#d65b35;border-radius:50%}
+.gcg .gcg-cell:focus-visible{outline:2px solid #24659d;outline-offset:-2px;border-radius:3px}
+.gcg .gcg-tools{justify-content:center}
+.gcg .gcg-tools .gc-btn,.gcg .gcg-danger .gc-btn{min-height:42px}
+.gcg .gcg-selection{font-size:12px;color:var(--gc-mut,#7a8594)}
+.gcg .gcg-danger,.gcg .gcg-retry{margin-top:12px;padding:10px;border-radius:8px;background:var(--gc-soft,#f4f7fb)}
+.gcg .gcg-invite{margin:16px 0 6px}
+.gcg .gcg-invite label{flex:1;min-width:0;font-size:12px;color:var(--gc-mut,#7a8594)}
+.gcg .gcg-invite input{display:block;width:100%;font-size:12px;margin-top:4px}
+.gcg .gcg-history{margin-top:16px;border-top:1px solid var(--gc-line,#e3e8ef);padding-top:12px}
+.gcg .gcg-history summary{cursor:pointer}
+.gcg .gcg-history ul{padding-left:18px;font-size:12px;overflow-wrap:anywhere}
+@media(max-width:520px){.gcg .gcg-lobby{gap:12px}.gcg .gcg-seats{font-size:12px}.gcg .gcg-tools{gap:8px}.gcg .gcg-selection{flex-basis:100%;text-align:center}.gcg .gcg-join input{width:140px}}

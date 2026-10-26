@@ -37,6 +37,7 @@ class gamecenter_view {
 
 	/** 獎勵說明（給大廳卡片與遊戲頁）。 */
 	public static function reward_lines($g) {
+		if($g['gkey'] === 'gomoku') { return []; }
 		$out = [];
 		$c = gamecenter_core::credit_name((int)$g['credit']);
 		if(!$c) {
@@ -93,6 +94,13 @@ class gamecenter_view {
 		}
 		$h .= '<div class="gc-grid">';
 		foreach($games as $g) {
+			// GPT / Codex：联机游戏独立入口，不伪装成单机打榜。
+			if($g['gkey'] === 'gomoku') {
+				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">双人在线 · 服务端判定</div></div></a>'
+					.'<p class="gc-intro">'.self::e($g['m']['intro']).'</p><ul class="gc-facts"><li>房间号 / 邀请链接加入</li><li>每回合 60 秒，刷新可恢复</li><li>对局结果独立保存，不发积分</li></ul>'
+					.'<div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'">好友约战</a></div></div>';
+				continue;
+			}
 			$top = gamecenter_core::board($g, 'w', $yw, 1);
 			$mine = $_G['uid'] ? gamecenter_core::best_of($g['gkey'], 'a', '0', (int)$_G['uid']) : null;
 			$h .= '<div class="gc-card">'
@@ -116,7 +124,8 @@ class gamecenter_view {
 	public static function play_page($g) {
 		global $_G;
 		$m = $g['m'];
-		$best = $_G['uid'] ? gamecenter_core::best_of($g['gkey'], 'a', '0', (int)$_G['uid']) : null;
+		$gc_roomgame = $g['gkey'] === 'gomoku';
+		$best = !$gc_roomgame && $_G['uid'] ? gamecenter_core::best_of($g['gkey'], 'a', '0', (int)$_G['uid']) : null;
 		$why = gamecenter_core::can_play();
 		$base = 'source/plugin/gamecenter/';
 		$h = '<div class="gc-hero gc-hero-sm">'.self::icon($g).'<div><h1>'.self::e($m['name']).'</h1><p>'.self::e($m['intro']).'</p></div>'.self::nav('').'</div>';
@@ -127,7 +136,7 @@ class gamecenter_view {
 			.'<div id="gc-stage" class="gc-stage" data-url="'.self::BASE.'" data-game="'.$g['gkey'].'" data-formhash="'.formhash().'"'
 			.' data-best="'.($best === null ? '' : $best).'" data-unit="'.self::e($m['unit']).'"'
 			.' data-login="'.($_G['uid'] ? '' : 'member.php?mod=logging&amp;action=login').'"'
-			.' data-uid="'.(int)$_G['uid'].'" data-rivals="'.self::e(json_encode(gamecenter_core::rivals($g), JSON_UNESCAPED_UNICODE)).'"></div>';
+			.' data-uid="'.(int)$_G['uid'].'" data-rivals="'.self::e(json_encode($gc_roomgame ? [] : gamecenter_core::rivals($g), JSON_UNESCAPED_UNICODE)).'"></div>';
 		if($why !== '') {
 			$h .= '<div class="gc-note">'.self::e($why).'，现在是试玩模式。</div>';
 		}
@@ -140,7 +149,7 @@ class gamecenter_view {
 			}
 			$h .= '</ul>';
 		}
-		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.self::boards($g, 10).'</div></aside></div>';
+		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($gc_roomgame ? '<div class="gc-box"><h4>好友约战</h4><p>先创建房间，再分享房间号或邀请链接。双方均需登录论坛账号。</p><p>选择落点后确认，避免误触。对局由服务端判定，结果保存在游戏内的最近对局。</p></div>' : self::boards($g, 10)).'</div></aside></div>';
 		$h .= '<script src="'.$base.'static/gc.js?v='.self::ver().'"></script>';
 		if(!empty($m['style']) && preg_match('/^[\w.-]+\.css$/', $m['style'])) {
 			$h .= '<link rel="stylesheet" href="'.$base.'games/'.$g['gkey'].'/'.$m['style'].'?v='.rawurlencode($m['version']).'">';

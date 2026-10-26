@@ -10,7 +10,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-foreach(['gamecenter_game', 'gamecenter_session', 'gamecenter_play', 'gamecenter_best', 'gamecenter_reward', 'gamecenter_settle'] as $t) {
+foreach(['gamecenter_room_action', 'gamecenter_room_member', 'gamecenter_room', 'gamecenter_game', 'gamecenter_session', 'gamecenter_play', 'gamecenter_best', 'gamecenter_reward', 'gamecenter_settle'] as $t) {
 	DB::query('DROP TABLE IF EXISTS '.DB::table($t));
 }
 

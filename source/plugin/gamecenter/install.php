@@ -91,6 +91,8 @@ CREATE TABLE IF NOT EXISTS ".DB::table('gamecenter_settle')." (
 ) ENGINE=InnoDB;
 ");
 
+require_once __DIR__.'/lib/room_schema.php';
+runquery(gamecenter_room_schema::sql());
 require_once DISCUZ_PLUGIN('gamecenter').'/lib/core.php';
 gamecenter_core::sync_games(empty($gc_upgrading));   // 全新安裝：內建遊戲直接開放；更新：新遊戲預設不開放
 

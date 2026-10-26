@@ -124,10 +124,10 @@ if($gc_tab === 'games') {
 		echo '<tr><td><input type="checkbox" class="checkbox" name="'.$gc_n.'[available]" value="1"'.($gc_g['available'] ? ' checked' : '').($gc_m ? '' : ' disabled').'></td>'
 			.'<td><input class="txt t" name="'.$gc_n.'[displayorder]" value="'.(int)$gc_g['displayorder'].'"></td>'
 			.'<td>'.($gc_m ? '<a href="plugin.php?id=gamecenter&mod=play&game='.$gc_k.'" target="_blank"><b>'.$gc_e($gc_m['name']).'</b></a> <span class="m">'.$gc_k.' v'.$gc_e($gc_m['version']).'</span>'
-				.($gc_m['author'] ? '<br><span class="m">作者 '.$gc_e($gc_m['author']).'</span>' : '')
+				.($gc_m['author'] ? '<br><span class="m">作者 '.$gc_e($gc_m['author']).'</span>' : '').($gc_k === 'gomoku' ? '<br><span class="m">独立对局记录；本阶段不参与单机榜或积分奖励</span>' : '')
 				: '<b style="color:#c00">'.$gc_k.'：檔案不見了</b><br><span class="m">games/'.$gc_k.'/ 缺 game.json 或腳本</span>'
 					.'<br><label><input type="checkbox" class="checkbox" name="'.$gc_n.'[remove]" value="1"> 移除（連同成績與排行）</label>').'</td>'
-			.'<td>'.($gc_m && $gc_m['verified'] ? '<span style="color:#1a9e5c">伺服器重播</span>' : '<span style="color:#c60" title="成績由瀏覽器回報，可被偽造；有發積分時請設分數上限">無</span>').'</td>'
+			.'<td>'.($gc_k === 'gomoku' ? '<span style="color:#1a9e5c">服务端对局</span>' : ($gc_m && $gc_m['verified'] ? '<span style="color:#1a9e5c">伺服器重播</span>' : '<span style="color:#c60" title="成績由瀏覽器回報，可被偽造；有發積分時請設分數上限">無</span>')).'</td>'
 			.'<td>'.$gc_sel.'</td>'
 			.'<td><input class="txt t" name="'.$gc_n.'[ratio]" value="'.(int)$gc_g['ratio'].'"></td>'
 			.'<td><input class="txt t" name="'.$gc_n.'[percap]" value="'.(int)$gc_g['percap'].'"></td>'
