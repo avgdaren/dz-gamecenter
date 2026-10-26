@@ -9,6 +9,8 @@
     ended:'本局已经结束。', request_conflict:'请求内容冲突，请刷新。', input:'输入无效。', internal:'样稿服务异常。'};
   let state = null, generation = 0, token = '', offset = 0, busy = false, pending = null;
   let signature = '', selectionRound = '', choices = {}, lastSuccess = null;
+  const feedback = new globalThis.RaidFeedback();
+  const effectTimers = new Set(), effectNodes = new Set(), effectHosts = new Set();
   const make = (tag, cls, text) => { const el = document.createElement(tag); if(cls) el.className = cls; if(text !== undefined) el.textContent = text; return el; };
   const slot = i => `席位 ${i + 1}`;
   const active = i => state && state.hp[i] > 0 && !state.left[i];
@@ -18,6 +20,34 @@
   }
   function notice(text, error = false) { $('message').textContent = text; $('message').className = error ? 'error' : ''; }
   function connection(text, error = false) { $('connection').textContent = text; $('connection').className = error ? 'connection error' : 'connection'; }
+  function clearEffects() {
+    for(const timer of effectTimers) clearTimeout(timer);
+    effectTimers.clear();
+    for(const node of effectNodes) node.remove();
+    effectNodes.clear();
+    for(const host of effectHosts) host.classList.remove('fx-attack','fx-hurt','fx-guard','fx-heal','fx-exposed','fx-phase','fx-win','fx-lose');
+    effectHosts.clear();
+  }
+  function present(batch) {
+    if(batch.summary) $('round-feedback').textContent = batch.summary;
+    if(!batch.events.length || document.hidden) return;
+    clearEffects(); feedback.play(batch.cues);
+    // Reduced motion keeps the textual summary, life bars and static weakness cue.
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const positions = new Map();
+    for(const event of batch.events) {
+      const host = event.target === 'boss' ? document.querySelector('.boss-info') : document.querySelector(`[data-actor="${event.target}"]`);
+      if(!host) continue;
+      const position=positions.get(host)||0; if(position>=3) continue;
+      positions.set(host,position+1);
+      const node=make('span',`fx-float fx-float-${event.kind} fx-position-${position}`,event.text);
+      node.setAttribute('aria-hidden','true'); host.append(node); effectNodes.add(node);
+      host.classList.add(`fx-${event.kind}`); effectHosts.add(host);
+    }
+    const timer=setTimeout(() => { effectTimers.delete(timer); clearEffects(); },1000);
+    effectTimers.add(timer);
+  }
+  function soundButton() { $('sound').textContent=feedback.on?'音效 开':'音效 关'; $('sound').setAttribute('aria-pressed',String(feedback.on)); }
   function successNotice(request, data) {
     const s = data.snapshot;
     const replay = data.code === 'replayed' ? '重试已确认：' : '';
@@ -66,21 +96,18 @@
   }
   function apply(data) {
     if(!data || typeof data.ok !== 'boolean' || typeof data.token !== 'string') throw new Error('invalid_response');
+    const batch=feedback.observe(data.snapshot,data.generation);
     token = data.token; generation = data.generation; offset = data.server_ms - Date.now();
     state = data.snapshot;
     const next = state ? `${generation}:${state.version}` : 'empty';
     if(next !== signature) {
-      const oldHistory = signature && $('logs').children.length;
+      clearEffects();
       signature = next;
       const roundKey = state ? `${generation}:${state.round_no}` : '';
       if(roundKey !== selectionRound) { choices = {}; selectionRound = roundKey; }
       render();
-      if(state && oldHistory && state.history.length > oldHistory) {
-        document.querySelector('.arena').classList.remove('hit');
-        void document.querySelector('.arena').offsetWidth;
-        document.querySelector('.arena').classList.add('hit');
-      }
     }
+    present(batch);
     clock(); controls();
   }
   async function exchange(payload) {
@@ -113,6 +140,7 @@
   }
   async function send(args, retry = false) {
     if(busy || (!retry && pending) || !token) return;
+    feedback.unlock(); // Called in the original click gesture, before the HTTP await.
     if(!retry) {
       const bytes = crypto.getRandomValues(new Uint8Array(16));
       pending = {...args, generation, request_id:Array.from(bytes, n => n.toString(16).padStart(2,'0')).join('')};
@@ -183,6 +211,10 @@
   function render() {
     $('empty').hidden = !!state; $('battle').hidden = !state;
     if(!state) return;
+    if(!state.history.length) $('round-feedback').textContent='尚无已结算回合。';
+    const idle=globalThis.RaidFeedback.idleSlots(state);
+    $('idle-hint').hidden=!idle.length;
+    $('idle-hint').textContent=idle.length ? idle.map(({actor,count})=>`${slot(actor)}连续 ${count} 轮未确认`).join('；')+'，已按默认守护结算。这不代表已离线；可以继续等待，或由自己的席位撤退（本轮结束后离场）。不会自动转为单人。' : '';
     const p = state.preview;
     $('phase').textContent = `第 ${p.phase === 1 ? '一' : '二'} 阶段`;
     $('round').textContent = `回合 ${state.round_no} / 16`;
@@ -193,6 +225,7 @@
     $('preview-text').textContent = p.kind === 3 ? '首领正在回气，本轮不会攻击。' :
       `${p.targets.map(slot).join('、')}将受到 ${p.damage} 伤害；守护后为 ${Math.ceil(p.damage/5)}。`;
     $('weakness').textContent = state.status !== 1 ? '' : state.exposed && p.kind === 3 ? '破绽！本轮攻击造成 20 伤害。' : p.kind === 2 ? '成功守护重击并存活，下轮将出现破绽。' : '';
+    document.querySelector('.arena').className=state.status===1 && state.exposed && p.kind===3?'arena has-weakness':'arena';
     $('boss-line').textContent = p.phase === 1 ? '「越过这轮月光，让我看见你们的默契。」' : '「月蚀已至。下一步，你们会如何选择？」';
     $('result').hidden = state.status === 1;
     if(state.status !== 1) {
@@ -216,11 +249,14 @@
     if(!state || state.status !== 1 || window.confirm('当前战斗尚未结束，确定重开吗？本样稿不会保存上一局。')) send({op:'start', mode});
   });
   $('sync').addEventListener('click',sync);
+  $('sound').addEventListener('click',() => { feedback.toggle(); soundButton(); });
+  soundButton();
   $('retry').addEventListener('click',() => send(null,true));
   $('advance').addEventListener('click',() => send({op:'advance',ms:25000}));
   $('offline').addEventListener('click',() => { if(window.confirm('模拟离线 400 秒，会自动追算直到本局结束。确定吗？')) send({op:'advance',ms:400000}); });
   $('theme').addEventListener('click',() => { const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; document.documentElement.dataset.theme = dark ? 'light' : 'dark'; });
-  document.addEventListener('visibilitychange',() => { if(!document.hidden) sync(); });
+  document.addEventListener('visibilitychange',() => { feedback.pause(); clearEffects(); if(!document.hidden) sync(); });
+  window.addEventListener('pagehide',() => { feedback.pause(); clearEffects(); });
   setInterval(() => { if(!document.hidden) sync(); },2000);
   setInterval(clock,250);
   (async () => {

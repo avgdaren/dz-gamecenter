@@ -48,7 +48,7 @@ with tempfile.TemporaryDirectory(prefix='raid-p1-http-') as sessions:
         else:
             raise AssertionError('PHP server failed to start')
         check(current['snapshot'] is None, 'fresh session empty')
-        for path in ['/', '/app.js', '/style.css', '/boss.svg']:
+        for path in ['/', '/app.js', '/feedback.js', '/style.css', '/boss.svg']:
             with client.open(base+path) as response:
                 check(response.status == 200 and len(response.read()) > 100, 'static '+path)
                 check("default-src 'self'" in response.headers['Content-Security-Policy'], 'local resource CSP')

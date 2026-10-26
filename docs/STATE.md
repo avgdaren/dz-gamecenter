@@ -64,7 +64,8 @@
 - [x] **v1a / Issue #6 / PR #7**：候选 `0ee9de8` 经小蓝本地验收后合入 `ef8d4a3`。[验收报告](https://github.com/avgdaren/dz-gamecenter/pull/7#issuecomment-6413129339)记录双人对局、恢复、超时、并发、幂等、权限、触控和旧游戏回归。完整回退未实做，不能写成已通过。
 - [ ] **v1b**：对战积分的可恢复结算、独立排行、长期数据清理；本阶段不发积分。
 - [x] **raid 企划 / Issue #8 / PR #9**：企划、数值模型、P1 fixture 与 querysafe 回归已合入 `741bcfe`，小蓝确认 45 项模型检查、6 例逐轮独立复核通过；[企划正文](RAID-IMPLEMENTATION-PLAN.md)。
-- [ ] **raid P1 / Issue #12 / PR #13**：纯 PHP 规则与单／双席位本机可玩样稿候选，见 [P1 自测与试玩说明](../tests/raid/README.md)。小蓝已对 `a4f1225` 复跑规则 442 项、2000 组差分、HTTP 192 项、前台状态 66 项，并完成真实 Chromium 逐轮／视口／深浅色／恢复验收；[回执](https://github.com/avgdaren/dz-gamecenter/pull/13#issuecomment-6420781736)。据回执修复操作提示被统一文案和 GET 覆盖的问题，前台回归增至 83 项（44 POST、同时在途 1）。补丁 Chrome 复验、真机触控与真人盲玩仍待完成。无数据库升级，尚未接入论坛联机。
+- [ ] **raid P1 / Issue #12 / PR #13**：纯 PHP 规则与单／双席位本机可玩样稿候选，见 [P1 自测与试玩说明](../tests/raid/README.md)。小蓝已对 `a4f1225` 复跑规则 442 项、2000 组差分、HTTP 192 项、前台状态 66 项，并完成真实 Chromium 逐轮／视口／深浅色／恢复验收；[回执](https://github.com/avgdaren/dz-gamecenter/pull/13#issuecomment-6420781736)。据回执修复操作提示被统一文案和 GET 覆盖的问题，前台回归增至 83 项（44 POST、同时在途 1）。用户随后确认 `0b9220c` 文案复验和回归通过；基础玩法已获正向反馈，新增表现与真实两账号体验见下条。无数据库升级，尚未接入论坛联机。
+- **P1 后续反馈处理（2026-10-27）**：用户确认 `0b9220c` 文案复验和回归通过、认可基础玩法；[三条体验反馈与自然截止证据](https://github.com/avgdaren/dz-gamecenter/pull/13#issuecomment-6421600754)。已补等待上限说明、连续两轮未确认提醒、本地 Web Audio／伤害与恢复数字／守护和破绽反馈；HTTP 194、前台 97（52 POST、同时在途 1）、表现与模拟音频 40 项通过。PHP 引擎、数值、fixture 与数据库未改；新表现试听／Chrome／真机仍待验，真实联机等待和大厅由 P2 实现。角色候选与产品策略见 [处理文档](raid/P1-PLAYTEST-RESPONSE.md)，最终插画仍在 P3。
 
 ---
 

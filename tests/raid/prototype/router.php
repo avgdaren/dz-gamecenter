@@ -14,9 +14,9 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-sr
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 $path = parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH);
-$files = ['/'=>'index.html','/app.js'=>'app.js','/style.css'=>'style.css','/boss.svg'=>'boss.svg'];
+$files = ['/'=>'index.html','/app.js'=>'app.js','/feedback.js'=>'feedback.js','/style.css'=>'style.css','/boss.svg'=>'boss.svg'];
 if(isset($files[$path]) && $_SERVER['REQUEST_METHOD'] === 'GET') {
-    header('Content-Type: '.['/'=>'text/html; charset=utf-8','/app.js'=>'text/javascript; charset=utf-8',
+    header('Content-Type: '.['/'=>'text/html; charset=utf-8','/app.js'=>'text/javascript; charset=utf-8','/feedback.js'=>'text/javascript; charset=utf-8',
         '/style.css'=>'text/css; charset=utf-8','/boss.svg'=>'image/svg+xml'][$path]);
     readfile(__DIR__.'/'.$files[$path]); exit;
 }

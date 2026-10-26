@@ -31,9 +31,11 @@ const sessions=fs.mkdtempSync(path.join(os.tmpdir(),'raid-p1-front-'));
 const php=spawn(process.env.PHP_BIN || 'php', ['-n','-d',`session.save_path=${sessions}`,'-S',`127.0.0.1:${port}`,path.join(root,'tests/raid/prototype/router.php')], {cwd:root,stdio:'ignore'});
 const base=`http://127.0.0.1:${port}`;
 const source=fs.readFileSync(path.join(root,'tests/raid/prototype/app.js'),'utf8');
+const feedbackSource=fs.readFileSync(path.join(root,'tests/raid/prototype/feedback.js'),'utf8');
 const fixture=JSON.parse(fs.readFileSync(path.join(root,'docs/raid/P1-REFERENCE.json'),'utf8'));
 let cookie='', dropNext=false, inFlight=0, maxFlight=0, posts=[], failAll=false;
 const storage=new Map();
+const soundStorage=new Map();
 async function transport(url, options={}) {
   inFlight++; maxFlight=Math.max(maxFlight,inFlight);
   try {
@@ -46,16 +48,19 @@ async function transport(url, options={}) {
     return response;
   } finally { inFlight--; }
 }
-function setup() {
+function setup(options={}) {
   const doc=new Element('document'); doc.innerHTML=fs.readFileSync(path.join(root,'tests/raid/prototype/index.html'),'utf8');
   doc.documentElement=doc.querySelector('html'); doc.getElementById=id=>doc.querySelector('#'+id);
   doc.createElement=tag=>new Element(tag); doc.activeElement=null; doc.hidden=false;
   Element.prototype.focus=function() {doc.activeElement=this;};
   const intervals=[];
-  const context={document:doc, window:{confirm:()=>true}, fetch:transport, console,
+  const windowTarget=new Element('window');
+  const context={document:doc, window:{confirm:()=>true,addEventListener:(...args)=>windowTarget.addEventListener(...args),
+      localStorage:{getItem:k=>soundStorage.get(k)??null,setItem:(k,v)=>soundStorage.set(k,v)}}, fetch:transport, console,
     crypto:webcrypto, Date, AbortController, Uint8Array, setTimeout,clearTimeout,
-    setInterval:fn=>{intervals.push(fn); return intervals.length;}, matchMedia:()=>({matches:false}),
+    setInterval:fn=>{intervals.push(fn); return intervals.length;}, matchMedia:query=>({matches:!!options.reduced && query.includes('reduced-motion')}),
     sessionStorage:{setItem:(k,v)=>storage.set(k,v),getItem:k=>storage.get(k)??null,removeItem:k=>storage.delete(k)}};
+  vm.runInNewContext(feedbackSource,context,{filename:'raid-feedback.js'});
   vm.runInNewContext(source,context,{filename:'raid-app.js'});
   return {doc,intervals,$:id=>doc.getElementById(id)};
 }
@@ -93,12 +98,15 @@ try {
   const confirm=ui.doc.querySelector('.confirm'); const n=posts.length;
   confirm.click(); confirm.click(); ui.$('duo').click(); await settled(ui);
   check(posts.length===n+1 && ui.$('boss-hp').textContent==='110 / 120 生命','rapid clicks send once');
+  check(ui.$('round-feedback').textContent.includes('首领 −10') && ui.$('round-feedback').textContent.includes('席位 1 −8'),'actual damage has immediate textual feedback');
+  check(ui.doc.querySelectorAll('.fx-float').length===2,'boss and player damage numbers shown once');
   check(ui.$('message').textContent.includes('席位 1已确认：攻击（第 1 轮）') && ui.$('message').textContent.includes('第 1 轮已结算；第 2 轮开始'),'solo confirms correct actor/action/round and immediate resolution');
   const confirmed=ui.$('message').textContent;
   const node=ui.doc.querySelector('[data-kind="guard"]'); node.focus();
   await command(ui,'sync');
   check(ui.doc.querySelector('[data-kind="guard"]')===node && ui.doc.activeElement===node,'unchanged poll preserves DOM and focus');
   check(ui.$('message').textContent===confirmed,'manual GET also preserves confirmation');
+  check(ui.doc.querySelectorAll('.fx-float').length<=2,'GET does not duplicate floating numbers');
   // Finish a complete solo fixture through the actual controls.
   await command(ui,'solo');
   for(const row of fixture.cases.solo_reasonable.expected.trace) await play(ui,0,...row.actions[0]);
@@ -174,6 +182,18 @@ try {
   })})).json();
   ui.intervals[0]();await settled(ui);
   check(ui.$('message').textContent.includes('已切换到另一局') && !ui.$('message').textContent.includes('席位 1已确认'),'new generation does not reuse previous battle acknowledgment');
+  ui.$('sound').click();
+  check(ui.$('sound').getAttribute('aria-pressed')==='false' && soundStorage.get('gcm_sound')==='0','sound toggle shares persisted game preference');
+  ui=setup({reduced:true});await settled(ui);
+  check(ui.$('sound').textContent==='音效 关','muted preference survives refresh');
+  await play(ui,0,'A',-1);
+  check(ui.doc.querySelectorAll('.fx-float').length===0 && ui.$('round-feedback').textContent.includes('首领 −10'),'reduced motion keeps summary without floats');
+  await command(ui,'duo');
+  for(let i=0;i<2;i++) {await play(ui,0,'A',-1);await command(ui,'advance');}
+  check(!ui.$('idle-hint').hidden && ui.$('idle-hint').textContent.includes('席位 2连续 2 轮未确认'),'two consecutive misses are visibly identified');
+  check(ui.$('idle-hint').textContent.includes('不代表已离线') && !ui.doc.querySelector('[data-actor="0"] .retreat').disabled,'idle reminder avoids false offline status and preserves retreat');
+  await play(ui,0,'G',0);await play(ui,1,'A',-1);
+  check(ui.$('idle-hint').hidden,'new confirmed action resets consecutive-miss reminder');
   check(maxFlight===1,'one network request at a time');
   console.log(JSON.stringify({status:'PASS',checks:checks.length,post_requests:posts.length,max_in_flight:maxFlight}));
 } finally {
