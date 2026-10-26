@@ -5,6 +5,7 @@
 插件原始代码版权 (C) 2026 Carinoasd，保留其署名。
 """
 from dataclasses import dataclass, asdict, replace
+from pathlib import Path
 import argparse
 import json
 
@@ -18,16 +19,23 @@ ROUND_LIMIT = 16
 
 @dataclass(frozen=True)
 class Rules:
-    version: str = 'raid-v1-p1-solo3'
+    version: str = 'raid-v1-p1-balanced'
     solo_potions: int = 3
     duo_potions: int = 2
     boss_hp: int = BOSS_HP
+    solo_boss_hp: int = 120
     heal: int = HEAL
     round_limit: int = ROUND_LIMIT
 
+    def boss_max_hp(self, players):
+        assert players in (1, 2)
+        return self.solo_boss_hp if players == 1 else self.boss_hp
 
+
+# 保留导入名以兼容既有复核脚本；当前默认值是已确定的 P1 基线。
 CANDIDATE = Rules()
-BASELINE = replace(CANDIDATE, version='raid-v1-baseline', solo_potions=2)
+PREVIOUS = replace(CANDIDATE, version='raid-v1-p1-solo3', solo_boss_hp=BOSS_HP)
+BASELINE = replace(PREVIOUS, version='raid-v1-baseline', solo_potions=2)
 
 
 @dataclass(frozen=True)
@@ -41,13 +49,14 @@ class State:
 def initial(players, rules=CANDIDATE):
     assert players in (1, 2)
     potions = rules.solo_potions if players == 1 else rules.duo_potions
-    return State((PLAYER_HP,) * players, rules.boss_hp, (potions,) * players)
+    return State((PLAYER_HP,) * players, rules.boss_max_hp(players), (potions,) * players)
 
 
 def intent(state, round_no, rules=CANDIDATE):
     """先公布本轮阶段、攻击和目标，再收玩家行动；本轮降血不会改预告。"""
     kind = (round_no - 1) % 4
-    phase = 1 if state.boss * 2 > rules.boss_hp else 2
+    # 原始席位数固定；双人倒地一人后，仍使用双人首领上限与阶段阈值。
+    phase = 1 if state.boss * 2 > rules.boss_max_hp(len(state.hp)) else 2
     alive = [i for i, hp in enumerate(state.hp) if hp > 0]
     focus = ((round_no - 1) // 4) % len(state.hp)
     if focus not in alive:
@@ -113,7 +122,8 @@ def play(players, route, rules=CANDIDATE):
                     "boss": state.boss, "pots": state.pots, "trace": trace}
         state = after
         trace.append({"round": round_no, "preview": preview, "actions": actions,
-                      "hp": state.hp, "boss": state.boss, "pots": state.pots})
+                      "hp": state.hp, "boss": state.boss, "pots": state.pots,
+                      "exposed": state.exposed})
         if state.boss == 0 or not any(state.hp):
             break
     result = "win" if state.boss == 0 else ("loss" if not any(state.hp) or len(trace) == rules.round_limit else "active")
@@ -183,8 +193,9 @@ def one_step_changes(path, rules):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='离线企划模型；默认规则为 P1 试玩候选，不是已确定的上线数值')
+    parser = argparse.ArgumentParser(description='离线企划模型；默认规则为已确定的 P1 基线，真人手感尚未验收')
     parser.add_argument('--trace', action='store_true', help='同时导出参考路线逐轮状态，供 PHP 规则对照')
+    parser.add_argument('--write-reference', metavar='PATH', help='写入确定性 P1 逐轮对照 JSON（不连接数据库）')
     args = parser.parse_args()
     checks = 0
 
@@ -197,9 +208,9 @@ def main():
     solo = play(1, [solo_row(x) for x in "AAGA AHGA AGGA HAGA".replace(" ", "")])
     solo_fast = play(1, [solo_row(x) for x in "AAGA AHGA AHGA AAA".replace(" ", "")])
     check(solo["result"] == "win" and solo["rounds"] == 16 and solo["hp"] == (10,), "solo survival route")
-    check(solo_fast["result"] == "win" and solo_fast["rounds"] == 15 and solo_fast["hp"] == (4,), "solo finish-before-heavy route")
+    check(solo_fast["result"] == "win" and solo_fast["rounds"] == 14 and solo_fast["hp"] == (14,), "solo shorter route")
     solo_count = enumerate_solo()
-    check(solo_count == {"winning_sequences": 43, "earliest_win_round": 15, "best_surviving_hp": 24}, "candidate exact solo search")
+    check(solo_count == {"winning_sequences": 574, "earliest_win_round": 14, "best_surviving_hp": 30}, "selected P1 exact solo search")
     solo_greedy = play(1, [(('A', -1),)] * ROUND_LIMIT)
     duo_greedy = play(2, [(('A', -1), ('A', -1))] * ROUND_LIMIT)
     check(solo_greedy["result"] == "loss" and solo_greedy["rounds"] == 3, "solo all-attack loses")
@@ -214,7 +225,8 @@ def main():
     duo_safe = play(2, cautious)
     duo_team = play(2, cooperative)
     check(duo_safe["result"] == "win" and duo_safe["rounds"] == 8, "duo cautious route")
-    check(duo_team["result"] == "win" and duo_team["rounds"] == 6 and all(duo_team["hp"]), "duo covering teammate route")
+    check(duo_team["result"] == "win" and duo_team["rounds"] == 6
+          and duo_team["hp"] == (19, 22) and duo_team['pots'] == (2, 2), "duo covering teammate baseline preserved")
     support = [(('A', -1), ('A', -1)), (('A', -1), ('H', 0)),
                (('A', -1), ('A', -1)), (('A', -1), ('H', 0))]
     support += [(('A', -1), ('A', -1))] * 2 + [(('G', 1), ('A', -1)), (('A', -1), ('A', -1))]
@@ -222,20 +234,28 @@ def main():
     check(duo_rescue["result"] == "win" and all(duo_rescue["hp"]) and duo_rescue["pots"] == (2, 0), "ally heal rescues injured teammate")
     check(resolve(initial(1), (('H', 0),), 1) is None, "cannot heal full hp")
     check(resolve(initial(1), (('G', 1),), 1) is None, "cannot target nonmember")
-    no_pots = State((10,), BOSS_HP, (0,))
+    no_pots = State((10,), CANDIDATE.solo_boss_hp, (0,))
     check(resolve(no_pots, (('H', 0),), 1) is None, "cannot use exhausted recovery")
     check(play(1, [(('G', 0),)] * ROUND_LIMIT)["result"] == "loss", "defending forever loses at round limit")
-    at_half = intent(State((40,), 65, (2,)), 3)
+    at_half = intent(State((40,), 60, (3,)), 3)
     check(at_half["phase"] == 2 and at_half["damage"] == 28, "half-hp phase threshold")
-    before_half = resolve(State((40,), 70, (2,)), (('A', -1),), 1)
+    before_half = resolve(State((40,), 61, (3,)), (('A', -1),), 1)
     check(before_half.hp == (32,), "damage follows pre-announced phase")
 
     check(initial(1).pots == (3,) and initial(2).pots == (2, 2), 'mode-specific recovery budget')
+    check(initial(1).boss == 120 and initial(2).boss == 130, 'mode-specific boss health')
+    check(intent(State((40,), 61, (3,)), 3)['phase'] == 1, 'solo above half threshold')
+    downed_preview = intent(State((0, 40), 65, (0, 2)), 3)
+    check(downed_preview['phase'] == 2 and downed_preview['targets'] == [1], 'duo original mode survives one knockout')
     baseline_search = enumerate_solo(BASELINE)
     check(baseline_search == {'winning_sequences': 18, 'earliest_win_round': 15,
                               'best_surviving_hp': 10}, 'reviewed baseline retained')
     baseline_human = heuristic(BASELINE)
+    previous_search = enumerate_solo(PREVIOUS)
+    previous_human = heuristic(PREVIOUS)
     candidate_human = heuristic(CANDIDATE)
+    check(previous_search == {'winning_sequences': 43, 'earliest_win_round': 15,
+                              'best_surviving_hp': 24}, 'previous solo3 proposal retained')
     check(baseline_human['result'] == 'loss' and baseline_human['rounds'] == 14
           and baseline_human['boss'] == 10, 'baseline reasonable policy fails')
     check(candidate_human['result'] == 'win' and candidate_human['rounds'] == 16
@@ -243,9 +263,15 @@ def main():
     for rules, expected in [(BASELINE, 'loss'), (CANDIDATE, 'win')]:
         check(heuristic(rules, 24)['result'] == expected, 'heal-threshold 24 cross-check')
     baseline_changes = one_step_changes('AAGAAHGAAGGAHAGA', BASELINE)
+    previous_changes = one_step_changes('AAGAAHGAAGGAHAGA', PREVIOUS)
     candidate_changes = one_step_changes('AAGAAHGAAGGAHAGA', CANDIDATE)
     check(baseline_changes == {'win': 0, 'loss': 19, 'invalid': 13, 'active': 0}, 'baseline mutation outcomes distinguished')
-    check(candidate_changes == {'win': 1, 'loss': 30, 'invalid': 1, 'active': 0}, 'candidate still has narrow mutation tolerance')
+    check(previous_changes == {'win': 1, 'loss': 30, 'invalid': 1, 'active': 0}, 'previous old-route mutation outcomes')
+    check(candidate_changes == {'win': 14, 'loss': 17, 'invalid': 1, 'active': 0}, 'selected old-route mutation outcomes')
+    heuristic_changes = one_step_changes('AAGAHAGAHAGAHAGA', CANDIDATE)
+    previous_heuristic_changes = one_step_changes('AAGAHAGAHAGAHAGA', PREVIOUS)
+    check(previous_heuristic_changes == {'win': 2, 'loss': 17, 'invalid': 13, 'active': 0}, 'previous heuristic-route mutation outcomes')
+    check(heuristic_changes == {'win': 9, 'loss': 10, 'invalid': 13, 'active': 0}, 'selected heuristic-route mutation outcomes')
 
     duo_changes = {'win': 0, 'loss': 0, 'invalid': 0, 'active': 0}
     cover_route = cooperative[:duo_team['rounds']]
@@ -265,11 +291,12 @@ def main():
 
     variants = [
         ('baseline_2_potions', BASELINE, 18),
-        ('candidate_solo3', CANDIDATE, 43),
+        ('previous_solo3', PREVIOUS, 43),
+        ('selected_solo120', CANDIDATE, 574),
         ('rounds18_only', replace(BASELINE, round_limit=18), 635),
-        ('boss120_only', replace(BASELINE, boss_hp=120), 173),
+        ('boss120_only', replace(BASELINE, solo_boss_hp=120), 173),
         ('heal32_only', replace(BASELINE, heal=32), 22),
-        ('solo3_rounds18', replace(CANDIDATE, round_limit=18), 2959),
+        ('previous_solo3_rounds18', replace(PREVIOUS, round_limit=18), 2959),
     ]
     comparison = []
     for name, rules, expected_count in variants:
@@ -287,24 +314,44 @@ def main():
 
     report = {"status": "PASS", "checks": checks,
                       "scope": "offline planning model; not gameplay or Discuz acceptance",
-                      "rules_status": "P1 candidate; final difficulty not user-confirmed",
+                      "rules_status": "P1 baseline set from user difficulty decision; live playtesting pending",
                       "rules": asdict(CANDIDATE),
                       "solo_search": solo_count,
                       "reasonable_policy": compact(candidate_human),
                       "baseline_reasonable_policy": compact(baseline_human),
-                      "fixed_suffix_mutations": {'baseline': baseline_changes, 'candidate': candidate_changes},
+                      "fixed_suffix_mutations": {'route': 'AAGAAHGAAGGAHAGA', 'baseline': baseline_changes,
+                                                  'previous_candidate': previous_changes, 'candidate': candidate_changes},
+                      "heuristic_route_mutations": {'route': 'AAGAHAGAHAGAHAGA', 'previous': previous_heuristic_changes,
+                                                    'selected': heuristic_changes},
                       "duo_attack_guard_mutations": duo_changes,
                       "variants": comparison,
                       "solo_survival": compact(solo), "solo_fast": compact(solo_fast),
                       "duo_cover": compact(duo_team), "duo_cautious": compact(duo_safe),
                       "duo_rescue": compact(duo_rescue),
                       "solo_all_attack": compact(solo_greedy), "duo_all_attack": compact(duo_greedy)}
+    selected_cases = {'solo_survival': (1, solo), 'solo_fast': (1, solo_fast),
+                      'solo_reasonable': (1, candidate_human), 'duo_cover': (2, duo_team),
+                      'duo_cautious': (2, duo_safe), 'duo_rescue': (2, duo_rescue)}
+    if args.write_reference:
+        reference = {'format_version': 1, 'rules_status': report['rules_status'],
+                     'rules': asdict(CANDIDATE),
+                     'common': {'player_hp': PLAYER_HP, 'attack': ATTACK, 'exposed_attack': EXPOSED_ATTACK,
+                                'guard_damage_divisor': 5, 'turn_ms': 25000, 'wait_ms': 300000},
+                     'action_codes': {'A': 'attack', 'G': 'guard', 'H': 'heal', '-': 'downed_no_action'},
+                     'cases': {name: {'mode': 'solo' if players == 1 else 'duo', 'start_round': 1,
+                                      'initial': asdict(initial(players)), 'expected': result}
+                               for name, (players, result) in selected_cases.items()}}
+        destination = Path(args.write_reference)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(reference, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        report['reference_written'] = str(destination)
     if args.trace:
         report['reference_traces'] = {
             name: {'rules': asdict(rules), 'run': result}
             for name, rules, result in [
                 ('solo_survival', CANDIDATE, solo), ('solo_fast', CANDIDATE, solo_fast),
                 ('solo_reasonable', CANDIDATE, candidate_human),
+                ('previous_reasonable', PREVIOUS, previous_human),
                 ('baseline_reasonable', BASELINE, baseline_human),
                 ('duo_cover', CANDIDATE, duo_team), ('duo_cautious', CANDIDATE, duo_safe),
                 ('duo_rescue', CANDIDATE, duo_rescue)]}

@@ -1,0 +1,2010 @@
+{
+  "format_version": 1,
+  "rules_status": "P1 baseline set from user difficulty decision; live playtesting pending",
+  "rules": {
+    "version": "raid-v1-p1-balanced",
+    "solo_potions": 3,
+    "duo_potions": 2,
+    "boss_hp": 130,
+    "solo_boss_hp": 120,
+    "heal": 28,
+    "round_limit": 16
+  },
+  "common": {
+    "player_hp": 40,
+    "attack": 10,
+    "exposed_attack": 20,
+    "guard_damage_divisor": 5,
+    "turn_ms": 25000,
+    "wait_ms": 300000
+  },
+  "action_codes": {
+    "A": "attack",
+    "G": "guard",
+    "H": "heal",
+    "-": "downed_no_action"
+  },
+  "cases": {
+    "solo_survival": {
+      "mode": "solo",
+      "start_round": 1,
+      "initial": {
+        "hp": [
+          40
+        ],
+        "boss": 120,
+        "pots": [
+          3
+        ],
+        "exposed": false
+      },
+      "expected": {
+        "result": "win",
+        "rounds": 16,
+        "hp": [
+          10
+        ],
+        "boss": 0,
+        "pots": [
+          1
+        ],
+        "trace": [
+          {
+            "round": 1,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              32
+            ],
+            "boss": 110,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 2,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              24
+            ],
+            "boss": 100,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 3,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 100,
+            "pots": [
+              3
+            ],
+            "exposed": true
+          },
+          {
+            "round": 4,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 80,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 5,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              11
+            ],
+            "boss": 70,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 6,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              31
+            ],
+            "boss": 70,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 7,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              26
+            ],
+            "boss": 70,
+            "pots": [
+              2
+            ],
+            "exposed": true
+          },
+          {
+            "round": 8,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              26
+            ],
+            "boss": 50,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 9,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              16
+            ],
+            "boss": 40,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 10,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              14
+            ],
+            "boss": 40,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 11,
+            "preview": {
+              "kind": 2,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 28
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              8
+            ],
+            "boss": 40,
+            "pots": [
+              2
+            ],
+            "exposed": true
+          },
+          {
+            "round": 12,
+            "preview": {
+              "kind": 3,
+              "phase": 2,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              8
+            ],
+            "boss": 20,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 13,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              26
+            ],
+            "boss": 20,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 14,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              16
+            ],
+            "boss": 10,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 15,
+            "preview": {
+              "kind": 2,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 28
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              10
+            ],
+            "boss": 10,
+            "pots": [
+              1
+            ],
+            "exposed": true
+          },
+          {
+            "round": 16,
+            "preview": {
+              "kind": 3,
+              "phase": 2,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              10
+            ],
+            "boss": 0,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          }
+        ]
+      }
+    },
+    "solo_fast": {
+      "mode": "solo",
+      "start_round": 1,
+      "initial": {
+        "hp": [
+          40
+        ],
+        "boss": 120,
+        "pots": [
+          3
+        ],
+        "exposed": false
+      },
+      "expected": {
+        "result": "win",
+        "rounds": 14,
+        "hp": [
+          14
+        ],
+        "boss": 0,
+        "pots": [
+          1
+        ],
+        "trace": [
+          {
+            "round": 1,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              32
+            ],
+            "boss": 110,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 2,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              24
+            ],
+            "boss": 100,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 3,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 100,
+            "pots": [
+              3
+            ],
+            "exposed": true
+          },
+          {
+            "round": 4,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 80,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 5,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              11
+            ],
+            "boss": 70,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 6,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              31
+            ],
+            "boss": 70,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 7,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              26
+            ],
+            "boss": 70,
+            "pots": [
+              2
+            ],
+            "exposed": true
+          },
+          {
+            "round": 8,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              26
+            ],
+            "boss": 50,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 9,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              16
+            ],
+            "boss": 40,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 10,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              30
+            ],
+            "boss": 40,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 11,
+            "preview": {
+              "kind": 2,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 28
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              24
+            ],
+            "boss": 40,
+            "pots": [
+              1
+            ],
+            "exposed": true
+          },
+          {
+            "round": 12,
+            "preview": {
+              "kind": 3,
+              "phase": 2,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              24
+            ],
+            "boss": 20,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 13,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              14
+            ],
+            "boss": 10,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 14,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              14
+            ],
+            "boss": 0,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          }
+        ]
+      }
+    },
+    "solo_reasonable": {
+      "mode": "solo",
+      "start_round": 1,
+      "initial": {
+        "hp": [
+          40
+        ],
+        "boss": 120,
+        "pots": [
+          3
+        ],
+        "exposed": false
+      },
+      "expected": {
+        "result": "win",
+        "rounds": 16,
+        "hp": [
+          14
+        ],
+        "boss": 0,
+        "pots": [
+          0
+        ],
+        "trace": [
+          {
+            "round": 1,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              32
+            ],
+            "boss": 110,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 2,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              24
+            ],
+            "boss": 100,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 3,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 100,
+            "pots": [
+              3
+            ],
+            "exposed": true
+          },
+          {
+            "round": 4,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 80,
+            "pots": [
+              3
+            ],
+            "exposed": false
+          },
+          {
+            "round": 5,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              32
+            ],
+            "boss": 80,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 6,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              24
+            ],
+            "boss": 70,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 7,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 70,
+            "pots": [
+              2
+            ],
+            "exposed": true
+          },
+          {
+            "round": 8,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19
+            ],
+            "boss": 50,
+            "pots": [
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 9,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              30
+            ],
+            "boss": 50,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 10,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              20
+            ],
+            "boss": 40,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 11,
+            "preview": {
+              "kind": 2,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 28
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              14
+            ],
+            "boss": 40,
+            "pots": [
+              1
+            ],
+            "exposed": true
+          },
+          {
+            "round": 12,
+            "preview": {
+              "kind": 3,
+              "phase": 2,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              14
+            ],
+            "boss": 20,
+            "pots": [
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 13,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              30
+            ],
+            "boss": 20,
+            "pots": [
+              0
+            ],
+            "exposed": false
+          },
+          {
+            "round": 14,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              20
+            ],
+            "boss": 10,
+            "pots": [
+              0
+            ],
+            "exposed": false
+          },
+          {
+            "round": 15,
+            "preview": {
+              "kind": 2,
+              "phase": 2,
+              "targets": [
+                0
+              ],
+              "damage": 28
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              14
+            ],
+            "boss": 10,
+            "pots": [
+              0
+            ],
+            "exposed": true
+          },
+          {
+            "round": 16,
+            "preview": {
+              "kind": 3,
+              "phase": 2,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              14
+            ],
+            "boss": 0,
+            "pots": [
+              0
+            ],
+            "exposed": false
+          }
+        ],
+        "route": "AAGAHAGAHAGAHAGA"
+      }
+    },
+    "duo_cover": {
+      "mode": "duo",
+      "start_round": 1,
+      "initial": {
+        "hp": [
+          40,
+          40
+        ],
+        "boss": 130,
+        "pots": [
+          2,
+          2
+        ],
+        "exposed": false
+      },
+      "expected": {
+        "result": "win",
+        "rounds": 6,
+        "hp": [
+          19,
+          22
+        ],
+        "boss": 0,
+        "pots": [
+          2,
+          2
+        ],
+        "trace": [
+          {
+            "round": 1,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              32,
+              40
+            ],
+            "boss": 110,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 2,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0,
+                1
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              24,
+              32
+            ],
+            "boss": 90,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 3,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "G",
+                0
+              ]
+            ],
+            "hp": [
+              19,
+              32
+            ],
+            "boss": 80,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": true
+          },
+          {
+            "round": 4,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19,
+              32
+            ],
+            "boss": 40,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 5,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                1
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19,
+              22
+            ],
+            "boss": 20,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 6,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0,
+                1
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19,
+              22
+            ],
+            "boss": 0,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          }
+        ]
+      }
+    },
+    "duo_cautious": {
+      "mode": "duo",
+      "start_round": 1,
+      "initial": {
+        "hp": [
+          40,
+          40
+        ],
+        "boss": 130,
+        "pots": [
+          2,
+          2
+        ],
+        "exposed": false
+      },
+      "expected": {
+        "result": "win",
+        "rounds": 8,
+        "hp": [
+          9,
+          6
+        ],
+        "boss": 0,
+        "pots": [
+          2,
+          2
+        ],
+        "trace": [
+          {
+            "round": 1,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              32,
+              40
+            ],
+            "boss": 110,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 2,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0,
+                1
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              24,
+              32
+            ],
+            "boss": 90,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 3,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ],
+              [
+                "G",
+                1
+              ]
+            ],
+            "hp": [
+              19,
+              32
+            ],
+            "boss": 90,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": true
+          },
+          {
+            "round": 4,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19,
+              32
+            ],
+            "boss": 50,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 5,
+            "preview": {
+              "kind": 0,
+              "phase": 2,
+              "targets": [
+                1
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              19,
+              22
+            ],
+            "boss": 30,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 6,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0,
+                1
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              9,
+              12
+            ],
+            "boss": 10,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 7,
+            "preview": {
+              "kind": 2,
+              "phase": 2,
+              "targets": [
+                1
+              ],
+              "damage": 28
+            },
+            "actions": [
+              [
+                "G",
+                0
+              ],
+              [
+                "G",
+                1
+              ]
+            ],
+            "hp": [
+              9,
+              6
+            ],
+            "boss": 10,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": true
+          },
+          {
+            "round": 8,
+            "preview": {
+              "kind": 3,
+              "phase": 2,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              9,
+              6
+            ],
+            "boss": 0,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          }
+        ]
+      }
+    },
+    "duo_rescue": {
+      "mode": "duo",
+      "start_round": 1,
+      "initial": {
+        "hp": [
+          40,
+          40
+        ],
+        "boss": 130,
+        "pots": [
+          2,
+          2
+        ],
+        "exposed": false
+      },
+      "expected": {
+        "result": "win",
+        "rounds": 8,
+        "hp": [
+          26,
+          8
+        ],
+        "boss": 0,
+        "pots": [
+          2,
+          0
+        ],
+        "trace": [
+          {
+            "round": 1,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              32,
+              40
+            ],
+            "boss": 110,
+            "pots": [
+              2,
+              2
+            ],
+            "exposed": false
+          },
+          {
+            "round": 2,
+            "preview": {
+              "kind": 1,
+              "phase": 1,
+              "targets": [
+                0,
+                1
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              32,
+              32
+            ],
+            "boss": 100,
+            "pots": [
+              2,
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 3,
+            "preview": {
+              "kind": 2,
+              "phase": 1,
+              "targets": [
+                0
+              ],
+              "damage": 24
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              8,
+              32
+            ],
+            "boss": 80,
+            "pots": [
+              2,
+              1
+            ],
+            "exposed": false
+          },
+          {
+            "round": 4,
+            "preview": {
+              "kind": 3,
+              "phase": 1,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "H",
+                0
+              ]
+            ],
+            "hp": [
+              36,
+              32
+            ],
+            "boss": 70,
+            "pots": [
+              2,
+              0
+            ],
+            "exposed": false
+          },
+          {
+            "round": 5,
+            "preview": {
+              "kind": 0,
+              "phase": 1,
+              "targets": [
+                1
+              ],
+              "damage": 8
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              36,
+              24
+            ],
+            "boss": 50,
+            "pots": [
+              2,
+              0
+            ],
+            "exposed": false
+          },
+          {
+            "round": 6,
+            "preview": {
+              "kind": 1,
+              "phase": 2,
+              "targets": [
+                0,
+                1
+              ],
+              "damage": 10
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              26,
+              14
+            ],
+            "boss": 30,
+            "pots": [
+              2,
+              0
+            ],
+            "exposed": false
+          },
+          {
+            "round": 7,
+            "preview": {
+              "kind": 2,
+              "phase": 2,
+              "targets": [
+                1
+              ],
+              "damage": 28
+            },
+            "actions": [
+              [
+                "G",
+                1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              26,
+              8
+            ],
+            "boss": 20,
+            "pots": [
+              2,
+              0
+            ],
+            "exposed": true
+          },
+          {
+            "round": 8,
+            "preview": {
+              "kind": 3,
+              "phase": 2,
+              "targets": [],
+              "damage": 0
+            },
+            "actions": [
+              [
+                "A",
+                -1
+              ],
+              [
+                "A",
+                -1
+              ]
+            ],
+            "hp": [
+              26,
+              8
+            ],
+            "boss": 0,
+            "pots": [
+              2,
+              0
+            ],
+            "exposed": false
+          }
+        ]
+      }
+    }
+  }
+}
