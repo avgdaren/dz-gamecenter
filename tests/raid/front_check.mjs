@@ -82,6 +82,10 @@ try {
   check(!ui.$('empty').hidden && ui.$('battle').hidden,'initial empty state');
   await command(ui,'solo');
   check(ui.$('boss-hp').textContent==='120 / 120 生命' && ui.$('players').children.length===1,'solo displayed from PHP');
+  check(ui.$('message').textContent==='第 1 轮开始：先看预告再选行动。','start feedback is not action confirmation');
+  const started=ui.$('message').textContent;
+  ui.intervals[0]();await settled(ui);
+  check(ui.$('message').textContent===started && ui.$('connection').textContent.includes('状态已同步'),'background GET preserves start feedback, connection separate');
   check(ui.doc.querySelector('[data-kind="heal"]').disabled,'full health heal disabled');
   check(ui.doc.querySelector('.confirm').disabled,'explicit choice required');
   // One transport in flight even when the user clicks repeatedly.
@@ -89,22 +93,33 @@ try {
   const confirm=ui.doc.querySelector('.confirm'); const n=posts.length;
   confirm.click(); confirm.click(); ui.$('duo').click(); await settled(ui);
   check(posts.length===n+1 && ui.$('boss-hp').textContent==='110 / 120 生命','rapid clicks send once');
+  check(ui.$('message').textContent.includes('席位 1已确认：攻击（第 1 轮）') && ui.$('message').textContent.includes('第 1 轮已结算；第 2 轮开始'),'solo confirms correct actor/action/round and immediate resolution');
+  const confirmed=ui.$('message').textContent;
   const node=ui.doc.querySelector('[data-kind="guard"]'); node.focus();
   await command(ui,'sync');
   check(ui.doc.querySelector('[data-kind="guard"]')===node && ui.doc.activeElement===node,'unchanged poll preserves DOM and focus');
+  check(ui.$('message').textContent===confirmed,'manual GET also preserves confirmation');
   // Finish a complete solo fixture through the actual controls.
   await command(ui,'solo');
   for(const row of fixture.cases.solo_reasonable.expected.trace) await play(ui,0,...row.actions[0]);
   check(ui.$('result-title').textContent==='讨伐成功' && ui.$('log-count').textContent==='16 轮','solo 16-round UI win');
+  check(ui.$('message').textContent.includes('本局已结束，讨伐成功。') && !ui.$('message').textContent.includes('等待'),'winning act feedback is terminal rather than waiting');
   check(ui.$('boss-hp').textContent==='0 / 120 生命' && ui.$('players').textContent.includes('14 / 40'),'solo final hp displayed');
   check(ui.doc.querySelector('.confirm').disabled && ui.$('advance').disabled,'terminal controls closed');
   await command(ui,'duo');
   check(ui.$('players').children.length===2 && ui.$('boss-hp').textContent==='130 / 130 生命','duo displayed');
   for(const row of fixture.cases.duo_cover.expected.trace) {
     await play(ui,0,...row.actions[0]);
+    if(row.round===1) {
+      check(ui.$('message').textContent.includes('席位 1已确认：攻击（第 1 轮）。等待席位 2确认。'),'duo first seat feedback identifies waiting seat');
+      const first=ui.$('message').textContent;
+      ui.intervals[0]();await settled(ui);
+      check(ui.$('message').textContent===first,'background poll preserves first-seat acknowledgment');
+    }
     check(ui.doc.querySelector('[data-actor="0"] .confirm').disabled,'first seat locks');
     check(!ui.doc.querySelector('[data-actor="1"] [data-kind="attack"]').disabled,'second seat still acts same round');
     await play(ui,1,...row.actions[1]);
+    if(row.round===1) check(ui.$('message').textContent.includes('席位 2已确认：攻击（第 1 轮）。第 1 轮已结算；第 2 轮开始'),'duo second seat names its own confirmation and completed round');
   }
   check(ui.$('result-title').textContent==='讨伐成功' && ui.$('log-count').textContent==='6 轮','duo cooperation wins');
   check(ui.$('players').textContent.includes('19 / 40') && ui.$('players').textContent.includes('22 / 40'),'duo final hp displayed');
@@ -119,10 +134,13 @@ try {
   await command(ui,'retry');
   check(posts.at(-1).request_id===lost.request_id && posts.at(-1).round===lost.round,'reload retries exact request ID and round');
   check(ui.doc.querySelector('[data-actor="0"] .intent').textContent.includes('已确认：攻击'),'replayed confirmation visible');
+  check(ui.$('message').textContent.includes('重试已确认：席位 1已确认：攻击（第 1 轮）'),'retry keeps original operation and actor context');
   check(ui.$('log-count').textContent==='0 轮','no early double resolution');
   await command(ui,'advance');
+  check(ui.$('message').textContent.startsWith('已跳到本轮截止。') && ui.$('message').textContent.includes('第 2 轮开始'),'deadline jump has operation-specific feedback');
   check(ui.$('logs').textContent.includes('超时默认') && ui.$('boss-hp').textContent==='120 / 130 生命','timeout display preserves accepted intent');
   await command(ui,'offline');
+  check(ui.$('message').textContent.startsWith('已模拟离线 400 秒') && ui.$('message').textContent.includes('本局已结束'),'offline jump has terminal feedback');
   check(ui.$('result-title').textContent==='挑战结束' && ui.$('result-text').textContent.includes('16 回合'),'long offline shown as limit loss');
   await command(ui,'solo');
   await play(ui,0,'A',-1);
@@ -132,12 +150,30 @@ try {
   ui.doc.hidden=true;const before=posts.length; ui.intervals[0]();await tick();
   check(posts.length===before && inFlight===0,'hidden stops polling');
   ui.doc.hidden=false; ui.doc.dispatchEvent({type:'visibilitychange'});await settled(ui);
-  failAll=true;ui.$('sync').click();await until(()=>ui.$('message').textContent.includes('连接失败'));failAll=false;
+  const feedbackBeforeFailure=ui.$('message').textContent;
+  failAll=true;ui.$('sync').click();await until(()=>ui.$('connection').textContent.includes('连接失败'));failAll=false;
+  check(ui.$('message').textContent===feedbackBeforeFailure,'connection failure does not erase action or restored-state feedback');
   check(!ui.$('sync').disabled,'read failure permits retry');
   await command(ui,'sync');
+  check(ui.$('message').textContent===feedbackBeforeFailure && !ui.$('connection').textContent.includes('失败'),'reconnected GET clears connection warning without replacing operation feedback');
   ui.$('theme').click();check(ui.doc.documentElement.dataset.theme==='dark','theme toggle');
   ui.doc.querySelector('.retreat').click();await settled(ui);
   check(ui.$('result-text').textContent.includes('已无成员继续挑战'),'retreat result displayed');
+  check(ui.$('message').textContent.includes('席位 1撤退操作已确认。') && ui.$('message').textContent.includes('本局已结束'),'retreat feedback identifies actor and end');
+  // Another tab advances the same session. The next GET keeps actor/action context,
+  // but must stop claiming the previous round is still waiting for another player.
+  await command(ui,'duo'); await play(ui,0,'A',-1);
+  const previous=posts.at(-1);
+  await (await transport('/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    op:'advance',ms:25000,generation:previous.generation,token:previous.token,request_id:'f'.repeat(32)
+  })})).json();
+  ui.intervals[0]();await settled(ui);
+  check(ui.$('message').textContent.includes('席位 1已确认：攻击（第 1 轮）') && ui.$('message').textContent.includes('第 1 轮已结算；第 2 轮开始') && !ui.$('message').textContent.includes('等待'),'changed snapshot preserves confirmation and updates round progress');
+  await (await transport('/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    op:'start',mode:'solo',generation:previous.generation,token:previous.token,request_id:'e'.repeat(32)
+  })})).json();
+  ui.intervals[0]();await settled(ui);
+  check(ui.$('message').textContent.includes('已切换到另一局') && !ui.$('message').textContent.includes('席位 1已确认'),'new generation does not reuse previous battle acknowledgment');
   check(maxFlight===1,'one network request at a time');
   console.log(JSON.stringify({status:'PASS',checks:checks.length,post_requests:posts.length,max_in_flight:maxFlight}));
 } finally {

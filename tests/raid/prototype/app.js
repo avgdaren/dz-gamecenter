@@ -8,7 +8,7 @@
     locked:'该席位已经确认，不能修改。', due:'已到截止时间，请同步。', generation:'已经开启新局，请查看最新状态。',
     ended:'本局已经结束。', request_conflict:'请求内容冲突，请刷新。', input:'输入无效。', internal:'样稿服务异常。'};
   let state = null, generation = 0, token = '', offset = 0, busy = false, pending = null;
-  let signature = '', selectionRound = '', choices = {};
+  let signature = '', selectionRound = '', choices = {}, lastSuccess = null;
   const make = (tag, cls, text) => { const el = document.createElement(tag); if(cls) el.className = cls; if(text !== undefined) el.textContent = text; return el; };
   const slot = i => `席位 ${i + 1}`;
   const active = i => state && state.hp[i] > 0 && !state.left[i];
@@ -17,6 +17,26 @@
     return a.kind === 'attack' ? '攻击' : `${a.kind === 'guard' ? '守护' : '恢复'}${a.target === actor ? '自己' : slot(a.target)}`;
   }
   function notice(text, error = false) { $('message').textContent = text; $('message').className = error ? 'error' : ''; }
+  function connection(text, error = false) { $('connection').textContent = text; $('connection').className = error ? 'connection error' : 'connection'; }
+  function successNotice(request, data) {
+    const s = data.snapshot;
+    const replay = data.code === 'replayed' ? '重试已确认：' : '';
+    if(data.receipt && data.receipt.generation !== data.generation) return '上次操作已确认；当前显示另一局，请查看当前预告。';
+    const ended = s?.status !== 1;
+    const progress = ended ? (s?.status === 2 ? '本局已结束，讨伐成功。' : '本局已结束，请查看结果。') : `第 ${s.round_no} 轮开始，请看新预告。`;
+    if(request.op === 'start') return replay + (ended ? progress : s.round_no === 1 ? '第 1 轮开始：先看预告再选行动。' : `该局已开始；${progress}`);
+    if(request.op === 'act') {
+      const confirmed = `${slot(request.actor)}已确认：${actionText(request, request.actor)}（第 ${request.round} 轮）。`;
+      if(ended) return replay + confirmed + progress;
+      if(s.round_no > request.round) return replay + confirmed + `第 ${request.round} 轮已结算；${progress}`;
+      const waiting = s.hp.map((hp,i) => hp > 0 && !s.left[i] && !s.intents[i] ? slot(i) : null).filter(Boolean);
+      return replay + confirmed + (waiting.length ? `等待${waiting.join('、')}确认。` : '等待结算。');
+    }
+    if(request.op === 'advance') return replay + (request.ms === 25000 ? '已跳到本轮截止。' : '已模拟离线 400 秒，并按原截止时间追算。') + progress;
+    if(request.op === 'retreat') return replay + (ended ? `${slot(request.actor)}撤退操作已确认。${progress}` :
+      s.left[request.actor] ? `${slot(request.actor)}已离场，队友继续挑战。` : `${slot(request.actor)}已确认撤退，将在本轮结束后离场。`);
+    return replay + '操作已完成。';
+  }
   function savePending() {
     try { if(pending) sessionStorage.setItem('raid-p1-pending', JSON.stringify(pending)); else sessionStorage.removeItem('raid-p1-pending'); } catch (_) { /* Private browsing can disable storage; in-memory retry still works. */ }
   }
@@ -76,9 +96,19 @@
   }
   async function sync() {
     if(busy || (pending && token)) return;
+    const firstConnection = !token, previous = signature;
     busy = true; controls();
-    try { const data = await exchange(); apply(data); notice(state ? '状态已同步。' : '选择一种模式开始挑战。'); }
-    catch (_) { notice('连接失败，可点击“同步状态”重试。', true); }
+    try {
+      const data = await exchange(); apply(data); connection('已连接本机样稿 · 状态已同步。');
+      if(firstConnection) notice(state ? '已恢复本局，请查看当前预告与已确认行动。' : '选择一种模式开始挑战。');
+      else if(lastSuccess && previous !== signature) {
+        if(lastSuccess.generation === data.generation) notice(successNotice(lastSuccess.request, data));
+        else { lastSuccess = null; notice('已切换到另一局，请查看当前预告与已确认行动。'); }
+      }
+    } catch (_) {
+      connection('连接失败，可点击“同步状态”重试。', true);
+      if(firstConnection) notice('连接失败，可点击“同步状态”重试。', true);
+    }
     finally { busy = false; controls(); }
   }
   async function send(args, retry = false) {
@@ -88,13 +118,16 @@
       pending = {...args, generation, request_id:Array.from(bytes, n => n.toString(16).padStart(2,'0')).join('')};
       savePending();
     }
-    busy = true; controls(); notice('正在确认…');
+    busy = true; controls(); notice('正在确认…'); connection('正在提交操作…');
     try {
-      const data = await exchange(pending);
+      const request = pending;
+      const data = await exchange(request);
       apply(data);
       pending = null; savePending();
-      notice(data.ok ? (data.code === 'replayed' ? '已确认上次操作，状态已同步。' : '行动已确认。') : (messages[data.code] || '操作未被接受，请查看最新状态。'), !data.ok);
-    } catch (_) { notice('连接中断，操作结果尚未确认。请重试上次操作。', true); }
+      lastSuccess = data.ok ? {request, generation:data.generation} : null;
+      connection('已连接本机样稿。');
+      notice(data.ok ? successNotice(request, data) : (messages[data.code] || '操作未被接受，请查看最新状态。'), !data.ok);
+    } catch (_) { connection('连接中断，请重试上次操作。', true); notice('连接中断，操作结果尚未确认。请重试上次操作。', true); }
     finally { busy = false; controls(); }
   }
   function renderPlayers() {
