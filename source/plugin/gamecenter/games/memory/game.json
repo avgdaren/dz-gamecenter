@@ -1,0 +1,13 @@
+{
+  "name": "翻牌记忆配对",
+  "intro": "翻开两张，找到相同的图案。用更少的尝试，配齐全部 8 对。",
+  "help": "每次翻开两张未配对的牌，相同则保留，不同会在短暂展示后盖回。完成全部 8 对即可提交成绩，尝试次数越少越好。切到后台自动暂停，也可手动暂停。最多尝试 256 次；未完成不记成绩。游客可以试玩，登录后记录成绩。本游戏不发积分，排行榜仅作展示。",
+  "version": "1.0.0",
+  "author": "GPT / Codex（适配 Carinoasd 的 gamecenter）",
+  "order": "asc",
+  "unit": "次",
+  "script": "game.js",
+  "style": "style.css",
+  "icon": "icon.svg",
+  "displayorder": 20
+}
