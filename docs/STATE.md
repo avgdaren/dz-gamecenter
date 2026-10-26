@@ -9,8 +9,8 @@
 | 项 | 值 |
 |---|---|
 | 分支 | `main` |
-| 初始基线 | tag **`baseline-2026-10-26`**；v0 最新已交付来源为 `3e67d3b`（PR #4 / #5 已合入） |
-| 插件版本 | 已交付 gamecenter **v1.1.0** + memory **1.1.2**；本分支联机候选 **1.2.0**（原作者署名保留） |
+| 初始基线 | tag **`baseline-2026-10-26`**；本分支已同步 main `6f9d080`，保留 memory 最新美术资源 |
+| 插件版本 | 已交付 gamecenter **v1.1.0** + memory **2.0.2**；本分支联机候选 **1.2.0**（原作者署名保留） |
 | 部署路径 | `E:\dzx5-env\www\source\plugin\gamecenter\` |
 | 本地站点 | `http://localhost/plugin.php?id=gamecenter` |
 | 环境 | Discuz! X5.0.4.Open / PHP 8.3.36 / MariaDB 10.11.19 / nginx 1.30.6（详见 ENVIRONMENT.md） |
@@ -60,7 +60,7 @@
 ## 进行中 / 待办
 
 - [x] Issue #1 基线源码静态核对、PR #3 文档已合入。
-- [x] Issue #2 / PR #4 memory 已交付；PR #5 美术/音效升级已合入。用户确认已打包交管理员；本次不改 memory/snake。
+- [x] Issue #2 / PR #4 memory 已交付；PR #5 美术/音效及 main `6f9d080` 的 8 位角色牌面/大厅图标已保留。用户确认已打包交管理员；本次不改 memory/snake。
 - [ ] **v1a / Issue #6**：五子棋候选实现完成，待 PR 与小蓝本地验收。规则、接口、迁移和回退见 [V1A-GOMOKU.md](V1A-GOMOKU.md)，自测见 [tests/gomoku/README.md](../tests/gomoku/README.md)。
 - [ ] **v1b**：对战积分的可恢复结算、独立排行、长期数据清理；本阶段不发积分。
 
@@ -69,7 +69,8 @@
 ## 当前验证与阻塞
 
 - PHP/JS/JSON、31 项规则/权限、31 项前台离线状态测试通过。
-- 官方 X5 DB 文件 + 隔离 MariaDB 10.11.14：PDO 和 mysqli 各 2268 项断言通过，含各 1000 组落子竞争、200 组截止竞争与真实死锁重试。隔离测试不等同于本地 Discuz 验收。
+- 小蓝已在真实站点完成备份、1.2.0 升级/三表创建、扫描与开放；发现 querysafe 拦截会话变量查询，临时改为 SHOW 后建房成功（PR #7 留言）。
+- 正式候选已修复该查询；原隔离测试遗漏的 querysafe 现按官方默认开启。旧代码先复现失败，修复后 PDO / mysqli 各 2278 项断言通过，含各 1000 组落子竞争、200 组截止竞争与真实死锁重试。隔离测试不等同于本地 Discuz 验收；本次无额外数据库迁移。
 - 需小蓝确认本机 Release 的 DB 驱动一致性、实际升级/回退、真实登录与组权限、浏览器/手机体验、既有单机回归。
 - 40 登录页面持续 10 分钟的论坛容量仍未验证；脚本与资源采样要求在 tests/gomoku/README.md。
 - main 仍是已交付 v0；候选联机代码只在 Issue #6 分支，验收通过后再合入。

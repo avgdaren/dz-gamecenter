@@ -33,7 +33,12 @@ class gamecenter_room_store {
 			$connection = $current;
 		}
 		DB::table('gamecenter_room');
-		$previousTimeout = (int)$this->first('SELECT @@SESSION.innodb_lock_wait_timeout AS n')['n'];
+		// SELECT @@SESSION 会被 Discuz querysafe 拦截；通过 SHOW 读取同一连接的值。
+		$timeout = $this->first("SHOW SESSION VARIABLES LIKE 'innodb_lock_wait_timeout'");
+		if(!isset($timeout['Value']) || !preg_match('/^[0-9]+$/D', (string)$timeout['Value'])) {
+			throw new RuntimeException('cannot read room lock wait timeout');
+		}
+		$previousTimeout = (int)$timeout['Value'];
 		$roomTimeout = min(2, $previousTimeout);
 		if($previousTimeout !== $roomTimeout) { $this->query('SET SESSION innodb_lock_wait_timeout='.$roomTimeout); }
 		try {

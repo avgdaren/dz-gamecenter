@@ -9,6 +9,7 @@
 1. 在本地测试站备份现有插件及数据库，记录正在运行的提交/版本。
 2. 部署本 PR 的完整插件改动：gamecenter.inc.php、install.php、元数据、视图/后台说明、新增 lib/room*.php 与 lib/gomoku.php、cron/ 和本目录。保持原有 memory、snake、SDK 文件。
 3. 使用 Discuz 的插件升级入口执行 upgrade.php（它会包含 install.php）。版本元数据为 1.2.0；新增 gamecenter_room / room_member / room_action，全部 InnoDB；不会 ALTER 或清空旧六表。
+   已升级 1.2.0 的站点更新本次 querysafe 补丁无需额外数据库迁移；新候选含 main `6f9d080` 的 memory 2.0.2 牌面与图标，部署后清除临时异常回显。
 4. 后台重新扫描，先由管理员预览，再开放 gomoku。单机积分/排行配置不作用于本阶段的房间结果。
 5. 用两个不同账号访问 `plugin.php?id=gamecenter&mod=play&game=gomoku`，创建房间并分享邀请链接；普通账号参与时游戏必须开放。
 

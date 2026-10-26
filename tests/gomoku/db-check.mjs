@@ -17,6 +17,10 @@ const call=(w,uid,data)=>w.send({uid,data});
 let checks=0;
 function check(value,name){assert.ok(value,name);checks++;}
 try{
+ const safe=await admin.send({op:'querysafe'});
+ for(const [i,blocked] of safe.blocked.entries())check(blocked,'querysafe rejects unsafe SQL '+i);
+ check(safe.entry_blocked,'DB::query rejects original session-variable SQL');
+ check(Number.isInteger(Number(safe.show.Value))&&Number(safe.show.Value)>=0,'querysafe permits SHOW SESSION VARIABLES');
  await admin.send({op:'init'});
  check((await admin.send({op:'mapping'})).blocked,'cross-connection map rejected');
  const timeout=await admin.send({op:'timeout_config'});check(timeout.inside<=2,'room lock wait bounded');check(timeout.before===timeout.after,'session setting restored');

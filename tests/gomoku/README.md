@@ -8,8 +8,8 @@
 | --- | --- | --- |
 | PHP/JS/JSON | 语法检查通过 | 原生 JS，PHP 8.3.6 CLI，Node 24.22.1 |
 | 纯规则/权限 | 31 项通过 | 四方向、长连、边界、防行折返、和棋、到期、非法参数与权限前置 |
-| 真实数据库，PDO | 2268 项断言通过 | MariaDB 10.11.14 + 官方 X5 DB 类与 PDO 驱动；1000 组竞争、200 组截止竞争，截止采样偏差最大 13ms；真实 1213 回退后成功 |
-| 真实数据库，mysqli | 2268 项断言通过 | 相同测试，使用官方 mysqli 驱动；仅一个落子与动作记录生效，超时和落子互斥 |
+| 真实数据库，PDO | 2278 项断言通过 | MariaDB 10.11.14 + 官方 X5 DB 类与 PDO 驱动；querysafe 开启；1000 组竞争、200 组截止竞争、真实 1213 回退后成功 |
+| 真实数据库，mysqli | 2278 项断言通过 | 同样开启 querysafe；仅一个落子与动作记录生效，超时和落子互斥 |
 | 前台状态 | 31 项通过 | 真实 SDK/游戏代码、离线 MiniDOM/网络；预选、恢复、串行、轮询、退避、丢失确认与同 ID 重试 |
 | 真实 Discuz / 浏览器 / 手机 | **待小蓝验证** | 不能由上述隔离测试替代 |
 | 40 页面、20 QPS、10 分钟 | **未执行** | 提供 poll-bench.mjs，在真实测试站运行 |
@@ -19,8 +19,17 @@
 - `discuz_database.php` blob `f4b457fcc62692aa93eea1fa31ad5559265030ad`
 - `db_driver_mysqli.php` blob `d132f5b011486d61a52f1ac1fc300d5e87fb26a1`
 - `db_driver_pdo.php` blob `2ab4985ed557d98d56863e43cefd1e0e371a607e`
+- querysafe 配置对照 `config_global_default.php` blob `edc98f359c4fa6afea68eb1d8c344e28482d31d4`：status=1，完整默认 dfunction/daction/dnote/dlikehex/afullnote；测试在 getglobal 中提供，不加载整站配置。
 
 `DB::query(..., 'RETRY', true)` 保留原始查询结果并禁止驱动在事务内自动重连。PDO 的 statement errorInfo、mysqli 的 errno 被转换为可捕获错误；事务使用 DB::begin_transaction/commit/rollback，1213/1205 有限重试，事务内锁等待最多 2 秒并在结束后恢复原 session 设置。官方镜像与本机 Release 的一致性仍需对照；镜像 PDO 驱动出现 rowCount 动态属性的 deprecation，属于外部源码，未在本项目修改。
+
+### querysafe 阻塞修复回归（2026-10-26）
+
+原 2268 项测试通过 DB::query 入口执行，但测试 getglobal 返回 status=0，漏掉了 SQL 安全检查，不能代表该层通过。小蓝在真实站点发现 `SELECT @@SESSION.innodb_lock_wait_timeout` 被拦截。现改为 `SHOW SESSION VARIABLES LIKE 'innodb_lock_wait_timeout'`；若读不到合法值则停止事务，不猜测原 session 设置。
+
+先只开启测试 querysafe，保留旧生产代码运行，稳定复现 `It is not safe to do this query`；再应用修复，两驱动各 2278 项通过。新增 10 项：8 种危险 SQL 被官方检查器拒绝、原查询经真实 DB::query 入口被拒绝、SHOW 查询成功。所有房间操作、隔离路由、并发及结果检查都保持 querysafe 开启；测试计数查询也由子查询改为 JOIN，不关闭检查或加白名单。
+
+本轮截止竞争：PDO 有效落子 99 / 超时 101，mysqli 100 / 100；最终状态读取与设置截止时间的最大偏差分别为 131ms / 12ms。该数值含调度与请求耗时，不是锁内裁决时间精度；未声称实机毫秒级验收通过。
 
 ## 基础自测命令
 
@@ -49,11 +58,12 @@ $env:GC_TEST_DRIVER = 'mysqli'
 node tests/gomoku/db-check.mjs
 ```
 
-测试会重建该隔离库中 `gct_gamecenter_room*` 三表，并创建最小 gct_gamecenter_game 供路由测试；不使用正式 pre_ 表。包含真实对局、认输/等待过期、创建限流、会话/组权限前置、POST/formhash 隔离路由检查、拒绝旧单机 start/submit 伪造、并发占座、动作重放与 1213 恢复。隔离路由的会话全局由测试提供，不等同于真实登录态验收。
+测试先运行 querysafe 拦截哨兵，再重建该隔离库中 `gct_gamecenter_room*` 三表，并创建最小 gct_gamecenter_game 供路由测试；不使用正式 pre_ 表。包含真实对局、认输/等待过期、创建限流、会话/组权限前置、POST/formhash 隔离路由检查、拒绝旧单机 start/submit 伪造、并发占座、动作重放与 1213 恢复。隔离路由的会话全局由测试提供，不等同于真实登录态验收。
 
 ## 小蓝本地集成清单
 
 1. 备份现有插件和数据库，执行插件升级入口（见 docs/V1A-GOMOKU.md），确认三张新表均为 InnoDB、已有六表结构及记录不变。升级重复运行不清空数据。
+   已完成 1.2.0 升级的站点，本次只更新候选代码，不增加数据库迁移；以 main `6f9d080` 的 memory 2.0.2 目录为准，核对 8 张 WebP 与大厅图标，清除临时回显异常的调试补丁。
 2. 后台扫描并开放 gomoku。确认单机游戏卡片和日周总榜正常；五子棋显示好友约战及独立结果，不显示无意义的单机排行。
 3. 两个不同账号创建/加入同一房间；第三人不能读取或占第三座；同账号多标签只占一个座位；用户组限制有效。
 4. 完成黑胜、白胜、认输；刷新、关页、重新登录、切后台后可恢复；等待超时和每回合超时由服务端确认。
