@@ -215,7 +215,14 @@
     var flagMode = false;
     var pressTimer = null;
     var pressIndex = -1;
-    var suppressClick = false;
+    /* 本次指针手势是否已用长按插过旗：松手后的 click 必须吞掉。
+       不能用「插旗后固定等 N 毫秒」来抑制——手指按住超过那个时长，
+       松手时的 click 就不在抑制窗口里了，会直接挖到刚插旗的雷。 */
+    var gestureFlagged = false;
+    /* 局次：每次开局 +1，用来丢弃上一局迟到的提交回调。 */
+    var gameNo = 0;
+    /* 首次点开格子后才真正开始计时；之前一律显示 0.00。 */
+    var clockStarted = false;
     var message = '点任意一格开始，第一下周围九格保证没有雷。';
 
     function active() { return phase === 'playing'; }
@@ -223,7 +230,14 @@
     function setStatus(text) { message = text; statusEl.textContent = text; }
 
     function renderHud() {
-      hudTime.textContent = phase === 'playing' ? fmt(performance.now() - startAt) : fmt(endedMs);
+      if (phase === 'playing' && clockStarted) {
+        hudTime.textContent = fmt(performance.now() - startAt);
+      } else if (endedMs > 0) {
+        hudTime.textContent = fmt(endedMs);
+      } else {
+        /* 开局后尚未首点（或刚重开）：固定 0.00，不显示页面打开时长或上一局用时 */
+        hudTime.textContent = fmt(0);
+      }
       hudLeft.textContent = phase === 'ready' || phase === 'starting' ? '—' : (MINES - flagCount);
       hudBest.textContent = api.best == null ? '—' : fmtLong(api.best);
     }
@@ -280,6 +294,7 @@
       stopClock();
       startAt = performance.now();
       endedMs = 0;
+      clockStarted = true;
       ticker = setInterval(function () { hudTime.textContent = fmt(performance.now() - startAt); }, 50);
     }
 
@@ -309,20 +324,26 @@
       root.classList.add('is-win');
       hudTime.textContent = fmt(endedMs);
       setStatus('扫清了！用时 ' + fmtLong(endedMs) + '，正在记录成绩…');
+      /* 提交是异步的：把「哪一局」「本局用时」固定下来，回调时若已经重开，
+         就不能把新局的提示改写成上一局的成绩。 */
+      var submitNo = gameNo;
+      var submitMs = endedMs;
       var promise;
       try {
-        promise = api.submit(info, { v: RULE, score: endedMs, first: firstCell, open: openList.join(',') }, '扫雷完成');
+        promise = api.submit(info, { v: RULE, score: submitMs, first: firstCell, open: openList.join(',') }, '扫雷完成');
       } catch (e) { promise = Promise.reject(e); }
       Promise.resolve(promise).then(function (res) {
+        if (submitNo !== gameNo) { return; }
         if (res && res.ok) {
-          setStatus('完成！用时 ' + fmtLong(endedMs) + '，成绩已记录。');
+          setStatus('完成！用时 ' + fmtLong(submitMs) + '，成绩已记录。');
         } else if (res && res.guest) {
-          setStatus('试玩完成，用时 ' + fmtLong(endedMs) + '；登录后才会记录成绩。');
+          setStatus('试玩完成，用时 ' + fmtLong(submitMs) + '；登录后才会记录成绩。');
         } else {
           setStatus('提交未获确认：' + ((res && res.msg) || '请稍后到「我的纪录」核对。'));
         }
         renderHud();
       }).catch(function () {
+        if (submitNo !== gameNo) { return; }
         setStatus('提交未获确认，请到「我的纪录」核对后重新开局。本局不会重复提交。');
       });
     }
@@ -405,6 +426,7 @@
     function newGame() {
       if (phase === 'starting') { return; }
       stopClock();
+      gameNo++;
       phase = 'starting';
       root.setAttribute('data-phase', 'starting');
       root.classList.remove('is-win');
@@ -416,6 +438,10 @@
       openCount = flagCount = 0;
       firstCell = -1;
       endedMs = 0;
+      clockStarted = false;
+      gestureFlagged = false;
+      pressIndex = -1;
+      if (pressTimer !== null) { clearTimeout(pressTimer); pressTimer = null; }
       submitted = false;
       startBtn.disabled = true;
       startBtn.textContent = '正在开局…';
@@ -478,7 +504,9 @@
     grid.addEventListener('click', function (e) {
       var cell = e.target.closest && e.target.closest('.msw-cell');
       if (!cell) { return; }
-      if (suppressClick) { suppressClick = false; return; }
+      /* 长按插旗后松手会补一个 click，必须吞掉它——否则刚插的旗立刻被挖开。
+         判定绑定在「本次指针手势」上，不依赖固定毫秒窗口。 */
+      if (gestureFlagged) { gestureFlagged = false; return; }
       var i = +cell.getAttribute('data-i');
       if (flagMode || e.shiftKey) { toggleFlag(i); return; }
       dig(i);
@@ -486,6 +514,7 @@
 
     grid.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' || !active()) { return; }
+      gestureFlagged = false;
       var cell = e.target.closest && e.target.closest('.msw-cell');
       if (!cell) { return; }
       pressIndex = +cell.getAttribute('data-i');
@@ -494,8 +523,7 @@
         pressTimer = null;
         if (pressIndex >= 0 && active()) {
           toggleFlag(pressIndex);
-          suppressClick = true;
-          setTimeout(function () { suppressClick = false; }, 700);
+          gestureFlagged = true;
         }
       }, LONG_PRESS);
     });
