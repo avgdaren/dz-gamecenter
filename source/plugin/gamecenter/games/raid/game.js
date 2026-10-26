@@ -5,7 +5,7 @@
   const root=document.createElement('div'); root.className='gcr';
   root.innerHTML=`<div class="gcr-main">
 
-<p class="notice">论坛账号单人挑战或邀请好友合作；每人只控制自己的席位。首领插画暂为轮廓占位。</p>
+<p class="notice">论坛账号单人挑战或邀请好友合作；每人只控制自己的席位。</p>
 <section class="toolbar" aria-label="挑战模式"><button data-gcr="solo" class="primary">独自挑战 · 高难</button><button data-gcr="duo">邀请好友 · 合作</button><button data-gcr="sync" class="quiet">同步状态</button><button data-gcr="sound" class="quiet" aria-pressed="true">音效 开</button><button data-gcr="bgm" class="quiet" aria-pressed="false">BGM 关</button></section><form class="join-form"><label>房间号或邀请链接<input data-gcr="join-code" maxlength="512" autocomplete="off" spellcheck="false"></label><button data-gcr="join" type="submit">加入并开战</button></form><section data-gcr="room-panel" hidden><p data-gcr="room-note"></p><label>邀请链接<input data-gcr="invite" readonly></label><button data-gcr="copy">复制邀请</button><button data-gcr="cancel">取消等待</button><button data-gcr="current">返回当前讨伐</button></section>
 <div data-gcr="message" role="status" aria-live="polite">选择一种模式开始挑战。</div>
 <p data-gcr="connection" class="connection" aria-live="off">正在连接论坛…</p>
@@ -15,7 +15,7 @@
 <p class="turn-help">每轮最多等 25 秒，存活成员全部确认后立即结算；未确认者自动守护自己。撤退无需队友同意。</p>
 <p data-gcr="idle-hint" class="idle-hint" role="status" hidden></p>
 <section class="arena" aria-label="首领与回合预告">
-<div class="boss-art"><img src="source/plugin/gamecenter/games/raid/assets/boss.svg" alt="蚀月魔女 · 幽月（轮廓占位）"><span>轮廓占位 · 轮廓占位 · 正式插画待接入</span></div>
+<div class="boss-art"><img src="source/plugin/gamecenter/games/raid/assets/boss.webp" alt="蚀月魔女 · 幽月"></div>
 <div class="boss-info"><div class="boss-title"><p class="eyebrow" data-gcr="phase"></p><span data-gcr="round"></span></div><h2>蚀月魔女 · 幽月</h2><div class="health-row"><span data-gcr="boss-hp"></span><span data-gcr="mode"></span></div><progress data-gcr="boss-bar" max="130" value="130" aria-label="幽月生命"></progress>
 <div class="forecast"><div class="forecast-title"><h3 data-gcr="preview-name"></h3><span data-gcr="timer" role="timer"></span></div><p data-gcr="preview-text"></p><p data-gcr="weakness"></p></div>
 <p class="boss-line" data-gcr="boss-line">你选择一人面对魔女，还是和伙伴一起挑战魔女？</p></div>

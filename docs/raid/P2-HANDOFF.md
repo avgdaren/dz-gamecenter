@@ -108,3 +108,7 @@ C原图补回后另验：确认就是用户选C，768px方图WebP≤250KB，128p
 用户已在当前会话明确授权写入 `avgdaren/dz-gamecenter`；仓库为私有，连接账号拥有管理/写入权限。[Issue #15](https://github.com/avgdaren/dz-gamecenter/issues/15) 对应分支 `feat/issue-15-raid-p2`。P1 PR #13 尚未合并，P2的PR以 `feat/issue-12-raid-p1` 为base，仅展示本轮增量，待小蓝实机复验；不自动合并main或上线。
 
 远端提交必须以真实GitHub基线 `62bc37536b8078a1584cd72d505d065efc8fe3f5` 为父提交，不使用本地合成基线替换远端历史。本地交付补丁已验证能重建全部候选文件。
+
+## 2026-10-27 · 幽月 C 版素材补充（待小蓝实机复验）
+
+用户再次提供选定的《蚀月魔女·幽月(2).png》。`assets/boss.webp` 是完整原画缩放至 768×768；`icon.webp` 是同图脸部/月饰区域裁切至 128×128。二者的 SHA-256、体积及裁切坐标见 `docs/raid/PR16-YOUYUE-HANDOFF.md`。本次仅替换图像与占位提示，规则/fixture/DB 没有改动。*尚未证明真实论坛页面、缓存刷新及手机 UI 已验收。*

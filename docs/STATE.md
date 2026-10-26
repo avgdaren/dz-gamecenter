@@ -106,3 +106,7 @@
 - P2隔离PDO/mysqli各2822项、DOM/PHP/MariaDB联动182项通过；P1原有442项与2000组差分未回退。详细结果及未验范围见 [P2交接](raid/P2-HANDOFF.md)。
 - 用户已在当前会话明确授权写入本仓库；[Issue #15](https://github.com/avgdaren/dz-gamecenter/issues/15)，分支 `feat/issue-15-raid-p2`。P1 PR #13 尚未合并，P2的PR以 `feat/issue-12-raid-p1` 为base，仅展示P2增量；不自动合并main或部署。
 - 真实Discuz两账号、浏览器布局、手机、实际试听、讨伐容量与完整回退仍待小蓝验收；不把隔离结果视作这些项目通过。
+
+## 2026-10-27 · 幽月 C 版素材补充（待小蓝实机复验）
+
+用户再次提供选定的《蚀月魔女·幽月(2).png》。`assets/boss.webp` 是完整原画缩放至 768×768；`icon.webp` 是同图脸部/月饰区域裁切至 128×128。二者的 SHA-256、体积及裁切坐标见 `docs/raid/PR16-YOUYUE-HANDOFF.md`。本次仅替换图像与占位提示，规则/fixture/DB 没有改动。*尚未证明真实论坛页面、缓存刷新及手机 UI 已验收。*
