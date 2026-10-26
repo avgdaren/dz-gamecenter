@@ -9,7 +9,7 @@
 | 项 | 值 |
 |---|---|
 | 分支 | `main` |
-| 当前已合入基线 | main `ef8d4a3`（PR #7）；初始 tag 为 `baseline-2026-10-26` |
+| 当前已合入基线 | main `741bcfe`（PR #9 企划已合入；插件沿用 PR #7）；初始 tag 为 `baseline-2026-10-26` |
 | 插件版本 | gamecenter **1.2.0**；memory **2.0.2**；gomoku **0.1.0**；保留原作者署名 |
 | 部署路径 | `E:\dzx5-env\www\source\plugin\gamecenter\` |
 | 本地站点 | `http://localhost/plugin.php?id=gamecenter` |
@@ -63,7 +63,8 @@
 - [x] Issue #2 / PR #4 memory 已交付；PR #5 美术/音效及 main `6f9d080` 的 8 位角色牌面/大厅图标已保留。用户确认已打包交管理员；本次不改 memory/snake。
 - [x] **v1a / Issue #6 / PR #7**：候选 `0ee9de8` 经小蓝本地验收后合入 `ef8d4a3`。[验收报告](https://github.com/avgdaren/dz-gamecenter/pull/7#issuecomment-6413129339)记录双人对局、恢复、超时、并发、幂等、权限、触控和旧游戏回归。完整回退未实做，不能写成已通过。
 - [ ] **v1b**：对战积分的可恢复结算、独立排行、长期数据清理；本阶段不发积分。
-- [ ] **下一款 / raid / Issue #8**：《天使讨伐队》明确实现企划候选，单人挑战 / 双人合作；[企划正文](RAID-IMPLEMENTATION-PLAN.md)。当前仅文档及规则演算，P1 可玩样稿尚未实现。
+- [x] **raid 企划 / Issue #8 / PR #9**：企划、数值模型、P1 fixture 与 querysafe 回归已合入 `741bcfe`，小蓝确认 45 项模型检查、6 例逐轮独立复核通过；[企划正文](RAID-IMPLEMENTATION-PLAN.md)。
+- [ ] **raid P1 / Issue #12**：纯 PHP 规则与单／双席位本机可玩样稿已交候选，见 [P1 自测与试玩说明](../tests/raid/README.md)。规则 442 项、2000 组差分、HTTP 192 项、前台状态 66 项通过；浏览器画面／触控／真人难度待小蓝验收。无数据库升级，尚未接入论坛联机。
 
 ---
 
@@ -77,8 +78,8 @@
 - 用户已按“单人比双人难 2–3 个点”定案；据 [PR #9 数值留言](https://github.com/avgdaren/dz-gamecenter/pull/9#issuecomment-6418945175)固定 P1 为单人首领 120/恢复 3、双人首领 130/每人恢复 2，其他基础数值不变。规则版本 `raid-v1-p1-balanced`，数值不再待拍板，真人体验仍待 P1。
 - 离线模型 45 项通过，已定单人有 574 条通关序列，最早 14 轮；所测稳健策略 16 轮胜、剩 14。双人掩护 6 轮胜、19/22、恢复未用。只证明模型，不代表真人胜率或实际手感。
 - [P1-REFERENCE.json](raid/P1-REFERENCE.json) 已提供 6 例逐轮预告/动作/血量/恢复/破绽，供 PHP 对照。原版 18 条及上一候选 43 条保留历史比较。
-- PR #9 五项工程意见已处理，3 项官方 querysafe 检查此前通过。历史采用两条索引查询后 PHP 合并；[审阅处理与定案](raid/REVIEW-RESPONSE-PR9.md)。企划 v0.3 仍仅文档及规划脚本，P1 游戏代码尚未开工。
-- raid 的三张新表、服务器接口、可玩界面、最终插画、真人难度与新容量均待对应阶段实现/验收。main 不直接写入候选企划。
+- PR #9 五项工程意见已处理，3 项官方 querysafe 检查此前通过。历史采用两条索引查询后 PHP 合并；[审阅处理与定案](raid/REVIEW-RESPONSE-PR9.md)。企划 v0.3 已通过并合入；P1 规则及本机样稿候选见上方 Issue #12，真实论坛服务仍待 P2。
+- raid 的 PHP 规则和本机可玩界面已交 P1 候选；三张新表、论坛接口、最终插画、真人难度与新容量仍待对应阶段实现/验收。P1 样稿不作为已发布游戏，不修改插件版本或上架大厅。
 
 ---
 

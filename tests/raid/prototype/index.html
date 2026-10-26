@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- 作者：GPT / Codex；原插件版权 (C) 2026 Carinoasd。P1 本机模拟，私有自用。 -->
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>天使讨伐队 · 战斗样稿</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body><main>
+<header class="masthead"><div><p class="eyebrow">天使动漫 · P1 战斗样稿</p><h1>天使讨伐队 <span>蚀月之庭</span></h1></div><button id="theme" class="quiet">切换深浅色</button></header>
+<p class="notice">本机试玩：单人挑战，或由你操控两个席位模拟配合。首领图为轮廓占位；本局不记录论坛成绩。</p>
+<section class="toolbar" aria-label="挑战模式"><button id="solo" class="primary">独自挑战 · 高难</button><button id="duo">双席位模拟 · 合作</button><button id="sync" class="quiet">同步状态</button></section>
+<div id="message" role="status" aria-live="polite">正在连接本机样稿…</div>
+<div id="retry-box" hidden><p>上一次操作的结果尚未确认。重试会沿用同一请求，不会重复扣恢复次数。</p><button id="retry">重试上次操作</button></div>
+<div id="empty" class="empty"><span>☾</span><h2>月光下的守卫，正在等待挑战者</h2><p>每轮先看预告，再选择攻击、守护或恢复。重击后抓住破绽，是胜负的关键。</p></div>
+<div id="battle" hidden>
+<section class="arena" aria-label="首领与回合预告">
+<div class="boss-art"><img src="/boss.svg" alt="蚀月守卫轮廓占位图"><span>轮廓占位 · 最终插画待制作</span></div>
+<div class="boss-info"><div class="boss-title"><p class="eyebrow" id="phase"></p><span id="round"></span></div><h2>蚀月守卫</h2><div class="health-row"><span id="boss-hp"></span><span id="mode"></span></div><progress id="boss-bar" max="130" value="130" aria-label="首领生命"></progress>
+<div class="forecast"><div class="forecast-title"><h3 id="preview-name"></h3><span id="timer" role="timer"></span></div><p id="preview-text"></p><p id="weakness"></p></div>
+<p class="boss-line" id="boss-line">「越过这轮月光，让我看见你们的默契。」</p></div>
+</section>
+<section id="result" class="result" hidden aria-live="polite"><h2 id="result-title"></h2><p id="result-text"></p></section>
+<section id="players" class="players" aria-label="玩家行动"></section>
+<section class="simulation"><h3>试玩辅助</h3><p>未确认的行动在截止时自动变为“守护自己”。模拟离线仍按原截止时间追算。</p><div><button id="advance" class="quiet">跳到本轮截止</button><button id="offline" class="quiet">模拟离线 400 秒</button></div></section>
+<section class="journal"><h3>战斗记录 <span id="log-count"></span></h3><ol id="logs" reversed></ol></section>
+</div>
+<details class="rules"><summary>第一次挑战？展开规则</summary><div><p>每人生命 40。攻击造成 10 伤害；恢复为自己或队友治疗 28，最多回到 40。单人可恢复 3 次，双人各 2 次。</p><p>守护可以保护自己或队友：对目标本轮的伤害降至五分之一并向上取整，不叠加。守护队友时，你自己不会同时受保护。</p><p>首领依次使用月刃、全体星潮、重击、回气。成功守护重击并存活，下一轮回气时攻击造成 20 伤害。半血后的预告更强。</p><p>每轮确认后不能修改；双方存活席位全部确认即结算，否则等待 25 秒。玩家先于首领行动，第 16 轮结束时首领仍存活则失败。双人有人倒地后，另一人可以继续，但不会降低首领数值。</p><p>尝试自己找出打法；失败后可从记录中查看原因，再挑战一次。</p></div></details>
+<footer>规则 raid-v1-p1-balanced · 玩法与难度待试玩确认</footer>
+</main></body></html>
