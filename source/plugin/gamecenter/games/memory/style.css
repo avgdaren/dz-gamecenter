@@ -117,11 +117,22 @@
 /* 正面（颜色由 .gcm-card[data-symbol] 继承，勿在此设 color） */
 .gcm .gcm-front {
   transform: rotateY(180deg);
-  background: linear-gradient(165deg, #ffffff 0%, #f7fbff 100%);
+  background: #fff;
   border: 1px solid #d9e6f2;
   box-shadow: inset 0 1px 0 #fff, 0 2px 6px rgba(40, 80, 110, .07);
+  overflow: hidden;
+  padding: 4px;
 }
-.gcm .gcm-front svg { width: 62%; height: 62%; }
+.gcm .gcm-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: inherit;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
 
 /* 每个图案的主色 */
 .gcm .gcm-card[data-symbol="0"] { color: #d99a2b; }
