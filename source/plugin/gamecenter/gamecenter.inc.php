@@ -53,7 +53,7 @@ if($gc_op !== '') {
 		echo gamecenter_view::boards($gc_game, 10);
 		exit;
 	}
-	if(!in_array($gc_op, ['start', 'submit'], true)) {
+	if(!in_array($gc_op, ['start', 'submit', 'room'], true)) {
 		$gc_json(['ok' => 0, 'msg' => '未知操作']);
 	}
 	if($_SERVER['REQUEST_METHOD'] !== 'POST' || (string)getgpc('formhash', 'P') !== formhash()) {
@@ -62,6 +62,13 @@ if($gc_op !== '') {
 	if(!$gc_game) {
 		$gc_json(['ok' => 0, 'msg' => '这个游戏不存在或尚未开放']);
 	}
+	// 五子棋有独立的服务端房间状态，不接受伪造的单机开局/成绩。
+	if($gc_op === 'room') {
+		if($gc_game['gkey'] !== 'gomoku') { $gc_json(['ok'=>0,'msg'=>'这个游戏不支持房间']); }
+		require_once __DIR__.'/lib/room.php';
+		$gc_json((new gamecenter_room())->request((int)$_G['uid'], (string)($_G['username'] ?? ''), gamecenter_core::can_play() === '', $_POST));
+	}
+	if($gc_game['gkey'] === 'gomoku') { $gc_json(['ok'=>0,'msg'=>'请通过房间进行五子棋对局']); }
 	if($gc_op === 'start') {
 		$gc_json(gamecenter_core::start($gc_game));
 	}
@@ -76,6 +83,7 @@ if($gc_op !== '') {
 }
 
 // ---------- 頁面 ----------
+if($gc_game && $gc_game['gkey'] === 'gomoku' && $gc_mod === 'rank') { $gc_mod = 'play'; }
 gamecenter_core::settle_weeks();
 $gc_title = '游戏中心';
 $gc_crumb = [];
