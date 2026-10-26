@@ -1,0 +1,28 @@
+# 凭据与运行时
+*.log
+*.token
+*.dpapi
+.secrets/
+.env
+config/config_global.php
+config/config_ucenter.php
+
+# 运行时 / 数据
+data/
+tmp/
+cache/
+*.sqlite
+*.sqlite3
+*.db
+
+# 编辑器与系统
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# 本地部署备份
+_backup/
+*.bak
+*.bak-*

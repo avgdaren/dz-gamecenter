@@ -1,0 +1,10 @@
+<?php exit('Access Denied'); /* 遊戲中心 gamecenter — 電腦版外殼 · (C) 2026 Carinoasd */ ?>
+<!--{template common/header}-->
+<link rel="stylesheet" href="{$gc_css}">
+<div id="pt" class="bm cl">
+	<div class="z"><a href="./" class="nvhm" title="{lang homepage}">{$_G['setting']['bbname']}</a><em>&raquo;</em><a href="plugin.php?id=gamecenter">游戏中心</a><!--{loop $gc_crumb $gc_c}--><em>&raquo;</em><!--{if $gc_c[1]}--><a href="{$gc_c[1]}">{echo dhtmlspecialchars($gc_c[0])}</a><!--{else}-->{echo dhtmlspecialchars($gc_c[0])}<!--{/if}--><!--{/loop}--></div>
+</div>
+<div id="ct" class="wp cl">
+<!--{echo $gc_html}-->
+</div>
+<!--{template common/footer}-->

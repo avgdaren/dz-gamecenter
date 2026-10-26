@@ -1,0 +1,31 @@
+{
+ "Title": "Discuz! Plugin",
+ "Data": {
+  "plugin": {
+   "available": "1",
+   "adminid": "0",
+   "name": "游戏中心",
+   "identifier": "gamecenter",
+   "description": "論壇小遊戲平台：用論壇帳號直接玩、日榜／週榜／總榜、每局積分獎勵與週榜獎勵、伺服器重播校驗成績。內建贪食蛇；新遊戲放進 games/ 資料夾即可接入。作者 Carinoasd。",
+   "datatables": "gamecenter_game,gamecenter_session,gamecenter_play,gamecenter_best,gamecenter_reward,gamecenter_settle",
+   "directory": "gamecenter/",
+   "copyright": "游戏中心 gamecenter · (C) 2026 Carinoasd",
+   "version": "1.1.0",
+   "__modules": [
+    {"name": "gamecenter", "menu": "游戏中心", "url": "plugin.php?id=gamecenter", "type": "1", "adminid": "0", "displayorder": "0"},
+    {"name": "admincp", "menu": "遊戲管理", "url": "", "type": "3", "adminid": "1", "displayorder": "0"}
+   ]
+  },
+  "version": "X5.0",
+  "installfile": "install.php",
+  "uninstallfile": "uninstall.php",
+  "upgradefile": "upgrade.php",
+  "var": [
+   {"displayorder": "0", "title": "只允許指定用戶組參加排行", "description": "選「否」＝所有登入會員都能玩並記成績。選「是」才套用下面的用戶組。", "variable": "limitplay", "type": "radio", "extra": "", "value": "0"},
+   {"displayorder": "1", "title": "可參加排行的用戶組", "description": "上面選「是」才生效。不在名單裡的會員只能試玩（不記成績、不發獎勵）。", "variable": "playgroups", "type": "groups", "extra": "", "value": ""},
+   {"displayorder": "2", "title": "排除領獎的用戶組", "description": "選「是」才套用下面的用戶組：這些組照樣記成績、上排行，但每局獎勵與週榜獎勵都不發。", "variable": "noreward_on", "type": "radio", "extra": "", "value": "1"},
+   {"displayorder": "3", "title": "不發獎勵的用戶組", "description": "例如禁止發言、禁止訪問。", "variable": "noreward", "type": "groups", "extra": "", "value": "a:3:{i:0;s:1:\"4\";i:1;s:1:\"5\";i:2;s:1:\"6\";}"}
+  ],
+  "intro": "游戏中心（gamecenter）v1.1.0　作者：Carinoasd\n\n論壇小遊戲平台。帳號就是論壇帳號（不另外註冊），遊客只能試玩。每款遊戲有日榜、週榜、總榜；後台可為每款遊戲設定每局積分獎勵（每 N 分 1 點、單局上限、每日上限）與週榜前幾名獎勵（下一週自動結算、發站內提醒）。\n\n防作弊：開局由伺服器發一次性憑證與亂數種子；有 verify.php 的遊戲（例如內建贪食蛇）由伺服器重播玩家操作算出分數，並檢查遊戲花的時間。\n\n接新遊戲：在 games/<識別碼>/ 放 game.json＋game.js（要伺服器校驗再加 verify.php），後台「遊戲管理」按「重新掃描」即可。寫法見 DEVELOP.md 與 games/_example 範例。\n\n建六張自有表，不修改任何模板檔與核心檔。\n\n(C) 2026 Carinoasd"
+ }
+}

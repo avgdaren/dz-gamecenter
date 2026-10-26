@@ -1,0 +1,12 @@
+<?php exit('Access Denied'); /* 遊戲中心 gamecenter — 手機版外殼 · (C) 2026 Carinoasd */ ?>
+<!--{template common/header}-->
+<link rel="stylesheet" href="{$gc_css}">
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{echo dhtmlspecialchars($gc_title)}</h2>
+	<div class="my"><a href="plugin.php?id=gamecenter"><i class="dm-house"></i></a></div>
+</div>
+<div class="gc-touch">
+<!--{echo $gc_html}-->
+</div>
+<!--{template common/footer}-->
