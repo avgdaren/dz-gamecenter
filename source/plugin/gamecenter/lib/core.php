@@ -184,6 +184,7 @@ class gamecenter_core {
 	/* ---------- 開局 ---------- */
 
 	public static function start($game) {
+		if($game['gkey'] === 'raid') { return ['ok'=>0,'msg'=>'请通过讨伐房间开始挑战']; }
 		global $_G;
 		$uid = (int)$_G['uid'];
 		$seed = random_int(1, 2147483646);
@@ -216,6 +217,7 @@ class gamecenter_core {
 	 * 回傳給前台的結果：ok、score、best、newbest、rank（週榜名次）、reward、msg。
 	 */
 	public static function submit($game, $token, array $data) {
+		if($game['gkey'] === 'raid') { return ['ok'=>0,'msg'=>'讨伐结果由服务器独立保存，不接受单机成绩']; }
 		global $_G;
 		$uid = (int)$_G['uid'];
 		if(($why = self::can_play()) !== '') {
@@ -406,6 +408,7 @@ class gamecenter_core {
 
 	/** 週榜獎勵設定「100,50,30」→ [100, 50, 30]。 */
 	public static function week_rewards($game) {
+		if($game['gkey'] === 'raid') { return []; }
 		$out = [];
 		foreach(preg_split('/[,，\s]+/u', (string)$game['weekrewards'], -1, PREG_SPLIT_NO_EMPTY) as $x) {
 			$x = (int)$x;

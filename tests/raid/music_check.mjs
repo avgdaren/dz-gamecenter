@@ -1,6 +1,7 @@
 /** 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。音乐偏好、手势与隐藏生命周期测试。 */
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
-const code=fs.readFileSync(new URL('./prototype/music.js',import.meta.url),'utf8');
+const forum=process.argv[2] === 'forum';
+const code=fs.readFileSync(new URL(forum ? '../../source/plugin/gamecenter/games/raid/music.js' : './prototype/music.js',import.meta.url),'utf8');
 let checks=0;const check=(yes,name)=>{assert.ok(yes,name);checks++;};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 function setup(saved=false){
@@ -14,7 +15,7 @@ function setup(saved=false){
   const {music,audios,storage,document,listeners,others}=setup();
   music.setActive(true);check(!music.on&&audios.length===0,'default-off creates no media element or fetch');
   music.toggle();await flush();check(audios.length===1&&!audios[0].paused&&storage.get('gcr_bgm')==='1','explicit gesture enables music');
-  check(audios[0].src==='/assets/battle.mp3'&&audios[0].loop&&audios[0].volume===.1&&audios[0].preload==='none','local low-volume loop only');
+  check(audios[0].src===(forum ? 'source/plugin/gamecenter/games/raid/assets/battle.mp3' : '/assets/battle.mp3')&&audios[0].loop&&audios[0].volume===.1&&audios[0].preload==='none','local low-volume loop only');
   for(let i=0;i<10;i++)music.gesture();await flush();check(audios.length===1&&audios[0].plays===1,'reuse one playing element, no overlap');
   listeners.play({target:{paused:false,muted:true,volume:1}});check(!audios[0].paused,'muted page media does not interrupt BGM');
   document.hidden=true;music.sync();check(audios[0].paused,'hidden pauses music');

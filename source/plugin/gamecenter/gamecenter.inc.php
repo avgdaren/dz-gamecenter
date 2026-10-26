@@ -46,6 +46,7 @@ if($gc_op !== '') {
 		if(!$gc_game) {
 			exit;
 		}
+		if($gc_game['gkey'] === 'raid') { exit('讨伐结果保存在游戏内的最近讨伐。'); }
 		while(ob_get_level()) {
 			@ob_end_clean();
 		}
@@ -53,7 +54,7 @@ if($gc_op !== '') {
 		echo gamecenter_view::boards($gc_game, 10);
 		exit;
 	}
-	if(!in_array($gc_op, ['start', 'submit', 'room'], true)) {
+	if(!in_array($gc_op, ['start', 'submit', 'room', 'raid'], true)) {
 		$gc_json(['ok' => 0, 'msg' => '未知操作']);
 	}
 	if($_SERVER['REQUEST_METHOD'] !== 'POST' || (string)getgpc('formhash', 'P') !== formhash()) {
@@ -62,6 +63,12 @@ if($gc_op !== '') {
 	if(!$gc_game) {
 		$gc_json(['ok' => 0, 'msg' => '这个游戏不存在或尚未开放']);
 	}
+	if($gc_op === 'raid') {
+		if($gc_game['gkey'] !== 'raid') { $gc_json(['ok'=>0,'msg'=>'这个游戏不支持讨伐']); }
+		require_once __DIR__.'/lib/raid.php';
+		$gc_json((new gamecenter_raid())->request((int)$_G['uid'], (string)($_G['username'] ?? ''), gamecenter_core::can_play() === '', $_POST));
+	}
+	if($gc_game['gkey'] === 'raid') { $gc_json(['ok'=>0,'msg'=>'请通过讨伐房间开始挑战；本游戏独立记录，不发积分']); }
 	// 五子棋有独立的服务端房间状态，不接受伪造的单机开局/成绩。
 	if($gc_op === 'room') {
 		if($gc_game['gkey'] !== 'gomoku') { $gc_json(['ok'=>0,'msg'=>'这个游戏不支持房间']); }
@@ -83,7 +90,7 @@ if($gc_op !== '') {
 }
 
 // ---------- 頁面 ----------
-if($gc_game && $gc_game['gkey'] === 'gomoku' && $gc_mod === 'rank') { $gc_mod = 'play'; }
+if($gc_game && in_array($gc_game['gkey'], ['gomoku','raid'], true) && $gc_mod === 'rank') { $gc_mod = 'play'; }
 gamecenter_core::settle_weeks();
 $gc_title = '游戏中心';
 $gc_crumb = [];

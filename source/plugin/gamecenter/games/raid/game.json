@@ -1,0 +1,13 @@
+{
+  "name": "天使讨伐队",
+  "intro": "独自面对蚀月魔女 · 幽月，或邀请好友合作挑战。",
+  "help": "先看预告，再选择攻击、守护或恢复。每轮最多25秒，存活成员确认齐后立即结算。单人120生命/3次恢复；双人130生命/各2次恢复。首版独立记录，不发积分。",
+  "version": "0.1.0",
+  "author": "GPT / Codex（原插件 Carinoasd）",
+  "order": "desc",
+  "unit": "次",
+  "script": "game.js",
+  "style": "style.css",
+  "icon": "icon.svg",
+  "displayorder": 40
+}

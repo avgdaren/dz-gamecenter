@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-const source=fs.readFileSync(new URL('./prototype/feedback.js',import.meta.url),'utf8');
+const source=fs.readFileSync(new URL(process.argv[2] === 'forum' ? '../../source/plugin/gamecenter/games/raid/feedback.js' : './prototype/feedback.js',import.meta.url),'utf8');
 let checks=0;
 function check(yes,name){assert.ok(yes,name);checks++;}
 function setup({muted=false,unsupported=false,blocked=false}={}) {
