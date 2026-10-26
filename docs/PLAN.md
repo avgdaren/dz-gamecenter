@@ -135,7 +135,7 @@ v0 与 v1a 已跑通单机及回合制联机基础，后续重点进入玩法和
 
 已确认产品方向：推荐双人合作，单人可以极难通关；以一只首领、攻击/守护/恢复三类行动和有限恢复资源形成玩法。首领行为由确定规则控制，不依赖大模型；原“AI 对手”排除项针对五子棋 AI 棋手，不禁止本款游戏的脚本首领。
 
-实现企划见 [RAID-IMPLEMENTATION-PLAN.md](RAID-IMPLEMENTATION-PLAN.md)，规划任务 [Issue #8](https://github.com/avgdaren/dz-gamecenter/issues/8)。数值、协议和工程细则为企划候选；当前仅交付文档与离线演算，游戏未实现，数据库未升级。
+实现企划见 [RAID-IMPLEMENTATION-PLAN.md](RAID-IMPLEMENTATION-PLAN.md)，规划任务 [Issue #8](https://github.com/avgdaren/dz-gamecenter/issues/8)。数值、协议和工程细则为企划候选；v0.2 根据 PR #9 回执补上策略/变体演算与技术细节，P1 推荐单人 3 次恢复、双人仍每人 2 次；最终难度尚未由用户确认。当前仅交付文档与离线演算，游戏未实现，数据库未升级。
 
 执行顺序：P0 明确企划 → P1 可玩规则样稿 → P2 论坛联机 → P3 一张首领插画及体验完善 → P4 绑定提交实机验收。最终插画建立在可玩样稿确认之后；本阶段不扩展职业、装备、经济、地图或实时动作。
 
