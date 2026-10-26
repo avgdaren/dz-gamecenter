@@ -6,17 +6,26 @@ const source=fs.readFileSync(new URL('./prototype/feedback.js',import.meta.url),
 let checks=0;
 function check(yes,name){assert.ok(yes,name);checks++;}
 function setup({muted=false,unsupported=false,blocked=false}={}) {
-  const values=new Map(muted?[['gcm_sound','0']]:[]), nodes=[], contexts=[];
+  const values=new Map(muted?[['gcm_sound','0']]:[]), nodes=[], contexts=[], processors=[];
   const doc={hidden:false};
+  const param=()=>({value:0,setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}});
+  const processor=type=>{const p={type,disconnects:0,connect(){},disconnect(){this.disconnects++;}};processors.push(p);return p;};
+  const sourceNode=()=>{const n={disconnects:0,stops:[],type:'',frequency:param(),connect(){},disconnect(){this.disconnects++;},start(){},stop(at){this.stops.push(at);}};nodes.push(n);return n;};
   class AC {
-    constructor(){this.state=blocked?'suspended':'running';this.currentTime=0;this.destination={};contexts.push(this);}
+    constructor(){this.state=blocked?'suspended':'running';this.currentTime=0;this.sampleRate=44100;this.destination={};contexts.push(this);}
     resume(){return blocked?Promise.reject(new Error('autoplay denied')):Promise.resolve();}
-    createOscillator(){const n={disconnects:0,stops:[],type:'',frequency:{setValueAtTime(){}},connect(){},disconnect(){this.disconnects++;},start(){},stop(at){this.stops.push(at);}};nodes.push(n);return n;}
-    createGain(){return {gain:{setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){},disconnect(){}};}
+    createOscillator(){return sourceNode();}
+    createBufferSource(){const n=sourceNode();n.buffer=null;return n;}
+    createGain(){return {...processor('gain'),gain:param()};}
+    createDynamicsCompressor(){return {...processor('limiter'),threshold:param(),knee:param(),ratio:param(),attack:param(),release:param()};}
+    createBuffer(_,length){return {getChannelData:()=>new Float32Array(length)};}
+    createBiquadFilter(){return {...processor('filter'),frequency:param(),Q:param()};}
+    createWaveShaper(){return processor('shaper');}
+    createDelay(){return {...processor('delay'),delayTime:param()};}
   }
   const context={window:{localStorage:{getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)},AudioContext:unsupported?undefined:AC},document:doc};
   vm.runInNewContext(source,context);
-  return {fx:new context.RaidFeedback(),Class:context.RaidFeedback,doc,values,nodes,contexts};
+  return {fx:new context.RaidFeedback(),Class:context.RaidFeedback,doc,values,nodes,contexts,processors};
 }
 const state=(overrides={})=>({mode:'solo',status:1,round_no:1,boss:120,hp:[40],pots:[3],left:[false],intents:[null],exposed:false,history:[],preview:{kind:0,phase:1,targets:[0],damage:8},...overrides});
 function after(before,{heals=[0],hp=[32],boss=110,defaults=[],actions=[{kind:'attack',target:-1}],exposed=false,status=1,phase=1}={}){
@@ -25,11 +34,14 @@ function after(before,{heals=[0],hp=[32],boss=110,defaults=[],actions=[{kind:'at
     history:[...before.history,row],preview:{kind:before.round_no%4,phase,targets:[0],damage:8}};
 }
 {
-  const {fx,values,nodes,contexts,doc}=setup();
+  const {fx,values,nodes,contexts,doc,processors}=setup();
   check(fx.on,'default sound preference matches existing games');
   fx.play(['attack']);check(nodes.length===0 && contexts.length===0,'no audio context before user gesture unlock');
   check(fx.unlock() && contexts.length===1,'gesture initializes audio');
   fx.play(['attack','hurt','guard','heal','phase']);check(nodes.length>0 && fx.voices.size<=24,'cues scheduled within voice limit');
+  check(processors.some(p=>p.type==='shaper')&&processors.some(p=>p.type==='filter')&&nodes.some(p=>p.buffer),'aggressive cues include distortion, filtering and noise');
+  check(processors.some(p=>p.type==='limiter')&&processors.some(p=>p.type==='delay'),'peak limiting and short phase echo exist');
+  check(nodes.every(p=>p.stops[0]<=.3),'complete layered cues are at most 300ms');
   for(let i=0;i<100;i++)fx.play(['win']);check(fx.voices.size<=24,'repeated playback cannot allocate unbounded voices');
   const voice=[...fx.voices][0];voice.osc.onended();check(!fx.voices.has(voice) && voice.osc.disconnects>0,'ended voices disconnect and release');
   fx.toggle();check(values.get('gcm_sound')==='0' && fx.voices.size===0,'mute persists and stops scheduled voices');
@@ -43,6 +55,14 @@ function after(before,{heals=[0],hp=[32],boss=110,defaults=[],actions=[{kind:'at
   check(!setup({unsupported:true}).fx.unlock(),'unsupported audio is harmless');
   const blocked=setup({blocked:true});blocked.fx.unlock();blocked.fx.play(['attack']);
   await Promise.resolve();check(blocked.nodes.length===0,'rejected autoplay does not affect game or schedule audio');
+}
+for(const cue of ['attack','hurt','guard','heal','exposed','phase','win','lose','timeout']) {
+  const {fx,nodes}=setup();fx.unlock();fx.play([cue]);
+  check(nodes.length>0 && nodes.every(n=>n.stops[0]<=.3),cue+' complete cue within 300ms');
+  if(cue==='win'||cue==='lose') check(nodes.length===3,cue+' short three-note motif');
+}
+{
+  const {fx}=setup();fx.unlock();check([...fx.curve].every(x=>Number.isFinite(x)&&Math.abs(x)<=.801),'distortion curve stays bounded');
 }
 {
   const {fx}=setup();const initial=state();fx.observe(initial,1);

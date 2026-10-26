@@ -48,10 +48,14 @@ with tempfile.TemporaryDirectory(prefix='raid-p1-http-') as sessions:
         else:
             raise AssertionError('PHP server failed to start')
         check(current['snapshot'] is None, 'fresh session empty')
-        for path in ['/', '/app.js', '/feedback.js', '/style.css', '/boss.svg']:
+        for path in ['/', '/app.js', '/feedback.js', '/music.js', '/style.css', '/boss.svg', '/assets/battle.mp3']:
             with client.open(base+path) as response:
                 check(response.status == 200 and len(response.read()) > 100, 'static '+path)
                 check("default-src 'self'" in response.headers['Content-Security-Policy'], 'local resource CSP')
+        music_request=urllib.request.Request(base+'/assets/battle.mp3',headers={'Range':'bytes=0-63'})
+        with client.open(music_request) as response:
+            check(response.status==206 and len(response.read())==64,'music supports byte ranges')
+            check(response.headers['Content-Type']=='audio/mpeg','music correct MIME')
         for path in ['/source/plugin/gamecenter/lib/raid_rules.php', '/../docs/STATE.md']:
             try:
                 client.open(base+path)

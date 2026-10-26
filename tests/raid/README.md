@@ -2,7 +2,7 @@
 
 作者：GPT / Codex；2026-10-26。原插件版权 (C) 2026 Carinoasd，保留署名。私有自用。
 
-对应 Issue #12，基于已合并的企划 PR #9 / main `741bcfe`。规则固定为 `raid-v1-p1-balanced`：单人首领 120、恢复 3 次；双人 130、每席 2 次。
+对应 Issue #12，基于已合并的企划 PR #9 / main `741bcfe`。首领定名为 **蚀月魔女 · 幽月**。规则固定为 `raid-v1-p1-balanced`：单人首领 120、恢复 3 次；双人 130、每席 2 次。
 
 **这是可以点击操作、由真实 PHP 结算的本机样稿。双席位由一个人分别操控，用于判断配合与可读性；不是已完成的论坛联机。** 本阶段无数据库、无积分，不修改插件版本，不上架大厅。仅 `lib/raid_rules.php` 是未来 P2 使用的纯规则；其余原型运行代码都在 `tests/raid/`，不要复制到线上站点。
 
@@ -26,7 +26,7 @@ python3 tests/raid/serve.py --php php
 
 启动器在系统临时目录创建独立 session 存储，关闭服务时清理；不会向源码树写用户状态。Ctrl+C 关闭即可回退，无插件部署、数据库迁移或卸载动作。保持终端开启；不要绑定公网地址、放到线上 nginx 或把它当正式 API。
 
-路由仅在 PHP 内置开发服务器运行，且只接受回环访问、正确 Host 与同源请求。仅公开五个静态资源和本机 `/api`，不会代理仓库文件。每个浏览器 session 独立；复制网址到另一个浏览器不会加入同一战斗。两个标签共享同一 session，适合刷新／重复提交测试，不等于两个论坛账号。
+路由仅在 PHP 内置开发服务器运行，且只接受回环访问、正确 Host 与同源请求。仅公开七个静态资源和本机 `/api`，不会代理仓库文件。MP3支持字节Range请求，供浏览器本地播放与循环读取。每个浏览器 session 独立；复制网址到另一个浏览器不会加入同一战斗。两个标签共享同一 session，适合刷新／重复提交测试，不等于两个论坛账号。
 
 ## 玩法与试玩顺序
 
@@ -39,7 +39,7 @@ python3 tests/raid/serve.py --php php
 7. 试刷新、关闭再打开、首次连接失败重试。操作响应丢失时，保留未确认请求，禁用新命令；“重试上次操作”沿用原 ID。浏览器 sessionStorage 可用时，刷新后仍能重试；不可用时只保证当前页面内重试。
 8. 单人撤退立即失败；双人撤退需确认，锁定的动作保留，否则守护自己，本轮结束后离场。最后一击先于首领和回合后离场，获胜轮取消未发生的离场；这条边界已单独测试。
 
-界面有浅色／深色、320px 起的响应式布局、键盘原生按钮与表单、状态播报、减少动态效果支持。小蓝已对 `a4f1225` 完成真实 Chromium 逐轮操作、1280/390/320 视口无横向溢出、深浅色、刷新与截止检查；[验收回执](https://github.com/avgdaren/dz-gamecenter/pull/13#issuecomment-6420781736)。视口模拟和指针事件不等同于真机触控，按 fixture 操作不等同于盲玩。图像是本地 SVG 轮廓占位，不是最终插画，也没有引入新主角设计。
+界面有浅色／深色、320px 起的响应式布局、键盘原生按钮与表单、状态播报、减少动态效果支持。小蓝已对 `a4f1225` 完成真实 Chromium 逐轮操作、1280/390/320 视口无横向溢出、深浅色、刷新与截止检查；[验收回执](https://github.com/avgdaren/dz-gamecenter/pull/13#issuecomment-6420781736)。视口模拟和指针事件不等同于真机触控，按 fixture 操作不等同于盲玩。图像是本地 SVG 轮廓占位，不是最终插画，也没有引入可操控新主角。
 
 ### 状态栏文案修复（2026-10-27）
 
@@ -51,7 +51,7 @@ python3 tests/raid/serve.py --php php
 
 ### P1 收尾：等待说明、音效与受击反馈（2026-10-27）
 
-用户随后确认 `0b9220c` 状态栏修复及回归通过，认可基础玩法，并提出联机等待、反派角色和表现不足三条反馈；[反馈与自然截止实测](https://github.com/avgdaren/dz-gamecenter/pull/13#issuecomment-6421600754)。处理决定与“蚀月魔女·弥夜”角色设定候选见 [反馈处理文档](../../docs/raid/P1-PLAYTEST-RESPONSE.md)，P3 画图前再确认方向。
+用户随后确认 `0b9220c` 状态栏修复及回归通过，认可基础玩法，并提出联机等待、反派角色和表现不足三条反馈；[反馈与自然截止实测](https://github.com/avgdaren/dz-gamecenter/pull/13#issuecomment-6421600754)。处理决定及幽月定名、台词见 [反馈处理文档](../../docs/raid/P1-PLAYTEST-RESPONSE.md)；四张立绘已生成，待选稿后精修。
 
 本次在 P1 补足表现：音效开关采用与现有游戏相同的 `gcm_sound` 键；P1 独立本机端口与论坛不同源时各自保存，不跨源同步，P2 在论坛同源中可直接沿用。首次用户操作才解锁本地 Web Audio，新增攻击、受伤、守护、恢复、破绽、阶段、胜负及截止短音。即时数字与文字摘要分别显示有效治疗和实际扣血，守护、破绽、血条变化有轻反馈。减少动态效果时关闭飘字和位移，保留文字、数值与静态破绽提示；音效可独立关闭。
 
@@ -79,10 +79,12 @@ php -n -l source/plugin/gamecenter/lib/raid_rules.php
 php -n -l tests/raid/prototype/router.php
 node --check tests/raid/prototype/app.js
 node --check tests/raid/prototype/feedback.js
+node --check tests/raid/prototype/music.js
 php -n tests/raid/rules.php
 python3 tests/raid/differential.py
 python3 tests/raid/http_check.py
 node tests/raid/feedback_check.mjs
+node tests/raid/music_check.mjs
 node tests/raid/front_check.mjs
 ```
 
@@ -94,6 +96,7 @@ $env:PHP_BIN = 'E:\dzx5-env\php\php.exe'
 python tests/raid/differential.py
 python tests/raid/http_check.py
 node tests/raid/feedback_check.mjs
+node tests/raid/music_check.mjs
 node tests/raid/front_check.mjs
 ```
 
@@ -103,9 +106,10 @@ node tests/raid/front_check.mjs
 | --- | --- |
 | 纯 PHP 规则 | 442 项断言；含 6 个固定用例共 68 轮逐字段对照、非法输入、阶段、守护不叠加、同时恢复、最后一击、倒地、撤退、截止与 JSON 字节预算 |
 | Python ↔ PHP 差分 | 固定随机种子 20261026，2000 个单／双人合法与非法路径、23596 个已结算回合逐字段一致 |
-| 真实 HTTP / session | 194 项检查；六个 fixture 走真实 PHP HTTP 仍逐轮一致；确认重放、指纹冲突、旧局、旧轮、静态表现脚本、无权限文件路径与外来 Origin 拒绝 |
-| 前台状态 | 97 项检查、52 次 POST；真实 app.js / feedback.js + 仓库 DOM 子集 + 真实 PHP HTTP；完整单／双人胜利、响应丢失／刷新后同 ID 重试、截止、恢复、首次连接失败、焦点保留、单请求在途、操作反馈不被 GET 覆盖、伤害数字、静音偏好、减少动态效果、连续未确认提醒 |
-| 表现与音频生命周期 | 40 项；有效治疗与受伤分开、封顶／破绽／阶段／终局、历史去重、多轮追算静默、未确认提醒、点击解锁、静音、隐藏、音频节点释放与上限。AudioContext 使用替身，不提供试听与浏览器自动播放结论 |
+| 真实 HTTP / session | 200 项检查；六个 fixture 走真实 PHP HTTP 仍逐轮一致；确认重放、指纹冲突、旧局、旧轮、静态表现脚本、无权限文件路径与外来 Origin 拒绝 |
+| 前台状态 | 106 项检查、52 次 POST；真实 app.js / feedback.js + 仓库 DOM 子集 + 真实 PHP HTTP；完整单／双人胜利、响应丢失／刷新后同 ID 重试、截止、恢复、首次连接失败、焦点保留、单请求在途、操作反馈不被 GET 覆盖、伤害数字、静音偏好、减少动态效果、连续未确认提醒 |
+| 表现与音频生命周期 | 55 项；有效治疗与受伤分开、封顶／破绽／阶段／终局、历史去重、多轮追算静默、未确认提醒、点击解锁、静音、隐藏、音频节点释放与上限。AudioContext 使用替身，不提供试听与浏览器自动播放结论 |
+| BGM生命周期 | 19 项；默认关闭／交互前不创建媒体、低音量、单实例、隐藏／终局暂停、让出同页其他音频、权限拒绝与独立偏好。HTMLAudio使用替身，循环衔接及试听待实机 |
 | PHP / JS 语法 | 通过；Python 脚本运行通过；本 PR 不改 fixture 或原规划模型 |
 | 浏览器画面／触控 | 小蓝已验 `a4f1225` 的真实 Chromium 单／双席位逐轮重放、1280/390/320 视口、深浅色、刷新／截止，无运行时错误；用户随后确认 `0b9220c` 文案复验通过。新增表现的 Chrome／试听、真机触控与键盘辅助技术仍待完成，本环境只运行 DOM 子集。用户已认可基础玩法，真实两账号配合节奏仍待 P2 |
 | Discuz／两账号／数据库并发／容量／发布回退 | **本阶段未接入、未验收**，分别留 P2、P4；本地 PHP session 锁不能替代论坛 DB 行锁测试 |
@@ -119,3 +123,15 @@ node tests/raid/front_check.mjs
 `history` 最多 16 条，纯座位/枚举/数值，不带 UID、昵称或 URL；P2 入库仍必须做 UTF-8 JSON_THROW_ON_ERROR 编解码、整段 16384 字节／摘要 512 字节检查、身份与成员权限、三表事务和查询安全测试。不要把本机原型的 session、clock offset、generation 或两席位控制直接变成论坛授权协议。
 
 P2 继续完成三表、op=raid、账号／房间／邀请／幂等／刷新／截止和个人记录；P3 才做最终插画与体验完善；P4 再做真实论坛容量、完整升级/回退及旧游戏回归。原 SDK、memory、snake、gomoku 和现有表都未改。
+
+## 第二轮定案：幽月、短促音效与真实BGM
+
+用户确认上一轮表现复验通过；本轮只改展示和音频，不改PHP引擎、数值模型或fixture。名称统一为“蚀月魔女 · 幽月”，开场与单/双人第二阶段台词按用户原文，胜负台词沿用指定原句。四张立绘候选在对话展示，未选定、未替换占位；[美术简报与提示词](../../docs/raid/YOUYUE-ART-BRIEF.md)。
+
+短音现在使用失真下扫、滤波噪声、低频冲击、金属守护、明亮上扫、阶段低音短回声和2–3音胜负动机，单条含尾声≤0.3秒，总线压缩限幅；`gcm_sound`仍控制音效。新增BGM开关使用独立`gcr_bgm`，默认关闭、音量10%、首次交互后且战斗进行中才播放；关闭、隐藏和终局暂停，不创建重复音乐实例。同页其他可听媒体播放时让出音频；不能检测其它标签/不同源站点音频，P2如有站点统一音频管理器应优先接入。浏览器拒绝播放会显示“BGM 未播放”，仍可关闭后重开，不影响战斗。
+
+BGM为nene的CC0金属曲循环版本，本地MP3为680272字节，约85秒；源码、署名、处理命令与SHA见 [素材记录](../../docs/raid/BGM-CREDITS.md)。原素材有loop版本不等于压缩后已通过耳听验收，循环衔接、响度、失真是否舒服、移动端自动播放和320/390布局仍待小蓝复验。
+
+职业想法已记录为 [Issue #14](https://github.com/avgdaren/dz-gamecenter/issues/14)，P2真实联机之后再评估；当前不添加职业字段、动作或属性系数。
+
+本轮复验：PHP442项、六例68轮逐字段；差分2000组/23596轮；HTTP200项；前台106项/52POST/游戏API同时在途1；短音与表现55项；BGM19项。`P1-REFERENCE.json` SHA-256仍为`4c3eb4f47b087b3f0170d42ae03edff9db12aa8086185c4ec94c0b5d84d3b801`，`balance_check.py`仍为`b2bffdeaf9d35877054ca6fc578d40d2bfedef8021e8256c709ebb874d9b0493`，两者逐字节未变。

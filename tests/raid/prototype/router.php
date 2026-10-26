@@ -14,10 +14,24 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-sr
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 $path = parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH);
-$files = ['/'=>'index.html','/app.js'=>'app.js','/feedback.js'=>'feedback.js','/style.css'=>'style.css','/boss.svg'=>'boss.svg'];
+$files = ['/'=>'index.html','/app.js'=>'app.js','/feedback.js'=>'feedback.js','/music.js'=>'music.js','/style.css'=>'style.css','/boss.svg'=>'boss.svg','/assets/battle.mp3'=>'assets/battle.mp3'];
 if(isset($files[$path]) && $_SERVER['REQUEST_METHOD'] === 'GET') {
-    header('Content-Type: '.['/'=>'text/html; charset=utf-8','/app.js'=>'text/javascript; charset=utf-8','/feedback.js'=>'text/javascript; charset=utf-8',
-        '/style.css'=>'text/css; charset=utf-8','/boss.svg'=>'image/svg+xml'][$path]);
+    header('Content-Type: '.['/'=>'text/html; charset=utf-8','/app.js'=>'text/javascript; charset=utf-8','/feedback.js'=>'text/javascript; charset=utf-8','/music.js'=>'text/javascript; charset=utf-8',
+        '/style.css'=>'text/css; charset=utf-8','/boss.svg'=>'image/svg+xml','/assets/battle.mp3'=>'audio/mpeg'][$path]);
+    if($path==='/assets/battle.mp3') {
+        $size=filesize(__DIR__.'/'.$files[$path]); header('Accept-Ranges: bytes');
+        if(isset($_SERVER['HTTP_RANGE'])) {
+            if(!preg_match('/^bytes=(\d*)-(\d*)$/D',$_SERVER['HTTP_RANGE'],$range) || ($range[1]==='' && $range[2]==='')) {
+                http_response_code(416); header('Content-Range: bytes */'.$size); exit;
+            }
+            $start=$range[1]===''?max(0,$size-(int)$range[2]):(int)$range[1];
+            $end=$range[1]===''||$range[2]===''?$size-1:min($size-1,(int)$range[2]);
+            if($start>$end || $start>=$size) {http_response_code(416);header('Content-Range: bytes */'.$size);exit;}
+            http_response_code(206);header('Content-Range: bytes '.$start.'-'.$end.'/'.$size);header('Content-Length: '.($end-$start+1));
+            $file=fopen(__DIR__.'/'.$files[$path],'rb');fseek($file,$start);echo fread($file,$end-$start+1);fclose($file);exit;
+        }
+        header('Content-Length: '.$size);
+    }
     readfile(__DIR__.'/'.$files[$path]); exit;
 }
 if($path !== '/api') { http_response_code(404); exit; }

@@ -2,19 +2,22 @@
  * 只读取已结算快照，绝不写入战斗状态；不加载音频文件或外部依赖。 */
 (() => {
   'use strict';
+  // [source, fromHz, toHz, seconds, offset, gain, filter, cutoff, distortion, echo]
+  // Each complete cue ends within .30 s, including its one short echo tail.
   const notes = {
-    attack:[[330,.09,'triangle'],[165,.1,'triangle',.04]],
-    hurt:[[180,.12,'triangle']], guard:[[620,.1,'sine'],[930,.12,'sine',.06]],
-    heal:[[523,.12,'sine'],[659,.12,'sine',.07],[784,.16,'sine',.14]],
-    exposed:[[880,.12,'triangle'],[1320,.17,'sine',.08]],
-    phase:[[294,.14,'triangle'],[370,.14,'triangle',.08],[440,.2,'sine',.16]],
-    win:[[523,.18,'sine'],[659,.18,'sine',.08],[784,.18,'sine',.16],[1047,.25,'sine',.24]],
-    lose:[[330,.16,'triangle'],[247,.18,'triangle',.1],[196,.23,'sine',.2]],
-    timeout:[[440,.06,'sine'],[330,.09,'sine',.09]]
+    attack:[['sawtooth',1300,95,.14,0,.045,'lowpass',3200,true],['noise',0,0,.08,0,.035,'highpass',1800,true],['sine',105,40,.14,0,.06]],
+    hurt:[['sine',95,32,.16,0,.07],['noise',0,0,.09,0,.045,'highpass',2300,true]],
+    guard:[['square',1750,700,.13,0,.025,'highpass',700,true],['noise',0,0,.065,0,.025,'highpass',4500],['sine',2700,1500,.14,.025,.025]],
+    heal:[['triangle',500,1100,.17,0,.04],['sine',800,1500,.12,.04,.022]],
+    exposed:[['square',480,1850,.19,0,.03,'lowpass',3800],['sine',900,2700,.14,.035,.025]],
+    phase:[['sawtooth',170,35,.18,0,.05,'lowpass',1000,true,true],['noise',0,0,.1,0,.025,'lowpass',900]],
+    win:[['square',440,440,.075,0,.025,'lowpass',2200],['square',660,660,.075,.065,.025,'lowpass',2600],['triangle',880,1100,.09,.13,.035]],
+    lose:[['triangle',330,300,.075,0,.035],['square',220,180,.075,.065,.025,'lowpass',1200],['sine',110,50,.1,.13,.055]],
+    timeout:[['square',660,660,.055,0,.02,'lowpass',1800],['square',440,360,.07,.075,.02,'lowpass',1500]]
   };
   class RaidFeedback {
     constructor() {
-      this.on = true; this.ctx = null; this.voices = new Set();
+      this.on = true; this.ctx = null; this.master = null; this.noise = null; this.voices = new Set();
       this.previous = null; this.generation = null; this.suppressNext = false;
       try { this.on = window.localStorage.getItem('gcm_sound') !== '0'; } catch (_) { /* Optional preference. */ }
     }
@@ -23,7 +26,18 @@
       try {
         const AC = window.AudioContext || window.webkitAudioContext;
         if(!AC) return false;
-        this.ctx ||= new AC();
+        if(!this.ctx) {
+          this.ctx = new AC();
+          const limiter=this.ctx.createDynamicsCompressor(), master=this.ctx.createGain();
+          limiter.threshold.value=-14; limiter.knee.value=12; limiter.ratio.value=10;
+          limiter.attack.value=.002; limiter.release.value=.08;
+          master.gain.value=.4; limiter.connect(master); master.connect(this.ctx.destination); this.master=limiter;
+          this.noise=this.ctx.createBuffer(1,Math.ceil(this.ctx.sampleRate*.3),this.ctx.sampleRate);
+          const data=this.noise.getChannelData(0); let seed=20261027;
+          for(let i=0;i<data.length;i++){seed=(seed*1664525+1013904223)>>>0;data[i]=seed/2147483648-1;}
+          this.curve=new Float32Array(512);
+          for(let i=0;i<512;i++) this.curve[i]=Math.tanh((i/511*2-1)*2.8)*.8;
+        }
         if(this.ctx.state === 'suspended') Promise.resolve(this.ctx.resume()).catch(() => {});
         return true;
       } catch (_) { return false; }
@@ -42,27 +56,32 @@
     }
     release(voice) {
       this.voices.delete(voice);
-      try { voice.osc.disconnect(); voice.gain.disconnect(); } catch (_) { /* Hardware may be unavailable. */ }
+      for(const node of voice.nodes) try { node.disconnect(); } catch (_) { /* Hardware may be unavailable. */ }
     }
     pause() { this.suppressNext = true; this.cancel(); }
     play(cues) {
-      if(!this.on || !this.ctx || this.ctx.state !== 'running' || document.hidden) return;
+      if(!this.on || !this.ctx || !this.master || this.ctx.state !== 'running' || document.hidden) return;
       const priority=['phase','exposed','timeout','heal','guard','attack','hurt'];
       const selected = cues.includes('win') ? ['win'] : cues.includes('lose') ? ['lose'] : priority.filter(cue=>cues.includes(cue)).slice(0,4);
-      selected.forEach((cue,index) => {
-        for(const [frequency,duration,type,delay=0] of notes[cue] || []) {
+      selected.forEach(cue => {
+        for(const [type,from,to,duration,delay=0,volume=.03,filter,cutoff,distort,echo] of notes[cue] || []) {
           if(this.voices.size >= 24) break;
           let voice;
           try {
-            const osc=this.ctx.createOscillator(), gain=this.ctx.createGain();
-            voice={osc,gain}; this.voices.add(voice);
-            const at=this.ctx.currentTime + index*.06 + delay;
-            osc.type=type; osc.frequency.setValueAtTime(frequency,at);
-            gain.gain.setValueAtTime(.0001,at); gain.gain.linearRampToValueAtTime(.035,at+.008);
+            const osc=type==='noise'?this.ctx.createBufferSource():this.ctx.createOscillator(), gain=this.ctx.createGain();
+            voice={osc,gain,nodes:[osc,gain]}; this.voices.add(voice);
+            const at=this.ctx.currentTime + delay;
+            if(type==='noise') osc.buffer=this.noise;
+            else {osc.type=type;osc.frequency.setValueAtTime(from,at);osc.frequency.exponentialRampToValueAtTime(to,at+duration);}
+            let output=osc;
+            if(filter){const f=this.ctx.createBiquadFilter();f.type=filter;f.frequency.value=cutoff;f.Q.value=.7;output.connect(f);output=f;voice.nodes.push(f);}
+            if(distort){const shaper=this.ctx.createWaveShaper();shaper.curve=this.curve;shaper.oversample='2x';output.connect(shaper);output=shaper;voice.nodes.push(shaper);}
+            output.connect(gain);gain.connect(this.master);
+            if(echo){const d=this.ctx.createDelay(.1),wet=this.ctx.createGain();d.delayTime.value=.035;wet.gain.value=.18;gain.connect(d);d.connect(wet);wet.connect(this.master);voice.nodes.push(d,wet);}
+            gain.gain.setValueAtTime(.0001,at); gain.gain.linearRampToValueAtTime(volume,at+.004);
             gain.gain.exponentialRampToValueAtTime(.0001,at+duration);
-            osc.connect(gain); gain.connect(this.ctx.destination);
             osc.onended=() => this.release(voice);
-            osc.start(at); osc.stop(at+duration+.02);
+            osc.start(at); osc.stop(at+duration+.055);
           } catch (_) { if(voice) this.release(voice); }
         }
       });

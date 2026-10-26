@@ -32,6 +32,7 @@ const php=spawn(process.env.PHP_BIN || 'php', ['-n','-d',`session.save_path=${se
 const base=`http://127.0.0.1:${port}`;
 const source=fs.readFileSync(path.join(root,'tests/raid/prototype/app.js'),'utf8');
 const feedbackSource=fs.readFileSync(path.join(root,'tests/raid/prototype/feedback.js'),'utf8');
+const musicSource=fs.readFileSync(path.join(root,'tests/raid/prototype/music.js'),'utf8');
 const fixture=JSON.parse(fs.readFileSync(path.join(root,'docs/raid/P1-REFERENCE.json'),'utf8'));
 let cookie='', dropNext=false, inFlight=0, maxFlight=0, posts=[], failAll=false;
 const storage=new Map();
@@ -55,12 +56,14 @@ function setup(options={}) {
   Element.prototype.focus=function() {doc.activeElement=this;};
   const intervals=[];
   const windowTarget=new Element('window');
+  class AudioDouble {constructor(){this.paused=true;this.volume=1;}play(){this.paused=false;return Promise.resolve();}pause(){this.paused=true;}}
   const context={document:doc, window:{confirm:()=>true,addEventListener:(...args)=>windowTarget.addEventListener(...args),
-      localStorage:{getItem:k=>soundStorage.get(k)??null,setItem:(k,v)=>soundStorage.set(k,v)}}, fetch:transport, console,
+      Audio:AudioDouble,localStorage:{getItem:k=>soundStorage.get(k)??null,setItem:(k,v)=>soundStorage.set(k,v)}}, fetch:transport, console,
     crypto:webcrypto, Date, AbortController, Uint8Array, setTimeout,clearTimeout,
     setInterval:fn=>{intervals.push(fn); return intervals.length;}, matchMedia:query=>({matches:!!options.reduced && query.includes('reduced-motion')}),
     sessionStorage:{setItem:(k,v)=>storage.set(k,v),getItem:k=>storage.get(k)??null,removeItem:k=>storage.delete(k)}};
   vm.runInNewContext(feedbackSource,context,{filename:'raid-feedback.js'});
+  vm.runInNewContext(musicSource,context,{filename:'raid-music.js'});
   vm.runInNewContext(source,context,{filename:'raid-app.js'});
   return {doc,intervals,$:id=>doc.getElementById(id)};
 }
@@ -86,6 +89,8 @@ try {
   await command(ui,'sync');
   check(!ui.$('empty').hidden && ui.$('battle').hidden,'initial empty state');
   await command(ui,'solo');
+  check(ui.$('boss-line').textContent==='你选择一人面对魔女，还是和伙伴一起挑战魔女？','opening line is user text verbatim');
+  check(ui.$('players').textContent.includes('蚀月魔女 · 幽月') && ui.$('preview-name').textContent.includes('幽月'),'boss renamed in target and preview');
   check(ui.$('boss-hp').textContent==='120 / 120 生命' && ui.$('players').children.length===1,'solo displayed from PHP');
   check(ui.$('message').textContent==='第 1 轮开始：先看预告再选行动。','start feedback is not action confirmation');
   const started=ui.$('message').textContent;
@@ -109,8 +114,12 @@ try {
   check(ui.doc.querySelectorAll('.fx-float').length<=2,'GET does not duplicate floating numbers');
   // Finish a complete solo fixture through the actual controls.
   await command(ui,'solo');
-  for(const row of fixture.cases.solo_reasonable.expected.trace) await play(ui,0,...row.actions[0]);
+  for(const row of fixture.cases.solo_reasonable.expected.trace) {
+    await play(ui,0,...row.actions[0]);
+    if(row.round===8) check(ui.$('boss-line').textContent==='你惹怒我了！','solo phase-two line is verbatim');
+  }
   check(ui.$('result-title').textContent==='讨伐成功' && ui.$('log-count').textContent==='16 轮','solo 16-round UI win');
+  check(ui.$('boss-line').textContent==='这一次，算你们赢。下次可没这么轻松。','victory quote retained');
   check(ui.$('message').textContent.includes('本局已结束，讨伐成功。') && !ui.$('message').textContent.includes('等待'),'winning act feedback is terminal rather than waiting');
   check(ui.$('boss-hp').textContent==='0 / 120 生命' && ui.$('players').textContent.includes('14 / 40'),'solo final hp displayed');
   check(ui.doc.querySelector('.confirm').disabled && ui.$('advance').disabled,'terminal controls closed');
@@ -127,6 +136,7 @@ try {
     check(ui.doc.querySelector('[data-actor="0"] .confirm').disabled,'first seat locks');
     check(!ui.doc.querySelector('[data-actor="1"] [data-kind="attack"]').disabled,'second seat still acts same round');
     await play(ui,1,...row.actions[1]);
+    if(row.round===4) check(ui.$('boss-line').textContent==='你们这群蝼蚁！','duo phase-two line is verbatim');
     if(row.round===1) check(ui.$('message').textContent.includes('席位 2已确认：攻击（第 1 轮）。第 1 轮已结算；第 2 轮开始'),'duo second seat names its own confirmation and completed round');
   }
   check(ui.$('result-title').textContent==='讨伐成功' && ui.$('log-count').textContent==='6 轮','duo cooperation wins');
@@ -150,6 +160,7 @@ try {
   await command(ui,'offline');
   check(ui.$('message').textContent.startsWith('已模拟离线 400 秒') && ui.$('message').textContent.includes('本局已结束'),'offline jump has terminal feedback');
   check(ui.$('result-title').textContent==='挑战结束' && ui.$('result-text').textContent.includes('16 回合'),'long offline shown as limit loss');
+  check(ui.$('boss-line').textContent==='别急着认输。记住这轮月光，再来一次。','loss quote retained');
   await command(ui,'solo');
   await play(ui,0,'A',-1);
   const round=ui.$('round').textContent;
@@ -194,6 +205,10 @@ try {
   check(ui.$('idle-hint').textContent.includes('不代表已离线') && !ui.doc.querySelector('[data-actor="0"] .retreat').disabled,'idle reminder avoids false offline status and preserves retreat');
   await play(ui,0,'G',0);await play(ui,1,'A',-1);
   check(ui.$('idle-hint').hidden,'new confirmed action resets consecutive-miss reminder');
+  check(ui.$('bgm').textContent==='BGM 关','BGM defaults off independently of SFX');
+  ui.$('bgm').click();await tick();
+  check(ui.$('bgm').getAttribute('aria-pressed')==='true' && soundStorage.get('gcr_bgm')==='1' && soundStorage.get('gcm_sound')==='0','BGM can enable while sound effects remain muted');
+  ui.$('bgm').click();await tick();check(soundStorage.get('gcr_bgm')==='0','BGM can turn off without changing SFX preference');
   check(maxFlight===1,'one network request at a time');
   console.log(JSON.stringify({status:'PASS',checks:checks.length,post_requests:posts.length,max_in_flight:maxFlight}));
 } finally {

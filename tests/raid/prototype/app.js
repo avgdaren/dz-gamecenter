@@ -3,6 +3,7 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const names = ['月刃', '星潮', '蚀月重击', '回气'];
+  const bossName = '蚀月魔女 · 幽月';
   const messages = {mode:'模式无效。', token:'页面凭证失效，请刷新。', actor:'这个席位已不能行动。',
     target:'目标已经失效，请重新选择。', heal:'恢复次数已用完，或目标仍是满血。', round:'本轮已结算，请根据新预告行动。',
     locked:'该席位已经确认，不能修改。', due:'已到截止时间，请同步。', generation:'已经开启新局，请查看最新状态。',
@@ -10,6 +11,7 @@
   let state = null, generation = 0, token = '', offset = 0, busy = false, pending = null;
   let signature = '', selectionRound = '', choices = {}, lastSuccess = null;
   const feedback = new globalThis.RaidFeedback();
+  const music = new globalThis.RaidMusic(musicButton);
   const effectTimers = new Set(), effectNodes = new Set(), effectHosts = new Set();
   const make = (tag, cls, text) => { const el = document.createElement(tag); if(cls) el.className = cls; if(text !== undefined) el.textContent = text; return el; };
   const slot = i => `席位 ${i + 1}`;
@@ -48,6 +50,10 @@
     effectTimers.add(timer);
   }
   function soundButton() { $('sound').textContent=feedback.on?'音效 开':'音效 关'; $('sound').setAttribute('aria-pressed',String(feedback.on)); }
+  function musicButton() {
+    $('bgm').textContent=music.blocked?'BGM 未播放':music.interrupted && music.on?'BGM 已暂停':music.on?'BGM 开':'BGM 关';
+    $('bgm').setAttribute('aria-pressed',String(music.on));
+  }
   function successNotice(request, data) {
     const s = data.snapshot;
     const replay = data.code === 'replayed' ? '重试已确认：' : '';
@@ -99,6 +105,7 @@
     const batch=feedback.observe(data.snapshot,data.generation);
     token = data.token; generation = data.generation; offset = data.server_ms - Date.now();
     state = data.snapshot;
+    music.setActive(state?.status===1);
     const next = state ? `${generation}:${state.version}` : 'empty';
     if(next !== signature) {
       clearEffects();
@@ -141,6 +148,7 @@
   async function send(args, retry = false) {
     if(busy || (!retry && pending) || !token) return;
     feedback.unlock(); // Called in the original click gesture, before the HTTP await.
+    music.gesture();
     if(!retry) {
       const bytes = crypto.getRandomValues(new Uint8Array(16));
       pending = {...args, generation, request_id:Array.from(bytes, n => n.toString(16).padStart(2,'0')).join('')};
@@ -185,7 +193,7 @@
       const choice = locked || choices[i];
       const targetRow = make('label', 'target-row'); targetRow.append(make('span', '', '行动目标'));
       const select = make('select'); select.setAttribute('aria-label',`${slot(i)}行动目标`); select.dataset.focus = `${i}-target`;
-      if(!choice || choice.kind === 'attack') { const option = make('option', '', '蚀月守卫'); option.value = -1; select.append(option); select.dataset.invalid = 'true'; }
+      if(!choice || choice.kind === 'attack') { const option = make('option', '', bossName); option.value = -1; select.append(option); select.dataset.invalid = 'true'; }
       else {
         state.hp.forEach((v,j) => { if(!active(j)) return; const option = make('option','',j === i ? '自己' : slot(j)); option.value = j;
           option.disabled = choice.kind === 'heal' && v === 40; select.append(option); });
@@ -221,15 +229,18 @@
     $('mode').textContent = state.mode === 'solo' ? '单人挑战' : '双人 · 月蚀加护 +10';
     $('boss-hp').textContent = `${state.boss} / ${state.boss_max_hp} 生命`;
     $('boss-bar').max = state.boss_max_hp; $('boss-bar').value = state.boss;
-    $('preview-name').textContent = names[p.kind];
-    $('preview-text').textContent = p.kind === 3 ? '首领正在回气，本轮不会攻击。' :
-      `${p.targets.map(slot).join('、')}将受到 ${p.damage} 伤害；守护后为 ${Math.ceil(p.damage/5)}。`;
+    $('preview-name').textContent = `幽月 · ${names[p.kind]}`;
+    $('preview-text').textContent = p.kind === 3 ? '幽月正在回气，本轮不会攻击。' :
+      `幽月将攻击${p.targets.map(slot).join('、')}：${p.damage} 伤害；守护后为 ${Math.ceil(p.damage/5)}。`;
     $('weakness').textContent = state.status !== 1 ? '' : state.exposed && p.kind === 3 ? '破绽！本轮攻击造成 20 伤害。' : p.kind === 2 ? '成功守护重击并存活，下轮将出现破绽。' : '';
     document.querySelector('.arena').className=state.status===1 && state.exposed && p.kind===3?'arena has-weakness':'arena';
-    $('boss-line').textContent = p.phase === 1 ? '「越过这轮月光，让我看见你们的默契。」' : '「月蚀已至。下一步，你们会如何选择？」';
+    $('boss-line').textContent = state.status === 2 ? '这一次，算你们赢。下次可没这么轻松。' :
+      state.status === 3 ? '别急着认输。记住这轮月光，再来一次。' :
+      p.phase === 1 ? '你选择一人面对魔女，还是和伙伴一起挑战魔女？' :
+      state.mode === 'solo' ? '你惹怒我了！' : '你们这群蝼蚁！';
     $('result').hidden = state.status === 1;
     if(state.status !== 1) {
-      const reasons = {defeated:'首领已被击败。', knockout:'所有留队成员倒地。', round_limit:'16 回合已用尽，首领仍然存活。', retreated:'已无成员继续挑战。'};
+      const reasons = {defeated:`${bossName}已被击败。`, knockout:'所有留队成员倒地。', round_limit:'16 回合已用尽，幽月仍然存活。', retreated:'已无成员继续挑战。'};
       $('result-title').textContent = state.status === 2 ? '讨伐成功' : '挑战结束';
       const alive = state.hp.filter((v,i) => v > 0 && !state.left[i]).length;
       $('result-text').textContent = `${reasons[state.reason] || ''} 共 ${state.history.length} 回合，生还 ${alive} 人。可以查看记录，再挑战一次。`;
@@ -239,9 +250,9 @@
     $('logs').replaceChildren();
     [...state.history].reverse().forEach(row => {
       const li = make('li');
-      li.append(make('strong','',`第 ${row.round} 轮 · ${names[row.preview.kind]} · 阶段 ${row.preview.phase}`));
+      li.append(make('strong','',`第 ${row.round} 轮 · 幽月 · ${names[row.preview.kind]} · 阶段 ${row.preview.phase}`));
       li.append(make('p','',row.actions.map((a,i) => `${slot(i)}：${actionText(a,i)}${row.defaults.includes(i) ? '（超时默认）' : ''}`).join('；')));
-      li.append(make('p','',`首领 ${row.boss} 生命 · ${row.hp.map((v,i) => `${slot(i)} ${v} 生命 / 恢复余 ${row.pots[i]}`).join('；')}${row.exposed ? ' · 下轮破绽' : ''}`));
+      li.append(make('p','',`幽月 ${row.boss} 生命 · ${row.hp.map((v,i) => `${slot(i)} ${v} 生命 / 恢复余 ${row.pots[i]}`).join('；')}${row.exposed ? ' · 下轮破绽' : ''}`));
       $('logs').append(li);
     });
   }
@@ -250,13 +261,15 @@
   });
   $('sync').addEventListener('click',sync);
   $('sound').addEventListener('click',() => { feedback.toggle(); soundButton(); });
+  $('bgm').addEventListener('click',() => music.toggle());
   soundButton();
+  musicButton();
   $('retry').addEventListener('click',() => send(null,true));
   $('advance').addEventListener('click',() => send({op:'advance',ms:25000}));
   $('offline').addEventListener('click',() => { if(window.confirm('模拟离线 400 秒，会自动追算直到本局结束。确定吗？')) send({op:'advance',ms:400000}); });
   $('theme').addEventListener('click',() => { const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; document.documentElement.dataset.theme = dark ? 'light' : 'dark'; });
-  document.addEventListener('visibilitychange',() => { feedback.pause(); clearEffects(); if(!document.hidden) sync(); });
-  window.addEventListener('pagehide',() => { feedback.pause(); clearEffects(); });
+  document.addEventListener('visibilitychange',() => { feedback.pause(); clearEffects(); music.sync(); if(!document.hidden) sync(); });
+  window.addEventListener('pagehide',() => { feedback.pause(); clearEffects(); music.pause(); });
   setInterval(() => { if(!document.hidden) sync(); },2000);
   setInterval(clock,250);
   (async () => {
