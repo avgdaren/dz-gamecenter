@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {spawn} from 'node:child_process';
 import {createInterface} from 'node:readline';
 import {webcrypto} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
 import vm from 'node:vm';
 import {Element} from '../gomoku/minidom.mjs';
 let checks=0,posts=0,maxFlight=0;
@@ -15,7 +16,7 @@ Element.prototype.replaceChildren=function(...nodes){this.children.forEach(x=>x.
 const query=Element.prototype.querySelectorAll;
 Element.prototype.querySelectorAll=function(s){return [...new Set(s.split(',').flatMap(x=>query.call(this,x.trim())))];};
 Object.defineProperty(Element.prototype,'classList',{get(){const e=this;return {contains:n=>e.className.split(' ').includes(n),add(...ns){e.className=[...new Set([...e.className.split(' ').filter(Boolean),...ns])].join(' ');},remove(...ns){e.className=e.className.split(' ').filter(n=>!ns.includes(n)).join(' ');}};}});
-const workerFile=new URL('./db-worker.php',import.meta.url).pathname;
+const workerFile=fileURLToPath(new URL('./db-worker.php',import.meta.url));
 function worker(){const p=spawn(process.env.PHP_BIN||'php',[workerFile],{env:process.env,stdio:['pipe','pipe','inherit']});const queue=[];
  createInterface({input:p.stdout}).on('line',line=>{const job=queue.shift();try{const x=JSON.parse(line);x.test_error?job.reject(Error(line)):job.resolve(x);}catch(e){job.reject(e);}});
  p.on('close',c=>queue.forEach(job=>job.reject(Error('PHP exited '+c))));

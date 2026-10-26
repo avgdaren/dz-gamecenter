@@ -4,9 +4,10 @@ import {spawn} from 'node:child_process';
 import {createInterface} from 'node:readline';
 import {randomBytes} from 'node:crypto';
 import {readFileSync} from 'node:fs';
-const workerFile=new URL('./db-worker.php',import.meta.url);
+import {fileURLToPath} from 'node:url';
+const workerFile=fileURLToPath(new URL('./db-worker.php',import.meta.url));
 function worker(){
- const p=spawn(process.env.PHP_BIN||'php',[workerFile.pathname],{env:process.env,stdio:['pipe','pipe','inherit']}); const queue=[];
+ const p=spawn(process.env.PHP_BIN||'php',[workerFile],{env:process.env,stdio:['pipe','pipe','inherit']}); const queue=[];
  createInterface({input:p.stdout}).on('line',line=>{const job=queue.shift();if(!job)throw Error(line);try{const r=JSON.parse(line);r.test_error?job.reject(Error(JSON.stringify(r))):job.resolve(r);}catch(e){job.reject(e);}});
  p.on('close',code=>{for(const job of queue)job.reject(Error('worker exited '+code));});
  return {send(x){return new Promise((resolve,reject)=>{queue.push({resolve,reject});p.stdin.write(JSON.stringify(x)+'\n');});},close(){p.stdin.end();}};
@@ -138,7 +139,7 @@ try {
  await admin.send({op:'corrupt',room:rr,json:'x'.repeat(16385)});
  check((await call(a,70,{action:'state',room:rr})).code==='busy','oversized state rejected');
  // Real plugin entry: POST/formhash, game routing, login and single-player bypass rejection.
- async function entry(data){return await new Promise((resolve,reject)=>{const p=spawn(process.env.PHP_BIN||'php',[workerFile.pathname],{env:process.env});let out='';p.stdout.on('data',x=>out+=x);p.stderr.on('data',()=>{});p.on('close',()=>{try{resolve(JSON.parse(out));}catch(e){reject(Error(out));}});p.stdin.end(JSON.stringify({op:'entry',...data})+'\n');});}
+ async function entry(data){return await new Promise((resolve,reject)=>{const p=spawn(process.env.PHP_BIN||'php',[workerFile],{env:process.env});let out='';p.stdout.on('data',x=>out+=x);p.stderr.on('data',()=>{});p.on('close',()=>{try{resolve(JSON.parse(out));}catch(e){reject(Error(out));}});p.stdin.end(JSON.stringify({op:'entry',...data})+'\n');});}
  const payload={action:'current',client_version:'raid-client-1',formhash:'test-formhash'};
  check((await entry({data:payload})).ok===1,'real plugin route current');
  check((await entry({method:'GET',data:payload})).ok===0,'GET mutation rejected');
