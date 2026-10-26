@@ -9,15 +9,17 @@
   var MAX_ATTEMPTS = 256;
   var REVEAL_MS = 700;
 
+  /* 牌面素材：8 位角色，320×320 WebP，白底，位于 games/memory/assets/ */
+  var ART = 'source/plugin/gamecenter/games/memory/assets/';
   var symbols = [
-    ['太阳', '<circle cx="24" cy="24" r="9"/><path d="M24 4v5m0 30v5M4 24h5m30 0h5M10 10l4 4m20 20 4 4M10 38l4-4m20-20 4-4"/>'],
-    ['月亮', '<path d="M35 33A17 17 0 0 1 15 8a17 17 0 1 0 20 25Z"/>'],
-    ['星星', '<path d="m24 5 6 12 13 2-9.5 9.3L36 42l-12-6.4L12 42l2.5-13.7L5 19l13-2Z"/>'],
-    ['水滴', '<path d="M24 5C20 14 10 22 10 30a14 14 0 0 0 28 0c0-8-10-16-14-25Z"/>'],
-    ['爱心', '<path d="M24 40 7 24C-1 13 13 2 24 15 35 2 49 13 41 24Z"/>'],
-    ['树叶', '<path d="M39 8C10 5 4 24 15 34S43 33 39 8Z"/><path d="m10 40 22-22"/>'],
-    ['菱形', '<path d="m24 5 17 19-17 19L7 24Z"/>'],
-    ['花朵', '<path d="M24 15C10-3 0 20 15 24-3 38 20 48 24 33c14 18 24-5 9-9C51 10 28 0 24 15Z"/><circle cx="24" cy="24" r="4"/>']
+    ['claude', 'claude'],
+    ['GPT', 'gpt'],
+    ['哥伦比亚', 'columbia'],
+    ['deepseek', 'deepseek'],
+    ['214', 'chr214'],
+    ['春日野穹', 'sora'],
+    ['远坂凛', 'rin'],
+    ['亚丝娜', 'asuna']
   ];
 
   /* ---------- 音效：Web Audio 实时合成，不依赖任何音频文件 ---------- */
@@ -74,12 +76,9 @@
     };
   })();
 
-  /** 双色图形：淡填充 + 清晰描边，比纯线框更容易分辨。 */
-  function svg(body) {
-    return '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" stroke-linecap="round" stroke-linejoin="round">' +
-      '<g fill="currentColor" stroke="none" opacity=".17">' + body + '</g>' +
-      '<g fill="none" stroke="currentColor" stroke-width="2.5">' + body + '</g>' +
-      '</svg>';
+  /** 牌面图片（素材为白底方图，铺满卡片）。 */
+  function art(key, name) {
+    return '<img class="gcm-art" src="' + ART + key + '.webp" alt="' + name + '" width="320" height="320" draggable="false" loading="lazy">';
   }
 
   /** 与 PHP verifier 完全一致的 Fisher–Yates（Park–Miller）；不挂到全局。 */
@@ -350,7 +349,7 @@
         submitted = manualPause = false;
         hiddenPause = document.hidden;
         for (var k = 0; k < 16; k++) {
-          faces[k].innerHTML = svg(symbols[cards[k]][1]);
+          faces[k].innerHTML = art(symbols[cards[k]][1], symbols[cards[k]][0]);
           buttons[k].setAttribute('data-symbol', cards[k]);
           buttons[k].classList.remove('is-wrong', 'is-matched', 'is-open');
         }
