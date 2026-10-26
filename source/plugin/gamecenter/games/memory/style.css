@@ -1,0 +1,42 @@
+/* 作者：GPT / Codex。适配 gamecenter（Carinoasd，(C) 2026）。仅作用于 memory。 */
+.gcm{max-width:460px;width:100%;margin:0 auto;color:var(--gc-ink,#1d2733);font-size:14px;line-height:1.6}
+.gcm *{box-sizing:border-box}
+.gcm .gcm-intro{text-align:center;margin:4px 0 18px}
+.gcm .gcm-intro>span{font-size:11px;letter-spacing:2px;font-weight:700;color:var(--gc-mut,#7a8594)}
+.gcm .gcm-intro p{margin:5px 0 0;font-size:16px}
+.gcm .gcm-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 16px;text-align:center}
+.gcm .gcm-stats>div+div{border-left:1px solid var(--gc-line,#e3e8ef)}
+.gcm .gcm-stats>div>span{display:block;color:var(--gc-mut,#7a8594);font-size:12px}
+.gcm .gcm-stats b{display:block;font-size:27px;line-height:1.4;font-variant-numeric:tabular-nums;font-weight:650}
+.gcm .gcm-stats small{font-size:14px;font-weight:400;color:var(--gc-mut,#7a8594)}
+.gcm .gcm-board{position:relative;width:100%;max-width:396px;margin:0 auto}
+.gcm .gcm-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.gcm .gcm-card{position:relative;display:block;width:100%;aspect-ratio:1;border:1px solid var(--gc-line,#d5e1e7);border-radius:12px;padding:0;background:var(--gc-soft,#f4f7fb);color:#60909b;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .15s,border-color .15s,box-shadow .15s}
+.gcm .gcm-card[aria-disabled=true]{cursor:default}
+.gcm .gcm-card:focus-visible,.gcm .gc-btn:focus-visible{outline:3px solid var(--gc-acc,#2f7ae5);outline-offset:3px}
+.gcm .gcm-card[aria-disabled=false]:hover{border-color:var(--gc-acc,#2f7ae5);box-shadow:0 2px 8px rgba(30,80,100,.09)}
+.gcm .gcm-back,.gcm .gcm-front{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.gcm .gcm-back svg{width:48%;height:48%;opacity:.5}
+.gcm .gcm-front{visibility:hidden}
+.gcm .gcm-front svg{width:58%;height:58%}
+.gcm .gcm-card.is-open{background:var(--gc-bg,#fff);border-color:var(--gc-acc,#2f7ae5)}
+.gcm .gcm-card.is-open .gcm-back{visibility:hidden}
+.gcm .gcm-card.is-open .gcm-front{visibility:visible}
+.gcm .gcm-card[data-symbol="0"],.gcm .gcm-card[data-symbol="2"]{color:#b77c28}
+.gcm .gcm-card[data-symbol="1"],.gcm .gcm-card[data-symbol="6"]{color:#7970b9}
+.gcm .gcm-card[data-symbol="3"]{color:#3c89af}
+.gcm .gcm-card[data-symbol="4"],.gcm .gcm-card[data-symbol="7"]{color:#c47484}
+.gcm .gcm-card[data-symbol="5"]{color:#4b9579}
+.gcm .gcm-card.is-matched{border-color:var(--gc-line,#d5e1e7);box-shadow:inset 0 0 0 1px rgba(75,149,121,.13)}
+.gcm .gcm-check{display:none;position:absolute;right:6px;bottom:2px;color:var(--gc-ok,#1a9e5c);font-size:12px;pointer-events:none}
+.gcm .is-matched .gcm-check{display:block}
+.gcm .gcm-cover{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:16px;background:var(--gc-bg,#fff);border:1px solid var(--gc-line,#e3e8ef);border-radius:12px;text-align:center}
+.gcm .gcm-cover[hidden]{display:none}
+.gcm .gcm-cover b{font-size:22px}
+.gcm .gcm-cover>span{font-size:13px;color:var(--gc-mut,#7a8594)}
+.gcm .gcm-status{min-height:3.2em;margin:16px 0 10px;text-align:center;font-size:13px;color:var(--gc-mut,#7a8594)}
+.gcm .gcm-controls{display:flex;align-items:center;justify-content:center;gap:10px}
+.gcm .gcm-controls .gc-btn{min-width:100px}
+.gcm .gcm-note{margin:14px 0 2px;text-align:center;font-size:12px;line-height:1.8;color:var(--gc-mut,#7a8594)}
+@media(max-width:420px){.gcm .gcm-intro{margin-bottom:12px}.gcm .gcm-stats{margin-bottom:12px}.gcm .gcm-grid{gap:7px}.gcm .gcm-card{border-radius:9px}.gcm .gcm-stats b{font-size:24px}}
+@media(prefers-reduced-motion:reduce){.gcm .gcm-card{transition:none}}
