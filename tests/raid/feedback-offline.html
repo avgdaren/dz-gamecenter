@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。真实Web Audio离线渲染，不代表人耳验收。 -->
+<meta charset="utf-8"><title>Raid SFX offline render</title>
+<h1>天使讨伐令 · 音效离线检查</h1>
+<p>自动渲染44100/48000Hz，检查真实输出峰值、RMS、180–500Hz能量及混合安全上限。PASS不等于真人试听通过。</p>
+<pre id="report">Rendering…</pre><div id="samples"></div>
+<script src="../../source/plugin/gamecenter/games/raid/feedback.js"></script>
+<script>
+'use strict';
+window.raidAudioDone=(async()=>{
+ const checks=[],results=[],cues=['swing','attack','attackHeavy','hurt','hurtHeavy','guard','heal','exposed','phase','win','lose','timeout'];
+ const targets={swing:[-12,-8],attack:[-8,-4],attackHeavy:[-6,-2],hurt:[-9,-5],hurtHeavy:[-7,-3],guard:[-20,-12],heal:[-20,-12],exposed:[-20,-12],phase:[-20,-12],win:[-20,-12],lose:[-20,-12],timeout:[-24,-12]};
+ const check=(pass,label)=>checks.push({pass:!!pass,label});
+ function metrics(data){let peak=0,sum=0;for(const sample of data){peak=Math.max(peak,Math.abs(sample));sum+=sample*sample;}return {peak,peak_dbfs:20*Math.log10(peak||1e-12),rms:Math.sqrt(sum/data.length),finite:data.every(Number.isFinite)};}
+ async function render(cues,rate){const ctx=new OfflineAudioContext(1,rate/2,rate),fx=new RaidFeedback({contextOverride:ctx});fx.on=true;fx.unlock();fx.play(cues);return ctx.startRendering();}
+ async function bodyBand(buffer){const ctx=new OfflineAudioContext(1,buffer.length,buffer.sampleRate),src=ctx.createBufferSource(),hi=ctx.createBiquadFilter(),lo=ctx.createBiquadFilter();src.buffer=buffer;hi.type='highpass';hi.frequency.value=180;hi.Q.value=.7;lo.type='lowpass';lo.frequency.value=500;lo.Q.value=.7;src.connect(hi);hi.connect(lo);lo.connect(ctx.destination);src.start();return metrics((await ctx.startRendering()).getChannelData(0));}
+ for(const rate of [44100,48000])for(const cue of [...cues,'mixed','storm']){
+  const batch=cue==='mixed'?['attackHeavy','hurtHeavy','win']:cue==='storm'?['attack','hurt','phase','exposed']: [cue];
+  let buffer;
+  if(cue==='storm'){
+   const ctx=new OfflineAudioContext(1,rate/2,rate),fx=new RaidFeedback({contextOverride:ctx});fx.on=true;fx.unlock();for(let i=0;i<12;i++)fx.play(batch);buffer=await ctx.startRendering();
+  }else buffer=await render(batch,rate);
+  const m=metrics(buffer.getChannelData(0)),body=await bodyBand(buffer),row={cue,sample_rate:rate,...m,body_180_500_peak:body.peak,body_180_500_rms:body.rms};results.push(row);
+  check(m.finite&&m.peak>0&&m.peak<=.701,`${rate}/${cue}: audible finite signal within safety ceiling`);
+  if(targets[cue])check(m.peak_dbfs>=targets[cue][0]&&m.peak_dbfs<=targets[cue][1],`${rate}/${cue}: peak target ${targets[cue].join('..')}dBFS`);
+  if(['attack','attackHeavy','hurt','hurtHeavy'].includes(cue))check(body.peak>=.08,`${rate}/${cue}: speaker body band >=.08 peak`);
+  check(metrics(buffer.getChannelData(0).slice(Math.ceil(rate*.31))).peak<1e-5,`${rate}/${cue}: no long tail after 310ms`);
+  if(rate===44100&&cues.includes(cue)){
+   const button=document.createElement('button');button.textContent=cue;button.onclick=()=>{const ctx=new AudioContext(),src=ctx.createBufferSource();src.buffer=buffer;src.connect(ctx.destination);src.start();src.onended=()=>ctx.close();};document.querySelector('#samples').append(button);
+  }
+ }
+ const report={status:checks.every(c=>c.pass)?'PASS':'FAIL',checks:checks.length,failed:checks.filter(c=>!c.pass),scope:'actual browser OfflineAudioContext; no human listening or Discuz acceptance',targets_dbfs:targets,results};
+ window.raidAudioReport=report;document.querySelector('#report').textContent=JSON.stringify(report,null,2);return report;
+})().catch(error=>{window.raidAudioReport={status:'FAIL',error:String(error),stack:error.stack};document.querySelector('#report').textContent=JSON.stringify(window.raidAudioReport);return window.raidAudioReport;});
+</script>

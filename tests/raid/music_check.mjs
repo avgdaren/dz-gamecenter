@@ -5,11 +5,12 @@ const code=fs.readFileSync(new URL(forum ? '../../source/plugin/gamecenter/games
 let checks=0;const check=(yes,name)=>{assert.ok(yes,name);checks++;};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 function setup(saved=false){
+  let time=0,nextFrame=0;const frames=new Map();
   const storage=new Map(saved?[['gcr_bgm','1']]:[]), audios=[],listeners={},others=[];let reject=false;
   class Audio {constructor(){this.paused=true;this.plays=0;this.pauses=0;audios.push(this);}play(){this.plays++;if(reject)return Promise.reject(new Error('blocked'));this.paused=false;return Promise.resolve();}pause(){this.pauses++;this.paused=true;}}
   const document={hidden:false,addEventListener:(type,fn)=>listeners[type]=fn,querySelectorAll:()=>others};
-  const context={window:{Audio,localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v)}},document};
-  vm.runInNewContext(code,context);return {music:new context.RaidMusic(),storage,audios,document,listeners,others,block:v=>reject=v};
+  const context={Date:class extends Date{static now(){return time;}},requestAnimationFrame:fn=>{const id=++nextFrame;frames.set(id,fn);return id;},cancelAnimationFrame:id=>frames.delete(id),window:{Audio,localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v)}},document};
+  vm.runInNewContext(code,context);return {music:new context.RaidMusic(),storage,audios,document,listeners,others,block:v=>reject=v,frames,at(ms){time=ms;const pending=[...frames];frames.clear();for(const [,fn]of pending)fn(ms);}};
 }
 {
   const {music,audios,storage,document,listeners,others}=setup();
@@ -58,5 +59,23 @@ if(forum) {
   music.setActive(true,1);await flush();check(audio.src.endsWith('/battle.mp3')&&!audio.paused,'new battle restores first track');
   block(true);music.setPhase(2);await flush();check(music.blocked&&music.on,'second-track refusal is reported');
   music.toggle();check(audio.paused&&!music.on,'mute stops failed phase playback');
+}
+if(forum) {
+ const e=setup(),{music,audios,frames}=e;
+ check(!music.duck()&&audios.length===0,'duck never creates or starts muted music');
+ music.setActive(true);music.toggle();await flush();const audio=audios[0],plays=audio.plays;
+ check(music.duck()&&frames.size===1,'impact schedules exactly one volume animation');
+ e.at(20);check(Math.abs(audio.volume-.28*.62)<1e-9,'duck reaches -4.15dB in 20ms');
+ e.at(150);check(Math.abs(audio.volume-.28*.62)<1e-9,'duck holds through 150ms');
+ e.at(275);check(Math.abs(audio.volume-.28*.81)<1e-9,'duck recovers halfway by 275ms');
+ e.at(400);check(audio.volume===.28&&frames.size===0,'base gain restored by 400ms and timer released');
+ music.duck();e.at(420);music.duck();check(frames.size===1&&Math.abs(audio.volume-.28*.62)<1e-9,'overlapping impacts coalesce without a jump');
+ e.at(820);check(audio.volume===.28&&frames.size===0&&audio.plays===plays,'duck never restarts track or changes preference');
+ music.duck();music.setPhase(2);await flush();check(audio.volume===.28&&frames.size===0,'phase switch clears old-track duck');
+ music.duck();music.cancelDuck();check(audio.volume===.28&&frames.size===0&&!audio.paused,'SFX mute can restore music without pausing it');
+ music.duck();music.toggle();check(audio.paused&&audio.volume===.28&&frames.size===0,'BGM off cancels volume animation and playback');
+ check(!music.duck()&&frames.size===0,'duck cannot unmute disabled music');
+ music.toggle();await flush();music.duck();e.document.hidden=true;music.sync();check(audio.paused&&audio.volume===.28&&frames.size===0,'page hiding clears duck');
+ e.document.hidden=false;music.sync();await flush();music.duck();music.setActive(false);check(audio.paused&&frames.size===0,'terminal stops duck and music');
 }
 console.log(JSON.stringify({status:'PASS',checks,audio:'mock HTMLAudio; loop seam and listening need real browser'}));

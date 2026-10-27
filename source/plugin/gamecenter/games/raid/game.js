@@ -74,7 +74,9 @@
   function present(batch) {
     if(batch.summary) $('round-feedback').textContent = batch.summary;
     if(!batch.events.length || document.hidden) return;
-    clearEffects(); feedback.play(batch.cues);
+    clearEffects();
+    const sounded=feedback.play(batch.cues);
+    if(sounded && batch.cues.some(cue=>['attack','attackHeavy','hurt','hurtHeavy'].includes(cue)))music.duck();
     // Reduced motion keeps the textual summary, life bars and static weakness cue.
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const positions = new Map();
@@ -360,7 +362,7 @@
   }
   $('copy').addEventListener('click',()=>copyInvite('invite','邀请链接'));
   $('copy-code').addEventListener('click',()=>copyInvite('room-code','房间号'));
-  $('sound').addEventListener('click',()=>{feedback.toggle();soundButton();});
+  $('sound').addEventListener('click',()=>{feedback.toggle();if(!feedback.on)music.cancelDuck();soundButton();});
   $('bgm').addEventListener('click',()=>music.toggle());soundButton();musicButton();
   $('retry').addEventListener('click',()=>send(null,true));
   $('history-refresh').addEventListener('click',async()=>{

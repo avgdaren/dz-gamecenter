@@ -5,21 +5,22 @@
   // [source, fromHz, toHz, seconds, offset, gain, filter, cutoff, distortion, echo]
   // Each complete cue ends within .30 s, including its one short echo tail.
   const notes = {
-    swing:[['sawtooth',380,120,.04,0,.10,'lowpass',1800,true],['noise',0,0,.03,0,.25,'bandpass',1200,false,{delay:.06,gain:.15}]],
-    attack:[['sine',78,62,.09,0,.13],['noise',0,0,.025,0,.08,'highpass',2000]],
-    attackHeavy:[['sine',62,48,.09,0,.184],['noise',0,0,.025,0,.11,'highpass',2000]],
-    hurt:[['triangle',180,75,.12,0,.12,'lowpass',1300,true],['noise',0,0,.04,0,.09,'lowpass',1800]],
-    hurtHeavy:[['sine',55,38,.16,.01,.18],['noise',0,0,.11,.01,.10,'lowpass',850]],
-    guard:[['square',1750,700,.13,0,.025,'highpass',700,true],['noise',0,0,.065,0,.025,'highpass',4500],['sine',2700,1500,.14,.025,.025]],
-    heal:[['triangle',500,1100,.17,0,.04],['sine',800,1500,.12,.04,.022]],
-    exposed:[['triangle',500,1400,.12,0,.05,null,0,false,true]],
-    phase:[['sawtooth',170,35,.18,0,.05,'lowpass',1000,true,true],['noise',0,0,.1,0,.025,'lowpass',900]],
-    win:[['square',440,440,.075,0,.025,'lowpass',2200],['square',660,660,.075,.065,.025,'lowpass',2600],['triangle',880,1100,.09,.13,.035]],
-    lose:[['triangle',330,300,.075,0,.035],['square',220,180,.075,.065,.025,'lowpass',1200],['sine',110,50,.1,.13,.055]],
-    timeout:[['square',660,660,.055,0,.02,'lowpass',1800],['square',440,360,.07,.075,.02,'lowpass',1500]]
+    swing:[['sawtooth',380,120,.05,0,.30,'lowpass',1800,true],['noise',0,0,.045,0,.40,'bandpass',1200,false,{delay:.06,gain:.15}]],
+    attack:[['sine',78,62,.09,0,.32],['triangle',320,240,.07,0,.48,'lowpass',900],['noise',0,0,.025,0,.24,'highpass',2000],['noise',0,0,.003,0,.28]],
+    attackHeavy:[['sine',62,48,.10,0,.40],['triangle',260,190,.09,0,.60,'lowpass',800],['noise',0,0,.03,0,.28,'highpass',2000],['noise',0,0,.004,0,.28]],
+    hurt:[['triangle',180,75,.12,0,.32,'lowpass',1300,true],['square',240,160,.06,0,.32,'lowpass',700],['noise',0,0,.04,0,.24,'lowpass',1800],['noise',0,0,.003,0,.28]],
+    hurtHeavy:[['sine',55,38,.16,.01,.42],['triangle',220,180,.10,.01,.54,'lowpass',800],['noise',0,0,.11,.01,.25,'lowpass',850],['noise',0,0,.004,.01,.28]],
+    guard:[['square',1750,700,.13,0,.10,'highpass',700,true],['noise',0,0,.065,0,.10,'highpass',4500],['sine',2700,1500,.14,.025,.10]],
+    heal:[['triangle',500,1100,.17,0,.16],['sine',800,1500,.12,.04,.088]],
+    exposed:[['triangle',500,1400,.12,0,.20,null,0,false,true]],
+    phase:[['sawtooth',170,35,.18,0,.20,'lowpass',1000,true,true],['noise',0,0,.1,0,.10,'lowpass',900]],
+    win:[['square',440,440,.075,0,.10,'lowpass',2200],['square',660,660,.075,.065,.10,'lowpass',2600],['triangle',880,1100,.09,.13,.14]],
+    lose:[['triangle',330,300,.075,0,.14],['square',220,180,.075,.065,.10,'lowpass',1200],['sine',110,50,.1,.13,.22]],
+    timeout:[['square',660,660,.055,0,.08,'lowpass',1800],['square',440,360,.07,.075,.08,'lowpass',1500]]
   };
   class RaidFeedback {
-    constructor() {
+    constructor({contextOverride=null}={}) {
+      this.contextOverride=contextOverride;
       this.on = true; this.ctx = null; this.master = null; this.noise = null; this.voices = new Set();
       this.previous = null; this.generation = null; this.suppressNext = false;
       try { this.on = window.localStorage.getItem('gcm_sound') !== '0'; } catch (_) { /* Optional preference. */ }
@@ -28,20 +29,24 @@
       if(!this.on) return false;
       try {
         const AC = window.AudioContext || window.webkitAudioContext;
-        if(!AC) return false;
+        if(!AC && !this.contextOverride) return false;
         if(!this.ctx) {
-          this.ctx = new AC();
+          this.ctx = this.contextOverride || new AC();
           const limiter=this.ctx.createDynamicsCompressor(), master=this.ctx.createGain();
-          limiter.threshold.value=-18; limiter.knee.value=12; limiter.ratio.value=6;
+          limiter.threshold.value=-8; limiter.knee.value=4; limiter.ratio.value=6;
           limiter.attack.value=.003; limiter.release.value=.15;
-          master.gain.value=.4; limiter.connect(master); master.connect(this.ctx.destination); this.master=limiter;
+          master.gain.value=.9;
+          // Keep SFX <=.70 so even unducked .28 BGM sums below full scale.
+          const safety=this.ctx.createWaveShaper();
+          safety.curve=Float32Array.from({length:1025},(_,i)=>Math.max(-.70,Math.min(.70,i/512-1)));
+          limiter.connect(master); master.connect(safety); safety.connect(this.ctx.destination); this.master=limiter;
           this.noise=this.ctx.createBuffer(1,Math.ceil(this.ctx.sampleRate*.3),this.ctx.sampleRate);
           const data=this.noise.getChannelData(0); let seed=20261027;
           for(let i=0;i<data.length;i++){seed=(seed*1664525+1013904223)>>>0;data[i]=seed/2147483648-1;}
           this.curve=new Float32Array(512);
           for(let i=0;i<512;i++) this.curve[i]=Math.tanh((i/511*2-1)*2.8)*.8;
         }
-        if(this.ctx.state === 'suspended') Promise.resolve(this.ctx.resume()).catch(() => {});
+        if(this.ctx.state === 'suspended' && !this.contextOverride) Promise.resolve(this.ctx.resume()).catch(() => {});
         return true;
       } catch (_) { return false; }
     }
@@ -63,11 +68,12 @@
     }
     pause() { this.suppressNext = true; this.cancel(); }
     play(cues) {
-      if(!this.on || !this.ctx || !this.master || this.ctx.state !== 'running' || document.hidden) return;
+      if(!this.on || !this.ctx || !this.master || (this.ctx.state !== 'running' && !(this.ctx===this.contextOverride && typeof this.ctx.startRendering==='function')) || document.hidden) return false;
       // Impacts must survive busy rounds and the final hit. Stagger the counter-hit slightly.
       const impacts=['swing','attackHeavy','attack','hurtHeavy','hurt'].filter(cue=>cues.includes(cue));
       const accents=cues.includes('win')?['win']:cues.includes('lose')?['lose']:['guard','phase','exposed','heal','timeout'].filter(cue=>cues.includes(cue));
       const selected=[...impacts,...accents].slice(0,4);
+      const before=this.voices.size;
       selected.forEach(cue => {
         for(const [type,from,to,duration,delay=0,volume=.03,filter,cutoff,distort,echo] of notes[cue] || []) {
           if(this.voices.size >= 24) break;
@@ -83,13 +89,14 @@
             if(distort){const shaper=this.ctx.createWaveShaper();shaper.curve=this.curve;shaper.oversample='2x';output.connect(shaper);output=shaper;voice.nodes.push(shaper);}
             output.connect(gain);gain.connect(this.master);
             if(echo){const d=this.ctx.createDelay(.1),wet=this.ctx.createGain();d.delayTime.value=echo.delay||.035;wet.gain.value=echo.gain||.18;gain.connect(d);d.connect(wet);wet.connect(this.master);voice.nodes.push(d,wet);}
-            gain.gain.setValueAtTime(.0001,at); gain.gain.linearRampToValueAtTime(volume,at+.004);
+            gain.gain.setValueAtTime(.0001,at); gain.gain.linearRampToValueAtTime(volume,at+Math.min(.003,duration/4));
             gain.gain.exponentialRampToValueAtTime(.0001,at+duration);
             osc.onended=() => this.release(voice);
             osc.start(at); osc.stop(at+duration+(echo ? (echo.delay||.035)+.005 : .01));
           } catch (_) { if(voice) this.release(voice); }
         }
       });
+      return this.voices.size>before;
     }
     /** Exactly one newly settled round may animate. First load, refresh and catch-up are silent. */
     observe(snapshot,generation) {

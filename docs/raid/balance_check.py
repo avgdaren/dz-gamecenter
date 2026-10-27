@@ -196,7 +196,24 @@ def main():
     parser = argparse.ArgumentParser(description='离线企划模型；默认规则为已确定的 P1 基线，真人手感尚未验收')
     parser.add_argument('--trace', action='store_true', help='同时导出参考路线逐轮状态，供 PHP 规则对照')
     parser.add_argument('--write-reference', metavar='PATH', help='写入确定性 P1 逐轮对照 JSON（不连接数据库）')
+    parser.add_argument('--grid', action='store_true', help='扫描72组候选，不写生产规则；固定启发式不伪造概率')
+    parser.add_argument('--games', type=int, default=2000, help='每组每模式随机策略局数，默认2000')
+    parser.add_argument('--seed', type=int, default=20261027, help='复现随机策略种子')
+    parser.add_argument('--format', choices=('json', 'table', 'both'), default='both', help='grid输出；both的JSON走stdout，表走stderr')
     args = parser.parse_args()
+    if args.grid:
+        if args.trace or args.write_reference:
+            parser.error('--grid cannot be combined with --trace/--write-reference; production fixture remains unchanged')
+        if args.games < 1:
+            parser.error('--games must be positive')
+        import sys
+        from balance_grid import scan, table
+        report = scan(args.games, args.seed)
+        if args.format != 'table':
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        if args.format != 'json':
+            print(table(report), file=sys.stderr if args.format == 'both' else sys.stdout, end='')
+        return
     checks = 0
 
     def check(value, name):
