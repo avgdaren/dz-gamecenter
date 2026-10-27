@@ -180,4 +180,13 @@ for(const [uid,mode,version,limit] of [[920,'solo','raid-v2-solo110-p4-duo150',1
  snapshot={...snapshot,status:3,reason:'round_limit',version:snapshot.version+1};await limits.poll();
  check(limits.$('result-text').textContent.startsWith(limit+' 回合已用尽'),'terminal text follows room cap');limits.close();
 }
+snapshot=battle({round_limit:18,mode:'solo',preview:{phase:2,kind:2,targets:[0],damage:28}});const guide=setup(930);await guide.settled();
+check(guide.$('preview-name').textContent.startsWith('⚠ 重击')&&guide.stage.querySelector('.forecast').classList.contains('is-heavy'),'heavy forecast has an explicit warning and bad-color border hook');
+check(guide.$('preview-text').textContent.includes('28 伤害')&&guide.$('preview-text').textContent.includes('守护后为 6'),'guidance leaves authoritative damage numbers unchanged');
+snapshot={...snapshot,version:snapshot.version+1,preview:{phase:2,kind:3,targets:[],damage:0}};await guide.poll();
+check(guide.$('preview-text').textContent.startsWith('本轮回气，可全力进攻')&&!guide.stage.querySelector('.forecast').classList.contains('is-heavy'),'rest turn gives a clear attack opportunity and clears heavy border');
+snapshot={...snapshot,version:snapshot.version+1,preview:{phase:2,kind:0,targets:[0],damage:10}};await guide.poll();
+check(!guide.$('preview-name').textContent.includes('⚠')&&!guide.$('preview-text').textContent.includes('全力进攻'),'ordinary turns add no warning or rest badge');
+snapshot={...snapshot,version:snapshot.version+1,status:3,reason:'knockout',preview:{phase:2,kind:2,targets:[0],damage:28}};await guide.poll();
+check(!guide.$('preview-name').textContent.includes('⚠')&&!guide.stage.querySelector('.forecast').classList.contains('is-heavy'),'terminal state does not prompt a new defensive action');guide.close();
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));

@@ -332,8 +332,9 @@
     $('mode').textContent = state.mode === 'solo' ? '单人挑战' : '双人 · 合作讨伐';
     $('boss-hp').textContent = `${state.boss} / ${state.boss_max_hp} 生命`;
     $('boss-bar').max = state.boss_max_hp; $('boss-bar').value = state.boss;
-    $('preview-name').textContent = `幽月 · ${names[p.kind]}`;
-    $('preview-text').textContent = p.kind === 3 ? '幽月正在回气，本轮不会攻击。' :
+    $('preview-name').textContent = (state.status===1&&p.kind===2?'⚠ 重击 · ':'')+`幽月 · ${names[p.kind]}`;
+    root.querySelector('.forecast').classList[state.status===1&&p.kind===2?'add':'remove']('is-heavy');
+    $('preview-text').textContent = p.kind === 3 ? (state.status===1?'本轮回气，可全力进攻。幽月本轮不会攻击。':'幽月正在回气，本轮不会攻击。') :
       `幽月将攻击${p.targets.map(slot).join('、')}：${p.damage} 伤害；守护后为 ${Math.ceil(p.damage/5)}。`;
     $('weakness').textContent = state.status !== 1 ? '' : state.exposed && p.kind === 3 ? '破绽！本轮攻击造成 20 伤害。' : p.kind === 2 ? '成功守护重击并存活，下轮将出现破绽。' : '';
     root.querySelector('.arena').className='arena'+(state.status===1 && state.exposed && p.kind===3?' has-weakness':'')+(p.phase===2?' phase-two':'')+(state.status===3?' is-defeated':'')+(state.status===1?' is-active':'');

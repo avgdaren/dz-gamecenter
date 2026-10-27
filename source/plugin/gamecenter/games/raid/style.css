@@ -221,3 +221,6 @@
 
 .gcr .empty-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
 @media(max-width:390px){.gcr .empty-actions{flex-direction:column;align-items:stretch}}
+
+/* Pure preview guidance; the existing border width stays fixed. */
+.gcr .arena .forecast.is-heavy{border-left:3px solid var(--bad)}
