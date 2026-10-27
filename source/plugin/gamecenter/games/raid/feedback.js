@@ -140,7 +140,8 @@
   }
   /** Transparent face reactions; strictly presentation-only, one fixed 200ms window. */
   class RaidFaceLayer {
-    constructor({art,layer,assetBase,reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches,now=()=>Date.now(),setTimer=setTimeout,clearTimer=clearTimeout}) {
+    // Native browser timers require their global receiver, never the face instance.
+    constructor({art,layer,assetBase,reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches,now=()=>Date.now(),setTimer=(fn,ms)=>globalThis.setTimeout(fn,ms),clearTimer=id=>globalThis.clearTimeout(id)}) {
       Object.assign(this,{art,layer,assetBase,reduced,now,setTimer,clearTimer});
       this.cache=new Map();this.phase=1;this.room='';this.level=0;this.until=0;this.timer=null;
       layer.addEventListener('error',()=>{const entry=this.cache.get(`${this.phase}:${this.level}`);if(entry && this.layer.src===entry.url)entry.ready=false;this.reset();});

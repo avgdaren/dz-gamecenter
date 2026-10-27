@@ -2,7 +2,13 @@
 """作者：GPT / Codex；原插件 (C) 2026 Carinoasd。检查六张真实RGBA表情层与清单。"""
 from pathlib import Path
 import hashlib,json
-from PIL import Image
+try:
+    from PIL import Image
+except ModuleNotFoundError as exc:
+    if exc.name not in ('PIL', 'PIL.Image'):
+        raise
+    print(json.dumps({'status':'SKIP','checks':0,'reason':'Pillow missing; install with: python -m pip install Pillow. SKIP is not PASS.'}))
+    raise SystemExit(0)
 ROOT=Path(__file__).resolve().parents[2]
 manifest=json.loads((ROOT/'docs/raid/art/faces/manifest.json').read_text())
 checks=0

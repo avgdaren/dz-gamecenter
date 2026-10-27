@@ -1,6 +1,23 @@
 # 天使讨伐令 · 受击表情、演出与交接收口
 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。2026-10-27。
-基于4a1092e；前端0.1.4，不自动合并/部署。无PHP/规则/DB变化。
+当前修复基于727e7f4；前端0.1.5，不自动合并/部署。无PHP/规则/DB变化。
+
+## 727e7f4 复验阻塞与本次修复
+
+- [小蓝复验6442071473](https://github.com/avgdaren/dz-gamecenter/pull/16#issuecomment-6442071473) 确认P0：默认未绑定setTimeout/clearTimeout作为实例方法调用，在Chrome抛Illegal invocation，阻断present后续视觉反馈。此前301项通过仅是所列替身/文件检查，不能说明战斗视觉正常；本次修复仍待真实Chrome复验。
+- 默认计时器改成箭头包装，显式通过globalThis调用设置与清除，保留注入计时器的测试接口。game.json升0.1.5，使view.php的feedback.js版本查询更新，避免复验沿用旧缓存。
+- face_check从14增加到23项：原14项保留；新增不注入计时器的默认路径、真实Node计时/主动清除/自动复位、要求全局接收者的宿主模拟、第二次受击，以及分别恢复旧set/clear默认值时必须报错的两条反向检查。宿主模拟不是Chrome验收。
+- face-assets-check缺Pillow时输出JSON SKIP、checks=0和python -m pip install Pillow提示并退出0；SKIP不等于PASS。真实图片37项PASS，python -S禁用site-packages实测SKIP。
+- 本轮针对性回归：表情23、真实图片37、体验93、音效62、音乐31，合计246项；JS/JSON/Python语法通过。不重复更改六张已通过图片、单人UI或已验收BGM。
+
+### 小蓝立即复验
+
+1. 更新完整运行目录与game.json，确认feedback.js请求?v=0.1.5，控制台无Illegal invocation；无需数据库升级。
+2. 两阶段ready后≤50ms显示表情、200ms窗口复位（220ms已隐藏）、连击取最强不续时、第二次受击；动态reduce、404回退与换房清除。
+3. 确认飘字节点实际创建，首领位移/闪光、破绽、阶段、胜负视觉均执行，控制台无异常；新SFX耳听仍待验。
+4. 运行face_check.mjs（23项）和原论坛/PHP回归；图片脚本若SKIP按提示装Pillow，或明确记录等价核对，不能计为PASS。
+
+以下为0.1.4原批交付与历史自测记录；真实浏览器视觉结论以上述P0及后续复验为准。
 
 ## 本批交付
 
@@ -30,7 +47,7 @@
 
 ## 小蓝接续清单
 
-1. 拉取0.1.4候选完整运行目录，确认六张assets均存在、哈希与manifest一致；docs素材不进运行包。无需新表或数据库升级。
+1. 拉取0.1.5候选完整运行目录，确认六张assets均存在、哈希与manifest一致；docs素材不进运行包。无需新表或数据库升级。
 2. 跑face-assets-check.py、face_check.mjs、experience-check.mjs、feedback_check.mjs forum、music_check.mjs forum、music_assets_parser_test.py、music-assets-check.py，以及原PHP/DB/HTTP/论坛前台回归。SKIP不等于PASS，真听已过的BGM不反复要求返工。
 3. Chrome分别两阶段造成10/20/≥21伤，按art-brief的八条验收：ready后50ms可见、220ms已隐藏、取最强、p2专套、reduce动态/静态均opacity0、404不抛异常有零素材反馈、几何预算、pointer-events不挡点击。
 4. 深浅色桌面和320/390窄窗口：首领位移/呼吸/玩家前摇不产生滚动条；飘字不压回合；横幅保留空间；伪元素不遮结果；solo战斗/终局看不到房间UI，模式按钮战斗中置灰/结束后恢复。
