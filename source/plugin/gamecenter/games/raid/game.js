@@ -11,7 +11,7 @@
 <div data-gcr="message" role="status" aria-live="polite">选择一种模式开始挑战。</div>
 <p data-gcr="connection" class="connection" aria-live="off">正在连接论坛…</p>
 <div data-gcr="retry-box" hidden><p>上一次操作的结果尚未确认。重试会沿用同一请求，不会重复扣恢复次数。</p><button data-gcr="retry">重试上次操作</button></div>
-<div data-gcr="empty" class="empty"><span>☾</span><h2>蚀月魔女 · 幽月，正在等待挑战者</h2><p>每轮先看预告，再选择攻击、守护或恢复。重击后抓住破绽，是胜负的关键。</p></div>
+<div data-gcr="empty" class="empty"><span>☾</span><h2>蚀月魔女 · 幽月，正在等待挑战者</h2><p>每轮先看预告，再选择攻击、守护或恢复。重击后抓住破绽，是胜负的关键。</p><div class="empty-actions"><button class="primary" data-gcr="empty-start">开始游戏</button><button data-gcr="empty-duo">邀请好友 · 合作</button></div></div>
 <div data-gcr="battle" hidden>
 <p class="turn-help">每轮有 30 秒选择行动；你和队友都确认后立即结算。没选时会自动守护自己。</p>
 <p data-gcr="idle-hint" class="idle-hint" role="status" hidden></p>
@@ -138,10 +138,16 @@
   function savePending() {
     try { if(pending) sessionStorage.setItem(storageKey, JSON.stringify(pending)); else sessionStorage.removeItem(storageKey); } catch (_) { /* Private browsing can disable storage; in-memory retry still works. */ }
   }
+  const hasCurrentRoom=()=>state&&state.status<2&&state.seat>=0&&!state.left[state.seat];
+  function resumeCurrent(){leaveEntry();historyRoom=null;return sync();}
   function controls() {
     const disabled=busy || !!pending || !uid || blocked;
     const occupied=state && state.status < 2 && state.seat >= 0 && !state.left[state.seat];
     for(const id of ['solo','duo']) $(id).disabled=disabled || (occupied && state.status===1 && !freshLanding);
+    $('empty-start').disabled=disabled;
+    $('empty-duo').disabled=disabled || (occupied&&state.leaving[state.seat]);
+    $('empty-start').textContent=occupied?'继续讨伐':'开始游戏';
+    $('empty-duo').textContent=occupied?'放弃并开新局':'邀请好友 · 合作';
     $('join').disabled=disabled || occupied;
     $('current').disabled=busy || !uid;
     $('retry').disabled=busy || !pending || !uid || blocked;
@@ -373,7 +379,9 @@
     }
     historyRoom=null;leaveEntry();return send({op:'create',mode});
   }
-  $('resume').addEventListener('click',()=>{leaveEntry();historyRoom=null;sync();});
+  $('resume').addEventListener('click',resumeCurrent);
+  $('empty-start').addEventListener('click',()=>hasCurrentRoom()?resumeCurrent():startMode('solo'));
+  $('empty-duo').addEventListener('click',()=>startMode(hasCurrentRoom()?state.mode:'duo'));
   $('restart').addEventListener('click',()=>startMode(state?.mode||'solo'));
   $('again').addEventListener('click',()=>startMode(state?.mode||'solo'));
   $('again-duo').addEventListener('click',()=>startMode('duo'));
@@ -386,7 +394,7 @@
     historyRoom=null;leaveEntry();send({op:'join',room});
   });
   $('reopen').addEventListener('click',()=>startMode('duo'));
-  $('current').addEventListener('click',()=>{leaveEntry();historyRoom=null;sync();});
+  $('current').addEventListener('click',resumeCurrent);
   $('cancel').addEventListener('click',()=>{if(state?.status===0)send({op:'cancel',room:state.room,expected_version:state.version});});
   async function copyInvite(id,label) {
     try { await navigator.clipboard.writeText($(id).value); notice(label+'已复制。'); }

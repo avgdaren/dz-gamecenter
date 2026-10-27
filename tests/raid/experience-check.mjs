@@ -164,4 +164,13 @@ await deferred.command('restart');check(callsToServer.slice(start).map(x=>x.acti
 const resumedDuo=setup(807);await resumedDuo.settled();check(snapshot.room===oldDuo,'reload preserves deferred restart intent without early create');
 snapshot={...snapshot,left:[true,false],leaving:[false,false],version:snapshot.version+1};await resumedDuo.poll();
 check(snapshot.status===0&&snapshot.room!==oldDuo,'settled departure serially creates the chosen new room after reload');resumedDuo.close();
+snapshot=null;const cta=setup(901,'&fresh=1');await cta.settled();
+check(!cta.$('empty').hidden&&!cta.$('empty-start').disabled&&cta.$('empty-start').textContent==='开始游戏','idle has an enabled native primary start button');
+start=callsToServer.length;cta.$('empty-start').click();cta.$('empty-start').click();await cta.settled();
+check(callsToServer.slice(start).filter(x=>x.action==='create').length===1&&snapshot.mode==='solo'&&!cta.$('battle').hidden,'one CTA click starts phase one; rapid repeats cannot duplicate create');cta.close();
+const currentCTA=snapshot.room,resumeCTA=setup(902,'&fresh=1');await resumeCTA.settled();start=callsToServer.length;
+check(resumeCTA.$('empty-start').textContent==='继续讨伐'&&resumeCTA.$('empty-duo').textContent==='放弃并开新局','active entry CTA describes continuing and explicit abandonment');
+await resumeCTA.command('empty-start');check(snapshot.room===currentCTA&&!resumeCTA.$('battle').hidden&&!callsToServer.slice(start).some(x=>['retreat','create'].includes(x.action)),'continue CTA restores the room without abandoning or creating');resumeCTA.close();
+snapshot={...snapshot,status:3,reason:'knockout',version:snapshot.version+1};const coopCTA=setup(903,'&fresh=1');await coopCTA.settled();await coopCTA.command('empty-duo');check(snapshot.mode==='duo'&&snapshot.status===0,'secondary idle CTA reuses duo room creation');coopCTA.close();
+const guestCTA=setup(0,'&fresh=1');check(guestCTA.$('empty-start').disabled&&guestCTA.$('empty-duo').disabled,'guest CTAs are both disabled');guestCTA.close();
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));
