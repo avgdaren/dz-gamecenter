@@ -52,10 +52,12 @@ function setup(uid,suffix=''){
  matchMedia:()=>({matches:false}),setTimeout:(fn,ms)=>{const id=++counter;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),setInterval:()=>0,
  sessionStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
  fetch:async(url,opts)=>{inFlight++;maxFlight=Math.max(maxFlight,inFlight);posts++;try{if(offline)throw Error('offline');const data=Object.fromEntries(opts.body.entries());calls.push(data);check(!('actor' in data)&&!('uid' in data)&&!('next_mode' in data),'no actor/uid/local continuation sent');const result=await w.send({uid,data});if(drop&&(drop===true||drop===data.action)&&['create','join','act','retreat','cancel'].includes(data.action)){drop=false;throw Error('lost response');}return {ok:true,json:async()=>result};}finally{inFlight--;}}};
- for(const file of ['feedback.js','music.js','game.js'])vm.runInNewContext(readFileSync(new URL(file,gameDir),'utf8'),context,{filename:file});
+ for(const file of ['feedback.js','music.js'])vm.runInNewContext(readFileSync(new URL(file,gameDir),'utf8'),context,{filename:file});
+ let selectedMusic;const Music=context.RaidMusic;context.RaidMusic=class extends Music{constructor(...args){super(...args);selectedMusic=this;}};
+ vm.runInNewContext(readFileSync(new URL('game.js',gameDir),'utf8'),context,{filename:'game.js'});
  boot(stage,{uid});
  const $=id=>stage.querySelector(`[data-gcr="${id}"]`);
- return {doc,stage,$,calls,timers,storage,drop(action=true){drop=action;},confirmations,answer(v){answer=v;},offline(v){offline=v;},async settled(){await until(()=>inFlight===0&&!$('current').disabled);},async command(id){$(id).click();await this.settled();},async poll(){await this.command('current');},async play(seat,kind,target=-1){const card=()=>stage.querySelector(`[data-actor="${seat}"]`);const btn=card().querySelector(`[data-kind="${kind}"]`);check(btn&&!btn.disabled,'own action available');btn.click();if(kind!=='attack'){const select=card().querySelector('select');select.value=String(target);select.dispatchEvent({type:'change'});}check(!card().querySelector('.confirm').disabled,'confirm enabled');card().querySelector('.confirm').click();await this.settled();},close(){target.dispatchEvent({type:'pagehide'});}};
+ return {doc,stage,$,calls,timers,storage,music:selectedMusic,drop(action=true){drop=action;},confirmations,answer(v){answer=v;},offline(v){offline=v;},async settled(){await until(()=>inFlight===0&&!$('current').disabled);},async command(id){$(id).click();await this.settled();},async poll(){await this.command('current');},async play(seat,kind,target=-1){const card=()=>stage.querySelector(`[data-actor="${seat}"]`);const btn=card().querySelector(`[data-kind="${kind}"]`);check(btn&&!btn.disabled,'own action available');btn.click();if(kind!=='attack'){const select=card().querySelector('select');select.value=String(target);select.dispatchEvent({type:'change'});}check(!card().querySelector('.confirm').disabled,'confirm enabled');card().querySelector('.confirm').click();await this.settled();},close(){target.dispatchEvent({type:'pagehide'});}};
 }
 Element.prototype.select=function(){this.selected=true;};
 const waiting=()=>({room:'ABCDEF123456',status:0,reason:'',seat:0,version:1,mode:'duo',deadline_ms:299000,
@@ -189,4 +191,17 @@ snapshot={...snapshot,version:snapshot.version+1,preview:{phase:2,kind:0,targets
 check(!guide.$('preview-name').textContent.includes('⚠')&&!guide.$('preview-text').textContent.includes('全力进攻'),'ordinary turns add no warning or rest badge');
 snapshot={...snapshot,version:snapshot.version+1,status:3,reason:'knockout',preview:{phase:2,kind:2,targets:[0],damage:28}};await guide.poll();
 check(!guide.$('preview-name').textContent.includes('⚠')&&!guide.stage.querySelector('.forecast').classList.contains('is-heavy'),'terminal state does not prompt a new defensive action');guide.close();
+
+// Production apply() selects music from authoritative outcome, including restored/history rooms.
+snapshot={...battle(),mode:'solo',status:2,boss:0,reason:'defeated'};const victory=setup(940);await victory.settled();
+check(victory.music.active&&victory.music.phase==='victory'&&!victory.music.interacted,'restored victory selects music without granting interaction');
+victory.doc.dispatchEvent({type:'pointerdown'});check(victory.music.interacted,'ordinary page pointer grants music interaction');
+for(const reason of ['knockout','round_limit','retreated']){
+ snapshot={...snapshot,status:3,reason,version:snapshot.version+1};await victory.poll();
+ check(!victory.music.active&&victory.music.phase!=='victory','production outcome '+reason+' never selects victory');
+}
+snapshot={...snapshot,status:4,reason:'cancelled',version:snapshot.version+1};await victory.poll();check(!victory.music.active,'cancelled waiting room has no music');
+snapshot={...snapshot,status:2,boss:0,reason:'defeated',version:snapshot.version+1};await victory.poll();await victory.command('again');
+check(victory.music.active&&victory.music.phase===1&&snapshot.status===1,'production restart selects phase one');victory.close();
+snapshot={...snapshot,status:2,boss:0,reason:'defeated',version:snapshot.version+1};const freshWin=setup(941,'&fresh=1');await freshWin.settled();check(!freshWin.music.active,'fresh lobby does not play historical victory');freshWin.close();
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));

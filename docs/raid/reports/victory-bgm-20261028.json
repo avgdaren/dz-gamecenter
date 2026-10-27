@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-28",
+  "status": "AWAITING_DISCUZ_AND_LISTENING",
+  "base": "e25c399208610c4a8a7fe09e31fd7a7e2a17cd20",
+  "frontend": "0.1.13",
+  "music_assets": {
+    "status": "PASS",
+    "checks": 13,
+    "tracks": {
+      "battle.mp3": {
+        "integrated_lufs": -12.5,
+        "true_peak_db": -1.97,
+        "bytes": 680272,
+        "sha256": "15d181aee4ce7dabd505b44fbfe7d872881504d5694f2146776c6ec2048fdd56"
+      },
+      "battle-phase2.mp3": {
+        "integrated_lufs": -12.49,
+        "true_peak_db": -1.06,
+        "bytes": 511940,
+        "sha256": "496bd3aa2d862db9a1727a83a9b7b31a2d795d38e639916bade9198b579bd6aa"
+      },
+      "victory.mp3": {
+        "integrated_lufs": -12.35,
+        "true_peak_db": -1.33,
+        "bytes": 509118,
+        "sha256": "eb85cff324fbef3403006af26d91b445316e1328dc6104848026ebe83fae409f",
+        "decoded_seconds": 31.75,
+        "endpoint_jump": 0.01275634765625
+      }
+    }
+  },
+  "tests": {
+    "music_forum": 67,
+    "music_prototype": 19,
+    "experience_minidom": 193,
+    "feedback_forum": 89,
+    "face_lifecycle": 23,
+    "chromium_native_audio": {
+      "checks": 12,
+      "version": "151.0.7922.34",
+      "backend": "scripted HTTP server, not Discuz"
+    }
+  },
+  "unverified": [
+    "real Discuz",
+    "real background tab and mobile lifecycle",
+    "human listening and musical loop seam"
+  ],
+  "database_upgrade": false
+}

@@ -38,3 +38,15 @@ MP3 SHA-256：`892ca3de2453a615facdef8ba31bbacb03efdd99c98a1cc9d73e46e611d43365`
 
 上述原版/0.1.2的字节与哈希属于历史处理记录。0.1.3对两首均以FFmpeg loudnorm双遍处理，目标I=-12、TP=-1.5、LRA=7，分别保留64k/96k、44.1kHz编码；MP3解码后的实际值与当前SHA见P2-SIX-FEEDBACK-HANDOFF.md。综合响度-12.50/-12.49LUFS，解码真峰值-1.97/-1.06dBTP。播放器0.28，两轨补偿1；当前资源URL带0.1.3版本。
 本轮没有重新下载来源、换曲或改变CC0署名记录。实解码检查脚本为tests/raid/music-assets-check.py；耳听与循环音乐性仍未验。
+
+## 0.1.13 胜利曲 · 2026-10-28
+
+- 曲名：Victory Theme for RPG；作者 **cynicmusic**；原项目 Pixelsphere（http://pixelsphere.org）。
+- 作者发布页：https://opengameart.org/content/victory-theme-for-rpg 。2026-10-28 已核对页面作者、曲名和 CC0 标记。
+- 本曲原文件：https://opengameart.org/sites/default/files/Victory1_1.mp3 。原始文件 1361839 字节；SHA-256 `1148060f2fbf4f84914dce2ce754beb08c98597f286d106e7c5dfc2b1c264b8f`。
+- 授权：CC0 1.0（https://creativecommons.org/publicdomain/zero/1.0/）；保留署名。只使用此页明确标注 CC0 的曲目，不将作者其他网站的整库视为同一授权。
+- 处理：截取原曲前 32 秒，FFmpeg loudnorm I=-12.5 / TP=-2 / LRA=7；归一化后做首尾 250ms 圆形交叉混合，再做两端各 10ms 去点击包络；44.1kHz 双声道、128kbit/s MP3、清除源元数据。可复算脚本 `docs/raid/build_victory.py`，用法：`python docs/raid/build_victory.py <原始Victory1_1.mp3> source/plugin/gamecenter/games/raid/assets/victory.mp3`。源文件不入库；FFmpeg 版本不同可能产生不同编码字节。
+- 运行文件：`source/plugin/gamecenter/games/raid/assets/victory.mp3`，**509118 字节**，实解码 **31.75 秒**；SHA-256 `eb85cff324fbef3403006af26d91b445316e1328dc6104848026ebe83fae409f`。
+- 最终 MP3 实测 **-12.35 LUFS / -1.33 dBTP**；两首战斗曲保持原字节和原增益，三曲响度差 0.15 LUFS。采样边界跳变 0.01276（线性满幅）；这是去点击检查，不是音乐乐句衔接或人耳验收。
+- 曲风按管弦胜利曲选取；暗色世界观适配度、情绪和人耳循环听感由用户/玩家试听确认，不能由响度指标替代。浏览器采用单 HTMLAudio 循环；设备/编码器播放循环可能有间隙，不宣称跨设备严格无缝。
+- 旧章节“终局暂停”指此前行为：0.1.13 起仅成功结算切胜利曲；失败、撤退、取消仍停播。版本 URL 统一使用 0.1.13。
