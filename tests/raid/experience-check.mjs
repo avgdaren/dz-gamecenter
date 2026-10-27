@@ -72,7 +72,14 @@ check(a.$('boss-effects').children.some(n=>n.textContent==='−20'),'boss damage
 snapshot=battle({version:4,round_no:3,boss:60,preview:{phase:2,kind:2,targets:[0],damage:30},history:[row]});await a.poll();
 check(a.stage.querySelector('.arena').classList.contains('phase-two')&&!a.$('phase-banner').hidden,'phase appearance and banner persist');
 check(a.$('boss-line').textContent==='你们这群蝼蚁！','duo second phase line');
+check(a.$('phase-art').src.endsWith('assets/boss-phase2.png'),'second phase asset requested');
+a.$('phase-art').dispatchEvent({type:'load'});
+check(a.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'loaded variation enables crossfade');
+a.$('phase-art').dispatchEvent({type:'error'});
+check(!a.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'failed variation preserves base portrait');
 snapshot=battle({room:'111111111111',mode:'solo',version:1,hp:[40],pots:[3],left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]});await a.poll();
 check(a.$('boss-line').textContent==='凡人……你确定要独自挑战我吗？','solo opening line');
+snapshot={...snapshot,status:3,reason:'knockout',version:2};await a.poll();
+check(a.$('boss-line').textContent==='胜败乃兵家常事，少侠请重新来过','requested defeat quote');
 failNetwork=true;await a.poll();check(!a.$('connection').hidden&&a.$('connection').textContent.includes('连接中断'),'connection failure stays visible');
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));

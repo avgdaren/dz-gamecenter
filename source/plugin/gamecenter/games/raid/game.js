@@ -15,7 +15,7 @@
 <p class="turn-help">每轮有 30 秒选择行动；你和队友都确认后立即结算。没选时会自动守护自己。</p>
 <p data-gcr="idle-hint" class="idle-hint" role="status" hidden></p>
 <section class="arena" aria-label="首领与回合预告">
-<div class="boss-art"><img src="source/plugin/gamecenter/games/raid/assets/boss.webp" alt="蚀月魔女 · 幽月"></div>
+<div class="boss-art"><img class="boss-base" src="source/plugin/gamecenter/games/raid/assets/boss.webp" alt="蚀月魔女 · 幽月"><img class="boss-phase-layer" data-gcr="phase-art" alt="" aria-hidden="true"></div>
 <div class="boss-info"><div class="boss-title"><p class="eyebrow" data-gcr="phase"></p><span data-gcr="round"></span></div><h2>蚀月魔女 · 幽月</h2><div class="health-row"><span data-gcr="boss-hp"></span><span data-gcr="mode"></span></div><div class="boss-health"><progress data-gcr="boss-bar" max="130" value="130" aria-label="幽月生命"></progress><span data-gcr="boss-effects" class="boss-effects" aria-hidden="true"></span></div><p data-gcr="phase-banner" class="phase-banner" role="status" hidden>月蚀加深，幽月进入第二阶段。</p>
 <div class="forecast"><div class="forecast-title"><h3 data-gcr="preview-name"></h3><span data-gcr="timer" role="timer"></span></div><p data-gcr="preview-text"></p><p data-gcr="weakness"></p></div>
 <p class="boss-line" data-gcr="boss-line">你选择一人面对魔女，还是和伙伴一起挑战魔女？</p></div>
@@ -46,6 +46,9 @@
   const effectTimers = new Set(), effectNodes = new Set(), effectHosts = new Set();
   const make = (tag, cls, text) => { const el = document.createElement(tag); if(cls) el.className = cls; if(text !== undefined) el.textContent = text; return el; };
   const slot = i => i === state?.seat ? '你' : '队友';
+  const phaseArt=$('phase-art'); let phaseArtRequested=false;
+  phaseArt.addEventListener('load',()=>root.querySelector('.boss-art').classList.add('phase-art-ready'));
+  phaseArt.addEventListener('error',()=>root.querySelector('.boss-art').classList.remove('phase-art-ready'));
   const active = i => state && state.hp[i] > 0 && !state.left[i];
   function actionText(a, actor) {
     if(!a) return '无行动';
@@ -265,6 +268,7 @@
     $('idle-hint').hidden=!idle.length;
     $('idle-hint').textContent=idle.length ? idle.map(({actor,count})=>`${slot(actor)} 连续 ${count} 轮没选`).join('；')+'，已自动守护自己。可以继续等待队友，也可以撤退（本轮结束后离场）。' : '';
     root.querySelector('.turn-help').textContent=state.mode==='solo'?'每轮有 30 秒选择行动，确认后立即结算。没选时会自动守护自己。':'每轮有 30 秒选择行动；你和队友都确认后立即结算。没选时会自动守护自己。';
+    if(!phaseArtRequested && state.status===1) {phaseArtRequested=true; phaseArt.src=new URL('assets/boss-phase2.png',assetBase).href;}
     const p = state.preview;
     $('phase').textContent = `第 ${p.phase === 1 ? '一' : '二'} 阶段`;
     $('round').textContent = `回合 ${state.round_no} / 16`;
@@ -278,7 +282,7 @@
     root.querySelector('.arena').className='arena'+(state.status===1 && state.exposed && p.kind===3?' has-weakness':'')+(p.phase===2?' phase-two':'');
     $('phase-banner').hidden=p.phase!==2;
     $('boss-line').textContent = state.status === 2 ? (state.mode === 'solo' ? '这一次，算你赢了。' : '这一次，算你们赢了。') :
-      state.status === 3 ? '别急着认输。记住这轮月光，再来一次。' :
+      state.status === 3 ? '胜败乃兵家常事，少侠请重新来过' :
       state.exposed && p.kind === 3 ? '竟然看穿了我的破绽……' :
       p.phase === 1 ? (state.mode === 'solo' ? '凡人……你确定要独自挑战我吗？' : '人数对于我来说，并没有区别') :
       state.mode === 'solo' ? '你惹怒我了！' : '你们这群蝼蚁！';

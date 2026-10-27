@@ -5,8 +5,8 @@
   // [source, fromHz, toHz, seconds, offset, gain, filter, cutoff, distortion, echo]
   // Each complete cue ends within .30 s, including its one short echo tail.
   const notes = {
-    attack:[['sawtooth',1700,70,.14,0,.065,'lowpass',3200,true],['noise',0,0,.08,0,.035,'highpass',1800,true],['sine',85,45,.16,0,.085]],
-    hurt:[['sine',78,38,.18,0,.10],['noise',0,0,.065,0,.06,'highpass',2300,true]],
+    attack:[['sawtooth',1900,110,.12,0,.12,'lowpass',3800,true],['noise',0,0,.045,0,.10,'highpass',1600,true],['triangle',210,75,.16,.012,.16,'lowpass',1200,true],['sine',85,45,.16,.012,.12]],
+    hurt:[['triangle',260,95,.17,0,.18,'lowpass',1600,true],['sine',78,38,.18,0,.14],['noise',0,0,.055,0,.11,'bandpass',1800,true]],
     guard:[['square',1750,700,.13,0,.025,'highpass',700,true],['noise',0,0,.065,0,.025,'highpass',4500],['sine',2700,1500,.14,.025,.025]],
     heal:[['triangle',500,1100,.17,0,.04],['sine',800,1500,.12,.04,.022]],
     exposed:[['square',480,1850,.19,0,.03,'lowpass',3800],['sine',900,3200,.14,.035,.035,null,0,false,true]],
@@ -61,8 +61,10 @@
     pause() { this.suppressNext = true; this.cancel(); }
     play(cues) {
       if(!this.on || !this.ctx || !this.master || this.ctx.state !== 'running' || document.hidden) return;
-      const priority=['phase','exposed','timeout','heal','guard','attack','hurt'];
-      const selected = cues.includes('win') ? ['win'] : cues.includes('lose') ? ['lose'] : priority.filter(cue=>cues.includes(cue)).slice(0,4);
+      // Impacts must survive busy rounds and the final hit. Stagger the counter-hit slightly.
+      const impacts=['attack','hurt'].filter(cue=>cues.includes(cue));
+      const accents=cues.includes('win')?['win']:cues.includes('lose')?['lose']:['guard','phase','exposed','heal','timeout'].filter(cue=>cues.includes(cue));
+      const selected=[...impacts,...accents].slice(0,4);
       selected.forEach(cue => {
         for(const [type,from,to,duration,delay=0,volume=.03,filter,cutoff,distort,echo] of notes[cue] || []) {
           if(this.voices.size >= 24) break;
@@ -70,7 +72,7 @@
           try {
             const osc=type==='noise'?this.ctx.createBufferSource():this.ctx.createOscillator(), gain=this.ctx.createGain();
             voice={osc,gain,nodes:[osc,gain]}; this.voices.add(voice);
-            const at=this.ctx.currentTime + delay;
+            const at=this.ctx.currentTime + delay + (cue==='hurt' && impacts.includes('attack') ? .035 : 0);
             if(type==='noise') osc.buffer=this.noise;
             else {osc.type=type;osc.frequency.setValueAtTime(from,at);osc.frequency.exponentialRampToValueAtTime(to,at+duration);}
             let output=osc;

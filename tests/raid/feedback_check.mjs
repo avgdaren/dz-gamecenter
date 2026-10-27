@@ -119,4 +119,17 @@ for(const cue of ['attack','hurt','guard','heal','exposed','phase','win','lose',
   check(Class.idleSlots({...duo,status:3}).length===0,'no idle warning at terminal');
   check(Class.idleSlots({...duo,mode:'solo'}).length===0,'no teammate idle warning in solo');
 }
+
+// Busy rounds and terminal rounds retain both impact cues.
+{
+  const {fx,nodes}=setup();fx.unlock();
+  fx.play(['phase','exposed','timeout','heal','guard','attack','hurt']);
+  check(nodes.some(n=>n.type==='sawtooth') && nodes.filter(n=>n.type==='triangle').length>=2,'busy round retains outgoing and incoming impact');
+  check(nodes.every(n=>n.stops[0]<=.3),'staggered impacts finish within 300ms');
+  fx.cancel();const previous=nodes.length;
+  fx.play(['attack','hurt','win']);
+  check(nodes.length-previous===10,'final hit and counter-hit coexist with victory motif');
+  fx.toggle();check(fx.voices.size===0,'mute cancels all staggered and terminal voices');
+}
+
 console.log(JSON.stringify({status:'PASS',checks,audio:'mock AudioContext; no claim about actual listening or browser autoplay'}));
