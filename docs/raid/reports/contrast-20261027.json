@@ -1,0 +1,199 @@
+{
+  "status": "PASS",
+  "scope": "real browser CSS fixture, not live Discuz",
+  "results": [
+    {
+      "theme": "light",
+      "phase": 1,
+      "text": [
+        {
+          "selector": "[data-gcr=preview-name]",
+          "contrast": 9.675894328702642,
+          "pass": true
+        },
+        {
+          "selector": ".notice",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": "[data-gcr=message]",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": ".turn-help",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": ".player small",
+          "contrast": 5.189471570285084,
+          "pass": true
+        }
+      ],
+      "radius": "14px",
+      "overflow": "hidden",
+      "stable": true,
+      "images": [
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "phase": 2,
+      "text": [
+        {
+          "selector": "[data-gcr=preview-name]",
+          "contrast": 9.675894328702642,
+          "pass": true
+        },
+        {
+          "selector": ".notice",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": "[data-gcr=message]",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": ".turn-help",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": ".player small",
+          "contrast": 5.189471570285084,
+          "pass": true
+        }
+      ],
+      "radius": "14px",
+      "overflow": "hidden",
+      "stable": true,
+      "images": [
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "phase": 1,
+      "text": [
+        {
+          "selector": "[data-gcr=preview-name]",
+          "contrast": 9.675894328702642,
+          "pass": true
+        },
+        {
+          "selector": ".notice",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": "[data-gcr=message]",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": ".turn-help",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": ".player small",
+          "contrast": 6.836441997848852,
+          "pass": true
+        }
+      ],
+      "radius": "14px",
+      "overflow": "hidden",
+      "stable": true,
+      "images": [
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "phase": 2,
+      "text": [
+        {
+          "selector": "[data-gcr=preview-name]",
+          "contrast": 9.675894328702642,
+          "pass": true
+        },
+        {
+          "selector": ".notice",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": "[data-gcr=message]",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": ".turn-help",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": ".player small",
+          "contrast": 6.836441997848852,
+          "pass": true
+        }
+      ],
+      "radius": "14px",
+      "overflow": "hidden",
+      "stable": true,
+      "images": [
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        },
+        {
+          "radius": "0px",
+          "mask": "none"
+        }
+      ]
+    }
+  ],
+  "browser": "151.0.7922.34"
+}

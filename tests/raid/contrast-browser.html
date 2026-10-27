@@ -1,0 +1,19 @@
+<!doctype html><!-- 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。浏览器CSS验收样本，不是真Discuz。 -->
+<meta charset="utf-8"><link rel="stylesheet" href="../../source/plugin/gamecenter/games/raid/style.css">
+<div class="gcr" data-theme="light"><p class="notice">讨伐预告</p><div data-gcr="message">选择行动</div><p class="turn-help">每轮先看预告</p>
+<section class="arena"><div class="boss-art"><div class="boss-portrait"><img class="boss-base" src="../../source/plugin/gamecenter/games/raid/assets/boss.webp"><img class="boss-phase-layer" src="../../source/plugin/gamecenter/games/raid/assets/boss-phase2.webp"><img class="boss-face"></div></div><div class="boss-info"><div class="forecast"><h3 data-gcr="preview-name">幽月 · 回气</h3></div></div></section><div class="player"><small>玩家生命</small></div></div><pre id="report"></pre>
+<script type="module">
+import {audit} from './contrast_check.mjs';
+window.contrastDone=(async()=>{
+ await Promise.all([...document.images].filter(i=>i.src).map(i=>i.decode().catch(()=>{})));
+ const root=document.querySelector('.gcr'),art=root.querySelector('.boss-art'),arena=root.querySelector('.arena'),results=[];
+ for(const theme of ['light','dark'])for(const phase of [1,2]){
+  root.dataset.theme=theme;arena.classList.toggle('phase-two',phase===2);
+  const before=art.getBoundingClientRect();art.classList.add('phase-art-ready');const after=art.getBoundingClientRect();
+  const style=getComputedStyle(art),images=[...art.querySelectorAll('img')].map(i=>({radius:getComputedStyle(i).borderRadius,mask:getComputedStyle(i).maskImage}));
+  results.push({theme,phase,text:audit(root),radius:style.borderRadius,overflow:style.overflow,stable:before.width===after.width&&before.height===after.height,images});
+ }
+ const report={status:results.every(r=>r.text.length===5&&r.text.every(x=>x.pass)&&parseFloat(r.radius)>=12&&r.overflow==='hidden'&&r.stable&&r.images.every(x=>x.mask==='none'))?'PASS':'FAIL',scope:'real browser CSS fixture, not live Discuz',results};
+ document.querySelector('#report').textContent=JSON.stringify(report,null,2);return report;
+})();
+</script>

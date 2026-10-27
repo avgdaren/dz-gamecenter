@@ -7,6 +7,7 @@
 
 <p class="notice">独自挑战蚀月魔女，或与伙伴组队一起迎战她</p>
 <section class="toolbar" aria-label="挑战模式"><button data-gcr="solo" class="primary">独自挑战 · 高难</button><button data-gcr="duo">邀请好友 · 合作</button></section><section class="audio-settings" aria-label="声音设置"><button data-gcr="sound" class="quiet" aria-pressed="true">音效 开</button><button data-gcr="bgm" class="quiet" aria-pressed="false">BGM 关</button></section><form class="join-form"><label>房间号或邀请链接<input data-gcr="join-code" maxlength="512" autocomplete="off" spellcheck="false"></label><button data-gcr="join" type="submit">加入并开战</button></form><section data-gcr="room-panel" hidden><p data-gcr="room-note"></p><label class="room-code">房间号<input data-gcr="room-code" readonly aria-label="房间号"></label><button data-gcr="copy-code">复制房间号</button><p class="invite-help" data-gcr="invite-help">把房间号或邀请链接发给好友。等待中不计入战斗用时。</p><input data-gcr="invite" type="hidden"><button data-gcr="copy">复制邀请链接</button><button data-gcr="reopen" class="primary" hidden>重新建房</button><button data-gcr="cancel">取消等待</button></section><button data-gcr="current" hidden>返回当前讨伐</button>
+<section class="resume-prompt" data-gcr="resume-prompt" hidden><p>你有一场进行中的讨伐</p><button data-gcr="resume" class="primary">继续</button><button data-gcr="restart">放弃并开新局</button></section>
 <div data-gcr="message" role="status" aria-live="polite">选择一种模式开始挑战。</div>
 <p data-gcr="connection" class="connection" aria-live="off">正在连接论坛…</p>
 <div data-gcr="retry-box" hidden><p>上一次操作的结果尚未确认。重试会沿用同一请求，不会重复扣恢复次数。</p><button data-gcr="retry">重试上次操作</button></div>
@@ -21,7 +22,7 @@
 <p class="boss-line" data-gcr="boss-line">你选择一人面对魔女，还是和伙伴一起挑战魔女？</p></div>
 </section>
 <p data-gcr="round-feedback" class="round-feedback" role="status" aria-live="polite">尚无已结算回合。</p>
-<section data-gcr="result" class="result" hidden aria-live="polite"><h2 data-gcr="result-title"></h2><p data-gcr="result-text"></p></section>
+<section data-gcr="result" class="result" hidden aria-live="polite"><h2 data-gcr="result-title"></h2><p data-gcr="result-text"></p><button data-gcr="again" class="primary">再来一局</button><button data-gcr="again-duo">邀请好友</button><button data-gcr="result-history" class="quiet">查看记录</button></section>
 <section data-gcr="players" class="players" aria-label="玩家行动"></section>
 
 <section class="journal"><h3>战斗记录 <span data-gcr="log-count"></span></h3><ol data-gcr="logs" reversed></ol></section>
@@ -30,7 +31,19 @@
 <details class="recent"><summary>最近十次讨伐</summary><ul data-gcr="recent-list"></ul><button data-gcr="history-refresh">刷新记录</button></details><footer>BGM：nene — Boss Battle #9 [Metal] / Boss Battle 10 [Metal]（二阶段），CC0，本地版本。</footer>
 </div>`; stage.append(root);
   const uid=Number(api.uid)||0, storageKey='gcr-pending-'+uid;
-  let failures=0, pollTimer=null, blocked=false, historyRoom=null;
+  const entryURL=new URL(location.href),invitedRoom=entryURL.searchParams.get('room');
+  let freshLanding=entryURL.searchParams.get('fresh')==='1'&&!invitedRoom;
+  if(freshLanding){entryURL.searchParams.delete('fresh');try{window.history?.replaceState(null,'',entryURL.href);}catch(_){}}
+  let failures=0, pollTimer=null, blocked=false, historyRoom=invitedRoom||null, queuedMode=null;
+  const restartKey='gcr-restart-'+uid;
+  function saveRestart(){try{if(queuedMode)sessionStorage.setItem(restartKey,JSON.stringify(queuedMode));else sessionStorage.removeItem(restartKey);}catch(_){}}
+  function leaveEntry(){freshLanding=false;signature='';}
+  function resumeQueued(){
+    if(!queuedMode||busy||pending||blocked||document.hidden)return;
+    if(!state||state.room!==queuedMode.room){queuedMode=null;saveRestart();return;}
+    if(state.status<2&&!state.left[state.seat])return;
+    const mode=queuedMode.mode;queuedMode=null;saveRestart();historyRoom=null;leaveEntry();return send({op:'create',mode});
+  }
   const assetBase=new URL('source/plugin/gamecenter/games/raid/',new URL(stage.dataset.url,location.href));
   const $ = id => root.querySelector('[data-gcr="'+id+'"]');
   const names = ['月刃', '星潮', '蚀月重击', '回气'];
@@ -128,13 +141,14 @@
   function controls() {
     const disabled=busy || !!pending || !uid || blocked;
     const occupied=state && state.status < 2 && state.seat >= 0 && !state.left[state.seat];
-    for(const id of ['solo','duo']) $(id).disabled=disabled || (occupied && state.status===1);
+    for(const id of ['solo','duo']) $(id).disabled=disabled || (occupied && state.status===1 && !freshLanding);
     $('join').disabled=disabled || occupied;
     $('current').disabled=busy || !uid;
     $('retry').disabled=busy || !pending || !uid || blocked;
     $('retry-box').hidden=!pending;
     $('cancel').hidden=!state || state.status!==0 || state.seat!==0;
     $('cancel').disabled=disabled;
+    for(const id of ['resume','restart','again','again-duo','result-history'])$(id).disabled=disabled;
     $('history-refresh').disabled=disabled; $('reopen').disabled=disabled || occupied;
     root.querySelectorAll('[data-actor]').forEach(el=>{
       const i=Number(el.dataset.actor);
@@ -147,7 +161,7 @@
     });
   }
   function clock() {
-    if(!state) return;
+    if(!state || freshLanding) return;
     const seconds = Math.max(0, Math.ceil((state.deadline_ms - (Date.now() + offset)) / 1000));
     $('timer').textContent = state.status === 1 ? `${seconds} 秒` : '已结束';
     if(state.status===0) $('room-note').textContent=`等待好友加入 · 还剩 ${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;
@@ -159,7 +173,7 @@
     const batch=feedback.observe(data.snapshot,data.snapshot?.room || 'empty');
     token='forum'; generation=data.snapshot?.room || ''; offset=data.server_ms-Date.now();
     state=data.snapshot;
-    music.setActive(state?.status===1,state?.preview?.phase===2?2:1);
+    music.setActive(!freshLanding && state?.status===1,state?.preview?.phase===2?2:1);
     const next = state ? `${generation}:${state.version}` : 'empty';
     if(next !== signature) {
       clearEffects();
@@ -168,7 +182,7 @@
       if(roundKey !== selectionRound) { choices = {}; selectionRound = roundKey; }
       render();
     }
-    present(batch);
+    if(!freshLanding)present(batch);
     clock(); controls();
   }
   function schedule() {
@@ -196,10 +210,11 @@
     const first=!token; busy=true; clearTimeout(pollTimer); controls();
     try {
       const data=await exchange(historyRoom?{op:'state',room:historyRoom}:{op:'current'});
-      if(data.ok) {apply(data);failures=0;connection('已连接论坛 · 状态已同步。');if(first) notice(state?'已恢复讨伐，请查看预告及已确认行动。':'选择一种模式开始挑战。');}
+      if(data.ok) {apply(data);failures=0;connection('已连接论坛 · 状态已同步。');if(first) notice(!freshLanding&&state?'已恢复讨伐，请查看预告及已确认行动。':'选择一种模式开始挑战。');}
       else {if(data.snapshot)apply(data);if(['login','permission','client'].includes(data.code))blocked=true;connection(data.msg||'无法同步。',true);}
     } catch (_) {failures++;connection('连接中断，保留上次状态；正在重试。',true);}
     finally {busy=false;controls();schedule();}
+    return resumeQueued();
   }
   async function send(args,retry=false) {
     if(busy || (!retry && pending) || !uid || blocked || document.hidden) return;
@@ -217,10 +232,12 @@
       notice(data.ok?successNotice(request,data):(data.msg||messages[data.code]||'操作未被接受。'),!data.ok);
       connection('已连接论坛。');
       if(data.replayed) historyRoom=null;
+      if(request.op==='retreat' && data.ok && ['solo','duo'].includes(request.next_mode)){queuedMode={room:request.room,mode:request.next_mode};saveRestart();}
       if(request.op==='cancel' && ['solo','duo'].includes(request.next_mode) && data.ok && state?.room===request.room && state.status===4) nextMode=request.next_mode;
     } catch (_) {failures++;connection('操作结果尚未确认，请重试同一操作。',true);notice('正在自动更新；重试同一操作不会重复扣次数。',true);}
     finally {busy=false;controls();schedule();}
     if(nextMode) return send({op:'create',mode:nextMode});
+    return resumeQueued();
   }
   function renderPlayers() {
     const oldFocus = document.activeElement?.dataset.focus;
@@ -276,6 +293,14 @@
     if(oldFocus) root.querySelector(`[data-focus="${oldFocus}"]`)?.focus({preventScroll:true});
   }
   function render() {
+    const occupied=state&&state.status<2&&state.seat>=0&&!state.left[state.seat];
+    $('resume-prompt').hidden=!freshLanding||!occupied;
+    if(freshLanding){
+      $('empty').hidden=false;$('battle').hidden=true;$('result').hidden=true;$('room-panel').hidden=true;$('room-note').hidden=true;$('current').hidden=true;
+      root.querySelector('.join-form').hidden=false;$('join-code').hidden=false;$('join').hidden=false;
+      for(const id of ['boss-hp','preview-name','preview-text','result-text','result-title'])$(id).textContent='';
+      $('players').replaceChildren();$('logs').replaceChildren();face.reset();return;
+    }
     $('empty').hidden=!!state; $('battle').hidden=!state || state.status===0 || state.status===4;
     $('room-panel').hidden=!state || state.mode==='solo';
     root.querySelector('.join-form').hidden=state?.mode==='solo';
@@ -315,8 +340,9 @@
       const reasons = {defeated:`${bossName}已被击败。`, knockout:'所有留队成员倒地。', round_limit:'16 回合已用尽，幽月仍然存活。', retreated:'已无成员继续挑战。'};
       $('result-title').textContent = state.status === 2 ? '讨伐成功' : '挑战结束';
       const alive = state.hp.filter((v,i) => v > 0 && !state.left[i]).length;
-      $('result-text').textContent = `${reasons[state.reason] || ''} 共 ${state.history.length} 回合，生还 ${alive} 人。可以查看记录，再挑战一次。`;
+      $('result-text').textContent = `${reasons[state.reason] || ''} 共 ${state.history.length} 回合，生还 ${alive} 人。`;
     }
+    $('again').textContent=state.mode==='solo'?'再来一局 · 独自挑战':'再来一局 · 邀请好友';
     renderPlayers();
     $('log-count').textContent = `${state.history.length} 轮`;
     $('logs').replaceChildren();
@@ -332,25 +358,34 @@
     if(busy || pending || !uid || blocked || document.hidden) return;
     const occupied=state && state.status<2 && state.seat>=0 && !state.left[state.seat];
     if(occupied) {
+      if(freshLanding && state.status===1){
+        if(!window.confirm(state.mode==='solo'?'放弃当前讨伐并开启新局？':'撤退将在本轮结束后生效，然后开启新局；队友可继续。确定吗？'))return;
+        leaveEntry();historyRoom=null;return send({op:'retreat',room:state.room,actor:state.seat,next_mode:mode});
+      }
       if(state.status===0 && state.seat===0 && state.players.length===1) {
-        historyRoom=null;
+        historyRoom=null;leaveEntry();
         // Local continuation is persisted with the cancel receipt but never sent as API input.
         return send({op:'cancel',room:state.room,expected_version:state.version,next_mode:mode});
       }
       if(window.confirm('你有一场进行中的讨伐，返回当前讨伐？')) {historyRoom=null;return sync();}
       return;
     }
-    historyRoom=null;return send({op:'create',mode});
+    historyRoom=null;leaveEntry();return send({op:'create',mode});
   }
+  $('resume').addEventListener('click',()=>{leaveEntry();historyRoom=null;sync();});
+  $('restart').addEventListener('click',()=>startMode(state?.mode||'solo'));
+  $('again').addEventListener('click',()=>startMode(state?.mode||'solo'));
+  $('again-duo').addEventListener('click',()=>startMode('duo'));
+  $('result-history').addEventListener('click',()=>{root.querySelector('.recent').open=true;$('history-refresh').click();});
   for(const mode of ['solo','duo']) $(mode).addEventListener('click',()=>startMode(mode));
   root.querySelector('.join-form').addEventListener('submit',event=>{
     event.preventDefault();let room=$('join-code').value.trim();
     try {if(/^https?:/i.test(room))room=new URL(room).searchParams.get('room')||'';}catch(_){}
     room=room.toUpperCase();if(!/^[A-F0-9]{12}$/.test(room)){notice('请输入正确的 12 位房间号。',true);return;}
-    historyRoom=null;send({op:'join',room});
+    historyRoom=null;leaveEntry();send({op:'join',room});
   });
   $('reopen').addEventListener('click',()=>startMode('duo'));
-  $('current').addEventListener('click',()=>{historyRoom=null;sync();});
+  $('current').addEventListener('click',()=>{leaveEntry();historyRoom=null;sync();});
   $('cancel').addEventListener('click',()=>{if(state?.status===0)send({op:'cancel',room:state.room,expected_version:state.version});});
   async function copyInvite(id,label) {
     try { await navigator.clipboard.writeText($(id).value); notice(label+'已复制。'); }
@@ -369,7 +404,7 @@
     if(busy||pending||blocked)return;busy=true;clearTimeout(pollTimer);controls();
     try {const data=await exchange({op:'history'});if(!data.ok){notice(data.msg,true);return;}$('recent-list').replaceChildren();
       for(const row of data.history){const li=make('li'),btn=make('button','quiet',`${row.result.mode==='solo'?'单人':'双人'} · ${row.result.status===2?'胜利':row.result.status===4?'取消/过期':'失败'} · ${row.result.rounds} 回合`);
-        btn.addEventListener('click',()=>{historyRoom=row.room;sync();});li.append(btn);$('recent-list').append(li);}
+        btn.addEventListener('click',()=>{leaveEntry();historyRoom=row.room;sync();});li.append(btn);$('recent-list').append(li);}
       if(!data.history.length)$('recent-list').append(make('li','','还没有已结束的讨伐。'));
     }catch(_){notice('读取记录失败，请稍后重试。',true);}finally{busy=false;controls();schedule();}
   });
@@ -377,6 +412,7 @@
   window.addEventListener('pagehide',()=>{clearTimeout(pollTimer);feedback.pause();face.reset();clearEffects();music.pause();});
   setInterval(()=>{if(!document.hidden)clock();},250);
   try {const saved=JSON.parse(sessionStorage.getItem(storageKey));if(saved && /^[a-f0-9]{32}$/.test(saved.request_id)){pending=saved;notice('有一项结果未确认，请重试上次操作。',true);}}catch(_){}
+  try {const saved=JSON.parse(sessionStorage.getItem(restartKey));if(saved&&/^[A-F0-9]{12}$/.test(saved.room)&&['solo','duo'].includes(saved.mode))queuedMode=saved;}catch(_){}
   try {$('join-code').value=new URL(location.href).searchParams.get('room')||'';}catch(_){}
   render();controls();if(uid)sync();else notice('登录论坛后即可挑战；下方规则可以直接阅读。');
   });

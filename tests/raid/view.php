@@ -4,6 +4,8 @@ if(PHP_SAPI !== 'cli') { exit; }
 define('IN_DISCUZ',true);
 $root=dirname(__DIR__,2).'/source/plugin/gamecenter';
 class gamecenter_core {
+    public static function games($available){global $g;return [$g];}
+    public static function yw(){return '2026w44';}
     public static function esc($s){return htmlspecialchars((string)$s,ENT_QUOTES,'UTF-8');}
     public static function game_dir($key){global $root;return $root.'/games/'.$key;}
     public static function can_play(){global $_G;return $_G['uid'] ? '' : '请先登录';}
@@ -22,4 +24,6 @@ foreach([0,10] as $uid){
     if(str_contains($html,'试玩模式。') || str_contains($html,'gc-tabsbox'))throw new RuntimeException('misleading scores or guest play');$checks++;
     if(gamecenter_view::reward_lines($g)!==[])throw new RuntimeException('raid reward');$checks++;
 }
+$lobby=gamecenter_view::lobby();
+if(substr_count($lobby,'&amp;fresh=1')!==2)throw new RuntimeException('raid lobby entry intent');$checks++;
 echo json_encode(['status'=>'PASS','checks'=>$checks])."\n";

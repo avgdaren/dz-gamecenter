@@ -25,6 +25,7 @@ const w={send:async ({data})=>{
    if(snapshot.status!==0 || Number(data.expected_version)!==snapshot.version)return {ok:0,code:'conflict',server_ms:now,snapshot};
    snapshot={...snapshot,status:4,reason:'cancelled',version:snapshot.version+1};
  }
+ if(data.action==='retreat'){snapshot={...snapshot,status:3,reason:'retreated',version:snapshot.version+1};}
  if(data.action==='create') {
    if(snapshot && snapshot.status<2)return {ok:0,code:'active',server_ms:now,snapshot};
    const room=(0xABCDEF123456n+BigInt(roomNumber++)).toString(16).toUpperCase();
@@ -38,7 +39,7 @@ const workers=[];
 const storage=new Map(),prefs=new Map();
 const audioInstances=[];
 const gameDir=new URL('../../source/plugin/gamecenter/games/raid/',import.meta.url);
-function setup(uid){
+function setup(uid,suffix=''){
 
  const doc=new Element('document');doc.createElement=t=>new Element(t);doc.hidden=false;doc.activeElement=null;
  const stage=new Element('div');stage.dataset.url='plugin.php?id=gamecenter';stage.dataset.formhash='test-formhash';doc.append(stage);
@@ -47,7 +48,7 @@ function setup(uid){
  const target=new Element('window');
  class Audio{constructor(){this.paused=true;audioInstances.push(this);}play(){this.paused=false;return Promise.resolve();}pause(){this.paused=true;}}
  const context={document:doc,window:{Audio,confirm:text=>{confirmations.push(text);return answer;},localStorage:{getItem:k=>prefs.get(k)??null,setItem:(k,v)=>prefs.set(k,v)},addEventListener:(...a)=>target.addEventListener(...a)},
- GameCenter:{register:(key,fn)=>{check(key==='raid','SDK register raid');boot=fn;}},console,URL,Date,FormData,AbortController,Uint8Array,crypto:webcrypto,location:{href:'http://test.local/forum/plugin.php?id=gamecenter&mod=play&game=raid'},navigator:{clipboard:{writeText:async text=>{if(deniedClipboard)throw Error('denied');copied=text;}}},
+ GameCenter:{register:(key,fn)=>{check(key==='raid','SDK register raid');boot=fn;}},console,URL,Date,FormData,AbortController,Uint8Array,crypto:webcrypto,location:{href:'http://test.local/forum/plugin.php?id=gamecenter&mod=play&game=raid'+suffix},navigator:{clipboard:{writeText:async text=>{if(deniedClipboard)throw Error('denied');copied=text;}}},
  matchMedia:()=>({matches:false}),setTimeout:(fn,ms)=>{const id=++counter;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),setInterval:()=>0,
  sessionStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
  fetch:async(url,opts)=>{inFlight++;maxFlight=Math.max(maxFlight,inFlight);posts++;try{if(offline)throw Error('offline');const data=Object.fromEntries(opts.body.entries());calls.push(data);check(!('actor' in data)&&!('uid' in data)&&!('next_mode' in data),'no actor/uid/local continuation sent');const result=await w.send({uid,data});if(drop&&(drop===true||drop===data.action)&&['create','join','act','retreat','cancel'].includes(data.action)){drop=false;throw Error('lost response');}return {ok:true,json:async()=>result};}finally{inFlight--;}}};
@@ -141,4 +142,21 @@ snapshot=waiting();await resumed.poll();joinOnCancel=true;start=callsToServer.le
 check(snapshot.status===1&&createCount===created&&callsToServer.slice(start).map(x=>x.action).join(',')==='cancel','join/cancel conflict preserves active battle');
 check(maxFlight===1,'all replacement chains keep one request per page in flight');
 
+// Entry intent: clean lobby landing preserves the authoritative room pointer.
+snapshot={...battle(),status:3,reason:'knockout'};
+const entry=setup(801,'&fresh=1');await entry.settled();
+check(!entry.$('empty').hidden&&entry.$('battle').hidden&&entry.$('result').hidden&&entry.$('boss-hp').textContent==='','fresh terminal lands idle with no old health/result');
+check(!entry.$('solo').disabled&&!entry.$('duo').disabled&&entry.$('resume-prompt').hidden,'fresh terminal offers both modes without old-room prompt');
+await entry.command('solo');check(snapshot.mode==='solo'&&snapshot.status===1,'fresh idle starts a real new solo');entry.close();
+const existing=snapshot.room;
+const ongoing=setup(802,'&fresh=1');await ongoing.settled();
+check(!ongoing.$('resume-prompt').hidden&&ongoing.$('battle').hidden&&snapshot.room===existing,'fresh active pointer preserved with explicit choice');
+ongoing.answer(false);start=callsToServer.length;await ongoing.command('restart');check(callsToServer.length===start&&snapshot.room===existing,'declining abandonment leaves room untouched');
+await ongoing.command('resume');check(!ongoing.$('battle').hidden&&snapshot.room===existing,'continue restores original room');ongoing.close();
+const abandon=setup(803,'&fresh=1');await abandon.settled();start=callsToServer.length;await abandon.command('restart');
+check(callsToServer.slice(start).map(x=>x.action).join(',')==='retreat,create'&&snapshot.room!==existing,'explicit solo abandonment serializes retreat then create');abandon.close();
+const refresh=setup(804);await refresh.settled();check(!refresh.$('battle').hidden&&refresh.$('resume-prompt').hidden,'no-fresh refresh keeps current battle');refresh.close();
+const invite=setup(805,'&fresh=1&room=ABCDEF987654');await invite.settled();check(invite.calls[0].action==='state'&&invite.calls[0].room==='ABCDEF987654'&&invite.$('resume-prompt').hidden,'room takes precedence over fresh and requests exact room');invite.close();
+snapshot={...snapshot,status:3,reason:'knockout',version:snapshot.version+1};const end=setup(806);await end.settled();
+check(!end.$('result').hidden&&end.$('again').textContent.includes('再来一局'),'terminal card has primary new-game button');await end.command('again');check(snapshot.status===1&&snapshot.mode==='solo','terminal primary starts new game in one click');end.close();
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));

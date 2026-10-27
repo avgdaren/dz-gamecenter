@@ -1,4 +1,4 @@
-.gcr{color-scheme:light;--bg:#f5f2ed;--paper:#fffdf9;--ink:#30334a;--muted:#787583;--line:#e5dfda;--accent:#6a5588;--soft:#f0eaf4;--good:#457967;--bad:#a54457;--shadow:0 12px 35px #36304c08}
+.gcr{color-scheme:light;--bg:#f5f2ed;--paper:#fffdf9;--ink:#30334a;--muted:#6d6a78;--line:#e5dfda;--accent:#6a5588;--soft:#f0eaf4;--good:#457967;--bad:#a54457;--shadow:0 12px 35px #36304c08}
 @media(prefers-color-scheme:dark){.gcr:not([data-theme=light]){color-scheme:dark;--bg:#171c2a;--paper:#212738;--ink:#ece5ed;--muted:#b4adbd;--line:#3a4054;--accent:#cbb0e5;--soft:#333047;--good:#98cdb5;--bad:#eea0ae;--shadow:none}
 }
 .gcr[data-theme=dark]{color-scheme:dark;--bg:#171c2a;--paper:#212738;--ink:#ece5ed;--muted:#b4adbd;--line:#3a4054;--accent:#cbb0e5;--soft:#333047;--good:#98cdb5;--bad:#eea0ae;--shadow:none}
@@ -158,10 +158,10 @@
 
 /* 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。月庭战场与二阶段差分。 */
 .gcr .arena{--battle-paper:#30213f;--battle-ink:#f4edf7;--battle-muted:#d0bfd8;--battle-accent:#dfbfe9;--battle-line:#786087;background:radial-gradient(ellipse at 12% 25%,#72578c70,transparent 58%),linear-gradient(120deg,#241c33,#3b2846 65%,#30213f);color:var(--battle-ink);border-color:var(--battle-line);overflow:hidden}
-.gcr .arena .boss-info{--ink:var(--battle-ink);--muted:var(--battle-muted);--accent:var(--battle-accent);--paper:var(--battle-paper);--line:var(--battle-line);--soft:#483453;--bad:#ffb4c3}
+.gcr .arena .boss-info{--ink:var(--battle-ink);--muted:var(--battle-muted);--accent:var(--battle-accent);--paper:var(--battle-paper);--line:var(--battle-line);--soft:#483453;--bad:#ffb4c3;color:var(--ink)}
 .gcr .arena.phase-two{background:radial-gradient(ellipse at 12% 25%,#933b595e,transparent 58%),linear-gradient(120deg,#281b30,#462337 65%,#30213f)}
-.gcr .arena .boss-art{isolation:isolate;box-shadow:none;border-radius:0}
-.gcr .arena .boss-art img{border-radius:0;mask-image:radial-gradient(ellipse 75% 82% at 50% 45%,#000 42%,#000b 70%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 75% 82% at 50% 45%,#000 42%,#000b 70%,transparent 100%)}
+.gcr .arena .boss-art{isolation:isolate;box-shadow:none;border-radius:14px;overflow:hidden}
+.gcr .arena .boss-art img{border-radius:0;mask-image:none;-webkit-mask-image:none}
 .gcr .arena .boss-base{width:100%;aspect-ratio:1;object-fit:cover}
 .gcr .arena .boss-phase-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:none;transition:opacity .25s ease}
 .gcr .phase-two .boss-art.phase-art-ready .boss-phase-layer{opacity:1}
@@ -208,3 +208,5 @@
 
 .gcr .boss-art img{transition:none}
 .gcr .arena .boss-phase-layer{transition:opacity .25s ease}
+
+.gcr .resume-prompt{padding:12px 16px;border:1px solid var(--accent);border-radius:12px;background:var(--soft);margin:12px 0}.gcr .resume-prompt button,.gcr .result button{margin:8px 8px 0 0}

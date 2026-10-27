@@ -95,7 +95,7 @@ class gamecenter_view {
 		$h .= '<div class="gc-grid">';
 		foreach($games as $g) {
 			if($g['gkey'] === 'raid') {
-				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">单人挑战 / 双人合作</div></div></a><p class="gc-intro">'.self::e($g['m']['intro']).'</p><ul class="gc-facts"><li>邀请好友，一起面对蚀月魔女</li><li>每轮最多30秒，刷新可恢复</li><li>随时查看最近十次讨伐</li></ul><div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'">开始讨伐</a></div></div>';
+				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'&amp;fresh=1'.'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">单人挑战 / 双人合作</div></div></a><p class="gc-intro">'.self::e($g['m']['intro']).'</p><ul class="gc-facts"><li>邀请好友，一起面对蚀月魔女</li><li>每轮最多30秒，刷新可恢复</li><li>随时查看最近十次讨伐</li></ul><div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'&amp;fresh=1'.'">开始讨伐</a></div></div>';
 				continue;
 			}
 			// GPT / Codex：联机游戏独立入口，不伪装成单机打榜。
