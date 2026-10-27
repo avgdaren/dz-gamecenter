@@ -213,3 +213,8 @@
 
 /* Keep primary text contrast when the generic hover background changes. */
 .gcr .primary:hover:not(:disabled){background:var(--accent);color:var(--paper)}
+
+/* 平台样式表 gc.css 的 .gc h3{color:var(--gc-ink)} 会直接给 h3 定色，继承无效；必须在顶层显式覆盖 */
+.gcr .forecast h3{color:var(--ink)}
+.gcr .arena .boss-info h1,.gcr .arena .boss-info h2,.gcr .arena .boss-info h3,.gcr .arena .boss-info h4{color:var(--ink)}
+.gcr h1,.gcr h2,.gcr h3,.gcr h4{color:var(--ink)}
