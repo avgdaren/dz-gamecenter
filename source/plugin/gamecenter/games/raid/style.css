@@ -77,8 +77,8 @@
 .gcr .rules div{padding:12px 0;max-width:760px}
 .gcr .rules p{font-size:13px;color:var(--muted);margin:9px 0}
 .gcr footer{font-size:11px;color:var(--muted);padding:15px 0;border-top:1px solid var(--line)}
-.gcr .arena.hit{animation:flash .4s ease-out}
-@keyframes flash{50%{border-color:var(--bad);filter:brightness(1.08)}}
+.gcr .arena.hit{animation:raid-flash .4s ease-out}
+@keyframes raid-flash{50%{opacity:.8}}
 @media(max-width:650px){.gcr-main{padding:20px 14px}
 .gcr .masthead{align-items:flex-start}
 .gcr .masthead button{padding:7px;font-size:11px;max-width:80px}
@@ -125,8 +125,8 @@
 .gcr .fx-win{border-color:var(--good)}
 .gcr .fx-lose{border-color:var(--bad)}
 @keyframes raid-float{0%{opacity:0;transform:translateY(7px)}20%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translateY(-12px)}}
-@keyframes raid-hit{25%,75%{transform:translateX(-2px);box-shadow:inset 0 0 0 2px var(--bad)}50%{transform:translateX(2px)}}
-@keyframes raid-bar{50%{filter:brightness(1.5)}}
+@keyframes raid-hit{25%,75%{transform:translateX(-2px)}50%{transform:translateX(2px)}}
+@keyframes raid-bar{50%{opacity:.6}}
 @media(prefers-reduced-motion:reduce){.gcr *,.gcr *::before,.gcr *::after{animation:none!important;transition:none!important}
 }
 
@@ -171,3 +171,40 @@
 .gcr .arena [data-gcr=weakness]{color:#f5d49a}
 
 .gcr .boss-health:has(.boss-effects.fx-attack) progress{animation:raid-bar .22s ease-out}
+/* 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。局部表情与轻量战斗演出。 */
+.gcr .boss-portrait{position:relative;width:100%;isolation:isolate}
+.gcr .arena img.boss-face{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none;filter:none;mask-image:none;-webkit-mask-image:none}
+.gcr .arena .show-face img.boss-face{opacity:1}
+.gcr .arena{position:relative;isolation:isolate}
+.gcr .boss-portrait::after{content:"";position:absolute;inset:0;background:#ff202014;pointer-events:none;opacity:0}
+.gcr .fx-boss-hit{animation:raid-boss-hit .12s ease-out}
+.gcr .fx-boss-flash{filter:brightness(1.15) saturate(1.1)}
+.gcr .fx-boss-flash::after{animation:raid-boss-flash .09s linear}
+.gcr .fx-float{animation:raid-damage-float .6s cubic-bezier(.2,.7,.3,1) both}
+.gcr .fx-windup{animation:raid-windup .18s ease-out}
+.gcr .arena::before,.gcr .arena::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;z-index:2;border-radius:inherit}
+.gcr .arena::before{background:radial-gradient(ellipse at center,transparent 25%,#d84b5f55 100%)}
+.gcr .arena::after{border:2px solid #e7be66}
+.gcr .fx-phase-enter::before{animation:raid-eclipse-pulse .6s ease-out}
+.gcr .fx-phase-enter [data-gcr=phase-banner]{animation:raid-banner-enter .24s ease-out}
+.gcr .fx-exposure::after{animation:raid-gold-pulse .4s ease-in-out 2}
+.gcr .fx-victory::before{background:radial-gradient(ellipse at center,transparent 30%,#d8ac5470 100%);animation:raid-victory .6s ease-out}
+.gcr .is-defeated .boss-portrait{filter:grayscale(.35)}
+.gcr .is-active .boss-art{animation:raid-breathe 6s ease-in-out infinite;transform-origin:50% 60%}
+@keyframes raid-boss-hit{0%{transform:translateX(-4px)}100%{transform:translateX(0)}}
+@keyframes raid-boss-flash{0%,75%{opacity:1}100%{opacity:0}}
+@keyframes raid-damage-float{0%{opacity:0;transform:translateY(4px) scale(.9)}15%{opacity:1;transform:translateY(0) scale(1)}75%{opacity:1}100%{opacity:0;transform:translateY(-18px) scale(1)}}
+@keyframes raid-windup{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+@keyframes raid-banner-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes raid-eclipse-pulse{0%{opacity:0;transform:scale(.97)}35%{opacity:1}100%{opacity:0;transform:scale(1.03)}}
+@keyframes raid-gold-pulse{0%,100%{opacity:0}50%{opacity:1}}
+@keyframes raid-victory{0%,100%{opacity:0}40%{opacity:1}}
+@keyframes raid-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
+@media(prefers-reduced-motion:reduce){
+.gcr .arena .boss-face{opacity:0!important}
+.gcr .boss-portrait,.gcr .is-active .boss-art{filter:none!important;transform:none!important}
+.gcr .arena::before,.gcr .arena::after,.gcr .boss-portrait::after{opacity:0!important;animation:none!important}
+}
+
+.gcr .boss-art img{transition:none}
+.gcr .arena .boss-phase-layer{transition:opacity .25s ease}

@@ -96,9 +96,11 @@ a.$('phase-art').dispatchEvent({type:'error'});
 check(!a.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'failed variation preserves base portrait');
 snapshot=battle({room:'111111111111',mode:'solo',version:1,hp:[40],pots:[3],left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]});await a.poll();
 check(a.$('boss-line').textContent==='凡人……你确定要独自挑战我吗？','solo opening line');
+check(a.$('room-panel').hidden&&a.$('room-note').hidden&&a.$('join-code').hidden&&a.$('join').hidden,'solo combat hides all room controls');
 check(new URL(audioInstances.at(-1).src).pathname.endsWith('/battle.mp3'),'new solo restores first track');
 snapshot={...snapshot,status:3,reason:'knockout',version:2};await a.poll();
 check(a.$('boss-line').textContent==='胜败乃兵家常事，少侠请重新来过','requested defeat quote');
+check(a.$('room-panel').hidden&&a.$('join-code').hidden&&!a.$('solo').disabled,'solo terminal hides room controls and enables new attempt');
 failNetwork=true;await a.poll();check(!a.$('connection').hidden&&a.$('connection').textContent.includes('连接中断'),'connection failure stays visible');
 // Fresh entries must request phase-two art even if the battle has ended.
 failNetwork=false;
@@ -120,7 +122,7 @@ check(callsToServer.slice(start).map(x=>x.action).join(',')==='cancel,create','r
 check(snapshot.mode==='solo'&&createCount===created+1,'waiting to solo creates exactly once');
 // Active battle is returned to, never cancelled by a mode click.
 start=callsToServer.length;await swap.command('duo');
-check(swap.confirmations.at(-1).includes('返回当前讨伐')&&callsToServer.slice(start).every(x=>x.action==='current'),'active battle returns without writes');
+check(swap.$('solo').disabled&&swap.$('duo').disabled&&callsToServer.length===start,'mode entries disabled during active battle');
 swap.answer(false);start=callsToServer.length;await swap.command('duo');check(callsToServer.length===start,'declining return sends no request');swap.answer(true);
 // Lost cancellation response: reload and retry use the same cancel request and continuation.
 snapshot=waiting();await swap.poll();start=callsToServer.length;created=createCount;swap.drop('cancel');await swap.command('solo');

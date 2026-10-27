@@ -8,7 +8,7 @@ function check(yes,name){assert.ok(yes,name);checks++;}
 function setup({muted=false,unsupported=false,blocked=false}={}) {
   const values=new Map(muted?[['gcm_sound','0']]:[]), nodes=[], contexts=[], processors=[];
   const doc={hidden:false};
-  const param=()=>({value:0,setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}});
+  const param=()=>({value:0,values:[],setValueAtTime(v,t){this.values.push([v,t]);},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}});
   const processor=type=>{const p={type,disconnects:0,connect(){},disconnect(){this.disconnects++;}};processors.push(p);return p;};
   const sourceNode=()=>{const n={disconnects:0,stops:[],type:'',frequency:param(),connect(){},disconnect(){this.disconnects++;},start(){},stop(at){this.stops.push(at);}};nodes.push(n);return n;};
   class AC {
@@ -56,7 +56,7 @@ function after(before,{heals=[0],hp=[32],boss=110,defaults=[],actions=[{kind:'at
   const blocked=setup({blocked:true});blocked.fx.unlock();blocked.fx.play(['attack']);
   await Promise.resolve();check(blocked.nodes.length===0,'rejected autoplay does not affect game or schedule audio');
 }
-for(const cue of ['attack','hurt','guard','heal','exposed','phase','win','lose','timeout']) {
+for(const cue of ['swing','attack','attackHeavy','hurt','hurtHeavy','guard','heal','exposed','phase','win','lose','timeout']) {
   const {fx,nodes}=setup();fx.unlock();fx.play([cue]);
   check(nodes.length>0 && nodes.every(n=>n.stops[0]<=.3),cue+' complete cue within 300ms');
   if(cue==='win'||cue==='lose') check(nodes.length===3,cue+' short three-note motif');
@@ -124,11 +124,11 @@ for(const cue of ['attack','hurt','guard','heal','exposed','phase','win','lose',
 {
   const {fx,nodes}=setup();fx.unlock();
   fx.play(['phase','exposed','timeout','heal','guard','attack','hurt']);
-  check(nodes.some(n=>n.type==='sawtooth') && nodes.filter(n=>n.type==='triangle').length>=2,'busy round retains outgoing and incoming impact');
+  check(nodes.some(n=>n.frequency.values.some(([hz])=>hz===78)) && nodes.some(n=>n.frequency.values.some(([hz])=>hz===180)),'busy round retains outgoing and incoming impact');
   check(nodes.every(n=>n.stops[0]<=.3),'staggered impacts finish within 300ms');
   fx.cancel();const previous=nodes.length;
   fx.play(['attack','hurt','win']);
-  check(nodes.length-previous===10,'final hit and counter-hit coexist with victory motif');
+  check([78,180,440].every(hz=>nodes.slice(previous).some(n=>n.frequency.values.some(([value])=>value===hz))),'final hit and counter-hit coexist with victory motif');
   fx.toggle();check(fx.voices.size===0,'mute cancels all staggered and terminal voices');
 }
 

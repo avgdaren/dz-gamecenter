@@ -6,7 +6,7 @@
   root.innerHTML=`<div class="gcr-main">
 
 <p class="notice">独自挑战蚀月魔女，或与伙伴组队一起迎战她</p>
-<section class="toolbar" aria-label="挑战模式"><button data-gcr="solo" class="primary">独自挑战 · 高难</button><button data-gcr="duo">邀请好友 · 合作</button></section><section class="audio-settings" aria-label="声音设置"><button data-gcr="sound" class="quiet" aria-pressed="true">音效 开</button><button data-gcr="bgm" class="quiet" aria-pressed="false">BGM 关</button></section><form class="join-form"><label>房间号或邀请链接<input data-gcr="join-code" maxlength="512" autocomplete="off" spellcheck="false"></label><button data-gcr="join" type="submit">加入并开战</button></form><section data-gcr="room-panel" hidden><p data-gcr="room-note"></p><label class="room-code">房间号<input data-gcr="room-code" readonly aria-label="房间号"></label><button data-gcr="copy-code">复制房间号</button><p class="invite-help" data-gcr="invite-help">把房间号或邀请链接发给好友。等待中不计入战斗用时。</p><input data-gcr="invite" type="hidden"><button data-gcr="copy">复制邀请链接</button><button data-gcr="reopen" class="primary" hidden>重新建房</button><button data-gcr="cancel">取消等待</button><button data-gcr="current">返回当前讨伐</button></section>
+<section class="toolbar" aria-label="挑战模式"><button data-gcr="solo" class="primary">独自挑战 · 高难</button><button data-gcr="duo">邀请好友 · 合作</button></section><section class="audio-settings" aria-label="声音设置"><button data-gcr="sound" class="quiet" aria-pressed="true">音效 开</button><button data-gcr="bgm" class="quiet" aria-pressed="false">BGM 关</button></section><form class="join-form"><label>房间号或邀请链接<input data-gcr="join-code" maxlength="512" autocomplete="off" spellcheck="false"></label><button data-gcr="join" type="submit">加入并开战</button></form><section data-gcr="room-panel" hidden><p data-gcr="room-note"></p><label class="room-code">房间号<input data-gcr="room-code" readonly aria-label="房间号"></label><button data-gcr="copy-code">复制房间号</button><p class="invite-help" data-gcr="invite-help">把房间号或邀请链接发给好友。等待中不计入战斗用时。</p><input data-gcr="invite" type="hidden"><button data-gcr="copy">复制邀请链接</button><button data-gcr="reopen" class="primary" hidden>重新建房</button><button data-gcr="cancel">取消等待</button></section><button data-gcr="current" hidden>返回当前讨伐</button>
 <div data-gcr="message" role="status" aria-live="polite">选择一种模式开始挑战。</div>
 <p data-gcr="connection" class="connection" aria-live="off">正在连接论坛…</p>
 <div data-gcr="retry-box" hidden><p>上一次操作的结果尚未确认。重试会沿用同一请求，不会重复扣恢复次数。</p><button data-gcr="retry">重试上次操作</button></div>
@@ -15,7 +15,7 @@
 <p class="turn-help">每轮有 30 秒选择行动；你和队友都确认后立即结算。没选时会自动守护自己。</p>
 <p data-gcr="idle-hint" class="idle-hint" role="status" hidden></p>
 <section class="arena" aria-label="首领与回合预告">
-<div class="boss-art"><img class="boss-base" src="source/plugin/gamecenter/games/raid/assets/boss.webp" alt="蚀月魔女 · 幽月"><img class="boss-phase-layer" data-gcr="phase-art" alt="" aria-hidden="true"></div>
+<div class="boss-art"><div class="boss-portrait"><img class="boss-base" src="source/plugin/gamecenter/games/raid/assets/boss.webp" alt="蚀月魔女 · 幽月"><img class="boss-phase-layer" data-gcr="phase-art" alt="" aria-hidden="true"><img class="boss-face" data-gcr="face-art" alt="" aria-hidden="true"></div></div>
 <div class="boss-info"><div class="boss-title"><p class="eyebrow" data-gcr="phase"></p><span data-gcr="round"></span></div><h2>蚀月魔女 · 幽月</h2><div class="health-row"><span data-gcr="boss-hp"></span><span data-gcr="mode"></span></div><div class="boss-health"><progress data-gcr="boss-bar" max="130" value="130" aria-label="幽月生命"></progress><span data-gcr="boss-effects" class="boss-effects" aria-hidden="true"></span></div><p data-gcr="phase-banner" class="phase-banner" role="status" hidden>月蚀加深，幽月进入第二阶段。</p>
 <div class="forecast"><div class="forecast-title"><h3 data-gcr="preview-name"></h3><span data-gcr="timer" role="timer"></span></div><p data-gcr="preview-text"></p><p data-gcr="weakness"></p></div>
 <p class="boss-line" data-gcr="boss-line">你选择一人面对魔女，还是和伙伴一起挑战魔女？</p></div>
@@ -42,13 +42,15 @@
   let state = null, generation = 0, token = '', offset = 0, busy = false, pending = null;
   let signature = '', selectionRound = '', choices = {}, lastSuccess = null;
   const feedback = new globalThis.RaidFeedback();
-  const music = new globalThis.RaidMusic(musicButton,new URL('assets/battle.mp3?v=0.1.3',assetBase).href,new URL('assets/battle-phase2.mp3?v=0.1.3',assetBase).href);
+  const music = new globalThis.RaidMusic(musicButton,new URL('assets/battle.mp3?v=0.1.4',assetBase).href,new URL('assets/battle-phase2.mp3?v=0.1.4',assetBase).href);
   const effectTimers = new Set(), effectNodes = new Set(), effectHosts = new Set();
   const make = (tag, cls, text) => { const el = document.createElement(tag); if(cls) el.className = cls; if(text !== undefined) el.textContent = text; return el; };
   const slot = i => i === state?.seat ? '你' : '队友';
   const phaseArt=$('phase-art'); let phaseArtRequested=false;
   phaseArt.addEventListener('load',()=>root.querySelector('.boss-art').classList.add('phase-art-ready'));
   phaseArt.addEventListener('error',()=>root.querySelector('.boss-art').classList.remove('phase-art-ready'));
+  const face=new globalThis.RaidFaceLayer({art:root.querySelector('.boss-art'),layer:$('face-art'),assetBase});
+  const motion=matchMedia('(prefers-reduced-motion: reduce)');motion.addEventListener?.('change',()=>{if(motion.matches){face.reset();clearEffects();}});
   const active = i => state && state.hp[i] > 0 && !state.left[i];
   function actionText(a, actor) {
     if(!a) return '无行动';
@@ -61,8 +63,13 @@
     effectTimers.clear();
     for(const node of effectNodes) node.remove();
     effectNodes.clear();
-    for(const host of effectHosts) host.classList.remove('fx-attack','fx-hurt','fx-guard','fx-heal','fx-exposed','fx-phase','fx-win','fx-lose');
+    for(const host of effectHosts) host.classList.remove('fx-attack','fx-hurt','fx-guard','fx-heal','fx-exposed','fx-phase','fx-win','fx-lose','fx-boss-hit','fx-boss-flash','fx-windup','fx-phase-enter','fx-exposure','fx-victory');
     effectHosts.clear();
+  }
+  function pulse(host,cls,ms) {
+    if(!host || motion.matches || document.hidden)return;
+    host.classList.add(cls);effectHosts.add(host);
+    const timer=setTimeout(()=>{host.classList.remove(cls);effectTimers.delete(timer);},ms);effectTimers.add(timer);
   }
   function present(batch) {
     if(batch.summary) $('round-feedback').textContent = batch.summary;
@@ -73,6 +80,12 @@
     const positions = new Map();
     for(const event of batch.events) {
       const host = event.target === 'boss' ? $('boss-effects') : root.querySelector(`[data-actor="${event.target}"]`);
+      if(event.target==='boss' && event.kind==='attack') {
+        if(state.preview.phase===1 || root.querySelector('.boss-art').classList.contains('phase-art-ready'))face.show(event.amount);pulse(root.querySelector('.boss-portrait'),'fx-boss-hit',120);pulse(root.querySelector('.boss-portrait'),'fx-boss-flash',90);
+      }
+      if(event.kind==='phase')pulse(root.querySelector('.arena'),'fx-phase-enter',600);
+      if(event.kind==='exposed')pulse(root.querySelector('.arena'),'fx-exposure',800);
+      if(event.kind==='win')pulse(root.querySelector('.arena'),'fx-victory',600);
       if(!host) continue;
       const position=positions.get(host)||0; if(position>=3) continue;
       positions.set(host,position+1);
@@ -113,7 +126,7 @@
   function controls() {
     const disabled=busy || !!pending || !uid || blocked;
     const occupied=state && state.status < 2 && state.seat >= 0 && !state.left[state.seat];
-    for(const id of ['solo','duo']) $(id).disabled=disabled;
+    for(const id of ['solo','duo']) $(id).disabled=disabled || (occupied && state.status===1);
     $('join').disabled=disabled || occupied;
     $('current').disabled=busy || !uid;
     $('retry').disabled=busy || !pending || !uid || blocked;
@@ -189,6 +202,7 @@
   async function send(args,retry=false) {
     if(busy || (!retry && pending) || !uid || blocked || document.hidden) return;
     feedback.unlock();music.gesture();clearTimeout(pollTimer);
+    if(!retry && args?.op==='act' && args.kind==='attack') {feedback.play(['swing']);pulse(root.querySelector(`[data-actor="${args.actor}"]`),'fx-windup',180);}
     if(!retry) {const bytes=crypto.getRandomValues(new Uint8Array(16));pending={...args,request_id:Array.from(bytes,n=>n.toString(16).padStart(2,'0')).join('')};savePending();}
     busy=true;controls();notice('正在确认…');
     let nextMode=null;
@@ -261,9 +275,12 @@
   }
   function render() {
     $('empty').hidden=!!state; $('battle').hidden=!state || state.status===0 || state.status===4;
-    $('room-panel').hidden=!state;
+    $('room-panel').hidden=!state || state.mode==='solo';
+    root.querySelector('.join-form').hidden=state?.mode==='solo';
+    $('join-code').hidden=state?.mode==='solo'; $('join').hidden=state?.mode==='solo';
     if(state) {const url=new URL(stage.dataset.url,location.href);url.searchParams.set('mod','play');url.searchParams.set('game','raid');url.searchParams.set('room',state.room);$('invite').value=url.href; $('invite').type='hidden';
       $('copy').hidden=state.status!==0; $('copy-code').hidden=state.status!==0; $('room-code').value=state.room; $('room-code').parentElement.hidden=state.status!==0; $('invite-help').hidden=state.status!==0; $('reopen').hidden=state.status!==4; $('current').hidden=!historyRoom;
+      $('room-note').hidden=state.mode==='solo';
       $('room-note').textContent=state.status===4?(state.reason==='expired'?'邀请已过期，重新建房':'等待房间已取消。'):`房间 ${state.room}`;}
     if(state && (state.status===0 || state.status===4)) return;
     if(!state) return;
@@ -274,6 +291,7 @@
     root.querySelector('.turn-help').textContent=state.mode==='solo'?'每轮有 30 秒选择行动，确认后立即结算。没选时会自动守护自己。':'每轮有 30 秒选择行动；你和队友都确认后立即结算。没选时会自动守护自己。';
     if(!phaseArtRequested && state.preview?.phase===2) {phaseArtRequested=true; phaseArt.src=new URL('assets/boss-phase2.webp',assetBase).href;}
     const p = state.preview;
+    face.update(p.phase,state.room,state.status===1);
     $('phase').textContent = `第 ${p.phase === 1 ? '一' : '二'} 阶段`;
     $('round').textContent = `回合 ${state.round_no} / 16`;
     $('mode').textContent = state.mode === 'solo' ? '单人挑战' : '双人 · 月蚀加护 +10';
@@ -283,7 +301,7 @@
     $('preview-text').textContent = p.kind === 3 ? '幽月正在回气，本轮不会攻击。' :
       `幽月将攻击${p.targets.map(slot).join('、')}：${p.damage} 伤害；守护后为 ${Math.ceil(p.damage/5)}。`;
     $('weakness').textContent = state.status !== 1 ? '' : state.exposed && p.kind === 3 ? '破绽！本轮攻击造成 20 伤害。' : p.kind === 2 ? '成功守护重击并存活，下轮将出现破绽。' : '';
-    root.querySelector('.arena').className='arena'+(state.status===1 && state.exposed && p.kind===3?' has-weakness':'')+(p.phase===2?' phase-two':'');
+    root.querySelector('.arena').className='arena'+(state.status===1 && state.exposed && p.kind===3?' has-weakness':'')+(p.phase===2?' phase-two':'')+(state.status===3?' is-defeated':'')+(state.status===1?' is-active':'');
     $('phase-banner').hidden=p.phase!==2;
     $('boss-line').textContent = state.status === 2 ? (state.mode === 'solo' ? '这一次，算你赢了。' : '这一次，算你们赢了。') :
       state.status === 3 ? '胜败乃兵家常事，少侠请重新来过' :
@@ -353,8 +371,8 @@
       if(!data.history.length)$('recent-list').append(make('li','','还没有已结束的讨伐。'));
     }catch(_){notice('读取记录失败，请稍后重试。',true);}finally{busy=false;controls();schedule();}
   });
-  document.addEventListener('visibilitychange',()=>{clearTimeout(pollTimer);feedback.pause();clearEffects();music.sync();if(!document.hidden)sync();});
-  window.addEventListener('pagehide',()=>{clearTimeout(pollTimer);feedback.pause();clearEffects();music.pause();});
+  document.addEventListener('visibilitychange',()=>{clearTimeout(pollTimer);feedback.pause();face.reset();clearEffects();music.sync();if(!document.hidden)sync();});
+  window.addEventListener('pagehide',()=>{clearTimeout(pollTimer);feedback.pause();face.reset();clearEffects();music.pause();});
   setInterval(()=>{if(!document.hidden)clock();},250);
   try {const saved=JSON.parse(sessionStorage.getItem(storageKey));if(saved && /^[a-f0-9]{32}$/.test(saved.request_id)){pending=saved;notice('有一项结果未确认，请重试上次操作。',true);}}catch(_){}
   try {$('join-code').value=new URL(location.href).searchParams.get('room')||'';}catch(_){}
