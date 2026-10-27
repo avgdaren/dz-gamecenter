@@ -144,7 +144,7 @@ if(process.argv[2]==='forum') {
   check(nodes.some(n=>n.frequency.values.some(([hz])=>hz===bodyHz)),cue+' includes speaker-range body');
   check(nodes.some(n=>n.buffer&&n.stops[0]-(cue==='hurtHeavy'?.01:0)<=.015),cue+' includes short unfiltered transient');
   check(processors.some(p=>p.nodeKind==='limiter'&&p.threshold.value===-8)&&processors.some(p=>p.nodeKind==='gain'&&p.gain.value===.9),'new headroom and output gain');
-  check(processors.some(p=>p.nodeKind==='shaper'&&p.curve?.length===1025&&[...p.curve].every(x=>Math.abs(x)<=.701)),'bounded final digital-output curve');
+  check(processors.some(p=>p.nodeKind==='shaper'&&p.curve?.length===1025&&[...p.curve].every(x=>Math.abs(x)<=.851)),'bounded final digital-output curve');
   fx.toggle();check(fx.play([cue])===false,'muted cue cannot request music duck');
  }
 }

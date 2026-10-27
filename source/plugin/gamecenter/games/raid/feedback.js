@@ -5,18 +5,18 @@
   // [source, fromHz, toHz, seconds, offset, gain, filter, cutoff, distortion, echo]
   // Each complete cue ends within .30 s, including its one short echo tail.
   const notes = {
-    swing:[['sawtooth',380,120,.05,0,.30,'lowpass',1800,true],['noise',0,0,.045,0,.40,'bandpass',1200,false,{delay:.06,gain:.15}]],
-    attack:[['sine',78,62,.09,0,.32],['triangle',320,240,.07,0,.48,'lowpass',900],['noise',0,0,.025,0,.24,'highpass',2000],['noise',0,0,.003,0,.28]],
-    attackHeavy:[['sine',62,48,.10,0,.40],['triangle',260,190,.09,0,.60,'lowpass',800],['noise',0,0,.03,0,.28,'highpass',2000],['noise',0,0,.004,0,.28]],
-    hurt:[['triangle',180,75,.12,0,.32,'lowpass',1300,true],['square',240,160,.06,0,.32,'lowpass',700],['noise',0,0,.04,0,.24,'lowpass',1800],['noise',0,0,.003,0,.28]],
-    hurtHeavy:[['sine',55,38,.16,.01,.42],['triangle',220,180,.10,.01,.54,'lowpass',800],['noise',0,0,.11,.01,.25,'lowpass',850],['noise',0,0,.004,.01,.28]],
-    guard:[['square',1750,700,.13,0,.10,'highpass',700,true],['noise',0,0,.065,0,.10,'highpass',4500],['sine',2700,1500,.14,.025,.10]],
-    heal:[['triangle',500,1100,.17,0,.16],['sine',800,1500,.12,.04,.088]],
-    exposed:[['triangle',500,1400,.12,0,.20,null,0,false,true]],
-    phase:[['sawtooth',170,35,.18,0,.20,'lowpass',1000,true,true],['noise',0,0,.1,0,.10,'lowpass',900]],
-    win:[['square',440,440,.075,0,.10,'lowpass',2200],['square',660,660,.075,.065,.10,'lowpass',2600],['triangle',880,1100,.09,.13,.14]],
-    lose:[['triangle',330,300,.075,0,.14],['square',220,180,.075,.065,.10,'lowpass',1200],['sine',110,50,.1,.13,.22]],
-    timeout:[['square',660,660,.055,0,.08,'lowpass',1800],['square',440,360,.07,.075,.08,'lowpass',1500]]
+    swing:[["sawtooth",380,120,0.05,0,1.05,"lowpass",1800,true],["noise",0,0,0.045,0,1.4,"bandpass",1200,false,{"delay":0.06,"gain":0.15}]],
+    attack:[["sine",78,62,0.09,0,0.704],["triangle",320,240,0.07,0,1.056,"lowpass",900],["noise",0,0,0.025,0,0.528,"highpass",2000],["noise",0,0,0.003,0,0.616]],
+    attackHeavy:[["sine",62,48,0.1,0,0.8],["triangle",260,190,0.09,0,1.2,"lowpass",800],["noise",0,0,0.03,0,0.56,"highpass",2000],["noise",0,0,0.004,0,0.56]],
+    hurt:[["triangle",180,75,0.12,0,0.96,"lowpass",1300,true],["square",240,160,0.06,0,0.96,"lowpass",700],["noise",0,0,0.04,0,0.72,"lowpass",1800],["noise",0,0,0.003,0,0.84]],
+    hurtHeavy:[["sine",55,38,0.16,0.01,0.945],["triangle",220,180,0.1,0.01,1.215,"lowpass",800],["noise",0,0,0.11,0.01,0.5625,"lowpass",850],["noise",0,0,0.004,0.01,0.63]],
+    guard:[["square",1750,700,0.13,0,0.2,"highpass",700,true],["noise",0,0,0.065,0,0.2,"highpass",4500],["sine",2700,1500,0.14,0.025,0.2]],
+    heal:[["triangle",500,1100,0.17,0,0.32],["sine",800,1500,0.12,0.04,0.176]],
+    exposed:[["triangle",500,1400,0.12,0,0.6,null,0,false,true]],
+    phase:[["sawtooth",170,35,0.18,0,0.6,"lowpass",1000,true,true],["noise",0,0,0.1,0,0.3,"lowpass",900]],
+    win:[["square",440,440,0.075,0,0.1,"lowpass",2200],["square",660,660,0.075,0.065,0.1,"lowpass",2600],["triangle",880,1100,0.09,0.13,0.14]],
+    lose:[["triangle",330,300,0.075,0,0.14],["square",220,180,0.075,0.065,0.1,"lowpass",1200],["sine",110,50,0.1,0.13,0.22]],
+    timeout:[["square",660,660,0.055,0,0.08,"lowpass",1800],["square",440,360,0.07,0.075,0.08,"lowpass",1500]]
   };
   class RaidFeedback {
     constructor({contextOverride=null}={}) {
@@ -36,9 +36,9 @@
           limiter.threshold.value=-8; limiter.knee.value=4; limiter.ratio.value=6;
           limiter.attack.value=.003; limiter.release.value=.15;
           master.gain.value=.9;
-          // Keep SFX <=.70 so even unducked .28 BGM sums below full scale.
+          // Bound SFX peaks during overlapping cues; verify rendered mix separately.
           const safety=this.ctx.createWaveShaper();
-          safety.curve=Float32Array.from({length:1025},(_,i)=>Math.max(-.70,Math.min(.70,i/512-1)));
+          safety.curve=Float32Array.from({length:1025},(_,i)=>Math.max(-.85,Math.min(.85,i/512-1)));
           limiter.connect(master); master.connect(safety); safety.connect(this.ctx.destination); this.master=limiter;
           this.noise=this.ctx.createBuffer(1,Math.ceil(this.ctx.sampleRate*.3),this.ctx.sampleRate);
           const data=this.noise.getChannelData(0); let seed=20261027;

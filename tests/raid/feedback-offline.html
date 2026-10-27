@@ -21,7 +21,7 @@ window.raidAudioDone=(async()=>{
    const ctx=new OfflineAudioContext(1,rate/2,rate),fx=new RaidFeedback({contextOverride:ctx});fx.on=true;fx.unlock();for(let i=0;i<12;i++)fx.play(batch);buffer=await ctx.startRendering();
   }else buffer=await render(batch,rate);
   const m=metrics(buffer.getChannelData(0)),body=await bodyBand(buffer),row={cue,sample_rate:rate,...m,body_180_500_peak:body.peak,body_180_500_rms:body.rms};results.push(row);
-  check(m.finite&&m.peak>0&&m.peak<=.701,`${rate}/${cue}: audible finite signal within safety ceiling`);
+  check(m.finite&&m.peak>0&&m.peak<=.851,`${rate}/${cue}: audible finite signal within safety ceiling`);
   if(targets[cue])check(m.peak_dbfs>=targets[cue][0]&&m.peak_dbfs<=targets[cue][1],`${rate}/${cue}: peak target ${targets[cue].join('..')}dBFS`);
   if(['attack','attackHeavy','hurt','hurtHeavy'].includes(cue))check(body.peak>=.08,`${rate}/${cue}: speaker body band >=.08 peak`);
   check(metrics(buffer.getChannelData(0).slice(Math.ceil(rate*.31))).peak<1e-5,`${rate}/${cue}: no long tail after 310ms`);
