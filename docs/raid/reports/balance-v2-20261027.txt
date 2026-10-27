@@ -1,0 +1,921 @@
+mode policy       win% rounds  HP/seat
+-------------------------------------
+solo blind        0.00      -        -
+solo guard        0.00      -        -
+solo heuristic  100.00  14.00    30.00
+solo random       0.10  16.00     4.50
+solo optimal    100.00  13.00    24.00
+duo  blind        0.00      -        -
+duo  guard        0.00      -        -
+duo  heuristic  100.00   8.00     7.50
+duo  random       3.15  15.17    12.26
+status=PASS (explicit error model, no human playtest)
+closest={"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 4}
+distance=0.0; applied_to_source=True
+A/B metrics={"solo":{"tolerance":{"reference":[[["A",-1]],[["A",-1]],[["G",0]],[["A",-1]],[["A",-1]],[["H",0]],[["G",0]],[["A",-1]],[["A",-1]],[["H",0]],[["G",0]],[["A",-1]],[["A",-1]]],"decisions":13,"delta1":{"win":20,"loss":5,"invalid":1,"retreat":0,"total_variants":26,"valid_variants":25,"all_variant_rate":76.923077,"legal_rate":80.0,"rate":76.923077},"delta2":{"win":107,"loss":178,"invalid":27,"retreat":0,"total_variants":312,"valid_variants":285,"all_variant_rate":34.294872,"legal_rate":37.54386,"rate":34.294872},"definition":"fixed suffix through actual winning reference length; adaptive heuristic continuation up to16; invalid inputs separately reported, not classified as combat defeat; rate uses all nominal variants as conservative bound; legal_rate excludes invalid; duo delta2 changes different seats"},"mistakes":{"1.0":{"samples":2000,"successes":2000,"deterministic":true,"win_rate_wilson95":null,"win_rate":100.0,"kill_rate":100.0,"retreat_rate":0.0,"avg_rounds":14,"avg_remaining_hp":30,"avg_rounds_all":14,"avg_remaining_hp_all":30,"winning_round_quantiles":{"10":14,"50":14,"90":14},"example":{"result":"win","rounds":14,"hp":[30],"boss":0}},"0.9":{"samples":2000,"successes":1669,"deterministic":false,"win_rate_wilson95":[81.757458,85.014292],"win_rate":83.45,"kill_rate":83.45,"retreat_rate":0.0,"avg_rounds":14.844218,"avg_remaining_hp":24.262433,"avg_rounds_all":14.254,"avg_remaining_hp_all":21.664,"winning_round_quantiles":{"10":14,"50":14,"90":16},"example":null},"0.8":{"samples":2000,"successes":1202,"deterministic":false,"win_rate_wilson95":[57.936475,62.224801],"win_rate":60.1,"kill_rate":60.1,"retreat_rate":0.0,"avg_rounds":15.157238,"avg_remaining_hp":21.001664,"avg_rounds_all":14.062,"avg_remaining_hp_all":16.4545,"winning_round_quantiles":{"10":14,"50":16,"90":16},"example":null},"0.7":{"samples":2000,"successes":828,"deterministic":false,"win_rate_wilson95":[39.259844,43.573129],"win_rate":41.4,"kill_rate":41.4,"retreat_rate":0.0,"avg_rounds":15.413043,"avg_remaining_hp":18.966184,"avg_rounds_all":13.8225,"avg_remaining_hp_all":12.928,"winning_round_quantiles":{"10":14,"50":16,"90":16},"example":null},"0.6":{"samples":2000,"successes":453,"deterministic":false,"win_rate_wilson95":[20.869027,24.535836],"win_rate":22.65,"kill_rate":22.65,"retreat_rate":0.0,"avg_rounds":15.551876,"avg_remaining_hp":17.145695,"avg_rounds_all":13.364,"avg_remaining_hp_all":10.329,"winning_round_quantiles":{"10":14,"50":16,"90":16},"example":null}}},"duo":{"tolerance":{"reference":[[["A",-1],["A",-1]],[["A",-1],["A",-1]],[["A",-1],["G",0]],[["A",-1],["A",-1]],[["A",-1],["A",-1]],[["A",-1],["A",-1]],[["G",1],["A",-1]],[["A",-1],["A",-1]]],"decisions":16,"delta1":{"win":27,"loss":2,"invalid":3,"retreat":0,"total_variants":32,"valid_variants":29,"all_variant_rate":84.375,"legal_rate":93.103448,"rate":84.375},"delta2":{"win":184,"loss":26,"invalid":46,"retreat":0,"total_variants":256,"valid_variants":210,"all_variant_rate":71.875,"legal_rate":87.619048,"rate":71.875},"definition":"fixed suffix through actual winning reference length; adaptive heuristic continuation up to16; invalid inputs separately reported, not classified as combat defeat; rate uses all nominal variants as conservative bound; legal_rate excludes invalid; duo delta2 changes different seats"},"mistakes":{"1.0":{"samples":2000,"successes":2000,"deterministic":true,"win_rate_wilson95":null,"win_rate":100.0,"kill_rate":100.0,"retreat_rate":0.0,"avg_rounds":8,"avg_remaining_hp":7.5,"avg_rounds_all":8,"avg_remaining_hp_all":7.5,"winning_round_quantiles":{"10":8,"50":8,"90":8},"example":{"result":"win","rounds":8,"hp":[9,6],"boss":0}},"0.9":{"samples":2000,"successes":1883,"deterministic":false,"win_rate_wilson95":[93.034329,95.096396],"win_rate":94.15,"kill_rate":94.15,"retreat_rate":0.0,"avg_rounds":8.147106,"avg_remaining_hp":12.290228,"avg_rounds_all":8.11,"avg_remaining_hp_all":11.57125,"winning_round_quantiles":{"10":8,"50":8,"90":9},"example":null},"0.8":{"samples":2000,"successes":1751,"deterministic":false,"win_rate_wilson95":[86.030687,88.925343],"win_rate":87.55,"kill_rate":87.55,"retreat_rate":0.0,"avg_rounds":8.637921,"avg_remaining_hp":16.187036,"avg_rounds_all":8.579,"avg_remaining_hp_all":14.17175,"winning_round_quantiles":{"10":8,"50":8,"90":10},"example":null},"0.7":{"samples":2000,"successes":1622,"deterministic":false,"win_rate_wilson95":[79.325158,82.755602],"win_rate":81.1,"kill_rate":81.1,"retreat_rate":0.0,"avg_rounds":9.466708,"avg_remaining_hp":17.654439,"avg_rounds_all":9.4125,"avg_remaining_hp_all":14.31775,"winning_round_quantiles":{"10":8,"50":9,"90":12},"example":null},"0.6":{"samples":2000,"successes":1452,"deterministic":false,"win_rate_wilson95":[70.603384,74.509965],"win_rate":72.6,"kill_rate":72.6,"retreat_rate":0.0,"avg_rounds":10.457989,"avg_remaining_hp":17.877755,"avg_rounds_all":10.3305,"avg_remaining_hp_all":12.98675,"winning_round_quantiles":{"10":8,"50":10,"90":13},"example":null}}}}
+
+All 72 combinations:
+01 S110/P3/H28/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.05 duoR= 9.65 score=0.698718
+02 S110/P3/H28/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.05 duoR=21.00 score=None
+03 S110/P3/H28/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.05 duoR= 3.15 score=0.032051
+04 S110/P3/H28/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.05 duoR= 8.50 score=None
+05 S110/P3/H28/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.05 duoR= 1.40 score=0.032051
+06 S110/P3/H28/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.05 duoR= 8.75 score=None
+07 S110/P3/H32/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 9.65 score=0.666667
+08 S110/P3/H32/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.45 duoR=22.80 score=None
+09 S110/P3/H32/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 3.10 score=0.0
+10 S110/P3/H32/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.45 duoR= 8.30 score=None
+11 S110/P3/H32/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 1.35 score=0.0
+12 S110/P3/H32/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.45 duoR= 8.45 score=None
+13 S110/P4/H28/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 9.65 score=0.666667
+14 S110/P4/H28/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.25 duoR=21.00 score=None
+15 S110/P4/H28/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 3.15 score=0.0
+16 S110/P4/H28/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.25 duoR= 8.50 score=None
+17 S110/P4/H28/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 1.40 score=0.0
+18 S110/P4/H28/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.25 duoR= 8.75 score=None
+19 S110/P4/H32/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 9.65 score=0.666667
+20 S110/P4/H32/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.40 duoR=22.80 score=None
+21 S110/P4/H32/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 3.10 score=0.0
+22 S110/P4/H32/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.40 duoR= 8.30 score=None
+23 S110/P4/H32/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.10 duoR= 1.35 score=0.0
+24 S110/P4/H32/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 1.40 duoR= 8.45 score=None
+25 S115/P3/H28/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=10.014359
+26 S115/P3/H28/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR=21.00 score=None
+27 S115/P3/H28/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.15 score=9.347692
+28 S115/P3/H28/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.50 score=None
+29 S115/P3/H28/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.40 score=9.347692
+30 S115/P3/H28/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.75 score=None
+31 S115/P3/H32/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=8.812308
+32 S115/P3/H32/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.65 duoR=22.80 score=None
+33 S115/P3/H32/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.10 score=8.145641
+34 S115/P3/H32/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.65 duoR= 8.30 score=None
+35 S115/P3/H32/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.35 score=8.145641
+36 S115/P3/H32/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.65 duoR= 8.45 score=None
+37 S115/P4/H28/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=9.169744
+38 S115/P4/H28/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR=21.00 score=None
+39 S115/P4/H28/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.15 score=8.503077
+40 S115/P4/H28/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.50 score=None
+41 S115/P4/H28/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.40 score=8.503077
+42 S115/P4/H28/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.75 score=None
+43 S115/P4/H32/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=7.521538
+44 S115/P4/H32/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.75 duoR=22.80 score=None
+45 S115/P4/H32/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.10 score=6.854872
+46 S115/P4/H32/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.75 duoR= 8.30 score=None
+47 S115/P4/H32/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.35 score=6.854872
+48 S115/P4/H32/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.75 duoR= 8.45 score=None
+49 S120/P3/H28/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=10.014359
+50 S120/P3/H28/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR=21.00 score=None
+51 S120/P3/H28/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.15 score=9.347692
+52 S120/P3/H28/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.50 score=None
+53 S120/P3/H28/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.40 score=9.347692
+54 S120/P3/H28/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.75 score=None
+55 S120/P3/H32/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=8.812308
+56 S120/P3/H32/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.65 duoR=22.80 score=None
+57 S120/P3/H32/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.10 score=8.145641
+58 S120/P3/H32/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.65 duoR= 8.30 score=None
+59 S120/P3/H32/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.35 score=8.145641
+60 S120/P3/H32/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.65 duoR= 8.45 score=None
+61 S120/P4/H28/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=9.169744
+62 S120/P4/H28/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR=21.00 score=None
+63 S120/P4/H28/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.15 score=8.503077
+64 S120/P4/H28/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.50 score=None
+65 S120/P4/H28/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.40 score=8.503077
+66 S120/P4/H28/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.60 duoR= 8.75 score=None
+67 S120/P4/H32/D130/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 9.65 score=7.521538
+68 S120/P4/H32/D130/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.75 duoR=22.80 score=None
+69 S120/P4/H32/D150/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 3.10 score=6.854872
+70 S120/P4/H32/D150/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.75 duoR= 8.30 score=None
+71 S120/P4/H32/D160/strict_16            blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.00 duoR= 1.35 score=6.854872
+72 S120/P4/H32/D160/retreat_below_20pct  blind=  0.0 soloH=100.0 duoH=100.0 soloR= 0.75 duoR= 8.45 score=None
+
+Strict candidates: solo delta1/delta2, duo delta1, solo p=.8/.6 (percent):
+01: D1=69.231 D2=24.679 duoD1=79.167 p08=57.45 p06=22.80 score=0.698718
+03: D1=69.231 D2=24.679 duoD1=84.375 p08=57.45 p06=22.80 score=0.032051
+05: D1=69.231 D2=24.679 duoD1=84.375 p08=57.45 p06=22.80 score=0.032051
+07: D1=70.833 D2=43.561 duoD1=79.167 p08=59.50 p06=23.40 score=0.666667
+09: D1=70.833 D2=43.561 duoD1=84.375 p08=59.50 p06=23.40 score=0.0
+11: D1=70.833 D2=43.561 duoD1=84.375 p08=59.50 p06=23.40 score=0.0
+13: D1=76.923 D2=34.295 duoD1=79.167 p08=60.10 p06=22.65 score=0.666667
+15: D1=76.923 D2=34.295 duoD1=84.375 p08=60.10 p06=22.65 score=0.0
+17: D1=76.923 D2=34.295 duoD1=84.375 p08=60.10 p06=22.65 score=0.0
+19: D1=70.833 D2=48.485 duoD1=79.167 p08=60.95 p06=23.70 score=0.666667
+21: D1=70.833 D2=48.485 duoD1=84.375 p08=60.95 p06=23.70 score=0.0
+23: D1=70.833 D2=48.485 duoD1=84.375 p08=60.95 p06=23.70 score=0.0
+25: D1=17.857 D2=9.066 duoD1=79.167 p08=37.30 p06=10.20 score=10.014359
+27: D1=17.857 D2=9.066 duoD1=84.375 p08=37.30 p06=10.20 score=9.347692
+29: D1=17.857 D2=9.066 duoD1=84.375 p08=37.30 p06=10.20 score=9.347692
+31: D1=23.077 D2=16.667 duoD1=79.167 p08=37.25 p06=9.65 score=8.812308
+33: D1=23.077 D2=16.667 duoD1=84.375 p08=37.25 p06=9.65 score=8.145641
+35: D1=23.077 D2=16.667 duoD1=84.375 p08=37.25 p06=9.65 score=8.145641
+37: D1=17.857 D2=12.912 duoD1=79.167 p08=39.60 p06=10.20 score=9.169744
+39: D1=17.857 D2=12.912 duoD1=84.375 p08=39.60 p06=10.20 score=8.503077
+41: D1=17.857 D2=12.912 duoD1=84.375 p08=39.60 p06=10.20 score=8.503077
+43: D1=23.077 D2=21.474 duoD1=79.167 p08=41.05 p06=9.90 score=7.521538
+45: D1=23.077 D2=21.474 duoD1=84.375 p08=41.05 p06=9.90 score=6.854872
+47: D1=23.077 D2=21.474 duoD1=84.375 p08=41.05 p06=9.90 score=6.854872
+49: D1=17.857 D2=9.066 duoD1=79.167 p08=37.30 p06=10.20 score=10.014359
+51: D1=17.857 D2=9.066 duoD1=84.375 p08=37.30 p06=10.20 score=9.347692
+53: D1=17.857 D2=9.066 duoD1=84.375 p08=37.30 p06=10.20 score=9.347692
+55: D1=23.077 D2=16.667 duoD1=79.167 p08=37.25 p06=9.65 score=8.812308
+57: D1=23.077 D2=16.667 duoD1=84.375 p08=37.25 p06=9.65 score=8.145641
+59: D1=23.077 D2=16.667 duoD1=84.375 p08=37.25 p06=9.65 score=8.145641
+61: D1=17.857 D2=12.912 duoD1=79.167 p08=39.60 p06=10.20 score=9.169744
+63: D1=17.857 D2=12.912 duoD1=84.375 p08=39.60 p06=10.20 score=8.503077
+65: D1=17.857 D2=12.912 duoD1=84.375 p08=39.60 p06=10.20 score=8.503077
+67: D1=23.077 D2=21.474 duoD1=79.167 p08=41.05 p06=9.90 score=7.521538
+69: D1=23.077 D2=21.474 duoD1=84.375 p08=41.05 p06=9.90 score=6.854872
+71: D1=23.077 D2=21.474 duoD1=84.375 p08=41.05 p06=9.90 score=6.854872
+
+Per-combination policies (rounds/HP are success-only; - means no success):
+[01] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.05  16.00     3.00     10.70
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.57    12.17     14.84
+[02] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.05  16.00     8.43     10.70
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      21.00  15.34    10.69     14.84
+[03] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.05  16.00     3.00     10.70
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.15  15.17    12.26     15.04
+[04] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.05  16.00     8.43     10.70
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.50  15.69    10.46     15.04
+[05] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.05  16.00     3.00     10.70
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.40  15.25    10.66     15.05
+[06] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.05  16.00     8.43     10.70
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.75  15.88    10.00     15.05
+[07] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00    11.50     10.90
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.66    11.69     14.89
+[08] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.45  16.00     9.83     10.90
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      22.80  15.43    10.65     14.89
+[09] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00    11.50     10.90
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.10  15.00    11.97     15.07
+[10] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.45  16.00     9.83     10.90
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.30  15.63    10.67     15.07
+[11] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00    11.50     10.90
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.35  15.04    11.72     15.10
+[12] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.45  16.00     9.83     10.90
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.45  15.85    10.09     15.10
+[13] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00     4.50     11.33
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.57    12.17     14.84
+[14] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.25  16.00    10.60     11.33
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      21.00  15.34    10.69     14.84
+[15] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00     4.50     11.33
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.15  15.17    12.26     15.04
+[16] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.25  16.00    10.60     11.33
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.50  15.69    10.46     15.04
+[17] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00     4.50     11.33
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.40  15.25    10.66     15.05
+[18] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.25  16.00    10.60     11.33
+solo optimal    100.00  13.00    24.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.75  15.88    10.00     15.05
+[19] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00    11.50     11.53
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.66    11.69     14.89
+[20] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.40  16.00    12.64     11.53
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      22.80  15.43    10.65     14.89
+[21] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00    11.50     11.53
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.10  15.00    11.97     15.07
+[22] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.40  16.00    12.64     11.53
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.30  15.63    10.67     15.07
+[23] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       0.10  16.00    11.50     11.53
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.35  15.04    11.72     15.10
+[24] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 110, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  14.00    30.00     14.00
+solo random       1.40  16.00    12.64     11.53
+solo optimal    100.00  12.00     1.00     12.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.45  15.85    10.09     15.10
+[25] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.57    12.17     14.84
+[26] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00     8.25     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      21.00  15.34    10.69     14.84
+[27] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.15  15.17    12.26     15.04
+[28] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00     8.25     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.50  15.69    10.46     15.04
+[29] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.40  15.25    10.66     15.05
+[30] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00     8.25     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.75  15.88    10.00     15.05
+[31] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.66    11.69     14.89
+[32] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.65  16.00     9.38     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      22.80  15.43    10.65     14.89
+[33] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.10  15.00    11.97     15.07
+[34] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.65  16.00     9.38     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.30  15.63    10.67     15.07
+[35] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.35  15.04    11.72     15.10
+[36] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.65  16.00     9.38     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.45  15.85    10.09     15.10
+[37] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.57    12.17     14.84
+[38] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00    12.17     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      21.00  15.34    10.69     14.84
+[39] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.15  15.17    12.26     15.04
+[40] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00    12.17     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.50  15.69    10.46     15.04
+[41] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.40  15.25    10.66     15.05
+[42] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00    12.17     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.75  15.88    10.00     15.05
+[43] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.66    11.69     14.89
+[44] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.75  16.00    13.00     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      22.80  15.43    10.65     14.89
+[45] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.10  15.00    11.97     15.07
+[46] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.75  16.00    13.00     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.30  15.63    10.67     15.07
+[47] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.35  15.04    11.72     15.10
+[48] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 115, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.75  16.00    13.00     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.45  15.85    10.09     15.10
+[49] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.57    12.17     14.84
+[50] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00     8.25     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      21.00  15.34    10.69     14.84
+[51] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.15  15.17    12.26     15.04
+[52] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00     8.25     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.50  15.69    10.46     15.04
+[53] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.40  15.25    10.66     15.05
+[54] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00     8.25     10.70
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.75  15.88    10.00     15.05
+[55] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.66    11.69     14.89
+[56] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.65  16.00     9.38     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      22.80  15.43    10.65     14.89
+[57] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.10  15.00    11.97     15.07
+[58] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.65  16.00     9.38     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.30  15.63    10.67     15.07
+[59] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.35  15.04    11.72     15.10
+[60] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 3}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.65  16.00     9.38     10.90
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.45  15.85    10.09     15.10
+[61] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.57    12.17     14.84
+[62] {"duo_boss_hp": 130, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00    12.17     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      21.00  15.34    10.69     14.84
+[63] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.15  15.17    12.26     15.04
+[64] {"duo_boss_hp": 150, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00    12.17     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.50  15.69    10.46     15.04
+[65] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.40  15.25    10.66     15.05
+[66] {"duo_boss_hp": 160, "heal": 28, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.60  16.00    12.17     11.33
+solo optimal    100.00  14.00    14.00     14.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.75  15.88    10.00     15.05
+[67] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random       9.65  14.66    11.69     14.89
+[68] {"duo_boss_hp": 130, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.75  16.00    13.00     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   6.00    20.50      6.00
+duo  random      22.80  15.43    10.65     14.89
+[69] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       3.10  15.00    11.97     15.07
+[70] {"duo_boss_hp": 150, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.75  16.00    13.00     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.30  15.63    10.67     15.07
+[71] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "strict_16", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.00      -        -     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       1.35  15.04    11.72     15.10
+[72] {"duo_boss_hp": 160, "heal": 32, "round_limit_rule": "retreat_below_20pct", "solo_boss_hp": 120, "solo_potions": 4}
+mode policy       win% rounds  HP/seat allRounds
+solo blind        0.00      -        -      3.00
+solo guard        0.00      -        -     16.00
+solo heuristic  100.00  16.00    14.00     16.00
+solo random       0.75  16.00    13.00     11.53
+solo optimal    100.00  13.00     1.00     13.00
+duo  blind        0.00      -        -      7.00
+duo  guard        0.00      -        -     16.00
+duo  heuristic  100.00   8.00     7.50      8.00
+duo  random       8.45  15.85    10.09     15.10

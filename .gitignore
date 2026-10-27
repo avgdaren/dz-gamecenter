@@ -26,3 +26,7 @@ desktop.ini
 _backup/
 *.bak
 *.bak-*
+
+# Python verification caches
+**/__pycache__/
+*.pyc

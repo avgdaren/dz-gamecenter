@@ -1,0 +1,31 @@
+{
+  "rules_before": {
+    "version": "raid-v2-solo110-p4-duo150",
+    "solo_potions": 4,
+    "duo_potions": 2,
+    "boss_hp": 150,
+    "solo_boss_hp": 110,
+    "heal": 28,
+    "round_limit": 16
+  },
+  "rules_after": {
+    "version": "raid-v3-solo110-p4-duo150-r18",
+    "solo_potions": 4,
+    "duo_potions": 2,
+    "boss_hp": 150,
+    "solo_boss_hp": 110,
+    "heal": 28,
+    "round_limit": 18,
+    "duo_round_limit": 16
+  },
+  "all_six_winning_traces_unchanged": true,
+  "initial_caps": {
+    "solo_survival": 18,
+    "solo_fast": 18,
+    "solo_reasonable": 18,
+    "duo_cover": 16,
+    "duo_cautious": 16,
+    "duo_rescue": 16
+  },
+  "old_archive_sha256": "ba8a6a5f491f60a50bdde45f331b92b91e3ae73cee72074d72c0dbefb26e711f"
+}

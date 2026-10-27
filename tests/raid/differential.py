@@ -15,11 +15,12 @@ sys.modules[spec.name] = model
 spec.loader.exec_module(model)
 rng = random.Random(20261026)
 cases, expected = [], []
-for i in range(2000):
+for i in range(6000):
     players = 1 if i % 2 == 0 else 2
-    state = model.initial(players)
+    rules = (model.CURRENT,model.V2,model.CANDIDATE)[i//2000]
+    state = model.initial(players,rules)
     route, trace, invalid = [], [], False
-    for round_no in range(1, 17):
+    for round_no in range(1, rules.limit(players)+1):
         row = []
         for actor in range(players):
             if state.hp[actor] <= 0:
@@ -31,8 +32,8 @@ for i in range(2000):
         if i % 11 == 0 and round_no == 2:
             row[0] = ('G', 9)  # Deliberately invalid target; state must not resolve.
         route.append(row)
-        preview = model.intent(state, round_no)
-        after = model.resolve(state, row, round_no)
+        preview = model.intent(state, round_no,rules)
+        after = model.resolve(state, row, round_no,rules)
         if after is None:
             invalid = True
             break
@@ -40,11 +41,16 @@ for i in range(2000):
         trace.append(dict(preview=preview, hp=state.hp, boss=state.boss, pots=state.pots, exposed=state.exposed))
         if state.boss == 0 or not any(state.hp):
             break
-    cases.append(dict(mode='solo' if players == 1 else 'duo', route=route))
+    cases.append(dict(rules_version=rules.version, mode='solo' if players == 1 else 'duo', route=route))
     expected.append(dict(invalid=invalid, trace=trace))
 php = os.environ.get('PHP_BIN', 'php')
-result = subprocess.run([php, '-n', str(root / 'tests/raid/rules.php'), '--batch'], input=json.dumps(cases), capture_output=True, text=True, check=True)
-actual = json.loads(result.stdout)
+# Bound the harness memory rather than requiring a larger production PHP memory_limit.
+actual = []
+for offset in range(0,len(cases),500):
+    result = subprocess.run([php, '-n', str(root / 'tests/raid/rules.php'), '--batch'], input=json.dumps(cases[offset:offset+500]), capture_output=True, text=True)
+    if result.returncode:
+        raise AssertionError(f'PHP batch at {offset} failed: stdout={result.stdout[:400]!r} stderr={result.stderr[:400]!r}')
+    actual.extend(json.loads(result.stdout))
 expected = json.loads(json.dumps(expected))
 for i, (a, b) in enumerate(zip(actual, expected, strict=True)):
     assert a == b, f'case {i}: {a} != {b}'

@@ -37,7 +37,7 @@ class gamecenter_view {
 
 	/** 獎勵說明（給大廳卡片與遊戲頁）。 */
 	public static function reward_lines($g) {
-		if($g['gkey'] === 'gomoku') { return []; }
+		if(in_array($g['gkey'], ['gomoku','raid'], true)) { return []; }
 		$out = [];
 		$c = gamecenter_core::credit_name((int)$g['credit']);
 		if(!$c) {
@@ -87,13 +87,17 @@ class gamecenter_view {
 		global $_G;
 		$games = gamecenter_core::games(true);
 		$yw = gamecenter_core::yw();
-		$h = '<div class="gc-hero"><div><h1>游戏中心</h1><p>用论坛账号直接玩，成绩进排行榜'
+		$h = '<div class="gc-hero"><div><h1>游戏中心</h1><p>用论坛账号直接玩，挑战、合作与好友约战'
 			.($_G['uid'] ? '' : '。<a href="member.php?mod=logging&amp;action=login">登录</a>后成绩才会记录').'</p></div>'.self::nav('lobby').'</div>';
 		if(!$games) {
 			return self::shell($h.'<div class="gc-empty">目前还没有开放的游戏。</div>');
 		}
 		$h .= '<div class="gc-grid">';
 		foreach($games as $g) {
+			if($g['gkey'] === 'raid') {
+				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'&amp;fresh=1'.'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">单人挑战 / 双人合作</div></div></a><p class="gc-intro">'.self::e($g['m']['intro']).'</p><ul class="gc-facts"><li>邀请好友，一起面对蚀月魔女</li><li>每轮最多30秒，刷新可恢复</li><li>随时查看最近十次讨伐</li></ul><div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'&amp;fresh=1'.'">开始讨伐</a></div></div>';
+				continue;
+			}
 			// GPT / Codex：联机游戏独立入口，不伪装成单机打榜。
 			if($g['gkey'] === 'gomoku') {
 				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">双人在线 · 服务端判定</div></div></a>'
@@ -124,7 +128,7 @@ class gamecenter_view {
 	public static function play_page($g) {
 		global $_G;
 		$m = $g['m'];
-		$gc_roomgame = $g['gkey'] === 'gomoku';
+		$gc_roomgame = in_array($g['gkey'], ['gomoku','raid'], true);
 		$best = !$gc_roomgame && $_G['uid'] ? gamecenter_core::best_of($g['gkey'], 'a', '0', (int)$_G['uid']) : null;
 		$why = gamecenter_core::can_play();
 		$base = 'source/plugin/gamecenter/';
@@ -138,7 +142,7 @@ class gamecenter_view {
 			.' data-login="'.($_G['uid'] ? '' : 'member.php?mod=logging&amp;action=login').'"'
 			.' data-uid="'.(int)$_G['uid'].'" data-rivals="'.self::e(json_encode($gc_roomgame ? [] : gamecenter_core::rivals($g), JSON_UNESCAPED_UNICODE)).'"></div>';
 		if($why !== '') {
-			$h .= '<div class="gc-note">'.self::e($why).'，现在是试玩模式。</div>';
+			$h .= '<div class="gc-note">'.self::e($why).($g['gkey'] === 'raid' ? '；可以先阅读规则，登录并获得权限后挑战。' : '，现在是试玩模式。').'</div>';
 		}
 		$h .= '<div class="gc-box"><h4>玩法</h4><p>'.self::e($m['help'] ?: $m['intro']).'</p>';
 		$rl = self::reward_lines($g);
@@ -149,11 +153,12 @@ class gamecenter_view {
 			}
 			$h .= '</ul>';
 		}
-		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($gc_roomgame ? '<div class="gc-box"><h4>好友约战</h4><p>先创建房间，再分享房间号或邀请链接。双方均需登录论坛账号。</p><p>选择落点后确认，避免误触。对局由服务端判定，结果保存在游戏内的最近对局。</p></div>' : self::boards($g, 10)).'</div></aside></div>';
+		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($g['gkey'] === 'raid' ? '<div class="gc-box"><h4>讨伐手记</h4><p>留意幽月的重击预告，守住之后就是反击的机会。</p></div>' : ($gc_roomgame ? '<div class="gc-box"><h4>好友约战</h4><p>先创建房间，再分享房间号或邀请链接。双方均需登录论坛账号。</p><p>选择落点后确认，避免误触。对局由服务端判定，结果保存在游戏内的最近对局。</p></div>' : self::boards($g, 10))).'</div></aside></div>';
 		$h .= '<script src="'.$base.'static/gc.js?v='.self::ver().'"></script>';
 		if(!empty($m['style']) && preg_match('/^[\w.-]+\.css$/', $m['style'])) {
 			$h .= '<link rel="stylesheet" href="'.$base.'games/'.$g['gkey'].'/'.$m['style'].'?v='.rawurlencode($m['version']).'">';
 		}
+		if($g['gkey'] === 'raid') { foreach(['feedback.js','music.js'] as $gc_asset) { $h .= '<script src="'.$base.'games/raid/'.$gc_asset.'?v='.rawurlencode($m['version']).'"></script>'; } }
 		$h .= '<script src="'.$base.'games/'.$g['gkey'].'/'.rawurlencode($m['script']).'?v='.rawurlencode($m['version']).'"></script>';
 		return self::shell($h);
 	}
@@ -262,6 +267,9 @@ class gamecenter_view {
 		$uid = (int)$_G['uid'];
 		$games = gamecenter_core::games(false);
 		$h = '<div class="gc-hero gc-hero-sm"><div><h1>我的游戏纪录</h1><p>'.self::e($_G['username']).'</p></div>'.self::nav('my').'</div>';
+		if(!empty($games['raid']['available']) || (isset($games['raid']) && (int)$_G['adminid'] === 1)) {
+		$h .= '<div class="gc-box"><h4>天使讨伐令</h4><p><a href="'.self::BASE.'&amp;mod=play&amp;game=raid">查看天使讨伐令的最近结果与当前房间</a></p></div>';
+		}
 		$h .= '<div class="gc-box"><h4>各游戏最佳</h4><table class="gc-table"><tr><th>游戏</th><th>最佳</th><th>总榜名次</th><th>本周最佳</th><th>本周名次</th></tr>';
 		$any = false;
 		foreach($games as $g) {
@@ -306,3 +314,4 @@ class gamecenter_view {
 		return self::shell($h.'</table></div>');
 	}
 }
+

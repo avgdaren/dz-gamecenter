@@ -1,0 +1,77 @@
+[
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/battle-phase2.mp3",
+    "bytes": 511940,
+    "sha256": "496bd3aa2d862db9a1727a83a9b7b31a2d795d38e639916bade9198b579bd6aa"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/battle.mp3",
+    "bytes": 680272,
+    "sha256": "15d181aee4ce7dabd505b44fbfe7d872881504d5694f2146776c6ec2048fdd56"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p1-hit1.webp",
+    "bytes": 15244,
+    "sha256": "c4686733ed18d946daec77ee0459e6bfcc76231bca3e62e1304badeade494d6f"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p1-hit2.webp",
+    "bytes": 15438,
+    "sha256": "afa3eb6d60e4f657bbc1b9378fdfdc167905e169af7a92395df53524e68fbc15"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p1-hit3.webp",
+    "bytes": 13928,
+    "sha256": "bdafa259a4fb2abd899e6477b00ba22c6648c256a7214f38f13a6f9d3f9dd1b3"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p2-hit1.webp",
+    "bytes": 19668,
+    "sha256": "bbd975de1444443bdd234a87a267ec73b12d3fd2127b3e9f90bf4bfb44b891db"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p2-hit2.webp",
+    "bytes": 19412,
+    "sha256": "4824b62ee8b31f0bf895e878efa1b9bf8f2014bb1418067a26b9f49f58d0628c"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p2-hit3.webp",
+    "bytes": 19970,
+    "sha256": "571b3f5d05a0c4c2db01efbe33ab0fb7675f650676196f08ab9810cf48d6d18f"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-phase2.webp",
+    "bytes": 159248,
+    "sha256": "551f7a290c6a757e4827a238851065537203173b989f4eed883340e17b0c623b"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss.svg",
+    "bytes": 1264,
+    "sha256": "2d4b573327c2af9a5e39154690b86ccfe046d664e86efc2e7776826cb069bc7b"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss.webp",
+    "bytes": 144764,
+    "sha256": "36e6a768581150843354fcb1bb4ee08dc1edd94e22991a6775fb38723875117e"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/icon.svg",
+    "bytes": 1264,
+    "sha256": "2d4b573327c2af9a5e39154690b86ccfe046d664e86efc2e7776826cb069bc7b"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/icon.webp",
+    "bytes": 8924,
+    "sha256": "1717e4c5da954ff7be57940d3f44fd767af78a8020c626c48a979ef3602f1e84"
+  },
+  {
+    "file": "docs/raid/reports/portrait-phase1.jpg",
+    "bytes": 35222,
+    "sha256": "80669ce20943d6629db947ab9e9356ae9587d0e4876c4465d0f216b587b077bc"
+  },
+  {
+    "file": "docs/raid/reports/portrait-phase2.jpg",
+    "bytes": 40315,
+    "sha256": "23675e8098f4bb33dc44782024e1b9f4ac2f33e3cbda4a3abaa4b42c89138c7a"
+  }
+]

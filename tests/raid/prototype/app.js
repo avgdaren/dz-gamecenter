@@ -68,7 +68,7 @@
       const waiting = s.hp.map((hp,i) => hp > 0 && !s.left[i] && !s.intents[i] ? slot(i) : null).filter(Boolean);
       return replay + confirmed + (waiting.length ? `等待${waiting.join('、')}确认。` : '等待结算。');
     }
-    if(request.op === 'advance') return replay + (request.ms === 25000 ? '已跳到本轮截止。' : '已模拟离线 400 秒，并按原截止时间追算。') + progress;
+    if(request.op === 'advance') return replay + (request.ms === 30000 ? '已跳到本轮截止。' : '已模拟离线至本局回合上限，并按原截止时间追算。') + progress;
     if(request.op === 'retreat') return replay + (ended ? `${slot(request.actor)}撤退操作已确认。${progress}` :
       s.left[request.actor] ? `${slot(request.actor)}已离场，队友继续挑战。` : `${slot(request.actor)}已确认撤退，将在本轮结束后离场。`);
     return replay + '操作已完成。';
@@ -225,7 +225,7 @@
     $('idle-hint').textContent=idle.length ? idle.map(({actor,count})=>`${slot(actor)}连续 ${count} 轮未确认`).join('；')+'，已按默认守护结算。这不代表已离线；可以继续等待，或由自己的席位撤退（本轮结束后离场）。不会自动转为单人。' : '';
     const p = state.preview;
     $('phase').textContent = `第 ${p.phase === 1 ? '一' : '二'} 阶段`;
-    $('round').textContent = `回合 ${state.round_no} / 16`;
+    $('round').textContent = `回合 ${state.round_no} / ${state.round_limit??16}`;
     $('mode').textContent = state.mode === 'solo' ? '单人挑战' : '双人 · 月蚀加护 +10';
     $('boss-hp').textContent = `${state.boss} / ${state.boss_max_hp} 生命`;
     $('boss-bar').max = state.boss_max_hp; $('boss-bar').value = state.boss;
@@ -240,7 +240,7 @@
       state.mode === 'solo' ? '你惹怒我了！' : '你们这群蝼蚁！';
     $('result').hidden = state.status === 1;
     if(state.status !== 1) {
-      const reasons = {defeated:`${bossName}已被击败。`, knockout:'所有留队成员倒地。', round_limit:'16 回合已用尽，幽月仍然存活。', retreated:'已无成员继续挑战。'};
+      const reasons = {defeated:`${bossName}已被击败。`, knockout:'所有留队成员倒地。', round_limit:`${state.round_limit??16} 回合已用尽，幽月仍然存活。`, retreated:'已无成员继续挑战。'};
       $('result-title').textContent = state.status === 2 ? '讨伐成功' : '挑战结束';
       const alive = state.hp.filter((v,i) => v > 0 && !state.left[i]).length;
       $('result-text').textContent = `${reasons[state.reason] || ''} 共 ${state.history.length} 回合，生还 ${alive} 人。可以查看记录，再挑战一次。`;
@@ -265,8 +265,8 @@
   soundButton();
   musicButton();
   $('retry').addEventListener('click',() => send(null,true));
-  $('advance').addEventListener('click',() => send({op:'advance',ms:25000}));
-  $('offline').addEventListener('click',() => { if(window.confirm('模拟离线 400 秒，会自动追算直到本局结束。确定吗？')) send({op:'advance',ms:400000}); });
+  $('advance').addEventListener('click',() => send({op:'advance',ms:30000}));
+  $('offline').addEventListener('click',() => { if(window.confirm('模拟离线至本局回合上限，会自动追算直到本局结束。确定吗？')) send({op:'advance',ms:(state?.round_limit??16)*30000}); });
   $('theme').addEventListener('click',() => { const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; document.documentElement.dataset.theme = dark ? 'light' : 'dark'; });
   document.addEventListener('visibilitychange',() => { feedback.pause(); clearEffects(); music.sync(); if(!document.hidden) sync(); });
   window.addEventListener('pagehide',() => { feedback.pause(); clearEffects(); music.pause(); });
@@ -277,3 +277,4 @@
     try { const saved = JSON.parse(sessionStorage.getItem('raid-p1-pending')); if(saved && typeof saved.request_id === 'string') { pending = saved; notice('有一项结果未确认，请重试上次操作。',true); controls(); } } catch (_) { /* Ignore unavailable storage or malformed local data. */ }
   })();
 })();
+

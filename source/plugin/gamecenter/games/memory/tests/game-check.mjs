@@ -21,12 +21,12 @@ function rpc(request) {
 }
 const decode = text => text.replace(/&(?:amp|lt|gt|quot|#39);/g, c => ({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"}[c]));
 class Element {
-  constructor(tag) { this.tagName=tag.toUpperCase();this.children=[];this.attrs={};this.listeners={};this.parentElement=null;this.disabled=false;this._text=''; }
+  constructor(tag) { this.tagName=tag.toUpperCase();this.children=[];this.attrs={};this.listeners={};this.parentElement=null;this.disabled=false;this._text='';this.style={}; }
   setAttribute(name,value) {this.attrs[name]=String(value);}
   getAttribute(name) {return this.attrs[name]??null;}
   get className(){return this.attrs.class||'';}
   set className(value){this.attrs.class=value;}
-  get classList(){const self=this;return {contains:n=>self.className.split(' ').includes(n),toggle(n,on){const a=new Set(self.className.split(' ').filter(Boolean));const add=on??!a.has(n);if(add)a.add(n);else a.delete(n);self.className=[...a].join(' ');}};}
+  get classList(){const self=this;return {contains:n=>self.className.split(' ').includes(n),add(...ns){self.className=[...new Set([...self.className.split(' ').filter(Boolean),...ns])].join(' ');},remove(...ns){self.className=self.className.split(' ').filter(n=>!ns.includes(n)).join(' ');},toggle(n,on){const a=new Set(self.className.split(' ').filter(Boolean));const add=on??!a.has(n);if(add)a.add(n);else a.delete(n);self.className=[...a].join(' ');}};}
   get dataset(){const self=this;return new Proxy({}, {get:(_,key)=>self.getAttribute('data-'+String(key).replace(/[A-Z]/g,c=>'-'+c.toLowerCase()))??undefined,set:(_,key,value)=>{self.setAttribute('data-'+key,value);return true;}});}
   get textContent(){return this._text+this.children.map(c=>c.textContent).join('');}
   set textContent(value){this._text=String(value);this.children=[];}

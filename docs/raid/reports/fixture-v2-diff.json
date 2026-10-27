@@ -1,0 +1,1121 @@
+{
+  "rules_before": {
+    "version": "raid-v1-p1-balanced",
+    "solo_potions": 3,
+    "duo_potions": 2,
+    "boss_hp": 130,
+    "solo_boss_hp": 120,
+    "heal": 28,
+    "round_limit": 16
+  },
+  "rules_after": {
+    "version": "raid-v2-solo110-p4-duo150",
+    "solo_potions": 4,
+    "duo_potions": 2,
+    "boss_hp": 150,
+    "solo_boss_hp": 110,
+    "heal": 28,
+    "round_limit": 16
+  },
+  "cases": {
+    "solo_survival": {
+      "before_rounds": 16,
+      "after_rounds": 14,
+      "before_hp": [
+        10
+      ],
+      "after_hp": [
+        26
+      ],
+      "common_prefix_actions_identical": true,
+      "field_differences": [
+        {
+          "round": 1,
+          "field": "boss",
+          "before": 110,
+          "after": 100
+        },
+        {
+          "round": 1,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 2,
+          "field": "boss",
+          "before": 100,
+          "after": 90
+        },
+        {
+          "round": 2,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 3,
+          "field": "boss",
+          "before": 100,
+          "after": 90
+        },
+        {
+          "round": 3,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 4,
+          "field": "boss",
+          "before": 80,
+          "after": 70
+        },
+        {
+          "round": 4,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 5,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 5,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 6,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 6,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 7,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 7,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 8,
+          "field": "boss",
+          "before": 50,
+          "after": 40
+        },
+        {
+          "round": 8,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 9,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 9,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 10,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 10,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 11,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 11,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 12,
+          "field": "boss",
+          "before": 20,
+          "after": 10
+        },
+        {
+          "round": 12,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 13,
+          "field": "boss",
+          "before": 20,
+          "after": 10
+        },
+        {
+          "round": 13,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 14,
+          "field": "hp",
+          "before": [
+            16
+          ],
+          "after": [
+            26
+          ]
+        },
+        {
+          "round": 14,
+          "field": "boss",
+          "before": 10,
+          "after": 0
+        },
+        {
+          "round": 14,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        }
+      ],
+      "added_rounds": [],
+      "removed_rounds": [
+        {
+          "round": 15,
+          "preview": {
+            "kind": 2,
+            "phase": 2,
+            "targets": [
+              0
+            ],
+            "damage": 28
+          },
+          "actions": [
+            [
+              "G",
+              0
+            ]
+          ],
+          "hp": [
+            10
+          ],
+          "boss": 10,
+          "pots": [
+            1
+          ],
+          "exposed": true
+        },
+        {
+          "round": 16,
+          "preview": {
+            "kind": 3,
+            "phase": 2,
+            "targets": [],
+            "damage": 0
+          },
+          "actions": [
+            [
+              "A",
+              -1
+            ]
+          ],
+          "hp": [
+            10
+          ],
+          "boss": 0,
+          "pots": [
+            1
+          ],
+          "exposed": false
+        }
+      ]
+    },
+    "solo_fast": {
+      "before_rounds": 14,
+      "after_rounds": 13,
+      "before_hp": [
+        14
+      ],
+      "after_hp": [
+        24
+      ],
+      "common_prefix_actions_identical": true,
+      "field_differences": [
+        {
+          "round": 1,
+          "field": "boss",
+          "before": 110,
+          "after": 100
+        },
+        {
+          "round": 1,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 2,
+          "field": "boss",
+          "before": 100,
+          "after": 90
+        },
+        {
+          "round": 2,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 3,
+          "field": "boss",
+          "before": 100,
+          "after": 90
+        },
+        {
+          "round": 3,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 4,
+          "field": "boss",
+          "before": 80,
+          "after": 70
+        },
+        {
+          "round": 4,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 5,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 5,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 6,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 6,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 7,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 7,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 8,
+          "field": "boss",
+          "before": 50,
+          "after": 40
+        },
+        {
+          "round": 8,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 9,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 9,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 10,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 10,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 11,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 11,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 12,
+          "field": "boss",
+          "before": 20,
+          "after": 10
+        },
+        {
+          "round": 12,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 13,
+          "field": "hp",
+          "before": [
+            14
+          ],
+          "after": [
+            24
+          ]
+        },
+        {
+          "round": 13,
+          "field": "boss",
+          "before": 10,
+          "after": 0
+        },
+        {
+          "round": 13,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        }
+      ],
+      "added_rounds": [],
+      "removed_rounds": [
+        {
+          "round": 14,
+          "preview": {
+            "kind": 1,
+            "phase": 2,
+            "targets": [
+              0
+            ],
+            "damage": 10
+          },
+          "actions": [
+            [
+              "A",
+              -1
+            ]
+          ],
+          "hp": [
+            14
+          ],
+          "boss": 0,
+          "pots": [
+            1
+          ],
+          "exposed": false
+        }
+      ]
+    },
+    "solo_reasonable": {
+      "before_rounds": 16,
+      "after_rounds": 14,
+      "before_hp": [
+        14
+      ],
+      "after_hp": [
+        30
+      ],
+      "common_prefix_actions_identical": true,
+      "field_differences": [
+        {
+          "round": 1,
+          "field": "boss",
+          "before": 110,
+          "after": 100
+        },
+        {
+          "round": 1,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 2,
+          "field": "boss",
+          "before": 100,
+          "after": 90
+        },
+        {
+          "round": 2,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 3,
+          "field": "boss",
+          "before": 100,
+          "after": 90
+        },
+        {
+          "round": 3,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 4,
+          "field": "boss",
+          "before": 80,
+          "after": 70
+        },
+        {
+          "round": 4,
+          "field": "pots",
+          "before": [
+            3
+          ],
+          "after": [
+            4
+          ]
+        },
+        {
+          "round": 5,
+          "field": "boss",
+          "before": 80,
+          "after": 70
+        },
+        {
+          "round": 5,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 6,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 6,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 7,
+          "field": "boss",
+          "before": 70,
+          "after": 60
+        },
+        {
+          "round": 7,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 8,
+          "field": "boss",
+          "before": 50,
+          "after": 40
+        },
+        {
+          "round": 8,
+          "field": "pots",
+          "before": [
+            2
+          ],
+          "after": [
+            3
+          ]
+        },
+        {
+          "round": 9,
+          "field": "boss",
+          "before": 50,
+          "after": 40
+        },
+        {
+          "round": 9,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 10,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 10,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 11,
+          "field": "boss",
+          "before": 40,
+          "after": 30
+        },
+        {
+          "round": 11,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 12,
+          "field": "boss",
+          "before": 20,
+          "after": 10
+        },
+        {
+          "round": 12,
+          "field": "pots",
+          "before": [
+            1
+          ],
+          "after": [
+            2
+          ]
+        },
+        {
+          "round": 13,
+          "field": "boss",
+          "before": 20,
+          "after": 10
+        },
+        {
+          "round": 13,
+          "field": "pots",
+          "before": [
+            0
+          ],
+          "after": [
+            1
+          ]
+        },
+        {
+          "round": 14,
+          "field": "hp",
+          "before": [
+            20
+          ],
+          "after": [
+            30
+          ]
+        },
+        {
+          "round": 14,
+          "field": "boss",
+          "before": 10,
+          "after": 0
+        },
+        {
+          "round": 14,
+          "field": "pots",
+          "before": [
+            0
+          ],
+          "after": [
+            1
+          ]
+        }
+      ],
+      "added_rounds": [],
+      "removed_rounds": [
+        {
+          "round": 15,
+          "preview": {
+            "kind": 2,
+            "phase": 2,
+            "targets": [
+              0
+            ],
+            "damage": 28
+          },
+          "actions": [
+            [
+              "G",
+              0
+            ]
+          ],
+          "hp": [
+            14
+          ],
+          "boss": 10,
+          "pots": [
+            0
+          ],
+          "exposed": true
+        },
+        {
+          "round": 16,
+          "preview": {
+            "kind": 3,
+            "phase": 2,
+            "targets": [],
+            "damage": 0
+          },
+          "actions": [
+            [
+              "A",
+              -1
+            ]
+          ],
+          "hp": [
+            14
+          ],
+          "boss": 0,
+          "pots": [
+            0
+          ],
+          "exposed": false
+        }
+      ]
+    },
+    "duo_cover": {
+      "before_rounds": 6,
+      "after_rounds": 8,
+      "before_hp": [
+        19,
+        22
+      ],
+      "after_hp": [
+        9,
+        6
+      ],
+      "common_prefix_actions_identical": true,
+      "field_differences": [
+        {
+          "round": 1,
+          "field": "boss",
+          "before": 110,
+          "after": 130
+        },
+        {
+          "round": 2,
+          "field": "boss",
+          "before": 90,
+          "after": 110
+        },
+        {
+          "round": 3,
+          "field": "boss",
+          "before": 80,
+          "after": 100
+        },
+        {
+          "round": 4,
+          "field": "boss",
+          "before": 40,
+          "after": 60
+        },
+        {
+          "round": 5,
+          "field": "boss",
+          "before": 20,
+          "after": 40
+        },
+        {
+          "round": 6,
+          "field": "hp",
+          "before": [
+            19,
+            22
+          ],
+          "after": [
+            9,
+            12
+          ]
+        },
+        {
+          "round": 6,
+          "field": "boss",
+          "before": 0,
+          "after": 20
+        }
+      ],
+      "added_rounds": [
+        {
+          "round": 7,
+          "preview": {
+            "kind": 2,
+            "phase": 2,
+            "targets": [
+              1
+            ],
+            "damage": 28
+          },
+          "actions": [
+            [
+              "G",
+              1
+            ],
+            [
+              "A",
+              -1
+            ]
+          ],
+          "hp": [
+            9,
+            6
+          ],
+          "boss": 10,
+          "pots": [
+            2,
+            2
+          ],
+          "exposed": true
+        },
+        {
+          "round": 8,
+          "preview": {
+            "kind": 3,
+            "phase": 2,
+            "targets": [],
+            "damage": 0
+          },
+          "actions": [
+            [
+              "A",
+              -1
+            ],
+            [
+              "A",
+              -1
+            ]
+          ],
+          "hp": [
+            9,
+            6
+          ],
+          "boss": 0,
+          "pots": [
+            2,
+            2
+          ],
+          "exposed": false
+        }
+      ],
+      "removed_rounds": []
+    },
+    "duo_cautious": {
+      "before_rounds": 8,
+      "after_rounds": 8,
+      "before_hp": [
+        9,
+        6
+      ],
+      "after_hp": [
+        9,
+        6
+      ],
+      "common_prefix_actions_identical": true,
+      "field_differences": [
+        {
+          "round": 1,
+          "field": "boss",
+          "before": 110,
+          "after": 130
+        },
+        {
+          "round": 2,
+          "field": "boss",
+          "before": 90,
+          "after": 110
+        },
+        {
+          "round": 3,
+          "field": "boss",
+          "before": 90,
+          "after": 110
+        },
+        {
+          "round": 4,
+          "field": "boss",
+          "before": 50,
+          "after": 70
+        },
+        {
+          "round": 5,
+          "field": "boss",
+          "before": 30,
+          "after": 50
+        },
+        {
+          "round": 6,
+          "field": "boss",
+          "before": 10,
+          "after": 30
+        },
+        {
+          "round": 7,
+          "field": "boss",
+          "before": 10,
+          "after": 30
+        }
+      ],
+      "added_rounds": [],
+      "removed_rounds": []
+    },
+    "duo_rescue": {
+      "before_rounds": 8,
+      "after_rounds": 8,
+      "before_hp": [
+        26,
+        8
+      ],
+      "after_hp": [
+        26,
+        8
+      ],
+      "common_prefix_actions_identical": true,
+      "field_differences": [
+        {
+          "round": 1,
+          "field": "boss",
+          "before": 110,
+          "after": 130
+        },
+        {
+          "round": 2,
+          "field": "boss",
+          "before": 100,
+          "after": 120
+        },
+        {
+          "round": 3,
+          "field": "boss",
+          "before": 80,
+          "after": 100
+        },
+        {
+          "round": 4,
+          "field": "boss",
+          "before": 70,
+          "after": 90
+        },
+        {
+          "round": 5,
+          "field": "boss",
+          "before": 50,
+          "after": 70
+        },
+        {
+          "round": 6,
+          "field": "boss",
+          "before": 30,
+          "after": 50
+        },
+        {
+          "round": 7,
+          "field": "boss",
+          "before": 20,
+          "after": 40
+        }
+      ],
+      "added_rounds": [],
+      "removed_rounds": []
+    }
+  }
+}

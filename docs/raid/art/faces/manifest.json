@@ -1,0 +1,134 @@
+[
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p1-hit3.webp",
+    "bytes": 13928,
+    "sha256": "bdafa259a4fb2abd899e6477b00ba22c6648c256a7214f38f13a6f9d3f9dd1b3",
+    "size": [
+      768,
+      768
+    ],
+    "quality": 88,
+    "roi": [
+      238,
+      112,
+      486,
+      340
+    ],
+    "feather": 14,
+    "alignment_translation": [
+      0,
+      0
+    ],
+    "comparison": "docs/raid/art/faces/p1-hit3-compare.webp"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p1-hit2.webp",
+    "bytes": 15438,
+    "sha256": "afa3eb6d60e4f657bbc1b9378fdfdc167905e169af7a92395df53524e68fbc15",
+    "size": [
+      768,
+      768
+    ],
+    "quality": 88,
+    "roi": [
+      238,
+      112,
+      486,
+      340
+    ],
+    "feather": 14,
+    "alignment_translation": [
+      0,
+      0
+    ],
+    "comparison": "docs/raid/art/faces/p1-hit2-compare.webp"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p1-hit1.webp",
+    "bytes": 15244,
+    "sha256": "c4686733ed18d946daec77ee0459e6bfcc76231bca3e62e1304badeade494d6f",
+    "size": [
+      768,
+      768
+    ],
+    "quality": 88,
+    "roi": [
+      238,
+      112,
+      486,
+      340
+    ],
+    "feather": 14,
+    "alignment_translation": [
+      0,
+      0
+    ],
+    "comparison": "docs/raid/art/faces/p1-hit1-compare.webp"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p2-hit2.webp",
+    "bytes": 19412,
+    "sha256": "4824b62ee8b31f0bf895e878efa1b9bf8f2014bb1418067a26b9f49f58d0628c",
+    "size": [
+      768,
+      768
+    ],
+    "quality": 88,
+    "roi": [
+      244,
+      104,
+      492,
+      344
+    ],
+    "feather": 14,
+    "alignment_translation": [
+      0,
+      0
+    ],
+    "comparison": "docs/raid/art/faces/p2-hit2-compare.webp"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p2-hit3.webp",
+    "bytes": 19970,
+    "sha256": "571b3f5d05a0c4c2db01efbe33ab0fb7675f650676196f08ab9810cf48d6d18f",
+    "size": [
+      768,
+      768
+    ],
+    "quality": 88,
+    "roi": [
+      244,
+      104,
+      492,
+      344
+    ],
+    "feather": 14,
+    "alignment_translation": [
+      0,
+      0
+    ],
+    "comparison": "docs/raid/art/faces/p2-hit3-compare.webp"
+  },
+  {
+    "file": "source/plugin/gamecenter/games/raid/assets/boss-face-p2-hit1.webp",
+    "bytes": 19668,
+    "sha256": "bbd975de1444443bdd234a87a267ec73b12d3fd2127b3e9f90bf4bfb44b891db",
+    "size": [
+      768,
+      768
+    ],
+    "quality": 88,
+    "roi": [
+      244,
+      104,
+      492,
+      344
+    ],
+    "feather": 14,
+    "alignment_translation": [
+      0,
+      0
+    ],
+    "comparison": "docs/raid/art/faces/p2-hit1-compare.webp"
+  }
+]

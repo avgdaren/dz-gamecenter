@@ -1,0 +1,38 @@
+[
+  {
+    "phase": 1,
+    "hit": 3,
+    "source": "p1-hit3-edited.png",
+    "prompt": "Brows drawn down and pinched; BOTH EYES fully squeezed shut, slight outer-eye tension; mouth firmly CLOSED as a thin downturned line. Pained but dignified, her elegant composure cracking. Not screaming. Keep cheek contours and jaw position unchanged."
+  },
+  {
+    "phase": 1,
+    "hit": 2,
+    "source": "p1-hit2-edited.png",
+    "prompt": "Eyes narrowed to thin slits but not completely closed, brows pressed down; tight clenched-teeth grimace, lips parted only enough to show a thin line of teeth. Controlled irritation, no wide mouth. Maintain all facial landmark positions."
+  },
+  {
+    "phase": 1,
+    "hit": 1,
+    "source": "p1-hit1-edited.png",
+    "prompt": "Very mild annoyance: brows slightly knitted, eyes half-lidded but visibly OPEN with crimson irises; remove the playful smile, lips gently pressed into a flat CLOSED line. Subtle irritation, NOT pain. Clearly milder than slit-eyed gritting or closed-eye pain."
+  },
+  {
+    "phase": 2,
+    "hit": 2,
+    "source": "p2-hit2-edited.png",
+    "prompt": "Her furious shouting is interrupted by pain: brows pulled sharply inward/down, eyes narrowed and glaring upward, visibly tense lids. Change the large open shouting mouth to a SMALLER tight clenched-teeth snarl, showing clenched teeth through a narrow slit. Jaw remains in exactly same position. The mouth opening must be dramatically smaller than the reference's shout. Preserve shredded outfit and eclipse unchanged."
+  },
+  {
+    "phase": 2,
+    "hit": 3,
+    "source": "p2-hit3-edited.png",
+    "prompt": "Maximum furious pain reaction: BOTH EYES squeezed FULLY SHUT, brows deeply furrowed; mouth opens WIDER than the reference in a furious cry, upper teeth visible. Keep the same face outline/position, no neck/body changes, no gore or tears. This is the only variant combining fully closed eyes and a large open mouth."
+  },
+  {
+    "phase": 2,
+    "hit": 1,
+    "source": "p2-hit1-edited.png",
+    "prompt": "A brief irritated flinch: brows drop a little, eyes narrow slightly but remain visibly OPEN; shouting mouth becomes a smaller slack-open hard grimace with NO teeth showing. Not clenched teeth, not eyes shut. Milder than the clenched-teeth reaction. Keep face outline and jaw position identical."
+  }
+]

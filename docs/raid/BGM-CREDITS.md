@@ -20,3 +20,21 @@ ffmpeg -hide_banner -loglevel error -y -stream_loop 1 -i boss_battle_9_metal_loo
 MP3 SHA-256：`892ca3de2453a615facdef8ba31bbacb03efdd99c98a1cc9d73e46e611d43365`。
 
 默认关闭、独立记忆、低音量、首次交互后播放，隐藏/终局/同页其他音频播放时暂停。HTMLAudio与Range请求有离线测试；实际循环衔接、音质、设备响度和浏览器自动播放仍需试听。作者提供可循环源片段不等于本项目已经完成压缩后实机无缝验收。
+
+## 二阶段曲目 · 2026-10-27
+
+- 曲名：Boss Battle 10 [Metal]；作者nene。
+- 作者发布页：https://opengameart.org/content/boss-battle-10-metal
+- 直接下载：https://opengameart.org/sites/default/files/boss_battle_10_metal.wav
+- 发布页列明CC0；本轮已打开发布页核对。音乐与原插件授权分别记录，不改原作者Carinoasd署名。
+- 源WAV 44.1kHz双声道，42.673605秒。开发阶段以首尾80ms圆形交叉混合减轻循环接缝，实际PCM循环42.593605秒；再使用FFmpeg loudnorm I=-18:TP=-2:LRA=9、96kbit/s MP3/44.1kHz编码。
+- 本地文件：source/plugin/gamecenter/games/raid/assets/battle-phase2.mp3；511940字节；MP3报告时长42.631837秒（含编码帧填充）。
+- SHA256：ff8bde20ea9c56acb61162764eb721e523cc7ebc196e90fa8e361c77b615f5d6。
+- 解码测得均值约-20.9dBFS、峰值-6.5dBFS；这不是人耳音量/音质验收，也不能据此声称无缝音乐乐句。
+- 一阶段继续原曲不变；二阶段切到此独立文件。单HTMLAudio元素先暂停、换src并从0播放，避免双曲重叠；BGM默认关闭/与音效开关独立，静音、隐藏与同页其它媒体仲裁沿用。
+- 已在HTMLAudio替身验证阶段切换与拒播；真实浏览器的切歌延迟、循环音乐性、手机扬声器与人耳试听仍需小蓝/用户复验。
+
+## 0.1.3响度修订（当前运行文件）
+
+上述原版/0.1.2的字节与哈希属于历史处理记录。0.1.3对两首均以FFmpeg loudnorm双遍处理，目标I=-12、TP=-1.5、LRA=7，分别保留64k/96k、44.1kHz编码；MP3解码后的实际值与当前SHA见P2-SIX-FEEDBACK-HANDOFF.md。综合响度-12.50/-12.49LUFS，解码真峰值-1.97/-1.06dBTP。播放器0.28，两轨补偿1；当前资源URL带0.1.3版本。
+本轮没有重新下载来源、换曲或改变CC0署名记录。实解码检查脚本为tests/raid/music-assets-check.py；耳听与循环音乐性仍未验。

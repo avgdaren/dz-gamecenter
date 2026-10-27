@@ -1,0 +1,42 @@
+{
+  "status": "AWAITING_REAL_ENVIRONMENT",
+  "frontend_version": "0.1.12",
+  "rules_version": "raid-v3-solo110-p4-duo150-r18",
+  "rules_php": 1113,
+  "version_compat_php": 136,
+  "differential_cases": 6000,
+  "differential_rounds": 71873,
+  "php_http": 196,
+  "prototype_front": 112,
+  "production_js_minidom": 175,
+  "round_limit_unittest": 5,
+  "historical_grid_unittest": 13,
+  "face": 23,
+  "feedback_mock": 89,
+  "music_mock": 45,
+  "view_php": 11,
+  "contrast_formula_css": 8,
+  "face_files": 37,
+  "music_files": 8,
+  "comparison_status": "NO_FULL_MATCH",
+  "selected": "A",
+  "xiaolan_css_0c8af73_preserved": true,
+  "not_run": [
+    "real Discuz integration",
+    "forum-front-check.mjs",
+    "db-check.mjs PDO/mysqli",
+    "new browser CTA/keyboard/390px/preview guidance",
+    "human solo trial"
+  ],
+  "reason": "No GC_* or GC_DZ_ROOT; no real user trial. Do not count as PASS.",
+  "unchanged_accepted": [
+    "audio gains and BGM files",
+    "portraits and face layers",
+    "14px portrait corners",
+    "lobby fresh behavior",
+    "0c8af73 title contrast fix"
+  ],
+  "syntax": "PASS",
+  "fixture_regeneration": "byte identical",
+  "v2_winning_traces": "all six unchanged"
+}
