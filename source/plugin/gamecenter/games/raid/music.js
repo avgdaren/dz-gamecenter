@@ -1,6 +1,8 @@
 /* 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。独立、默认关闭的本地 BGM。 */
 (() => {
   'use strict';
+  // Audio assets share one loudness target; keep player/track gains in one place.
+  const MIX={baseGain:.28,trackGain:{1:1,2:1}};
   class RaidMusic {
     constructor(change=()=>{},src='source/plugin/gamecenter/games/raid/assets/battle.mp3',phase2src='source/plugin/gamecenter/games/raid/assets/battle-phase2.mp3') {
       this.sources={1:src,2:phase2src}; this.phase=1;
@@ -18,10 +20,11 @@
       this.active=!!active;
       if(changed) {
         this.phase=next; this.src=this.sources[next]; this.pause(); this.blocked=false;
-        if(this.audio) {this.audio.src=this.src; this.audio.currentTime=0;}
+        if(this.audio) {this.audio.src=this.src; this.audio.currentTime=0; this.audio.volume=this.volume();}
       }
       if(changed || wasActive!==this.active) this.sync();
     }
+    volume() { return Math.min(1,MIX.baseGain*MIX.trackGain[this.phase]); }
     setPhase(phase) { this.setActive(this.active,phase); }
     gesture() { this.interacted=true; this.sync(); }
     toggle() {
@@ -40,7 +43,7 @@
       try {
         if(!this.audio) {
           this.audio=new window.Audio(); this.audio.preload='none'; this.audio.loop=true;
-          this.audio.volume=.1; this.audio.src=this.src;
+          this.audio.volume=this.volume(); this.audio.src=this.src;
         }
         Promise.resolve(this.audio.play()).then(()=>{
           if(ticket!==this.ticket) { if(!this.eligible()) this.audio.pause(); return; }

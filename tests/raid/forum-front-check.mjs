@@ -50,7 +50,7 @@ try{
  check(!a.$('room-panel').hidden&&a.$('battle').hidden,'waiting room explicit');
  const code=new URL(a.$('invite').value).searchParams.get('room');
  check(/^[A-F0-9]{12}$/.test(code),'shareable invite contains code');
- check(a.$('solo').disabled,'active qualification blocks new create');
+ check(!a.$('solo').disabled&&a.$('join').disabled,'waiting allows mode replacement while join remains locked');
  b.$('join-code').value=a.$('invite').value;b.stage.querySelector('form').dispatchEvent({type:'submit',preventDefault(){}});await b.settled();
  await a.poll();
  check(a.$('players').children.length===2&&b.$('players').children.length===2,'both members rendered');
@@ -84,6 +84,11 @@ try{
  }
  check(c.$('result-title').textContent==='讨伐成功','real cooperative service wins');
  check(c.$('boss-line').textContent==='这一次，算你们赢了。','terminal quote');
+ const terminalReload=setup(200);await terminalReload.settled();
+ check(terminalReload.$('phase-art').src?.endsWith('boss-phase2.webp'),'real terminal reload requests phase-two portrait');
+ terminalReload.$('phase-art').dispatchEvent({type:'load'});
+ check(terminalReload.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'terminal reload uses phase-two layer after load');
+ terminalReload.close();
  await c.command('history-refresh');check(c.$('recent-list').textContent.includes('双人 · 胜利 · 6 回合'),'history from DB');
  await c.command('solo');check(c.$('boss-hp').textContent==='120 / 120 生命','new solo after terminal');
  const solo=fixture.cases.solo_reasonable.expected.trace;
@@ -91,6 +96,10 @@ try{
  check(c.$('result-title').textContent==='讨伐成功'&&c.$('players').textContent.includes('14 / 40'),'solo 16-round fixture through controls');
  const e=setup(300);await e.settled();await e.command('duo');await e.command('cancel');check(e.$('room-note').textContent.includes('已取消'),'cancel waiting');
  await e.command('duo');
+ const replacementStart=e.calls.length;await e.command('solo');
+ check(e.calls.slice(replacementStart).map(x=>x.action).join(',')==='cancel,create','real service replaces waiting with solo serially');
+ check(e.$('boss-hp').textContent==='120 / 120 生命','replacement solo starts');
+ e.stage.querySelector('[data-actor="0"] .retreat').click();await e.settled();await e.command('duo');
  const pollDelays=[...e.timers.values()].filter(t=>t.ms>=2000&&t.ms<10000);check(pollDelays.every(t=>t.ms>=2000),'normal polling at least two seconds');
  e.offline(true);await e.poll();check([...e.timers.values()].some(t=>t.ms>=4000&&t.ms<=4250),'failure backoff');
  e.doc.hidden=true;e.doc.dispatchEvent({type:'visibilitychange'});check(![...e.timers.values()].some(t=>t.ms>=2000&&t.ms<10000),'hidden stops polling');

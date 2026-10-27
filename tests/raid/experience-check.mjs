@@ -15,10 +15,23 @@ Element.prototype.querySelectorAll=function(s){return [...new Set(s.split(',').f
 Object.defineProperty(Element.prototype,'classList',{get(){const e=this;return {contains:n=>e.className.split(' ').includes(n),add(...ns){e.className=[...new Set([...e.className.split(' ').filter(Boolean),...ns])].join(' ');},remove(...ns){e.className=e.className.split(' ').filter(n=>!ns.includes(n)).join(' ');}};}});
 // Scripted transport: checks rendering and requests, not PHP/database behavior.
 let snapshot=null, now=1000, deniedClipboard=false, copied='', failNetwork=false;
-const callsToServer=[];
+const callsToServer=[],receipts=new Map();
+let roomNumber=0,joinOnCancel=false,createCount=0;
 const w={send:async ({data})=>{
  callsToServer.push(data); if(failNetwork)throw Error('offline');
- if(data.action==='create') snapshot=waiting();
+ if(receipts.has(data.request_id))return {ok:1,server_ms:now,snapshot,replayed:1};
+ if(data.action==='cancel') {
+   if(joinOnCancel) {joinOnCancel=false;snapshot=battle({room:snapshot.room});return {ok:0,code:'conflict',server_ms:now,snapshot};}
+   if(snapshot.status!==0 || Number(data.expected_version)!==snapshot.version)return {ok:0,code:'conflict',server_ms:now,snapshot};
+   snapshot={...snapshot,status:4,reason:'cancelled',version:snapshot.version+1};
+ }
+ if(data.action==='create') {
+   if(snapshot && snapshot.status<2)return {ok:0,code:'active',server_ms:now,snapshot};
+   const room=(0xABCDEF123456n+BigInt(roomNumber++)).toString(16).toUpperCase();
+   snapshot=data.mode==='solo'?battle({room,mode:'solo',hp:[40],pots:[3],left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]}):{...waiting(),room};
+   createCount++;
+ }
+ if(data.request_id)receipts.set(data.request_id,true);
  return {ok:1,server_ms:now,snapshot};
 }};
 const workers=[];
@@ -29,18 +42,19 @@ function setup(uid){
 
  const doc=new Element('document');doc.createElement=t=>new Element(t);doc.hidden=false;doc.activeElement=null;
  const stage=new Element('div');stage.dataset.url='plugin.php?id=gamecenter';stage.dataset.formhash='test-formhash';doc.append(stage);
+ let answer=true;const confirmations=[];
  let boot;const timers=new Map();let counter=0,inFlight=0,drop=false,offline=false;const calls=[];
  const target=new Element('window');
  class Audio{constructor(){this.paused=true;audioInstances.push(this);}play(){this.paused=false;return Promise.resolve();}pause(){this.paused=true;}}
- const context={document:doc,window:{Audio,confirm:()=>true,localStorage:{getItem:k=>prefs.get(k)??null,setItem:(k,v)=>prefs.set(k,v)},addEventListener:(...a)=>target.addEventListener(...a)},
+ const context={document:doc,window:{Audio,confirm:text=>{confirmations.push(text);return answer;},localStorage:{getItem:k=>prefs.get(k)??null,setItem:(k,v)=>prefs.set(k,v)},addEventListener:(...a)=>target.addEventListener(...a)},
  GameCenter:{register:(key,fn)=>{check(key==='raid','SDK register raid');boot=fn;}},console,URL,Date,FormData,AbortController,Uint8Array,crypto:webcrypto,location:{href:'http://test.local/forum/plugin.php?id=gamecenter&mod=play&game=raid'},navigator:{clipboard:{writeText:async text=>{if(deniedClipboard)throw Error('denied');copied=text;}}},
  matchMedia:()=>({matches:false}),setTimeout:(fn,ms)=>{const id=++counter;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),setInterval:()=>0,
  sessionStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
- fetch:async(url,opts)=>{inFlight++;maxFlight=Math.max(maxFlight,inFlight);posts++;try{if(offline)throw Error('offline');const data=Object.fromEntries(opts.body.entries());calls.push(data);check(!('actor' in data)&&!('uid' in data),'no client actor/uid');const result=await w.send({uid,data});if(drop&&['create','join','act','retreat','cancel'].includes(data.action)){drop=false;throw Error('lost response');}return {ok:true,json:async()=>result};}finally{inFlight--;}}};
+ fetch:async(url,opts)=>{inFlight++;maxFlight=Math.max(maxFlight,inFlight);posts++;try{if(offline)throw Error('offline');const data=Object.fromEntries(opts.body.entries());calls.push(data);check(!('actor' in data)&&!('uid' in data)&&!('next_mode' in data),'no actor/uid/local continuation sent');const result=await w.send({uid,data});if(drop&&(drop===true||drop===data.action)&&['create','join','act','retreat','cancel'].includes(data.action)){drop=false;throw Error('lost response');}return {ok:true,json:async()=>result};}finally{inFlight--;}}};
  for(const file of ['feedback.js','music.js','game.js'])vm.runInNewContext(readFileSync(new URL(file,gameDir),'utf8'),context,{filename:file});
  boot(stage,{uid});
  const $=id=>stage.querySelector(`[data-gcr="${id}"]`);
- return {doc,stage,$,calls,timers,storage,drop(){drop=true;},offline(v){offline=v;},async settled(){await until(()=>inFlight===0&&!$('current').disabled);},async command(id){$(id).click();await this.settled();},async poll(){await this.command('current');},async play(seat,kind,target=-1){const card=()=>stage.querySelector(`[data-actor="${seat}"]`);const btn=card().querySelector(`[data-kind="${kind}"]`);check(btn&&!btn.disabled,'own action available');btn.click();if(kind!=='attack'){const select=card().querySelector('select');select.value=String(target);select.dispatchEvent({type:'change'});}check(!card().querySelector('.confirm').disabled,'confirm enabled');card().querySelector('.confirm').click();await this.settled();},close(){target.dispatchEvent({type:'pagehide'});}};
+ return {doc,stage,$,calls,timers,storage,drop(action=true){drop=action;},confirmations,answer(v){answer=v;},offline(v){offline=v;},async settled(){await until(()=>inFlight===0&&!$('current').disabled);},async command(id){$(id).click();await this.settled();},async poll(){await this.command('current');},async play(seat,kind,target=-1){const card=()=>stage.querySelector(`[data-actor="${seat}"]`);const btn=card().querySelector(`[data-kind="${kind}"]`);check(btn&&!btn.disabled,'own action available');btn.click();if(kind!=='attack'){const select=card().querySelector('select');select.value=String(target);select.dispatchEvent({type:'change'});}check(!card().querySelector('.confirm').disabled,'confirm enabled');card().querySelector('.confirm').click();await this.settled();},close(){target.dispatchEvent({type:'pagehide'});}};
 }
 Element.prototype.select=function(){this.selected=true;};
 const waiting=()=>({room:'ABCDEF123456',status:0,reason:'',seat:0,version:1,mode:'duo',deadline_ms:299000,
@@ -63,7 +77,7 @@ check(a.$('room-note').textContent==='邀请已过期，重新建房'&&!a.$('reo
 await a.command('reopen');check(snapshot.status===0&&callsToServer.at(-1).action==='create','restart creates one room');
 snapshot=battle();await a.poll();
 check(a.$('boss-line').textContent==='人数对于我来说，并没有区别','duo opening line');
-await a.command('bgm');check(audioInstances.at(-1).src.endsWith('/battle.mp3'),'game selects phase one music');
+await a.command('bgm');check(new URL(audioInstances.at(-1).src).pathname.endsWith('/battle.mp3'),'game selects phase one music');
 check(a.$('players').textContent.includes('你')&&a.$('players').textContent.includes('队友'),'player language');
 check(a.stage.querySelector('[data-actor="0"] .confirm')&&!a.stage.querySelector('[data-actor="1"] .confirm'),'only own controls');
 const row={round:1,boss:110,hp:[32,32],heals:[0,0],pots:[2,2],defaults:[],actions:[{kind:'attack',target:-1},{kind:'attack',target:-1}],exposed:false,preview:snapshot.preview};
@@ -74,7 +88,7 @@ check(a.$('boss-effects').children.some(n=>n.textContent==='−20'),'boss damage
 snapshot=battle({version:4,round_no:3,boss:60,preview:{phase:2,kind:2,targets:[0],damage:30},history:[row]});await a.poll();
 check(a.stage.querySelector('.arena').classList.contains('phase-two')&&!a.$('phase-banner').hidden,'phase appearance and banner persist');
 check(a.$('boss-line').textContent==='你们这群蝼蚁！','duo second phase line');
-check(audioInstances.at(-1).src.endsWith('/battle-phase2.mp3')&&audioInstances.length===1,'phase transition changes music without overlap');
+check(new URL(audioInstances.at(-1).src).pathname.endsWith('/battle-phase2.mp3')&&audioInstances.length===1,'phase transition changes music without overlap');
 check(a.$('phase-art').src.endsWith('assets/boss-phase2.webp'),'second phase asset requested');
 a.$('phase-art').dispatchEvent({type:'load'});
 check(a.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'loaded variation enables crossfade');
@@ -82,8 +96,47 @@ a.$('phase-art').dispatchEvent({type:'error'});
 check(!a.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'failed variation preserves base portrait');
 snapshot=battle({room:'111111111111',mode:'solo',version:1,hp:[40],pots:[3],left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]});await a.poll();
 check(a.$('boss-line').textContent==='凡人……你确定要独自挑战我吗？','solo opening line');
-check(audioInstances.at(-1).src.endsWith('/battle.mp3'),'new solo restores first track');
+check(new URL(audioInstances.at(-1).src).pathname.endsWith('/battle.mp3'),'new solo restores first track');
 snapshot={...snapshot,status:3,reason:'knockout',version:2};await a.poll();
 check(a.$('boss-line').textContent==='胜败乃兵家常事，少侠请重新来过','requested defeat quote');
 failNetwork=true;await a.poll();check(!a.$('connection').hidden&&a.$('connection').textContent.includes('连接中断'),'connection failure stays visible');
+// Fresh entries must request phase-two art even if the battle has ended.
+failNetwork=false;
+for(const [index,[status,reason]] of [[1,''],[2,'defeated'],[3,'knockout'],[3,'retreated'],[3,'round_limit']].entries()) {
+ snapshot=battle({status,reason,preview:{phase:2,kind:2,targets:[0],damage:28}});
+ const fresh=setup(500+index);await fresh.settled();
+ check(fresh.$('phase-art').src?.endsWith('boss-phase2.webp'),'fresh phase-two asset requested: '+reason);
+ check(fresh.stage.querySelector('.arena').classList.contains('phase-two'),'fresh phase-two style: '+reason);
+ fresh.$('phase-art').dispatchEvent({type:'load'});
+ check(fresh.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'fresh phase-two loaded: '+reason);
+ fresh.close();
+}
+// One-player waiting room can be replaced directly; cancel/create stay serial.
+snapshot=waiting();const swap=setup(600);await swap.settled();
+check(!swap.$('solo').disabled&&!swap.$('duo').disabled,'waiting modes remain directly clickable');
+let start=callsToServer.length,created=createCount;
+swap.$('solo').click();swap.$('duo').click();await swap.settled();
+check(callsToServer.slice(start).map(x=>x.action).join(',')==='cancel,create','rapid mode clicks issue only one cancel/create chain');
+check(snapshot.mode==='solo'&&createCount===created+1,'waiting to solo creates exactly once');
+// Active battle is returned to, never cancelled by a mode click.
+start=callsToServer.length;await swap.command('duo');
+check(swap.confirmations.at(-1).includes('返回当前讨伐')&&callsToServer.slice(start).every(x=>x.action==='current'),'active battle returns without writes');
+swap.answer(false);start=callsToServer.length;await swap.command('duo');check(callsToServer.length===start,'declining return sends no request');swap.answer(true);
+// Lost cancellation response: reload and retry use the same cancel request and continuation.
+snapshot=waiting();await swap.poll();start=callsToServer.length;created=createCount;swap.drop('cancel');await swap.command('solo');
+const cancelled=callsToServer.at(-1);
+check(!swap.$('retry-box').hidden&&createCount===created,'unknown cancellation cannot create early');
+const resumed=setup(600);await resumed.settled();await resumed.command('retry');
+const after=callsToServer.slice(start),retry=after.filter(x=>x.action==='cancel');
+check(retry.length===2&&retry[0].request_id===retry[1].request_id,'cancel retry retains ID across reload');
+check(snapshot.mode==='solo'&&createCount===created+1,'replayed cancel resumes desired mode once');
+// Lost create response: retry that create, without cancelling again or creating twice.
+snapshot=waiting();await resumed.poll();created=createCount;start=callsToServer.length;resumed.drop('create');await resumed.command('duo');
+const lostCreate=callsToServer.at(-1);check(lostCreate.action==='create'&&!resumed.$('retry-box').hidden,'lost replacement create is retryable');
+await resumed.command('retry');check(createCount===created+1&&callsToServer.at(-1).request_id===lostCreate.request_id,'create retry cannot duplicate room');
+// A teammate joins between click and cancellation: no follow-up create or retreat.
+snapshot=waiting();await resumed.poll();joinOnCancel=true;start=callsToServer.length;created=createCount;await resumed.command('solo');
+check(snapshot.status===1&&createCount===created&&callsToServer.slice(start).map(x=>x.action).join(',')==='cancel','join/cancel conflict preserves active battle');
+check(maxFlight===1,'all replacement chains keep one request per page in flight');
+
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));

@@ -15,7 +15,7 @@ function setup(saved=false){
   const {music,audios,storage,document,listeners,others}=setup();
   music.setActive(true);check(!music.on&&audios.length===0,'default-off creates no media element or fetch');
   music.toggle();await flush();check(audios.length===1&&!audios[0].paused&&storage.get('gcr_bgm')==='1','explicit gesture enables music');
-  check(audios[0].src===(forum ? 'source/plugin/gamecenter/games/raid/assets/battle.mp3' : '/assets/battle.mp3')&&audios[0].loop&&audios[0].volume===.1&&audios[0].preload==='none','local low-volume loop only');
+  check(audios[0].src===(forum ? 'source/plugin/gamecenter/games/raid/assets/battle.mp3' : '/assets/battle.mp3')&&audios[0].loop&&audios[0].volume===(forum ? .28 : .1)&&audios[0].preload==='none','local low-volume loop only');
   for(let i=0;i<10;i++)music.gesture();await flush();check(audios.length===1&&audios[0].plays===1,'reuse one playing element, no overlap');
   listeners.play({target:{paused:false,muted:true,volume:1}});check(!audios[0].paused,'muted page media does not interrupt BGM');
   document.hidden=true;music.sync();check(audios[0].paused,'hidden pauses music');
@@ -43,7 +43,7 @@ if(forum) {
   const {music,audios,document,block}=setup();
   music.setActive(true,2);check(audios.length===0,'muted phase selection creates no audio');
   music.toggle();await flush();
-  check(audios[0].src.endsWith('battle-phase2.mp3'),'enable directly in phase two selects second track');
+  check(audios[0].src.endsWith('battle-phase2.mp3')&&audios[0].volume===.28,'phase two uses same base gain and second track');
   const audio=audios[0],count=audio.plays;
   for(let i=0;i<10;i++)music.setActive(true,2);
   check(audio.plays===count&&audios.length===1,'same phase polling does not restart');
