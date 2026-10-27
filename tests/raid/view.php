@@ -17,7 +17,7 @@ $g=['gkey'=>'raid','m'=>$m,'available'=>1];
 $checks=0;
 foreach([0,10] as $uid){
     $_G=['uid'=>$uid,'adminid'=>0,'setting'=>[]];$html=gamecenter_view::play_page($g);
-    foreach(['data-game="raid"','合作讨伐'] as $needle){if(!str_contains($html,$needle))throw new RuntimeException($needle);$checks++;}
+    foreach(['data-game="raid"','data-uid="'.$uid.'"'] as $needle){if(!str_contains($html,$needle))throw new RuntimeException($needle);$checks++;}
     if(strpos($html,'feedback.js')>strpos($html,'games/raid/game.js') || strpos($html,'music.js')>strpos($html,'games/raid/game.js'))throw new RuntimeException('script order');$checks++;
     if(str_contains($html,'试玩模式。') || str_contains($html,'gc-tabsbox'))throw new RuntimeException('misleading scores or guest play');$checks++;
     if(gamecenter_view::reward_lines($g)!==[])throw new RuntimeException('raid reward');$checks++;
