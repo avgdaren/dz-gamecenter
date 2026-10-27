@@ -6,19 +6,28 @@
 declare(strict_types=1);
 
 final class gamecenter_raid_rules {
-    public const VERSION = 'raid-v1-p1-balanced';
+    public const VERSION = 'raid-v2-solo110-p4-duo150';
+    public const LEGACY_VERSION = 'raid-v1-p1-balanced';
+    public static function config(string $version): array {
+        return match($version) {
+            self::LEGACY_VERSION => ['solo_hp'=>120,'duo_hp'=>130,'solo_potions'=>3],
+            self::VERSION => ['solo_hp'=>110,'duo_hp'=>150,'solo_potions'=>4],
+            default => throw new InvalidArgumentException('rules_version'),
+        };
+    }
     public const ACTIVE = 1, WON = 2, LOST = 3;
     public const TURN_MS = 30000, ROUND_LIMIT = 16;
 
-    public static function initial(string $mode, int $now): array {
+    public static function initial(string $mode, int $now, string $rulesVersion = self::VERSION): array {
+        $config=self::config($rulesVersion);
         if(!in_array($mode, ['solo', 'duo'], true) || $now < 0 || $now > PHP_INT_MAX - self::TURN_MS * 17) {
             throw new InvalidArgumentException('mode');
         }
         $n = $mode === 'solo' ? 1 : 2;
-        $s = ['schema'=>1, 'rules_version'=>self::VERSION, 'mode'=>$mode,
+        $s = ['schema'=>1, 'rules_version'=>$rulesVersion, 'mode'=>$mode,
             'status'=>self::ACTIVE, 'round_no'=>1, 'version'=>1,
-            'boss_max_hp'=>$n === 1 ? 120 : 130, 'boss'=>$n === 1 ? 120 : 130,
-            'hp'=>array_fill(0, $n, 40), 'pots'=>array_fill(0, $n, $n === 1 ? 3 : 2),
+            'boss_max_hp'=>$n === 1 ? $config['solo_hp'] : $config['duo_hp'], 'boss'=>$n === 1 ? $config['solo_hp'] : $config['duo_hp'],
+            'hp'=>array_fill(0, $n, 40), 'pots'=>array_fill(0, $n, $n === 1 ? $config['solo_potions'] : 2),
             'left'=>array_fill(0, $n, false), 'leaving'=>array_fill(0, $n, false),
             'intents'=>array_fill(0, $n, null), 'exposed'=>false,
             'deadline_ms'=>$now + self::TURN_MS, 'updated_ms'=>$now,
@@ -29,13 +38,14 @@ final class gamecenter_raid_rules {
 
     /** All external serialized states must be validated before use, including version. */
     public static function validate(array $s): void {
-        if(($s['schema'] ?? null) !== 1 || ($s['rules_version'] ?? null) !== self::VERSION) {
+        if(($s['schema'] ?? null) !== 1 || !in_array($s['rules_version'] ?? null,[self::VERSION,self::LEGACY_VERSION],true)) {
             throw new InvalidArgumentException('rules_version');
         }
+        $config=self::config($s['rules_version']);
         $mode = $s['mode'] ?? null;
         if(!in_array($mode, ['solo', 'duo'], true)) { throw new InvalidArgumentException('state'); }
         $n = $mode === 'solo' ? 1 : 2;
-        $max = $n === 1 ? 120 : 130;
+        $max = $n === 1 ? $config['solo_hp'] : $config['duo_hp'];
         if(($s['boss_max_hp'] ?? null) !== $max) { throw new InvalidArgumentException('state'); }
         foreach(['hp','pots','left','leaving','intents'] as $key) {
             if(!isset($s[$key]) || !is_array($s[$key]) || !array_is_list($s[$key]) || count($s[$key]) !== $n) {
@@ -44,7 +54,7 @@ final class gamecenter_raid_rules {
         }
         foreach($s['hp'] as $i=>$hp) {
             if(!is_int($hp) || $hp < 0 || $hp > 40 || !is_int($s['pots'][$i]) ||
-                $s['pots'][$i] < 0 || $s['pots'][$i] > ($n === 1 ? 3 : 2) ||
+                $s['pots'][$i] < 0 || $s['pots'][$i] > ($n === 1 ? $config['solo_potions'] : 2) ||
                 !is_bool($s['left'][$i]) || !is_bool($s['leaving'][$i])) {
                 throw new InvalidArgumentException('state');
             }

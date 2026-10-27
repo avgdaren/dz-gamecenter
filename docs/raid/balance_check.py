@@ -34,6 +34,7 @@ class Rules:
 
 # 保留导入名以兼容既有复核脚本；当前默认值是已确定的 P1 基线。
 CANDIDATE = Rules()
+CURRENT = replace(CANDIDATE, version='raid-v2-solo110-p4-duo150', solo_boss_hp=110, solo_potions=4, boss_hp=150)
 PREVIOUS = replace(CANDIDATE, version='raid-v1-p1-solo3', solo_boss_hp=BOSS_HP)
 BASELINE = replace(PREVIOUS, version='raid-v1-baseline', solo_potions=2)
 
@@ -358,10 +359,14 @@ def main():
                      'cases': {name: {'mode': 'solo' if players == 1 else 'duo', 'start_round': 1,
                                       'initial': asdict(initial(players)), 'expected': result}
                                for name, (players, result) in selected_cases.items()}}
+        # Preserve the archived v1 baseline; new exports describe production v2.
+        from balance_reference import current_reference
+        reference = current_reference()
         destination = Path(args.write_reference)
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(json.dumps(reference, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         report['reference_written'] = str(destination)
+        report['exported_rules'] = asdict(CURRENT)
     if args.trace:
         report['reference_traces'] = {
             name: {'rules': asdict(rules), 'run': result}

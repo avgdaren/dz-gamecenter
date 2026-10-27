@@ -57,11 +57,11 @@ try{
  check(a.stage.querySelector('[data-actor="0"] .confirm')&&!a.stage.querySelector('[data-actor="1"] .confirm'),'first account controls only own seat');
  check(b.stage.querySelector('[data-actor="1"] .confirm')&&!b.stage.querySelector('[data-actor="0"] .confirm'),'second account controls only own seat');
  await a.play(0,'attack');
- check(a.$('boss-hp').textContent==='130 / 130 生命','one confirmation no premature damage');
+ check(a.$('boss-hp').textContent==='150 / 150 生命','one confirmation no premature damage');
  const notice=a.$('message').textContent;await a.poll();check(a.$('message').textContent===notice,'poll preserves action acknowledgment');
  await b.poll();check(b.$('players').textContent.includes('已确认：攻击'),'partner sees locked intent '+b.$('players').textContent+' | '+b.$('connection').textContent+' | '+a.$('message').textContent);
  await b.play(1,'attack');await a.poll();
- check(a.$('boss-hp').textContent==='110 / 130 生命','cooperative round resolves once');
+ check(a.$('boss-hp').textContent==='130 / 150 生命','cooperative round resolves once');
  check(a.$('players').textContent.includes('32 / 40')&&b.$('players').textContent.includes('32 / 40'),'authoritative HP shown');
  // Dropped write response: pending survives poll and reload, retries use the original ID.
  a.drop();await a.play(0,'heal',0);
@@ -89,16 +89,16 @@ try{
  terminalReload.$('phase-art').dispatchEvent({type:'load'});
  check(terminalReload.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'terminal reload uses phase-two layer after load');
  terminalReload.close();
- await c.command('history-refresh');check(c.$('recent-list').textContent.includes('双人 · 胜利 · 6 回合'),'history from DB');
- await c.command('solo');check(c.$('boss-hp').textContent==='120 / 120 生命','new solo after terminal');
+ await c.command('history-refresh');check(c.$('recent-list').textContent.includes('双人 · 胜利 · 8 回合'),'history from DB');
+ await c.command('solo');check(c.$('boss-hp').textContent==='110 / 110 生命','new solo after terminal');
  const solo=fixture.cases.solo_reasonable.expected.trace;
  for(const row of solo){const [k,t]=row.actions[0];await c.play(0,{A:'attack',G:'guard',H:'heal'}[k],t);}
- check(c.$('result-title').textContent==='讨伐成功'&&c.$('players').textContent.includes('14 / 40'),'solo 16-round fixture through controls');
+ check(c.$('result-title').textContent==='讨伐成功'&&c.$('players').textContent.includes('30 / 40'),'solo 16-round fixture through controls');
  const e=setup(300);await e.settled();await e.command('duo');await e.command('cancel');check(e.$('room-note').textContent.includes('已取消'),'cancel waiting');
  await e.command('duo');
  const replacementStart=e.calls.length;await e.command('solo');
  check(e.calls.slice(replacementStart).map(x=>x.action).join(',')==='cancel,create','real service replaces waiting with solo serially');
- check(e.$('boss-hp').textContent==='120 / 120 生命','replacement solo starts');
+ check(e.$('boss-hp').textContent==='110 / 110 生命','replacement solo starts');
  e.stage.querySelector('[data-actor="0"] .retreat').click();await e.settled();await e.command('duo');
  const pollDelays=[...e.timers.values()].filter(t=>t.ms>=2000&&t.ms<10000);check(pollDelays.every(t=>t.ms>=2000),'normal polling at least two seconds');
  e.offline(true);await e.poll();check([...e.timers.values()].some(t=>t.ms>=4000&&t.ms<=4250),'failure backoff');

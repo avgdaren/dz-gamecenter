@@ -34,7 +34,7 @@ function edge(int $round, array $hp, int $boss, array $pots, bool $exposed=false
 if(($argv[1] ?? '') === '--batch') {
     $out=[];
     foreach(json_decode(stream_get_contents(STDIN),true,512,JSON_THROW_ON_ERROR) as $case) {
-        $s=R::initial($case['mode'],0); $trace=[]; $invalid=false;
+        $s=R::initial($case['mode'],0,$case['rules_version'] ?? R::VERSION); $trace=[]; $invalid=false;
         foreach($case['route'] as $row) {
             $preview=$s['preview'];
             try { $next=round_actions($s,$row); }
@@ -77,17 +77,17 @@ reject(fn()=>R::submit($s,1,0,action('A'),30000),'due');
 $bad=$s;$bad['rules_version']='future';reject(fn()=>R::advance_due($bad,1),'rules_version');
 $bad=$s;$bad['boss_max_hp']=1;reject(fn()=>R::advance_due($bad,1),'state');
 $bad=$s;$bad['preview']['damage']=999;reject(fn()=>R::advance_due($bad,1),'state');
-$bad=$s;$bad['pots'][0]=4;reject(fn()=>R::advance_due($bad,1),'state');
-$no=edge(1,[10],120,[0]);reject(fn()=>R::submit($no,1,0,action('H',0),1),'heal');
+$bad=$s;$bad['pots'][0]=5;reject(fn()=>R::advance_due($bad,1),'state');
+$no=edge(1,[10],110,[0]);reject(fn()=>R::submit($no,1,0,action('H',0),1),'heal');
 $s=R::submit(R::initial('duo',0),1,0,action('A'),1);
-check($s['round_no']===1 && $s['boss']===130,'first intent does not resolve');
+check($s['round_no']===1 && $s['boss']===150,'first intent does not resolve');
 reject(fn()=>R::submit($s,1,0,action('G',0),2),'locked');
 $s=R::submit($s,1,1,action('A'),2);
-check($s['round_no']===2 && $s['boss']===110 && count($s['history'])===1,'both intents accepted same round');
+check($s['round_no']===2 && $s['boss']===130 && count($s['history'])===1,'both intents accepted same round');
 check($s['deadline_ms']===30002,'early completion deadline');
 $s=R::submit(R::initial('duo',0),1,0,action('A'),29999);
 $s=R::advance_due($s,30000);
-check($s['boss']===120 && $s['hp']===[32,40] && $s['history'][0]['defaults']===[1],'missing only defaults, confirmed action retained');
+check($s['boss']===140 && $s['hp']===[32,40] && $s['history'][0]['defaults']===[1],'missing only defaults, confirmed action retained');
 check($s['deadline_ms']===60000,'timeout preserves deadline');
 $once=$s;check(R::advance_due($s,30000)===$once,'timeout idempotent');
 reject(fn()=>R::submit($s,1,1,action('A'),30000),'round');
@@ -96,7 +96,7 @@ check($late['round_no']===4 && count($late['history'])===3 && $late['deadline_ms
 check($late['exposed'] && $late['pots']===[2,2],'default guard may expose, never heals');
 $end=R::advance_due(R::initial('solo',0),999999);
 check($end['status']===R::LOST && $end['reason']==='round_limit' && $end['ended_ms']===480000,'offline bounded to original 480s');
-check(count($end['history'])===16 && $end['boss']===120,'offline cannot win');
+check(count($end['history'])===16 && $end['boss']===110,'offline cannot win');
 check(strlen(json_encode($end,JSON_THROW_ON_ERROR))<=16384,'state within future TEXT byte budget');
 foreach($end['history'] as $summary) { check(strlen(json_encode($summary,JSON_THROW_ON_ERROR))<=512,'summary byte budget'); }
 check(R::advance_due($end,2000000)===$end,'terminal stable');
@@ -114,7 +114,7 @@ check($s['hp']===[32] && $s['preview']['phase']===2,'announced phase stays, next
 $s=edge(3,[1],10,[0]);$s=round_actions($s,[['A',-1]]);
 check($s['status']===R::WON && $s['hp']===[1],'last hit before lethal boss attack');
 $s=edge(3,[0,40],65,[0,2]);
-check($s['preview']['targets']===[1] && $s['preview']['phase']===2 && $s['boss_max_hp']===130,'knockout redirect keeps duo');
+check($s['preview']['targets']===[1] && $s['preview']['phase']===2 && $s['boss_max_hp']===150,'knockout redirect keeps duo');
 reject(fn()=>R::submit($s,3,0,action('A'),1),'actor');
 reject(fn()=>R::submit($s,3,1,action('H',0),1),'target');
 $s=R::submit($s,3,1,action('G',1),1);
@@ -124,7 +124,7 @@ check($s['status']===R::LOST && $s['reason']==='retreated','solo retreat');
 $s=R::retreat(R::initial('duo',0),0,1);
 check($s['leaving'][0] && !$s['left'][0] && $s['intents'][0]===action('G',0),'duo departure queued and guarded');
 $s=R::submit($s,1,1,action('A'),2);
-check($s['left']===[true,false] && $s['boss_max_hp']===130 && $s['preview']['targets']===[1],'round-end departure keeps mode');
+check($s['left']===[true,false] && $s['boss_max_hp']===150 && $s['preview']['targets']===[1],'round-end departure keeps mode');
 reject(fn()=>R::submit($s,2,0,action('A'),3),'actor');
 $s=R::retreat(R::initial('duo',0),0,1);$s=R::retreat($s,1,2);
 check($s['status']===R::LOST && $s['reason']==='retreated','everyone leaves');
@@ -143,5 +143,17 @@ foreach([[['A',-1],['G',0]],[['H',1],['H',0]],[['G',0],['A',-1]]] as $row) {
     $b=R::submit($b,3,0,action($row[0][0],$row[0][1]),2);
     check($a===$b,'arrival-independent outcome');
 }
+// Existing rooms retain their original numeric rules after the release.
+$legacy=json_decode(file_get_contents(dirname(__DIR__,2).'/docs/raid/P1-REFERENCE-v1.json'),true,512,JSON_THROW_ON_ERROR);
+foreach($legacy['cases'] as $name=>$case){
+ $s=R::initial($case['mode'],0,R::LEGACY_VERSION);
+ foreach($case['expected']['trace'] as $row){
+  check($s['preview']===$row['preview'],'v1 preview '.$name);
+  $s=round_actions($s,$row['actions']);R::validate($s);$last=$s['history'][count($s['history'])-1];
+  foreach(['hp','boss','pots','exposed'] as $field)check($last[$field]===$row[$field],'v1 retained '.$field);
+ }
+ check($s['rules_version']===R::LEGACY_VERSION&&$s['status']===R::WON,'legacy room completes without migration');
+}
+$cross=R::initial('solo',0);$cross['rules_version']=R::LEGACY_VERSION;reject(fn()=>R::validate($cross),'state');
 echo json_encode(['status'=>'PASS','checks'=>$checks,'fixture_cases'=>count($fixture['cases']),'fixture_rounds'=>$rounds],JSON_PRETTY_PRINT).PHP_EOL;
 

@@ -74,14 +74,37 @@ class GridTests(unittest.TestCase):
         report=scan(games=5,seed=1)
         self.assertEqual(len(report['grid']),72)
         self.assertEqual(len({tuple(row['params'].values()) for row in report['grid']}),72)
-        self.assertEqual(report['status'],'NO_MATCH')
-        self.assertFalse(any(row['qualified'] for row in report['grid']))
-        self.assertFalse(report['recommended']['applied'])
-        self.assertEqual(report['recommended']['weighted_distance'],min(row['weighted_distance'] for row in report['grid']))
+        self.assertEqual(report['metric_version'],2)
+        self.assertTrue(report['recommended']['eligible_for_recommendation'])
+        self.assertEqual(report['recommended']['params']['round_limit_rule'],'strict_16')
+        self.assertTrue(all(not row['qualified'] and row['weighted_distance'] is None for row in report['grid'] if not row['eligible_for_recommendation']))
+        self.assertEqual(report['recommended']['weighted_distance'],min(row['weighted_distance'] for row in report['grid'] if row['eligible_for_recommendation']))
         for row in report['grid']:
             for mode in ('solo','duo'):
                 self.assertEqual(row['policies'][mode]['random']['samples'],5)
                 self.assertIn(row['policies'][mode]['heuristic']['win_rate'],(0,100))
+
+    def test_controlled_deviation_denominator(self):
+        from balance_tolerance import tolerance
+        t=tolerance(1,GridRules(solo_boss_hp=110,solo_potions=4))
+        n=t['decisions']
+        self.assertEqual(t['delta1']['total_variants'],n*2)
+        self.assertEqual(t['delta2']['total_variants'],n*(n-1)//2*4)
+        for metric in (t['delta1'],t['delta2']):
+            self.assertEqual(metric['win']+metric['loss']+metric['invalid'],metric['total_variants'])
+            self.assertAlmostEqual(metric['rate'],metric['win']/metric['total_variants']*100,5)
+            self.assertGreaterEqual(metric['legal_rate'],metric['rate'])
+
+    def test_error_model_p1_reproduces_reference(self):
+        from balance_tolerance import mistakes
+        from balance_grid import run
+        rules=GridRules(solo_boss_hp=110,solo_potions=4,boss_hp=150)
+        for n in (1,2):
+            curve=mistakes(n,rules,20,20261027)
+            expected=run(n,rules,'heuristic')
+            self.assertEqual(curve['1.0']['win_rate'],100)
+            self.assertEqual(curve['1.0']['avg_rounds'],expected['rounds'])
+            self.assertEqual(curve['1.0']['samples'],20)
 
     def test_invalid_game_count(self):
         with self.assertRaises(ValueError):

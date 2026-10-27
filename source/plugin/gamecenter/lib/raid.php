@@ -63,7 +63,7 @@ final class gamecenter_raid {
         if(!is_array($s) || !is_array($result)) { throw new RuntimeException('raid json shape'); }
         if(in_array($s['status'] ?? null,[self::WAITING,self::CANCELLED],true)) {
             // Waiting/cancelled rooms have never started. Validate their combat fields against the fixed initial state.
-            $base=gamecenter_raid_rules::initial('duo',(int)$r['created_ms']);
+            $base=gamecenter_raid_rules::initial('duo',(int)$r['created_ms'],(string)$r['rules_version']);
             foreach(['status','version','deadline_ms','updated_ms','reason','ended_ms'] as $key) { $base[$key]=$s[$key] ?? null; }
             if($s !== $base || !in_array($s['reason'],['','cancelled','expired'],true) ||
                 $s['deadline_ms'] !== (int)$r['created_ms']+self::WAIT_MS ||
@@ -89,7 +89,7 @@ final class gamecenter_raid {
             throw new RuntimeException('raid member state');
         }
         foreach($s['history'] as $index=>$h) {
-            self::historyRow($h,$index+1,$n);
+            self::historyRow($h,$index+1,$n,(int)$s['boss_max_hp'],$n===1?gamecenter_raid_rules::config($s['rules_version'])['solo_potions']:2);
         }
         // The start time is persisted separately so waiting time never counts as battle duration.
         $r['state']=$s; $r['result']=$result;
@@ -97,13 +97,13 @@ final class gamecenter_raid {
         foreach(['id','creator_uid','slot0_uid','slot1_uid','status','round_no','version','deadline_ms','created_ms','started_ms','updated_ms'] as $key) { $r[$key]=(int)$r[$key]; }
         return $r;
     }
-    private static function historyRow($h, int $round, int $n): void {
+    private static function historyRow($h, int $round, int $n, int $bossMax, int $potMax): void {
         if(!is_array($h) || count($h) !== 11 || strlen(self::json($h,512)) > 512 ||
             ($h['round'] ?? null) !== $round || !is_bool($h['exposed'] ?? null) ||
-            !is_int($h['boss'] ?? null) || $h['boss'] < 0 || $h['boss'] > ($n === 1 ? 120 : 130)) {
+            !is_int($h['boss'] ?? null) || $h['boss'] < 0 || $h['boss'] > $bossMax) {
             throw new RuntimeException('raid history shape');
         }
-        foreach(['hp'=>40,'pots'=>$n === 1 ? 3 : 2,'damage'=>28,'heals'=>56] as $key=>$max) {
+        foreach(['hp'=>40,'pots'=>$potMax,'damage'=>28,'heals'=>56] as $key=>$max) {
             $values=$h[$key] ?? null;
             if(!is_array($values) || !array_is_list($values) || count($values) !== $n) { throw new RuntimeException('raid history numbers'); }
             foreach($values as $v) { if(!is_int($v) || $v < 0 || $v > $max) { throw new RuntimeException('raid history number'); } }
@@ -293,7 +293,7 @@ final class gamecenter_raid {
             $now=$this->now(); $r=$this->fresh($r,$now);
             if($r['status'] !== 0 || (int)$r['slot1_uid'] !== 0) { return $this->error('full'); }
             $r['slot1_uid']=$uid; $r['slot1_name']=$name; $r['started_ms']=$now;
-            $s=gamecenter_raid_rules::initial('duo',$now); $s['version']=$r['state']['version']+1;
+            $s=gamecenter_raid_rules::initial('duo',$now,$r['state']['rules_version']); $s['version']=$r['state']['version']+1;
             $r['state']=$s; $r=$this->pack($r); $this->db->save($r);
             $this->db->query('UPDATE %t SET room_id=%d WHERE uid=%d',['gamecenter_raid_member',$r['id'],$uid]);
             return $this->accept($r,$uid,$rid,$params,1,$now);

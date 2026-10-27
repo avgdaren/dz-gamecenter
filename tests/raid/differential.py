@@ -15,9 +15,10 @@ sys.modules[spec.name] = model
 spec.loader.exec_module(model)
 rng = random.Random(20261026)
 cases, expected = [], []
-for i in range(2000):
+for i in range(4000):
     players = 1 if i % 2 == 0 else 2
-    state = model.initial(players)
+    rules = model.CURRENT if i<2000 else model.CANDIDATE
+    state = model.initial(players,rules)
     route, trace, invalid = [], [], False
     for round_no in range(1, 17):
         row = []
@@ -31,8 +32,8 @@ for i in range(2000):
         if i % 11 == 0 and round_no == 2:
             row[0] = ('G', 9)  # Deliberately invalid target; state must not resolve.
         route.append(row)
-        preview = model.intent(state, round_no)
-        after = model.resolve(state, row, round_no)
+        preview = model.intent(state, round_no,rules)
+        after = model.resolve(state, row, round_no,rules)
         if after is None:
             invalid = True
             break
@@ -40,7 +41,7 @@ for i in range(2000):
         trace.append(dict(preview=preview, hp=state.hp, boss=state.boss, pots=state.pots, exposed=state.exposed))
         if state.boss == 0 or not any(state.hp):
             break
-    cases.append(dict(mode='solo' if players == 1 else 'duo', route=route))
+    cases.append(dict(rules_version=rules.version, mode='solo' if players == 1 else 'duo', route=route))
     expected.append(dict(invalid=invalid, trace=trace))
 php = os.environ.get('PHP_BIN', 'php')
 result = subprocess.run([php, '-n', str(root / 'tests/raid/rules.php'), '--batch'], input=json.dumps(cases), capture_output=True, text=True, check=True)

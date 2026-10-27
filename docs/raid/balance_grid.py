@@ -173,7 +173,7 @@ def scan(games=2000, seed=20261027):
                              'Deterministic fixture policies yield only 0/100%, so no candidate meets the requested probability intervals. '
                              'Closest candidate is exploratory, not qualified or applied; define a player-error/seeded encounter population before interpreting human win rates.'}
     root = Path(__file__).resolve().parents[2]
-    return {'status': 'PASS' if any(row['qualified'] for row in grid) else 'NO_MATCH',
+    report = {'status': 'PASS' if any(row['qualified'] for row in grid) else 'NO_MATCH',
             'grid_complete': True, 'games_per_mode_random': games, 'seed': seed,
             'scope': 'offline deterministic rules model; no human playtest or production changes',
             'metric_definition': {'win_rate': 'percent; kills plus below-20-percent retreats reported separately',
@@ -189,6 +189,8 @@ def scan(games=2000, seed=20261027):
             'baseline': {'params': baseline, 'policies': {'solo': evaluate(1, GridRules(), games, seed), 'duo': evaluate(2, GridRules(), games, seed)}},
             'grid': grid, 'recommended': recommended,
             'rules_version_changed': False, 'reference_regenerated': False}
+    from balance_tolerance import enrich
+    return enrich(report,games,seed)
 
 
 def table(report):
@@ -200,13 +202,20 @@ def table(report):
             def fmt(value):
                 return '-' if value is None else f'{value:.2f}'
             lines.append(f'{mode:4} {name:10} {fmt(row["win_rate"]):>6} {fmt(row["avg_rounds"]):>6} {fmt(row["avg_remaining_hp"]):>8}')
-    lines += ['status=' + report['status'] + ' (no human playtest)', 'closest=' + json.dumps(report['recommended']['params'], sort_keys=True),
-              'distance=' + str(report['recommended']['weighted_distance']) + '; applied=false', '', 'All 72 combinations:']
+    lines += ['status=' + report['status'] + ' (explicit error model, no human playtest)', 'closest=' + json.dumps(report['recommended']['params'], sort_keys=True),
+              'distance=' + str(report['recommended']['weighted_distance']) + '; applied_to_source=' + str(report['recommended']['applied']), 'A/B metrics=' + json.dumps(report['recommended'].get('metrics',{}),separators=(',',':')), '', 'All 72 combinations:']
     for i, row in enumerate(report['grid'], 1):
         p, s, d = row['params'], row['policies']['solo'], row['policies']['duo']
         lines.append(f'{i:02} S{p["solo_boss_hp"]}/P{p["solo_potions"]}/H{p["heal"]}/D{p["duo_boss_hp"]}/{p["round_limit_rule"]:20} '
                      f'blind={s["blind"]["win_rate"]:5.1f} soloH={s["heuristic"]["win_rate"]:5.1f} duoH={d["heuristic"]["win_rate"]:5.1f} '
-                     f'soloR={s["random"]["win_rate"]:5.2f} duoR={d["random"]["win_rate"]:5.2f} score={row["weighted_distance"]:.3f}')
+                     f'soloR={s["random"]["win_rate"]:5.2f} duoR={d["random"]["win_rate"]:5.2f} score={str(row['weighted_distance'])}')
+    lines += ['', 'Strict candidates: solo delta1/delta2, duo delta1, solo p=.8/.6 (percent):']
+    for i,row in enumerate(report['grid'],1):
+        if not row.get('eligible_for_recommendation'):continue
+        s,d=row['metrics']['solo'],row['metrics']['duo']
+        lines.append(f'{i:02}: D1={s["tolerance"]["delta1"]["rate"]:.3f} D2={s["tolerance"]["delta2"]["rate"]:.3f} '
+                     f'duoD1={d["tolerance"]["delta1"]["rate"]:.3f} p08={s["mistakes"]["0.8"]["win_rate"]:.2f} '
+                     f'p06={s["mistakes"]["0.6"]["win_rate"]:.2f} score={row["weighted_distance"]}')
     lines += ['', 'Per-combination policies (rounds/HP are success-only; - means no success):']
     for i, row in enumerate(report['grid'], 1):
         lines.append(f'[{i:02}] ' + json.dumps(row['params'], sort_keys=True))
