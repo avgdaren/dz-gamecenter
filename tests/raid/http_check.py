@@ -86,14 +86,14 @@ with tempfile.TemporaryDirectory(prefix='raid-p1-http-') as sessions:
         check(current['snapshot']['intents'][0]['kind']=='attack' and current['snapshot']['round_no']==1, 'first slot locked visible')
         bad = post(request('act', round=1, actor=0, kind='guard', target=0))
         check(not bad['ok'] and bad['code']=='locked', 'second id cannot change slot')
-        current = post(request('advance', ms=25000))
+        current = post(request('advance', ms=30000))
         check(current['snapshot']['history'][0]['defaults']==[1] and current['snapshot']['boss']==120, 'timeout keeps first slot and defaults second')
         deadline=current['snapshot']['deadline_ms']
         check(get()['snapshot']['deadline_ms']==deadline, 'refresh does not extend deadline')
         check(not post(request('act', round=1, actor=1, kind='attack', target=-1))['ok'], 'stale turn rejected')
-        current=post(request('advance', ms=400000))
+        current=post(request('advance', ms=480000))
         check(current['snapshot']['status']==3 and len(current['snapshot']['history'])==16, 'long offline bounded')
-        check(current['snapshot']['ended_ms']==deadline+14*25000, 'original logical end time')
+        check(current['snapshot']['ended_ms']==deadline+14*30000, 'original logical end time')
         old_generation=request('act', round=16, actor=1, kind='attack', target=-1)
         current=post(request('start', mode='solo'))
         bad=post(old_generation)
@@ -119,3 +119,4 @@ with tempfile.TemporaryDirectory(prefix='raid-p1-http-') as sessions:
     finally:
         process.terminate()
         process.wait()
+

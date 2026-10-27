@@ -68,7 +68,7 @@
       const waiting = s.hp.map((hp,i) => hp > 0 && !s.left[i] && !s.intents[i] ? slot(i) : null).filter(Boolean);
       return replay + confirmed + (waiting.length ? `等待${waiting.join('、')}确认。` : '等待结算。');
     }
-    if(request.op === 'advance') return replay + (request.ms === 25000 ? '已跳到本轮截止。' : '已模拟离线 400 秒，并按原截止时间追算。') + progress;
+    if(request.op === 'advance') return replay + (request.ms === 30000 ? '已跳到本轮截止。' : '已模拟离线 480 秒，并按原截止时间追算。') + progress;
     if(request.op === 'retreat') return replay + (ended ? `${slot(request.actor)}撤退操作已确认。${progress}` :
       s.left[request.actor] ? `${slot(request.actor)}已离场，队友继续挑战。` : `${slot(request.actor)}已确认撤退，将在本轮结束后离场。`);
     return replay + '操作已完成。';
@@ -265,8 +265,8 @@
   soundButton();
   musicButton();
   $('retry').addEventListener('click',() => send(null,true));
-  $('advance').addEventListener('click',() => send({op:'advance',ms:25000}));
-  $('offline').addEventListener('click',() => { if(window.confirm('模拟离线 400 秒，会自动追算直到本局结束。确定吗？')) send({op:'advance',ms:400000}); });
+  $('advance').addEventListener('click',() => send({op:'advance',ms:30000}));
+  $('offline').addEventListener('click',() => { if(window.confirm('模拟离线 480 秒，会自动追算直到本局结束。确定吗？')) send({op:'advance',ms:480000}); });
   $('theme').addEventListener('click',() => { const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; document.documentElement.dataset.theme = dark ? 'light' : 'dark'; });
   document.addEventListener('visibilitychange',() => { feedback.pause(); clearEffects(); music.sync(); if(!document.hidden) sync(); });
   window.addEventListener('pagehide',() => { feedback.pause(); clearEffects(); music.pause(); });
@@ -277,3 +277,4 @@
     try { const saved = JSON.parse(sessionStorage.getItem('raid-p1-pending')); if(saved && typeof saved.request_id === 'string') { pending = saved; notice('有一项结果未确认，请重试上次操作。',true); controls(); } } catch (_) { /* Ignore unavailable storage or malformed local data. */ }
   })();
 })();
+

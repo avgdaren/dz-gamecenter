@@ -17,12 +17,12 @@ final class gamecenter_raid {
         $messages = ['login'=>'请先登录论坛账号。','permission'=>'当前账号没有参与权限。',
             'input'=>'请求参数不正确。','client'=>'页面已更新，请刷新后继续。','not_found'=>'房间不存在或你没有访问权限。',
             'full'=>'邀请已过期、房间已满或已经结束。','active'=>'你已有活动讨伐，请先完成、取消或撤退。',
-            'request_conflict'=>'请求标识与上次内容不一致，请同步状态。','ended'=>'这一局已经结束。',
+            'request_conflict'=>'请求标识与上次内容不一致，正在自动更新，请稍后重试。','ended'=>'这一局已经结束。',
             'round'=>'本轮已结算，请根据新预告行动。','locked'=>'本轮已经确认，不能改选。',
             'actor'=>'你已倒地、离场或正在撤退。','heal'=>'恢复次数已用完，或目标仍是满血。',
-            'target'=>'目标不能接受这次行动。','conflict'=>'房间状态已变化，请同步状态。',
+            'target'=>'目标不能接受这次行动。','conflict'=>'房间状态已变化，正在自动更新，请稍后重试。',
             'rate'=>'创建房间过于频繁，请稍后再试。','upgrade'=>'请管理员先升级游戏中心。',
-            'busy'=>'服务暂时繁忙，请同步后重试。'];
+            'busy'=>'服务暂时繁忙，请稍后重试。'];
         return ['ok'=>0,'code'=>$code,'msg'=>$messages[$code] ?? $messages['busy'],
             'server_ms'=>$this->now(),'snapshot'=>$r ? $this->snapshot($r,$uid) : null];
     }
@@ -321,3 +321,4 @@ final class gamecenter_raid {
         return count($rows);
     }
 }
+

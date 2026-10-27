@@ -95,7 +95,7 @@ class gamecenter_view {
 		$h .= '<div class="gc-grid">';
 		foreach($games as $g) {
 			if($g['gkey'] === 'raid') {
-				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">单人挑战 / 双人合作</div></div></a><p class="gc-intro">'.self::e($g['m']['intro']).'</p><ul class="gc-facts"><li>邀请好友，一起面对蚀月魔女</li><li>每轮最多25秒，刷新可恢复</li><li>独立讨伐记录，不发积分</li></ul><div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'">开始讨伐</a></div></div>';
+				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">单人挑战 / 双人合作</div></div></a><p class="gc-intro">'.self::e($g['m']['intro']).'</p><ul class="gc-facts"><li>邀请好友，一起面对蚀月魔女</li><li>每轮最多30秒，刷新可恢复</li><li>随时查看最近十次讨伐</li></ul><div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'">开始讨伐</a></div></div>';
 				continue;
 			}
 			// GPT / Codex：联机游戏独立入口，不伪装成单机打榜。
@@ -153,7 +153,7 @@ class gamecenter_view {
 			}
 			$h .= '</ul>';
 		}
-		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($g['gkey'] === 'raid' ? '<div class="gc-box"><h4>合作讨伐</h4><p>每位成员只控制自己。守护和恢复可以援助队友，双方确认齐后立即结算。</p><p>房间等待最多五分钟，每轮最多25秒。独立保存最近十次结果，不发积分。</p></div>' : ($gc_roomgame ? '<div class="gc-box"><h4>好友约战</h4><p>先创建房间，再分享房间号或邀请链接。双方均需登录论坛账号。</p><p>选择落点后确认，避免误触。对局由服务端判定，结果保存在游戏内的最近对局。</p></div>' : self::boards($g, 10))).'</div></aside></div>';
+		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($g['gkey'] === 'raid' ? '<div class="gc-box"><h4>讨伐手记</h4><p>留意幽月的重击预告，守住之后就是反击的机会。</p></div>' : ($gc_roomgame ? '<div class="gc-box"><h4>好友约战</h4><p>先创建房间，再分享房间号或邀请链接。双方均需登录论坛账号。</p><p>选择落点后确认，避免误触。对局由服务端判定，结果保存在游戏内的最近对局。</p></div>' : self::boards($g, 10))).'</div></aside></div>';
 		$h .= '<script src="'.$base.'static/gc.js?v='.self::ver().'"></script>';
 		if(!empty($m['style']) && preg_match('/^[\w.-]+\.css$/', $m['style'])) {
 			$h .= '<link rel="stylesheet" href="'.$base.'games/'.$g['gkey'].'/'.$m['style'].'?v='.rawurlencode($m['version']).'">';
@@ -314,3 +314,4 @@ class gamecenter_view {
 		return self::shell($h.'</table></div>');
 	}
 }
+

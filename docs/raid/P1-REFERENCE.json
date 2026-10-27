@@ -15,7 +15,7 @@
     "attack": 10,
     "exposed_attack": 20,
     "guard_damage_divisor": 5,
-    "turn_ms": 25000,
+    "turn_ms": 30000,
     "wait_ms": 300000
   },
   "action_codes": {

@@ -336,7 +336,7 @@ def main():
         reference = {'format_version': 1, 'rules_status': report['rules_status'],
                      'rules': asdict(CANDIDATE),
                      'common': {'player_hp': PLAYER_HP, 'attack': ATTACK, 'exposed_attack': EXPOSED_ATTACK,
-                                'guard_damage_divisor': 5, 'turn_ms': 25000, 'wait_ms': 300000},
+                                'guard_damage_divisor': 5, 'turn_ms': 30000, 'wait_ms': 300000},
                      'action_codes': {'A': 'attack', 'G': 'guard', 'H': 'heal', '-': 'downed_no_action'},
                      'cases': {name: {'mode': 'solo' if players == 1 else 'duo', 'start_round': 1,
                                       'initial': asdict(initial(players)), 'expected': result}
@@ -360,3 +360,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

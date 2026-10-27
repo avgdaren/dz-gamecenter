@@ -72,7 +72,8 @@ reject(fn()=>R::submit($s,1,0,action('A',0),1),'target');
 reject(fn()=>R::submit($s,0,0,action('A'),1),'round');
 reject(fn()=>R::submit($s,1,0,['kind'=>'heal','target'=>'0'],1),'action');
 reject(fn()=>R::submit($s,1,0,['kind'=>'attack','target'=>-1,'damage'=>999],1),'action');
-reject(fn()=>R::submit($s,1,0,action('A'),25000),'due');
+check(R::submit($s,1,0,action('A'),25000)['round_no']===2,'25 seconds is still inside 30-second turn');
+reject(fn()=>R::submit($s,1,0,action('A'),30000),'due');
 $bad=$s;$bad['rules_version']='future';reject(fn()=>R::advance_due($bad,1),'rules_version');
 $bad=$s;$bad['boss_max_hp']=1;reject(fn()=>R::advance_due($bad,1),'state');
 $bad=$s;$bad['preview']['damage']=999;reject(fn()=>R::advance_due($bad,1),'state');
@@ -83,18 +84,18 @@ check($s['round_no']===1 && $s['boss']===130,'first intent does not resolve');
 reject(fn()=>R::submit($s,1,0,action('G',0),2),'locked');
 $s=R::submit($s,1,1,action('A'),2);
 check($s['round_no']===2 && $s['boss']===110 && count($s['history'])===1,'both intents accepted same round');
-check($s['deadline_ms']===25002,'early completion deadline');
-$s=R::submit(R::initial('duo',0),1,0,action('A'),24999);
-$s=R::advance_due($s,25000);
+check($s['deadline_ms']===30002,'early completion deadline');
+$s=R::submit(R::initial('duo',0),1,0,action('A'),29999);
+$s=R::advance_due($s,30000);
 check($s['boss']===120 && $s['hp']===[32,40] && $s['history'][0]['defaults']===[1],'missing only defaults, confirmed action retained');
-check($s['deadline_ms']===50000,'timeout preserves deadline');
-$once=$s;check(R::advance_due($s,25000)===$once,'timeout idempotent');
-reject(fn()=>R::submit($s,1,1,action('A'),25000),'round');
-$late=R::advance_due(R::initial('duo',0),75000);
-check($late['round_no']===4 && count($late['history'])===3 && $late['deadline_ms']===100000,'three missed rounds');
+check($s['deadline_ms']===60000,'timeout preserves deadline');
+$once=$s;check(R::advance_due($s,30000)===$once,'timeout idempotent');
+reject(fn()=>R::submit($s,1,1,action('A'),30000),'round');
+$late=R::advance_due(R::initial('duo',0),90000);
+check($late['round_no']===4 && count($late['history'])===3 && $late['deadline_ms']===120000,'three missed rounds');
 check($late['exposed'] && $late['pots']===[2,2],'default guard may expose, never heals');
 $end=R::advance_due(R::initial('solo',0),999999);
-check($end['status']===R::LOST && $end['reason']==='round_limit' && $end['ended_ms']===400000,'offline bounded to original 400s');
+check($end['status']===R::LOST && $end['reason']==='round_limit' && $end['ended_ms']===480000,'offline bounded to original 480s');
 check(count($end['history'])===16 && $end['boss']===120,'offline cannot win');
 check(strlen(json_encode($end,JSON_THROW_ON_ERROR))<=16384,'state within future TEXT byte budget');
 foreach($end['history'] as $summary) { check(strlen(json_encode($summary,JSON_THROW_ON_ERROR))<=512,'summary byte budget'); }
@@ -143,3 +144,4 @@ foreach([[['A',-1],['G',0]],[['H',1],['H',0]],[['G',0],['A',-1]]] as $row) {
     check($a===$b,'arrival-independent outcome');
 }
 echo json_encode(['status'=>'PASS','checks'=>$checks,'fixture_cases'=>count($fixture['cases']),'fixture_rounds'=>$rounds],JSON_PRETTY_PRINT).PHP_EOL;
+

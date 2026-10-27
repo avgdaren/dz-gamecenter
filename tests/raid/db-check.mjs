@@ -73,11 +73,11 @@ try {
  }
  // Clock catch-up is committed even when rejecting a late command.
  const c=await create(20,'duo',2000000);const croom=c.snapshot.room;await join(21,croom,2000000);
- check((await act(a,20,croom,1,'attack',-1,2025000)).code==='round','at deadline old round rejected');
- s=(await call(a,20,{action:'current'},2025000)).snapshot;
- check(s.round_no===2&&s.deadline_ms===2050000&&s.history[0].defaults.length===2,'catch-up persisted at original deadline');
- s=(await call(a,20,{action:'current'},2400000)).snapshot;
- check(s.status===3&&s.history.length===16&&s.ended_ms===2400000,'offline 400 seconds bounded to 16 rounds');
+ check((await act(a,20,croom,1,'attack',-1,2030000)).code==='round','at deadline old round rejected');
+ s=(await call(a,20,{action:'current'},2030000)).snapshot;
+ check(s.round_no===2&&s.deadline_ms===2060000&&s.history[0].defaults.length===2,'catch-up persisted at original deadline');
+ s=(await call(a,20,{action:'current'},2480000)).snapshot;
+ check(s.status===3&&s.history.length===16&&s.ended_ms===2480000,'offline 480 seconds bounded to 16 rounds');
  // Waiting expiry releases qualification and old invitations cannot be joined.
  const wait=await create(30,'duo',3000000);const wroom=wait.snapshot.room;
  const expired=await call(a,30,{action:'state',room:wroom},3300000);
@@ -119,7 +119,7 @@ try {
  }
  // Before/at deadline contenders: either the action is retained once or defaulted once, never both.
  for(let i=0;i<200;i++){
-   const now=Date.now()-24998;await admin.send({op:'fixture',room:rr,now});
+   const now=Date.now()-29998;await admin.send({op:'fixture',room:rr,now});
    const results=await Promise.all([act(a,70,rr,1),call(b,71,{action:'state',room:rr})]);
    check(results.every(r=>r.ok || r.code==='round'),'deadline requests have defined outcome '+i);
    await new Promise(resolve=>setTimeout(resolve,5));
@@ -150,3 +150,4 @@ try {
  check((await entry({game:'snake',data:payload})).ok===0,'raid operation rejects another game');
  console.log(JSON.stringify({status:'PASS',driver:process.env.GC_TEST_DRIVER||'pdo',checks,races:1000,deadline_races:200,fixture_cases:cases.length}));
 } finally {workers.forEach(x=>x.close());}
+

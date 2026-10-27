@@ -5,11 +5,11 @@
   // [source, fromHz, toHz, seconds, offset, gain, filter, cutoff, distortion, echo]
   // Each complete cue ends within .30 s, including its one short echo tail.
   const notes = {
-    attack:[['sawtooth',1300,95,.14,0,.045,'lowpass',3200,true],['noise',0,0,.08,0,.035,'highpass',1800,true],['sine',105,40,.14,0,.06]],
-    hurt:[['sine',95,32,.16,0,.07],['noise',0,0,.09,0,.045,'highpass',2300,true]],
+    attack:[['sawtooth',1700,70,.14,0,.065,'lowpass',3200,true],['noise',0,0,.08,0,.035,'highpass',1800,true],['sine',85,45,.16,0,.085]],
+    hurt:[['sine',78,38,.18,0,.10],['noise',0,0,.065,0,.06,'highpass',2300,true]],
     guard:[['square',1750,700,.13,0,.025,'highpass',700,true],['noise',0,0,.065,0,.025,'highpass',4500],['sine',2700,1500,.14,.025,.025]],
     heal:[['triangle',500,1100,.17,0,.04],['sine',800,1500,.12,.04,.022]],
-    exposed:[['square',480,1850,.19,0,.03,'lowpass',3800],['sine',900,2700,.14,.035,.025]],
+    exposed:[['square',480,1850,.19,0,.03,'lowpass',3800],['sine',900,3200,.14,.035,.035,null,0,false,true]],
     phase:[['sawtooth',170,35,.18,0,.05,'lowpass',1000,true,true],['noise',0,0,.1,0,.025,'lowpass',900]],
     win:[['square',440,440,.075,0,.025,'lowpass',2200],['square',660,660,.075,.065,.025,'lowpass',2600],['triangle',880,1100,.09,.13,.035]],
     lose:[['triangle',330,300,.075,0,.035],['square',220,180,.075,.065,.025,'lowpass',1200],['sine',110,50,.1,.13,.055]],
@@ -108,12 +108,12 @@
       row.hp.forEach((hp,i) => {
         const healed=Math.max(0,Math.min(40,before.hp[i]+(row.heals[i]||0))-before.hp[i]);
         const hit=Math.max(0,before.hp[i]+healed-hp);
-        if(healed) { events.push({target:i,kind:'heal',text:`+${healed}`}); cues.push('heal'); parts.push(`席位 ${i+1} +${healed}`); }
-        if(hit) { events.push({target:i,kind:'hurt',text:`−${hit}`}); cues.push('hurt'); parts.push(`席位 ${i+1} −${hit}`); }
+        if(healed) { events.push({target:i,kind:'heal',text:`+${healed}`}); cues.push('heal'); parts.push(`${i===snapshot.seat?'你':'队友'} +${healed}`); }
+        if(hit) { events.push({target:i,kind:'hurt',text:`−${hit}`}); cues.push('hurt'); parts.push(`${i===snapshot.seat?'你':'队友'} −${hit}`); }
         const guarded=hit>0 && row.actions.some(a=>a?.kind==='guard' && a.target===i);
-        if(guarded) { events.push({target:i,kind:'guard',text:'守护生效'}); cues.push('guard'); parts.push(`席位 ${i+1} 守护生效`); }
+        if(guarded) { events.push({target:i,kind:'guard',text:'守护生效'}); cues.push('guard'); parts.push(`${i===snapshot.seat?'你':'队友'} 守护生效`); }
       });
-      if(row.defaults.length) { cues.push('timeout'); parts.push(`席位 ${row.defaults.map(i=>i+1).join('、')} 超时守护`); }
+      if(row.defaults.length) { cues.push('timeout'); parts.push(`${row.defaults.map(i=>i===snapshot.seat?'你':'队友').join('、')} 超时守护`); }
       if(snapshot.status===1 && snapshot.exposed) { events.push({target:'boss',kind:'exposed',text:'破绽出现'}); cues.push('exposed'); parts.push('下轮破绽'); }
       if(snapshot.status===1 && before.preview.phase!==snapshot.preview.phase) { events.push({target:'boss',kind:'phase',text:'第二阶段'}); cues.push('phase'); parts.push('进入第二阶段'); }
       if(terminal) { const cue=snapshot.status===2?'win':'lose'; events.push({target:'boss',kind:cue,text:cue==='win'?'讨伐成功':'挑战结束'}); cues.push(cue); parts.push(cue==='win'?'讨伐成功':'挑战结束'); }
@@ -135,3 +135,4 @@
   }
   globalThis.RaidFeedback=RaidFeedback;
 })();
+

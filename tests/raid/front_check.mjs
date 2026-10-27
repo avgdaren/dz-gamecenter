@@ -158,7 +158,7 @@ try {
   check(ui.$('message').textContent.startsWith('已跳到本轮截止。') && ui.$('message').textContent.includes('第 2 轮开始'),'deadline jump has operation-specific feedback');
   check(ui.$('logs').textContent.includes('超时默认') && ui.$('boss-hp').textContent==='120 / 130 生命','timeout display preserves accepted intent');
   await command(ui,'offline');
-  check(ui.$('message').textContent.startsWith('已模拟离线 400 秒') && ui.$('message').textContent.includes('本局已结束'),'offline jump has terminal feedback');
+  check(ui.$('message').textContent.startsWith('已模拟离线 480 秒') && ui.$('message').textContent.includes('本局已结束'),'offline jump has terminal feedback');
   check(ui.$('result-title').textContent==='挑战结束' && ui.$('result-text').textContent.includes('16 回合'),'long offline shown as limit loss');
   check(ui.$('boss-line').textContent==='别急着认输。记住这轮月光，再来一次。','loss quote retained');
   await command(ui,'solo');
@@ -184,7 +184,7 @@ try {
   await command(ui,'duo'); await play(ui,0,'A',-1);
   const previous=posts.at(-1);
   await (await transport('/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-    op:'advance',ms:25000,generation:previous.generation,token:previous.token,request_id:'f'.repeat(32)
+    op:'advance',ms:30000,generation:previous.generation,token:previous.token,request_id:'f'.repeat(32)
   })})).json();
   ui.intervals[0]();await settled(ui);
   check(ui.$('message').textContent.includes('席位 1已确认：攻击（第 1 轮）') && ui.$('message').textContent.includes('第 1 轮已结算；第 2 轮开始') && !ui.$('message').textContent.includes('等待'),'changed snapshot preserves confirmation and updates round progress');
@@ -214,3 +214,4 @@ try {
 } finally {
   php.kill(); await new Promise(resolve=>php.once('exit',resolve)); fs.rmSync(sessions,{recursive:true,force:true});
 }
+

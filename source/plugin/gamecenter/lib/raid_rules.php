@@ -8,7 +8,7 @@ declare(strict_types=1);
 final class gamecenter_raid_rules {
     public const VERSION = 'raid-v1-p1-balanced';
     public const ACTIVE = 1, WON = 2, LOST = 3;
-    public const TURN_MS = 25000, ROUND_LIMIT = 16;
+    public const TURN_MS = 30000, ROUND_LIMIT = 16;
 
     public static function initial(string $mode, int $now): array {
         if(!in_array($mode, ['solo', 'duo'], true) || $now < 0 || $now > PHP_INT_MAX - self::TURN_MS * 17) {
@@ -212,3 +212,4 @@ final class gamecenter_raid_rules {
         return $s;
     }
 }
+

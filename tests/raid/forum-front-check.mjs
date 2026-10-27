@@ -40,7 +40,7 @@ function setup(uid){
  for(const file of ['feedback.js','music.js','game.js'])vm.runInNewContext(readFileSync(new URL(file,gameDir),'utf8'),context,{filename:file});
  boot(stage,{uid});
  const $=id=>stage.querySelector(`[data-gcr="${id}"]`);
- return {doc,stage,$,calls,timers,storage,drop(){drop=true;},offline(v){offline=v;},async settled(){await until(()=>inFlight===0&&!$('sync').disabled);},async command(id){$(id).click();await this.settled();},async poll(){await this.command('sync');},async play(seat,kind,target=-1){const card=()=>stage.querySelector(`[data-actor="${seat}"]`);const btn=card().querySelector(`[data-kind="${kind}"]`);check(btn&&!btn.disabled,'own action available');btn.click();if(kind!=='attack'){const select=card().querySelector('select');select.value=String(target);select.dispatchEvent({type:'change'});}check(!card().querySelector('.confirm').disabled,'confirm enabled');card().querySelector('.confirm').click();await this.settled();},close(){target.dispatchEvent({type:'pagehide'});}};
+ return {doc,stage,$,calls,timers,storage,drop(){drop=true;},offline(v){offline=v;},async settled(){await until(()=>inFlight===0&&!$('current').disabled);},async command(id){$(id).click();await this.settled();},async poll(){await this.command('current');},async play(seat,kind,target=-1){const card=()=>stage.querySelector(`[data-actor="${seat}"]`);const btn=card().querySelector(`[data-kind="${kind}"]`);check(btn&&!btn.disabled,'own action available');btn.click();if(kind!=='attack'){const select=card().querySelector('select');select.value=String(target);select.dispatchEvent({type:'change'});}check(!card().querySelector('.confirm').disabled,'confirm enabled');card().querySelector('.confirm').click();await this.settled();},close(){target.dispatchEvent({type:'pagehide'});}};
 }
 try{
  await db.send({op:'init'});
@@ -83,7 +83,7 @@ try{
    await c.poll();check(c.$('boss-hp').textContent.startsWith(String(row.boss)+' /'),'fixture UI boss round '+row.round);
  }
  check(c.$('result-title').textContent==='讨伐成功','real cooperative service wins');
- check(c.$('boss-line').textContent==='这一次，算你们赢。下次可没这么轻松。','terminal quote');
+ check(c.$('boss-line').textContent==='这一次，算你们赢了。','terminal quote');
  await c.command('history-refresh');check(c.$('recent-list').textContent.includes('双人 · 胜利 · 6 回合'),'history from DB');
  await c.command('solo');check(c.$('boss-hp').textContent==='120 / 120 生命','new solo after terminal');
  const solo=fixture.cases.solo_reasonable.expected.trace;
@@ -94,10 +94,11 @@ try{
  const pollDelays=[...e.timers.values()].filter(t=>t.ms>=2000&&t.ms<10000);check(pollDelays.every(t=>t.ms>=2000),'normal polling at least two seconds');
  e.offline(true);await e.poll();check([...e.timers.values()].some(t=>t.ms>=4000&&t.ms<=4250),'failure backoff');
  e.doc.hidden=true;e.doc.dispatchEvent({type:'visibilitychange'});check(![...e.timers.values()].some(t=>t.ms>=2000&&t.ms<10000),'hidden stops polling');
- e.offline(false);e.doc.hidden=false;e.doc.dispatchEvent({type:'visibilitychange'});await e.settled();check(e.$('connection').textContent.includes('已连接论坛'),'visible immediately restores');
+ e.offline(false);e.doc.hidden=false;e.doc.dispatchEvent({type:'visibilitychange'});await e.settled();check(e.$('connection').hidden,'visible immediately restores');
  const guest=setup(0);check(guest.$('solo').disabled&&guest.$('message').textContent.includes('登录论坛'),'guest can read but not start');
  check(maxFlight===1,'one transport per page in flight');
  check(a.stage.querySelectorAll('[data-gcr]').every(x=>!x.getAttribute('id')),'no generic document IDs');
  console.log(JSON.stringify({status:'PASS',checks,posts,maxFlight,coverage:'DOM subset + PHP service + MariaDB; browser layout not tested'}));
  for(const ui of [a,b,refreshed,c,d,e,guest])ui.close();
 }finally{workers.forEach(w=>w.close());}
+
