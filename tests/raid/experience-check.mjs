@@ -25,9 +25,9 @@ const w={send:async ({data})=>{
    if(snapshot.status!==0 || Number(data.expected_version)!==snapshot.version)return {ok:0,code:'conflict',server_ms:now,snapshot};
    snapshot={...snapshot,status:4,reason:'cancelled',version:snapshot.version+1};
  }
- if(data.action==='retreat'){snapshot={...snapshot,status:3,reason:'retreated',version:snapshot.version+1};}
+ if(data.action==='retreat'){snapshot=snapshot.mode==='solo'?{...snapshot,status:3,reason:'retreated',version:snapshot.version+1}:{...snapshot,leaving:[true,false],version:snapshot.version+1};}
  if(data.action==='create') {
-   if(snapshot && snapshot.status<2)return {ok:0,code:'active',server_ms:now,snapshot};
+   if(snapshot && snapshot.status<2&&!snapshot.left?.[snapshot.seat])return {ok:0,code:'active',server_ms:now,snapshot};
    const room=(0xABCDEF123456n+BigInt(roomNumber++)).toString(16).toUpperCase();
    snapshot=data.mode==='solo'?battle({room,mode:'solo',hp:[40],pots:[3],left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]}):{...waiting(),room};
    createCount++;
@@ -159,4 +159,9 @@ const refresh=setup(804);await refresh.settled();check(!refresh.$('battle').hidd
 const invite=setup(805,'&fresh=1&room=ABCDEF987654');await invite.settled();check(invite.calls[0].action==='state'&&invite.calls[0].room==='ABCDEF987654'&&invite.$('resume-prompt').hidden,'room takes precedence over fresh and requests exact room');invite.close();
 snapshot={...snapshot,status:3,reason:'knockout',version:snapshot.version+1};const end=setup(806);await end.settled();
 check(!end.$('result').hidden&&end.$('again').textContent.includes('再来一局'),'terminal card has primary new-game button');await end.command('again');check(snapshot.status===1&&snapshot.mode==='solo','terminal primary starts new game in one click');end.close();
+snapshot=battle();const deferred=setup(807,'&fresh=1');await deferred.settled();start=callsToServer.length;const oldDuo=snapshot.room;
+await deferred.command('restart');check(callsToServer.slice(start).map(x=>x.action).join(',')==='retreat'&&snapshot.room===oldDuo,'duo restart cannot create before deferred departure settles');deferred.close();
+const resumedDuo=setup(807);await resumedDuo.settled();check(snapshot.room===oldDuo,'reload preserves deferred restart intent without early create');
+snapshot={...snapshot,left:[true,false],leaving:[false,false],version:snapshot.version+1};await resumedDuo.poll();
+check(snapshot.status===0&&snapshot.room!==oldDuo,'settled departure serially creates the chosen new room after reload');resumedDuo.close();
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));

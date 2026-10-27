@@ -210,3 +210,6 @@
 .gcr .arena .boss-phase-layer{transition:opacity .25s ease}
 
 .gcr .resume-prompt{padding:12px 16px;border:1px solid var(--accent);border-radius:12px;background:var(--soft);margin:12px 0}.gcr .resume-prompt button,.gcr .result button{margin:8px 8px 0 0}
+
+/* Keep primary text contrast when the generic hover background changes. */
+.gcr .primary:hover:not(:disabled){background:var(--accent);color:var(--paper)}

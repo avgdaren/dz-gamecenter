@@ -2,7 +2,7 @@
 export function ratio(a,b){const lum=c=>c.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((n,v,i)=>n+v*[.2126,.7152,.0722][i],0);const x=lum(a),y=lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
 export function audit(root){
  const rgb=s=>s.match(/[\d.]+/g).slice(0,3).map(Number),results=[];
- for(const selector of ['[data-gcr=preview-name]','.notice','[data-gcr=message]','.turn-help','.player small'])for(const el of root.querySelectorAll(selector)){
+ for(const selector of ['[data-gcr=preview-name]','.notice','[data-gcr=message]','.turn-help','.player small','.primary'])for(const el of root.querySelectorAll(selector)){
   if(!el.getClientRects().length)continue;
   let bg=el;while(bg&&getComputedStyle(bg).backgroundColor==='rgba(0, 0, 0, 0)')bg=bg.parentElement;
   const style=getComputedStyle(el),contrast=ratio(rgb(style.color),rgb(getComputedStyle(bg).backgroundColor));
@@ -21,5 +21,6 @@ if(typeof document==='undefined'){
  assert.ok(/--soft:#483453;--bad:#ffb4c3;color:var\(--ink\)/.test(css));
  assert.ok(/boss-art\{isolation:isolate;box-shadow:none;border-radius:14px;overflow:hidden\}/.test(css));
  assert.ok(css.includes('border-radius:0;mask-image:none;-webkit-mask-image:none'));
- console.log(JSON.stringify({status:'PASS',checks:7,scope:'formula and CSS guards only; computed style needs browser audit'}));
+ assert.ok(css.includes('.primary:hover:not(:disabled){background:var(--accent);color:var(--paper)}'));
+ console.log(JSON.stringify({status:'PASS',checks:8,scope:'formula and CSS guards only; computed style needs browser audit'}));
 }

@@ -6,7 +6,7 @@
 
 [6442526216复验](https://github.com/avgdaren/dz-gamecenter/pull/16#issuecomment-6442526216)已确认计时器P0修复：p1 30ms出现/218ms隐藏，p2 31ms换套显示，飘字/位移类、reduce与404回退通过；连击取最强仍由替身测试覆盖。六张图片无需重做，手机真机不做。
 
-当前下一批为0.1.6音效候选+72组离线难度扫描，详见[P2-AUDIO-GRID-HANDOFF.md](P2-AUDIO-GRID-HANDOFF.md)。音效真实离线峰值/试听未验；网格NO_MATCH，探索候选未应用。以下旧“待Chrome复验”均为当时状态，已由上述回执取代。
+最新为0.1.10三阶段修复，详见[P2-ROUND4-HANDOFF.md](P2-ROUND4-HANDOFF.md)。音频真实渲染88项通过，新容错/失误模型达标并升规则版本；用户试听/单人手感与真Discuz/DB新候选仍待复验。以下旧“待Chrome复验”均为当时状态，已由上述回执取代。
 
 ## 727e7f4 复验阻塞与本次修复
 

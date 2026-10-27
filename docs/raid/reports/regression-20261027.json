@@ -1,0 +1,39 @@
+{
+  "status": "AWAITING_REAL_ENVIRONMENT",
+  "php_rules": 775,
+  "php_version_decoder": 11,
+  "differential_cases": 4000,
+  "differential_rounds": 47602,
+  "http": 196,
+  "prototype_front": 112,
+  "production_js_minidom": 131,
+  "face": 23,
+  "feedback_mock": 89,
+  "music_mock": 45,
+  "view": 11,
+  "music_files": 8,
+  "face_files": 37,
+  "grid_unittest": 13,
+  "contrast_formula_css_guards": 8,
+  "browser_audio": {
+    "status": "PASS",
+    "checks": 88,
+    "browser": "151.0.7922.34"
+  },
+  "browser_css": {
+    "status": "PASS",
+    "scope": "CSS fixture only; no Discuz"
+  },
+  "not_run": [
+    "forum-front-check.mjs",
+    "db-check.mjs PDO",
+    "db-check.mjs mysqli"
+  ],
+  "reason": "missing GC_RAID_TEST/GC_TEST_DSN/GC_TEST_USER/GC_TEST_PASSWORD/GC_DZ_ROOT",
+  "human_solo": "UNVERIFIED",
+  "human_duo": "EXCLUDED_BY_USER",
+  "human_audio": "UNVERIFIED",
+  "v2_rollback_drill": "UNVERIFIED",
+  "resource_hashes_verified": 15,
+  "syntax": "PASS"
+}

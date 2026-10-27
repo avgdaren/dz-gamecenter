@@ -30,6 +30,11 @@
           "selector": ".player small",
           "contrast": 5.189471570285084,
           "pass": true
+        },
+        {
+          "selector": ".primary",
+          "contrast": 6.325462484698436,
+          "pass": true
         }
       ],
       "radius": "14px",
@@ -77,6 +82,11 @@
         {
           "selector": ".player small",
           "contrast": 5.189471570285084,
+          "pass": true
+        },
+        {
+          "selector": ".primary",
+          "contrast": 6.325462484698436,
           "pass": true
         }
       ],
@@ -126,6 +136,11 @@
           "selector": ".player small",
           "contrast": 6.836441997848852,
           "pass": true
+        },
+        {
+          "selector": ".primary",
+          "contrast": 7.706109223138532,
+          "pass": true
         }
       ],
       "radius": "14px",
@@ -174,6 +189,11 @@
           "selector": ".player small",
           "contrast": 6.836441997848852,
           "pass": true
+        },
+        {
+          "selector": ".primary",
+          "contrast": 7.706109223138532,
+          "pass": true
         }
       ],
       "radius": "14px",
@@ -195,5 +215,77 @@
       ]
     }
   ],
-  "browser": "151.0.7922.34"
+  "browser": "151.0.7922.34",
+  "primary_hover": [
+    {
+      "theme": "light",
+      "rows": [
+        {
+          "selector": "[data-gcr=preview-name]",
+          "contrast": 9.675894328702642,
+          "pass": true
+        },
+        {
+          "selector": ".notice",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": "[data-gcr=message]",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": ".turn-help",
+          "contrast": 4.721543474220079,
+          "pass": true
+        },
+        {
+          "selector": ".player small",
+          "contrast": 5.189471570285084,
+          "pass": true
+        },
+        {
+          "selector": ".primary",
+          "contrast": 6.325462484698436,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "rows": [
+        {
+          "selector": "[data-gcr=preview-name]",
+          "contrast": 9.675894328702642,
+          "pass": true
+        },
+        {
+          "selector": ".notice",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": "[data-gcr=message]",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": ".turn-help",
+          "contrast": 7.810010141127531,
+          "pass": true
+        },
+        {
+          "selector": ".player small",
+          "contrast": 6.836441997848852,
+          "pass": true
+        },
+        {
+          "selector": ".primary",
+          "contrast": 7.706109223138532,
+          "pass": true
+        }
+      ]
+    }
+  ]
 }
