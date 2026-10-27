@@ -27,7 +27,7 @@
 <section class="journal"><h3>战斗记录 <span data-gcr="log-count"></span></h3><ol data-gcr="logs" reversed></ol></section>
 </div>
 <details class="rules"><summary>第一次挑战？展开规则</summary><div><p>每人生命 40。攻击造成 10 伤害；恢复为自己或队友治疗 28，最多回到 40。单人可恢复 3 次，双人各 2 次。</p><p>守护可以保护自己或队友：对目标本轮的伤害降至五分之一并向上取整，不叠加。守护队友时，你自己不会同时受保护。</p><p>首领依次使用月刃、全体星潮、重击、回气。成功守护重击并存活，下一轮回气时攻击造成 20 伤害。半血后的预告更强。</p><p>每轮确认后不能修改；你和仍在战斗的队友都确认即结算，否则等待 30 秒。玩家先于首领行动，第 16 轮结束时首领仍存活则失败。双人有人倒地后，另一人可以继续，但不会降低首领数值。</p><p>尝试自己找出打法；失败后可从记录中查看原因，再挑战一次。</p></div></details>
-<details class="recent"><summary>最近十次讨伐</summary><ul data-gcr="recent-list"></ul><button data-gcr="history-refresh">刷新记录</button></details><footer>BGM：nene — Boss Battle #9 [Metal]，CC0，本地压缩循环版本。</footer>
+<details class="recent"><summary>最近十次讨伐</summary><ul data-gcr="recent-list"></ul><button data-gcr="history-refresh">刷新记录</button></details><footer>BGM：nene — Boss Battle #9 [Metal] / Boss Battle 10 [Metal]（二阶段），CC0，本地版本。</footer>
 </div>`; stage.append(root);
   const uid=Number(api.uid)||0, storageKey='gcr-pending-'+uid;
   let failures=0, pollTimer=null, blocked=false, historyRoom=null;
@@ -42,7 +42,7 @@
   let state = null, generation = 0, token = '', offset = 0, busy = false, pending = null;
   let signature = '', selectionRound = '', choices = {}, lastSuccess = null;
   const feedback = new globalThis.RaidFeedback();
-  const music = new globalThis.RaidMusic(musicButton,new URL('assets/battle.mp3',assetBase).href);
+  const music = new globalThis.RaidMusic(musicButton,new URL('assets/battle.mp3',assetBase).href,new URL('assets/battle-phase2.mp3',assetBase).href);
   const effectTimers = new Set(), effectNodes = new Set(), effectHosts = new Set();
   const make = (tag, cls, text) => { const el = document.createElement(tag); if(cls) el.className = cls; if(text !== undefined) el.textContent = text; return el; };
   const slot = i => i === state?.seat ? '你' : '队友';
@@ -143,7 +143,7 @@
     const batch=feedback.observe(data.snapshot,data.snapshot?.room || 'empty');
     token='forum'; generation=data.snapshot?.room || ''; offset=data.server_ms-Date.now();
     state=data.snapshot;
-    music.setActive(state?.status===1);
+    music.setActive(state?.status===1,state?.preview?.phase===2?2:1);
     const next = state ? `${generation}:${state.version}` : 'empty';
     if(next !== signature) {
       clearEffects();
@@ -268,7 +268,7 @@
     $('idle-hint').hidden=!idle.length;
     $('idle-hint').textContent=idle.length ? idle.map(({actor,count})=>`${slot(actor)} 连续 ${count} 轮没选`).join('；')+'，已自动守护自己。可以继续等待队友，也可以撤退（本轮结束后离场）。' : '';
     root.querySelector('.turn-help').textContent=state.mode==='solo'?'每轮有 30 秒选择行动，确认后立即结算。没选时会自动守护自己。':'每轮有 30 秒选择行动；你和队友都确认后立即结算。没选时会自动守护自己。';
-    if(!phaseArtRequested && state.status===1) {phaseArtRequested=true; phaseArt.src=new URL('assets/boss-phase2.png',assetBase).href;}
+    if(!phaseArtRequested && state.status===1) {phaseArtRequested=true; phaseArt.src=new URL('assets/boss-phase2.webp',assetBase).href;}
     const p = state.preview;
     $('phase').textContent = `第 ${p.phase === 1 ? '一' : '二'} 阶段`;
     $('round').textContent = `回合 ${state.round_no} / 16`;

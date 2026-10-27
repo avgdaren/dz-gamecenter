@@ -1,4 +1,4 @@
-# 给小蓝｜天使讨伐队 PR #16 · 幽月 C 版正式资源与 P2 复验交接
+# 给小蓝｜天使讨伐令 PR #16 · 幽月 C 版正式资源与 P2 复验交接
 
 更新时间：2026-10-27。仓库 `avgdaren/dz-gamecenter`（私有）；PR https://github.com/avgdaren/dz-gamecenter/pull/16 。
 

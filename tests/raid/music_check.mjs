@@ -39,4 +39,24 @@ function setup(saved=false){
   block(false);music.toggle();await flush();check(!music.blocked&&!audios[0].paused,'enable after refusal can retry');
   music.pause();check(audios[0].paused,'pagehide can stop music');
 }
+if(forum) {
+  const {music,audios,document,block}=setup();
+  music.setActive(true,2);check(audios.length===0,'muted phase selection creates no audio');
+  music.toggle();await flush();
+  check(audios[0].src.endsWith('battle-phase2.mp3'),'enable directly in phase two selects second track');
+  const audio=audios[0],count=audio.plays;
+  for(let i=0;i<10;i++)music.setActive(true,2);
+  check(audio.plays===count&&audios.length===1,'same phase polling does not restart');
+  music.setPhase(1);await flush();
+  check(audio.src.endsWith('/battle.mp3')&&audio.currentTime===0&&audios.length===1,'switch reuses one element and resets position');
+  document.hidden=true;music.setPhase(2);await flush();
+  check(audio.paused&&audio.src.endsWith('battle-phase2.mp3'),'hidden switch stores phase without playback');
+  document.hidden=false;music.sync();await flush();check(!audio.paused,'visible resumes selected phase');
+  music.toggle();music.setPhase(1);await flush();check(audio.paused&&!music.on,'phase switch cannot unmute');
+  music.setPhase(2);music.toggle();await flush();check(audio.src.endsWith('battle-phase2.mp3')&&!audio.paused,'re-enable respects phase');
+  music.setActive(false,2);check(audio.paused,'terminal phase two stops');
+  music.setActive(true,1);await flush();check(audio.src.endsWith('/battle.mp3')&&!audio.paused,'new battle restores first track');
+  block(true);music.setPhase(2);await flush();check(music.blocked&&music.on,'second-track refusal is reported');
+  music.toggle();check(audio.paused&&!music.on,'mute stops failed phase playback');
+}
 console.log(JSON.stringify({status:'PASS',checks,audio:'mock HTMLAudio; loop seam and listening need real browser'}));

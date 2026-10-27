@@ -6,7 +6,7 @@
    "adminid": "0",
    "name": "游戏中心",
    "identifier": "gamecenter",
-   "description": "論壇小遊戲平台：用論壇帳號直接玩、日榜／週榜／總榜、每局積分獎勵與週榜獎勵、伺服器重播校驗成績。內建贪食蛇；新遊戲放進 games/ 資料夾即可接入。作者 Carinoasd。 支持五子棋好友约战、房间恢复与服务端判胜。 支持天使讨伐队单人/双人合作挑战，独立保存讨伐记录，不发积分。",
+   "description": "論壇小遊戲平台：用論壇帳號直接玩、日榜／週榜／總榜、每局積分獎勵與週榜獎勵、伺服器重播校驗成績。內建贪食蛇；新遊戲放進 games/ 資料夾即可接入。作者 Carinoasd。 支持五子棋好友约战、房间恢复与服务端判胜。 支持天使讨伐令单人/双人合作挑战，独立保存讨伐记录，不发积分。",
    "datatables": "gamecenter_game,gamecenter_session,gamecenter_play,gamecenter_best,gamecenter_reward,gamecenter_settle,gamecenter_room,gamecenter_room_member,gamecenter_room_action,gamecenter_raid_room,gamecenter_raid_member,gamecenter_raid_action",
    "directory": "gamecenter/",
    "copyright": "游戏中心 gamecenter · (C) 2026 Carinoasd",

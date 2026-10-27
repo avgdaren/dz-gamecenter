@@ -2,7 +2,8 @@
 (() => {
   'use strict';
   class RaidMusic {
-    constructor(change=()=>{},src='source/plugin/gamecenter/games/raid/assets/battle.mp3') {
+    constructor(change=()=>{},src='source/plugin/gamecenter/games/raid/assets/battle.mp3',phase2src='source/plugin/gamecenter/games/raid/assets/battle-phase2.mp3') {
+      this.sources={1:src,2:phase2src}; this.phase=1;
       this.src=src; this.on=false; this.active=false; this.interacted=false; this.audio=null;
       this.blocked=false; this.interrupted=false; this.ticket=0; this.change=change;
       try { this.on=window.localStorage.getItem('gcr_bgm')==='1'; } catch (_) { /* Optional preference. */ }
@@ -12,7 +13,16 @@
     }
     otherMedia() { return [...(document.querySelectorAll?.('audio,video')||[])].some(media=>media!==this.audio && !media.paused && !media.muted && media.volume>0); }
     eligible() { return this.on && this.active && this.interacted && !this.interrupted && !document.hidden && !this.otherMedia(); }
-    setActive(active) { if(this.active!==active) { this.active=active; this.sync(); } }
+    setActive(active,phase=this.phase) {
+      const next=phase===2?2:1, changed=this.phase!==next, wasActive=this.active;
+      this.active=!!active;
+      if(changed) {
+        this.phase=next; this.src=this.sources[next]; this.pause(); this.blocked=false;
+        if(this.audio) {this.audio.src=this.src; this.audio.currentTime=0;}
+      }
+      if(changed || wasActive!==this.active) this.sync();
+    }
+    setPhase(phase) { this.setActive(this.active,phase); }
     gesture() { this.interacted=true; this.sync(); }
     toggle() {
       this.interacted=true;

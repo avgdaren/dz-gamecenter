@@ -73,7 +73,7 @@ robocopy source\plugin\gamecenter E:\dzx5-env\www\source\plugin\gamecenter /E /C
 - 本轮不发对战积分，不写单机最高分榜；通过本地集成验收后再合入 main。
 
 
-## 天使讨伐队 P2 论坛联机候选
+## 天使讨伐令 P2 论坛联机候选
 
 以 P1 `62bc37536b8078a1584cd72d505d065efc8fe3f5` 为基线，新增论坛单人／双人合作邀请、服务器结算、刷新恢复、幂等和独立结果。插件候选 1.3.0，raid 0.1.0；新增三张独立表，原9表不ALTER，首版不发积分。[Issue #15](https://github.com/avgdaren/dz-gamecenter/issues/15) 对应分支 `feat/issue-15-raid-p2`；以P1分支为PR基线，尚未部署或合并。
 

@@ -14,10 +14,8 @@
 
 raid前端版本0.1.1，使JS/CSS资源查询参数改变；无PHP/规则/DB改动。
 
-## 素材明确限制（未达到最终交付预算）
-本环境不可用，无法本地导出WebP。assets/boss-phase2.png为本次生成原图，约2,544,150字节；现接入的是可查看效果的PNG预览，超过原定250KB。
-必须先在开发机运行：python tests/raid/export-phase-art.py（开发机需Pillow；论坛运行环境不需要）。
-脚本生成768x768、≤250000字节的WebP，更新game.js和体验测试引用，原PNG移到docs/raid/art/，从运行目录移走。脚本本轮未执行；运行后检查输出、哈希、差分，单独提交。不要把大PNG预览当正式上线包。若脚本中途失败，先检查部分输出，不重复盲跑。
+## 素材更新（2026-10-27后续提交）
+本节原有大PNG/待导出说明已被后续候选替代：二阶段重新生成更明显的战损与怒目施法表情，已导出768x768 WebP 159248字节并接入；运行目录移除旧2.54MB PNG，生成源放docs/raid/art/。一次性export-phase-art.py已移除，不再需要小蓝导出。最新双BGM/更名与复验见P2-NAME-MUSIC-HANDOFF.md。
 
 ## 实际验证范围
 - 本轮通过V8解析修改后的game.js/feedback.js。
@@ -27,7 +25,7 @@ raid前端版本0.1.1，使JS/CSS资源查询参数改变；无PHP/规则/DB改�
 - 没有真实浏览器截图/图片解码/声音试听，没有本轮PHP/DB/HTTP完整回归。此前B段通过结果属于2ec2586，不能覆盖本轮新增内容。
 
 ## 小蓝接续验收
-1. 先导出WebP并提交，确认仅运行资源进线上包，生成图/导出工具的开发材料不进包。
+1. 使用已入库WebP，确认仅运行资源进线上包，docs中的生成源图不进包。
 2. node --check games/raid/game.js、feedback.js（路径前加source/plugin/gamecenter）；JSON解析；跑experience-check、feedback_check forum、music_check forum、forum-front-check与原完整回归。先确认新断言数，不把本轮V8结果冒充Node实跑。
 3. Phase1→2、二阶段刷新/恢复、换新房回Phase1；慢网/失败回退；深浅色320/390与桌面、减少动态效果、脸/月饰与血条不被渐隐遮住，无布局跳动。
 4. 耳听A/B对比原候选与本轮：攻击和自身受击能区分，繁忙回合/最后一击都有反馈，手机扬声器与耳机不爆音，不靠总音量盖过BGM。检查静音、页面隐藏、重复回包不重放。

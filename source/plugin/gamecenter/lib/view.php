@@ -268,7 +268,7 @@ class gamecenter_view {
 		$games = gamecenter_core::games(false);
 		$h = '<div class="gc-hero gc-hero-sm"><div><h1>我的游戏纪录</h1><p>'.self::e($_G['username']).'</p></div>'.self::nav('my').'</div>';
 		if(!empty($games['raid']['available']) || (isset($games['raid']) && (int)$_G['adminid'] === 1)) {
-		$h .= '<div class="gc-box"><h4>合作讨伐</h4><p><a href="'.self::BASE.'&amp;mod=play&amp;game=raid">查看天使讨伐队的最近结果与当前房间</a></p></div>';
+		$h .= '<div class="gc-box"><h4>天使讨伐令</h4><p><a href="'.self::BASE.'&amp;mod=play&amp;game=raid">查看天使讨伐令的最近结果与当前房间</a></p></div>';
 		}
 		$h .= '<div class="gc-box"><h4>各游戏最佳</h4><table class="gc-table"><tr><th>游戏</th><th>最佳</th><th>总榜名次</th><th>本周最佳</th><th>本周名次</th></tr>';
 		$any = false;

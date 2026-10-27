@@ -23,6 +23,7 @@ const w={send:async ({data})=>{
 }};
 const workers=[];
 const storage=new Map(),prefs=new Map();
+const audioInstances=[];
 const gameDir=new URL('../../source/plugin/gamecenter/games/raid/',import.meta.url);
 function setup(uid){
 
@@ -30,7 +31,7 @@ function setup(uid){
  const stage=new Element('div');stage.dataset.url='plugin.php?id=gamecenter';stage.dataset.formhash='test-formhash';doc.append(stage);
  let boot;const timers=new Map();let counter=0,inFlight=0,drop=false,offline=false;const calls=[];
  const target=new Element('window');
- class Audio{constructor(){this.paused=true;}play(){this.paused=false;return Promise.resolve();}pause(){this.paused=true;}}
+ class Audio{constructor(){this.paused=true;audioInstances.push(this);}play(){this.paused=false;return Promise.resolve();}pause(){this.paused=true;}}
  const context={document:doc,window:{Audio,confirm:()=>true,localStorage:{getItem:k=>prefs.get(k)??null,setItem:(k,v)=>prefs.set(k,v)},addEventListener:(...a)=>target.addEventListener(...a)},
  GameCenter:{register:(key,fn)=>{check(key==='raid','SDK register raid');boot=fn;}},console,URL,Date,FormData,AbortController,Uint8Array,crypto:webcrypto,location:{href:'http://test.local/forum/plugin.php?id=gamecenter&mod=play&game=raid'},navigator:{clipboard:{writeText:async text=>{if(deniedClipboard)throw Error('denied');copied=text;}}},
  matchMedia:()=>({matches:false}),setTimeout:(fn,ms)=>{const id=++counter;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),setInterval:()=>0,
@@ -62,6 +63,7 @@ check(a.$('room-note').textContent==='邀请已过期，重新建房'&&!a.$('reo
 await a.command('reopen');check(snapshot.status===0&&callsToServer.at(-1).action==='create','restart creates one room');
 snapshot=battle();await a.poll();
 check(a.$('boss-line').textContent==='人数对于我来说，并没有区别','duo opening line');
+await a.command('bgm');check(audioInstances.at(-1).src.endsWith('/battle.mp3'),'game selects phase one music');
 check(a.$('players').textContent.includes('你')&&a.$('players').textContent.includes('队友'),'player language');
 check(a.stage.querySelector('[data-actor="0"] .confirm')&&!a.stage.querySelector('[data-actor="1"] .confirm'),'only own controls');
 const row={round:1,boss:110,hp:[32,32],heals:[0,0],pots:[2,2],defaults:[],actions:[{kind:'attack',target:-1},{kind:'attack',target:-1}],exposed:false,preview:snapshot.preview};
@@ -72,13 +74,15 @@ check(a.$('boss-effects').children.some(n=>n.textContent==='−20'),'boss damage
 snapshot=battle({version:4,round_no:3,boss:60,preview:{phase:2,kind:2,targets:[0],damage:30},history:[row]});await a.poll();
 check(a.stage.querySelector('.arena').classList.contains('phase-two')&&!a.$('phase-banner').hidden,'phase appearance and banner persist');
 check(a.$('boss-line').textContent==='你们这群蝼蚁！','duo second phase line');
-check(a.$('phase-art').src.endsWith('assets/boss-phase2.png'),'second phase asset requested');
+check(audioInstances.at(-1).src.endsWith('/battle-phase2.mp3')&&audioInstances.length===1,'phase transition changes music without overlap');
+check(a.$('phase-art').src.endsWith('assets/boss-phase2.webp'),'second phase asset requested');
 a.$('phase-art').dispatchEvent({type:'load'});
 check(a.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'loaded variation enables crossfade');
 a.$('phase-art').dispatchEvent({type:'error'});
 check(!a.stage.querySelector('.boss-art').classList.contains('phase-art-ready'),'failed variation preserves base portrait');
 snapshot=battle({room:'111111111111',mode:'solo',version:1,hp:[40],pots:[3],left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]});await a.poll();
 check(a.$('boss-line').textContent==='凡人……你确定要独自挑战我吗？','solo opening line');
+check(audioInstances.at(-1).src.endsWith('/battle.mp3'),'new solo restores first track');
 snapshot={...snapshot,status:3,reason:'knockout',version:2};await a.poll();
 check(a.$('boss-line').textContent==='胜败乃兵家常事，少侠请重新来过','requested defeat quote');
 failNetwork=true;await a.poll();check(!a.$('connection').hidden&&a.$('connection').textContent.includes('连接中断'),'connection failure stays visible');
