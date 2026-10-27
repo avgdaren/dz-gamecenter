@@ -158,7 +158,7 @@ try {
   check(ui.$('message').textContent.startsWith('已跳到本轮截止。') && ui.$('message').textContent.includes('第 2 轮开始'),'deadline jump has operation-specific feedback');
   check(ui.$('logs').textContent.includes('超时默认') && ui.$('boss-hp').textContent==='140 / 150 生命','timeout display preserves accepted intent');
   await command(ui,'offline');
-  check(ui.$('message').textContent.startsWith('已模拟离线 480 秒') && ui.$('message').textContent.includes('本局已结束'),'offline jump has terminal feedback');
+  check(ui.$('message').textContent.startsWith('已模拟离线至本局回合上限') && ui.$('message').textContent.includes('本局已结束'),'offline jump has terminal feedback');
   check(ui.$('result-title').textContent==='挑战结束' && ui.$('result-text').textContent.includes('16 回合'),'long offline shown as limit loss');
   check(ui.$('boss-line').textContent==='别急着认输。记住这轮月光，再来一次。','loss quote retained');
   await command(ui,'solo');

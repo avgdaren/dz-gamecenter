@@ -26,6 +26,10 @@ class Rules:
     solo_boss_hp: int = 120
     heal: int = HEAL
     round_limit: int = ROUND_LIMIT
+    duo_round_limit: int | None = None
+
+    def limit(self, players):
+        return self.duo_round_limit if players == 2 and self.duo_round_limit is not None else self.round_limit
 
     def boss_max_hp(self, players):
         assert players in (1, 2)
@@ -34,7 +38,8 @@ class Rules:
 
 # 保留导入名以兼容既有复核脚本；当前默认值是已确定的 P1 基线。
 CANDIDATE = Rules()
-CURRENT = replace(CANDIDATE, version='raid-v2-solo110-p4-duo150', solo_boss_hp=110, solo_potions=4, boss_hp=150)
+V2 = replace(CANDIDATE, version='raid-v2-solo110-p4-duo150', solo_boss_hp=110, solo_potions=4, boss_hp=150)
+CURRENT = replace(V2, version='raid-v3-solo110-p4-duo150-r18', round_limit=18, duo_round_limit=16)
 PREVIOUS = replace(CANDIDATE, version='raid-v1-p1-solo3', solo_boss_hp=BOSS_HP)
 BASELINE = replace(PREVIOUS, version='raid-v1-baseline', solo_potions=2)
 
@@ -71,7 +76,7 @@ def intent(state, round_no, rules=CANDIDATE):
 def resolve(state, actions, round_no, rules=CANDIDATE):
     """动作为 (A/G/H, target_slot)；攻击 target=-1；倒地者无动作。"""
     assert len(actions) == len(state.hp)
-    assert 1 <= round_no <= rules.round_limit and state.boss > 0 and any(state.hp)
+    assert 1 <= round_no <= rules.limit(len(state.hp)) and state.boss > 0 and any(state.hp)
     preview = intent(state, round_no, rules)
     hp, pots = list(state.hp), list(state.pots)
     wards = set()
@@ -127,7 +132,7 @@ def play(players, route, rules=CANDIDATE):
                       "exposed": state.exposed})
         if state.boss == 0 or not any(state.hp):
             break
-    result = "win" if state.boss == 0 else ("loss" if not any(state.hp) or len(trace) == rules.round_limit else "active")
+    result = "win" if state.boss == 0 else ("loss" if not any(state.hp) or len(trace) >= rules.limit(players) else "active")
     return {"result": result, "rounds": len(trace), "hp": state.hp,
             "boss": state.boss, "pots": state.pots, "trace": trace}
 
@@ -142,7 +147,7 @@ def enumerate_solo(rules=CANDIDATE):
     wins = 0
     first_round = None
     surviving_examples = []
-    for round_no in range(1, rules.round_limit + 1):
+    for round_no in range(1, rules.limit(1) + 1):
         next_states = {}
         for state, (count, path) in states.items():
             for code in "AGH":
@@ -166,7 +171,7 @@ def heuristic(rules, heal_threshold=20):
     """审阅中所测策略：重击先守护，非回气轮低血恢复，其余攻击。"""
     state = initial(1, rules)
     route = []
-    for round_no in range(1, rules.round_limit + 1):
+    for round_no in range(1, rules.limit(1) + 1):
         kind = (round_no - 1) % 4
         code = 'G' if kind == 2 else ('H' if kind != 3 and state.hp[0] <= heal_threshold and state.pots[0] > 0 else 'A')
         row = solo_row(code)
@@ -201,7 +206,17 @@ def main():
     parser.add_argument('--games', type=int, default=2000, help='每组每模式随机策略局数，默认2000')
     parser.add_argument('--seed', type=int, default=20261027, help='复现随机策略种子')
     parser.add_argument('--format', choices=('json', 'table', 'both'), default='both', help='grid输出；both的JSON走stdout，表走stderr')
+    parser.add_argument('--round-limit-comparison', action='store_true', help='v3单人18/双人16：A/B/C偏离和失误模型对比')
     args = parser.parse_args()
+    if args.round_limit_comparison:
+        if args.grid or args.trace or args.write_reference:parser.error('--round-limit-comparison cannot combine with --grid/--trace/--write-reference')
+        if args.games<1:parser.error('--games must be positive')
+        import sys
+        from balance_round_limit import compare,table
+        report=compare(args.games,args.seed)
+        if args.format!='table':print(json.dumps(report,ensure_ascii=False,indent=2))
+        if args.format!='json':print(table(report),file=sys.stderr if args.format=='both' else sys.stdout,end='')
+        return
     if args.grid:
         if args.trace or args.write_reference:
             parser.error('--grid cannot be combined with --trace/--write-reference; production fixture remains unchanged')

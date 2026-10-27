@@ -13,7 +13,7 @@ def reference(players,rules):
         if witness is None:return []
         return [((code,-1 if code=='A' else 0),) for code in witness['route']]
     state=initial(2,rules);rows=[]
-    for n in range(1,rules.round_limit+1):
+    for n in range(1,rules.limit(players)+1):
         row=choose(state,n,rules,'heuristic',None);rows.append(row);state=resolve(state,row,n,rules)
         if outcome(state,n,rules)!='active':break
     return rows
@@ -21,7 +21,7 @@ def reference(players,rules):
 
 def deviated(players,rules,rows,changes):
     state=initial(players,rules)
-    for n in range(1,rules.round_limit+1):
+    for n in range(1,rules.limit(players)+1):
         base=rows[n-1] if n<=len(rows) else choose(state,n,rules,'heuristic',None)
         actions=[]
         for actor,hp in enumerate(state.hp):
@@ -51,7 +51,7 @@ def tolerance(players,rules):
                 'legal_rate':round(100*(counts['win']+counts['retreat'])/denominator,6) if denominator else None,
                 'rate':round(100*(counts['win']+counts['retreat'])/sum(counts.values()),6) if sum(counts.values()) else None}
     return {'reference':rows,'decisions':len(slots),'delta1':tally(1),'delta2':tally(2),
-            'definition':'fixed suffix through actual winning reference length; adaptive heuristic continuation up to16; invalid inputs separately reported, not classified as combat defeat; rate uses all nominal variants as conservative bound; legal_rate excludes invalid; duo delta2 changes different seats'}
+            'definition':'fixed suffix through actual winning reference length; adaptive heuristic continuation up to the per-mode cap; invalid inputs separately reported, not classified as combat defeat; rate uses all nominal variants as conservative bound; legal_rate excludes invalid; duo delta2 changes different seats'}
 
 
 @lru_cache(maxsize=None)
@@ -61,7 +61,7 @@ def mistakes(players,rules,games,seed):
         rng=random.Random(seed+players*1000003+round(probability*100)*10007);runs=[]
         for _ in range(games):
             state=initial(players,rules)
-            for n in range(1,rules.round_limit+1):
+            for n in range(1,rules.limit(players)+1):
                 normal=choose(state,n,rules,'heuristic',None)
                 row=tuple(normal[i] if hp<=0 or rng.random()<probability else rng.choice(legal_actions(state,i)) for i,hp in enumerate(state.hp))
                 state=resolve(state,row,n,rules)
@@ -112,7 +112,8 @@ def enrich(report,games,seed):
     from dataclasses import asdict
     actual={'solo_boss_hp':CURRENT.solo_boss_hp,'solo_potions':CURRENT.solo_potions,'heal':CURRENT.heal,'duo_boss_hp':CURRENT.boss_hp,'round_limit_rule':'strict_16'}
     report['metric_definition'].update(weights={k:1 for k in chosen['distance_components']},tie_break='fewest baseline changes, then unchanged heal28 per requested lever priority, then stable grid order')
+    report['grid_scope']='Historical strict16 parameter grid; use balance_check.py --round-limit-comparison for v3 solo18/duo16'
     report.update(source_rules=asdict(CURRENT),rules_version_changed=CURRENT.version!=CANDIDATE.version,reference_regenerated=True)
-    report['recommended'].update(applied=actual==report['recommended']['params'],application_scope='repository source only; no deployment or human acceptance')
+    report['recommended'].update(applied=actual==report['recommended']['params'] and CURRENT.limit(1)==16 and CURRENT.limit(2)==16,application_scope='repository source only; no deployment or human acceptance')
     report['source_sha256']['docs/raid/balance_tolerance.py']=__import__('hashlib').sha256(__import__('pathlib').Path(__file__).read_bytes()).hexdigest()
     return report

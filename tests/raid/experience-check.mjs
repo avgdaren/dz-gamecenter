@@ -29,7 +29,7 @@ const w={send:async ({data})=>{
  if(data.action==='create') {
    if(snapshot && snapshot.status<2&&!snapshot.left?.[snapshot.seat])return {ok:0,code:'active',server_ms:now,snapshot};
    const room=(0xABCDEF123456n+BigInt(roomNumber++)).toString(16).toUpperCase();
-   snapshot=data.mode==='solo'?battle({room,mode:'solo',hp:[40],pots:[3],left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]}):{...waiting(),room};
+   snapshot=data.mode==='solo'?battle({room,mode:'solo',hp:[40],pots:[4],round_limit:18,rules_version:'raid-v3-solo110-p4-duo150-r18',left:[false],leaving:[false],intents:[null],players:[{name:'甲'}]}):{...waiting(),room};
    createCount++;
  }
  if(data.request_id)receipts.set(data.request_id,true);
@@ -167,10 +167,17 @@ check(snapshot.status===0&&snapshot.room!==oldDuo,'settled departure serially cr
 snapshot=null;const cta=setup(901,'&fresh=1');await cta.settled();
 check(!cta.$('empty').hidden&&!cta.$('empty-start').disabled&&cta.$('empty-start').textContent==='开始游戏','idle has an enabled native primary start button');
 start=callsToServer.length;cta.$('empty-start').click();cta.$('empty-start').click();await cta.settled();
-check(callsToServer.slice(start).filter(x=>x.action==='create').length===1&&snapshot.mode==='solo'&&!cta.$('battle').hidden,'one CTA click starts phase one; rapid repeats cannot duplicate create');cta.close();
+check(callsToServer.slice(start).filter(x=>x.action==='create').length===1&&snapshot.mode==='solo'&&!cta.$('battle').hidden&&cta.$('round').textContent.includes('/ 18'),'one CTA click starts phase one; rapid repeats cannot duplicate create');cta.close();
 const currentCTA=snapshot.room,resumeCTA=setup(902,'&fresh=1');await resumeCTA.settled();start=callsToServer.length;
 check(resumeCTA.$('empty-start').textContent==='继续讨伐'&&resumeCTA.$('empty-duo').textContent==='放弃并开新局','active entry CTA describes continuing and explicit abandonment');
 await resumeCTA.command('empty-start');check(snapshot.room===currentCTA&&!resumeCTA.$('battle').hidden&&!callsToServer.slice(start).some(x=>['retreat','create'].includes(x.action)),'continue CTA restores the room without abandoning or creating');resumeCTA.close();
 snapshot={...snapshot,status:3,reason:'knockout',version:snapshot.version+1};const coopCTA=setup(903,'&fresh=1');await coopCTA.settled();await coopCTA.command('empty-duo');check(snapshot.mode==='duo'&&snapshot.status===0,'secondary idle CTA reuses duo room creation');coopCTA.close();
 const guestCTA=setup(0,'&fresh=1');check(guestCTA.$('empty-start').disabled&&guestCTA.$('empty-duo').disabled,'guest CTAs are both disabled');guestCTA.close();
+for(const [uid,mode,version,limit] of [[920,'solo','raid-v2-solo110-p4-duo150',16],[921,'solo','raid-v3-solo110-p4-duo150-r18',18],[922,'duo','raid-v3-solo110-p4-duo150-r18',16]]){
+ snapshot=battle({mode,rules_version:version,round_limit:limit});const limits=setup(uid);await limits.settled();
+ check(limits.$('round').textContent.endsWith('/ '+limit),'round label follows room cap '+version+'/'+mode);
+ check(limits.$('round-rules').textContent.includes('本局最多 '+limit+' 轮'),'rule text follows room cap');
+ snapshot={...snapshot,status:3,reason:'round_limit',version:snapshot.version+1};await limits.poll();
+ check(limits.$('result-text').textContent.startsWith(limit+' 回合已用尽'),'terminal text follows room cap');limits.close();
+}
 console.log(JSON.stringify({status:'PASS',checks,scope:'scripted transport + MiniDOM; not browser or PHP'}));

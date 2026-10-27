@@ -1,14 +1,15 @@
 {
   "format_version": 1,
-  "rules_status": "v2 selected by explicit deviation/error model; human solo trial pending, duo human trial excluded",
+  "rules_status": "v3 solo18/duo16 requested by user; caps stored per room; A/B/C comparison reports no full model match; human solo trial pending",
   "rules": {
-    "version": "raid-v2-solo110-p4-duo150",
+    "version": "raid-v3-solo110-p4-duo150-r18",
     "solo_potions": 4,
     "duo_potions": 2,
     "boss_hp": 150,
     "solo_boss_hp": 110,
     "heal": 28,
-    "round_limit": 16
+    "round_limit": 18,
+    "duo_round_limit": 16
   },
   "common": {
     "player_hp": 40,
@@ -36,7 +37,8 @@
         "pots": [
           4
         ],
-        "exposed": false
+        "exposed": false,
+        "round_limit": 18
       },
       "expected": {
         "result": "win",
@@ -407,7 +409,8 @@
         "pots": [
           4
         ],
-        "exposed": false
+        "exposed": false,
+        "round_limit": 18
       },
       "expected": {
         "result": "win",
@@ -753,7 +756,8 @@
         "pots": [
           4
         ],
-        "exposed": false
+        "exposed": false,
+        "round_limit": 18
       },
       "expected": {
         "result": "win",
@@ -1126,7 +1130,8 @@
           2,
           2
         ],
-        "exposed": false
+        "exposed": false,
+        "round_limit": 16
       },
       "expected": {
         "result": "win",
@@ -1403,7 +1408,8 @@
           2,
           2
         ],
-        "exposed": false
+        "exposed": false,
+        "round_limit": 16
       },
       "expected": {
         "result": "win",
@@ -1680,7 +1686,8 @@
           2,
           2
         ],
-        "exposed": false
+        "exposed": false,
+        "round_limit": 16
       },
       "expected": {
         "result": "win",

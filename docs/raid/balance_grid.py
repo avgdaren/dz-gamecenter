@@ -27,7 +27,7 @@ def outcome(state, round_no, rules):
         return 'win'
     if not any(state.hp):
         return 'loss'
-    if round_no == rules.round_limit:
+    if round_no >= rules.limit(len(state.hp)):
         if rules.round_limit_rule == 'retreat_below_20pct' and state.boss * 5 < rules.boss_max_hp(len(state.hp)):
             return 'retreat'
         return 'loss'
@@ -61,7 +61,7 @@ def choose(state, round_no, rules, policy, rng):
 
 def run(players, rules, policy, rng=None):
     state = initial(players, rules)
-    for round_no in range(1, rules.round_limit + 1):
+    for round_no in range(1, rules.limit(players) + 1):
         actions = choose(state, round_no, rules, policy, rng)
         state = resolve(state, actions, round_no, rules)
         assert state is not None, 'policy emitted illegal action'
@@ -107,7 +107,7 @@ def evaluate(players, rules, games, seed):
         wins = 0
         best = None
         max_states = 1
-        for round_no in range(1, rules.round_limit + 1):
+        for round_no in range(1, rules.limit(1) + 1):
             following = {}
             for state, (count, path) in states.items():
                 for action in legal_actions(state, 0):

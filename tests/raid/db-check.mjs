@@ -5,6 +5,7 @@ import {createInterface} from 'node:readline';
 import {randomBytes} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
+const fixture=JSON.parse(readFileSync(new URL('../../docs/raid/P1-REFERENCE.json',import.meta.url)));
 const workerFile=fileURLToPath(new URL('./db-worker.php',import.meta.url));
 function worker(){
  const p=spawn(process.env.PHP_BIN||'php',[workerFile],{env:process.env,stdio:['pipe','pipe','inherit']}); const queue=[];
@@ -43,7 +44,7 @@ try {
  let both=await Promise.all([act(a,1,room,1),act(b,partner,room,1)]);
  check(both.every(x=>x.ok),'both confirm same round with stale shared version');
  let s=(await call(a,1,{action:'state',room})).snapshot;
- check(s.round_no===2&&s.history.length===1&&s.boss===110,'round exactly once');
+ check(s.round_no===2&&s.history.length===1&&s.boss===fixture.cases.duo_cover.expected.trace[0].boss,'round exactly once');
  const req=id();const move={action:'act',room,round:2,kind:'heal',target:0,request_id:req};
  const replay=await Promise.all([call(a,1,move),call(b,1,move)]);
  check(replay.every(x=>x.ok)&&replay.some(x=>x.replayed),'lost response same action ID');
@@ -54,7 +55,7 @@ try {
  check((await call(a,1,move)).replayed===1,'old acknowledged action remains replayable');
  check((await call(a,partner,{action:'state',room})).snapshot.hp.join(',')===s.hp.join(','),'member sees same authority');
  // Full reference fixtures exercise service input -> DB -> pure rules, not just end results.
- const fixture=JSON.parse(readFileSync(new URL('../../docs/raid/P1-REFERENCE.json',import.meta.url)));
+
  const cases=Array.isArray(fixture.cases)?fixture.cases:Object.values(fixture.cases);
  let uid=100;
  for(const item of cases){

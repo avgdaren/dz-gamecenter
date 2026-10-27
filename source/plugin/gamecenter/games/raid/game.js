@@ -27,7 +27,7 @@
 
 <section class="journal"><h3>战斗记录 <span data-gcr="log-count"></span></h3><ol data-gcr="logs" reversed></ol></section>
 </div>
-<details class="rules"><summary>第一次挑战？展开规则</summary><div><p data-gcr="rule-basics">每人生命 40。攻击造成 10 伤害；恢复为自己或队友治疗 28，最多回到 40。单人可恢复 4 次，双人各 2 次。</p><p>守护可以保护自己或队友：对目标本轮的伤害降至五分之一并向上取整，不叠加。守护队友时，你自己不会同时受保护。</p><p>首领依次使用月刃、全体星潮、重击、回气。成功守护重击并存活，下一轮回气时攻击造成 20 伤害。半血后的预告更强。</p><p>每轮确认后不能修改；你和仍在战斗的队友都确认即结算，否则等待 30 秒。玩家先于首领行动，第 16 轮结束时首领仍存活则失败。双人有人倒地后，另一人可以继续，但不会降低首领数值。</p><p>尝试自己找出打法；失败后可从记录中查看原因，再挑战一次。</p></div></details>
+<details class="rules"><summary>第一次挑战？展开规则</summary><div><p data-gcr="rule-basics">每人生命 40。攻击造成 10 伤害；恢复为自己或队友治疗 28，最多回到 40。单人可恢复 4 次，双人各 2 次。</p><p>守护可以保护自己或队友：对目标本轮的伤害降至五分之一并向上取整，不叠加。守护队友时，你自己不会同时受保护。</p><p>首领依次使用月刃、全体星潮、重击、回气。成功守护重击并存活，下一轮回气时攻击造成 20 伤害。半血后的预告更强。</p><p data-gcr="round-rules">每轮确认后不能修改；你和仍在战斗的队友都确认即结算，否则等待 30 秒。玩家先于首领行动，单人最多 18 轮，双人最多 16 轮；上限轮结束时首领仍存活则失败。双人有人倒地后，另一人可以继续，但不会降低首领数值。</p><p>尝试自己找出打法；失败后可从记录中查看原因，再挑战一次。</p></div></details>
 <details class="recent"><summary>最近十次讨伐</summary><ul data-gcr="recent-list"></ul><button data-gcr="history-refresh">刷新记录</button></details><footer>BGM：nene — Boss Battle #9 [Metal] / Boss Battle 10 [Metal]（二阶段），CC0，本地版本。</footer>
 </div>`; stage.append(root);
   const uid=Number(api.uid)||0, storageKey='gcr-pending-'+uid;
@@ -299,7 +299,8 @@
     if(oldFocus) root.querySelector(`[data-focus="${oldFocus}"]`)?.focus({preventScroll:true});
   }
   function render() {
-    $('rule-basics').textContent='每人生命 40。攻击造成 10 伤害；恢复为自己或队友治疗 28，最多回到 40。单人可恢复 '+(state?.rules_version==='raid-v1-p1-balanced'?3:4)+' 次，双人各 2 次。';
+    $('rule-basics').textContent='每人生命 40。攻击造成 10 伤害；恢复为自己或队友治疗 28，最多回到 40。单人可恢复 '+(!freshLanding&&state?.rules_version==='raid-v1-p1-balanced'?3:4)+' 次，双人各 2 次。';
+    $('round-rules').textContent=(!freshLanding&&state?`本局最多 ${state.round_limit??16} 轮。`:'单人最多 18 轮，双人最多 16 轮。')+'每轮确认后不能修改；玩家先于首领行动，上限轮结束后首领仍存活则失败。双人有人倒地后，另一人可以继续，但不会降低首领数值。';
     const occupied=state&&state.status<2&&state.seat>=0&&!state.left[state.seat];
     $('resume-prompt').hidden=!freshLanding||!occupied;
     if(freshLanding){
@@ -327,7 +328,7 @@
     const p = state.preview;
     face.update(p.phase,state.room,state.status===1);
     $('phase').textContent = `第 ${p.phase === 1 ? '一' : '二'} 阶段`;
-    $('round').textContent = `回合 ${state.round_no} / 16`;
+    $('round').textContent = `回合 ${state.round_no} / ${state.round_limit??16}`;
     $('mode').textContent = state.mode === 'solo' ? '单人挑战' : '双人 · 合作讨伐';
     $('boss-hp').textContent = `${state.boss} / ${state.boss_max_hp} 生命`;
     $('boss-bar').max = state.boss_max_hp; $('boss-bar').value = state.boss;
@@ -344,7 +345,7 @@
       state.mode === 'solo' ? '你惹怒我了！' : '你们这群蝼蚁！';
     $('result').hidden = state.status === 1;
     if(state.status !== 1) {
-      const reasons = {defeated:`${bossName}已被击败。`, knockout:'所有留队成员倒地。', round_limit:'16 回合已用尽，幽月仍然存活。', retreated:'已无成员继续挑战。'};
+      const reasons = {defeated:`${bossName}已被击败。`, knockout:'所有留队成员倒地。', round_limit:`${state.round_limit??16} 回合已用尽，幽月仍然存活。`, retreated:'已无成员继续挑战。'};
       $('result-title').textContent = state.status === 2 ? '讨伐成功' : '挑战结束';
       const alive = state.hp.filter((v,i) => v > 0 && !state.left[i]).length;
       $('result-text').textContent = `${reasons[state.reason] || ''} 共 ${state.history.length} 回合，生还 ${alive} 人。`;

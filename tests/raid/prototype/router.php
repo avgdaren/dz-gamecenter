@@ -93,9 +93,9 @@ try {
             if(!is_int($q['actor'] ?? null)) { reply(false,'input'); }
             $_SESSION['battle']=R::retreat($s,$q['actor'],$now);
         } elseif($op === 'advance') {
-            if(!in_array($q['ms'] ?? null,[30000,480000],true)) { reply(false,'input'); }
+            if(!in_array($q['ms'] ?? null,[30000,480000,540000],true)) { reply(false,'input'); }
             // A local simulation clock only; production P2 will never accept a client time.
-            $jump=$q['ms'] === 30000 ? max(0,$s['deadline_ms']-$now) : 480000;
+            $jump=$q['ms'] === 30000 ? max(0,$s['deadline_ms']-$now) : $q['ms'];
             $_SESSION['offset']+=$jump; $now+=$jump;
             $_SESSION['battle']=R::advance_due($s,$now);
         } else { reply(false,'op'); }

@@ -61,6 +61,7 @@ final class gamecenter_raid {
         $s=json_decode($r['state_json'],true,32,JSON_THROW_ON_ERROR);
         $result=json_decode($r['result_json'],true,16,JSON_THROW_ON_ERROR);
         if(!is_array($s) || !is_array($result)) { throw new RuntimeException('raid json shape'); }
+        $s=gamecenter_raid_rules::normalize($s);
         if(in_array($s['status'] ?? null,[self::WAITING,self::CANCELLED],true)) {
             // Waiting/cancelled rooms have never started. Validate their combat fields against the fixed initial state.
             $base=gamecenter_raid_rules::initial('duo',(int)$r['created_ms'],(string)$r['rules_version']);
@@ -203,7 +204,7 @@ final class gamecenter_raid {
             $params['mode']=$data['mode'];
         }
         if($action === 'act') {
-            $round=self::integer($data['round'] ?? null,1,16); $target=self::integer($data['target'] ?? null,-1,1);
+            $round=self::integer($data['round'] ?? null,1,18); $target=self::integer($data['target'] ?? null,-1,1);
             if($round === null || $target === null || !in_array($data['kind'] ?? '',['attack','guard','heal'],true)) { return $this->error('input'); }
             $params+=['round'=>$round,'kind'=>$data['kind'],'target'=>$target];
         }
