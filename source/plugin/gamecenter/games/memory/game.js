@@ -5,11 +5,12 @@
 (function () {
   'use strict';
 
-  var RULE = 1;
-  var MAX_ATTEMPTS = 256;
+  var RULE = 2;
+  var MAX_ATTEMPTS = 512;
   var REVEAL_MS = 700;
 
-  /* 牌面素材：8 位角色，320×320 WebP，白底，位于 games/memory/assets/ */
+  /* 牌面素材：17 位角色，320×320 WebP，白底，位于 games/memory/assets/
+     数组顺序即取用顺序：自由模式取前 8 位，每日挑战取前 15 位 */
   var ART = 'source/plugin/gamecenter/games/memory/assets/';
   var symbols = [
     ['claude', 'claude'],
@@ -19,7 +20,16 @@
     ['214', 'chr214'],
     ['春日野穹', 'sora'],
     ['远坂凛', 'rin'],
-    ['亚丝娜', 'asuna']
+    ['亚丝娜', 'asuna'],
+    ['三月七', 'march7'],
+    ['加藤惠', 'kato'],
+    ['千早爱音', 'anon'],
+    ['和泉纱雾', 'sagiri'],
+    ['奥黛塔', 'odette'],
+    ['山田杏奈', 'anna'],
+    ['木之本樱', 'sakura'],
+    ['牧濑红莉栖', 'kurisu'],
+    ['长崎素世', 'soyo']
   ];
 
   /* ---------- 音效：Web Audio 实时合成，不依赖任何音频文件 ---------- */
@@ -82,11 +92,11 @@
   }
 
   /** 与 PHP verifier 完全一致的 Fisher–Yates（Park–Miller）；不挂到全局。 */
-  function shuffle(seed) {
+  function shuffle(seed, pairs) {
     var cards = [];
-    for (var n = 0; n < 8; n++) { cards.push(n, n); }
+    for (var n = 0; n < pairs; n++) { cards.push(n, n); }
     var s = seed;
-    for (var i = 15; i > 0; i--) {
+    for (var i = pairs * 2 - 1; i > 0; i--) {
       s = s * 48271 % 2147483647;
       var j = s % (i + 1);
       var tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
@@ -95,15 +105,36 @@
   }
 
   GameCenter.register('memory', function (stage, api) {
+    /* 模式由平台决定：自由模式 8 对（4×4），每日挑战 15 对（6×5） */
+    var DAILY = api.mode === 'daily';
+    var PAIRS = DAILY ? 15 : 8;
+    /* 15 对在窄屏排 6 列会把牌压得太小，改 5 列（6 行）换取更大的单卡。
+       注意：Discuz 手机版模板没有 viewport meta，手机浏览器按 980px 布局渲染，
+       所以不能只看 window.innerWidth，要取两者较小值。 */
+    var VIEW_W = Math.min(window.innerWidth || 0, document.documentElement.clientWidth || 0) || 980;
+    var NARROW = VIEW_W < 1000;
+    var COLS = PAIRS > 8 ? (NARROW ? 5 : 6) : 4;
+    var ROWS = Math.ceil(PAIRS * 2 / COLS);
     var root = document.createElement('div');
     root.className = 'gcm';
+    root.setAttribute('data-mode', DAILY ? 'daily' : 'free');
+    root.style.setProperty('--gcm-cols', COLS);
+    /* 平台的每日挑战横幅是通用文案（写着「同一张地图」），这里换成牌桌的说法 */
+    if (DAILY) {
+      var banner = document.querySelector('.gc-banner-daily');
+      if (banner) {
+        banner.innerHTML = banner.innerHTML
+          .replace('同一张地图', '同一副牌')
+          .replace('不发每局奖励', '不发每局积分');
+      }
+    }
     root.innerHTML =
-      '<div class="gcm-intro"><span>MEMORY · 4 × 4</span><p>翻开两张，找到相同的图案。</p></div>' +
+      '<div class="gcm-intro"><span>MEMORY · ' + COLS + ' × ' + ROWS + (DAILY ? ' · 每日挑战' : '') + '</span><p>翻开两张，找到相同的图案。</p></div>' +
       '<div class="gcm-stats">' +
       '<div><span>尝试次数</span><b data-stat="attempts">0</b></div>' +
-      '<div><span>已配对</span><b><span data-stat="pairs">0</span><small> / 8</small></b></div>' +
+      '<div><span>已配对</span><b><span data-stat="pairs">0</span><small> / ' + PAIRS + '</small></b></div>' +
       '<div><span>个人最佳</span><b data-stat="best">—</b></div></div>' +
-      '<div class="gcm-board"><div class="gcm-grid" role="group" aria-label="4 行 4 列翻牌区"></div>' +
+      '<div class="gcm-board"><div class="gcm-grid" role="group" aria-label="' + ROWS + ' 行 ' + COLS + ' 列翻牌区"></div>' +
       '<div class="gcm-cover" hidden><b>游戏已暂停</b><span>牌局和翻牌进度都为你保留。</span>' +
       '<button type="button" class="gc-btn" data-action="resume">继续游戏</button></div></div>' +
       '<p class="gcm-status" role="status" aria-live="polite" aria-atomic="true"></p>' +
@@ -138,7 +169,7 @@
     var deadline = 0;
     var remaining = REVEAL_MS;
     var submitted = false;
-    var message = '准备好了吗？配齐 8 对图案，看看你需要几次尝试。';
+    var message = '准备好了吗？配齐 ' + PAIRS + ' 对图案，看看你需要几次尝试。';
     var back = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
       '<g transform="translate(0,3)">' +
       '<path d="M17 10h14l-7 10 7 10H17l7-10z"/>' +
@@ -146,7 +177,7 @@
       '<path d="M22 13h4l-2 4z" fill="currentColor" stroke="none" opacity=".55"/>' +
       '</g></svg>';
 
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < PAIRS * 2; i++) {
       var button = document.createElement('button');
       button.type = 'button';
       button.className = 'gcm-card';
@@ -190,14 +221,17 @@
       root.setAttribute('data-phase', phase);
       attemptsEl.textContent = attempts;
       root.querySelector('[data-stat="pairs"]').textContent = pairs;
-      root.querySelector('[data-stat="best"]').textContent = api.best == null ? '—' : api.best;
+      root.querySelector('[data-stat="best"]').textContent = (function () {
+        var v = DAILY ? api.dailyBest : api.best;
+        return v == null ? '—' : v;
+      })();
       cover.hidden = !(active() && paused());
       pauseButton.disabled = !active() || hiddenPause;
       pauseButton.textContent = manualPause ? '继续' : '暂停';
       startButton.disabled = active() || phase === 'starting' || phase === 'submitting';
       startButton.textContent = phase === 'starting' ? '正在开局…' : (phase === 'submitting' ? '正在提交…' : (info ? '再玩一局' : '开始游戏'));
       status.textContent = active() && paused() ? '已暂停，回来后继续配对。' : message;
-      for (var k = 0; k < 16; k++) {
+      for (var k = 0; k < PAIRS * 2; k++) {
         var open = !!matched[k] || k === first || k === second;
         var disabled = phase !== 'playing' || paused() || !!matched[k] || k === first;
         buttons[k].classList.toggle('is-open', open);
@@ -227,7 +261,7 @@
         first = second = -1;
         if (attempts >= MAX_ATTEMPTS) {
           phase = 'limit';
-          message = '已达到 256 次尝试，本局未完成，不记成绩。休息一下，再来一局吧。';
+          message = '已达到 ' + MAX_ATTEMPTS + ' 次尝试，本局未完成，不记成绩。休息一下，再来一局吧。';
         } else {
           phase = 'playing';
           message = '记住这两张的位置，再试一对。';
@@ -244,7 +278,7 @@
       render();
       var promise;
       try {
-        promise = api.submit(info, { v: RULE, score: attempts, moves: moves.join(',') }, '配对完成');
+        promise = api.submit(info, { v: RULE, score: attempts, moves: moves.join(','), pairs: PAIRS }, '配对完成');
       } catch (e) {
         promise = Promise.reject(e);
       }
@@ -290,14 +324,14 @@
           Sfx.match();
           bumpStat(attemptsEl);
           bumpStat(root.querySelector('[data-stat="pairs"]'));
-          if (pairs === 8) {
+          if (pairs === PAIRS) {
             render();
             finish();
             return;
           }
           if (attempts >= MAX_ATTEMPTS) {
             phase = 'limit';
-            message = '已达到 256 次尝试，本局未完成，不记成绩。休息一下，再来一局吧。';
+            message = '已达到 ' + MAX_ATTEMPTS + ' 次尝试，本局未完成，不记成绩。休息一下，再来一局吧。';
           } else {
             message = '配对成功！继续寻找下一对。';
           }
@@ -341,14 +375,14 @@
         }
         stopTimer();
         info = result;
-        cards = shuffle(result.seed);
+        cards = shuffle(result.seed, PAIRS);
         matched = cards.map(function () { return false; });
         moves = [];
         attempts = pairs = 0;
         first = second = -1;
         submitted = manualPause = false;
         hiddenPause = document.hidden;
-        for (var k = 0; k < 16; k++) {
+        for (var k = 0; k < PAIRS * 2; k++) {
           faces[k].innerHTML = art(symbols[cards[k]][1], symbols[cards[k]][0]);
           buttons[k].setAttribute('data-symbol', cards[k]);
           buttons[k].classList.remove('is-wrong', 'is-matched', 'is-open');
