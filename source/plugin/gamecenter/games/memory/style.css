@@ -1,8 +1,8 @@
 /* memory 视觉与动效层。作者：小蓝（玩法与校验沿用 GPT/Codex，平台 Carinoasd (C) 2026）。仅作用于 .gcm 容器。 */
 
 .gcm {
-  max-width: 460px;
   width: 100%;
+  max-width: 920px;
   margin: 0 auto;
   color: var(--gc-ink, #1d2733);
   font-size: 14px;
@@ -50,7 +50,7 @@
 .gcm .gcm-stats small { font-size: 13px; font-weight: 400; color: #93a4b6; }
 
 /* ---------- 棋盘 ---------- */
-.gcm .gcm-board { position: relative; width: 100%; max-width: 396px; margin: 0 auto; }
+.gcm .gcm-board { position: relative; width: 100%; max-width: 760px; margin: 0 auto; }
 .gcm .gcm-grid { display: grid; grid-template-columns: repeat(var(--gcm-cols, 4), minmax(0, 1fr)); gap: 9px; }
 
 .gcm .gcm-card {
@@ -267,4 +267,18 @@
   .gcm .gcm-card.is-wrong .gcm-inner,
   .gcm .gcm-stats b.is-bump { animation: none !important; }
   .gcm .gcm-burst { display: none; }
+}
+
+/* 宽屏：给棋盘更多空间（每日挑战 6 列时单卡才不至于过小） */
+@media (min-width: 900px) {
+  .gcm .gcm-board { max-width: 760px; }
+}
+/* 窄屏：每日挑战 15 对改 5 列，单卡更大；牌桌高度换取可读性 */
+@media (max-width: 640px) {
+  .gcm[data-mode="daily"] .gcm-grid { gap: 6px; }
+}
+
+/* 窄屏（含 Discuz 手机版 980 布局）：棋盘吃满容器，不设 760 上限 */
+@media (max-width: 980px) {
+  .gcm .gcm-board { max-width: 100%; }
 }

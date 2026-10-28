@@ -108,7 +108,12 @@
     /* 模式由平台决定：自由模式 8 对（4×4），每日挑战 15 对（6×5） */
     var DAILY = api.mode === 'daily';
     var PAIRS = DAILY ? 15 : 8;
-    var COLS = PAIRS > 8 ? 6 : 4;
+    /* 15 对在窄屏排 6 列会把牌压得太小，改 5 列（6 行）换取更大的单卡。
+       注意：Discuz 手机版模板没有 viewport meta，手机浏览器按 980px 布局渲染，
+       所以不能只看 window.innerWidth，要取两者较小值。 */
+    var VIEW_W = Math.min(window.innerWidth || 0, document.documentElement.clientWidth || 0) || 980;
+    var NARROW = VIEW_W < 1000;
+    var COLS = PAIRS > 8 ? (NARROW ? 5 : 6) : 4;
     var ROWS = Math.ceil(PAIRS * 2 / COLS);
     var root = document.createElement('div');
     root.className = 'gcm';
