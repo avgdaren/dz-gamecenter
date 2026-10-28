@@ -51,7 +51,7 @@
 
 /* ---------- 棋盘 ---------- */
 .gcm .gcm-board { position: relative; width: 100%; max-width: 396px; margin: 0 auto; }
-.gcm .gcm-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.gcm .gcm-grid { display: grid; grid-template-columns: repeat(var(--gcm-cols, 4), minmax(0, 1fr)); gap: 9px; }
 
 .gcm .gcm-card {
   position: relative;
