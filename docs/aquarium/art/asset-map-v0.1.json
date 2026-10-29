@@ -1,7 +1,7 @@
 {
   "schema": "aquarium-art-registry-v1",
   "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
-  "status": "sample-styles-approved-production-exports-pending",
+  "status": "content-art-complete-runtime-exports-ready",
   "production_ready": false,
   "asset_root": "source/plugin/gamecenter/games/aquarium/assets/",
   "decor_slot_count": null,
@@ -845,5 +845,12 @@
       "trinket_star_lamp": "expensive"
     },
     "exact_coin_prices_approved": false
+  },
+  "runtime_exports_ready": true,
+  "integration_review_pending": true,
+  "runtime_manifest": "source/plugin/gamecenter/games/aquarium/assets/manifest.json",
+  "batch_review": {
+    "new_art_count": 34,
+    "status": "generated-and-technically-checked-not-individually-user-approved"
   }
 }

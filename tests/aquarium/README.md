@@ -91,3 +91,7 @@ php tests/aquarium/economy_sim.php --seeds=64 --lamp=1200
 ```
 
 候选62检查；独立Python对实际PHP两个水域7200捕获一致（7242检查）。模型两价各6策略×64固定种子，共768路线；每回访验证预算恒等/不负债及终值，输出分位数/代表轨迹。JSON为合成输入的可复现报告，不是生产日志。C候选不改foundation默认配置，不创建/迁移测试档，不提供HTTP拨钟；新内容无DB/实站结果。范围与消费策略见[报告](../../docs/aquarium/ECONOMY-SIM-v0.1.md)及[交接](../../docs/aquarium/CONTENT-HANDOFF-v0.1.md)。
+
+## 内容美术资源检查
+
+`python3 tests/aquarium/assets_check.py`（离线开发依赖Pillow）已通过751项：41项主图、79运行WebP、尺寸/alpha/未裁切边框、ID/编号与候选一致、月门洞口、逐文件SHA/Git blob、原7样稿不变。运行图总2837018字节。此结果不等于真实玩家页/手机/性能验收。复导工具tools/export_aquarium_assets.py仅用于制作，服务器使用现有WebP不需Pillow或ImageMagick。
