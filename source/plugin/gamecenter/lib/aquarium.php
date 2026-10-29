@@ -2,6 +2,7 @@
 /** 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。A阶段服务端存档服务，路由限管理员；不发论坛积分。 */
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 require_once __DIR__.'/aquarium_config.php';
+require_once __DIR__.'/aquarium_configs.php';
 require_once __DIR__.'/aquarium_store.php';
 final class gamecenter_aquarium {
     const CLIENT='aquarium-foundation-1';
@@ -11,12 +12,13 @@ final class gamecenter_aquarium {
     public function __construct($store=null,?callable $clock=null,?array $config=null) {
         $this->db=$store ?? new gamecenter_aquarium_store();
         $this->clock=$clock ?? static fn()=>(int)floor(microtime(true)*1000);
-        $this->c=$config===null ? gamecenter_aquarium_config::load() : gamecenter_aquarium_rules::prepare($config);
+        $this->c=$config===null ? gamecenter_aquarium_configs::active() : gamecenter_aquarium_rules::prepare($config);
     }
     private function result(string $code='',?array $snapshot=null): array {
         $messages=['login'=>'登录论坛账号后才能建立水族馆','permission'=>'当前用户组暂不能操作水族馆','input'=>'参数不正确',
             'client'=>'请刷新页面后重试','uninitialized'=>'尚未建立测试存档','conflict'=>'状态已更新，请查看最新进度后重新选择',
             'target'=>'目标等级或水域已变化','coins'=>'游戏金币不足','condition'=>'尚未满足条件',
+            'maintenance'=>'水族馆正在维护，你的存档不会丢失，请稍后回来',
             'config'=>'配置或存档版本不匹配，请等待维护，不要清空存档','busy'=>'暂时无法同步，请稍后重试'];
         return ['ok'=>$code===''?1:0,'code'=>$code,'msg'=>$code===''?'已同步':($messages[$code]??$messages['busy']),'snapshot'=>$snapshot];
     }
@@ -54,6 +56,7 @@ final class gamecenter_aquarium {
     public function request(int $uid,bool $allowed,array $data): array {
         if($uid<1) { return $this->result('login'); }
         if(!$allowed) { return $this->result('permission'); }
+        if(gamecenter_aquarium_configs::maintenance()) { return $this->result('maintenance'); }
         if(strlen(serialize($data))>4096 || ($data['client_version']??'')!==self::CLIENT) { return $this->result('client'); }
         $action=$data['action']??'';
         if(!is_string($action) || !in_array($action,['init','sync','upgrade','unlock','switch'],true)) { return $this->result('input'); }
