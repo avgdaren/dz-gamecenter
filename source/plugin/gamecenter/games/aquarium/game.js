@@ -116,7 +116,7 @@
       for (var i = 0; i < slots.length; i++) {
         if (!slots[i]) { continue; }
         var f = el('div', 'aq-fish-item ' + (reduceMotion() ? 'aq-still' : (i % 2 === 0 ? 'aq-swim-r' : 'aq-swim-l')));
-        f.style.left = ((i + 0.5) / slots.length * 100) + '%';
+        f.style.left = (8 + (i + 0.5) / slots.length * 84) + '%';
         f.style.bottom = (20 + (i % 3) * 8) + '%';
         var img = el('img');
         img.src = asset('fish/' + slots[i] + '.webp', version());
@@ -133,7 +133,7 @@
     function placeDecor(layer, list, which) {
       for (var i = 0; i < list.length; i++) {
         var d = el('div', 'aq-decor aq-decor-' + which);
-        d.style.left = ((i + 1) / (list.length + 1) * 100) + '%';
+        d.style.left = (8 + (i + 1) / (list.length + 1) * 84) + '%';
         var img = el('img');
         img.src = asset('decor/' + list[i] + '.webp', version());
         img.alt = decorName(list[i]);

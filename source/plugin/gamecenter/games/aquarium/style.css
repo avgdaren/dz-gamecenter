@@ -17,11 +17,11 @@
 .aq-layer { position: absolute; inset: 0; pointer-events: none; }
 .aq-decor { position: absolute; bottom: 0; transform: translate(-50%, 0); line-height: 0; }
 .aq-decor img { display: block; width: 100%; height: auto; }
-.aq-decor-back img { width: 190px; max-width: 30vw; }
-.aq-decor-front img { width: 120px; max-width: 20vw; }
+.aq-decor-back { width: 20%; max-width: 220px; }
+.aq-decor-front { width: 11%; max-width: 130px; }
 .aq-fish { position: absolute; inset: 0; pointer-events: none; }
-.aq-fish-item { position: absolute; transform: translate(-50%, 0); line-height: 0; }
-.aq-fish-item img { width: 150px; max-width: 22vw; height: auto; display: block; }
+.aq-fish-item { position: absolute; transform: translate(-50%, 0); line-height: 0; width: 13%; max-width: 170px; }
+.aq-fish-item img { width: 100%; height: auto; display: block; }
 .aq-swim-r img { animation: aqRight 6.5s ease-in-out infinite; }
 .aq-swim-l img { animation: aqLeft 7.5s ease-in-out infinite; transform: scaleX(-1); }
 @keyframes aqRight { 0%,100% { transform: translateX(-14px); } 50% { transform: translateX(14px); } }
