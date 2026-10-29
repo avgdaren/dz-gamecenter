@@ -288,6 +288,150 @@
       ],
       "sha256": "f89960f9db320b36d82fe2ae1e31f15d838346eaff586bbaea63eb639b364af1",
       "git_blob": "51272b977c7edac9ee2c8a66009630f440d9c230"
+    },
+    {
+      "id": "plant_crimson",
+      "kind": "decor",
+      "name": "绯叶水草",
+      "master": "docs/aquarium/art/masters/plant_crimson.png",
+      "bytes": 1125200,
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        45,
+        56,
+        1263,
+        1145
+      ],
+      "sha256": "cc032eba6a53a5ec3d2147a59bdc381d9b8684ae49b4f20f280254d0120c76e5",
+      "git_blob": "3ba5ba7a7ffd9d8588c1c1c4ea100aba863c7c75"
+    },
+    {
+      "id": "plant_fern",
+      "kind": "decor",
+      "name": "羽叶水蕨",
+      "master": "docs/aquarium/art/masters/plant_fern.png",
+      "bytes": 1253690,
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        20,
+        35,
+        1294,
+        1167
+      ],
+      "sha256": "887c1d2b67bef3548f22c936fc1c1caadc9fc6df20d749042ba9bf7a073a86f9",
+      "git_blob": "d1226edb4f93855153f038a6a6b1fa9134e0d3a8"
+    },
+    {
+      "id": "plant_tide",
+      "kind": "decor",
+      "name": "星潮海藻",
+      "master": "docs/aquarium/art/masters/plant_tide.png",
+      "bytes": 911769,
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        83,
+        77,
+        1242,
+        1128
+      ],
+      "sha256": "72b09a96c7b2b3c49d444b712f842d4c585220c8db5b5ea7b96057f7efcde260",
+      "git_blob": "7f8d6d77339a49fdd83aaf46554f0d6482aecc74"
+    },
+    {
+      "id": "scape_pebbles",
+      "kind": "decor",
+      "name": "圆润卵石",
+      "master": "docs/aquarium/art/masters/scape_pebbles.png",
+      "bytes": 1223050,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        103,
+        329,
+        1436,
+        838
+      ],
+      "sha256": "a2f36af38e02a4cff03c92da7ccd1482e9b4d7dfd5d1e00d33a9d07595dde314",
+      "git_blob": "1a6961084f1b6b183c80a6214ba949abf45a41f6"
+    },
+    {
+      "id": "scape_layers",
+      "kind": "decor",
+      "name": "晴灰层岩",
+      "master": "docs/aquarium/art/masters/scape_layers.png",
+      "bytes": 1426880,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        157,
+        290,
+        1390,
+        872
+      ],
+      "sha256": "6eec96ec332ace2b8eeb9a16dea104f0cd33b14697cb4772bf91f941e18b741e",
+      "git_blob": "8680c5b2d5168c6e987e15d963d225f24b3684ce"
+    },
+    {
+      "id": "scape_moss",
+      "kind": "decor",
+      "name": "苔绿山石",
+      "master": "docs/aquarium/art/masters/scape_moss.png",
+      "bytes": 1261143,
+      "size": [
+        1212,
+        1298
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        109,
+        58,
+        1110,
+        1242
+      ],
+      "sha256": "3e8353d266431b1a6e8221746b197e851b36075541f42b7c9a9c2382d9d3b77b",
+      "git_blob": "a818b7e4e6774b0e1575d4b890fadab61276407d"
     }
   ],
   "failed": []
