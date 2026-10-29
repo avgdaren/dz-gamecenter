@@ -1,5 +1,5 @@
 <?php
-/** 作者：GPT / Codex。Discuz DB 适配；所有状态变化在原连接的事务内完成。 */
+/** Discuz DB 适配；所有状态变化在原连接的事务内完成。原作者 GPT / Codex（1.3.0），1.4.0 改通用房間欄位。 */
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 class gamecenter_room_store {
 	/**
@@ -26,7 +26,7 @@ class gamecenter_room_store {
 	public function transaction(callable $work) {
 		// 在 begin 之前固定并校验三个房间表的物理连接，拒绝跨库映射破坏原子性。
 		$connection = null;
-		foreach(['gamecenter_room','gamecenter_room_member','gamecenter_room_action'] as $table) {
+		foreach(['gamecenter_room','gamecenter_room_member','gamecenter_room_action','gamecenter_room_seat','gamecenter_match','gamecenter_rating'] as $table) {
 			DB::table($table);
 			$current = DB::object()->curlink;
 			if($connection !== null && $current !== $connection) { throw new RuntimeException('room tables must share one connection'); }
@@ -63,7 +63,8 @@ class gamecenter_room_store {
 		}
 	}
 	public function save(array $r): void {
-		$this->query('UPDATE %t SET white_uid=%d,white_name=%s,board=%s,status=%d,turn=%d,winner=%d,reason=%s,version=%d,deadline_ms=%d,last_cell=%d,updated_ms=%d WHERE id=%d',
-			['gamecenter_room', $r['white_uid'], $r['white_name'], $r['board'], $r['status'], $r['turn'], $r['winner'], $r['reason'], $r['version'], $r['deadline_ms'], $r['last_cell'], $r['updated_ms'], $r['id']]);
+		$this->query('UPDATE %t SET players=%s,state=%s,white_uid=%d,white_name=%s,status=%d,turn=%d,winner=%d,reason=%s,version=%d,deadline_ms=%d,updated_ms=%d WHERE id=%d',
+			['gamecenter_room', (string)$r['players'], (string)$r['state'], (int)$r['white_uid'], (string)$r['white_name'], (int)$r['status'], (int)$r['turn'], (int)$r['winner'],
+				(string)$r['reason'], (int)$r['version'], (int)$r['deadline_ms'], (int)$r['updated_ms'], (int)$r['id']]);
 	}
 }
