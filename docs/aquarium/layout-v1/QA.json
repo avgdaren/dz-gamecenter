@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "checks": 676,
+  "decor": 24,
+  "viewports": 3,
+  "scope": "numeric geometry, not visual or live-site acceptance",
+  "base": "3bb6a63fab05a10384ee8858b1fea0379991b91b",
+  "visual_composition": "NOT_RUN",
+  "live_site": "NOT_RUN",
+  "duplicate_fish_implemented": false
+}
