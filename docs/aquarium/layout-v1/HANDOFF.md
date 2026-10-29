@@ -61,3 +61,8 @@ const r = AquariumDecorLayout.rect(spec, tankWidth, tankHeight, anchorX);
 - 3 件最大建筑＋近景灯／草、日光／月光、960×600 和窄屏合成：接地、比例、遮挡、热区需实测。
 
 本 PR 仅规格、几何辅助与规则修订，**没有实现服务端重复鱼，也没有接入当前玩家界面**。数值换算通过不等于视觉／实站验收。
+
+
+## 后续修订入口
+
+2026-10-30 月光叠色、前端投影及用户选定的最高 12 条容量，见 [scene-and-capacity.md](scene-and-capacity.md) 与 `decor-scene-v1.json`。新场景参数覆盖本文第二节旧雾气建议；重复鱼服务端实现状态以小蓝 94e1e9c 的回执为准，本规格分支不包含其后端改动。

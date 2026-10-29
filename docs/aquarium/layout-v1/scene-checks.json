@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "checks": 34,
+  "scope": "JSON parameter and reference blend math only",
+  "actual_art_composite_tested": false,
+  "browser_tested": false,
+  "live_site_tested": false
+}
