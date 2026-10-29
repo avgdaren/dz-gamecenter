@@ -1,0 +1,1919 @@
+{
+    "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+    "scope": "deterministic simulation using actual PHP settle/operate; spending policy model, not player/DB/HTTP evidence",
+    "config_version": "aquarium-content-candidate-v1",
+    "config_hash": "fdcdb5ae92f68e5edec42471692b88fbaba090789c20a01ca4c4e58aa164c9d4",
+    "pool_hash": "fc67db3e83c2ef7cf62b450ebe3927f91ee881eec3836cd3a69864ce59eb7d16",
+    "seeds": 64,
+    "seed_recipe": "uid=100000+i; seed=first16bytes(sha256(aquarium-content-sim:i)), i=1..N",
+    "lamp_price": 1500,
+    "decor_total": 29000,
+    "all_spend_total": 36680,
+    "quantiles": "nearest-rank, calendar days; fish_12_day=first observed visit, fish_12_caught_day=actual last discovery timestamp",
+    "scenarios": [
+        {
+            "visit_interval_days": 1,
+            "route": "water_first",
+            "completed": 64,
+            "censored_at_day": 180,
+            "metrics": {
+                "bay_day": {
+                    "n": 64,
+                    "min": 1,
+                    "p10": 1,
+                    "p50": 1,
+                    "p90": 1,
+                    "max": 1
+                },
+                "fish_12_day": {
+                    "n": 64,
+                    "min": 2,
+                    "p10": 2,
+                    "p50": 2,
+                    "p90": 2,
+                    "max": 2
+                },
+                "fish_12_caught_day": {
+                    "n": 64,
+                    "min": 1.0075,
+                    "p10": 1.01875,
+                    "p50": 1.05,
+                    "p90": 1.1175,
+                    "max": 1.135
+                },
+                "rod4_day": {
+                    "n": 64,
+                    "min": 2,
+                    "p10": 2,
+                    "p50": 2,
+                    "p90": 2,
+                    "max": 2
+                },
+                "fish_capacity12_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "first_decor_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "first_expensive_decor_day": {
+                    "n": 64,
+                    "min": 4,
+                    "p10": 4,
+                    "p50": 4,
+                    "p90": 4,
+                    "max": 4
+                },
+                "moon_gate_day": {
+                    "n": 64,
+                    "min": 5,
+                    "p10": 5,
+                    "p50": 5,
+                    "p90": 5,
+                    "max": 5
+                },
+                "star_lamp_day": {
+                    "n": 64,
+                    "min": 4,
+                    "p10": 4,
+                    "p50": 4,
+                    "p90": 4,
+                    "max": 4
+                },
+                "all_spend_day": {
+                    "n": 64,
+                    "min": 7,
+                    "p10": 7,
+                    "p50": 8,
+                    "p90": 8,
+                    "max": 8
+                }
+            },
+            "discarded_hours": {
+                "n": 64,
+                "min": 0,
+                "p10": 0,
+                "p50": 0,
+                "p90": 0,
+                "max": 0
+            },
+            "representative_seed_1": [
+                {
+                    "day": 0,
+                    "coins": 2,
+                    "rod": 1,
+                    "next_water": "pond",
+                    "fish": 1,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "rod_1",
+                            "cost": 120
+                        }
+                    ]
+                },
+                {
+                    "day": 1,
+                    "coins": 124,
+                    "rod": 1,
+                    "next_water": "bay",
+                    "fish": 6,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "unlock_bay",
+                            "cost": 2000
+                        }
+                    ]
+                },
+                {
+                    "day": 2,
+                    "coins": 1699,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 0,
+                    "fish_capacity": 8,
+                    "purchases": [
+                        {
+                            "id": "rod_2",
+                            "cost": 260
+                        },
+                        {
+                            "id": "rod_3",
+                            "cost": 600
+                        },
+                        {
+                            "id": "rod_4",
+                            "cost": 900
+                        },
+                        {
+                            "id": "fish_capacity_8",
+                            "cost": 800
+                        }
+                    ]
+                },
+                {
+                    "day": 3,
+                    "coins": 566,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 15,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "fish_capacity_12",
+                            "cost": 3000
+                        },
+                        {
+                            "id": "plant_meadow",
+                            "cost": 80
+                        },
+                        {
+                            "id": "scape_pebbles",
+                            "cost": 100
+                        },
+                        {
+                            "id": "plant_lily",
+                            "cost": 120
+                        },
+                        {
+                            "id": "trinket_shell",
+                            "cost": 120
+                        },
+                        {
+                            "id": "plant_ribbon",
+                            "cost": 160
+                        },
+                        {
+                            "id": "scape_layers",
+                            "cost": 160
+                        },
+                        {
+                            "id": "plant_crimson",
+                            "cost": 200
+                        },
+                        {
+                            "id": "scape_moss",
+                            "cost": 220
+                        },
+                        {
+                            "id": "plant_fern",
+                            "cost": 260
+                        },
+                        {
+                            "id": "trinket_pearl",
+                            "cost": 260
+                        },
+                        {
+                            "id": "scape_wood",
+                            "cost": 300
+                        },
+                        {
+                            "id": "plant_tide",
+                            "cost": 320
+                        },
+                        {
+                            "id": "scape_cave",
+                            "cost": 400
+                        },
+                        {
+                            "id": "scape_coral",
+                            "cost": 500
+                        },
+                        {
+                            "id": "trinket_crescent",
+                            "cost": 900
+                        }
+                    ]
+                },
+                {
+                    "day": 4,
+                    "coins": 909,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 19,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_crystal",
+                            "cost": 1200
+                        },
+                        {
+                            "id": "trinket_star_lamp",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "trinket_wings",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "building_bridge",
+                            "cost": 1600
+                        }
+                    ]
+                },
+                {
+                    "day": 5,
+                    "coins": 2145,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 21,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_pavilion",
+                            "cost": 2200
+                        },
+                        {
+                            "id": "building_moon_gate",
+                            "cost": 2800
+                        }
+                    ]
+                },
+                {
+                    "day": 6,
+                    "coins": 71,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 23,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_ruin_arch",
+                            "cost": 3600
+                        },
+                        {
+                            "id": "building_columns",
+                            "cost": 4500
+                        }
+                    ]
+                },
+                {
+                    "day": 7,
+                    "coins": 63,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 24,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_angel_gate",
+                            "cost": 6000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "visit_interval_days": 1,
+            "route": "rod_first",
+            "completed": 64,
+            "censored_at_day": 180,
+            "metrics": {
+                "bay_day": {
+                    "n": 64,
+                    "min": 2,
+                    "p10": 2,
+                    "p50": 2,
+                    "p90": 2,
+                    "max": 2
+                },
+                "fish_12_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "fish_12_caught_day": {
+                    "n": 64,
+                    "min": 2.0083333333333333,
+                    "p10": 2.0141666666666667,
+                    "p50": 2.0341666666666667,
+                    "p90": 2.075833333333333,
+                    "max": 2.095833333333333
+                },
+                "rod4_day": {
+                    "n": 64,
+                    "min": 1,
+                    "p10": 1,
+                    "p50": 1,
+                    "p90": 1,
+                    "max": 1
+                },
+                "fish_capacity12_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "first_decor_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "first_expensive_decor_day": {
+                    "n": 64,
+                    "min": 4,
+                    "p10": 4,
+                    "p50": 4,
+                    "p90": 4,
+                    "max": 4
+                },
+                "moon_gate_day": {
+                    "n": 64,
+                    "min": 5,
+                    "p10": 5,
+                    "p50": 5,
+                    "p90": 5,
+                    "max": 5
+                },
+                "star_lamp_day": {
+                    "n": 64,
+                    "min": 4,
+                    "p10": 4,
+                    "p50": 4,
+                    "p90": 4,
+                    "max": 4
+                },
+                "all_spend_day": {
+                    "n": 64,
+                    "min": 8,
+                    "p10": 8,
+                    "p50": 8,
+                    "p90": 8,
+                    "max": 8
+                }
+            },
+            "discarded_hours": {
+                "n": 64,
+                "min": 0,
+                "p10": 0,
+                "p50": 0,
+                "p90": 0,
+                "max": 0
+            },
+            "representative_seed_1": [
+                {
+                    "day": 0,
+                    "coins": 2,
+                    "rod": 1,
+                    "next_water": "pond",
+                    "fish": 1,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "rod_1",
+                            "cost": 120
+                        }
+                    ]
+                },
+                {
+                    "day": 1,
+                    "coins": 364,
+                    "rod": 4,
+                    "next_water": "pond",
+                    "fish": 6,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "rod_2",
+                            "cost": 260
+                        },
+                        {
+                            "id": "rod_3",
+                            "cost": 600
+                        },
+                        {
+                            "id": "rod_4",
+                            "cost": 900
+                        }
+                    ]
+                },
+                {
+                    "day": 2,
+                    "coins": 714,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 6,
+                    "decor": 0,
+                    "fish_capacity": 8,
+                    "purchases": [
+                        {
+                            "id": "unlock_bay",
+                            "cost": 2000
+                        },
+                        {
+                            "id": "fish_capacity_8",
+                            "cost": 800
+                        }
+                    ]
+                },
+                {
+                    "day": 3,
+                    "coins": 629,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 14,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "fish_capacity_12",
+                            "cost": 3000
+                        },
+                        {
+                            "id": "plant_meadow",
+                            "cost": 80
+                        },
+                        {
+                            "id": "scape_pebbles",
+                            "cost": 100
+                        },
+                        {
+                            "id": "plant_lily",
+                            "cost": 120
+                        },
+                        {
+                            "id": "trinket_shell",
+                            "cost": 120
+                        },
+                        {
+                            "id": "plant_ribbon",
+                            "cost": 160
+                        },
+                        {
+                            "id": "scape_layers",
+                            "cost": 160
+                        },
+                        {
+                            "id": "plant_crimson",
+                            "cost": 200
+                        },
+                        {
+                            "id": "scape_moss",
+                            "cost": 220
+                        },
+                        {
+                            "id": "plant_fern",
+                            "cost": 260
+                        },
+                        {
+                            "id": "trinket_pearl",
+                            "cost": 260
+                        },
+                        {
+                            "id": "scape_wood",
+                            "cost": 300
+                        },
+                        {
+                            "id": "plant_tide",
+                            "cost": 320
+                        },
+                        {
+                            "id": "scape_cave",
+                            "cost": 400
+                        },
+                        {
+                            "id": "scape_coral",
+                            "cost": 500
+                        }
+                    ]
+                },
+                {
+                    "day": 4,
+                    "coins": 91,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 19,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_crescent",
+                            "cost": 900
+                        },
+                        {
+                            "id": "trinket_crystal",
+                            "cost": 1200
+                        },
+                        {
+                            "id": "trinket_star_lamp",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "trinket_wings",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "building_bridge",
+                            "cost": 1600
+                        }
+                    ]
+                },
+                {
+                    "day": 5,
+                    "coins": 1252,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 21,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_pavilion",
+                            "cost": 2200
+                        },
+                        {
+                            "id": "building_moon_gate",
+                            "cost": 2800
+                        }
+                    ]
+                },
+                {
+                    "day": 6,
+                    "coins": 3674,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 22,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_ruin_arch",
+                            "cost": 3600
+                        }
+                    ]
+                },
+                {
+                    "day": 7,
+                    "coins": 5156,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 23,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_columns",
+                            "cost": 4500
+                        }
+                    ]
+                },
+                {
+                    "day": 8,
+                    "coins": 5338,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 24,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_angel_gate",
+                            "cost": 6000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "visit_interval_days": 1,
+            "route": "decor_first",
+            "completed": 64,
+            "censored_at_day": 180,
+            "metrics": {
+                "bay_day": {
+                    "n": 64,
+                    "min": 2,
+                    "p10": 2,
+                    "p50": 2,
+                    "p90": 2,
+                    "max": 2
+                },
+                "fish_12_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "fish_12_caught_day": {
+                    "n": 64,
+                    "min": 2.0097222222222224,
+                    "p10": 2.0145833333333334,
+                    "p50": 2.0408333333333335,
+                    "p90": 2.0884722222222223,
+                    "max": 2.109861111111111
+                },
+                "rod4_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "fish_capacity12_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "first_decor_day": {
+                    "n": 64,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0
+                },
+                "first_expensive_decor_day": {
+                    "n": 64,
+                    "min": 4,
+                    "p10": 4,
+                    "p50": 4,
+                    "p90": 4,
+                    "max": 4
+                },
+                "moon_gate_day": {
+                    "n": 64,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6
+                },
+                "star_lamp_day": {
+                    "n": 64,
+                    "min": 4,
+                    "p10": 4,
+                    "p50": 4,
+                    "p90": 4,
+                    "max": 4
+                },
+                "all_spend_day": {
+                    "n": 64,
+                    "min": 8,
+                    "p10": 8,
+                    "p50": 8,
+                    "p90": 8,
+                    "max": 8
+                }
+            },
+            "discarded_hours": {
+                "n": 64,
+                "min": 0,
+                "p10": 0,
+                "p50": 0,
+                "p90": 0,
+                "max": 0
+            },
+            "representative_seed_1": [
+                {
+                    "day": 0,
+                    "coins": 42,
+                    "rod": 0,
+                    "next_water": "pond",
+                    "fish": 1,
+                    "decor": 1,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "plant_meadow",
+                            "cost": 80
+                        }
+                    ]
+                },
+                {
+                    "day": 1,
+                    "coins": 1187,
+                    "rod": 1,
+                    "next_water": "pond",
+                    "fish": 6,
+                    "decor": 6,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "scape_pebbles",
+                            "cost": 100
+                        },
+                        {
+                            "id": "plant_lily",
+                            "cost": 120
+                        },
+                        {
+                            "id": "trinket_shell",
+                            "cost": 120
+                        },
+                        {
+                            "id": "plant_ribbon",
+                            "cost": 160
+                        },
+                        {
+                            "id": "scape_layers",
+                            "cost": 160
+                        },
+                        {
+                            "id": "rod_1",
+                            "cost": 120
+                        }
+                    ]
+                },
+                {
+                    "day": 2,
+                    "coins": 412,
+                    "rod": 3,
+                    "next_water": "bay",
+                    "fish": 6,
+                    "decor": 6,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "unlock_bay",
+                            "cost": 2000
+                        },
+                        {
+                            "id": "rod_2",
+                            "cost": 260
+                        },
+                        {
+                            "id": "rod_3",
+                            "cost": 600
+                        }
+                    ]
+                },
+                {
+                    "day": 3,
+                    "coins": 131,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 9,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "rod_4",
+                            "cost": 900
+                        },
+                        {
+                            "id": "fish_capacity_8",
+                            "cost": 800
+                        },
+                        {
+                            "id": "fish_capacity_12",
+                            "cost": 3000
+                        },
+                        {
+                            "id": "plant_crimson",
+                            "cost": 200
+                        },
+                        {
+                            "id": "scape_moss",
+                            "cost": 220
+                        },
+                        {
+                            "id": "plant_fern",
+                            "cost": 260
+                        }
+                    ]
+                },
+                {
+                    "day": 4,
+                    "coins": 857,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 17,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_pearl",
+                            "cost": 260
+                        },
+                        {
+                            "id": "scape_wood",
+                            "cost": 300
+                        },
+                        {
+                            "id": "plant_tide",
+                            "cost": 320
+                        },
+                        {
+                            "id": "scape_cave",
+                            "cost": 400
+                        },
+                        {
+                            "id": "scape_coral",
+                            "cost": 500
+                        },
+                        {
+                            "id": "trinket_crescent",
+                            "cost": 900
+                        },
+                        {
+                            "id": "trinket_crystal",
+                            "cost": 1200
+                        },
+                        {
+                            "id": "trinket_star_lamp",
+                            "cost": 1500
+                        }
+                    ]
+                },
+                {
+                    "day": 5,
+                    "coins": 1870,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 20,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_wings",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "building_bridge",
+                            "cost": 1600
+                        },
+                        {
+                            "id": "building_pavilion",
+                            "cost": 2200
+                        }
+                    ]
+                },
+                {
+                    "day": 6,
+                    "coins": 1435,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 22,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_moon_gate",
+                            "cost": 2800
+                        },
+                        {
+                            "id": "building_ruin_arch",
+                            "cost": 3600
+                        }
+                    ]
+                },
+                {
+                    "day": 7,
+                    "coins": 2993,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 23,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_columns",
+                            "cost": 4500
+                        }
+                    ]
+                },
+                {
+                    "day": 8,
+                    "coins": 3043,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 24,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_angel_gate",
+                            "cost": 6000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "visit_interval_days": 3,
+            "route": "water_first",
+            "completed": 64,
+            "censored_at_day": 180,
+            "metrics": {
+                "bay_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "fish_12_day": {
+                    "n": 64,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6
+                },
+                "fish_12_caught_day": {
+                    "n": 64,
+                    "min": 3.0075,
+                    "p10": 3.01875,
+                    "p50": 3.05,
+                    "p90": 3.1175,
+                    "max": 3.135
+                },
+                "rod4_day": {
+                    "n": 64,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6
+                },
+                "fish_capacity12_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "first_decor_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "first_expensive_decor_day": {
+                    "n": 64,
+                    "min": 12,
+                    "p10": 12,
+                    "p50": 12,
+                    "p90": 12,
+                    "max": 12
+                },
+                "moon_gate_day": {
+                    "n": 64,
+                    "min": 15,
+                    "p10": 15,
+                    "p50": 15,
+                    "p90": 15,
+                    "max": 15
+                },
+                "star_lamp_day": {
+                    "n": 64,
+                    "min": 12,
+                    "p10": 12,
+                    "p50": 12,
+                    "p90": 12,
+                    "max": 12
+                },
+                "all_spend_day": {
+                    "n": 64,
+                    "min": 21,
+                    "p10": 21,
+                    "p50": 24,
+                    "p90": 24,
+                    "max": 24
+                }
+            },
+            "discarded_hours": {
+                "n": 64,
+                "min": 336,
+                "p10": 336,
+                "p50": 384,
+                "p90": 384,
+                "max": 384
+            },
+            "representative_seed_1": [
+                {
+                    "day": 0,
+                    "coins": 2,
+                    "rod": 1,
+                    "next_water": "pond",
+                    "fish": 1,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "rod_1",
+                            "cost": 120
+                        }
+                    ]
+                },
+                {
+                    "day": 3,
+                    "coins": 124,
+                    "rod": 1,
+                    "next_water": "bay",
+                    "fish": 6,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "unlock_bay",
+                            "cost": 2000
+                        }
+                    ]
+                },
+                {
+                    "day": 6,
+                    "coins": 1699,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 0,
+                    "fish_capacity": 8,
+                    "purchases": [
+                        {
+                            "id": "rod_2",
+                            "cost": 260
+                        },
+                        {
+                            "id": "rod_3",
+                            "cost": 600
+                        },
+                        {
+                            "id": "rod_4",
+                            "cost": 900
+                        },
+                        {
+                            "id": "fish_capacity_8",
+                            "cost": 800
+                        }
+                    ]
+                },
+                {
+                    "day": 9,
+                    "coins": 566,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 15,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "fish_capacity_12",
+                            "cost": 3000
+                        },
+                        {
+                            "id": "plant_meadow",
+                            "cost": 80
+                        },
+                        {
+                            "id": "scape_pebbles",
+                            "cost": 100
+                        },
+                        {
+                            "id": "plant_lily",
+                            "cost": 120
+                        },
+                        {
+                            "id": "trinket_shell",
+                            "cost": 120
+                        },
+                        {
+                            "id": "plant_ribbon",
+                            "cost": 160
+                        },
+                        {
+                            "id": "scape_layers",
+                            "cost": 160
+                        },
+                        {
+                            "id": "plant_crimson",
+                            "cost": 200
+                        },
+                        {
+                            "id": "scape_moss",
+                            "cost": 220
+                        },
+                        {
+                            "id": "plant_fern",
+                            "cost": 260
+                        },
+                        {
+                            "id": "trinket_pearl",
+                            "cost": 260
+                        },
+                        {
+                            "id": "scape_wood",
+                            "cost": 300
+                        },
+                        {
+                            "id": "plant_tide",
+                            "cost": 320
+                        },
+                        {
+                            "id": "scape_cave",
+                            "cost": 400
+                        },
+                        {
+                            "id": "scape_coral",
+                            "cost": 500
+                        },
+                        {
+                            "id": "trinket_crescent",
+                            "cost": 900
+                        }
+                    ]
+                },
+                {
+                    "day": 12,
+                    "coins": 909,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 19,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_crystal",
+                            "cost": 1200
+                        },
+                        {
+                            "id": "trinket_star_lamp",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "trinket_wings",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "building_bridge",
+                            "cost": 1600
+                        }
+                    ]
+                },
+                {
+                    "day": 15,
+                    "coins": 2145,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 21,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_pavilion",
+                            "cost": 2200
+                        },
+                        {
+                            "id": "building_moon_gate",
+                            "cost": 2800
+                        }
+                    ]
+                },
+                {
+                    "day": 18,
+                    "coins": 71,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 23,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_ruin_arch",
+                            "cost": 3600
+                        },
+                        {
+                            "id": "building_columns",
+                            "cost": 4500
+                        }
+                    ]
+                },
+                {
+                    "day": 21,
+                    "coins": 63,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 24,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_angel_gate",
+                            "cost": 6000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "visit_interval_days": 3,
+            "route": "rod_first",
+            "completed": 64,
+            "censored_at_day": 180,
+            "metrics": {
+                "bay_day": {
+                    "n": 64,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6
+                },
+                "fish_12_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "fish_12_caught_day": {
+                    "n": 64,
+                    "min": 6.008333333333334,
+                    "p10": 6.014166666666667,
+                    "p50": 6.034166666666667,
+                    "p90": 6.075833333333334,
+                    "max": 6.095833333333333
+                },
+                "rod4_day": {
+                    "n": 64,
+                    "min": 3,
+                    "p10": 3,
+                    "p50": 3,
+                    "p90": 3,
+                    "max": 3
+                },
+                "fish_capacity12_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "first_decor_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "first_expensive_decor_day": {
+                    "n": 64,
+                    "min": 12,
+                    "p10": 12,
+                    "p50": 12,
+                    "p90": 12,
+                    "max": 12
+                },
+                "moon_gate_day": {
+                    "n": 64,
+                    "min": 15,
+                    "p10": 15,
+                    "p50": 15,
+                    "p90": 15,
+                    "max": 15
+                },
+                "star_lamp_day": {
+                    "n": 64,
+                    "min": 12,
+                    "p10": 12,
+                    "p50": 12,
+                    "p90": 12,
+                    "max": 12
+                },
+                "all_spend_day": {
+                    "n": 64,
+                    "min": 24,
+                    "p10": 24,
+                    "p50": 24,
+                    "p90": 24,
+                    "max": 24
+                }
+            },
+            "discarded_hours": {
+                "n": 64,
+                "min": 384,
+                "p10": 384,
+                "p50": 384,
+                "p90": 384,
+                "max": 384
+            },
+            "representative_seed_1": [
+                {
+                    "day": 0,
+                    "coins": 2,
+                    "rod": 1,
+                    "next_water": "pond",
+                    "fish": 1,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "rod_1",
+                            "cost": 120
+                        }
+                    ]
+                },
+                {
+                    "day": 3,
+                    "coins": 364,
+                    "rod": 4,
+                    "next_water": "pond",
+                    "fish": 6,
+                    "decor": 0,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "rod_2",
+                            "cost": 260
+                        },
+                        {
+                            "id": "rod_3",
+                            "cost": 600
+                        },
+                        {
+                            "id": "rod_4",
+                            "cost": 900
+                        }
+                    ]
+                },
+                {
+                    "day": 6,
+                    "coins": 714,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 6,
+                    "decor": 0,
+                    "fish_capacity": 8,
+                    "purchases": [
+                        {
+                            "id": "unlock_bay",
+                            "cost": 2000
+                        },
+                        {
+                            "id": "fish_capacity_8",
+                            "cost": 800
+                        }
+                    ]
+                },
+                {
+                    "day": 9,
+                    "coins": 629,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 14,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "fish_capacity_12",
+                            "cost": 3000
+                        },
+                        {
+                            "id": "plant_meadow",
+                            "cost": 80
+                        },
+                        {
+                            "id": "scape_pebbles",
+                            "cost": 100
+                        },
+                        {
+                            "id": "plant_lily",
+                            "cost": 120
+                        },
+                        {
+                            "id": "trinket_shell",
+                            "cost": 120
+                        },
+                        {
+                            "id": "plant_ribbon",
+                            "cost": 160
+                        },
+                        {
+                            "id": "scape_layers",
+                            "cost": 160
+                        },
+                        {
+                            "id": "plant_crimson",
+                            "cost": 200
+                        },
+                        {
+                            "id": "scape_moss",
+                            "cost": 220
+                        },
+                        {
+                            "id": "plant_fern",
+                            "cost": 260
+                        },
+                        {
+                            "id": "trinket_pearl",
+                            "cost": 260
+                        },
+                        {
+                            "id": "scape_wood",
+                            "cost": 300
+                        },
+                        {
+                            "id": "plant_tide",
+                            "cost": 320
+                        },
+                        {
+                            "id": "scape_cave",
+                            "cost": 400
+                        },
+                        {
+                            "id": "scape_coral",
+                            "cost": 500
+                        }
+                    ]
+                },
+                {
+                    "day": 12,
+                    "coins": 91,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 19,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_crescent",
+                            "cost": 900
+                        },
+                        {
+                            "id": "trinket_crystal",
+                            "cost": 1200
+                        },
+                        {
+                            "id": "trinket_star_lamp",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "trinket_wings",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "building_bridge",
+                            "cost": 1600
+                        }
+                    ]
+                },
+                {
+                    "day": 15,
+                    "coins": 1252,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 21,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_pavilion",
+                            "cost": 2200
+                        },
+                        {
+                            "id": "building_moon_gate",
+                            "cost": 2800
+                        }
+                    ]
+                },
+                {
+                    "day": 18,
+                    "coins": 3674,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 22,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_ruin_arch",
+                            "cost": 3600
+                        }
+                    ]
+                },
+                {
+                    "day": 21,
+                    "coins": 5156,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 23,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_columns",
+                            "cost": 4500
+                        }
+                    ]
+                },
+                {
+                    "day": 24,
+                    "coins": 5338,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 24,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_angel_gate",
+                            "cost": 6000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "visit_interval_days": 3,
+            "route": "decor_first",
+            "completed": 64,
+            "censored_at_day": 180,
+            "metrics": {
+                "bay_day": {
+                    "n": 64,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6
+                },
+                "fish_12_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "fish_12_caught_day": {
+                    "n": 64,
+                    "min": 6.009722222222222,
+                    "p10": 6.014583333333333,
+                    "p50": 6.0408333333333335,
+                    "p90": 6.088472222222222,
+                    "max": 6.109861111111111
+                },
+                "rod4_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "fish_capacity12_day": {
+                    "n": 64,
+                    "min": 9,
+                    "p10": 9,
+                    "p50": 9,
+                    "p90": 9,
+                    "max": 9
+                },
+                "first_decor_day": {
+                    "n": 64,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0
+                },
+                "first_expensive_decor_day": {
+                    "n": 64,
+                    "min": 12,
+                    "p10": 12,
+                    "p50": 12,
+                    "p90": 12,
+                    "max": 12
+                },
+                "moon_gate_day": {
+                    "n": 64,
+                    "min": 18,
+                    "p10": 18,
+                    "p50": 18,
+                    "p90": 18,
+                    "max": 18
+                },
+                "star_lamp_day": {
+                    "n": 64,
+                    "min": 12,
+                    "p10": 12,
+                    "p50": 12,
+                    "p90": 12,
+                    "max": 12
+                },
+                "all_spend_day": {
+                    "n": 64,
+                    "min": 24,
+                    "p10": 24,
+                    "p50": 24,
+                    "p90": 24,
+                    "max": 24
+                }
+            },
+            "discarded_hours": {
+                "n": 64,
+                "min": 384,
+                "p10": 384,
+                "p50": 384,
+                "p90": 384,
+                "max": 384
+            },
+            "representative_seed_1": [
+                {
+                    "day": 0,
+                    "coins": 42,
+                    "rod": 0,
+                    "next_water": "pond",
+                    "fish": 1,
+                    "decor": 1,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "plant_meadow",
+                            "cost": 80
+                        }
+                    ]
+                },
+                {
+                    "day": 3,
+                    "coins": 1187,
+                    "rod": 1,
+                    "next_water": "pond",
+                    "fish": 6,
+                    "decor": 6,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "scape_pebbles",
+                            "cost": 100
+                        },
+                        {
+                            "id": "plant_lily",
+                            "cost": 120
+                        },
+                        {
+                            "id": "trinket_shell",
+                            "cost": 120
+                        },
+                        {
+                            "id": "plant_ribbon",
+                            "cost": 160
+                        },
+                        {
+                            "id": "scape_layers",
+                            "cost": 160
+                        },
+                        {
+                            "id": "rod_1",
+                            "cost": 120
+                        }
+                    ]
+                },
+                {
+                    "day": 6,
+                    "coins": 412,
+                    "rod": 3,
+                    "next_water": "bay",
+                    "fish": 6,
+                    "decor": 6,
+                    "fish_capacity": 4,
+                    "purchases": [
+                        {
+                            "id": "unlock_bay",
+                            "cost": 2000
+                        },
+                        {
+                            "id": "rod_2",
+                            "cost": 260
+                        },
+                        {
+                            "id": "rod_3",
+                            "cost": 600
+                        }
+                    ]
+                },
+                {
+                    "day": 9,
+                    "coins": 131,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 9,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "rod_4",
+                            "cost": 900
+                        },
+                        {
+                            "id": "fish_capacity_8",
+                            "cost": 800
+                        },
+                        {
+                            "id": "fish_capacity_12",
+                            "cost": 3000
+                        },
+                        {
+                            "id": "plant_crimson",
+                            "cost": 200
+                        },
+                        {
+                            "id": "scape_moss",
+                            "cost": 220
+                        },
+                        {
+                            "id": "plant_fern",
+                            "cost": 260
+                        }
+                    ]
+                },
+                {
+                    "day": 12,
+                    "coins": 857,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 17,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_pearl",
+                            "cost": 260
+                        },
+                        {
+                            "id": "scape_wood",
+                            "cost": 300
+                        },
+                        {
+                            "id": "plant_tide",
+                            "cost": 320
+                        },
+                        {
+                            "id": "scape_cave",
+                            "cost": 400
+                        },
+                        {
+                            "id": "scape_coral",
+                            "cost": 500
+                        },
+                        {
+                            "id": "trinket_crescent",
+                            "cost": 900
+                        },
+                        {
+                            "id": "trinket_crystal",
+                            "cost": 1200
+                        },
+                        {
+                            "id": "trinket_star_lamp",
+                            "cost": 1500
+                        }
+                    ]
+                },
+                {
+                    "day": 15,
+                    "coins": 1870,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 20,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "trinket_wings",
+                            "cost": 1500
+                        },
+                        {
+                            "id": "building_bridge",
+                            "cost": 1600
+                        },
+                        {
+                            "id": "building_pavilion",
+                            "cost": 2200
+                        }
+                    ]
+                },
+                {
+                    "day": 18,
+                    "coins": 1435,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 22,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_moon_gate",
+                            "cost": 2800
+                        },
+                        {
+                            "id": "building_ruin_arch",
+                            "cost": 3600
+                        }
+                    ]
+                },
+                {
+                    "day": 21,
+                    "coins": 2993,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 23,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_columns",
+                            "cost": 4500
+                        }
+                    ]
+                },
+                {
+                    "day": 24,
+                    "coins": 3043,
+                    "rod": 4,
+                    "next_water": "bay",
+                    "fish": 12,
+                    "decor": 24,
+                    "fish_capacity": 12,
+                    "purchases": [
+                        {
+                            "id": "building_angel_gate",
+                            "cost": 6000
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

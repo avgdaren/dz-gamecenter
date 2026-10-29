@@ -80,3 +80,14 @@ reference.py 是Python标准库的HMAC、pool_hash和完整config_hash参考。�
 ## 1.4.0原基线发现
 
 [Issue #28](https://github.com/avgdaren/dz-gamecenter/issues/28)：五子棋manifest缺room且无通用rules.php适配器，实际入口模型返回“这个游戏不支持房间”；旧纯规则五连判断通过不代表房间可用。记忆游戏旧套件将版本字符串2列为非法，但verify已支持v2；新冒烟覆盖v1/8、v2/8、v2/15正常及伪造分数拒绝。旧七游戏文件保持原基线，不在此PR修复。上述发现需小蓝实站复核，七游戏验收仍未完成。
+
+## C阶段候选（不会切换当前HTTP配置）
+
+```sh
+php tests/aquarium/content_test.php
+python3 tests/aquarium/content_reference_check.py
+php tests/aquarium/economy_sim.php --seeds=64 --lamp=1500
+php tests/aquarium/economy_sim.php --seeds=64 --lamp=1200
+```
+
+候选61检查；独立Python对实际PHP两个水域7200捕获一致（7242检查）。模型两价各6策略×64固定种子，共768路线；每回访验证预算恒等/不负债及终值，输出分位数/代表轨迹。JSON为合成输入的可复现报告，不是生产日志。C候选不改foundation默认配置，不创建/迁移测试档，不提供HTTP拨钟；新内容无DB/实站结果。范围与消费策略见[报告](../../docs/aquarium/ECONOMY-SIM-v0.1.md)及[交接](../../docs/aquarium/CONTENT-HANDOFF-v0.1.md)。
