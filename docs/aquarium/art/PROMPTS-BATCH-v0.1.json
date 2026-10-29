@@ -1,0 +1,246 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "method": "built-in imagegen, one new asset per call",
+  "reference": "approved seven samples retained; new assets follow DIVERSITY-v0.1.md",
+  "jobs": [
+    {
+      "id": "pond_orange_tail",
+      "name": "橘尾鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A slightly elongated compact ivory-and-tangerine fish, a large distinctive open FAN-SHAPED orange tail with three broad rounded lobes, short dorsal fin, friendly lively eye. Warm orange tail is the one main feature. Do not make a round blue fish recolor or realistic goldfish.",
+      "transparent": true
+    },
+    {
+      "id": "pond_leaf",
+      "name": "叶纹鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A slender LEAF-SHAPED jade-green fish, distinctly long narrow body, narrow forked tail and short triangular fins. A few large darker leaf-vein markings on its side, fresh mint belly. Calm alert eye. Broad simple leaf shapes; no literal leaves growing from body and no wing fins.",
+      "transparent": true
+    },
+    {
+      "id": "pond_peach",
+      "name": "桃心鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A tiny high-backed short-bodied peach-pink fish with a distinct HEART-SHAPED tail formed by two broad soft lobes. Cream belly, compact little face, small fins. A soft shy expression. The whole tail silhouette gives the heart shape, not a sticker. No separate floating hearts.",
+      "transparent": true
+    },
+    {
+      "id": "pond_glass_moon",
+      "name": "玻璃月鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A thin DISC-SHAPED silvery periwinkle moon fish with translucent icy-blue fins and a softly glowing milky body, a clear indigo outline so it stays visible on water. Delicate crescent-shaped side marking is its only fantasy feature. Short flowing pointed fins, no huge feathery wings. Stylized 2D translucent color planes, not a realistic glass ornament.",
+      "transparent": true
+    },
+    {
+      "id": "bay_silver",
+      "name": "银沙鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. An elegant streamlined SPINDLE-SHAPED silver fish with a long narrow silhouette, a strongly forked short tail and neat swept fins. Silver-gray, pearl-white and muted cool slate-blue. Bright alert eye, quick agile character. Clearly unlike a chubby blue starter fish. No feathers, gold ornament or glowing spots.",
+      "transparent": true
+    },
+    {
+      "id": "bay_coral",
+      "name": "珊瑚鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A compact TALL-BODIED coral-red reef fish, clear triangular dorsal silhouette and chunky split tail, pale ivory belly and two broad muted plum bands. Orange-red with salmon highlights. Curious bold eye. Shape is high and angular, unlike a long orange fan-tail fish. No actual coral growing from body.",
+      "transparent": true
+    },
+    {
+      "id": "bay_lantern",
+      "name": "灯笼鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A cute TEARDROP-SHAPED fish with a round lower belly and a tapering head, a small gently glowing cream-yellow belly seen through amber cel-shaded skin. Small stubby fins and round short tail. One warm glowing feature only, no lantern object attached and no angler antenna. Friendly sleepy eye, internal light contained, no external halo.",
+      "transparent": true
+    },
+    {
+      "id": "bay_ribbon",
+      "name": "丝带鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A graceful LONG THIN fish with a small ivory-blue head facing right and two smooth continuous ribbon-like fins trailing far to the left in lavender and aqua. Distinct horizontal flowing silhouette, broad flowing ribbons with no feathery branching. Calm gentle eye. Full tail ends visible, generous margin, no extra free floating ribbons.",
+      "transparent": true
+    },
+    {
+      "id": "bay_star_ray",
+      "name": "星斑鳐",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. A cute stingray, slightly above three-quarter view. Broad flattened DIAMOND-SHAPED midnight-blue body, rounded wing corners, small bright eyes near the right-front head, slender tail trailing to the LEFT. Head and movement direction clearly RIGHT. A few large ivory star spots on upper body. It is a ray, not a starfish or normal side-view fish. Short smile, no stinger weapon, no 3D texture.",
+      "transparent": true
+    },
+    {
+      "id": "bay_aurora",
+      "name": "极光天使鱼",
+      "kind": "fish",
+      "prompt": "Use case: stylized-concept. ONE complete isolated fish sprite for 天使水族馆, a cheerful Japanese ACG anime aquarium game. Genuine transparent background, no scene. Entire fish and all fins visible, center with generous 12% empty border. Side view facing RIGHT unless specified otherwise. Unified polished 2D anime game art: crisp tapered indigo outlines, large expressive anime eye, clean cel-shaded pastel color planes with 2–3 shadows, cute but readable anatomy and distinct silhouette. Readable at 64px. Not photorealistic, not 3D, no scales texture, no ground shadow, no water/bubbles/particle halo, no lettering/UI/frame/checkerboard. Exactly one fish. An elegant angelfish with a TALL TRIANGULAR silhouette, steep high dorsal fin and long lower triangular fin, compact narrow body facing right. Flowing cel-shaded aurora teal, violet and pale cyan color bands. A graceful forked tail, calm luminous blue eye. Its one fantasy feature is aurora color through large fins. Not white feathers, not bird wings, not a dragon.",
+      "transparent": true
+    },
+    {
+      "id": "plant_lily",
+      "name": "睡莲小丛",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A low small grouping of three rounded green lily pads with one simple ivory water-lily flower and a few thick stems. Minimal soft shapes, cheap starter plant. Floating-pad fantasy aquarium decoration, no pool of water or pot.",
+      "transparent": true
+    },
+    {
+      "id": "plant_ribbon",
+      "name": "飘带长叶",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A tall slender tuft of 6–8 long emerald ribbon leaves flowing gently to one side, noticeably much narrower and taller than a broad rounded meadow plant. Broad enough for thumbnail readability. No flower, rock, gold or magical ornaments.",
+      "transparent": true
+    },
+    {
+      "id": "plant_crimson",
+      "name": "绯叶水草",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A compact low rosette of broad pointed crimson and burgundy-purple leaves, clear alternating front/back layers, a few peach highlights. Different silhouette from green ribbon grass. No flowers, fruit, pot or stones.",
+      "transparent": true
+    },
+    {
+      "id": "plant_fern",
+      "name": "羽叶水蕨",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A graceful upright aquatic fern with three arching fronds, stylized large rounded paired leaflets in muted forest-green and pale sage. Feathered plant silhouette, not ribbon blades. Simple joined root, no soil, pot or landscape.",
+      "transparent": true
+    },
+    {
+      "id": "plant_tide",
+      "name": "星潮海藻",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A cool turquoise seaweed tuft with 4 or 5 distinct branching antler-like leafy stems and rounded flattened tips, one small pale yellow center shoot. Underwater plant, soft organic shape, no coral skeleton or stars, no rock base.",
+      "transparent": true
+    },
+    {
+      "id": "scape_pebbles",
+      "name": "圆润卵石",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. An inexpensive low horizontal group of four smooth rounded blue-gray pebbles, one pale cream stone and a tiny patch of moss. Very simple broad flat shapes, no gemstones, flowers, ornaments or large base platform.",
+      "transparent": true
+    },
+    {
+      "id": "scape_layers",
+      "name": "晴灰层岩",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A low compact stepped outcrop of three broad horizontal slate-gray rock layers, pale cool tops and darker navy side planes. Natural flat broken edges, clear terraced silhouette, two tiny moss patches. No building, carved motifs or background.",
+      "transparent": true
+    },
+    {
+      "id": "scape_moss",
+      "name": "苔绿山石",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. One tall asymmetrical natural mountain-like stone and two smaller foot stones, softened angular blue-gray planes, a broad emerald moss cap on one shoulder. Natural rock scenery, no geometric building or miniature landscape island.",
+      "transparent": true
+    },
+    {
+      "id": "scape_wood",
+      "name": "花枝沉木",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A single curved dark warm-brown driftwood branch making a low open arch, with two small offshoots, a few cream-pink blossoms and dark-jade leaves at one end. The wood dominates, blossoms are a subtle accent. Interior of arch truly transparent. No lantern or rocks.",
+      "transparent": true
+    },
+    {
+      "id": "scape_cave",
+      "name": "静谧岩洞",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A natural compact blue-gray rock cave with a clearly irregular EMPTY opening, rugged asymmetrical outline, broad moss cap. Opening genuinely transparent so water can be seen through, not black fill. Natural uneven stone, NOT an artificial arch/columns, no carved motifs.",
+      "transparent": true
+    },
+    {
+      "id": "building_bridge",
+      "name": "翼纹小桥",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A graceful LOW WIDE ivory stone footbridge, shallow open arch below, simple blue stone railings and a few carved feather motifs. Clear architecture and two low stair landings, restrained gold trim. Horizontal approximately 2:1 composition, no terrain island and no river; space below bridge truly transparent. No literal wings attached.",
+      "transparent": true
+    },
+    {
+      "id": "building_pavilion",
+      "name": "潮音凉亭",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A complete small fantasy garden pavilion with a rounded blue-teal pagoda-like roof, four ivory pillars, shallow circular platform and subtle shell-shaped roof finial. Mostly frontal with slight top surface visibility, airy open interior, elegant simple coral-pink accents. No landscape, humans or large extra plants.",
+      "transparent": true
+    },
+    {
+      "id": "building_ruin_arch",
+      "name": "星痕拱门",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. An asymmetrical ruined pale-blue stone arch, one side partly broken with a small star carving, restrained pale gold inlay and sparse ivy. Hollow arch opening genuinely transparent. Large readable broken-stone shapes. Different silhouette from a complete round moon gate, no crescent crest.",
+      "transparent": true
+    },
+    {
+      "id": "building_columns",
+      "name": "沉眠列柱",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A LOW WIDE composition of three ancient ivory-blue fluted stone columns of different heights, one intact and two broken, united on a modest stepped architectural plinth. Sparse dark-jade ivy, no floor island. Horizontal 2:1 silhouette. Broad readable carving, no ruined arch or figures.",
+      "transparent": true
+    },
+    {
+      "id": "building_angel_gate",
+      "name": "天使庭门",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A premium WIDE ivory-and-blue open garden gate flanked by two large sculpted feather WINGS arching outward symmetrically. Clear empty central doorway, restrained pale gold star-shaped inset at the crest, refined stone joins and shallow platform. Wings are decorative architecture, not attached to a person. No human/cherub statue, no text or clock. Horizontal wide framing with full wing tips visible.",
+      "transparent": true
+    },
+    {
+      "id": "trinket_shell",
+      "name": "珍光贝壳",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A small simple OPEN scallop shell, soft coral-pink exterior and creamy pearly inside, broad clean shell ribs. Low uncomplicated starter trinket. No pearl (a different asset), seaweed, rocks, sand patch or surrounding objects.",
+      "transparent": true
+    },
+    {
+      "id": "trinket_pearl",
+      "name": "月露珍珠台",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. ONE lustrous ivory pearl on a shallow pale lavender-blue sculpted shell pedestal, compact low silhouette, restrained soft highlights and one small gold rim accent. Not an open scallop shell scene, no extra pearls, coral, flowers or water.",
+      "transparent": true
+    },
+    {
+      "id": "trinket_crescent",
+      "name": "弯月小景",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A sculpted creamy crescent moon standing on a small low oval ivory base with just a few dark-jade leaves. Broad readable curved moon shape, soft blue shadow and tiny gold edge. No stars, portal, lamp, text or external magical glow.",
+      "transparent": true
+    },
+    {
+      "id": "trinket_crystal",
+      "name": "星晶花簇",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A compact group of three angular pale-blue and violet crystal prisms of different heights with two small pale pink flowers and dark jade leaves at the base. Rich but readable large crystal faces, one subtle warm star-shaped reflection inside the largest crystal. No particles, huge glow or terrain island.",
+      "transparent": true
+    },
+    {
+      "id": "trinket_wings",
+      "name": "羽翼纪念像",
+      "kind": "decor",
+      "prompt": "Use case: stylized-concept. ONE isolated decoration sprite for 天使水族馆, matching cute clean Japanese ACG anime fish and ivory-blue fantasy aquarium art. Genuine transparent background. Full object with 12% clear margin, base centered toward bottom; no floor/sand island, scenery, water, fish, people, text/UI/frame/checkerboard, external shadow or loose particles. Nearly frontal with a slight view of upper surfaces, not isometric. Crisp tapered indigo outlines, broad cel-shaded colors, simple stylized materials, polished 2D anime game asset, not photorealistic or 3D. Silhouette readable at 96px. Any openings must be genuinely transparent. A small finely carved ivory sculpture of TWO upward sweeping feather wings meeting on a low round pale-blue pedestal, tiny gold carved accent on pedestal. Abstract memorial ornament, not a person, no human body, face, arms or angel child. Feather layers grouped into large clean forms, no huge portal or background.",
+      "transparent": true
+    },
+    {
+      "id": "tank_moon",
+      "name": "月光庭院",
+      "kind": "background",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Polished hand-drawn Japanese ACG anime 2D aquarium/game environment. Wide landscape, no text/UI/frame, no people, no fish or creatures, no photographic texture or 3D render. Soft atmospheric color planes with clean simple silhouettes. An EMPTY underwater aquarium background at moonlight, wide 16:9. Pearl-blue sandy floor in the lower quarter, calm luminous deep lavender and indigo water, cool soft moon shafts from above. Faint distant elegant Japanese fantasy garden arches with rounded moon-gate silhouettes and a few dark teal water-plant silhouettes tucked at extreme edges. A couple tiny warm lantern-light points only in FAR DISTANCE, not purchasable foreground lantern objects. Center 65% open for animated fish; clear floor around 83% canvas height for separate decorations. Maintain bright enough midtones to see fish faces and white sprites, serene not horror. Different architecture, depth and atmosphere from bright daytime ruined columns, not a blue filter on a daylight image. Mobile central 4:3 crop stays open. No sky above water, visible moon disk, built-in foreground collectible decorations or large foreground rocks."
+    },
+    {
+      "id": "water_pond",
+      "name": "晴光池塘缩略图",
+      "kind": "water",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Polished hand-drawn Japanese ACG anime 2D aquarium/game environment. Wide landscape, no text/UI/frame, no people, no fish or creatures, no photographic texture or 3D render. Soft atmospheric color planes with clean simple silhouettes. An inviting quiet freshwater POND seen from the bank at a low angle, a rounded clear aquamarine pond, gentle grass and willow leaves along the sides, a small pale stone garden path in the far background, warm sun and soft sky. Broad colorful cel shading, highly readable at 240px. No fish, building centerpiece, UI or text. Landscape 16:9. This is a fishing-location thumbnail ABOVE WATER, not a tank interior."
+    },
+    {
+      "id": "water_bay",
+      "name": "星潮浅湾缩略图",
+      "kind": "water",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Polished hand-drawn Japanese ACG anime 2D aquarium/game environment. Wide landscape, no text/UI/frame, no people, no fish or creatures, no photographic texture or 3D render. Soft atmospheric color planes with clean simple silhouettes. A bright shallow tropical BAY seen from the shore at a low angle, pale cream sand curving toward clear turquoise ocean, broad pink-purple coral reef silhouettes visible through the near water, distant blue rock islets, warm cream sky. Cheerful light fantasy anime scene, more marine and coral-colored than a freshwater green pond. Readable at 240px, wide16:9. No fish, characters, UI or text, no moon or night."
+    },
+    {
+      "id": "rod",
+      "name": "鱼竿图标",
+      "kind": "icon",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept. ONE polished Japanese anime game fishing rod icon, genuinely transparent background, square canvas, full object with 12% margin. A simple curved blue-and-ivory rod angled diagonally lower-left to upper-right with a small warm-gold reel and a short pale-blue line ending in a tiny star-shaped bobber beside it. Crisp indigo outline, large cel-shaded forms, readable at64px. No hand, person, fish, scene, water, text, UI, frame or loose particles. Not realistic, not3D; one rod only."
+    }
+  ]
+}
+

@@ -1,0 +1,150 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "completed": [
+    {
+      "id": "pond_orange_tail",
+      "kind": "fish",
+      "name": "橘尾鱼",
+      "master": "docs/aquarium/art/masters/pond_orange_tail.png",
+      "bytes": 1734350,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        77,
+        49,
+        1471,
+        963
+      ],
+      "sha256": "6e76656abaf31ec52c89cbd3e260e0bfa8ba9de85ebf49989126e2b85b033b6f",
+      "git_blob": "aa085355e99ba66f45918fbf9be97774990782ae"
+    },
+    {
+      "id": "pond_leaf",
+      "kind": "fish",
+      "name": "叶纹鱼",
+      "master": "docs/aquarium/art/masters/pond_leaf.png",
+      "bytes": 746951,
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        60,
+        173,
+        1706,
+        711
+      ],
+      "sha256": "0002de98c73ccb91cd18848587b7af26f1c7a6c0388d2b922e92778dd7abccc4",
+      "git_blob": "92393c96fe281c460e94a2e5df0bab9100599fe0"
+    },
+    {
+      "id": "pond_peach",
+      "kind": "fish",
+      "name": "桃心鱼",
+      "master": "docs/aquarium/art/masters/pond_peach.png",
+      "bytes": 1542831,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        158,
+        121,
+        1397,
+        904
+      ],
+      "sha256": "93f49637e6e9a401f305b65b88d19686e4e2e357a4c76b4d520a65d87dfaa1e9",
+      "git_blob": "254a61e1cfc7b85536425d2e5d007be75d4569a3"
+    },
+    {
+      "id": "pond_glass_moon",
+      "kind": "fish",
+      "name": "玻璃月鱼",
+      "master": "docs/aquarium/art/masters/pond_glass_moon.png",
+      "bytes": 1665001,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        222,
+        8,
+        1280,
+        1013
+      ],
+      "sha256": "9d79db72755e91108f9bfba4b267d34a7b9e4801b3e37345f8b17c5c93f41d8a",
+      "git_blob": "a2bd0d7805220f8442f81b7a6a876c9bbafb8134"
+    },
+    {
+      "id": "bay_silver",
+      "kind": "fish",
+      "name": "银沙鱼",
+      "master": "docs/aquarium/art/masters/bay_silver.png",
+      "bytes": 879203,
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        35,
+        95,
+        1720,
+        815
+      ],
+      "sha256": "448e6ddb23d4571b1da8eb5944da3cca8a0d392bfac1877814d9df77e8627ee5",
+      "git_blob": "ead1b50ce84059d28089c5cca6df3f64399ceac3"
+    },
+    {
+      "id": "bay_coral",
+      "kind": "fish",
+      "name": "珊瑚鱼",
+      "master": "docs/aquarium/art/masters/bay_coral.png",
+      "bytes": 1188186,
+      "size": [
+        1402,
+        1122
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        71,
+        13,
+        1335,
+        1104
+      ],
+      "sha256": "7d6c0831e3717b5d39709f3206b777e0f2b4553ce2820e9c4be4b471247aecd3",
+      "git_blob": "951357434788d6a6bf16e541c333c88690e34190"
+    }
+  ],
+  "failed": []
+}
