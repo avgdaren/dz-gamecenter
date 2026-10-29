@@ -1,0 +1,196 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "first-three-style-approved-decor-four-awaiting-review",
+  "generation": "built-in imagegen; original outputs copied without pixel edits",
+  "samples": [
+    {
+      "id": "pond_blue",
+      "path": "docs/aquarium/art/samples/pond_blue-sample-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 766419,
+      "sha256": "e72a880065babc9c3aceafb31ceeaf9579b0fafc465f5dfac151fe41416153bb",
+      "git_blob": "be51358b4404b97c797ba2cba568722a1e92f969",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        55,
+        1232,
+        1174
+      ],
+      "review": "user-approved-style",
+      "review_date": "2026-10-29",
+      "production_ready": false
+    },
+    {
+      "id": "pond_feather",
+      "path": "docs/aquarium/art/samples/pond_feather-sample-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 1087046,
+      "sha256": "7258bee821a48f3369732f5d02c597d37a9e4d6e6d4a21ad2b8c31f06a99cebb",
+      "git_blob": "9b1f6da7ce914a2c58ede50317411b67f2ac1aae",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        69,
+        1232,
+        1254
+      ],
+      "review": "user-approved-style",
+      "review_date": "2026-10-29",
+      "production_ready": false
+    },
+    {
+      "id": "tank_day",
+      "path": "docs/aquarium/art/samples/tank_day-sample-v01.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1948861,
+      "sha256": "c27408581d7dc6ce23aa83ef33966f6a80d2a0b7dc49e3359b66ee3e4d658403",
+      "git_blob": "fc1fdbccda60580873b1a128a9c209059eec78db",
+      "alpha_extrema": null,
+      "alpha_bbox": null,
+      "review": "user-approved-style",
+      "review_date": "2026-10-29",
+      "production_ready": false
+    },
+    {
+      "id": "plant_meadow",
+      "path": "docs/aquarium/art/samples/plant_meadow-sample-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 1022759,
+      "sha256": "02819876f834b2303a5998d9a04383122464762493d24cf456ed2421c2750302",
+      "git_blob": "4b9c7d665087a7f73acbf14f2e02b9d01a13a61a",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        19,
+        1232,
+        1226
+      ],
+      "visible_bbox_alpha_16": [
+        68,
+        155,
+        1221,
+        1124
+      ],
+      "review": "awaiting-user-review",
+      "production_ready": false
+    },
+    {
+      "id": "scape_coral",
+      "path": "docs/aquarium/art/samples/scape_coral-sample-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 1183715,
+      "sha256": "eb2af99b972ddbdd93492c5574ad930276aedf8389e5211425226e83502794ae",
+      "git_blob": "c32e8e720c6d8bd0a95cbbaf89d847616176269e",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        57,
+        1234,
+        1238
+      ],
+      "visible_bbox_alpha_16": [
+        86,
+        115,
+        1176,
+        1176
+      ],
+      "review": "awaiting-user-review",
+      "production_ready": false
+    },
+    {
+      "id": "building_moon_gate",
+      "path": "docs/aquarium/art/samples/building_moon_gate-sample-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 1233471,
+      "sha256": "8db20a89c557c4625a0c32fa9c3f59fa1a2b7350b4b8c1befcd311d737b3f0d7",
+      "git_blob": "49765385e64bee353500175c4c33f11dca3274fb",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        29,
+        1238,
+        1254
+      ],
+      "visible_bbox_alpha_16": [
+        19,
+        31,
+        1235,
+        1161
+      ],
+      "review": "awaiting-user-review",
+      "production_ready": false,
+      "opening_center_alpha": 0
+    },
+    {
+      "id": "trinket_star_lamp",
+      "path": "docs/aquarium/art/samples/trinket_star_lamp-sample-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 1078596,
+      "sha256": "1a9771d0b4781e880d41518ac4ee4d8dfa8f4958bea356865b89374d22a634b9",
+      "git_blob": "453993365a87acca450900310a340eabe126ada4",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        19,
+        1254,
+        1254
+      ],
+      "visible_bbox_alpha_16": [
+        272,
+        49,
+        981,
+        1187
+      ],
+      "review": "awaiting-user-review",
+      "production_ready": false
+    }
+  ],
+  "version": "v02"
+}

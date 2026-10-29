@@ -823,5 +823,21 @@
         270
       ]
     }
-  ]
+  ],
+  "sample_review": {
+    "date": "2026-10-29",
+    "style_approved_ids": [
+      "pond_blue",
+      "pond_feather",
+      "tank_day"
+    ],
+    "awaiting_review_ids": [
+      "plant_meadow",
+      "scape_coral",
+      "building_moon_gate",
+      "trinket_star_lamp"
+    ],
+    "production_exports_approved": false,
+    "diversity_brief": "DIVERSITY-v0.1.md"
+  }
 }
