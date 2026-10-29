@@ -11,7 +11,7 @@ n = 0
 def call(**kw):
     global n
     p = subprocess.run([os.getenv('PHP_BIN', 'php'), str(worker)], input=json.dumps(kw),
-                       capture_output=True, text=True, check=True)
+                       capture_output=True, text=True, encoding='utf-8', check=True)
     assert not p.stderr, p.stderr
     n += 1
     return p.stdout
@@ -32,7 +32,9 @@ assert json.loads(call(data=dict(data, now_ms='999')))['code'] == 'input'
 x = json.loads(call(test='core'))
 assert x['start']['ok'] == x['submit']['ok'] == 0 and x['rewards'] == []
 html = call(test='view')
-assert '底盘诊断' in html and '测试说明' in html and 'game.js?v=0.0.1' in html
+assert '底盘诊断' in html and '测试说明' in html and 'game.js?v=0.0.2' in html
 assert '本周第一' not in html and '好友约战' not in html and '讨伐手记' not in html
 assert 'data-rivals="[]"' in html
+restricted_html = call(test='view', vars=dict(limitplay=1, playgroups=[]))
+assert '建立或查看水族馆' in restricted_html and '后挑战' not in restricted_html
 print(json.dumps(dict(status='PASS', checks=n, scope='entry and view model; NOT real HTTP/Discuz')))

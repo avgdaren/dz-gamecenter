@@ -4,7 +4,13 @@
 
 关联 Issue #24。本目录所有worker仅CLI运行，时间/故障/隔离库注入不进入HTTP接口。生产诊断页只使用真实服务器时间。需64位PHP 8.1+（项目目标8.3），Node与Python仅用于开发测试，不是线上依赖。
 
-## 已运行
+## 当前状态：禁止覆盖本地1.4.0
+
+小蓝[回执6494171580](https://github.com/avgdaren/dz-gamecenter/pull/25#issuecomment-6494171580)确认旧候选56ac86c在原版X5驱动/querysafe下，真实InnoDB PDO和mysqli各59项通过。这是交接方在隔离库的实测，不是GPT本机结果，也不是当前修订重跑结果。真实站HTTP、浏览器、旧游戏及回退仍未验。
+
+站点已1.4.0、仓库无对应基线；见Issue #26。当前代码还未重基线，不能部署。
+
+## 当前修订在GPT环境的复跑
 
 本轮隔离环境 PHP 8.3.6；没有真实Discuz站点。数据库服务器在创建UNIX套接字时被环境拒绝，不能进行真实InnoDB并发，官方X5驱动/querysafe也未执行。MariaDB二进制成功准备不等于数据库测试通过。
 
@@ -19,16 +25,16 @@ node tests/aquarium/front_test.mjs
 python3 tests/aquarium/db_test.py
 ```
 
-PHP不在PATH时，用PHP_BIN指定实际可执行文件供Python调用；规则测试直接用该PHP运行。
+PHP不在PATH时，用PHP_BIN指定实际可执行文件供Python调用；规则测试直接用该PHP运行。所有子进程明确UTF-8编码，不依赖Windows GBK或PYTHONUTF8。service_test.py使用os.makedirs创建唯一临时目录并清理；可用GC_TEST_TMPDIR指定可写父目录，默认仓库工作目录。
 
 | 检查 | 本轮结果 | 证明范围 |
 |---|---|---|
 | PHP / JS / JSON语法、diff空白 | PASS | 语法与文件一致性 |
-| rules.php | 343检查 PASS | 纯规则、上限、时钟、余数、升级/切域、81次保底、固定HMAC、排序/指纹、随机分段 |
+| rules.php | 345检查 PASS | 纯规则、上限、时钟、余数、升级/切域、81次保底、固定HMAC、排序/指纹、随机分段 |
 | reference_check.py | 3600次捕获与独立Python参考一致 | 实际PHP与独立Python的鱼种/金币/首次发现/保底序列 |
 | service_test.py | 86检查 PASS，34个并发请求 | PHP多进程+flock**服务模型**；非InnoDB，不验证生产SQL/锁实现 |
-| entry_test.py | 16请求 PASS | PHP入口/HTML模型；非HTTP、非Discuz站点 |
-| front_test.mjs | 16检查 PASS | DOM模型：禁止连点、响应丢失后只读恢复、不自动重购、隐藏/恢复；非浏览器 |
+| entry_test.py | 17请求 PASS | PHP入口/HTML模型；非HTTP、非Discuz站点 |
+| front_test.mjs | 17检查 PASS | DOM模型：禁止连点、响应丢失后只读恢复、不自动重购、隐藏/恢复；非浏览器 |
 | db_test.py | **SKIP** | 无可用原版X5根目录/显式隔离库；未证明真实数据库并发 |
 
 模型结果不能升级为真实站点验收。其他游戏真实站回归、浏览器/手机、容量和完整备份恢复也未验证。
@@ -55,7 +61,9 @@ reference.py 是Python标准库的HMAC、pool_hash和完整config_hash参考。�
 
 ## 本地站点与手工复验
 
-按交接文档升级后，管理员可直接打开：
+**先完成Issue #26的1.4.0源码同步与重基线，再谈真实站升级。** 下述入口仅供后续安全候选本地验证，当前不要覆盖现站。
+
+完成兼容升级后，管理员可直接打开：
 
 `plugin.php?id=gamecenter&mod=play&game=aquarium`
 

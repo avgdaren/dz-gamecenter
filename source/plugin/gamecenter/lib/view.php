@@ -144,7 +144,10 @@ class gamecenter_view {
 			.' data-login="'.($_G['uid'] ? '' : 'member.php?mod=logging&amp;action=login').'"'
 			.' data-uid="'.(int)$_G['uid'].'" data-rivals="'.self::e(json_encode($gc_roomgame ? [] : gamecenter_core::rivals($g), JSON_UNESCAPED_UNICODE)).'"></div>';
 		if($why !== '') {
-			$h .= '<div class="gc-note">'.self::e($why).(in_array($g['gkey'],['raid','aquarium'],true) ? '；可以先阅读规则，登录并获得权限后挑战。' : '，现在是试玩模式。').'</div>';
+			$gc_hint = $g['gkey'] === 'aquarium' ? '；请登录并获得权限后建立或查看水族馆。'
+				: ($g['gkey'] === 'raid' ? '；可以先阅读规则，登录并获得权限后挑战。' : '，现在是试玩模式。');
+			$gc_note = $g['gkey'] === 'aquarium' ? ($_G['uid'] ? '当前用户组暂不能建立或查看水族馆。' : '请登录论坛账号后建立或查看水族馆。') : $why.$gc_hint;
+			$h .= '<div class="gc-note">'.self::e($gc_note).'</div>';
 		}
 		$h .= '<div class="gc-box"><h4>玩法</h4><p>'.self::e($m['help'] ?: $m['intro']).'</p>';
 		$rl = self::reward_lines($g);

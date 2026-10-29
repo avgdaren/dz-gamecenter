@@ -124,7 +124,7 @@ final class gamecenter_aquarium_rules {
         } elseif($action==='unlock') {
             $wid=$data['water_id']; $w=$c['waters'][$wid] ?? null;
             if(!$w || in_array($wid,$s['unlocked_waters'],true)) { $error='target'; }
-            elseif(count(array_intersect_key($s['fish'],$c['waters'][$w['requires_water']]['fish']))<$w['requires_count']) { $error='condition'; }
+            elseif($w['requires_water']!=='' && (!in_array($w['requires_water'],$s['unlocked_waters'],true) || count(array_intersect_key($s['fish'],$c['waters'][$w['requires_water']]['fish']))<$w['requires_count'])) { $error='condition'; }
             elseif($s['coins']<$w['cost']) { $error='coins'; }
             else { $s['coins']-=$w['cost']; $s['unlocked_waters'][]=$wid; sort($s['unlocked_waters'],SORT_STRING); }
         } elseif($action==='switch') {

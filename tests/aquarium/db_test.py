@@ -25,7 +25,7 @@ def check(ok, msg):
 
 
 def send(**x):
-    p = subprocess.run([PHP, str(WORKER)], input=json.dumps(x)+'\n', capture_output=True, text=True, check=True)
+    p = subprocess.run([PHP, str(WORKER)], input=json.dumps(x)+'\n', capture_output=True, text=True, encoding='utf-8', check=True)
     assert not p.stderr, p.stderr
     r = json.loads(p.stdout)
     assert 'test_error' not in r, r

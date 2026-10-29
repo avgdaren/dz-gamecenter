@@ -75,4 +75,14 @@ for($i=1;$i<=120;$i++) {
  $z=gamecenter_aquarium_rules::settle($part,$end,$c);$joined=array_merge($joined,$z['catches']);
  check($z['save']===$whole['save'],'random partitions state');check($joined===$whole['catches'],'random partitions catches');
 }
+// 将来第三水域即使前置鱼数量为0，也必须先拥有其前置水域。
+$next=$c;$next['version']='test-prerequisite-v1';
+$next['waters']['test_future']=['cost'=>1,'requires_water'=>'test_bay','requires_count'=>0,'fish'=>['test_future_a'=>['weight'=>100,'coins'=>1]]];
+ksort($next['waters'],SORT_STRING);$canonical="aquarium-pools-v1\n";
+foreach($next['waters'] as $wid=>$water)foreach($water['fish'] as $fid=>$f)$canonical.=$wid."\t".$fid."\t".$f['weight']."\n";
+$next['pool_hash']=hash('sha256',$canonical);unset($next['config_hash']);$next['config_hash']=hash('sha256',json_encode($next,JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR));
+$next=gamecenter_aquarium_rules::prepare($next);$base=gamecenter_aquarium_rules::initial(12345,fresh()['seed_hex'],1000000,$next);
+check(gamecenter_aquarium_rules::operate($base,['action'=>'unlock','water_id'=>'test_future'],$next)['code']==='condition','prerequisite water must be unlocked');
+$base['unlocked_waters'][]='test_bay';
+check(gamecenter_aquarium_rules::operate($base,['action'=>'unlock','water_id'=>'test_future'],$next)['code']==='','unlocked prerequisite permits zero-count requirement');
 echo json_encode(['status'=>'PASS','checks'=>$n,'scope'=>'pure PHP rules; no database'])."\n";

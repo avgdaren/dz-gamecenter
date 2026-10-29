@@ -42,7 +42,9 @@ check(button('升到').disabled&&!button('同步').disabled,'unknown result requ
 check(requests.length===before,'no automatic purchase replay');
 button('同步').click();await reply({ok:1,snapshot:snap(2,1),msg:'recovered'});
 check(!button('升到').disabled&&button('升到').textContent.includes('Lv.2'),'recovery displays committed target');
-button('升到').click();await reply({ok:0,code:'conflict',snapshot:snap(3,1),msg:'状态已更新'});
+const conflict=snap(3,1);conflict.summary={catch_count:3,coins:7};
+button('升到').click();await reply({ok:0,code:'conflict',snapshot:conflict,msg:'状态已更新'});
+check(stage.children.some(e=>e.tag==='details'&&!e.open),'persisted receipt is collapsed, not replayed');
 check(requests.at(-1).data.action==='upgrade'&&requests.at(-1).data.expected_version==='2','conflict does not silently resend with new version');
 doc.hidden=true;doc.handlers.visibilitychange();const hidden=requests.length;
 check(requests.length===hidden,'hiding does not sync');

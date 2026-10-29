@@ -5,7 +5,9 @@ import json
 import os
 from pathlib import Path
 import subprocess
-import tempfile
+from contextlib import contextmanager
+import shutil
+import uuid
 
 PHP = os.environ.get('PHP_BIN', 'php')
 WORKER = Path(__file__).with_name('service-worker.php')
@@ -18,14 +20,29 @@ def check(ok, label):
     assert ok, label
 
 
-with tempfile.TemporaryDirectory(prefix='aq-service-') as folder:
+@contextmanager
+def writable_test_directory():
+    # Windows某些沙箱的mkdtemp权限不同；显式mkdir并允许指定可写父目录。
+    parent = Path(os.environ.get('GC_TEST_TMPDIR', Path.cwd()))
+    folder = parent / ('aq-service-' + uuid.uuid4().hex)
+    os.makedirs(folder)
+    try:
+        probe = folder / 'write-probe'
+        probe.write_text('ok', encoding='utf-8')
+        probe.unlink()
+        yield folder
+    finally:
+        shutil.rmtree(folder)
+
+
+with writable_test_directory() as folder:
     file = Path(folder)/'state.json'
 
     def call(uid=1, now=1000000, allowed=True, fault='', **data):
         payload = dict(uid=uid, now=now, allowed=allowed, fault=fault,
                        data=dict(client_version='aquarium-foundation-1', **data))
         p = subprocess.run([PHP, str(WORKER), str(file)], input=json.dumps(payload),
-                           capture_output=True, text=True, check=True)
+                           capture_output=True, text=True, encoding='utf-8', check=True)
         check(not p.stderr, 'no PHP warnings')
         return json.loads(p.stdout)
 
@@ -38,7 +55,7 @@ with tempfile.TemporaryDirectory(prefix='aq-service-') as folder:
         results = list(ex.map(lambda _: call(action='init'), range(16)))
     check(all(x['ok'] for x in results), 'concurrent init succeeds')
     check(all(x['snapshot']['version'] == 1 and x['snapshot']['coins'] == 122 for x in results), 'one initialization/reward')
-    check(len(json.loads(file.read_text())) == 1, 'one account row')
+    check(len(json.loads(file.read_text(encoding='utf-8'))) == 1, 'one account row')
     with concurrent.futures.ThreadPoolExecutor(8) as ex:
         results = list(ex.map(lambda _: call(action='sync', now=1120000), range(16)))
     check(all(x['ok'] and x['snapshot']['catch_seq'] == 1 for x in results), 'same window only one catch')
@@ -54,9 +71,9 @@ with tempfile.TemporaryDirectory(prefix='aq-service-') as folder:
     check(call(action='upgrade', target_level=2, expected_version=s['version'], now=1120000)['code'] == 'coins', 'insufficient rejected')
     check(call(action='switch', water_id='test_bay', expected_version=s['version'], now=1120000)['code'] == 'condition', 'locked water')
     check(call(action='upgrade', target_level=1, expected_version=s['version'], now=1120000)['code'] == 'target', 'same absolute target not charged')
-    before = file.read_text()
+    before = file.read_text(encoding='utf-8')
     check(call(action='sync', now=2000000, fault='before')['code'] == 'busy', 'failure before commit')
-    check(file.read_text() == before, 'failed transaction preserves anchor/resources')
+    check(file.read_text(encoding='utf-8') == before, 'failed transaction preserves anchor/resources')
     r = call(action='sync', now=2000000)
     check(r['ok'], 'safe retry after failure')
     check(call(action='init', uid=2)['ok'], 'second account')
@@ -66,10 +83,10 @@ with tempfile.TemporaryDirectory(prefix='aq-service-') as folder:
     x = call(action='sync', now=2000000+86400000*2)['snapshot']
     check(x['summary']['effective_ms'] == 86400000 and x['summary']['discarded_ms'] == 86400000, '24h cap')
     check(call(action='sync', now=2000000+86400000*2)['snapshot']['catch_seq'] == x['catch_seq'], 'no reclaim')
-    rows = json.loads(file.read_text()); rows['1']['state_json'] = '{bad'; file.write_text(json.dumps(rows))
-    before = file.read_text()
+    rows = json.loads(file.read_text(encoding='utf-8')); rows['1']['state_json'] = '{bad'; file.write_text(json.dumps(rows), encoding='utf-8')
+    before = file.read_text(encoding='utf-8')
     check(call(action='init')['code'] == 'busy', 'corruption fails closed')
-    check(file.read_text() == before, 'corruption not reset')
+    check(file.read_text(encoding='utf-8') == before, 'corruption not reset')
 
 print(json.dumps(dict(status='PASS', checks=checks, concurrent_requests=34,
                      scope='PHP processes + flock service model; NOT InnoDB/X5 validation')))

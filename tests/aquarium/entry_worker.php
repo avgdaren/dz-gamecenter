@@ -31,7 +31,7 @@ class DB {
 require __DIR__.'/../../source/plugin/gamecenter/lib/core.php';
 require __DIR__.'/../../source/plugin/gamecenter/lib/view.php';
 if(($x['test']??'')==='view'){
- $g=['gkey'=>'aquarium','available'=>0,'m'=>['name'=>'测试','intro'=>'占位','help'=>'测试','unit'=>'','icon'=>'','style'=>'','script'=>'game.js','version'=>'0.0.1']];
+ $g=['gkey'=>'aquarium','available'=>0,'m'=>['name'=>'测试','intro'=>'占位','help'=>'测试','unit'=>'','icon'=>'','style'=>'','script'=>'game.js','version'=>'0.0.2']];
  echo gamecenter_view::play_page($g);exit;
 }
 if(($x['test']??'')==='core'){

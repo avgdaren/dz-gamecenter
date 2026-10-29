@@ -15,7 +15,10 @@
         stage.appendChild(node('p', '当前水域：' + snapshot.current_water + ' · 已发现 ' + Object.keys(snapshot.fish).length + ' 种占位鱼'));
         if (snapshot.summary) {
           var x = snapshot.summary;
-          stage.appendChild(node('p', '最近一笔收获：' + x.catch_count + ' 条，' + x.coins + ' 金币。此为已入账记录，重复查看不发奖。'));
+          var receipt = node('details', '');
+          receipt.appendChild(node('summary', '最近一笔已入账收获（点击查看）'));
+          receipt.appendChild(node('p', x.catch_count + ' 条，' + x.coins + ' 金币。历史记录，重复查看不发奖。'));
+          stage.appendChild(receipt);
         }
       }
       function button(label, payload) {

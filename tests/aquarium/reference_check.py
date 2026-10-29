@@ -16,7 +16,7 @@ $s=gamecenter_aquarium_rules::initial($uid,'000102030405060708090a0b0c0d0e0f',10
 echo json_encode(['config'=>$c,'result'=>gamecenter_aquarium_rules::settle($s,87400000,$c)],JSON_THROW_ON_ERROR);'''
 checks = 0
 for uid in [1, 2, 7, 12345, 2147483647]:
-    p = subprocess.run([os.getenv('PHP_BIN', 'php'), '-r', php], input=str(uid), capture_output=True, text=True, cwd=root, check=True)
+    p = subprocess.run([os.getenv('PHP_BIN', 'php'), '-r', php], input=str(uid), capture_output=True, text=True, encoding='utf-8', cwd=root, check=True)
     assert not p.stderr, p.stderr
     actual = json.loads(p.stdout)
     assert actual['config'] == config
