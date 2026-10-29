@@ -1,0 +1,5791 @@
+{
+  "title": "晴光里的小鱼",
+  "bpm": 80,
+  "bars": 48,
+  "events": [
+    {
+      "beat": 0,
+      "midi": 50,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 0.0,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 0.035,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 0.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 0.105,
+      "midi": 73,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 0.7489,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02417,
+      "pan": -0.5
+    },
+    {
+      "beat": 1.4903,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02349,
+      "pan": 0.42
+    },
+    {
+      "beat": 2.7653,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0224,
+      "pan": -0.5
+    },
+    {
+      "beat": 3.513,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02438,
+      "pan": 0.42
+    },
+    {
+      "beat": 0.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.0812,
+      "pan": 0.07
+    },
+    {
+      "beat": 1.525,
+      "midi": 78,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08286,
+      "pan": 0.07
+    },
+    {
+      "beat": 2.525,
+      "midi": 76,
+      "seconds": 1.075,
+      "instrument": "keys",
+      "amplitude": 0.08015,
+      "pan": 0.07
+    },
+    {
+      "beat": 3.275,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.08028,
+      "pan": 0.07
+    },
+    {
+      "beat": 0,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 0,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 0,
+      "midi": 61,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 4,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 6.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01804,
+      "pan": 0.05
+    },
+    {
+      "beat": 4.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 4.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 4.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 4.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 4.7347,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02493,
+      "pan": -0.5
+    },
+    {
+      "beat": 5.4907,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02309,
+      "pan": 0.42
+    },
+    {
+      "beat": 6.7583,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02168,
+      "pan": -0.5
+    },
+    {
+      "beat": 7.4854,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02287,
+      "pan": 0.42
+    },
+    {
+      "beat": 4.025,
+      "midi": 71,
+      "seconds": 1.525,
+      "instrument": "keys",
+      "amplitude": 0.08361,
+      "pan": 0.07
+    },
+    {
+      "beat": 5.525,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08719,
+      "pan": 0.07
+    },
+    {
+      "beat": 6.775,
+      "midi": 78,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.08915,
+      "pan": 0.07
+    },
+    {
+      "beat": 4,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 4,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 4,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 8,
+      "midi": 43,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 8.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 8.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 8.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 8.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 8.7656,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02372,
+      "pan": -0.5
+    },
+    {
+      "beat": 9.4936,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02257,
+      "pan": 0.42
+    },
+    {
+      "beat": 10.7638,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02117,
+      "pan": -0.5
+    },
+    {
+      "beat": 11.5008,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02421,
+      "pan": 0.42
+    },
+    {
+      "beat": 8.525,
+      "midi": 79,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08975,
+      "pan": 0.07
+    },
+    {
+      "beat": 9.525,
+      "midi": 78,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.08344,
+      "pan": 0.07
+    },
+    {
+      "beat": 10.525,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08166,
+      "pan": 0.07
+    },
+    {
+      "beat": 8,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 8,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 8,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 12,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 14.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01804,
+      "pan": 0.05
+    },
+    {
+      "beat": 12.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 12.035,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 12.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 12.105,
+      "midi": 71,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 12.758,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02138,
+      "pan": -0.5
+    },
+    {
+      "beat": 13.4953,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02465,
+      "pan": 0.42
+    },
+    {
+      "beat": 14.7627,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02206,
+      "pan": -0.5
+    },
+    {
+      "beat": 15.5051,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02174,
+      "pan": 0.42
+    },
+    {
+      "beat": 12.025,
+      "midi": 76,
+      "seconds": 1.675,
+      "instrument": "keys",
+      "amplitude": 0.083,
+      "pan": 0.07
+    },
+    {
+      "beat": 14.025,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08857,
+      "pan": 0.07
+    },
+    {
+      "beat": 15.025,
+      "midi": 69,
+      "seconds": 1.1875,
+      "instrument": "keys",
+      "amplitude": 0.08719,
+      "pan": 0.07
+    },
+    {
+      "beat": 12,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 12,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 12,
+      "midi": 59,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 16,
+      "midi": 42,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 16.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 16.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 16.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 16.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 16.7354,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02373,
+      "pan": -0.5
+    },
+    {
+      "beat": 17.5149,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02584,
+      "pan": 0.42
+    },
+    {
+      "beat": 18.7624,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02249,
+      "pan": -0.5
+    },
+    {
+      "beat": 19.5026,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02395,
+      "pan": 0.42
+    },
+    {
+      "beat": 16.525,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08945,
+      "pan": 0.07
+    },
+    {
+      "beat": 17.525,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08773,
+      "pan": 0.07
+    },
+    {
+      "beat": 18.775,
+      "midi": 78,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.08548,
+      "pan": 0.07
+    },
+    {
+      "beat": 16,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 16,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 16,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 20,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 22.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01804,
+      "pan": 0.05
+    },
+    {
+      "beat": 20.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 20.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 20.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 20.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 20.7645,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02435,
+      "pan": -0.5
+    },
+    {
+      "beat": 21.5024,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02445,
+      "pan": 0.42
+    },
+    {
+      "beat": 22.7354,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02207,
+      "pan": -0.5
+    },
+    {
+      "beat": 23.5074,
+      "midi": 74,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02238,
+      "pan": 0.42
+    },
+    {
+      "beat": 20.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.0865,
+      "pan": 0.07
+    },
+    {
+      "beat": 21.775,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.08556,
+      "pan": 0.07
+    },
+    {
+      "beat": 22.775,
+      "midi": 71,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.08685,
+      "pan": 0.07
+    },
+    {
+      "beat": 20,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 20,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 20,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 24,
+      "midi": 40,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 24.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 24.035,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 24.07,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 24.105,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 24.7371,
+      "midi": 59,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02333,
+      "pan": -0.5
+    },
+    {
+      "beat": 25.5002,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02181,
+      "pan": 0.42
+    },
+    {
+      "beat": 26.7634,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02422,
+      "pan": -0.5
+    },
+    {
+      "beat": 27.4966,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02447,
+      "pan": 0.42
+    },
+    {
+      "beat": 24.525,
+      "midi": 71,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.08608,
+      "pan": 0.07
+    },
+    {
+      "beat": 25.775,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08783,
+      "pan": 0.07
+    },
+    {
+      "beat": 27.025,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08623,
+      "pan": 0.07
+    },
+    {
+      "beat": 24,
+      "midi": 47,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 24,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 24,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 28,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0615,
+      "pan": -0.05
+    },
+    {
+      "beat": 30.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01804,
+      "pan": 0.05
+    },
+    {
+      "beat": 28.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.3
+    },
+    {
+      "beat": 28.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": -0.11
+    },
+    {
+      "beat": 28.07,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.08
+    },
+    {
+      "beat": 28.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.02952,
+      "pan": 0.27
+    },
+    {
+      "beat": 28.7384,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0231,
+      "pan": -0.5
+    },
+    {
+      "beat": 29.4894,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02302,
+      "pan": 0.42
+    },
+    {
+      "beat": 30.7461,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02417,
+      "pan": -0.5
+    },
+    {
+      "beat": 31.5108,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02357,
+      "pan": 0.42
+    },
+    {
+      "beat": 28.025,
+      "midi": 73,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08834,
+      "pan": 0.07
+    },
+    {
+      "beat": 29.775,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.08937,
+      "pan": 0.07
+    },
+    {
+      "beat": 31.025,
+      "midi": 69,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08546,
+      "pan": 0.07
+    },
+    {
+      "beat": 28,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": -0.65
+    },
+    {
+      "beat": 28,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0
+    },
+    {
+      "beat": 28,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00779,
+      "pan": 0.65
+    },
+    {
+      "beat": 32,
+      "midi": 50,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 32.0,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 32.035,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 32.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 32.105,
+      "midi": 73,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 32.7398,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03108,
+      "pan": -0.5
+    },
+    {
+      "beat": 33.5047,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03044,
+      "pan": 0.42
+    },
+    {
+      "beat": 34.7464,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02951,
+      "pan": -0.5
+    },
+    {
+      "beat": 35.4938,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03176,
+      "pan": 0.42
+    },
+    {
+      "beat": 32.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10859,
+      "pan": 0.07
+    },
+    {
+      "beat": 33.525,
+      "midi": 78,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10779,
+      "pan": 0.07
+    },
+    {
+      "beat": 34.525,
+      "midi": 76,
+      "seconds": 1.075,
+      "instrument": "keys",
+      "amplitude": 0.09952,
+      "pan": 0.07
+    },
+    {
+      "beat": 35.275,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.10863,
+      "pan": 0.07
+    },
+    {
+      "beat": 32,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 32,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 32,
+      "midi": 61,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 36,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 38.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.022,
+      "pan": 0.05
+    },
+    {
+      "beat": 36.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 36.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 36.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 36.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 36.7348,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0266,
+      "pan": -0.5
+    },
+    {
+      "beat": 37.5146,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0295,
+      "pan": 0.42
+    },
+    {
+      "beat": 38.7562,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02896,
+      "pan": -0.5
+    },
+    {
+      "beat": 39.4962,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03152,
+      "pan": 0.42
+    },
+    {
+      "beat": 36.025,
+      "midi": 71,
+      "seconds": 1.525,
+      "instrument": "keys",
+      "amplitude": 0.1073,
+      "pan": 0.07
+    },
+    {
+      "beat": 37.525,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10083,
+      "pan": 0.07
+    },
+    {
+      "beat": 38.775,
+      "midi": 78,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.10435,
+      "pan": 0.07
+    },
+    {
+      "beat": 39.35,
+      "midi": 78,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.035,
+      "pan": -0.25
+    },
+    {
+      "beat": 36,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 36,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 36,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 40,
+      "midi": 43,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 40.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 40.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 40.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 40.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 40.7602,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02602,
+      "pan": -0.5
+    },
+    {
+      "beat": 41.5097,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02602,
+      "pan": 0.42
+    },
+    {
+      "beat": 42.7571,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03003,
+      "pan": -0.5
+    },
+    {
+      "beat": 43.489,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03031,
+      "pan": 0.42
+    },
+    {
+      "beat": 40.525,
+      "midi": 79,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09871,
+      "pan": 0.07
+    },
+    {
+      "beat": 41.525,
+      "midi": 78,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.09938,
+      "pan": 0.07
+    },
+    {
+      "beat": 42.525,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09711,
+      "pan": 0.07
+    },
+    {
+      "beat": 40,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 40,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 40,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 44,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 46.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.022,
+      "pan": 0.05
+    },
+    {
+      "beat": 44.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 44.035,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 44.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 44.105,
+      "midi": 71,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 44.7602,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03121,
+      "pan": -0.5
+    },
+    {
+      "beat": 45.5122,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02777,
+      "pan": 0.42
+    },
+    {
+      "beat": 46.7382,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02763,
+      "pan": -0.5
+    },
+    {
+      "beat": 47.4932,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02817,
+      "pan": 0.42
+    },
+    {
+      "beat": 44.025,
+      "midi": 76,
+      "seconds": 1.675,
+      "instrument": "keys",
+      "amplitude": 0.10769,
+      "pan": 0.07
+    },
+    {
+      "beat": 46.025,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10529,
+      "pan": 0.07
+    },
+    {
+      "beat": 47.025,
+      "midi": 69,
+      "seconds": 1.1875,
+      "instrument": "keys",
+      "amplitude": 0.10059,
+      "pan": 0.07
+    },
+    {
+      "beat": 47.35,
+      "midi": 81,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.035,
+      "pan": -0.25
+    },
+    {
+      "beat": 44,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 44,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 44,
+      "midi": 59,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 48,
+      "midi": 42,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 48.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 48.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 48.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 48.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 48.7633,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02797,
+      "pan": -0.5
+    },
+    {
+      "beat": 49.4941,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02996,
+      "pan": 0.42
+    },
+    {
+      "beat": 50.7518,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03099,
+      "pan": -0.5
+    },
+    {
+      "beat": 51.4943,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02997,
+      "pan": 0.42
+    },
+    {
+      "beat": 48.525,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10746,
+      "pan": 0.07
+    },
+    {
+      "beat": 49.525,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.0996,
+      "pan": 0.07
+    },
+    {
+      "beat": 50.775,
+      "midi": 78,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.10186,
+      "pan": 0.07
+    },
+    {
+      "beat": 48,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 48,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 48,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 52,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 54.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.022,
+      "pan": 0.05
+    },
+    {
+      "beat": 52.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 52.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 52.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 52.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 52.7604,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02964,
+      "pan": -0.5
+    },
+    {
+      "beat": 53.5046,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0262,
+      "pan": 0.42
+    },
+    {
+      "beat": 54.748,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02743,
+      "pan": -0.5
+    },
+    {
+      "beat": 55.5079,
+      "midi": 74,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02904,
+      "pan": 0.42
+    },
+    {
+      "beat": 52.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10189,
+      "pan": 0.07
+    },
+    {
+      "beat": 53.775,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.10007,
+      "pan": 0.07
+    },
+    {
+      "beat": 54.775,
+      "midi": 71,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.10087,
+      "pan": 0.07
+    },
+    {
+      "beat": 52,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 52,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 52,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 56,
+      "midi": 40,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 56.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 56.035,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 56.07,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 56.105,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 56.7494,
+      "midi": 59,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03171,
+      "pan": -0.5
+    },
+    {
+      "beat": 57.5142,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02698,
+      "pan": 0.42
+    },
+    {
+      "beat": 58.7424,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02998,
+      "pan": -0.5
+    },
+    {
+      "beat": 59.5045,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02794,
+      "pan": 0.42
+    },
+    {
+      "beat": 56.525,
+      "midi": 71,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.10542,
+      "pan": 0.07
+    },
+    {
+      "beat": 57.775,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09844,
+      "pan": 0.07
+    },
+    {
+      "beat": 59.025,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10385,
+      "pan": 0.07
+    },
+    {
+      "beat": 59.35,
+      "midi": 74,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.035,
+      "pan": -0.25
+    },
+    {
+      "beat": 56,
+      "midi": 47,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 56,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 56,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 60,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.075,
+      "pan": -0.05
+    },
+    {
+      "beat": 62.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.022,
+      "pan": 0.05
+    },
+    {
+      "beat": 60.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.3
+    },
+    {
+      "beat": 60.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": -0.11
+    },
+    {
+      "beat": 60.07,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.08
+    },
+    {
+      "beat": 60.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.036,
+      "pan": 0.27
+    },
+    {
+      "beat": 60.7361,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02632,
+      "pan": -0.5
+    },
+    {
+      "beat": 61.4929,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03144,
+      "pan": 0.42
+    },
+    {
+      "beat": 62.7602,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03123,
+      "pan": -0.5
+    },
+    {
+      "beat": 63.501,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0302,
+      "pan": 0.42
+    },
+    {
+      "beat": 60.025,
+      "midi": 73,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10098,
+      "pan": 0.07
+    },
+    {
+      "beat": 61.775,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.1066,
+      "pan": 0.07
+    },
+    {
+      "beat": 63.025,
+      "midi": 69,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10997,
+      "pan": 0.07
+    },
+    {
+      "beat": 60,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": -0.65
+    },
+    {
+      "beat": 60,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0
+    },
+    {
+      "beat": 60,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.0095,
+      "pan": 0.65
+    },
+    {
+      "beat": 64,
+      "midi": 50,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 64.0,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 64.035,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 64.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 64.105,
+      "midi": 73,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 64.763,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03259,
+      "pan": -0.5
+    },
+    {
+      "beat": 65.5054,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02776,
+      "pan": 0.42
+    },
+    {
+      "beat": 66.7407,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03256,
+      "pan": -0.5
+    },
+    {
+      "beat": 67.4859,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02927,
+      "pan": 0.42
+    },
+    {
+      "beat": 64.525,
+      "midi": 78,
+      "seconds": 1.525,
+      "instrument": "keys",
+      "amplitude": 0.10699,
+      "pan": 0.07
+    },
+    {
+      "beat": 66.025,
+      "midi": 81,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10663,
+      "pan": 0.07
+    },
+    {
+      "beat": 67.025,
+      "midi": 78,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09996,
+      "pan": 0.07
+    },
+    {
+      "beat": 64,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 64,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 64,
+      "midi": 61,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 68,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 70.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02266,
+      "pan": 0.05
+    },
+    {
+      "beat": 68.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 68.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 68.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 68.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 68.7593,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02824,
+      "pan": -0.5
+    },
+    {
+      "beat": 69.5046,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03235,
+      "pan": 0.42
+    },
+    {
+      "beat": 70.756,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03079,
+      "pan": -0.5
+    },
+    {
+      "beat": 71.4886,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02752,
+      "pan": 0.42
+    },
+    {
+      "beat": 68.025,
+      "midi": 78,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10092,
+      "pan": 0.07
+    },
+    {
+      "beat": 69.025,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10458,
+      "pan": 0.07
+    },
+    {
+      "beat": 70.525,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10914,
+      "pan": 0.07
+    },
+    {
+      "beat": 71.35,
+      "midi": 78,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.03605,
+      "pan": -0.25
+    },
+    {
+      "beat": 68,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 68,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 68,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 72,
+      "midi": 43,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 72.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 72.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 72.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 72.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 72.7657,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03012,
+      "pan": -0.5
+    },
+    {
+      "beat": 73.4887,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02752,
+      "pan": 0.42
+    },
+    {
+      "beat": 74.7406,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03041,
+      "pan": -0.5
+    },
+    {
+      "beat": 75.5067,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02821,
+      "pan": 0.42
+    },
+    {
+      "beat": 72.025,
+      "midi": 74,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.11011,
+      "pan": 0.07
+    },
+    {
+      "beat": 73.525,
+      "midi": 71,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.10324,
+      "pan": 0.07
+    },
+    {
+      "beat": 75.025,
+      "midi": 69,
+      "seconds": 1.1875,
+      "instrument": "keys",
+      "amplitude": 0.10501,
+      "pan": 0.07
+    },
+    {
+      "beat": 72,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 72,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 72,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 76,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 78.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02266,
+      "pan": 0.05
+    },
+    {
+      "beat": 76.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 76.035,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 76.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 76.105,
+      "midi": 71,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 76.7528,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02983,
+      "pan": -0.5
+    },
+    {
+      "beat": 77.5027,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02852,
+      "pan": 0.42
+    },
+    {
+      "beat": 78.7345,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03188,
+      "pan": -0.5
+    },
+    {
+      "beat": 79.4873,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03085,
+      "pan": 0.42
+    },
+    {
+      "beat": 76.525,
+      "midi": 71,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10777,
+      "pan": 0.07
+    },
+    {
+      "beat": 77.525,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10735,
+      "pan": 0.07
+    },
+    {
+      "beat": 78.525,
+      "midi": 76,
+      "seconds": 1.45,
+      "instrument": "keys",
+      "amplitude": 0.10804,
+      "pan": 0.07
+    },
+    {
+      "beat": 79.35,
+      "midi": 81,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.03605,
+      "pan": -0.25
+    },
+    {
+      "beat": 76,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 76,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 76,
+      "midi": 59,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 80,
+      "midi": 42,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 80.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 80.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 80.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 80.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 80.7572,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03267,
+      "pan": -0.5
+    },
+    {
+      "beat": 81.5052,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03212,
+      "pan": 0.42
+    },
+    {
+      "beat": 82.7411,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02986,
+      "pan": -0.5
+    },
+    {
+      "beat": 83.4988,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02767,
+      "pan": 0.42
+    },
+    {
+      "beat": 80.025,
+      "midi": 78,
+      "seconds": 1.675,
+      "instrument": "keys",
+      "amplitude": 0.11024,
+      "pan": 0.07
+    },
+    {
+      "beat": 82.025,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.11015,
+      "pan": 0.07
+    },
+    {
+      "beat": 83.275,
+      "midi": 73,
+      "seconds": 1.1125,
+      "instrument": "keys",
+      "amplitude": 0.10612,
+      "pan": 0.07
+    },
+    {
+      "beat": 80,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 80,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 80,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 84,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 86.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02266,
+      "pan": 0.05
+    },
+    {
+      "beat": 84.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 84.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 84.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 84.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 84.7343,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02721,
+      "pan": -0.5
+    },
+    {
+      "beat": 85.4946,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02979,
+      "pan": 0.42
+    },
+    {
+      "beat": 86.7402,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02871,
+      "pan": -0.5
+    },
+    {
+      "beat": 87.5125,
+      "midi": 74,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03085,
+      "pan": 0.42
+    },
+    {
+      "beat": 84.525,
+      "midi": 74,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.10736,
+      "pan": 0.07
+    },
+    {
+      "beat": 86.025,
+      "midi": 78,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.10618,
+      "pan": 0.07
+    },
+    {
+      "beat": 87.275,
+      "midi": 74,
+      "seconds": 1.1125,
+      "instrument": "keys",
+      "amplitude": 0.11318,
+      "pan": 0.07
+    },
+    {
+      "beat": 84,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 84,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 84,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 88,
+      "midi": 40,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 88.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 88.035,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 88.07,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 88.105,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 88.7568,
+      "midi": 59,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0322,
+      "pan": -0.5
+    },
+    {
+      "beat": 89.4947,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03018,
+      "pan": 0.42
+    },
+    {
+      "beat": 90.765,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02793,
+      "pan": -0.5
+    },
+    {
+      "beat": 91.4954,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02674,
+      "pan": 0.42
+    },
+    {
+      "beat": 88.025,
+      "midi": 76,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.10614,
+      "pan": 0.07
+    },
+    {
+      "beat": 89.525,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.11004,
+      "pan": 0.07
+    },
+    {
+      "beat": 90.775,
+      "midi": 71,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.10197,
+      "pan": 0.07
+    },
+    {
+      "beat": 91.35,
+      "midi": 74,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.03605,
+      "pan": -0.25
+    },
+    {
+      "beat": 88,
+      "midi": 47,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 88,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 88,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 92,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.07725,
+      "pan": -0.05
+    },
+    {
+      "beat": 94.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02266,
+      "pan": 0.05
+    },
+    {
+      "beat": 92.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.3
+    },
+    {
+      "beat": 92.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": -0.11
+    },
+    {
+      "beat": 92.07,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.08
+    },
+    {
+      "beat": 92.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03708,
+      "pan": 0.27
+    },
+    {
+      "beat": 92.7564,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02839,
+      "pan": -0.5
+    },
+    {
+      "beat": 93.4842,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02737,
+      "pan": 0.42
+    },
+    {
+      "beat": 94.7495,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02777,
+      "pan": -0.5
+    },
+    {
+      "beat": 95.4883,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.03208,
+      "pan": 0.42
+    },
+    {
+      "beat": 92.525,
+      "midi": 73,
+      "seconds": 1.45,
+      "instrument": "keys",
+      "amplitude": 0.11332,
+      "pan": 0.07
+    },
+    {
+      "beat": 94.025,
+      "midi": 71,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10679,
+      "pan": 0.07
+    },
+    {
+      "beat": 95.025,
+      "midi": 69,
+      "seconds": 1.1875,
+      "instrument": "keys",
+      "amplitude": 0.1123,
+      "pan": 0.07
+    },
+    {
+      "beat": 92,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": -0.65
+    },
+    {
+      "beat": 92,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0
+    },
+    {
+      "beat": 92,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00979,
+      "pan": 0.65
+    },
+    {
+      "beat": 96,
+      "midi": 50,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 96.0,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 96.035,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 96.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 96.105,
+      "midi": 73,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 96.7606,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02069,
+      "pan": -0.5
+    },
+    {
+      "beat": 98.7488,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02039,
+      "pan": -0.5
+    },
+    {
+      "beat": 96.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.06871,
+      "pan": 0.07
+    },
+    {
+      "beat": 96,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 96,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 96,
+      "midi": 61,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 100,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 100.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 100.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 100.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 100.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 100.7523,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02069,
+      "pan": -0.5
+    },
+    {
+      "beat": 102.742,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.01907,
+      "pan": -0.5
+    },
+    {
+      "beat": 100.025,
+      "midi": 71,
+      "seconds": 1.525,
+      "instrument": "keys",
+      "amplitude": 0.06818,
+      "pan": 0.07
+    },
+    {
+      "beat": 100,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 100,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 100,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 104,
+      "midi": 43,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 104.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 104.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 104.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 104.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 104.7499,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02144,
+      "pan": -0.5
+    },
+    {
+      "beat": 106.7343,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02069,
+      "pan": -0.5
+    },
+    {
+      "beat": 104.525,
+      "midi": 79,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.07498,
+      "pan": 0.07
+    },
+    {
+      "beat": 104,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 104,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 104,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 108,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 108.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 108.035,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 108.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 108.105,
+      "midi": 71,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 108.7488,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.01875,
+      "pan": -0.5
+    },
+    {
+      "beat": 110.7378,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02052,
+      "pan": -0.5
+    },
+    {
+      "beat": 108.025,
+      "midi": 76,
+      "seconds": 1.675,
+      "instrument": "keys",
+      "amplitude": 0.07006,
+      "pan": 0.07
+    },
+    {
+      "beat": 108,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 108,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 108,
+      "midi": 59,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 112,
+      "midi": 42,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 112.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 112.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 112.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 112.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 112.7655,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0215,
+      "pan": -0.5
+    },
+    {
+      "beat": 114.7484,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02007,
+      "pan": -0.5
+    },
+    {
+      "beat": 112.525,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.07348,
+      "pan": 0.07
+    },
+    {
+      "beat": 112,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 112,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 112,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 116,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 116.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 116.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 116.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 116.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 116.7505,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.01847,
+      "pan": -0.5
+    },
+    {
+      "beat": 118.7445,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.01965,
+      "pan": -0.5
+    },
+    {
+      "beat": 116.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.06866,
+      "pan": 0.07
+    },
+    {
+      "beat": 116,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 116,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 116,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 120,
+      "midi": 40,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 120.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 120.035,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 120.07,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 120.105,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 120.7659,
+      "midi": 59,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02127,
+      "pan": -0.5
+    },
+    {
+      "beat": 122.7612,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02005,
+      "pan": -0.5
+    },
+    {
+      "beat": 120.525,
+      "midi": 71,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.07204,
+      "pan": 0.07
+    },
+    {
+      "beat": 120,
+      "midi": 47,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 120,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 120,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 124,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0525,
+      "pan": -0.05
+    },
+    {
+      "beat": 124.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.3
+    },
+    {
+      "beat": 124.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": -0.11
+    },
+    {
+      "beat": 124.07,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.08
+    },
+    {
+      "beat": 124.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.0252,
+      "pan": 0.27
+    },
+    {
+      "beat": 124.7571,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02045,
+      "pan": -0.5
+    },
+    {
+      "beat": 126.7655,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02075,
+      "pan": -0.5
+    },
+    {
+      "beat": 124.025,
+      "midi": 73,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.07361,
+      "pan": 0.07
+    },
+    {
+      "beat": 124,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": -0.65
+    },
+    {
+      "beat": 124,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0
+    },
+    {
+      "beat": 124,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00665,
+      "pan": 0.65
+    },
+    {
+      "beat": 128,
+      "midi": 50,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 128.0,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 128.035,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 128.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 128.105,
+      "midi": 73,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 128.7451,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02794,
+      "pan": -0.5
+    },
+    {
+      "beat": 129.4851,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02895,
+      "pan": 0.42
+    },
+    {
+      "beat": 130.7616,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02552,
+      "pan": -0.5
+    },
+    {
+      "beat": 131.5052,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0276,
+      "pan": 0.42
+    },
+    {
+      "beat": 128.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09858,
+      "pan": 0.07
+    },
+    {
+      "beat": 129.525,
+      "midi": 78,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10196,
+      "pan": 0.07
+    },
+    {
+      "beat": 130.525,
+      "midi": 76,
+      "seconds": 1.075,
+      "instrument": "keys",
+      "amplitude": 0.09825,
+      "pan": 0.07
+    },
+    {
+      "beat": 131.275,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.09131,
+      "pan": 0.07
+    },
+    {
+      "beat": 128,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 128,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 128,
+      "midi": 61,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 132,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 134.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02068,
+      "pan": 0.05
+    },
+    {
+      "beat": 132.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 132.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 132.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 132.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 132.7626,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0296,
+      "pan": -0.5
+    },
+    {
+      "beat": 133.5102,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02914,
+      "pan": 0.42
+    },
+    {
+      "beat": 134.7488,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02502,
+      "pan": -0.5
+    },
+    {
+      "beat": 135.513,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02835,
+      "pan": 0.42
+    },
+    {
+      "beat": 132.025,
+      "midi": 71,
+      "seconds": 1.525,
+      "instrument": "keys",
+      "amplitude": 0.10298,
+      "pan": 0.07
+    },
+    {
+      "beat": 133.525,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10165,
+      "pan": 0.07
+    },
+    {
+      "beat": 134.775,
+      "midi": 78,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.09821,
+      "pan": 0.07
+    },
+    {
+      "beat": 135.35,
+      "midi": 78,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.0329,
+      "pan": -0.25
+    },
+    {
+      "beat": 132,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 132,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 132,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 136,
+      "midi": 43,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 136.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 136.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 136.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 136.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 136.7632,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02587,
+      "pan": -0.5
+    },
+    {
+      "beat": 137.5108,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02485,
+      "pan": 0.42
+    },
+    {
+      "beat": 138.7401,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02904,
+      "pan": -0.5
+    },
+    {
+      "beat": 139.4898,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02856,
+      "pan": 0.42
+    },
+    {
+      "beat": 136.525,
+      "midi": 81,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.0974,
+      "pan": 0.07
+    },
+    {
+      "beat": 137.525,
+      "midi": 78,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.10326,
+      "pan": 0.07
+    },
+    {
+      "beat": 138.525,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09761,
+      "pan": 0.07
+    },
+    {
+      "beat": 136,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 136,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 136,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 140,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 142.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02068,
+      "pan": 0.05
+    },
+    {
+      "beat": 140.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 140.035,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 140.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 140.105,
+      "midi": 71,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 140.7357,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02893,
+      "pan": -0.5
+    },
+    {
+      "beat": 141.5159,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02836,
+      "pan": 0.42
+    },
+    {
+      "beat": 142.7351,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02905,
+      "pan": -0.5
+    },
+    {
+      "beat": 143.4994,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02816,
+      "pan": 0.42
+    },
+    {
+      "beat": 140.025,
+      "midi": 76,
+      "seconds": 1.675,
+      "instrument": "keys",
+      "amplitude": 0.09967,
+      "pan": 0.07
+    },
+    {
+      "beat": 142.025,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10261,
+      "pan": 0.07
+    },
+    {
+      "beat": 143.025,
+      "midi": 69,
+      "seconds": 1.1875,
+      "instrument": "keys",
+      "amplitude": 0.09429,
+      "pan": 0.07
+    },
+    {
+      "beat": 143.35,
+      "midi": 81,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.0329,
+      "pan": -0.25
+    },
+    {
+      "beat": 140,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 140,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 140,
+      "midi": 59,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 144,
+      "midi": 42,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 144.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 144.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 144.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 144.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 144.7615,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02465,
+      "pan": -0.5
+    },
+    {
+      "beat": 145.4904,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02674,
+      "pan": 0.42
+    },
+    {
+      "beat": 146.7396,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02736,
+      "pan": -0.5
+    },
+    {
+      "beat": 147.5002,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02445,
+      "pan": 0.42
+    },
+    {
+      "beat": 144.525,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09529,
+      "pan": 0.07
+    },
+    {
+      "beat": 145.525,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10357,
+      "pan": 0.07
+    },
+    {
+      "beat": 146.775,
+      "midi": 78,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.09241,
+      "pan": 0.07
+    },
+    {
+      "beat": 144,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 144,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 144,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 148,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 150.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02068,
+      "pan": 0.05
+    },
+    {
+      "beat": 148.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 148.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 148.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 148.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 148.7493,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0287,
+      "pan": -0.5
+    },
+    {
+      "beat": 149.4973,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02625,
+      "pan": 0.42
+    },
+    {
+      "beat": 150.7352,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02464,
+      "pan": -0.5
+    },
+    {
+      "beat": 151.4946,
+      "midi": 74,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02856,
+      "pan": 0.42
+    },
+    {
+      "beat": 148.025,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10129,
+      "pan": 0.07
+    },
+    {
+      "beat": 149.775,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.0998,
+      "pan": 0.07
+    },
+    {
+      "beat": 150.775,
+      "midi": 71,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.09143,
+      "pan": 0.07
+    },
+    {
+      "beat": 148,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 148,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 148,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 152,
+      "midi": 40,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 152.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 152.035,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 152.07,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 152.105,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 152.7482,
+      "midi": 59,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02825,
+      "pan": -0.5
+    },
+    {
+      "beat": 153.4969,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02705,
+      "pan": 0.42
+    },
+    {
+      "beat": 154.7652,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02728,
+      "pan": -0.5
+    },
+    {
+      "beat": 155.4875,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02651,
+      "pan": 0.42
+    },
+    {
+      "beat": 152.525,
+      "midi": 73,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.10071,
+      "pan": 0.07
+    },
+    {
+      "beat": 153.775,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10246,
+      "pan": 0.07
+    },
+    {
+      "beat": 155.025,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09681,
+      "pan": 0.07
+    },
+    {
+      "beat": 155.35,
+      "midi": 74,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.0329,
+      "pan": -0.25
+    },
+    {
+      "beat": 152,
+      "midi": 47,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 152,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 152,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 156,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0705,
+      "pan": -0.05
+    },
+    {
+      "beat": 158.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.02068,
+      "pan": 0.05
+    },
+    {
+      "beat": 156.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.3
+    },
+    {
+      "beat": 156.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": -0.11
+    },
+    {
+      "beat": 156.07,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.08
+    },
+    {
+      "beat": 156.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03384,
+      "pan": 0.27
+    },
+    {
+      "beat": 156.7517,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02989,
+      "pan": -0.5
+    },
+    {
+      "beat": 157.5104,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.027,
+      "pan": 0.42
+    },
+    {
+      "beat": 158.7477,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02761,
+      "pan": -0.5
+    },
+    {
+      "beat": 159.49,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02666,
+      "pan": 0.42
+    },
+    {
+      "beat": 156.025,
+      "midi": 73,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.10224,
+      "pan": 0.07
+    },
+    {
+      "beat": 157.775,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "keys",
+      "amplitude": 0.09134,
+      "pan": 0.07
+    },
+    {
+      "beat": 159.025,
+      "midi": 69,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09132,
+      "pan": 0.07
+    },
+    {
+      "beat": 156,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": -0.65
+    },
+    {
+      "beat": 156,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0
+    },
+    {
+      "beat": 156,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00893,
+      "pan": 0.65
+    },
+    {
+      "beat": 160,
+      "midi": 50,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 160.0,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 160.035,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 160.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 160.105,
+      "midi": 73,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 160.7531,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02633,
+      "pan": -0.5
+    },
+    {
+      "beat": 161.5107,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02581,
+      "pan": 0.42
+    },
+    {
+      "beat": 162.762,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02704,
+      "pan": -0.5
+    },
+    {
+      "beat": 163.5079,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02468,
+      "pan": 0.42
+    },
+    {
+      "beat": 160.525,
+      "midi": 78,
+      "seconds": 1.525,
+      "instrument": "keys",
+      "amplitude": 0.08513,
+      "pan": 0.07
+    },
+    {
+      "beat": 162.025,
+      "midi": 81,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.0913,
+      "pan": 0.07
+    },
+    {
+      "beat": 163.025,
+      "midi": 78,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09151,
+      "pan": 0.07
+    },
+    {
+      "beat": 160,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 160,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 160,
+      "midi": 61,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    },
+    {
+      "beat": 164,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 166.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01892,
+      "pan": 0.05
+    },
+    {
+      "beat": 164.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 164.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 164.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 164.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 164.7458,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02652,
+      "pan": -0.5
+    },
+    {
+      "beat": 165.5144,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02228,
+      "pan": 0.42
+    },
+    {
+      "beat": 166.7519,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02418,
+      "pan": -0.5
+    },
+    {
+      "beat": 167.5004,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02644,
+      "pan": 0.42
+    },
+    {
+      "beat": 164.025,
+      "midi": 78,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08914,
+      "pan": 0.07
+    },
+    {
+      "beat": 165.025,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09117,
+      "pan": 0.07
+    },
+    {
+      "beat": 166.525,
+      "midi": 74,
+      "seconds": 1.5999999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09396,
+      "pan": 0.07
+    },
+    {
+      "beat": 167.35,
+      "midi": 78,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.0301,
+      "pan": -0.25
+    },
+    {
+      "beat": 164,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 164,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 164,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    },
+    {
+      "beat": 168,
+      "midi": 43,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 168.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 168.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 168.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 168.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 168.7572,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02682,
+      "pan": -0.5
+    },
+    {
+      "beat": 169.5081,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02535,
+      "pan": 0.42
+    },
+    {
+      "beat": 170.7523,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02709,
+      "pan": -0.5
+    },
+    {
+      "beat": 171.5049,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02578,
+      "pan": 0.42
+    },
+    {
+      "beat": 168.025,
+      "midi": 74,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.09371,
+      "pan": 0.07
+    },
+    {
+      "beat": 169.525,
+      "midi": 71,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.09367,
+      "pan": 0.07
+    },
+    {
+      "beat": 171.025,
+      "midi": 69,
+      "seconds": 1.1875,
+      "instrument": "keys",
+      "amplitude": 0.08338,
+      "pan": 0.07
+    },
+    {
+      "beat": 168,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 168,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 168,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    },
+    {
+      "beat": 172,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 174.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01892,
+      "pan": 0.05
+    },
+    {
+      "beat": 172.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 172.035,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 172.07,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 172.105,
+      "midi": 71,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 172.7649,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02624,
+      "pan": -0.5
+    },
+    {
+      "beat": 173.5118,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02461,
+      "pan": 0.42
+    },
+    {
+      "beat": 174.7456,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0243,
+      "pan": -0.5
+    },
+    {
+      "beat": 175.5061,
+      "midi": 76,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02713,
+      "pan": 0.42
+    },
+    {
+      "beat": 172.525,
+      "midi": 71,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09263,
+      "pan": 0.07
+    },
+    {
+      "beat": 173.525,
+      "midi": 73,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08638,
+      "pan": 0.07
+    },
+    {
+      "beat": 174.525,
+      "midi": 76,
+      "seconds": 1.45,
+      "instrument": "keys",
+      "amplitude": 0.08912,
+      "pan": 0.07
+    },
+    {
+      "beat": 175.35,
+      "midi": 81,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.0301,
+      "pan": -0.25
+    },
+    {
+      "beat": 172,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 172,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 172,
+      "midi": 59,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    },
+    {
+      "beat": 176,
+      "midi": 42,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 176.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 176.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 176.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 176.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 176.7518,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0266,
+      "pan": -0.5
+    },
+    {
+      "beat": 177.5131,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02593,
+      "pan": 0.42
+    },
+    {
+      "beat": 178.7443,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02529,
+      "pan": -0.5
+    },
+    {
+      "beat": 179.4873,
+      "midi": 73,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02528,
+      "pan": 0.42
+    },
+    {
+      "beat": 176.025,
+      "midi": 78,
+      "seconds": 1.675,
+      "instrument": "keys",
+      "amplitude": 0.08475,
+      "pan": 0.07
+    },
+    {
+      "beat": 178.025,
+      "midi": 76,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08578,
+      "pan": 0.07
+    },
+    {
+      "beat": 179.275,
+      "midi": 73,
+      "seconds": 1.1125,
+      "instrument": "keys",
+      "amplitude": 0.09101,
+      "pan": 0.07
+    },
+    {
+      "beat": 176,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 176,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 176,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    },
+    {
+      "beat": 180,
+      "midi": 47,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 182.5,
+      "midi": 54,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01892,
+      "pan": 0.05
+    },
+    {
+      "beat": 180.0,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 180.035,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 180.07,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 180.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 180.7459,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02278,
+      "pan": -0.5
+    },
+    {
+      "beat": 181.5004,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.027,
+      "pan": 0.42
+    },
+    {
+      "beat": 182.7652,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02696,
+      "pan": -0.5
+    },
+    {
+      "beat": 183.5099,
+      "midi": 74,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02639,
+      "pan": 0.42
+    },
+    {
+      "beat": 180.525,
+      "midi": 74,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.0948,
+      "pan": 0.07
+    },
+    {
+      "beat": 182.025,
+      "midi": 78,
+      "seconds": 1.3,
+      "instrument": "keys",
+      "amplitude": 0.0848,
+      "pan": 0.07
+    },
+    {
+      "beat": 183.275,
+      "midi": 74,
+      "seconds": 1.1125,
+      "instrument": "keys",
+      "amplitude": 0.09014,
+      "pan": 0.07
+    },
+    {
+      "beat": 180,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 180,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 180,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    },
+    {
+      "beat": 184,
+      "midi": 40,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 184.0,
+      "midi": 55,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 184.035,
+      "midi": 59,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 184.07,
+      "midi": 62,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 184.105,
+      "midi": 66,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 184.7407,
+      "midi": 59,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02515,
+      "pan": -0.5
+    },
+    {
+      "beat": 185.5123,
+      "midi": 62,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02257,
+      "pan": 0.42
+    },
+    {
+      "beat": 186.7504,
+      "midi": 66,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02658,
+      "pan": -0.5
+    },
+    {
+      "beat": 187.5026,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.0269,
+      "pan": 0.42
+    },
+    {
+      "beat": 184.025,
+      "midi": 76,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.08748,
+      "pan": 0.07
+    },
+    {
+      "beat": 185.525,
+      "midi": 74,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.08669,
+      "pan": 0.07
+    },
+    {
+      "beat": 186.775,
+      "midi": 71,
+      "seconds": 1.375,
+      "instrument": "keys",
+      "amplitude": 0.09071,
+      "pan": 0.07
+    },
+    {
+      "beat": 187.35,
+      "midi": 74,
+      "seconds": 1.1,
+      "instrument": "mallet",
+      "amplitude": 0.0301,
+      "pan": -0.25
+    },
+    {
+      "beat": 184,
+      "midi": 47,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 184,
+      "midi": 50,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 184,
+      "midi": 54,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    },
+    {
+      "beat": 188,
+      "midi": 45,
+      "seconds": 2.65,
+      "instrument": "bass",
+      "amplitude": 0.0645,
+      "pan": -0.05
+    },
+    {
+      "beat": 190.5,
+      "midi": 52,
+      "seconds": 1.1,
+      "instrument": "bass",
+      "amplitude": 0.01892,
+      "pan": 0.05
+    },
+    {
+      "beat": 188.0,
+      "midi": 57,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.3
+    },
+    {
+      "beat": 188.035,
+      "midi": 61,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": -0.11
+    },
+    {
+      "beat": 188.07,
+      "midi": 64,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.08
+    },
+    {
+      "beat": 188.105,
+      "midi": 69,
+      "seconds": 3.3,
+      "instrument": "keys",
+      "amplitude": 0.03096,
+      "pan": 0.27
+    },
+    {
+      "beat": 188.7412,
+      "midi": 61,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02461,
+      "pan": -0.5
+    },
+    {
+      "beat": 189.5092,
+      "midi": 64,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02484,
+      "pan": 0.42
+    },
+    {
+      "beat": 190.7521,
+      "midi": 69,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02283,
+      "pan": -0.5
+    },
+    {
+      "beat": 191.5092,
+      "midi": 71,
+      "seconds": 1.15,
+      "instrument": "harp",
+      "amplitude": 0.02675,
+      "pan": 0.42
+    },
+    {
+      "beat": 188.525,
+      "midi": 73,
+      "seconds": 1.45,
+      "instrument": "keys",
+      "amplitude": 0.09181,
+      "pan": 0.07
+    },
+    {
+      "beat": 190.025,
+      "midi": 71,
+      "seconds": 1.2249999999999999,
+      "instrument": "keys",
+      "amplitude": 0.09443,
+      "pan": 0.07
+    },
+    {
+      "beat": 191.025,
+      "midi": 69,
+      "seconds": 1.1875,
+      "instrument": "keys",
+      "amplitude": 0.08985,
+      "pan": 0.07
+    },
+    {
+      "beat": 188,
+      "midi": 49,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": -0.65
+    },
+    {
+      "beat": 188,
+      "midi": 52,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0
+    },
+    {
+      "beat": 188,
+      "midi": 57,
+      "seconds": 4.5,
+      "instrument": "pad",
+      "amplitude": 0.00817,
+      "pan": 0.65
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "author": "GPT / Codex",
+  "date": "2026-10-30",
+  "sample_rate": 44100,
+  "bpm": 80,
+  "bars": 48,
+  "seed": 20261030,
+  "files": {
+    "bgm_sunlit_fish.ogg": {
+      "duration_seconds": 144.0,
+      "peak_dbfs": -7.372,
+      "rms_dbfs": -23.002,
+      "dc_abs_max": 1.937443272481687e-07,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 801638,
+      "sha256": "958e215f89339419013f35b8fd2c1d5431a902221145cff2a496ee1853ba8218",
+      "git_blob_sha": "26a699934a11680c5a0d23eac9ca2fa418da462f",
+      "loop_boundary_step": 0.0013084933161735535,
+      "local_sample_step_p99": 0.017454229295253754,
+      "loop_step_ratio": 0.07496712080718258
+    },
+    "bgm_sunlit_fish.mp3": {
+      "duration_seconds": 144.0,
+      "peak_dbfs": -7.832,
+      "rms_dbfs": -23.446,
+      "dc_abs_max": 2.3478653687902806e-08,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 1728828,
+      "sha256": "b405ef234501ff35c4d900fc3631d34f28b6bcca2f948e9d6ece2af23eb862e0",
+      "git_blob_sha": "a9b86c6164c115bbbe8622b64770853ed271377d",
+      "loop_boundary_step": 0.012422505766153336,
+      "local_sample_step_p99": 0.016529513522982597,
+      "loop_step_ratio": 0.7515348681545354
+    },
+    "sfx_place.ogg": {
+      "duration_seconds": 0.477098,
+      "peak_dbfs": -7.114,
+      "rms_dbfs": -22.014,
+      "dc_abs_max": 4.721236564364517e-06,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 8143,
+      "sha256": "bd0122f9fe464923a9edd1fcd06cf8a3becc886c482ed12cf6d3a145c0eb932a",
+      "git_blob_sha": "063c3b753873b044ba1f638eff00338d1f2b73cd"
+    },
+    "sfx_place.mp3": {
+      "duration_seconds": 0.48,
+      "peak_dbfs": -7.451,
+      "rms_dbfs": -22.536,
+      "dc_abs_max": 2.321044348718715e-06,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 6627,
+      "sha256": "3e7d99f20093daa36516af643cad0cb956ed13bed28de0f5860135b764e07122",
+      "git_blob_sha": "6587dfa35186d8be90c3919979be122a4543e3cf"
+    },
+    "sfx_select.ogg": {
+      "duration_seconds": 0.157098,
+      "peak_dbfs": -11.911,
+      "rms_dbfs": -25.968,
+      "dc_abs_max": 1.630821861908771e-05,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 5071,
+      "sha256": "09c5d2594fe57a56bae106d96c0636a7e854237a7289e6419bf7ee6d9499529b",
+      "git_blob_sha": "4edecaf0621b347bf0084038d98e61335f336f5d"
+    },
+    "sfx_select.mp3": {
+      "duration_seconds": 0.16,
+      "peak_dbfs": -12.197,
+      "rms_dbfs": -26.446,
+      "dc_abs_max": 2.815259279032034e-07,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 2866,
+      "sha256": "5dc63a8cba90022c8fb656e9e555aa5ca345ddf0299301b2317d85106c52291b",
+      "git_blob_sha": "b40c83e3e53da62ec74ab2fe4707f77a594661c4"
+    },
+    "sfx_success.ogg": {
+      "duration_seconds": 0.947098,
+      "peak_dbfs": -12.191,
+      "rms_dbfs": -22.97,
+      "dc_abs_max": 6.844747076684143e-06,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 8719,
+      "sha256": "ab819519d440f030948050b55380d71a96490a0dd16eddb02ee445b92e377e1a",
+      "git_blob_sha": "9ed47fc7ad7af037aa8e2daa6e067f9d80fea263"
+    },
+    "sfx_success.mp3": {
+      "duration_seconds": 0.95,
+      "peak_dbfs": -12.63,
+      "rms_dbfs": -23.446,
+      "dc_abs_max": 5.944374947830511e-08,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 12270,
+      "sha256": "43223c74fbc750e6efb8b88bc893567cfc41249d5313c2fbfbad7551a881a12d",
+      "git_blob_sha": "b34fb4cf9bbc3336501e981831813173d9f8a7b7"
+    }
+  },
+  "limitations": [
+    "No live forum/browser or subjective listening acceptance claimed."
+  ]
+}

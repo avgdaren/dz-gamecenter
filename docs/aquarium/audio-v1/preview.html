@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- Author: GPT / Codex, 2026-10-30. Original plugin (C) 2026 Carinoasd. -->
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天使水族馆 · 声音试听</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,"Microsoft YaHei",sans-serif;color:#163f50;background:#edf7fa}*{box-sizing:border-box}body{margin:0;padding:40px 22px}main{max-width:860px;margin:auto}small,.muted{color:#587a88}h1{font-size:30px;margin:6px 0 12px}h2{font-size:20px;margin:0 0 8px}p{line-height:1.8}section{background:#fff;border:1px solid #cfe6ed;border-radius:20px;padding:24px;margin:20px 0;box-shadow:0 8px 32px #244b5910}.row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.effects{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.effects section{margin:0}audio{width:100%;margin:14px 0}button{background:#226d85;color:white;border:0;border-radius:10px;padding:11px 17px;cursor:pointer;font:inherit}button:focus-visible{outline:3px solid #f0bd65;outline-offset:3px}input{accent-color:#226d85}#status{min-height:24px;font-size:13px}footer{font-size:12px;color:#587a88;margin-top:24px}@media(max-width:640px){.effects{grid-template-columns:1fr}body{padding:24px 14px}h1{font-size:25px}}
+</style></head><body><main>
+<small>天使水族馆 · 第一版声音候选</small><h1>晴光里的小鱼</h1>
+<p>一点柔和的键音，一点拨弦和木琴。让小鱼慢慢游，也让水族馆热闹一点。</p>
+<section><h2>日间主曲 · 2 分 24 秒</h2><div class="muted">原创合成音色 · 无人声 · 轻快、温暖 · 循环播放</div>
+<audio id="bgm" controls loop preload="none"><source src="../../../source/plugin/gamecenter/games/aquarium/assets/audio/v1/bgm_sunlit_fish.ogg" type="audio/ogg"><source src="../../../source/plugin/gamecenter/games/aquarium/assets/audio/v1/bgm_sunlit_fish.mp3" type="audio/mpeg"></audio>
+<div class="row"><label>音乐音量 <input id="musicVolume" aria-label="音乐音量" type="range" min="0" max="1" step="0.01" value="0.35"></label><button id="boundary" type="button">试听结尾接回开头</button></div>
+</section>
+<div class="row"><h2>操作音效</h2><label>音效音量 <input id="sfxVolume" aria-label="音效音量" type="range" min="0" max="1" step="0.01" value="0.5"></label></div>
+<div class="effects">
+<section><h2>放入 · 0.48 秒</h2><p>一个小气泡，轻轻入水。</p><button type="button" data-sfx="place">试听放入</button></section>
+<section><h2>点选 · 0.16 秒</h2><p>短促柔和，连续操作不抢耳。</p><button type="button" data-sfx="select">试听点选</button></section>
+<section><h2>成功 · 0.95 秒</h2><p>三枚上行木音，确认购买或升级。</p><button type="button" data-sfx="success">试听成功</button></section>
+</div><p id="status" role="status" aria-live="polite"></p>
+<footer>本页只用于试听，不连接账号、不改变存档。音乐和音效均须手动开启。作者：GPT / Codex；原插件 (C) 2026 Carinoasd。</footer>
+</main><script>
+'use strict';
+const bgm=document.getElementById('bgm'),status=document.getElementById('status');
+const prefix='../../../source/plugin/gamecenter/games/aquarium/assets/audio/v1/';
+bgm.volume=0.35;
+const effects={};
+for(const key of ['place','select','success']){
+ const a=new Audio();a.preload='none';
+ a.src=prefix+'sfx_'+key+(a.canPlayType('audio/ogg; codecs="vorbis"')?'.ogg':'.mp3');
+ a.volume=0.5;a.addEventListener('error',()=>{status.textContent='音效未能加载，请确认完整资源目录也已下载。';});effects[key]=a;
+}
+document.getElementById('musicVolume').addEventListener('input',e=>{bgm.volume=Number(e.target.value);});
+document.getElementById('sfxVolume').addEventListener('input',e=>{for(const a of Object.values(effects))a.volume=Number(e.target.value);});
+document.querySelectorAll('[data-sfx]').forEach(b=>b.addEventListener('click',async()=>{
+ const a=effects[b.dataset.sfx];a.currentTime=0;try{await a.play();status.textContent='正在试听：'+b.textContent.replace('试听','');}catch{status.textContent='未能播放，请使用浏览器打开完整试听包。';}
+}));
+document.getElementById('boundary').addEventListener('click',async()=>{
+ try{await bgm.play();if(!Number.isFinite(bgm.duration))await new Promise((resolve,reject)=>{bgm.addEventListener('loadedmetadata',resolve,{once:true});bgm.addEventListener('error',reject,{once:true});});bgm.currentTime=Math.max(0,bgm.duration-6);status.textContent='从结尾前六秒开始，随后循环回到开头。';}catch{status.textContent='音乐未能加载，请确认完整资源目录也已下载。';}
+});
+bgm.addEventListener('error',()=>{status.textContent='音乐未能加载，请确认完整资源目录也已下载。';});
+</script></body></html>
