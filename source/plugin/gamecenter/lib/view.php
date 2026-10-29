@@ -105,7 +105,7 @@ class gamecenter_view {
 		}
 		$h .= '<div class="gc-grid">';
 		foreach($games as $g) {
-			if($g['gkey'] === 'aquarium') { continue; } // A阶段不展示大厅卡片
+			if($g['gkey'] === 'aquarium' && (int)$_G['adminid'] !== 1) { continue; } // 仅管理员可见大厅卡片
 			// 1.3.0／1.4.0：聯機對戰遊戲走房間：卡片顯示等級分，不顯示排行與積分
 			if(gamecenter_core::is_room($g)) {
 				require_once __DIR__.'/room.php';
@@ -141,8 +141,8 @@ class gamecenter_view {
 				$h .= '<li class="gc-rw">'.$l.'</li>';
 			}
 			$h .= '</ul><div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'">开始游戏</a>'
-				.($daily ? '<a class="gc-btn gc-btn-daily" href="'.self::game_url($g).'&amp;mode=daily">每日挑战</a>' : '')
-				.'<a class="gc-btn gc-ghost" href="'.self::game_url($g, 'rank').'">排行榜</a></div></div>';
+				.($g['gkey'] === 'aquarium' ? '' : ($daily ? '<a class="gc-btn gc-btn-daily" href="'.self::game_url($g).'&amp;mode=daily">每日挑战</a>' : ''))
+				.($g['gkey'] === 'aquarium' ? '' : '<a class="gc-btn gc-ghost" href="'.self::game_url($g, 'rank').'">排行榜</a>').'</div></div>';
 		}
 		return self::shell($h.'</div>');
 	}
@@ -409,7 +409,7 @@ class gamecenter_view {
 			if(!$g['m']) {
 				continue;
 			}
-			if($g['gkey'] === 'aquarium') { continue; }
+			if($g['gkey'] === 'aquarium' && (int)$_G['adminid'] !== 1) { continue; }
 			$b = gamecenter_core::best_of($g['gkey'], 'a', '0', $uid);
 			if($b === null) {
 				continue;
