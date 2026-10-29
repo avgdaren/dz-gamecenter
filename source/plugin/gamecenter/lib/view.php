@@ -37,7 +37,7 @@ class gamecenter_view {
 
 	/** 獎勵說明（給大廳卡片與遊戲頁）。 */
 	public static function reward_lines($g) {
-		if(in_array($g['gkey'], ['gomoku','raid'], true)) { return []; }
+		if(in_array($g['gkey'], ['gomoku','raid','aquarium'], true)) { return []; }
 		$out = [];
 		$c = gamecenter_core::credit_name((int)$g['credit']);
 		if(!$c) {
@@ -94,6 +94,7 @@ class gamecenter_view {
 		}
 		$h .= '<div class="gc-grid">';
 		foreach($games as $g) {
+			if($g['gkey'] === 'aquarium') { continue; } // A阶段不展示大厅卡片
 			if($g['gkey'] === 'raid') {
 				$h .= '<div class="gc-card"><a class="gc-card-head" href="'.self::game_url($g).'&amp;fresh=1'.'">'.self::icon($g).'<div><h3>'.self::e($g['m']['name']).'</h3><div class="gc-muted">单人挑战 / 双人合作</div></div></a><p class="gc-intro">'.self::e($g['m']['intro']).'</p><ul class="gc-facts"><li>邀请好友，一起面对蚀月魔女</li><li>每轮最多30秒，刷新可恢复</li><li>随时查看最近十次讨伐</li></ul><div class="gc-card-btns"><a class="gc-btn" href="'.self::game_url($g).'&amp;fresh=1'.'">开始讨伐</a></div></div>';
 				continue;
@@ -128,12 +129,13 @@ class gamecenter_view {
 	public static function play_page($g) {
 		global $_G;
 		$m = $g['m'];
-		$gc_roomgame = in_array($g['gkey'], ['gomoku','raid'], true);
+		$gc_roomgame = in_array($g['gkey'], ['gomoku','raid','aquarium'], true);
 		$best = !$gc_roomgame && $_G['uid'] ? gamecenter_core::best_of($g['gkey'], 'a', '0', (int)$_G['uid']) : null;
 		$why = gamecenter_core::can_play();
 		$base = 'source/plugin/gamecenter/';
 		$h = '<div class="gc-hero gc-hero-sm">'.self::icon($g).'<div><h1>'.self::e($m['name']).'</h1><p>'.self::e($m['intro']).'</p></div>'.self::nav('').'</div>';
-		if(!$g['available']) {
+		if($g['gkey'] === 'aquarium') { $h .= '<div class="gc-note">管理员底盘诊断，只有占位捕获与购买；不是最终游戏画面，不发论坛积分。</div>'; }
+		if(!$g['available'] && $g['gkey'] !== 'aquarium') {
 			$h .= '<div class="gc-warn">这个游戏尚未开放，只有管理员看得到（试玩用，成绩照常记录）。</div>';
 		}
 		$h .= '<div class="gc-cols"><div class="gc-main">'
@@ -142,7 +144,7 @@ class gamecenter_view {
 			.' data-login="'.($_G['uid'] ? '' : 'member.php?mod=logging&amp;action=login').'"'
 			.' data-uid="'.(int)$_G['uid'].'" data-rivals="'.self::e(json_encode($gc_roomgame ? [] : gamecenter_core::rivals($g), JSON_UNESCAPED_UNICODE)).'"></div>';
 		if($why !== '') {
-			$h .= '<div class="gc-note">'.self::e($why).($g['gkey'] === 'raid' ? '；可以先阅读规则，登录并获得权限后挑战。' : '，现在是试玩模式。').'</div>';
+			$h .= '<div class="gc-note">'.self::e($why).(in_array($g['gkey'],['raid','aquarium'],true) ? '；可以先阅读规则，登录并获得权限后挑战。' : '，现在是试玩模式。').'</div>';
 		}
 		$h .= '<div class="gc-box"><h4>玩法</h4><p>'.self::e($m['help'] ?: $m['intro']).'</p>';
 		$rl = self::reward_lines($g);
@@ -153,7 +155,7 @@ class gamecenter_view {
 			}
 			$h .= '</ul>';
 		}
-		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($g['gkey'] === 'raid' ? '<div class="gc-box"><h4>讨伐手记</h4><p>留意幽月的重击预告，守住之后就是反击的机会。</p></div>' : ($gc_roomgame ? '<div class="gc-box"><h4>好友约战</h4><p>先创建房间，再分享房间号或邀请链接。双方均需登录论坛账号。</p><p>选择落点后确认，避免误触。对局由服务端判定，结果保存在游戏内的最近对局。</p></div>' : self::boards($g, 10))).'</div></aside></div>';
+		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($g['gkey'] === 'aquarium' ? '<div class="gc-box"><h4>测试说明</h4><p>离线最多累计24小时。所有金币仅测试档使用；请勿作为正式玩家存档上线。</p></div>' : ($g['gkey'] === 'raid' ? '<div class="gc-box"><h4>讨伐手记</h4><p>留意幽月的重击预告，守住之后就是反击的机会。</p></div>' : ($gc_roomgame ? '<div class="gc-box"><h4>好友约战</h4><p>先创建房间，再分享房间号或邀请链接。双方均需登录论坛账号。</p><p>选择落点后确认，避免误触。对局由服务端判定，结果保存在游戏内的最近对局。</p></div>' : self::boards($g, 10)))).'</div></aside></div>';
 		$h .= '<script src="'.$base.'static/gc.js?v='.self::ver().'"></script>';
 		if(!empty($m['style']) && preg_match('/^[\w.-]+\.css$/', $m['style'])) {
 			$h .= '<link rel="stylesheet" href="'.$base.'games/'.$g['gkey'].'/'.$m['style'].'?v='.rawurlencode($m['version']).'">';
@@ -276,6 +278,7 @@ class gamecenter_view {
 			if(!$g['m']) {
 				continue;
 			}
+			if($g['gkey'] === 'aquarium') { continue; } // 永久存档不查单局最佳
 			$b = gamecenter_core::best_of($g['gkey'], 'a', '0', $uid);
 			if($b === null) {
 				continue;
@@ -314,4 +317,5 @@ class gamecenter_view {
 		return self::shell($h.'</table></div>');
 	}
 }
+
 

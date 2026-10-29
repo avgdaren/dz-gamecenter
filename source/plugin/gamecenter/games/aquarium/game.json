@@ -1,0 +1,9 @@
+{
+  "name": "天使水族馆（底盘测试）",
+  "intro": "管理员存档与离线结算诊断，尚未开放。",
+  "help": "本阶段只有占位数据，没有正式鱼种或美术。刷新后继续存档，离线最多24小时。",
+  "version": "0.0.1",
+  "author": "GPT / Codex；原插件 Carinoasd",
+  "script": "game.js",
+  "displayorder": 100
+}

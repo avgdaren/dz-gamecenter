@@ -110,7 +110,7 @@ class gamecenter_core {
 			if(!DB::result_first('SELECT COUNT(*) FROM %t WHERE gkey=%s', ['gamecenter_game', $gkey])) {
 				DB::insert('gamecenter_game', [
 					'gkey' => $gkey,
-					'available' => $install ? 1 : 0,
+					'available' => $install && $gkey !== 'aquarium' ? 1 : 0,
 					'displayorder' => (int)($m['displayorder'] ?? 0),
 					'dateline' => TIMESTAMP,
 				], false, true);
@@ -184,6 +184,7 @@ class gamecenter_core {
 	/* ---------- 開局 ---------- */
 
 	public static function start($game) {
+		if($game['gkey'] === 'aquarium') { return ['ok'=>0,'msg'=>'水族馆使用独立存档，不接受开局或成绩']; }
 		if($game['gkey'] === 'raid') { return ['ok'=>0,'msg'=>'请通过讨伐房间开始挑战']; }
 		global $_G;
 		$uid = (int)$_G['uid'];
@@ -217,6 +218,7 @@ class gamecenter_core {
 	 * 回傳給前台的結果：ok、score、best、newbest、rank（週榜名次）、reward、msg。
 	 */
 	public static function submit($game, $token, array $data) {
+		if($game['gkey'] === 'aquarium') { return ['ok'=>0,'msg'=>'水族馆使用独立存档，不接受开局或成绩']; }
 		if($game['gkey'] === 'raid') { return ['ok'=>0,'msg'=>'讨伐结果由服务器独立保存，不接受单机成绩']; }
 		global $_G;
 		$uid = (int)$_G['uid'];
@@ -408,7 +410,7 @@ class gamecenter_core {
 
 	/** 週榜獎勵設定「100,50,30」→ [100, 50, 30]。 */
 	public static function week_rewards($game) {
-		if($game['gkey'] === 'raid') { return []; }
+		if(in_array($game['gkey'], ['raid','aquarium'], true)) { return []; }
 		$out = [];
 		foreach(preg_split('/[,，\s]+/u', (string)$game['weekrewards'], -1, PREG_SPLIT_NO_EMPTY) as $x) {
 			$x = (int)$x;
@@ -491,3 +493,4 @@ class gamecenter_core {
 		return $s >= 60 ? intdiv($s, 60).' 分 '.($s % 60).' 秒' : $s.' 秒';
 	}
 }
+

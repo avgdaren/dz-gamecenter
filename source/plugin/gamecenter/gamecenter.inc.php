@@ -46,6 +46,7 @@ if($gc_op !== '') {
 		if(!$gc_game) {
 			exit;
 		}
+		if($gc_game['gkey'] === 'aquarium') { exit('水族馆使用独立存档，不提供排行榜。'); }
 		if($gc_game['gkey'] === 'raid') { exit('讨伐结果保存在游戏内的最近讨伐。'); }
 		while(ob_get_level()) {
 			@ob_end_clean();
@@ -54,7 +55,7 @@ if($gc_op !== '') {
 		echo gamecenter_view::boards($gc_game, 10);
 		exit;
 	}
-	if(!in_array($gc_op, ['start', 'submit', 'room', 'raid'], true)) {
+	if(!in_array($gc_op, ['start', 'submit', 'room', 'raid', 'aquarium'], true)) {
 		$gc_json(['ok' => 0, 'msg' => '未知操作']);
 	}
 	if($_SERVER['REQUEST_METHOD'] !== 'POST' || (string)getgpc('formhash', 'P') !== formhash()) {
@@ -63,6 +64,15 @@ if($gc_op !== '') {
 	if(!$gc_game) {
 		$gc_json(['ok' => 0, 'msg' => '这个游戏不存在或尚未开放']);
 	}
+	// A阶段仅管理员诊断；即使后台误开放，也不向普通玩家开放占位内容。
+	if($gc_game['gkey'] === 'aquarium' && !$gc_admin) { $gc_json(['ok'=>0,'code'=>'permission','msg'=>'水族馆底盘测试暂未开放']); }
+	if($gc_op === 'aquarium') {
+		if($gc_game['gkey'] !== 'aquarium') { $gc_json(['ok'=>0,'code'=>'input','msg'=>'这个游戏不支持水族馆存档']); }
+		require_once __DIR__.'/lib/aquarium.php';
+		try { $gc_json((new gamecenter_aquarium())->request((int)$_G['uid'],gamecenter_core::can_play()==='',$_POST)); }
+		catch(Throwable $e) { $gc_json(['ok'=>0,'code'=>'config','msg'=>'暂时无法读取水族馆，请等待维护']); }
+	}
+	if($gc_game['gkey'] === 'aquarium') { $gc_json(['ok'=>0,'code'=>'input','msg'=>'水族馆不接受开局或成绩请求']); }
 	if($gc_op === 'raid') {
 		if($gc_game['gkey'] !== 'raid') { $gc_json(['ok'=>0,'msg'=>'这个游戏不支持讨伐']); }
 		require_once __DIR__.'/lib/raid.php';
@@ -90,7 +100,8 @@ if($gc_op !== '') {
 }
 
 // ---------- 頁面 ----------
-if($gc_game && in_array($gc_game['gkey'], ['gomoku','raid'], true) && $gc_mod === 'rank') { $gc_mod = 'play'; }
+if($gc_game && $gc_game['gkey']==='aquarium' && !$gc_admin) { showmessage('水族馆底盘测试暂未开放。', 'plugin.php?id=gamecenter'); }
+if($gc_game && in_array($gc_game['gkey'], ['gomoku','raid','aquarium'], true) && $gc_mod === 'rank') { $gc_mod = 'play'; }
 gamecenter_core::settle_weeks();
 $gc_title = '游戏中心';
 $gc_crumb = [];
@@ -119,3 +130,4 @@ if($gc_mod === 'play' || $gc_mod === 'rank') {
 $navtitle = dhtmlspecialchars($gc_title);
 $gc_css = 'source/plugin/gamecenter/static/gc.css?v='.gamecenter_view::ver();
 include template('gamecenter:index');
+
