@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- Author: GPT / Codex; original plugin (C) 2026 Carinoasd. -->
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天使水族馆 · 鱼鳍动画修正预览</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eaf5f8;color:#173e50;font:14px/1.7 system-ui,"Microsoft YaHei",sans-serif;padding:26px}main{max-width:1050px;margin:auto}h1{font-size:24px;margin:0 0 8px}.muted{color:#5c7f8f}.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:20px 0}button{border:1px solid #b5d3df;background:#fff;color:#245972;border-radius:9px;padding:8px 14px;font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #eab766;outline-offset:2px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{border:1px solid #bddde5;border-radius:16px;background:#fff;overflow:hidden}.stage{position:relative;height:185px;background:linear-gradient(#c7eaf3,#e6f5f7 75%,#bfdedc);display:grid;place-items:center}.art{width:170px;height:170px}.label{padding:8px 12px;display:flex;justify-content:space-between;font-size:12px}.left .art{transform:scaleX(-1)}#status{min-height:26px}.note{margin-top:18px;font-size:13px;color:#5c7f8f}@media(max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}body{padding:18px 12px}.stage{height:160px}.art{width:145px;height:145px}}
+</style></head><body><main><h1>鱼鳍动画修正预览</h1><div class="muted">12 种鱼 · 每种 12 个完整帧 · 保留原画头部 · 不叠加第二条尾巴</div>
+<div class="controls"><button id="pause" type="button">暂停检查</button><button id="direction" type="button">转向左边</button><label>逐帧检查 <input id="frame" type="range" min="0" max="11" value="0" step="1"></label><span id="phase">第 0 帧</span></div>
+<div class="grid" id="grid"></div><p id="status" role="status">正在载入完整游动帧…</p>
+<p class="note">这里是原画连续变形导出的动画候选，不是新增手绘动画。预览只检查鱼的外观与帧切换；游动路线、转身速度、保存与玩家界面由小蓝继续接入。</p>
+</main><script src="../../../source/plugin/gamecenter/games/aquarium/fish-sprites.js"></script><script src="preview-data.js"></script><script>
+'use strict';
+const base='../../../source/plugin/gamecenter/games/aquarium/assets/fish-motion/v1/';
+const grid=document.getElementById('grid'),players=[];let paused=false,left=false,failures=0;
+for(const entry of window.AQ_FISH_MOTION_PREVIEW){
+ const card=document.createElement('div');card.className='card';
+ const stage=document.createElement('div');stage.className='stage';
+ const art=document.createElement('div');art.className='art';stage.appendChild(art);
+ const label=document.createElement('div');label.className='label';
+ const name=document.createElement('span');name.textContent=entry.name;
+ const timing=document.createElement('span');timing.textContent=entry.cycle_ms+' ms';
+ label.append(name,timing);card.append(stage,label);grid.appendChild(card);
+ players.push(AquariumFishSprites.mount(art,{sheetUrl:base+entry.file,size:256,columns:4,frames:12,cycleMs:entry.cycle_ms,onError(){failures++;}}));
+}
+Promise.all(players.map(p=>p.ready)).then(()=>{document.getElementById('status').textContent=failures?'有 '+failures+' 个资源未加载，请保留完整目录结构打开。':'12 种鱼已载入；可暂停、逐帧检查和翻转方向。';});
+document.getElementById('pause').addEventListener('click',e=>{paused=!paused;players.forEach(p=>p.setPaused(paused));e.currentTarget.textContent=paused?'继续摆动':'暂停检查';});
+document.getElementById('direction').addEventListener('click',e=>{left=!left;grid.classList.toggle('left',left);e.currentTarget.textContent=left?'转向右边':'转向左边';});
+document.getElementById('frame').addEventListener('input',e=>{paused=true;document.getElementById('pause').textContent='继续摆动';const frame=Number(e.target.value);for(const p of players){p.setPaused(true);p.drawFrame(frame);}document.getElementById('phase').textContent='第 '+frame+' 帧';});
+window.addEventListener('pagehide',()=>{players.forEach(p=>p.dispose());});
+</script></body></html>

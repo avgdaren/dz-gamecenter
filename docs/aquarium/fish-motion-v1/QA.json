@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-30",
+  "base_commit": "3bb6a63fab05a10384ee8858b1fea0379991b91b",
+  "source_png_hash_matches": 12,
+  "fish": 12,
+  "frames": 144,
+  "runtime_atlas_bytes": 2583626,
+  "decoded_rgba_bytes": 37748736,
+  "node_vm_native_canvas_checks": 610,
+  "syntax_and_json": "PASS",
+  "preview_source_paths": "PASS",
+  "contact_sheet_review": "12 species, phases 0/3/9 inspected",
+  "browser_acceptance": "NOT_RUN - no Chromium binary",
+  "live_site_acceptance": "NOT_RUN",
+  "method": "original art single-texture inverse deformation, not hand-drawn frames",
+  "items": [
+    {
+      "id": "pond_blue",
+      "atlas_sha256": "408802087c71ccb76e35abb9b5edae4294c1fb7f009413e284cce38127b436da",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "pond_orange_tail",
+      "atlas_sha256": "8451bc59313a6f62f9ff3492da3968c13e27b86314c22360841e8ca78b4e63b8",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "pond_leaf",
+      "atlas_sha256": "23ef2d349419752610e38cc2421f65c7f7c803106c38b29c8f7244f392435d4d",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "pond_peach",
+      "atlas_sha256": "d67426fae076e0ede0b0b94e3d935f37a1e21250b257ddc4229c8b3930adc493",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "pond_glass_moon",
+      "atlas_sha256": "3b2a2a428daf3c5bdb87402663ff56145e5a2876751a6177e57246d772631451",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "pond_feather",
+      "atlas_sha256": "e27b49a33a610c02ce39336f3caae69c56bf83dd3428def1b094f87fc8f6a152",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "bay_silver",
+      "atlas_sha256": "6d79d7ba373c1d7a54b347fff2cda46d495b2e0b180e5bdc6a1fab6d25e82a96",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "bay_coral",
+      "atlas_sha256": "59f37dd42efd5ceeee869f6ad033ed86580d71357170d0e173b1685f76ce8432",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "bay_lantern",
+      "atlas_sha256": "b3f390365e8574db52847cc1b0b2ef6ffdfd3c7c8ceba76d9579a5a134a5c594",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "bay_ribbon",
+      "atlas_sha256": "69cd607206021b4cda8ee849853ff3ca5606904f9c7b4ac56734ecc57d70ca4c",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "bay_star_ray",
+      "atlas_sha256": "770563ce356ae70e34e21fa72b4aace2ee989cf613b798c8ce3b12ec387d04a5",
+      "edge_clipping": "PASS",
+      "frames": 12
+    },
+    {
+      "id": "bay_aurora",
+      "atlas_sha256": "be3f205014346a703535d475216511f0eb887c3077c0dc7076f451e2d06cdb96",
+      "edge_clipping": "PASS",
+      "frames": 12
+    }
+  ]
+}
