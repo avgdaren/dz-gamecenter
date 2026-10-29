@@ -90,4 +90,4 @@ php tests/aquarium/economy_sim.php --seeds=64 --lamp=1500
 php tests/aquarium/economy_sim.php --seeds=64 --lamp=1200
 ```
 
-候选61检查；独立Python对实际PHP两个水域7200捕获一致（7242检查）。模型两价各6策略×64固定种子，共768路线；每回访验证预算恒等/不负债及终值，输出分位数/代表轨迹。JSON为合成输入的可复现报告，不是生产日志。C候选不改foundation默认配置，不创建/迁移测试档，不提供HTTP拨钟；新内容无DB/实站结果。范围与消费策略见[报告](../../docs/aquarium/ECONOMY-SIM-v0.1.md)及[交接](../../docs/aquarium/CONTENT-HANDOFF-v0.1.md)。
+候选62检查；独立Python对实际PHP两个水域7200捕获一致（7242检查）。模型两价各6策略×64固定种子，共768路线；每回访验证预算恒等/不负债及终值，输出分位数/代表轨迹。JSON为合成输入的可复现报告，不是生产日志。C候选不改foundation默认配置，不创建/迁移测试档，不提供HTTP拨钟；新内容无DB/实站结果。范围与消费策略见[报告](../../docs/aquarium/ECONOMY-SIM-v0.1.md)及[交接](../../docs/aquarium/CONTENT-HANDOFF-v0.1.md)。

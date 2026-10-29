@@ -40,6 +40,7 @@ $book=gamecenter_aquarium_content::book($s);ck(count(array_filter($book,fn($x)=>
 ck(!str_contains(json_encode($book),'seed_hex'),'book no secret');
 ck($book[0]['id']==='pond_blue'&&$book[0]['discovered_at']===1000000,'book first discovery');
 ck($book[5]['discovered_at']===null&&$book[5]['catch_count']===0,'unknown fish no fake discovery');
+ck($book[5]['description']===null&&is_string($book[0]['description']),'only discovered cards reveal flavor text');
 $hint=gamecenter_aquarium_content::decor_conditions($s,'plant_meadow');ck($hint['eligible'],'normal cheap decoration eligible');
 $hint=gamecenter_aquarium_content::decor_conditions($s,'building_moon_gate');ck(!$hint['eligible']&&$hint['missing']['coins']===2678&&$hint['missing']['total_fish']===7,'exact money/collection deficit');
 ck(gamecenter_aquarium_content::decor_conditions($s,'scape_coral')['missing']['water_id']==='bay','locked bay gate');

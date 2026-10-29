@@ -56,7 +56,7 @@ final class gamecenter_aquarium_content {
     /** C2只读图鉴；不进行结算，不从客户端鱼列表构建状态。调用方须先完成鉴权和读档。 */
     public static function book(array $s): array {
         gamecenter_aquarium_rules::validate($s,self::rules_config());$out=[];
-        foreach(self::catalog()['fish'] as $f) { $owned=$s['fish'][$f['id']]??null;$f['discovered']=$owned!==null;$f['discovered_at']=$owned['discovered_at']??null;$f['catch_count']=$owned['catch_count']??0;$out[]=$f; }
+        foreach(self::catalog()['fish'] as $f) { $owned=$s['fish'][$f['id']]??null;$f['discovered']=$owned!==null;$f['discovered_at']=$owned['discovered_at']??null;$f['catch_count']=$owned['catch_count']??0;if($owned===null)$f['description']=null;$out[]=$f; }
         return $out;
     }
     /** 购买条件提示，不是购买/拥有权实现；C3必须另加事务、version与已拥有校验。 */

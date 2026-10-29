@@ -45,4 +45,4 @@
 
 ## C阶段本批内容
 
-12鱼/24装饰候选已写入独立内容文件，图鉴文案/只读投影与条件差额提示可用；61纯规则边界、独立7200捕获对照通过。C4两价×6策略×64种子见[经济模拟](ECONOMY-SIM-v0.1.md)，不是玩家留存证据。当前HTTP仍用foundation-v1，未自动转换管理员档，详见[交接](CONTENT-HANDOFF-v0.1.md)。喂养仅独立策划[PR #33](https://github.com/avgdaren/dz-gamecenter/pull/33)，未纳入当前实现。
+12鱼/24装饰候选已写入独立内容文件，图鉴文案/只读投影与条件差额提示可用；62纯规则边界、独立7200捕获对照通过。C4两价×6策略×64种子见[经济模拟](ECONOMY-SIM-v0.1.md)，不是玩家留存证据。当前HTTP仍用foundation-v1，未自动转换管理员档，详见[交接](CONTENT-HANDOFF-v0.1.md)。喂养仅独立策划[PR #33](https://github.com/avgdaren/dz-gamecenter/pull/33)，未纳入当前实现。
