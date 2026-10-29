@@ -73,4 +73,10 @@ class gamecenter_aquarium_store {
         $this->query('UPDATE %t SET state_json=%s,version=%d,updated_ms=%d WHERE uid=%d',
             ['gamecenter_aquarium_save',$row['state_json'],$row['version'],$row['updated_ms'],$row['uid']]);
     }
+    /** 迁移专用：row 的版本列与 JSON 版本同一条 UPDATE 写入，禁止分两次保存。 */
+    public function save_versioned(array $row): void {
+        $this->query('UPDATE %t SET save_version=%d,config_version=%s,state_json=%s,version=%d,updated_ms=%d WHERE uid=%d',
+            ['gamecenter_aquarium_save',$row['save_version'],$row['config_version'],$row['state_json'],
+             $row['version'],$row['updated_ms'],$row['uid']]);
+    }
 }
