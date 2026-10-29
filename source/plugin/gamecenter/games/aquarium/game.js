@@ -83,13 +83,25 @@
       if (catalog && catalog.waters && catalog.waters[id]) { return catalog.waters[id]; }
       return id;
     }
-    function version() { return catalog && catalog.catalog_version; }
+    function version() { return (catalog && (catalog.assets_version || catalog.catalog_version)) || ''; }
+    function reduceMotion() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
 
     function tank() {
       var box = el('div', 'aq-tank');
-      var bgFile = (snap.layout && snap.layout.background === 'tank_moon') ? 'background/tank_moon.webp' : 'background/tank_day.webp';
+      var moon = snap.layout && snap.layout.background === 'tank_moon';
+      var base = moon ? 'tank_moon' : 'tank_day';
       var bg = el('div', 'aq-bg');
-      bg.style.backgroundImage = 'url("' + asset(bgFile, version()) + '")';
+      var pic = el('picture');
+      var srcM = el('source');
+      srcM.media = '(max-width: 760px)';
+      srcM.srcset = asset('background/' + base + '_mobile.webp', version());
+      pic.appendChild(srcM);
+      var bgImg = el('img');
+      bgImg.src = asset('background/' + base + '.webp', version());
+      bgImg.alt = '';
+      bgImg.decoding = 'async';
+      pic.appendChild(bgImg);
+      bg.appendChild(pic);
       box.appendChild(bg);
 
       var back = el('div', 'aq-layer aq-layer-back');
@@ -103,7 +115,7 @@
       var slots = (snap.layout && snap.layout.fish) || [];
       for (var i = 0; i < slots.length; i++) {
         if (!slots[i]) { continue; }
-        var f = el('div', 'aq-fish-item ' + (i % 2 === 0 ? 'aq-swim-r' : 'aq-swim-l'));
+        var f = el('div', 'aq-fish-item ' + (reduceMotion() ? 'aq-still' : (i % 2 === 0 ? 'aq-swim-r' : 'aq-swim-l')));
         f.style.left = ((i + 0.5) / slots.length * 100) + '%';
         f.style.bottom = (20 + (i % 3) * 8) + '%';
         var img = el('img');
@@ -188,6 +200,7 @@
         var img = el('img');
         img.src = asset('thumbs/fish/' + f.id + '.webp', version());
         img.alt = f.discovered ? f.name : '未发现';
+        img.loading = 'lazy'; img.decoding = 'async';
         if (!f.discovered) { img.className = 'aq-silhouette'; }
         pic.appendChild(img);
         card.appendChild(pic);
@@ -275,6 +288,7 @@
         var img = el('img');
         img.src = asset('thumbs/decor/' + d.id + '.webp', version());
         img.alt = d.name;
+        img.loading = 'lazy'; img.decoding = 'async';
         pic.appendChild(img);
         card.appendChild(pic);
         var body = el('div', 'aq-card-body');
@@ -439,6 +453,7 @@
     }
 
     document.addEventListener('visibilitychange', function () {
+      stage.classList.toggle('aq-paused', !!document.hidden);
       if (document.hidden) { if (timer) { clearTimeout(timer); } }
       else { call('sync'); }
     });

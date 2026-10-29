@@ -11,7 +11,9 @@
 
 .aq-tank { position: relative; width: 100%; padding-top: 56.25%; border-radius: 10px; overflow: hidden;
   background: #cfe6f2; box-shadow: inset 0 0 0 1px rgba(255,255,255,.5), 0 6px 18px rgba(30,70,100,.12); }
-.aq-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.aq-bg { position: absolute; inset: 0; overflow: hidden; }
+.aq-bg picture, .aq-bg img { display: block; width: 100%; height: 100%; }
+.aq-bg img { object-fit: cover; object-position: center; }
 .aq-layer { position: absolute; inset: 0; pointer-events: none; }
 .aq-decor { position: absolute; bottom: 0; transform: translate(-50%, 0); line-height: 0; }
 .aq-decor img { display: block; width: 100%; height: auto; }
@@ -83,3 +85,5 @@
 @media (prefers-reduced-motion: reduce) {
   .aq-swim-r img, .aq-swim-l img { animation: none; }
 }
+.aq-paused .aq-swim-r img, .aq-paused .aq-swim-l img { animation-play-state: paused; }
+.aq-still img { animation: none !important; }

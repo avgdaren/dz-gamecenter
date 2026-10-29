@@ -86,7 +86,7 @@ final class gamecenter_aquarium {
             'capacities'=>$this->c['fish_capacities'],'capacity_costs'=>$this->c['fish_capacity_costs'],
             'backgrounds'=>gamecenter_aquarium_shop::backgrounds(),
             'decor_slots_per_layer'=>gamecenter_aquarium_shop::decor_slots_per_layer(),
-            'catalog_version'=>$meta['version']];
+            'catalog_version'=>$meta['version'],'assets_version'=>gamecenter_aquarium_configs::assets_version()];
     }    public function request(int $uid,bool $allowed,array $data): array {
         if($uid<1) { return $this->result('login'); }
         if(!$allowed) { return $this->result('permission'); }

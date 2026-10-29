@@ -31,6 +31,19 @@ final class gamecenter_aquarium_configs {
 
     public static function versions(): array { return [self::FOUNDATION, self::CONTENT]; }
 
+    /** 美术包版本，用于前端资源缓存键；与配置版本相互独立。 */
+    public static function assets_version(): string {
+        static $v=null;
+        if($v!==null) { return $v; }
+        $v='';
+        $f=__DIR__.'/../games/aquarium/assets/manifest.json';
+        if(is_file($f)) {
+            $j=json_decode((string)@file_get_contents($f),true,64);
+            if(is_array($j) && is_string($j['version'] ?? null)) { $v=$j['version']; }
+        }
+        return $v;
+    }
+
     /** 维护开关：存在 games/aquarium/data/MAINTENANCE 文件即对玩家返回维护态。 */
     public static function maintenance_file(): string { return __DIR__.'/../games/aquarium/data/MAINTENANCE'; }
     public static function maintenance(): bool { return is_file(self::maintenance_file()); }
