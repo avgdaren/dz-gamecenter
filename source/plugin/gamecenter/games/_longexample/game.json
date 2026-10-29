@@ -1,0 +1,9 @@
+{
+  "name": "长局范例（分段提交＋存档）",
+  "intro": "给开发者看的范例：操作纪录分段先交、伺服器存档续玩、成绩附加资料。底线开头，平台不会登记。",
+  "version": "1.0.0",
+  "author": "Carinoasd",
+  "script": "game.js",
+  "ttl": 24,
+  "displayorder": 99
+}

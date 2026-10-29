@@ -12,6 +12,22 @@ final class gamecenter_raid {
         $this->db = $db ?? new gamecenter_raid_store();
         $this->clock = $clock ?? fn() => (int)floor(microtime(true)*1000);
     }
+
+    /** 增量部署：平台没有执行安装/升级时，首次请求自动建三张表（幂等，已有则跳过）。 */
+    private function ensureSchema(): void {
+        static $done = false;
+        if($done) { return; }
+        $done = true;
+        $plain = str_replace('`', '', DB::table('gamecenter_raid_room'));
+        $found = DB::result_first("SHOW TABLES LIKE '".addslashes($plain)."'");
+        if($found) { return; }
+        require_once __DIR__.'/raid_schema.php';
+        foreach(preg_split('/;\s*\n/', gamecenter_raid_schema::sql()) as $one) {
+            $one = trim($one);
+            if($one === '') { continue; }
+            try { DB::query($one); } catch (Throwable $e) { /* 建表失败时保留后续原始报错 */ }
+        }
+    }
     private function now(): int { return (int)($this->clock)(); }
     private function error(string $code, ?array $r = null, int $uid = 0): array {
         $messages = ['login'=>'请先登录论坛账号。','permission'=>'当前账号没有参与权限。',
@@ -185,6 +201,7 @@ final class gamecenter_raid {
     public function request(int $uid, string $name, bool $allowed, array $data): array {
         if($uid < 1) { return $this->error('login'); }
         if(!$allowed) { return $this->error('permission'); }
+        $this->ensureSchema();
         if(strlen(serialize($data)) > 4096) { return $this->error('input'); }
         foreach($data as $key=>$v) {
             if(!is_scalar($v) || !in_array($key,['action','mode','room','round','kind','target','expected_version','request_id','formhash','client_version'],true)) {

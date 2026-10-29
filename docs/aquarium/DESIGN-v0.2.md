@@ -226,24 +226,21 @@ v0.1 的约 22.7/27.0h 解锁模拟不适用于新版价格，**不得沿用为 
 
 ## 7. 论坛接入与权限
 
-**接入阻塞更新：**小蓝报告实际运行站点已为1.4.0，支持chunk/save/load/delsave客户端槽位存档，19表/7游戏；仓库main仍为76d226d的1.3.0，当前所有分支头未找到1.4.0源树。取得完整基线的交接见[Issue #26](https://github.com/avgdaren/dz-gamecenter/issues/26)。PR #25尚未重基线，禁止用当前1.3.1候选覆盖1.4.0站点。
+**1.4.0接入更新：**完整运行基线已由[PR #27](https://github.com/avgdaren/dz-gamecenter/pull/27)提供，固定提交 `0d9c1fdb743c2bfd7ae0abb0827b16310baadaae`。包含原19表、7游戏、通用槽位/分块/回放及SDK；main仍为旧1.3.0，不能作为当前运行基线。水族馆候选按此源树增量接入，尚待真实站复验。
 
-以下为历史1.3.0源码定点核对表，路径均在source/plugin/gamecenter/下。行号不是1.4.0实施位置，重基线时逐项重新核对，并保留通用槽位、分块、回放、新游戏和原安装表。
+按[Issue #26 回帖](https://github.com/avgdaren/dz-gamecenter/issues/26#issuecomment-6494784696)，插件版本保持 **1.4.0**。交付为插件目录增量覆盖、单独一条幂等建表SQL、后台扫描注册；不要求走插件升级或执行install/upgrade.php。
 
-| 路径：行 | 接入要求 |
+| 路径（source/plugin/gamecenter/下） | 1.4.0接入要求 |
 |---|---|
-| gamecenter.inc.php:57,60,63,66 | 新增 op=aquarium；沿用 POST/formhash、游戏存在/开放检查；严格 gkey 匹配，服务端 uid/can_play 控权 |
-| gamecenter.inc.php:45–55,71–89,93 | aquarium 阻断 board/start/submit；rank 导回 play，防手工走单局入口 |
-| install.php:94–99；upgrade.php:13–14 | 挂新 schema；升级已 include install，不复制安装流程 |
-| lib/raid_store.php:9–15,26–64 | 复用 RETRY/unbuffered、锁等待、有限重试模式；新适配器只绑定水族馆表，不能直接使用固定三张 raid 表的连接校验 |
-| lib/view.php:39–40 | reward_lines 排除 aquarium |
-| lib/view.php:86–123 | lobby 在 board/best 查询前单独渲染卡片，显示收藏进度，不显示局数/周榜/积分 |
-| lib/view.php:131–143 | aquarium 无 best、rivals 为空 |
-| lib/view.php:136–156 | 未开放管理员提示、游客/权限提示、奖励隐藏与独立侧栏；不能落入好友约战或试玩话术 |
-| lib/view.php:265–279 | my_page 新增本人水族馆入口；271 不是大厅 |
-| static/gc.js:78–98 | boot 不自动 start；新前端自行同源请求，无需修改旧 SDK |
-| lib/core.php:81–98,155–167 | manifest 要求脚本存在；鉴权复用 can_play，文案由水族馆映射 |
-| 新 lib/aquarium.php / aquarium_store.php / aquarium_schema.php | 服务与纯结算、存储适配、建表分离；可按代码体量拆引擎文件，不改既有对外契约 |
+| gamecenter.inc.php | 保留8个原POST op及独立board；新增aquarium，复用POST/formhash与uid/can_play；水族馆拒绝通用槽位、分块、成绩、排行榜入口 |
+| lib/core.php | 默认不开放水族馆；隔离start/submit/chunk/save/load/delsave与积分、挑战能力；其他游戏实现保持 |
+| lib/view.php | A阶段大厅隐藏，管理员诊断不查询排行/对手，不显示挑战与积分；保留旧room/普通游戏分支 |
+| aquarium-install.sql；lib/aquarium_schema.php | 唯一新增InnoDB表，两处DDL一致；手工脚本只有CREATE TABLE IF NOT EXISTS |
+| install.php；uninstall.php；discuz_plugin_gamecenter.json | 修正完整20表清单及未来全新安装能力；本轮现站交付不运行安装/升级/卸载，不改已安装插件版本 |
+| static/gc.js；games/七款旧游戏 | 原1.4.0 SDK、脚本、资源与规则保留原blob，不由水族馆改写 |
+| lib/aquarium.php / aquarium_rules.php / aquarium_store.php | 服务、纯结算、事务存储分离，一张独立权威档；不改通用存档契约 |
+
+完整操作与回退见[1.4.0交付步骤](DEPLOY-1.4.0.md)。基线五子棋房间接线与记忆游戏旧测试问题独立记录于[Issue #28](https://github.com/avgdaren/dz-gamecenter/issues/28)；不能据纯规则冒烟宣称七游戏实站回归通过。
 
 大厅只读本人是否有档与收藏进度，不触发离线结算。总提示可补“休闲养成”“记录成绩与养成进度”；旧游戏各自游客逻辑不变。
 

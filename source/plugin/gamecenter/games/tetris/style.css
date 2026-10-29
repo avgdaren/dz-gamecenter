@@ -1,0 +1,218 @@
+.gc-tetris-page .gc-stage{position:relative;background:var(--gc-bg);border:1px solid var(--gc-line);border-radius:12px;padding:14px;margin-bottom:14px;min-height:200px}
+.gc-tetris-page .gc-stage:fullscreen{background:#0b1220;border-radius:0;display:flex;align-items:center;justify-content:center;padding:10px}
+.gc-tetris-page .gc-stage:fullscreen .gcs-hud,.gc-tetris-page .gc-stage:fullscreen .gcs-chase{color:#9fb0c6}
+.gc-tetris-page .gc-stage:fullscreen .gcs-hud b{color:#fff}
+.gc-tetris-page .gc-stage:fullscreen .gcs{width:100%}
+.gc-tetris-page .gc-stage:fullscreen .gc-modal{border-radius:0}
+.gc-tetris-page .gc-touch .gc-stage{padding:8px}
+.gc-tetris-page .gc-stage{padding:14px;margin:0 0 14px;border-radius:12px}
+.gc-tetris-page .gct{max-width:none;margin:0;outline:none}
+.gc-tetris-page .gct-top.gct-hud{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.gc-tetris-page .gct-hud-values{display:flex;align-items:center;gap:17px;flex-wrap:wrap;color:#8b929d;font-size:12px}
+.gc-tetris-page .gct-hud-values b{font-size:19px;margin-left:3px;color:#1d2733;line-height:1.5;font-variant-numeric:tabular-nums}
+.gc-tetris-page .gct-tools{display:flex;gap:5px}
+.gc-tetris-page .gct-tools .gc-btn{font-size:12px;padding:6px 9px;border-color:#e0e6ee;background:#f4f7fb;color:#637589!important;border-radius:8px;white-space:nowrap}
+.gc-tetris-page .gct-tools .gc-btn:hover{background:#eaf1fb}
+.gc-tetris-page .gct-chase{font-size:12px;color:#6886ad;line-height:1.5;margin:5px 0 10px}
+.gc-tetris-page .gct-arena{background:#0d1729;border:2px solid #1f2d44;border-radius:11px;padding:28px 16px 14px;margin:0 auto 9px;box-shadow:0 8px 22px #182a4730;color:#bfcee4}
+.gc-tetris-page .gct-layout{display:flex;justify-content:center;align-items:flex-start;gap:22px}
+.gc-tetris-page .gct-board{flex:0 1 var(--board-width,200px);width:var(--board-width,200px);min-width:0;aspect-ratio:1/2;border:1px solid #607996;border-radius:3px;overflow:hidden;position:relative;box-shadow:0 0 0 4px #17243a}
+.gc-tetris-page .gct-canvas{width:100%;height:100%;display:block}
+.gc-tetris-page .gct-pocket{width:94px;flex:none;padding:9px 4px 7px;border:1px solid #35435b;background:#162238;border-radius:8px}
+.gc-tetris-page .gct-pocket small{display:block;text-align:center;font-size:11px;color:#8fa3c2;letter-spacing:1px}
+.gc-tetris-page .gct-pocket canvas{width:100%;height:auto;display:block;margin-top:8px}
+.gc-tetris-page .gct-pocket-hint{font-size:10px;color:#657e9f;text-align:center;line-height:1.6;margin-top:5px}
+.gc-tetris-page .gct-cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center;background:#0d1729d9;z-index:1}
+.gc-tetris-page .gct-cover h3{font-size:21px!important;color:#f1f5ff!important;line-height:1.5}
+.gc-tetris-page .gct-cover p{font-size:11px;color:#a9bbd4;line-height:1.7;margin:12px 0 18px}
+.gc-tetris-page .gct-cover .gc-btn{padding:9px 16px;font-size:13px}
+.gc-tetris-page .gct-arena-foot{max-width:420px;margin:18px auto 0;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;color:#7f96b7}
+.gc-tetris-page .gct-arena-foot b{font-size:11px;color:#b9cce7;font-weight:400}
+.gc-tetris-page .gct-speed-progress{width:150px;max-width:45%;text-align:right}
+.gc-tetris-page .gct-speed-track{height:3px;border-radius:2px;background:#26364d;margin:4px 0 0;overflow:hidden}
+.gc-tetris-page .gct-speed-track i{display:block;width:0;height:100%;background:#5b9cf5;border-radius:2px}
+.gc-tetris-page .gct-message{font-size:12px;line-height:1.6;min-height:24px;text-align:center;color:#7a899c;padding:3px 0}
+.gc-tetris-page .gct-controls{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;max-width:650px;margin:5px auto}
+.gc-tetris-page .gct-controls button{font:inherit;min-height:37px;border:1px solid #e0e6ee;border-radius:7px;color:#4d607c;background:#f5f8fc;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;font-size:12px;padding:4px}
+.gc-tetris-page .gct-controls button:active{background:#dceafa}
+.gc-tetris-page .gct-controls button:last-child{background:#2f7ae5;border-color:#2f7ae5;color:#fff}
+.gc-tetris-page .gct-bottom{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:7px;font-size:10px;color:#8b96a5}
+.gc-tetris-page .gct-finish{font-size:10px;border:0;background:none;color:#8b96a5;text-decoration:underline;cursor:pointer;padding:3px}
+.gc-tetris-page .gct-finish:disabled{opacity:.4}
+.gc-tetris-page .gct button:focus-visible{outline:2px solid #77a6ff;outline-offset:3px}
+.gc-tetris-page .gct [hidden]{display:none!important}
+.gc-tetris-page .gc-stage:fullscreen,.gc-tetris-page .gc-stage.gct-expanded{width:100%;height:100%;padding:16px 20px;margin:0;border:0;border-radius:0;overflow:auto;background:white;box-sizing:border-box;color:#333}
+.gc-tetris-page .gc-stage.gct-expanded{position:fixed;inset:0;z-index:2147483000;height:100dvh}
+.gc-tetris-page .gc-stage:fullscreen>.gct,.gc-tetris-page .gc-stage.gct-expanded>.gct{max-width:1000px;margin:auto}
+.gc-tetris-page .gc-stage:fullscreen .gct-arena,.gc-tetris-page .gc-stage.gct-expanded .gct-arena{padding-top:18px}
+.gc-tetris-page .gc-stage:fullscreen .gct-hud,.gc-tetris-page .gc-stage.gct-expanded .gct-hud{margin-bottom:3px}
+@media(max-width:1000px){.gc-tetris-page .gct-layout{gap:14px}
+.gc-tetris-page .gct-pocket{width:78px}
+.gc-tetris-page .gct-hud-values{gap:12px}
+}
+@media(max-width:760px){.gc-tetris-page .gct-arena{padding-top:20px}
+.gc-tetris-page .gct-pocket{width:82px}
+.gc-tetris-page .gct-controls{grid-template-columns:repeat(3,1fr);max-width:500px}
+.gc-tetris-page .gct-controls button{min-height:40px}
+}
+@media(max-width:480px){.gc-tetris-page .gc-stage{padding:10px}
+.gc-tetris-page .gct-hud-values{gap:8px;font-size:10px}
+.gc-tetris-page .gct-hud-values b{font-size:16px;margin-left:2px}
+.gc-tetris-page .gct-tools .gc-btn{font-size:11px;padding:5px 6px}
+.gc-tetris-page .gct-chase{font-size:10px}
+.gc-tetris-page .gct-arena{padding:17px 7px 11px}
+.gc-tetris-page .gct-layout{gap:8px}
+.gc-tetris-page .gct-pocket{width:54px;padding:6px 2px}
+.gc-tetris-page .gct-pocket small{font-size:9px;letter-spacing:0}
+.gc-tetris-page .gct-pocket-hint{font-size:8px}
+.gc-tetris-page .gct-board{box-shadow:0 0 0 2px #17243a}
+.gc-tetris-page .gct-cover h3{font-size:17px!important}
+.gc-tetris-page .gct-cover p{font-size:10px}
+.gc-tetris-page .gct-cover .gc-btn{font-size:11px;padding:8px 12px}
+.gc-tetris-page .gct-arena-foot{font-size:9px;margin-top:14px}
+.gc-tetris-page .gct-arena-foot b{font-size:9px}
+.gc-tetris-page .gct-next-speed{font-size:8px}
+.gc-tetris-page .gct-message{font-size:10px}
+.gc-tetris-page .gct-bottom>span{display:none}
+}
+.gc-tetris-page .gct-layout{max-width:640px;margin:0 auto;gap:20px}
+.gc-tetris-page .gct-board{flex:0 0 var(--board-width,320px);width:var(--board-width,320px)}
+.gc-tetris-page .gct-arena{padding-top:18px}
+.gc-tetris-page .gct-arena-foot{max-width:560px;margin-top:14px}
+.gc-tetris-page .gct-cover{padding:18px}
+.gc-tetris-page .gct-cover h3{font-size:25px!important}
+.gc-tetris-page .gct-cover p{font-size:13px;line-height:1.9;margin:14px 0 22px}
+.gc-tetris-page .gct-cover .gc-btn{font-size:15px;padding:11px 22px}
+.gc-tetris-page .gct-controls{max-width:640px}
+.gc-tetris-page .gc-stage:fullscreen .gct-layout,.gc-tetris-page .gc-stage.gct-expanded .gct-layout{max-width:800px}
+.gc-tetris-page .gc-stage:fullscreen>.gct,.gc-tetris-page .gc-stage.gct-expanded>.gct{width:100%;flex:0 1 1000px}
+@media(max-width:1000px){.gc-tetris-page .gct-layout{gap:14px}
+.gc-tetris-page .gct-cover h3{font-size:22px!important}
+}
+@media(max-width:480px){.gc-tetris-page .gct-layout{gap:8px}
+.gc-tetris-page .gct-arena{padding-top:14px}
+.gc-tetris-page .gct-cover{padding:8px}
+.gc-tetris-page .gct-cover h3{font-size:18px!important}
+.gc-tetris-page .gct-cover p{font-size:10px;line-height:1.6;margin:10px 0 15px}
+.gc-tetris-page .gct-cover .gc-btn{font-size:12px;padding:9px 13px}
+.gc-tetris-page .gct-arena-foot{margin-top:12px}
+}
+.gc-tetris-page .gct-layout{max-width:720px}
+.gc-tetris-page .gct-board{aspect-ratio:14/20}
+.gc-tetris-page .gc-stage:fullscreen .gct-layout,.gc-tetris-page .gc-stage.gct-expanded .gct-layout{max-width:1000px}
+.gc-tetris-page .gct-skins{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:8px 0 12px;padding:0;border:0}
+.gc-tetris-page .gct-skin-label{font-size:11px;color:#7d8d9f;margin-right:3px}
+.gc-tetris-page .gct-skin-choice{display:inline-flex;align-items:center;gap:6px;border:1px solid #e0e6ee;background:#f8fafc;color:#77879b;padding:5px 8px;border-radius:7px;cursor:pointer;font-family:inherit;font-size:11px;line-height:1.4;white-space:nowrap}
+.gc-tetris-page .gct-skin-choice:hover{border-color:#aec6e6;background:#f1f6fd}
+.gc-tetris-page .gct-skin-choice[aria-pressed=true]{color:#286fc8;border-color:#8eb4e8;background:#edf4ff;box-shadow:0 0 0 1px #dbe9fc inset}
+.gc-tetris-page .gct-skin-swatch{width:25px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:1px;padding:3px;box-shadow:0 0 0 1px #00000012 inset}
+.gc-tetris-page .gct-skin-swatch i{width:5px;height:8px;display:block;border-radius:1px}
+.gc-tetris-page .gct-skin-choice[data-skin=neon] .gct-skin-swatch i{box-shadow:0 0 3px currentColor}
+.gc-tetris-page .gct-skin-choice[data-skin=lcd] .gct-skin-swatch i{border-radius:0}
+.gc-tetris-page .gct-skin-choice[data-skin=candy] .gct-skin-swatch i{border-radius:2px}
+.gc-tetris-page .gct[data-skin] .gct-arena{background:var(--skin-arena);border-color:var(--skin-edge);color:var(--skin-ink)}
+.gc-tetris-page .gct[data-skin] .gct-board{border-color:var(--skin-frame);box-shadow:0 0 0 4px var(--skin-halo);background:var(--skin-board)}
+.gc-tetris-page .gct[data-skin] .gct-pocket{background:var(--skin-pocket);border-color:var(--skin-pocketEdge)}
+.gc-tetris-page .gct[data-skin] .gct-pocket small,.gc-tetris-page .gct[data-skin] .gct-pocket-hint{color:var(--skin-muted)}
+.gc-tetris-page .gct[data-skin] .gct-arena-foot{color:var(--skin-muted)}
+.gc-tetris-page .gct[data-skin] .gct-arena-foot b{color:var(--skin-ink)}
+.gc-tetris-page .gct[data-skin] .gct-speed-track{background:var(--skin-pocket)}
+.gc-tetris-page .gct[data-skin] .gct-speed-track i{background:var(--skin-accent)}
+.gc-tetris-page .gct[data-skin] .gct-cover{background:var(--skin-cover)}
+.gc-tetris-page .gct[data-skin] .gct-cover h3{color:var(--skin-title)!important}
+.gc-tetris-page .gct[data-skin] .gct-cover p{color:var(--skin-ink)}
+.gc-tetris-page .gct[data-skin] .gct-cover .gc-btn{background:var(--skin-accent);border-color:var(--skin-accent);color:var(--skin-buttonInk)!important}
+.gc-tetris-page .gct[data-skin=neon] .gct-board{box-shadow:0 0 0 4px var(--skin-halo),0 0 24px #9d65f530}
+.gc-tetris-page .gct[data-skin=lcd] .gct-arena{font-family:"Courier New","Microsoft YaHei",monospace;box-shadow:0 8px 22px #4b633624}
+.gc-tetris-page .gct[data-skin=candy] .gct-pocket{box-shadow:0 3px 8px #476a8c0b}
+.gc-tetris-page .gct[data-skin=gold] .gct-board{box-shadow:0 0 0 4px var(--skin-halo),0 0 0 5px #b3975320}
+@media(max-width:480px){.gc-tetris-page .gct-skins{gap:5px;margin-bottom:10px}
+.gc-tetris-page .gct-skin-label{font-size:10px;flex-basis:100%;margin-bottom:0}
+.gc-tetris-page .gct-skin-choice{padding:5px 7px;font-size:10px;gap:4px}
+.gc-tetris-page .gct-skin-swatch{width:21px;height:16px;padding:2px}
+}
+.gc-tetris-page .gct[data-skin=miku] .gct-board{box-shadow:0 0 0 3px var(--skin-halo),0 0 0 4px #68c5bf55,0 7px 20px #07152133}
+.gc-tetris-page .gct-skins{display:grid;gap:7px}
+.gc-tetris-page .gct-skin-group{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.gc-tetris-page .gct-skin-label{width:27px;flex:none;margin:0}
+.gc-tetris-page .gct-skin-choice .gct-skin-swatch:has(canvas){width:24px;height:24px;box-shadow:none;padding:0}
+.gc-tetris-page .gct-skin-swatch canvas{display:block;width:24px;height:24px}
+.gc-tetris-page .gct-skin-group:first-child .gct-skin-choice{padding-top:4px;padding-bottom:4px}
+.gc-tetris-page .gct[data-skin=anime] .gct-board{box-shadow:0 0 0 4px var(--skin-halo),0 0 20px #bfa2f01c}
+.gc-tetris-page .gct[data-skin=mecha] .gct-board{box-shadow:0 0 0 4px var(--skin-halo),0 0 14px #76d7cf18}
+@media(max-width:480px){.gc-tetris-page .gct-skin-label{flex-basis:auto;width:25px}
+.gc-tetris-page .gct-skin-group{gap:5px}
+.gc-tetris-page .gct-skin-group:first-child .gct-skin-choice{font-size:10px;padding:3px 5px;gap:3px}
+}
+.gc-tetris-page .gct-canvas{height:auto;aspect-ratio:14/24}
+.gc-tetris-page .gct-layout{max-width:760px;gap:16px}
+.gc-tetris-page .gct-board{aspect-ratio:14/24}
+.gc-tetris-page .gct-rail{width:116px;flex:none;display:flex;flex-direction:column;gap:16px;min-width:0}
+.gc-tetris-page .gct-rail .gct-pocket{width:100%;box-sizing:border-box}
+.gc-tetris-page .gct-rail-panel,.gc-tetris-page .gct-rail .gct-arena-foot{border:1px solid var(--skin-pocketEdge);border-radius:8px;background:var(--skin-pocket);padding:12px 8px;color:var(--skin-ink)}
+.gc-tetris-page .gct-rail-title{display:block;text-align:center;font-size:11px;color:var(--skin-muted);letter-spacing:2px;margin-bottom:10px}
+.gc-tetris-page .gct-rail .gct-controls{display:grid;grid-template-columns:1fr;gap:7px;margin:0;width:100%}
+.gc-tetris-page .gct-rail .gct-controls button{font-size:11px;min-height:34px;padding:5px 2px;background:var(--skin-arena);border-color:var(--skin-edge);color:var(--skin-ink)}
+.gc-tetris-page .gct-rail .gct-controls button:last-child{background:var(--skin-accent);border-color:var(--skin-accent);color:var(--skin-buttonInk)}
+.gc-tetris-page .gct-rail .gct-bottom{display:flex;flex-direction:column;gap:8px;margin:12px 0 0;text-align:center;line-height:1.8}
+.gc-tetris-page .gct-rail .gct-bottom>span{font-size:9px;color:var(--skin-muted);display:block}
+.gc-tetris-page .gct-rail .gct-finish{font-size:10px;color:var(--skin-muted);line-height:1.6;padding:3px 0}
+.gc-tetris-page .gct-rail .gct-arena-foot{display:flex;flex-direction:column;align-items:stretch;gap:12px;width:100%;max-width:none;margin:0;box-sizing:border-box;text-align:center;font-size:10px}
+.gc-tetris-page .gct-rail .gct-arena-foot>span{display:flex;flex-direction:column;gap:7px}
+.gc-tetris-page .gct-rail .gct-arena-foot b{font-size:13px;font-weight:600;white-space:nowrap}
+.gc-tetris-page .gct-rail .gct-speed-progress{width:100%;max-width:none;text-align:center;font-size:9px;line-height:1.8}
+.gc-tetris-page .gct-rail .gct-speed-track{height:4px;margin-top:7px}
+.gc-tetris-page .gct-arena{padding-bottom:18px}
+.gc-tetris-page .gct-message{min-height:0;margin-top:4px}
+.gc-tetris-page .gct-board{aspect-ratio:auto}
+.gc-tetris-page .gct-layout{max-width:800px}
+.gc-tetris-page .gct-rail{width:136px;gap:20px}
+.gc-tetris-page .gct-rail .gct-pocket{padding:14px 7px 12px}
+.gc-tetris-page .gct-rail .gct-pocket small{font-size:13px;letter-spacing:1px}
+.gc-tetris-page .gct-rail .gct-pocket-hint{font-size:11px;line-height:1.8;margin-top:8px}
+.gc-tetris-page .gct-rail-panel{padding:17px 10px}
+.gc-tetris-page .gct-rail-title{font-size:13px;letter-spacing:2px;margin-bottom:14px}
+.gc-tetris-page .gct-rail .gct-controls{gap:9px}
+.gc-tetris-page .gct-rail .gct-controls button{min-height:48px;font-size:13px;border-radius:8px}
+.gc-tetris-page .gct-rail .gct-bottom{margin-top:16px;gap:12px;line-height:1.9}
+.gc-tetris-page .gct-rail .gct-bottom>span{font-size:10px}
+.gc-tetris-page .gct-rail .gct-finish{font-size:11px}
+.gc-tetris-page .gct-rail .gct-arena-foot{padding:22px 10px;gap:24px;font-size:12px;min-height:180px;justify-content:center}
+.gc-tetris-page .gct-rail .gct-arena-foot>span{gap:13px}
+.gc-tetris-page .gct-rail .gct-arena-foot b{font-size:16px;letter-spacing:.1px}
+.gc-tetris-page .gct-rail .gct-speed-progress{font-size:11px;line-height:1.9}
+.gc-tetris-page .gct-rail .gct-speed-track{height:6px;margin-top:10px}
+@media(max-width:1000px) and (min-width:761px){.gc-tetris-page .gct-rail{width:100px}
+.gc-tetris-page .gct-layout{gap:12px}
+.gc-tetris-page .gct-rail-panel,.gc-tetris-page .gct-rail .gct-arena-foot{padding:13px 6px}
+.gc-tetris-page .gct-rail .gct-arena-foot b{font-size:12px}
+.gc-tetris-page .gct-rail .gct-controls button{font-size:12px;min-height:43px}
+.gc-tetris-page .gct-rail .gct-pocket small{font-size:11px}
+.gc-tetris-page .gct-rail .gct-speed-progress{font-size:10px}
+}
+@media(max-width:480px){.gc-tetris-page .gct-rail{width:54px;gap:9px}
+.gc-tetris-page .gct-layout{gap:7px}
+.gc-tetris-page .gct-rail-panel,.gc-tetris-page .gct-rail .gct-arena-foot{padding:7px 3px;border-radius:6px}
+.gc-tetris-page .gct-rail-title{font-size:9px;letter-spacing:0;margin-bottom:6px}
+.gc-tetris-page .gct-rail .gct-controls{gap:5px}
+.gc-tetris-page .gct-rail .gct-controls button{font-size:9px;min-height:34px;padding:3px 0;white-space:nowrap}
+.gc-tetris-page .gct-rail .gct-bottom>span{display:none}
+.gc-tetris-page .gct-rail .gct-bottom{gap:0;margin-top:7px}
+.gc-tetris-page .gct-rail .gct-finish{font-size:9px}
+.gc-tetris-page .gct-rail .gct-arena-foot{font-size:9px;gap:8px}
+.gc-tetris-page .gct-rail .gct-arena-foot b{font-size:9px;white-space:normal}
+.gc-tetris-page .gct-rail .gct-speed-progress{font-size:8px;overflow-wrap:anywhere}
+.gc-tetris-page .gct-rail .gct-pocket-hint{font-size:8px}
+}
+@media(max-width:480px){.gc-tetris-page .gct-rail .gct-pocket{padding:6px 2px}
+.gc-tetris-page .gct-rail .gct-pocket small{font-size:9px}
+.gc-tetris-page .gct-rail .gct-arena-foot{min-height:120px}
+.gc-tetris-page .gct-rail .gct-pocket-hint{font-size:8px;line-height:1.6;margin-top:5px}
+.gc-tetris-page .gct-rail .gct-arena-foot>span{gap:8px}
+.gc-tetris-page .gct-rail .gct-speed-track{height:4px;margin-top:7px}
+}
+
+.gc-tetris-page{font-family:"Microsoft YaHei",Tahoma,Arial,sans-serif}.gc-tetris-page .gc-cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start}.gc-tetris-page .gc-main{min-width:0}.gc-tetris-page .gc-side{width:auto;min-width:0}.gc-tetris-page #gc-stage{padding:14px;margin-bottom:14px}.gc-tetris-page .gc-hero{padding:16px 20px;gap:14px;border-radius:13px}.gc-tetris-page .gc-hero h1{font-size:22px}.gc-tetris-page .gc-hero p{font-size:13px;line-height:1.7}.gc-tetris-page .gc-hero .gc-icon{width:46px;height:46px;flex:none}.gc-tetris-page .gc-side .gc-box{padding:14px 16px;border-radius:12px}.gc-tetris-page .gc-rank li{min-height:34px;font-size:12px}.gc-tetris-page .gc-rank img{width:23px;height:23px}.gc-tetris-page .gc-side h4{font-size:13px;margin:0 0 8px}.gc-tetris-page .gct-score-guide>div{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:#8b949f;padding:5px 0}.gc-tetris-page .gct-score-guide b{font-weight:400;color:#647b98}.gc-tetris-page .gct-score-guide p{font-size:10px;color:#8b949f;margin-top:8px}.gc-tetris-page .gct-help{font-size:11px;line-height:1.9}.gc-tetris-page .gct-help p{white-space:normal;overflow-wrap:anywhere}.gc-tetris-page .gct-help ul{padding-left:16px}
+@media(max-width:1000px){.gc-tetris-page .gc-cols{grid-template-columns:minmax(0,1fr) 270px}}
+@media(max-width:760px){.gc-tetris-page .gc-cols{grid-template-columns:1fr}.gc-tetris-page .gc-side{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gc-tetris-page #gc-boards{grid-column:1/-1}.gc-tetris-page .gc-side .gc-box{margin-bottom:0}}
+@media(max-width:480px){.gc-tetris-page #gc-stage{padding:10px}.gc-tetris-page .gc-side{display:block}.gc-tetris-page .gc-side .gc-box{margin-bottom:10px}.gc-tetris-page .gc-hero{padding:12px}.gc-tetris-page .gc-hero h1{font-size:19px}}
