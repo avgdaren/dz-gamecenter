@@ -1,0 +1,219 @@
+{
+  "schema": "aquarium-audio-assets-v2",
+  "version": "audio-candidate-v2",
+  "date": "2026-10-30",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "v1-user-approved-per-xiaolan-report; v2-awaiting-listening-and-integration",
+  "defaults": {
+    "music_enabled": false,
+    "sfx_enabled": false,
+    "music_gain": 0.35,
+    "sfx_gain": 0.5
+  },
+  "background_music": {
+    "tank_day": "bgm_sunlit_fish",
+    "tank_moon": "bgm_moonlit_garden"
+  },
+  "event_sounds": {
+    "fish_place": "sfx_splash",
+    "decor_place": "sfx_place",
+    "select": "sfx_select",
+    "purchase_or_upgrade_confirmed": "sfx_success",
+    "water_change_confirmed": "sfx_water",
+    "positive_settlement_summary_once": "sfx_coin"
+  },
+  "items": [
+    {
+      "id": "bgm_sunlit_fish",
+      "title": "晴光里的小鱼",
+      "kind": "bgm",
+      "loop": true,
+      "duration_seconds": 144,
+      "recommended_gain": 0.35,
+      "formats": [
+        {
+          "file": "../v1/bgm_sunlit_fish.ogg",
+          "mime": "audio/ogg",
+          "bytes": 801638,
+          "sha256": "958e215f89339419013f35b8fd2c1d5431a902221145cff2a496ee1853ba8218",
+          "decoded_duration_seconds": 144.0
+        },
+        {
+          "file": "../v1/bgm_sunlit_fish.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 1728828,
+          "sha256": "b405ef234501ff35c4d900fc3631d34f28b6bcca2f948e9d6ece2af23eb862e0",
+          "decoded_duration_seconds": 144.0
+        }
+      ]
+    },
+    {
+      "id": "sfx_place",
+      "title": "放入：小气泡",
+      "kind": "sfx",
+      "loop": false,
+      "duration_seconds": 0.48,
+      "recommended_gain": 0.5,
+      "formats": [
+        {
+          "file": "../v1/sfx_place.ogg",
+          "mime": "audio/ogg",
+          "bytes": 8143,
+          "sha256": "bd0122f9fe464923a9edd1fcd06cf8a3becc886c482ed12cf6d3a145c0eb932a",
+          "decoded_duration_seconds": 0.477098
+        },
+        {
+          "file": "../v1/sfx_place.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 6627,
+          "sha256": "3e7d99f20093daa36516af643cad0cb956ed13bed28de0f5860135b764e07122",
+          "decoded_duration_seconds": 0.48
+        }
+      ]
+    },
+    {
+      "id": "sfx_select",
+      "title": "点选：轻啵",
+      "kind": "sfx",
+      "loop": false,
+      "duration_seconds": 0.16,
+      "recommended_gain": 0.5,
+      "formats": [
+        {
+          "file": "../v1/sfx_select.ogg",
+          "mime": "audio/ogg",
+          "bytes": 5071,
+          "sha256": "09c5d2594fe57a56bae106d96c0636a7e854237a7289e6419bf7ee6d9499529b",
+          "decoded_duration_seconds": 0.157098
+        },
+        {
+          "file": "../v1/sfx_select.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 2866,
+          "sha256": "5dc63a8cba90022c8fb656e9e555aa5ca345ddf0299301b2317d85106c52291b",
+          "decoded_duration_seconds": 0.16
+        }
+      ]
+    },
+    {
+      "id": "sfx_success",
+      "title": "成功：上行木音",
+      "kind": "sfx",
+      "loop": false,
+      "duration_seconds": 0.95,
+      "recommended_gain": 0.5,
+      "formats": [
+        {
+          "file": "../v1/sfx_success.ogg",
+          "mime": "audio/ogg",
+          "bytes": 8719,
+          "sha256": "ab819519d440f030948050b55380d71a96490a0dd16eddb02ee445b92e377e1a",
+          "decoded_duration_seconds": 0.947098
+        },
+        {
+          "file": "../v1/sfx_success.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 12270,
+          "sha256": "43223c74fbc750e6efb8b88bc893567cfc41249d5313c2fbfbad7551a881a12d",
+          "decoded_duration_seconds": 0.95
+        }
+      ]
+    },
+    {
+      "id": "bgm_moonlit_garden",
+      "title": "月庭微光",
+      "kind": "bgm",
+      "duration_seconds": 160,
+      "loop": true,
+      "recommended_gain": 0.35,
+      "formats": [
+        {
+          "file": "bgm_moonlit_garden.ogg",
+          "mime": "audio/ogg",
+          "bytes": 813080,
+          "sha256": "dab2d6a7179b10d7f262f4b3b4cf298da5b43a73f41d88b085f992d3a17e427c",
+          "decoded_duration_seconds": 160.0
+        },
+        {
+          "file": "bgm_moonlit_garden.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 1920671,
+          "sha256": "479f33e6b5f085246b072030d67bac24602c26ceaa47aba414d9d803d0888f99",
+          "decoded_duration_seconds": 160.0
+        }
+      ]
+    },
+    {
+      "id": "sfx_splash",
+      "title": "鱼入池：水花",
+      "kind": "sfx",
+      "duration_seconds": 0.78,
+      "loop": false,
+      "recommended_gain": 0.5,
+      "formats": [
+        {
+          "file": "sfx_splash.ogg",
+          "mime": "audio/ogg",
+          "bytes": 11051,
+          "sha256": "f385bd8e528dc96bd558e5854ecd388c3e458a7f86d44023e008ae6a7b57bfb3",
+          "decoded_duration_seconds": 0.777098
+        },
+        {
+          "file": "sfx_splash.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 10076,
+          "sha256": "35c23d149bdc0280486774899476d235b6558b8cf6b7dd4de8db9c46b4b432a1",
+          "decoded_duration_seconds": 0.78
+        }
+      ]
+    },
+    {
+      "id": "sfx_water",
+      "title": "切水域：短水流",
+      "kind": "sfx",
+      "duration_seconds": 0.42,
+      "loop": false,
+      "recommended_gain": 0.5,
+      "formats": [
+        {
+          "file": "sfx_water.ogg",
+          "mime": "audio/ogg",
+          "bytes": 8120,
+          "sha256": "01e36252ab80ab4187188a0c27d054e642b86836425d794221c84d145110eac8",
+          "decoded_duration_seconds": 0.417098
+        },
+        {
+          "file": "sfx_water.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 6000,
+          "sha256": "df6906179be6fa1511b5529a1211222d09da77e1da5cf6ccf229482deb11f7d2",
+          "decoded_duration_seconds": 0.42
+        }
+      ]
+    },
+    {
+      "id": "sfx_coin",
+      "title": "收益汇总：轻柔上行",
+      "kind": "sfx",
+      "duration_seconds": 0.68,
+      "loop": false,
+      "recommended_gain": 0.5,
+      "formats": [
+        {
+          "file": "sfx_coin.ogg",
+          "mime": "audio/ogg",
+          "bytes": 8821,
+          "sha256": "86f02f57fbcef13aae423c1856761f3914770cb6ddc62eac2a0fc90e518e90c1",
+          "decoded_duration_seconds": 0.677098
+        },
+        {
+          "file": "sfx_coin.mp3",
+          "mime": "audio/mpeg",
+          "bytes": 9135,
+          "sha256": "492a3c4e1df6f6536e63c3786cc11437a5f282e83177edb1d91f85005f78eb35",
+          "decoded_duration_seconds": 0.680249
+        }
+      ]
+    }
+  ]
+}
