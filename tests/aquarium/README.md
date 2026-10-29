@@ -4,11 +4,11 @@
 
 关联 Issue #24。本目录所有worker仅CLI运行，时间/故障/隔离库注入不进入HTTP接口。生产诊断页只使用真实服务器时间。需64位PHP 8.1+（项目目标8.3），Node与Python仅用于开发测试，不是线上依赖。
 
-## 当前状态：禁止覆盖本地1.4.0
+## 当前状态：1.4.0增量候选，待本地复验
 
-小蓝[回执6494171580](https://github.com/avgdaren/dz-gamecenter/pull/25#issuecomment-6494171580)确认旧候选56ac86c在原版X5驱动/querysafe下，真实InnoDB PDO和mysqli各59项通过。这是交接方在隔离库的实测，不是GPT本机结果，也不是当前修订重跑结果。真实站HTTP、浏览器、旧游戏及回退仍未验。
+运行基线已由PR #27提供，固定为0d9c1fdb743c2bfd7ae0abb0827b16310baadaae。插件保持1.4.0，不走升级；按[覆盖文件→单表SQL→扫描注册](../../docs/aquarium/DEPLOY-1.4.0.md)在本地测试站复验，默认关闭，尚未上线。
 
-站点已1.4.0、仓库无对应基线；见Issue #26。当前代码还未重基线，不能部署。
+小蓝[回执6494171580](https://github.com/avgdaren/dz-gamecenter/pull/25#issuecomment-6494171580)确认**旧候选56ac86c**在原版X5/querysafe下，真实InnoDB PDO和mysqli各59项通过。这不是当前1.4.0候选的重跑，也不是论坛HTTP验收。
 
 ## 当前修订在GPT环境的复跑
 
@@ -22,6 +22,8 @@ python3 tests/aquarium/reference_check.py
 python3 tests/aquarium/service_test.py
 python3 tests/aquarium/entry_test.py
 node tests/aquarium/front_test.mjs
+python3 tests/aquarium/integration_140_test.py
+php tests/aquarium/legacy_rules_smoke.php
 python3 tests/aquarium/db_test.py
 ```
 
@@ -35,6 +37,10 @@ PHP不在PATH时，用PHP_BIN指定实际可执行文件供Python调用；规则
 | service_test.py | 86检查 PASS，34个并发请求 | PHP多进程+flock**服务模型**；非InnoDB，不验证生产SQL/锁实现 |
 | entry_test.py | 17请求 PASS | PHP入口/HTML模型；非HTTP、非Discuz站点 |
 | front_test.mjs | 17检查 PASS | DOM模型：禁止连点、响应丢失后只读恢复、不自动重购、隐藏/恢复；非浏览器 |
+| integration_140_test.py | 85检查 PASS | 真实PHP入口+DB模型：七游戏通用槽位/chunk保留，水族馆隔离，20表元数据、单表SQL与schema一致；非HTTP/真实DB |
+| legacy_rules_smoke.php | 25检查通过，附基线问题 | 七游戏manifest、若干纯规则与负向校验；不覆盖完整游戏生命周期 |
+| 扫雷原tests/check.mjs | 20 PASS | 原扫雷校验套件 |
+| 记忆游戏原tests/check.mjs | **FAIL：过期v2预期** | 基线测试将已支持v2判为非法；见Issue #28，不冒充PASS |
 | db_test.py | **SKIP** | 无可用原版X5根目录/显式隔离库；未证明真实数据库并发 |
 
 模型结果不能升级为真实站点验收。其他游戏真实站回归、浏览器/手机、容量和完整备份恢复也未验证。
@@ -61,12 +67,16 @@ reference.py 是Python标准库的HMAC、pool_hash和完整config_hash参考。�
 
 ## 本地站点与手工复验
 
-**先完成Issue #26的1.4.0源码同步与重基线，再谈真实站升级。** 下述入口仅供后续安全候选本地验证，当前不要覆盖现站。
+**按DEPLOY文档在本地测试站执行三步交付，不运行插件升级。** 下述仅为管理员诊断，不是正式开放。
 
-完成兼容升级后，管理员可直接打开：
+完成覆盖、单表建表与扫描注册后，管理员可直接打开：
 
 `plugin.php?id=gamecenter&mod=play&game=aquarium`
 
 仅有底盘诊断按钮，不是概念图画面：建档、同步、目标升级、占位水域解锁/切换。默认大厅不展示，普通用户即使后台误开放也不能写入。先不要勾选开放。
 
 手工验证刷新/退出重登、两个标签页同时同步/购买、网络丢响应后同步恢复、未登录/无权限、缺formhash、旧start/submit拒绝；检查原游戏不受影响。记录代码SHA和原版X5/PHP/MariaDB版本。
+
+## 1.4.0原基线发现
+
+[Issue #28](https://github.com/avgdaren/dz-gamecenter/issues/28)：五子棋manifest缺room且无通用rules.php适配器，实际入口模型返回“这个游戏不支持房间”；旧纯规则五连判断通过不代表房间可用。记忆游戏旧套件将版本字符串2列为非法，但verify已支持v2；新冒烟覆盖v1/8、v2/8、v2/15正常及伪造分数拒绝。旧七游戏文件保持原基线，不在此PR修复。上述发现需小蓝实站复核，七游戏验收仍未完成。

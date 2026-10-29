@@ -28,7 +28,7 @@ html[data-tsdm-theme=dark] .gc{--gc-bg:#1e2430;--gc-soft:#252c3a;--gc-line:#343d
 .gc-facts{margin:0;padding:0;list-style:none;font-size:13px}
 .gc-facts li{padding:2px 0}
 .gc-rw{color:var(--gc-ok)}
-.gc-card-btns{display:flex;gap:8px;margin-top:auto}
+.gc-card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
 .gc-btn{display:inline-block;padding:8px 18px;border-radius:8px;border:1px solid var(--gc-acc);background:var(--gc-acc);color:#fff!important;font-size:14px;cursor:pointer;text-decoration:none!important;line-height:1.4}
 .gc-btn:hover{background:var(--gc-acc2)}
 .gc-btn:disabled{opacity:.6;cursor:wait}
@@ -68,6 +68,24 @@ html[data-tsdm-theme=dark] .gc{--gc-bg:#1e2430;--gc-soft:#252c3a;--gc-line:#343d
 .gc-table th{color:var(--gc-mut);font-weight:normal;background:var(--gc-soft)}
 .gc-foot{text-align:center;color:var(--gc-mut);font-size:12px;margin-top:10px}
 .gc .pg{margin-top:10px}
+/* 1.2.0 挑戰 */
+.gc-modes{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.gc-modes a{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:20px;border:1px solid var(--gc-line);background:var(--gc-bg);color:var(--gc-ink)!important;text-decoration:none!important}
+.gc-modes a.on{background:var(--gc-acc);border-color:var(--gc-acc);color:#fff!important}
+.gc-modes small{font-size:12px;opacity:.8}
+.gc-banner{padding:10px 14px;border-radius:10px;margin-bottom:12px;line-height:1.7}
+.gc-banner b{margin-right:8px}
+.gc-banner-daily{background:linear-gradient(90deg,#fff4dc,#fff9ee);border:1px solid #f3d38a;color:#7a5200}
+.gc-banner-ghost{background:linear-gradient(90deg,#efe9ff,#f7f4ff);border:1px solid #cbbcf5;color:#4b2f9a}
+html[data-tsdm-theme=dark] .gc-banner-daily{background:#3a3020;border-color:#6b5520;color:#f3d38a}
+html[data-tsdm-theme=dark] .gc-banner-ghost{background:#2c2840;border-color:#4e4380;color:#cbbcf5}
+.gc-vs{flex:none;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--gc-soft);color:#7a4fd6!important;text-decoration:none!important;font-size:13px;margin-left:2px}
+.gc-vs:hover{background:#7a4fd6;color:#fff!important}
+.gc-btn.gc-btn-daily{background:#e8a317;border-color:#e8a317}
+.gc-btn.gc-btn-daily:hover{background:#c98a0a}
+.gc-daily{color:#a06b00}
+.gc-win{color:var(--gc-ok);font-weight:bold}.gc-lose{color:var(--gc-err)}
+.gc-vsline{font-size:15px}
 /* 遊戲舞台與成績視窗 */
 .gc-stage{position:relative;background:var(--gc-bg);border:1px solid var(--gc-line);border-radius:12px;padding:14px;margin-bottom:14px;min-height:200px}
 .gc-modal{position:absolute;inset:0;background:rgba(10,18,30,.55);display:flex;align-items:center;justify-content:center;border-radius:12px;z-index:5;padding:12px}

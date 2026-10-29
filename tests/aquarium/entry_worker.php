@@ -14,11 +14,15 @@ if(!function_exists('mb_substr')){function mb_substr($s,$start,$len){return '测
 class Result {public array $rows;public function __construct(array $r){$this->rows=$r;}}
 class DB {
  static function fetch_first($q,$args){
-  if($args[0]==='gamecenter_game')return ['gkey'=>$args[1],'available'=>1];return [];
+  if($args[0]==='gamecenter_game')return ['gkey'=>$args[1],'available'=>1];
+  if($args[0]==='gamecenter_save')return ['data'=>'{"fixture":true}','dateline'=>TIMESTAMP];
+  if($args[0]==='gamecenter_session')return ['token'=>'fixture-token','uid'=>1,'gkey'=>$_GET['game'],'used'=>0,'dateline'=>TIMESTAMP];
+  return [];
  }
  static function table($t){return 'model_'.$t;}
  static function object(){return (object)['curlink'=>1];}
  static function query($q,$args=[],$silent='',$unbuffered=false){
+  if(($args[0]??'')==='gamecenter_save')return new Result([]); // 旧槽位API路由模型
   if($silent!=='RETRY'||!$unbuffered)throw new RuntimeException('unsafe driver usage');
   return new Result(str_starts_with($q,'SHOW SESSION')?[['Value'=>'2']]:[]);
  }
@@ -27,6 +31,10 @@ class DB {
  static function begin_transaction(){return true;}
  static function commit(){return true;}
  static function rollback(){return true;}
+ static function result_first($q,$args){if($args[0]==='gamecenter_chunk')return 0;throw new RuntimeException('unexpected result query');}
+ static function insert($t,$data){if($t!=='gamecenter_chunk')throw new RuntimeException('unexpected insert');return 1;}
+ static function field($key,$v){return $key.'='.json_encode($v);}
+ static function delete($t,$where){if($t!=='gamecenter_save')throw new RuntimeException('unexpected delete');return 1;}
 }
 require __DIR__.'/../../source/plugin/gamecenter/lib/core.php';
 require __DIR__.'/../../source/plugin/gamecenter/lib/view.php';
