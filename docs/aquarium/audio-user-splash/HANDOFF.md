@@ -60,3 +60,21 @@ python3 tools/transcode_aquarium_user_splash.py "掉落水中.wav" --out /absolu
 自制有削顶的48kHz立体声脉冲夹具：转码、1.55秒时长、32kHz单声道、OGG/MP3解码、输出无过载、编码后及4倍重采样峰值、文件体积、缺文件失败与来源hash不匹配失败。详见pipeline-test.json。
 
 用户原WAV处理、用户试听、源文件原许可、真实浏览器和实站接入：全部未验证，等待原文件及详情页。
+
+
+## 2026-10-30 Windows 兼容修订（评论 6503975540）
+
+许可 JSON 改为显式 `utf-8-sig` 读取，兼容中文、UTF-8 BOM；输出 JSON 固定 UTF-8。
+FFmpeg 路径优先级：`--ffmpeg` > `AQUARIUM_FFMPEG` > `FFMPEG` > PATH；FFprobe 同理（`--ffprobe` / `AQUARIUM_FFPROBE` / `FFPROBE`）。使用参数数组调用，不拼 shell，带空格的可执行路径可用。
+
+```powershell
+python tools/transcode_aquarium_user_splash.py "掉落水中.wav" --out "splash-output" --ffmpeg "E:\tool\BBDownloader_Windows_1.3.2\BB\windows\ffmpeg\ffmpeg.exe" --license-record "source-license.json"
+```
+
+FFprobe 缺失、启动失败（含缺 DLL）或探测失败时，PCM WAV 用 Python 标准库读取精确格式/时长；其他音频回退 FFmpeg 源音轨信息与实际解码长度。FFmpeg 本体仍必须可运行；失败不会伪造探测值。原限峰/转码处理参数不变。
+
+24 项自制夹具检查通过：新增中文 BOM、带空格的工具路径、环境变量和命令行、缺 probe 的 WAV/OGG、模拟坏 probe、非法 FFmpeg 路径。运行环境为 Linux；没有声称原生 Windows 测过。
+
+小蓝已在本机用真实 WAV 跑出 OGG 17,728 B、MP3 13,292 B，4 倍重采样峰值最高 0.492，符合 0.55 上限；这是小蓝回执，本环境没有原 WAV 或这两个输出，未独立复测。许可仍未核验。本次只修工具，不要求重新做已通过的主观试听；请用修订脚本复核真实文件的报告即可。
+
+“部署侧放文件”同样会向浏览器提供音频，不能代替授权核验。许可不明确期间交付继续保留合成 `sfx_splash` 备选，第三方素材不激活进发布 manifest。

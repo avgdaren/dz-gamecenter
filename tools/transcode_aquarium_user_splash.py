@@ -6,20 +6,48 @@ Usage: python3 tools/transcode_aquarium_user_splash.py INPUT.wav --out OUTPUT
 """
 import argparse
 from array import array
-import hashlib,json,math,shutil,struct,subprocess,sys,wave
+import hashlib,json,math,os,re,shutil,struct,subprocess,sys,wave
 from pathlib import Path
 
 RATE=32000
+FFMPEG='ffmpeg'
+FFPROBE='ffprobe'
 
 def run(args,data=None):
  return subprocess.run(args,input=data,stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=True).stdout
 
 def probe(path):
- r=json.loads(run(['ffprobe','-v','error','-select_streams','a:0','-show_entries',
-  'stream=sample_rate,channels,bits_per_sample,codec_name:format=duration,size','-of','json',str(path)]))
- s=r['streams'][0];return {'sample_rate':int(s['sample_rate']),'channels':int(s['channels']),
-  'bits_per_sample':int(s.get('bits_per_sample',0)),'codec':s['codec_name'],
-  'container_seconds':float(r['format']['duration']),'bytes':int(r['format']['size'])}
+ try:
+  r=json.loads(run([FFPROBE,'-v','error','-select_streams','a:0','-show_entries',
+   'stream=sample_rate,channels,bits_per_sample,codec_name:format=duration,size','-of','json',str(path)]))
+  s=r['streams'][0];return {'sample_rate':int(s['sample_rate']),'channels':int(s['channels']),
+   'bits_per_sample':int(s.get('bits_per_sample',0)),'codec':s['codec_name'],
+   'container_seconds':float(r['format']['duration']),'bytes':int(r['format']['size']), 'probe_method':'ffprobe'}
+ except (OSError,subprocess.CalledProcessError,ValueError,KeyError,IndexError,TypeError) as error:
+  print('ffprobe unavailable or failed; using FFmpeg fallback ('+type(error).__name__+')',file=sys.stderr)
+ # PCM WAV metadata does not need an external probe executable.
+ try:
+  with wave.open(str(path),'rb') as w:
+   return {'sample_rate':w.getframerate(),'channels':w.getnchannels(),
+    'bits_per_sample':w.getsampwidth()*8,'codec':'pcm_s'+str(w.getsampwidth()*8)+'le',
+    'container_seconds':w.getnframes()/w.getframerate(),'bytes':Path(path).stat().st_size,
+    'probe_method':'stdlib-wave-fallback'}
+ except (wave.Error,EOFError):pass
+ # FFmpeg emits the source stream even when no output is requested (exit 1).
+ result=subprocess.run([FFMPEG,'-hide_banner','-i',str(path)],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ header=result.stderr.decode('utf-8',errors='replace')
+ match=re.search(r'Stream #.*?Audio: ([^,]+), (\d+) Hz, ([^,\r\n]+)',header)
+ if not match:raise ValueError('FFmpeg could not identify an audio stream')
+ codec,rate,layout=match.groups();rate=int(rate);layout=layout.strip()
+ channels={'mono':1,'stereo':2,'2.1':3,'quad':4,'4.0':4,'5.0':5,'5.1':6,'5.1(side)':6,'7.1':8}.get(layout)
+ if channels is None:
+  number=re.fullmatch(r'(\d+) channels?',layout)
+  if not number:raise ValueError('Unsupported channel layout in FFmpeg fallback: '+layout)
+  channels=int(number[1])
+ decoded=decode(path)
+ return {'sample_rate':rate,'channels':channels,'bits_per_sample':0,'codec':codec,
+  'container_seconds':len(decoded)/rate/channels,'bytes':Path(path).stat().st_size,
+  'probe_method':'ffmpeg-stream-and-decoded-length-fallback'}
 
 def floats(data):
  x=array('f');x.frombytes(data)
@@ -32,7 +60,7 @@ def raw_bytes(x):
  return y.tobytes()
 
 def decode(path,rate=None,mono=False,filters=None):
- args=['ffmpeg','-hide_banner','-loglevel','error','-i',str(path)]
+ args=[FFMPEG,'-hide_banner','-loglevel','error','-i',str(path),'-map','0:a:0']
  if filters:args+=['-af',filters]
  if mono:args+=['-ac','1']
  if rate:args+=['-ar',str(rate)]
@@ -54,15 +82,18 @@ def save_wav(path,x):
   w.setnchannels(1);w.setsampwidth(2);w.setframerate(RATE);w.writeframes(pcm.tobytes())
 
 def main():
+ global FFMPEG,FFPROBE
  p=argparse.ArgumentParser();p.add_argument('input');p.add_argument('--out',required=True)
  p.add_argument('--duration',type=float,default=1.55)
  p.add_argument('--target-rms',type=float,default=.0461)
  p.add_argument('--decoded-peak-ceiling',type=float,default=.55)
  p.add_argument('--license-record',help='Optional factual source/credit record; not an automatic legal review')
+ p.add_argument('--ffmpeg',default=os.environ.get('AQUARIUM_FFMPEG',os.environ.get('FFMPEG','ffmpeg')),help='Executable path; alternatively AQUARIUM_FFMPEG or FFMPEG')
+ p.add_argument('--ffprobe',default=os.environ.get('AQUARIUM_FFPROBE',os.environ.get('FFPROBE','ffprobe')),help='Optional executable path; failed/missing probe uses WAV/FFmpeg fallback')
  args=p.parse_args()
  if not (.1<=args.duration<=4.81 and .001<=args.target_rms<=.1 and .1<=args.decoded_peak_ceiling<=.8):p.error('Unsafe or invalid processing values')
- for binary in ['ffmpeg','ffprobe']:
-  if not shutil.which(binary):p.error(binary+' is required')
+ FFMPEG=args.ffmpeg;FFPROBE=args.ffprobe
+ if not shutil.which(FFMPEG):p.error('FFmpeg not found; pass --ffmpeg with its executable path')
  source=Path(args.input)
  if not source.is_file():p.error('Input file was not found; no substitute audio is generated')
  info=probe(source)
@@ -70,7 +101,7 @@ def main():
  original=decode(source)
  source_metrics=metrics(original,info['sample_rate'],info['channels'])
  source_sha=hashlib.sha256(source.read_bytes()).hexdigest()
- record=json.loads(Path(args.license_record).read_text()) if args.license_record else {'verification_status':'unverified'}
+ record=json.loads(Path(args.license_record).read_text(encoding='utf-8-sig')) if args.license_record else {'verification_status':'unverified'}
  if record.get('original_sha256') and record['original_sha256']!=source_sha:p.error('License record identifies another source hash')
  fade=.06;end=args.duration
  x=decode(source,RATE,True,
@@ -82,7 +113,7 @@ def main():
  normalized=array('f',(v*gain for v in x))
  processing='acompressor=threshold=0.22:ratio=2:attack=1:release=60:knee=2:makeup=1,'
  processing+='alimiter=limit=0.48:attack=2:release=60:level=false:latency=true'
- limited=floats(run(['ffmpeg','-hide_banner','-loglevel','error','-f','f32le','-ar',str(RATE),
+ limited=floats(run([FFMPEG,'-hide_banner','-loglevel','error','-f','f32le','-ar',str(RATE),
   '-ac','1','-i','pipe:0','-af',processing,'-f','f32le','pipe:1'],raw_bytes(normalized)))
  count=round(end*RATE)
  if len(limited)<count:limited.extend([0.]*(count-len(limited)))
@@ -97,7 +128,7 @@ def main():
   worst=0.;files={}
   for ext,codec in [('ogg',['-c:a','libvorbis','-q:a','4']),('mp3',['-c:a','libmp3lame','-b:a','64k'])]:
    dest=out/('sfx_splash_user.'+ext)
-   run(['ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(master),'-map_metadata','-1',*codec,str(dest)])
+   run([FFMPEG,'-hide_banner','-loglevel','error','-y','-i',str(master),'-map_metadata','-1',*codec,str(dest)])
    decoded=decode(dest,RATE,True);check=metrics(decoded,RATE)
    true_peak=max(abs(v) for v in decode(dest,RATE*4,True))
    if abs(check['decoded_seconds']-end)>.04:raise ValueError('Unexpected decoded duration')
@@ -118,12 +149,12 @@ def main():
   'files':files,'license_record':record,'license_review':'not performed by this script',
   'limitations':['A limiter does not reconstruct detail lost to source clipping.',
                  'Signal checks are not user listening or browser acceptance.']}
- (out/'QA.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+ (out/'QA.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  fragment={'schema':'aquarium-audio-user-splash-fragment-v1','id':'sfx_splash_user',
   'event':'fish_place','fallback_id':'sfx_splash','source_kind':'user-provided-ear0-audio',
   'source_sha256':source_sha,'license_record':record,'activation':'pending source-license review and listening',
   'formats':[{'file':v['file'],'mime':'audio/ogg' if k=='ogg' else 'audio/mpeg','bytes':v['bytes'],'sha256':v['sha256']} for k,v in files.items()]}
- (out/'manifest.fragment.json').write_text(json.dumps(fragment,ensure_ascii=False,indent=2)+'\n')
+ (out/'manifest.fragment.json').write_text(json.dumps(fragment,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({'source_sha256':source_sha,'source_near_full_scale_samples':source_metrics['near_full_scale_samples'],
                   'outputs':files,'license_review':'not automatically performed'},ensure_ascii=False))
 

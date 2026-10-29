@@ -1,9 +1,19 @@
 {
   "status": "PASS",
-  "checks": 16,
+  "checks": 24,
   "scope": "synthetic fixture only; actual user WAV unavailable",
   "user_source_available": false,
   "user_source_transcoded": false,
   "source_license_verified": false,
-  "live_site_tested": false
+  "live_site_tested": false,
+  "compatibility_checks": [
+    "UTF-8 BOM Chinese license record",
+    "explicit and environment executable paths with spaces",
+    "missing ffprobe PCM WAV fallback",
+    "missing ffprobe OGG fallback",
+    "simulated broken probe executable",
+    "invalid FFmpeg rejected"
+  ],
+  "native_windows_tested": false,
+  "xiaolan_actual_source_report": "Issue #40 comment 6503975540; independently processed by Xiaolan, not this environment"
 }
