@@ -432,6 +432,366 @@
       ],
       "sha256": "3e8353d266431b1a6e8221746b197e851b36075541f42b7c9a9c2382d9d3b77b",
       "git_blob": "a818b7e4e6774b0e1575d4b890fadab61276407d"
+    },
+    {
+      "id": "scape_wood",
+      "kind": "decor",
+      "name": "花枝沉木",
+      "master": "docs/aquarium/art/masters/scape_wood.png",
+      "bytes": 1647513,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        78,
+        134,
+        1456,
+        883
+      ],
+      "sha256": "c71daac1462f5e26120b6dae94cd847a7602d95795aeeafea3d6ee49c60da4d8",
+      "git_blob": "9f947f1824115038868fe9097f132dd568c0474c"
+    },
+    {
+      "id": "scape_cave",
+      "kind": "decor",
+      "name": "静谧岩洞",
+      "master": "docs/aquarium/art/masters/scape_cave.png",
+      "bytes": 2208341,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        58,
+        91,
+        1478,
+        950
+      ],
+      "sha256": "2be787347e8f3cdee207a88e3e2c690a7e9160cf7ed916fbdf7e87f4672372dd",
+      "git_blob": "64304df9debd6c9fdec2b244bcc6ec9fdb6b8f5c"
+    },
+    {
+      "id": "building_bridge",
+      "kind": "decor",
+      "name": "翼纹小桥",
+      "master": "docs/aquarium/art/masters/building_bridge.png",
+      "bytes": 1117414,
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        43,
+        148,
+        1732,
+        719
+      ],
+      "sha256": "1dae16cd7b6e35ae293260e05f415d268ee77f3fd18205df720236f298d3698c",
+      "git_blob": "2a3d755fb457c75550f1451b1b498d09d5701dae"
+    },
+    {
+      "id": "building_pavilion",
+      "kind": "decor",
+      "name": "潮音凉亭",
+      "master": "docs/aquarium/art/masters/building_pavilion.png",
+      "bytes": 1358521,
+      "size": [
+        1223,
+        1286
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        95,
+        23,
+        1132,
+        1234
+      ],
+      "sha256": "ee2a39a7f2c408c2d87528bdb75b6f8d14a8a0c9f6ff9bbf62e5d211f7ac5018",
+      "git_blob": "43704bcd8299d30f414e83d5dcb70bfc0b3c6c56"
+    },
+    {
+      "id": "building_ruin_arch",
+      "kind": "decor",
+      "name": "星痕拱门",
+      "master": "docs/aquarium/art/masters/building_ruin_arch.png",
+      "bytes": 1204122,
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        31,
+        56,
+        1282,
+        1147
+      ],
+      "sha256": "e023abe97b4b482ac8a79a0a341c3f0e0a952e1123ddd9bcf20e040eb8581ff1",
+      "git_blob": "fef067c2c41bcbb1fd29caafe38844bfef254420"
+    },
+    {
+      "id": "building_columns",
+      "kind": "decor",
+      "name": "沉眠列柱",
+      "master": "docs/aquarium/art/masters/building_columns.png",
+      "bytes": 1318647,
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        103,
+        17,
+        1679,
+        858
+      ],
+      "sha256": "6bca5a5a9e2c0f5e314a2a990bbb11499b9ae147898da14a6ae7238d21704e63",
+      "git_blob": "41562112ae55cc7fb2e1a78aad7942d3f887a469"
+    },
+    {
+      "id": "building_angel_gate",
+      "kind": "decor",
+      "name": "天使庭门",
+      "master": "docs/aquarium/art/masters/building_angel_gate.png",
+      "bytes": 1696424,
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        7,
+        30,
+        1614,
+        907
+      ],
+      "sha256": "86f8f4da97e5925c85cc3480cf05c4505b4ec7aeaabc1c9f005552c40a59d6af",
+      "git_blob": "70a05074f3e99896aece2fb78d60dfeaa3041c03"
+    },
+    {
+      "id": "trinket_shell",
+      "kind": "decor",
+      "name": "珍光贝壳",
+      "master": "docs/aquarium/art/masters/trinket_shell.png",
+      "bytes": 1162960,
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        111,
+        89,
+        1200,
+        1116
+      ],
+      "sha256": "fa8fc38b6698698084dca7939e70706c36a564b8706d1522ea96a6a44c7685ba",
+      "git_blob": "48dbad5a71e87ea4a28fe68e6681a4a724ae20eb"
+    },
+    {
+      "id": "trinket_pearl",
+      "kind": "decor",
+      "name": "月露珍珠台",
+      "master": "docs/aquarium/art/masters/trinket_pearl.png",
+      "bytes": 1016085,
+      "size": [
+        1374,
+        1145
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        133,
+        145,
+        1241,
+        1051
+      ],
+      "sha256": "0b139b0b60d66945f955264c19ac1ddc2dbd2b4dcedf3d41544d2ad62b76b7b5",
+      "git_blob": "35bb945cbcbe32fbb4e1ac3de1c2509ef21cf28c"
+    },
+    {
+      "id": "trinket_crescent",
+      "kind": "decor",
+      "name": "弯月小景",
+      "master": "docs/aquarium/art/masters/trinket_crescent.png",
+      "bytes": 881643,
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        187,
+        55,
+        1124,
+        1144
+      ],
+      "sha256": "6c2f84ef1e707e60775ade1ca2f7d6b01f9ffeaf39bc3d4ba77c597ecbad7095",
+      "git_blob": "046ad434b3333b083bd8a484d044ed59d7c4ec9f"
+    },
+    {
+      "id": "trinket_crystal",
+      "kind": "decor",
+      "name": "星晶花簇",
+      "master": "docs/aquarium/art/masters/trinket_crystal.png",
+      "bytes": 1252691,
+      "size": [
+        1212,
+        1298
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        118,
+        71,
+        1091,
+        1220
+      ],
+      "sha256": "c3cd4c6e554da51301acd2f3c943686229e3819fd599cf50351ddc88d4b58bd1",
+      "git_blob": "86cf2dd9e9ae6d3f2dfa4d658f5d1fb7de551a69"
+    },
+    {
+      "id": "trinket_wings",
+      "kind": "decor",
+      "name": "羽翼纪念像",
+      "master": "docs/aquarium/art/masters/trinket_wings.png",
+      "bytes": 1098115,
+      "size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        98,
+        61,
+        1215,
+        1142
+      ],
+      "sha256": "40fbc4b9a130cea6580bc29adc90eb100f0c6d9b8954d951b9243197896c0ffb",
+      "git_blob": "faef7d08228ccc115fefbdd6dc36de777d342441"
+    },
+    {
+      "id": "tank_moon",
+      "kind": "background",
+      "name": "月光庭院",
+      "master": "docs/aquarium/art/masters/tank_moon.png",
+      "bytes": 2183693,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "alpha": null,
+      "visible_bbox": null,
+      "sha256": "7e463db67f1dea9bab929bf15b50c0d5a09d85e5df12e5ea4cb58caf2ab0f448",
+      "git_blob": "997a2e97c77be20dbc9afb5ddaf708a34b3f6471"
+    },
+    {
+      "id": "water_pond",
+      "kind": "water",
+      "name": "晴光池塘缩略图",
+      "master": "docs/aquarium/art/masters/water_pond.png",
+      "bytes": 2842733,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "alpha": null,
+      "visible_bbox": null,
+      "sha256": "780bc325b85cce058d8ef58410864d643b8d224f6b621efeba239a6666cd8c22",
+      "git_blob": "522aa3fee1599aee4fc101536ae9d3b644ccec50"
+    },
+    {
+      "id": "water_bay",
+      "kind": "water",
+      "name": "星潮浅湾缩略图",
+      "master": "docs/aquarium/art/masters/water_bay.png",
+      "bytes": 2710172,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "alpha": null,
+      "visible_bbox": null,
+      "sha256": "ab23256d9ebe25869254e8bc20fa0ea7cfd710c4eb33c7b4a2661af0185c03cc",
+      "git_blob": "3e2adedbca38b57a7b7e53b0c3400d4d384650d5"
+    },
+    {
+      "id": "rod",
+      "kind": "icon",
+      "name": "鱼竿图标",
+      "master": "docs/aquarium/art/masters/rod.png",
+      "bytes": 612810,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        52,
+        64,
+        1224,
+        1191
+      ],
+      "sha256": "2d98a3d1ab0556b936b4ad3d59cce80af0e4cc64dda0b63b6e9bb8597c4c5ae1",
+      "git_blob": "31d5b173b238fa2ff4a8cb0c1a31ae9ac827bcb1"
     }
   ],
   "failed": []
