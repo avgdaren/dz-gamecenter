@@ -144,6 +144,150 @@
       ],
       "sha256": "7d6c0831e3717b5d39709f3206b777e0f2b4553ce2820e9c4be4b471247aecd3",
       "git_blob": "951357434788d6a6bf16e541c333c88690e34190"
+    },
+    {
+      "id": "bay_lantern",
+      "kind": "fish",
+      "name": "灯笼鱼",
+      "master": "docs/aquarium/art/masters/bay_lantern.png",
+      "bytes": 1368424,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        212,
+        104,
+        1302,
+        927
+      ],
+      "sha256": "fe61f051fc989d3d2a765ef4307518d2428bd135ccaeb7dfc6eb55f5a872f58f",
+      "git_blob": "d224d72bac501eb24590627e5a52506d5520c168"
+    },
+    {
+      "id": "bay_ribbon",
+      "kind": "fish",
+      "name": "丝带鱼",
+      "master": "docs/aquarium/art/masters/bay_ribbon.png",
+      "bytes": 720996,
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        44,
+        195,
+        1740,
+        738
+      ],
+      "sha256": "423d78bfbd0ad6ebcad1ff08fd074f2f6780235cfd0f4de10a4225b83213767a",
+      "git_blob": "4da09c8416250672b00800e03737b5276d463f01"
+    },
+    {
+      "id": "bay_star_ray",
+      "kind": "fish",
+      "name": "星斑鳐",
+      "master": "docs/aquarium/art/masters/bay_star_ray.png",
+      "bytes": 1372712,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        45,
+        135,
+        1501,
+        863
+      ],
+      "sha256": "aadd57afee3cfd1c036d2b4a018f61f9d881328846460a317e2d8f9895a79044",
+      "git_blob": "0569097a7b8b456651c2920ad70b580e555ccfa9"
+    },
+    {
+      "id": "bay_aurora",
+      "kind": "fish",
+      "name": "极光天使鱼",
+      "master": "docs/aquarium/art/masters/bay_aurora.png",
+      "bytes": 993044,
+      "size": [
+        1310,
+        1200
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        115,
+        23,
+        1210,
+        1163
+      ],
+      "sha256": "32f8c0cb7edb96c80247480042f4b9a451e48dfa1c31fef9a5c570f052b72f40",
+      "git_blob": "3612bb3db7e0d9e0f99c29adca01527a0a6af679"
+    },
+    {
+      "id": "plant_lily",
+      "kind": "decor",
+      "name": "睡莲小丛",
+      "master": "docs/aquarium/art/masters/plant_lily.png",
+      "bytes": 943745,
+      "size": [
+        1374,
+        1145
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        255
+      ],
+      "visible_bbox": [
+        110,
+        146,
+        1281,
+        999
+      ],
+      "sha256": "1847abfc0078a1b9652488d67def0f0fdb9dadfa3ad68fb9e53ae8d63b577b15",
+      "git_blob": "877dd9debab98aeb9d356e514594dbb4532a46c9"
+    },
+    {
+      "id": "plant_ribbon",
+      "kind": "decor",
+      "name": "飘带长叶",
+      "master": "docs/aquarium/art/masters/plant_ribbon.png",
+      "bytes": 1357554,
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha": [
+        0,
+        254
+      ],
+      "visible_bbox": [
+        284,
+        50,
+        773,
+        1499
+      ],
+      "sha256": "f89960f9db320b36d82fe2ae1e31f15d838346eaff586bbaea63eb639b364af1",
+      "git_blob": "51272b977c7edac9ee2c8a66009630f440d9c230"
     }
   ],
   "failed": []
