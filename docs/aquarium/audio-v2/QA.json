@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-30",
+  "author": "GPT / Codex",
+  "sample_rate": 44100,
+  "bpm": 72,
+  "bars": 48,
+  "files": {
+    "bgm_moonlit_garden.ogg": {
+      "duration_seconds": 160.0,
+      "peak_dbfs": -9.547,
+      "rms_dbfs": -23.995,
+      "dc_abs_max": 2.7679402592184488e-06,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 813080,
+      "sha256": "dab2d6a7179b10d7f262f4b3b4cf298da5b43a73f41d88b085f992d3a17e427c",
+      "git_blob_sha": "bbe696fe7bf214fdf027a6479632829d2d14a51b",
+      "loop_boundary_step": 0.005399132147431374,
+      "local_sample_step_p99": 0.005680923815816641,
+      "loop_step_ratio": 0.9503968584122335
+    },
+    "bgm_moonlit_garden.mp3": {
+      "duration_seconds": 160.0,
+      "peak_dbfs": -9.995,
+      "rms_dbfs": -24.446,
+      "dc_abs_max": 1.8160505987907527e-07,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 1920671,
+      "sha256": "479f33e6b5f085246b072030d67bac24602c26ceaa47aba414d9d803d0888f99",
+      "git_blob_sha": "7ff0c3e0593bca84d2e1a4333bd501f7912c58dd",
+      "loop_boundary_step": 0.0009402614086866379,
+      "local_sample_step_p99": 0.005375723820179701,
+      "loop_step_ratio": 0.17490880114730423
+    },
+    "sfx_splash.ogg": {
+      "duration_seconds": 0.777098,
+      "peak_dbfs": -7.622,
+      "rms_dbfs": -27.278,
+      "dc_abs_max": 4.2980824218830094e-05,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 11051,
+      "sha256": "f385bd8e528dc96bd558e5854ecd388c3e458a7f86d44023e008ae6a7b57bfb3",
+      "git_blob_sha": "5f4ebaa4e80c6c42c088773ec1d58f765b528cb3"
+    },
+    "sfx_splash.mp3": {
+      "duration_seconds": 0.78,
+      "peak_dbfs": -8.379,
+      "rms_dbfs": -27.813,
+      "dc_abs_max": 3.16940167977009e-05,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 10076,
+      "sha256": "35c23d149bdc0280486774899476d235b6558b8cf6b7dd4de8db9c46b4b432a1",
+      "git_blob_sha": "fbca23af1124451166483a6dba966f25f53f35f1"
+    },
+    "sfx_water.ogg": {
+      "duration_seconds": 0.417098,
+      "peak_dbfs": -10.811,
+      "rms_dbfs": -25.156,
+      "dc_abs_max": 9.735191270010546e-05,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 8120,
+      "sha256": "01e36252ab80ab4187188a0c27d054e642b86836425d794221c84d145110eac8",
+      "git_blob_sha": "5e2125e20f2ab53bf24a67bcf4b024e8683a34fa"
+    },
+    "sfx_water.mp3": {
+      "duration_seconds": 0.42,
+      "peak_dbfs": -11.505,
+      "rms_dbfs": -25.408,
+      "dc_abs_max": 1.71947631315561e-05,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 6000,
+      "sha256": "df6906179be6fa1511b5529a1211222d09da77e1da5cf6ccf229482deb11f7d2",
+      "git_blob_sha": "b711ecbe8d0641033d1f5a292071de83513890fd"
+    },
+    "sfx_coin.ogg": {
+      "duration_seconds": 0.677098,
+      "peak_dbfs": -14.879,
+      "rms_dbfs": -24.98,
+      "dc_abs_max": 2.2568160318314767e-07,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 8821,
+      "sha256": "86f02f57fbcef13aae423c1856761f3914770cb6ddc62eac2a0fc90e518e90c1",
+      "git_blob_sha": "83cd5ba5515ee120f08c8b42530a7d08d6deba63"
+    },
+    "sfx_coin.mp3": {
+      "duration_seconds": 0.680249,
+      "peak_dbfs": -15.626,
+      "rms_dbfs": -25.447,
+      "dc_abs_max": 4.005049447641795e-08,
+      "clipped_samples": 0,
+      "finite": true,
+      "bytes": 9135,
+      "sha256": "492a3c4e1df6f6536e63c3786cc11437a5f282e83177edb1d91f85005f78eb35",
+      "git_blob_sha": "c62110fbae4de23b5966d5c8f97d85a55b039a8b"
+    }
+  },
+  "ebu_r128": {
+    "integrated_lufs": -21.6,
+    "lra_lu": 5.6,
+    "true_peak_dbtp": -9.5
+  },
+  "checks": {
+    "decode": "PASS",
+    "syntax": "PASS",
+    "json": "PASS",
+    "manifest_paths": "PASS",
+    "browser": "NOT_RUN",
+    "live_site": "NOT_RUN",
+    "new_audio_listening": "NOT_RUN"
+  }
+}
