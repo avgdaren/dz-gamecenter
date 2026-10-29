@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "checks": 16,
+  "scope": "synthetic fixture only; actual user WAV unavailable",
+  "user_source_available": false,
+  "user_source_transcoded": false,
+  "source_license_verified": false,
+  "live_site_tested": false
+}
