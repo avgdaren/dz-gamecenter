@@ -1,6 +1,6 @@
 {
   "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
-  "status": "first-three-style-approved-decor-four-awaiting-review",
+  "status": "all-seven-sample-styles-user-approved-exports-pending",
   "generation": "built-in imagegen; original outputs copied without pixel edits",
   "samples": [
     {
@@ -97,8 +97,10 @@
         1221,
         1124
       ],
-      "review": "awaiting-user-review",
-      "production_ready": false
+      "review": "user-approved-style",
+      "production_ready": false,
+      "review_date": "2026-10-29",
+      "exchange_tier": "cheap"
     },
     {
       "id": "scape_coral",
@@ -127,8 +129,10 @@
         1176,
         1176
       ],
-      "review": "awaiting-user-review",
-      "production_ready": false
+      "review": "user-approved-style",
+      "production_ready": false,
+      "review_date": "2026-10-29",
+      "exchange_tier": "cheap"
     },
     {
       "id": "building_moon_gate",
@@ -157,9 +161,11 @@
         1235,
         1161
       ],
-      "review": "awaiting-user-review",
+      "review": "user-approved-style",
       "production_ready": false,
-      "opening_center_alpha": 0
+      "opening_center_alpha": 0,
+      "review_date": "2026-10-29",
+      "exchange_tier": "expensive"
     },
     {
       "id": "trinket_star_lamp",
@@ -188,8 +194,10 @@
         981,
         1187
       ],
-      "review": "awaiting-user-review",
-      "production_ready": false
+      "review": "user-approved-style",
+      "production_ready": false,
+      "review_date": "2026-10-29",
+      "exchange_tier": "expensive"
     }
   ],
   "version": "v02"

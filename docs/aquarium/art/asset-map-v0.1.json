@@ -1,7 +1,7 @@
 {
   "schema": "aquarium-art-registry-v1",
   "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
-  "status": "draft-awaiting-user-review",
+  "status": "sample-styles-approved-production-exports-pending",
   "production_ready": false,
   "asset_root": "source/plugin/gamecenter/games/aquarium/assets/",
   "decor_slot_count": null,
@@ -829,15 +829,21 @@
     "style_approved_ids": [
       "pond_blue",
       "pond_feather",
-      "tank_day"
-    ],
-    "awaiting_review_ids": [
+      "tank_day",
       "plant_meadow",
       "scape_coral",
       "building_moon_gate",
       "trinket_star_lamp"
     ],
+    "awaiting_review_ids": [],
     "production_exports_approved": false,
-    "diversity_brief": "DIVERSITY-v0.1.md"
+    "diversity_brief": "DIVERSITY-v0.1.md",
+    "exchange_tiers": {
+      "plant_meadow": "cheap",
+      "scape_coral": "cheap",
+      "building_moon_gate": "expensive",
+      "trinket_star_lamp": "expensive"
+    },
+    "exact_coin_prices_approved": false
   }
 }
