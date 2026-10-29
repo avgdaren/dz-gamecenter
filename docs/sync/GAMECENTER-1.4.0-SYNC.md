@@ -30,25 +30,34 @@
 
 ## 二、相对 `main` 的差异
 
+以 **git 存储内容**为准（`git diff main...HEAD`）：
+
 ```
-新增 18 个文件 / 修改 22 个文件 / 删除 0 个
+新增 22 个文件 / 修改 18 个文件 / 删除 0 个
 ```
 
-**新增 18**
+**新增 22**
 
-- `cron/cron_gamecenter_room.php`（房间定时任务入口）
-- `games/_longexample/`（长局分段示例：game.js / game.json / verify.php / index.htm）
-- `games/reversi/`（6 个文件）
-- `games/tetris/`（8 个文件，含 `miku-forms.png`）
+- 插件 18 个：
+  - `cron/cron_gamecenter_room.php`（房间定时任务入口）
+  - `games/_longexample/`（长局分段示例：game.js / game.json / verify.php / index.htm）
+  - `games/reversi/`（6 个文件）
+  - `games/tetris/`（8 个文件，含 `miku-forms.png`）
+- 同步材料 3 个：`docs/sync/GAMECENTER-1.4.0-SYNC.md`、`gamecenter-1.4.0-tables.sql`、`manifest-1.4.0.txt`
+- `.gitattributes`（强制 LF 检出，见 §四）
 
-**修改 22**
+**修改 18**
 
 `DEVELOP.md`、`admincp.inc.php`、`discuz_plugin_gamecenter.json`、`gamecenter.inc.php`、`install.php`、`uninstall.php`、`upgrade.php`、
-`lib/core.php`、`lib/gomoku.php`、`lib/raid.php`、`lib/room.php`、`lib/room_schema.php`、`lib/room_store.php`、`lib/view.php`、
+`lib/core.php`、`lib/raid.php`、`lib/room.php`、`lib/room_store.php`、`lib/view.php`、
 `static/gc.css`、`static/gc.js`、
-`games/memory/{game.json,verify.php}`、`games/raid/{game.js,game.json}`、`games/snake/{game.js,game.json}`
+`games/raid/{game.js,game.json}`、`games/snake/{game.js,game.json}`
 
 **删除 0** —— 站点目录是 `main` 的超集，因此本次同步**没有任何删除动作**。
+
+> **换行风格说明**：另有 4 个文件（`games/memory/game.json`、`games/memory/verify.php`、`lib/gomoku.php`、`lib/room_schema.php`）
+> 在「部署目录 vs 仓库旧工作区」的字节比对里被标为不同，但差异只是 CRLF/LF；git 存储内容与 `main` 一致，因此不出现在 diff 中。
+> 同步后工作区已是 LF，与部署目录逐字节相同。
 
 ---
 
