@@ -60,8 +60,9 @@ $check($code === 'target', 'undiscovered fish rejected: '.$code);
 // 布置：已发现的鱼可以放，并且不能重复
 list($s, $code) = gamecenter_aquarium_shop::setLayout($s, ['fish'=>[$fid,null,null,null,null,null,null,null]], $c);
 $check($code === '', 'discovered fish placed');
-list($x, $code) = gamecenter_aquarium_shop::setLayout($s, ['fish'=>[$fid,$fid,null,null,null,null,null,null]], $c);
-$check($code === 'target', 'duplicate fish rejected');
+list($s, $code) = gamecenter_aquarium_shop::setLayout($s, ['fish'=>[$fid,$fid,null,null,null,null,null,null]], $c);
+$check($code === '', 'duplicate fish allowed: '.$code);
+$check(count(array_filter($s['layout']['fish'])) === 2, 'two same fish kept');
 
 // 布置：没买的装饰不能放
 list($x, $code) = gamecenter_aquarium_shop::setLayout($s, ['decor'=>['back'=>['scape_pebbles'],'front'=>[]]], $c);

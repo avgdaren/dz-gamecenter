@@ -47,11 +47,11 @@ final class gamecenter_aquarium_shop {
         }
         $slots = $s['layout']['fish'];
         if(count($slots) !== (int)$s['fish_capacity']) { throw new DomainException('state-layout'); }
-        $seen = [];
+        // $seen 保留给装饰唯一性；鱼允许重复
         foreach($slots as $fid) {
             if($fid === null) { continue; }
-            if(!is_string($fid) || !isset($s['fish'][$fid]) || isset($seen[$fid])) { throw new DomainException('state-layout'); }
-            $seen[$fid] = true;
+            // 同种鱼允许重复展示（Issue #44）：只校验已发现，不做去重
+            if(!is_string($fid) || !isset($s['fish'][$fid])) { throw new DomainException('state-layout'); }
         }
         $decorSeen = [];
         foreach(['back','front'] as $layer) {
@@ -115,8 +115,8 @@ final class gamecenter_aquarium_shop {
             $clean = [];
             foreach($list as $fid) {
                 if($fid === null || $fid === '') { $clean[] = null; continue; }
-                if(!is_string($fid) || !isset($s['fish'][$fid]) || isset($seen[$fid])) { return [$s, 'target']; }
-                $seen[$fid] = true; $clean[] = $fid;
+            if(!is_string($fid) || !isset($s['fish'][$fid])) { return [$s, 'target']; }
+            $clean[] = $fid;
             }
             $next['layout']['fish'] = $clean;
         }
