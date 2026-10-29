@@ -1,0 +1,85 @@
+/* 作者：小蓝（DSH）；原插件 (C) 2026 Carinoasd。天使水族馆玩家界面 */
+
+.aq-wrap { --aq-line: #dbe6ef; --aq-ink: #22323f; --aq-muted: #7a8b99; --aq-accent: #3f7fb5; --aq-gold: #b8862f; }
+.aq-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.aq-title h3 { margin: 0 0 4px; font-size: 20px; color: var(--aq-ink); }
+.aq-muted { color: var(--aq-muted); font-size: 12px; margin: 0; }
+
+.aq-body { display: flex; gap: 14px; align-items: flex-start; }
+.aq-main { flex: 1 1 auto; min-width: 0; }
+.aq-side { width: 220px; flex: 0 0 220px; display: flex; flex-direction: column; gap: 8px; }
+
+.aq-tank { position: relative; width: 100%; padding-top: 56.25%; border-radius: 10px; overflow: hidden;
+  background: #cfe6f2; box-shadow: inset 0 0 0 1px rgba(255,255,255,.5), 0 6px 18px rgba(30,70,100,.12); }
+.aq-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.aq-layer { position: absolute; inset: 0; pointer-events: none; }
+.aq-decor { position: absolute; bottom: 0; transform: translate(-50%, 0); line-height: 0; }
+.aq-decor img { display: block; width: 100%; height: auto; }
+.aq-decor-back img { width: 190px; max-width: 30vw; }
+.aq-decor-front img { width: 120px; max-width: 20vw; }
+.aq-fish { position: absolute; inset: 0; pointer-events: none; }
+.aq-fish-item { position: absolute; transform: translate(-50%, 0); line-height: 0; }
+.aq-fish-item img { width: 150px; max-width: 22vw; height: auto; display: block; }
+.aq-swim-r img { animation: aqRight 6.5s ease-in-out infinite; }
+.aq-swim-l img { animation: aqLeft 7.5s ease-in-out infinite; transform: scaleX(-1); }
+@keyframes aqRight { 0%,100% { transform: translateX(-14px); } 50% { transform: translateX(14px); } }
+@keyframes aqLeft  { 0%,100% { transform: translateX(14px) scaleX(-1); } 50% { transform: translateX(-14px) scaleX(-1); } }
+.aq-tip { position: absolute; right: 10px; bottom: 8px; font-size: 11px; color: rgba(255,255,255,.85);
+  background: rgba(20,50,70,.35); padding: 2px 8px; border-radius: 10px; }
+
+.aq-tabs { display: flex; gap: 6px; margin: 12px 0 10px; border-bottom: 1px solid var(--aq-line); }
+.aq-tab { background: none; border: 0; padding: 8px 12px; cursor: pointer; color: var(--aq-muted); font-size: 14px; border-bottom: 2px solid transparent; }
+.aq-tab.is-on { color: var(--aq-accent); border-bottom-color: var(--aq-accent); font-weight: 600; }
+
+.aq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 10px; }
+.aq-grid-2 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.aq-card { border: 1px solid var(--aq-line); border-radius: 10px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
+.aq-card.is-locked { background: #f6f8fa; }
+.aq-card-pic { height: 96px; display: flex; align-items: center; justify-content: center; background: #eef4f8; }
+.aq-card-pic img { max-width: 88%; max-height: 88%; object-fit: contain; }
+.aq-silhouette { filter: brightness(0) opacity(.28); }
+.aq-card-body { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.aq-card-body strong { font-size: 13px; color: var(--aq-ink); }
+.aq-desc { margin: 2px 0 0; color: var(--aq-muted); line-height: 1.5; }
+.aq-tag { display: inline-block; font-size: 11px; color: var(--aq-muted); border: 1px solid var(--aq-line); border-radius: 8px; padding: 0 6px; align-self: flex-start; }
+.aq-tag.is-on { color: var(--aq-accent); border-color: var(--aq-accent); }
+.aq-card-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--aq-line); }
+
+.aq-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.aq-chip { font-size: 12px; padding: 3px 10px; border-radius: 12px; border: 1px solid var(--aq-line); background: #fff; cursor: pointer; color: var(--aq-muted); }
+.aq-chip.is-on { color: #fff; background: var(--aq-accent); border-color: var(--aq-accent); }
+
+.aq-btn { font-size: 13px; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--aq-line); background: #fff;
+  color: var(--aq-ink); cursor: pointer; }
+.aq-btn:hover:not(:disabled) { border-color: var(--aq-accent); color: var(--aq-accent); }
+.aq-btn:disabled { opacity: .45; cursor: not-allowed; }
+.aq-btn-primary { background: var(--aq-accent); border-color: var(--aq-accent); color: #fff; }
+.aq-btn-primary:hover:not(:disabled) { color: #fff; opacity: .9; }
+
+.aq-stat { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 8px 10px;
+  border: 1px solid var(--aq-line); border-radius: 8px; background: #fff; font-size: 13px; }
+.aq-stat-label { color: var(--aq-muted); font-size: 12px; }
+.aq-summary { border: 1px solid var(--aq-line); border-radius: 8px; padding: 8px 10px; background: #fbfdff; font-size: 12px; }
+.aq-summary strong { display: block; margin-bottom: 4px; color: var(--aq-ink); }
+.aq-summary p { margin: 2px 0; }
+
+.aq-form { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--aq-line); border-radius: 10px; padding: 12px; background: #fff; }
+.aq-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.aq-label { width: 96px; flex: 0 0 96px; color: var(--aq-muted); font-size: 12px; }
+.aq-select { font-size: 13px; padding: 5px 8px; border-radius: 6px; border: 1px solid var(--aq-line); background: #fff; min-width: 96px; }
+.aq-empty { border: 1px dashed var(--aq-line); border-radius: 10px; padding: 28px; text-align: center; color: var(--aq-muted); }
+.aq-empty .aq-btn { display: inline-block; margin-top: 8px; text-decoration: none; }
+
+@media (max-width: 760px) {
+  .aq-body { flex-direction: column; }
+  .aq-side { width: 100%; flex: 1 1 auto; order: 2; }
+  .aq-main { order: 1; }
+  .aq-decor-back img { width: 120px; }
+  .aq-decor-front img { width: 78px; }
+  .aq-fish-item img { width: 96px; }
+  .aq-label { width: 100%; flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aq-swim-r img, .aq-swim-l img { animation: none; }
+}

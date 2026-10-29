@@ -158,7 +158,7 @@ class gamecenter_view {
 		$why = gamecenter_core::can_play();
 		$base = 'source/plugin/gamecenter/';
 		$h = '<div class="gc-hero gc-hero-sm">'.self::icon($g).'<div><h1>'.self::e($m['name']).'</h1><p>'.self::e($m['intro']).'</p></div>'.self::nav('').'</div>';
-		if($aq) { $h .= '<div class="gc-note">管理员底盘诊断，只有占位捕获与购买；不是最终游戏画面，不发论坛积分。</div>'; }
+		if($aq) { $h .= '<div class="gc-note">当前仅管理员可见；内容与美术仍在验收中，不发论坛积分。</div>'; }
 		if(!$g['available'] && !$aq) {
 			$h .= '<div class="gc-warn">这个游戏尚未开放，只有管理员看得到（试玩用，成绩照常记录）。</div>';
 		}
@@ -221,7 +221,7 @@ class gamecenter_view {
 			$h .= '<h4>挑战</h4><p>点排行榜上的 ⚔ 就能用同一张地图挑战那笔纪录，对手会以幽灵蛇同步出现。'
 				.($daily ? '每日挑战：每天全站同一张地图，每人 '.(int)$g['dailytries'].' 次。' : '').'</p>';
 		}
-		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($aq ? '<div class="gc-box"><h4>测试说明</h4><p>离线最多累计24小时。所有金币仅用于测试档，最近收获为已入账记录。</p></div>' : self::boards($g, 10, $mode === 'daily' ? 'daily' : '')).'</div></aside></div>';
+		$h .= '</div></div><aside class="gc-side"><div id="gc-boards">'.($aq ? '<div class="gc-box"><h4>说明</h4><p>离线最多累计 24 小时，超出的部分不会计入。金币只在本游戏使用。</p></div>' : self::boards($g, 10, $mode === 'daily' ? 'daily' : '')).'</div></aside></div>';
 		$h .= '<script src="'.$base.'static/gc.js?v='.self::ver().'"></script>';
 		if(!empty($m['style']) && preg_match('/^[\w.-]+\.css$/', $m['style'])) {
 			$h .= '<link rel="stylesheet" href="'.$base.'games/'.$g['gkey'].'/'.$m['style'].'?v='.rawurlencode($m['version']).'">';

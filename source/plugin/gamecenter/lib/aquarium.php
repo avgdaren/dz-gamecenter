@@ -64,25 +64,30 @@ final class gamecenter_aquarium {
             'backgrounds'=>gamecenter_aquarium_shop::backgrounds()];
         return $out;
     }
-    /** 目录：价格与条件全部由服务端配置投影，客户端不提交任何价格/币值。 */
+    /** 目录：名称/品级/文案来自内容模块，价格与条件来自服务端配置；客户端不提交任何价格或币值。 */
     private function catalog(array $s): array {
-        $fish=[];$decor=[];
-        foreach($this->c['waters'] as $wid=>$w) {
-            foreach($w['fish'] as $fid=>$f) {
-                $own=$s['fish'][$fid]??null;
-                $fish[]=['id'=>$fid,'water'=>$wid,'coins'=>$f['coins'],'weight'=>$f['weight'],
-                    'discovered'=>$own!==null,'discovered_at'=>$own['discovered_at']??null,'catch_count'=>$own['catch_count']??0];
-            }
+        require_once __DIR__.'/aquarium_content.php';
+        $meta=gamecenter_aquarium_content::catalog();
+        $fish=[];
+        foreach($meta['fish'] as $f) {
+            $own=$s['fish'][$f['id']]??null;
+            $f['discovered']=$own!==null;
+            $f['discovered_at']=$own['discovered_at']??null;
+            $f['catch_count']=$own['catch_count']??0;
+            $fish[]=$f;
         }
-        foreach($this->c['decor'] as $id=>$e) {
-            $decor[]=['id'=>$id,'cost'=>$e['cost'],'layers'=>$e['layers'],'requires'=>$e['requires'],
-                'owned'=>isset($s['decor_owned'][$id]),'missing'=>gamecenter_aquarium_shop::missing($s,$id,$this->c)];
+        $decor=[];
+        foreach($meta['decor'] as $d) {
+            $d['owned']=isset($s['decor_owned'][$d['id']]);
+            $d['missing']=gamecenter_aquarium_shop::missing($s,$d['id'],$this->c);
+            $decor[]=$d;
         }
-        return ['fish'=>$fish,'decor'=>$decor,'capacities'=>$this->c['fish_capacities'],
-            'capacity_costs'=>$this->c['fish_capacity_costs'],'backgrounds'=>gamecenter_aquarium_shop::backgrounds(),
-            'decor_slots_per_layer'=>gamecenter_aquarium_shop::decor_slots_per_layer()];
-    }
-    public function request(int $uid,bool $allowed,array $data): array {
+        return ['fish'=>$fish,'decor'=>$decor,'waters'=>$meta['water_names'],
+            'capacities'=>$this->c['fish_capacities'],'capacity_costs'=>$this->c['fish_capacity_costs'],
+            'backgrounds'=>gamecenter_aquarium_shop::backgrounds(),
+            'decor_slots_per_layer'=>gamecenter_aquarium_shop::decor_slots_per_layer(),
+            'catalog_version'=>$meta['version']];
+    }    public function request(int $uid,bool $allowed,array $data): array {
         if($uid<1) { return $this->result('login'); }
         if(!$allowed) { return $this->result('permission'); }
         if(gamecenter_aquarium_configs::maintenance()) { return $this->result('maintenance'); }
@@ -104,7 +109,7 @@ final class gamecenter_aquarium {
         if($action==='layout') { $keys[]='layout'; }
         foreach($data as $k=>$v) {
             if(!in_array($k,$keys,true)) { return $this->result('input'); }
-            if($k==='layout') { if(!is_array($v)) { return $this->result('input'); } continue; }
+            if($k==='layout') { if(!is_array($v) && !is_string($v)) { return $this->result('input'); } continue; }
             if(!is_string($v) && !is_int($v)) { return $this->result('input'); }
         }
         foreach($keys as $k) {
@@ -121,6 +126,11 @@ final class gamecenter_aquarium {
         }
         if(isset($data['water_id']) && (!is_string($data['water_id']) || !isset($this->c['waters'][$data['water_id']]))) { return $this->result('input'); }
         if(isset($data['decor_id']) && (!is_string($data['decor_id']) || !gamecenter_aquarium_rules::id($data['decor_id']) || !isset($this->c['decor'][$data['decor_id']]))) { return $this->result('input'); }
+        if(isset($data['layout']) && is_string($data['layout'])) {
+            $decoded=json_decode($data['layout'],true,8,JSON_THROW_ON_ERROR);
+            if(!is_array($decoded)) { return $this->result('input'); }
+            $data['layout']=$decoded;
+        }
         if(isset($data['layout']) && strlen(json_encode($data['layout'])) > self::MAX_LAYOUT_BYTES) { return $this->result('input'); }
         try {
             return $this->db->transaction(function()use($uid,$data,$action,$mutating) {

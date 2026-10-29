@@ -12,7 +12,14 @@ final class gamecenter_aquarium_configs {
      * 当前对外服务的配置版本。
      * A 阶段保持 foundation；正式内容上线时改成 CONTENT，必须与建档/迁移脚本同一批部署。
      */
-    public static function active_version(): string { return self::FOUNDATION; }
+    public static function active_version(): string {
+        $f=__DIR__.'/../games/aquarium/data/ACTIVE_CONFIG';
+        if(is_file($f)) {
+            $v=trim((string)@file_get_contents($f));
+            if(in_array($v,self::versions(),true)) { return $v; }
+        }
+        return self::FOUNDATION;
+    }
 
     public static function for_version(string $v): array {
         if($v===self::FOUNDATION) { return gamecenter_aquarium_config::load(); }
