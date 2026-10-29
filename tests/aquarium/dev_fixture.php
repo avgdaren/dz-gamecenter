@@ -13,8 +13,8 @@ $opt = static fn(string $k, string $d = '') => $args[$k] ?? $d;
 
 $dz = (string)$opt('dz-root'); $dsn = (string)$opt('dsn');
 $user = (string)$opt('user'); $pass = (string)$opt('password'); $pre = (string)$opt('tablepre', 'pre_');
-$uid = (int)$opt('uid', '0'); $addCoins = (int)$opt('add-coins', '0'); $discover = (int)$opt('discover', '0');
-if($dz === '' || $dsn === '' || $uid < 1 || ($addCoins === 0 && $discover === 0)) {
+$uid = (int)$opt('uid', '0'); $addCoins = (int)$opt('add-coins', '0'); $discover = (int)$opt('discover', '0'); $forget = (string)$opt('forget-decor', '');
+if($dz === '' || $dsn === '' || $uid < 1 || ($addCoins === 0 && $discover === 0 && $forget === '')) {
     fwrite(STDERR, "需要 --dz-root --dsn --uid 以及 --add-coins 或 --discover\n"); exit(2);
 }
 
@@ -46,7 +46,7 @@ require DISCUZ_PLUGIN('gamecenter').'/lib/aquarium_store.php';
 require DISCUZ_PLUGIN('gamecenter').'/lib/aquarium_shop.php';
 
 $store = new gamecenter_aquarium_store();
-$store->transaction(function() use ($store, $uid, $addCoins, $discover) {
+$store->transaction(function() use ($store, $uid, $addCoins, $discover, $forget) {
     $row = $store->lock($uid);
     if(!$row) { throw new DomainException('no-save'); }
     $c = gamecenter_aquarium_configs::for_version((string)$row['config_version']);
@@ -63,6 +63,13 @@ $store->transaction(function() use ($store, $uid, $addCoins, $discover) {
     }
     gamecenter_aquarium_rules::validate($s, $c);
     gamecenter_aquarium_shop::validateState($s, $c);
+    if($forget !== '') {
+        unset($s['decor_owned'][$forget]);
+        foreach(['back','front'] as $layer) {
+            $s['layout']['decor'][$layer] = array_values(array_filter($s['layout']['decor'][$layer], static fn($x)=>$x !== $forget));
+        }
+        gamecenter_aquarium_shop::validateState($s, $c);
+    }
     $row['state_json'] = json_encode($s, JSON_THROW_ON_ERROR);
     $store->save($row);
     echo json_encode(['ok'=>1, 'coins'=>$s['coins'], 'fish'=>count($s['fish'])]), "\n";
