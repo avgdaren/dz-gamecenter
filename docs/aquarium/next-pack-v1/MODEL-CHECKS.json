@@ -1,0 +1,115 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "PASS",
+  "checks": 121,
+  "seeds": 1000,
+  "seed_protocol": "Python Random seed 20261030+i*17; integer tickets, 80-failure pity; NOT production HMAC RNG",
+  "collection": {
+    "pond": {
+      "old_new_player": {
+        "captures": {
+          "min": 6,
+          "p10": 15,
+          "median": 39.0,
+          "p90": 94,
+          "max": 143
+        },
+        "minutes_at_lv4": {
+          "min": 7.2,
+          "p10": 18.0,
+          "median": 46.8,
+          "p90": 112.8,
+          "max": 171.6
+        }
+      },
+      "next_new_player": {
+        "captures": {
+          "min": 10,
+          "p10": 26,
+          "median": 57.0,
+          "p90": 110,
+          "max": 190
+        },
+        "minutes_at_lv4": {
+          "min": 12.0,
+          "p10": 31.2,
+          "median": 68.4,
+          "p90": 132.0,
+          "max": 228.0
+        }
+      },
+      "next_old_collection_complete": {
+        "captures": {
+          "min": 2,
+          "p10": 9,
+          "median": 28.0,
+          "p90": 76,
+          "max": 150
+        },
+        "minutes_at_lv4": {
+          "min": 2.4,
+          "p10": 10.8,
+          "median": 33.6,
+          "p90": 91.2,
+          "max": 180.0
+        }
+      }
+    },
+    "bay": {
+      "old_new_player": {
+        "captures": {
+          "min": 6,
+          "p10": 14,
+          "median": 39.5,
+          "p90": 95,
+          "max": 147
+        },
+        "minutes_at_lv4": {
+          "min": 7.2,
+          "p10": 16.8,
+          "median": 47.4,
+          "p90": 114.0,
+          "max": 176.4
+        }
+      },
+      "next_new_player": {
+        "captures": {
+          "min": 11,
+          "p10": 28,
+          "median": 71.0,
+          "p90": 125,
+          "max": 210
+        },
+        "minutes_at_lv4": {
+          "min": 13.2,
+          "p10": 33.6,
+          "median": 85.2,
+          "p90": 150.0,
+          "max": 252.0
+        }
+      },
+      "next_old_collection_complete": {
+        "captures": {
+          "min": 2,
+          "p10": 11,
+          "median": 44.0,
+          "p90": 90,
+          "max": 129
+        },
+        "minutes_at_lv4": {
+          "min": 2.4,
+          "p10": 13.2,
+          "median": 52.8,
+          "p90": 108.0,
+          "max": 154.8
+        }
+      }
+    }
+  },
+  "scope": "offline candidate/hash/assets/cooldown model only",
+  "live_site_tested": false,
+  "database_transactions_tested": false,
+  "concurrency_tested": false,
+  "animation_tested": false,
+  "user_new_art_accepted": false
+}

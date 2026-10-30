@@ -1,0 +1,116 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "offline-candidate-analysis",
+  "waters": {
+    "bay": {
+      "fish_count": 8,
+      "weight_total": 3000,
+      "old_expected_coins_per_catch": "253/50",
+      "new_expected_coins_per_catch": "253/50",
+      "new_fish": [
+        {
+          "id": "bay_gummy_octopus",
+          "weight": 247,
+          "normal_probability": "247/3000",
+          "coins": 4
+        },
+        {
+          "id": "bay_moon_mermaid",
+          "weight": 53,
+          "normal_probability": "53/3000",
+          "coins": 10
+        }
+      ],
+      "levels": {
+        "0": {
+          "period_ms": 120000,
+          "normal_coins_24h": 3643.2,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 4.940711462450593
+        },
+        "1": {
+          "period_ms": 108000,
+          "normal_coins_24h": 4048.0,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 4.446640316205533
+        },
+        "2": {
+          "period_ms": 96000,
+          "normal_coins_24h": 4554.0,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 3.952569169960474
+        },
+        "3": {
+          "period_ms": 84000,
+          "normal_coins_24h": 5204.571428571428,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 3.458498023715415
+        },
+        "4": {
+          "period_ms": 72000,
+          "normal_coins_24h": 6072.0,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 2.964426877470356
+        }
+      }
+    },
+    "pond": {
+      "fish_count": 8,
+      "weight_total": 3000,
+      "old_expected_coins_per_catch": "66/25",
+      "new_expected_coins_per_catch": "66/25",
+      "new_fish": [
+        {
+          "id": "pond_curl_seahorse",
+          "weight": 204,
+          "normal_probability": "17/250",
+          "coins": 2
+        },
+        {
+          "id": "pond_bell_jelly",
+          "weight": 96,
+          "normal_probability": "4/125",
+          "coins": 4
+        }
+      ],
+      "levels": {
+        "0": {
+          "period_ms": 120000,
+          "normal_coins_24h": 1900.8,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 9.469696969696969
+        },
+        "1": {
+          "period_ms": 108000,
+          "normal_coins_24h": 2112.0,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 8.522727272727273
+        },
+        "2": {
+          "period_ms": 96000,
+          "normal_coins_24h": 2376.0,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 7.575757575757576
+        },
+        "3": {
+          "period_ms": 84000,
+          "normal_coins_24h": 2715.4285714285716,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 6.628787878787879
+        },
+        "4": {
+          "period_ms": 72000,
+          "normal_coins_24h": 3168.0,
+          "optional_bonus_limit": 180,
+          "bonus_ratio_percent": 5.681818181818182
+        }
+      }
+    }
+  },
+  "normal_expectation_exact_preserved": true,
+  "old_species_absolute_probability_multiplier": "9/10",
+  "pity_threshold_unchanged": 80,
+  "pity_expectation_not_proven_equal": true,
+  "optional_bonus_per_rolling_24h": 180,
+  "reward_features_enabled": false
+}

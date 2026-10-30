@@ -1,0 +1,27 @@
+{
+  "schema": "aquarium-care-reward-research-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "research-not-active",
+  "feeding_animation_enabled": false,
+  "care_rewards_enabled": false,
+  "cooldown_ms": 86400000,
+  "not_calendar_day_reset": true,
+  "stack_by_fish_or_layout": false,
+  "rewards": {
+    "feed_response": {
+      "coins": 120,
+      "minimum_session_ms": 8000,
+      "session_expires_ms": 120000,
+      "requires_displayed_fish": true
+    },
+    "drift_bottle": {
+      "coins": 60,
+      "minimum_session_ms": 0,
+      "session_expires_ms": 120000,
+      "requires_displayed_fish": false
+    }
+  },
+  "core_fishing_unchanged_by_actions": true,
+  "background_clicks_no_reward": true,
+  "missed_windows_do_not_accumulate": true
+}

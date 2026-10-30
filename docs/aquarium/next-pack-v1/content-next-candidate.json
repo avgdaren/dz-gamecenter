@@ -1,0 +1,741 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "candidate-not-active",
+  "pricing_note": "Star lamp 1500 is a simulation candidate, not a user-approved price. No automatic foundation-save migration.",
+  "config": {
+    "version": "aquarium-content-next-candidate-v1",
+    "cap_ms": 86400000,
+    "periods_ms": [
+      120000,
+      108000,
+      96000,
+      84000,
+      72000
+    ],
+    "rod_costs": [
+      0,
+      120,
+      260,
+      600,
+      900
+    ],
+    "initial_coins": 120,
+    "initial_water": "pond",
+    "initial_fish": "pond_blue",
+    "waters": {
+      "bay": {
+        "cost": 2000,
+        "requires_water": "pond",
+        "requires_count": 4,
+        "fish": {
+          "bay_aurora": {
+            "weight": 54,
+            "coins": 18
+          },
+          "bay_coral": {
+            "weight": 756,
+            "coins": 4
+          },
+          "bay_gummy_octopus": {
+            "weight": 247,
+            "coins": 4
+          },
+          "bay_lantern": {
+            "weight": 486,
+            "coins": 5
+          },
+          "bay_moon_mermaid": {
+            "weight": 53,
+            "coins": 10
+          },
+          "bay_ribbon": {
+            "weight": 324,
+            "coins": 6
+          },
+          "bay_silver": {
+            "weight": 918,
+            "coins": 4
+          },
+          "bay_star_ray": {
+            "weight": 162,
+            "coins": 10
+          }
+        }
+      },
+      "pond": {
+        "cost": 0,
+        "requires_water": "",
+        "requires_count": 0,
+        "fish": {
+          "pond_bell_jelly": {
+            "weight": 96,
+            "coins": 4
+          },
+          "pond_blue": {
+            "weight": 918,
+            "coins": 2
+          },
+          "pond_curl_seahorse": {
+            "weight": 204,
+            "coins": 2
+          },
+          "pond_feather": {
+            "weight": 54,
+            "coins": 10
+          },
+          "pond_glass_moon": {
+            "weight": 162,
+            "coins": 5
+          },
+          "pond_leaf": {
+            "weight": 486,
+            "coins": 3
+          },
+          "pond_orange_tail": {
+            "weight": 756,
+            "coins": 2
+          },
+          "pond_peach": {
+            "weight": 324,
+            "coins": 3
+          }
+        }
+      }
+    },
+    "initial_fish_capacity": 4,
+    "fish_capacities": [
+      4,
+      8,
+      12
+    ],
+    "fish_capacity_costs": [
+      0,
+      800,
+      3000
+    ],
+    "decor": {
+      "building_angel_gate": {
+        "cost": 6000,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 12,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "building_bridge": {
+        "cost": 1600,
+        "requires": {
+          "pond_count": 4,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "building_columns": {
+        "cost": 4500,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 10,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "building_moon_gate": {
+        "cost": 2800,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 8,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "building_pavilion": {
+        "cost": 2200,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": "bay"
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "building_ruin_arch": {
+        "cost": 3600,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 8,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "plant_crimson": {
+        "cost": 200,
+        "requires": {
+          "pond_count": 3,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back",
+          "front"
+        ]
+      },
+      "plant_fern": {
+        "cost": 260,
+        "requires": {
+          "pond_count": 4,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "plant_lily": {
+        "cost": 120,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "front"
+        ]
+      },
+      "plant_meadow": {
+        "cost": 80,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back",
+          "front"
+        ]
+      },
+      "plant_ribbon": {
+        "cost": 160,
+        "requires": {
+          "pond_count": 3,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "plant_tide": {
+        "cost": 320,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": "bay"
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "scape_cave": {
+        "cost": 400,
+        "requires": {
+          "pond_count": 4,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "scape_coral": {
+        "cost": 500,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": "bay"
+        },
+        "layers": [
+          "back",
+          "front"
+        ]
+      },
+      "scape_layers": {
+        "cost": 160,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back",
+          "front"
+        ]
+      },
+      "scape_moss": {
+        "cost": 220,
+        "requires": {
+          "pond_count": 3,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "scape_pebbles": {
+        "cost": 100,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "front"
+        ]
+      },
+      "scape_wood": {
+        "cost": 300,
+        "requires": {
+          "pond_count": 4,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back"
+        ]
+      },
+      "trinket_crescent": {
+        "cost": 900,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": "bay"
+        },
+        "layers": [
+          "front"
+        ]
+      },
+      "trinket_crystal": {
+        "cost": 1200,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 8,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "front"
+        ]
+      },
+      "trinket_pearl": {
+        "cost": 260,
+        "requires": {
+          "pond_count": 3,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "front"
+        ]
+      },
+      "trinket_shell": {
+        "cost": 120,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "front"
+        ]
+      },
+      "trinket_star_lamp": {
+        "cost": 1500,
+        "requires": {
+          "pond_count": 4,
+          "total_fish": 0,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "back",
+          "front"
+        ]
+      },
+      "trinket_wings": {
+        "cost": 1500,
+        "requires": {
+          "pond_count": 0,
+          "total_fish": 10,
+          "water_unlocked": ""
+        },
+        "layers": [
+          "front"
+        ]
+      }
+    },
+    "pool_hash": "7a28b69e46fc03ca0b0d24f62241262fd05c2a3619b8c4c75e46cac0e0da13eb",
+    "config_hash": "a3e16602d76a4b062d4c0d679c5e1883feeb5b7cf89aa07c9edbb41fe8cb97ea"
+  },
+  "fish": {
+    "pond_blue": {
+      "name": "晴蓝鱼",
+      "index": 1,
+      "water": "pond",
+      "rarity": "常见",
+      "description": "像一小片晴空，喜欢轻快地绕着水草游。"
+    },
+    "pond_orange_tail": {
+      "name": "橘尾鱼",
+      "index": 2,
+      "water": "pond",
+      "rarity": "常见",
+      "description": "橘色尾鳍展开时，像水里摇晃的小扇子。"
+    },
+    "pond_leaf": {
+      "name": "叶纹鱼",
+      "index": 3,
+      "water": "pond",
+      "rarity": "少见",
+      "description": "身上的叶纹让它总能藏进绿色的背景里。"
+    },
+    "pond_peach": {
+      "name": "桃心鱼",
+      "index": 4,
+      "water": "pond",
+      "rarity": "少见",
+      "description": "桃色尾尖轻轻一摆，就留下一道温柔的弧线。"
+    },
+    "pond_glass_moon": {
+      "name": "玻璃月鱼",
+      "index": 5,
+      "water": "pond",
+      "rarity": "稀有",
+      "description": "薄薄的鱼鳍映着水光，像一轮透亮的小月亮。"
+    },
+    "pond_feather": {
+      "name": "羽鳍鱼",
+      "index": 6,
+      "water": "pond",
+      "rarity": "珍奇",
+      "description": "羽片般的长鳍舒展开，游动也像轻轻滑翔。"
+    },
+    "bay_silver": {
+      "name": "银沙鱼",
+      "index": 7,
+      "water": "bay",
+      "rarity": "常见",
+      "description": "一道银色的细光，转眼就绕过了沙地。"
+    },
+    "bay_coral": {
+      "name": "珊瑚鱼",
+      "index": 8,
+      "water": "bay",
+      "rarity": "常见",
+      "description": "珊瑚般的暖色，让浅湾显得格外热闹。"
+    },
+    "bay_lantern": {
+      "name": "灯笼鱼",
+      "index": 9,
+      "water": "bay",
+      "rarity": "少见",
+      "description": "圆圆的身体带着暖光，像水中的小灯。"
+    },
+    "bay_ribbon": {
+      "name": "丝带鱼",
+      "index": 10,
+      "water": "bay",
+      "rarity": "少见",
+      "description": "长长的鳍带随水流舒展，划出柔软的曲线。"
+    },
+    "bay_star_ray": {
+      "name": "星斑鳐",
+      "index": 11,
+      "water": "bay",
+      "rarity": "稀有",
+      "description": "星点铺满宽宽的身体，它喜欢贴近底层滑行。"
+    },
+    "bay_aurora": {
+      "name": "极光天使鱼",
+      "index": 12,
+      "water": "bay",
+      "rarity": "珍奇",
+      "description": "高高的鱼鳍映出青紫色，仿佛把极光带进水里。"
+    },
+    "pond_curl_seahorse": {
+      "name": "卷尾海马",
+      "index": 13,
+      "water": "pond",
+      "rarity": "少见",
+      "description": "尾巴总卷成一个小问号，慢慢巡视水草的边缘。"
+    },
+    "pond_bell_jelly": {
+      "name": "铃伞水母",
+      "index": 14,
+      "water": "pond",
+      "rarity": "稀有",
+      "description": "小伞轻轻收拢，像一枚在水里缓慢摇响的铃。"
+    },
+    "bay_gummy_octopus": {
+      "name": "软糖章鱼",
+      "index": 15,
+      "water": "bay",
+      "rarity": "少见",
+      "description": "八只小腕轻轻一抱，仿佛整团软糖都浮了起来。"
+    },
+    "bay_moon_mermaid": {
+      "name": "月汐人鱼",
+      "index": 16,
+      "water": "bay",
+      "rarity": "珍奇",
+      "description": "长发随水流轻轻舒展，像把月色带进了浅湾。"
+    }
+  },
+  "decor": {
+    "plant_meadow": {
+      "name": "晴光水草",
+      "index": 1,
+      "category": "plant",
+      "themes": [
+        "nature"
+      ],
+      "description": "柔软的矮叶簇，给沙地添一点清新的绿色。"
+    },
+    "plant_lily": {
+      "name": "睡莲小丛",
+      "index": 2,
+      "category": "plant",
+      "themes": [
+        "nature",
+        "moon"
+      ],
+      "description": "圆叶和小花相伴，适合安静的水边角落。"
+    },
+    "plant_ribbon": {
+      "name": "飘带长叶",
+      "index": 3,
+      "category": "plant",
+      "themes": [
+        "nature"
+      ],
+      "description": "细长叶片随着水流弯出轻快的弧线。"
+    },
+    "plant_crimson": {
+      "name": "绯叶水草",
+      "index": 4,
+      "category": "plant",
+      "themes": [
+        "coral",
+        "moon"
+      ],
+      "description": "红紫色的叶片，让绿色水景多一层变化。"
+    },
+    "plant_fern": {
+      "name": "羽叶水蕨",
+      "index": 5,
+      "category": "plant",
+      "themes": [
+        "nature",
+        "ruin"
+      ],
+      "description": "羽状叶片轻轻舒展，能柔化高石的边缘。"
+    },
+    "plant_tide": {
+      "name": "星潮海藻",
+      "index": 6,
+      "category": "plant",
+      "themes": [
+        "coral"
+      ],
+      "description": "分叉的海藻，带着浅湾特有的清亮色彩。"
+    },
+    "scape_pebbles": {
+      "name": "圆润卵石",
+      "index": 7,
+      "category": "scape",
+      "themes": [
+        "nature"
+      ],
+      "description": "几颗圆润小石，让空地显得自然又安稳。"
+    },
+    "scape_layers": {
+      "name": "晴灰层岩",
+      "index": 8,
+      "category": "scape",
+      "themes": [
+        "nature",
+        "ruin"
+      ],
+      "description": "平缓的层岩，适合搭出有高低的小地形。"
+    },
+    "scape_moss": {
+      "name": "苔绿山石",
+      "index": 9,
+      "category": "scape",
+      "themes": [
+        "nature",
+        "ruin"
+      ],
+      "description": "青苔覆盖的山石，给远处添一块沉静的轮廓。"
+    },
+    "scape_wood": {
+      "name": "花枝沉木",
+      "index": 10,
+      "category": "scape",
+      "themes": [
+        "nature",
+        "moon"
+      ],
+      "description": "弯曲沉木缀着小花，像一段水中的故事。"
+    },
+    "scape_cave": {
+      "name": "静谧岩洞",
+      "index": 11,
+      "category": "scape",
+      "themes": [
+        "nature",
+        "ruin"
+      ],
+      "description": "天然洞口留下阴影，也留下想象的空间。"
+    },
+    "scape_coral": {
+      "name": "绮色珊瑚",
+      "index": 12,
+      "category": "scape",
+      "themes": [
+        "coral"
+      ],
+      "description": "粉紫与浅青交错，让浅湾色彩更丰富。"
+    },
+    "building_bridge": {
+      "name": "翼纹小桥",
+      "index": 13,
+      "category": "building",
+      "themes": [
+        "nature",
+        "moon"
+      ],
+      "description": "小桥上的羽翼纹样，把两侧水景轻轻连起。"
+    },
+    "building_pavilion": {
+      "name": "潮音凉亭",
+      "index": 14,
+      "category": "building",
+      "themes": [
+        "coral",
+        "nature"
+      ],
+      "description": "檐下仿佛能听见水流绕过立柱的声音。"
+    },
+    "building_moon_gate": {
+      "name": "月庭圆门",
+      "index": 15,
+      "category": "building",
+      "themes": [
+        "moon"
+      ],
+      "description": "圆门框起一小片水色，月纹静静停在上方。"
+    },
+    "building_ruin_arch": {
+      "name": "星痕拱门",
+      "index": 16,
+      "category": "building",
+      "themes": [
+        "ruin",
+        "moon"
+      ],
+      "description": "残缺的石拱留着星纹，适合幽静的遗迹角落。"
+    },
+    "building_columns": {
+      "name": "沉眠列柱",
+      "index": 17,
+      "category": "building",
+      "themes": [
+        "ruin"
+      ],
+      "description": "错落的石柱，给远景添上久远的层次。"
+    },
+    "building_angel_gate": {
+      "name": "天使庭门",
+      "index": 18,
+      "category": "building",
+      "themes": [
+        "moon",
+        "ruin"
+      ],
+      "description": "宽阔的羽翼庭门，是一座小小水景的主角。"
+    },
+    "trinket_shell": {
+      "name": "珍光贝壳",
+      "index": 19,
+      "category": "trinket",
+      "themes": [
+        "coral"
+      ],
+      "description": "小小贝壳藏着柔和的珍光。"
+    },
+    "trinket_pearl": {
+      "name": "月露珍珠台",
+      "index": 20,
+      "category": "trinket",
+      "themes": [
+        "coral",
+        "moon"
+      ],
+      "description": "一颗圆润珍珠，停在月露般的浅托台上。"
+    },
+    "trinket_star_lamp": {
+      "name": "星辉提灯",
+      "index": 21,
+      "category": "trinket",
+      "themes": [
+        "moon"
+      ],
+      "description": "温暖星芯藏在精细灯框里，点亮水底一角。"
+    },
+    "trinket_crescent": {
+      "name": "弯月小景",
+      "index": 22,
+      "category": "trinket",
+      "themes": [
+        "moon"
+      ],
+      "description": "弯月停在草叶上，不必等到夜晚也能看见。"
+    },
+    "trinket_crystal": {
+      "name": "星晶花簇",
+      "index": 23,
+      "category": "trinket",
+      "themes": [
+        "coral",
+        "moon"
+      ],
+      "description": "晶面与花簇相映，把一点微光留在前景。"
+    },
+    "trinket_wings": {
+      "name": "羽翼纪念像",
+      "index": 24,
+      "category": "trinket",
+      "themes": [
+        "moon",
+        "ruin"
+      ],
+      "description": "层层羽翼环抱着底座，像静静守候的纪念。"
+    }
+  },
+  "waters": {
+    "pond": "晴光池塘",
+    "bay": "星潮浅湾"
+  },
+  "next_pack_note": "Offline proposal only; old runtime content is not replaced."
+}
