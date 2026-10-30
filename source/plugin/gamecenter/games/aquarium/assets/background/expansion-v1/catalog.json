@@ -1,0 +1,302 @@
+{
+  "schema": "aquarium-scenery-catalog-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "candidate-not-active",
+  "date": "2026-10-30",
+  "scope": "cosmetic aquarium backgrounds; not fishing waters",
+  "prices_are": "fixed proposed game-coin prices, no cash or forum credits",
+  "default_owned": [
+    "tank_day",
+    "tank_moon"
+  ],
+  "ownership_state_field": "background_owned",
+  "default_background": "tank_day",
+  "layout_field": "layout.background",
+  "fishing_pools_unchanged": true,
+  "items": [
+    {
+      "id": "tank_sakura",
+      "name": "樱溪浅梦",
+      "description": "粉樱与浅青水光，给鱼缸换一个春天。",
+      "index": 2,
+      "cost": 600,
+      "currency": "aquarium_coins",
+      "permanent": true,
+      "requires": {
+        "pond_discovered": 3,
+        "total_discovered": 0,
+        "water_unlocked": ""
+      },
+      "requires_previous_scenery": false,
+      "changes_fishing_water": false,
+      "production_bonus": 0,
+      "background": "background/expansion-v1/tank_sakura.webp",
+      "mobile": "background/expansion-v1/tank_sakura_mobile.webp",
+      "thumbnail": "background/expansion-v1/tank_sakura_thumb.webp",
+      "aspect_ratio": [
+        16,
+        10
+      ],
+      "music_mood": "upbeat",
+      "decor_tone": {
+        "color": "#799f96",
+        "normal_blend_alpha_by_depth": {
+          "far": 0.08,
+          "mid": 0.04,
+          "near": 0
+        },
+        "fog_color": "#c6e3df",
+        "fog_alpha_by_depth": {
+          "far": 0.08,
+          "mid": 0.035,
+          "near": 0
+        },
+        "keep_original_alpha": true,
+        "replace_other_scene_tints": true,
+        "warm_light_items": [
+          "trinket_star_lamp",
+          "trinket_pearl",
+          "trinket_crystal"
+        ],
+        "warm_light_tint_multiplier": 0.5
+      },
+      "placement": {
+        "ground_y_ranges": {
+          "far": [
+            0.76,
+            0.83
+          ],
+          "mid": [
+            0.83,
+            0.9
+          ],
+          "near": [
+            0.9,
+            0.96
+          ]
+        },
+        "center_swimming_rect": [
+          0.2,
+          0.18,
+          0.8,
+          0.7
+        ],
+        "floor_clear_from_y": 0.78,
+        "geometry_source": "decor-layout-v1.json; preserve per-item anchors and widths"
+      }
+    },
+    {
+      "id": "tank_coral",
+      "name": "珊瑚晴湾",
+      "description": "明亮珊瑚围出宽阔浅湾，彩鱼在中央穿行。",
+      "index": 3,
+      "cost": 1200,
+      "currency": "aquarium_coins",
+      "permanent": true,
+      "requires": {
+        "pond_discovered": 0,
+        "total_discovered": 0,
+        "water_unlocked": "bay"
+      },
+      "requires_previous_scenery": false,
+      "changes_fishing_water": false,
+      "production_bonus": 0,
+      "background": "background/expansion-v1/tank_coral.webp",
+      "mobile": "background/expansion-v1/tank_coral_mobile.webp",
+      "thumbnail": "background/expansion-v1/tank_coral_thumb.webp",
+      "aspect_ratio": [
+        16,
+        10
+      ],
+      "music_mood": "upbeat",
+      "decor_tone": {
+        "color": "#4d9cb7",
+        "normal_blend_alpha_by_depth": {
+          "far": 0.09,
+          "mid": 0.05,
+          "near": 0.01
+        },
+        "fog_color": "#b0d8e3",
+        "fog_alpha_by_depth": {
+          "far": 0.08,
+          "mid": 0.035,
+          "near": 0
+        },
+        "keep_original_alpha": true,
+        "replace_other_scene_tints": true,
+        "warm_light_items": [
+          "trinket_star_lamp",
+          "trinket_pearl",
+          "trinket_crystal"
+        ],
+        "warm_light_tint_multiplier": 0.5
+      },
+      "placement": {
+        "ground_y_ranges": {
+          "far": [
+            0.76,
+            0.83
+          ],
+          "mid": [
+            0.83,
+            0.9
+          ],
+          "near": [
+            0.9,
+            0.96
+          ]
+        },
+        "center_swimming_rect": [
+          0.2,
+          0.18,
+          0.8,
+          0.7
+        ],
+        "floor_clear_from_y": 0.78,
+        "geometry_source": "decor-layout-v1.json; preserve per-item anchors and widths"
+      }
+    },
+    {
+      "id": "tank_star_ruins",
+      "name": "星眠遗庭",
+      "description": "月光照进沉睡的圆拱遗迹，金色纹样悄然发亮。",
+      "index": 4,
+      "cost": 2400,
+      "currency": "aquarium_coins",
+      "permanent": true,
+      "requires": {
+        "pond_discovered": 0,
+        "total_discovered": 6,
+        "water_unlocked": "bay"
+      },
+      "requires_previous_scenery": false,
+      "changes_fishing_water": false,
+      "production_bonus": 0,
+      "background": "background/expansion-v1/tank_star_ruins.webp",
+      "mobile": "background/expansion-v1/tank_star_ruins_mobile.webp",
+      "thumbnail": "background/expansion-v1/tank_star_ruins_thumb.webp",
+      "aspect_ratio": [
+        16,
+        10
+      ],
+      "music_mood": "calm",
+      "decor_tone": {
+        "color": "#263d68",
+        "normal_blend_alpha_by_depth": {
+          "far": 0.26,
+          "mid": 0.22,
+          "near": 0.18
+        },
+        "fog_color": "#648da8",
+        "fog_alpha_by_depth": {
+          "far": 0.08,
+          "mid": 0.035,
+          "near": 0
+        },
+        "keep_original_alpha": true,
+        "replace_other_scene_tints": true,
+        "warm_light_items": [
+          "trinket_star_lamp",
+          "trinket_pearl",
+          "trinket_crystal"
+        ],
+        "warm_light_tint_multiplier": 0.5
+      },
+      "placement": {
+        "ground_y_ranges": {
+          "far": [
+            0.76,
+            0.83
+          ],
+          "mid": [
+            0.83,
+            0.9
+          ],
+          "near": [
+            0.9,
+            0.96
+          ]
+        },
+        "center_swimming_rect": [
+          0.2,
+          0.18,
+          0.8,
+          0.7
+        ],
+        "floor_clear_from_y": 0.78,
+        "geometry_source": "decor-layout-v1.json; preserve per-item anchors and widths"
+      }
+    },
+    {
+      "id": "tank_aurora",
+      "name": "极光冰湖",
+      "description": "冰蓝湖水映着柔和极光，留下宁静通透的空间。",
+      "index": 5,
+      "cost": 3600,
+      "currency": "aquarium_coins",
+      "permanent": true,
+      "requires": {
+        "pond_discovered": 0,
+        "total_discovered": 10,
+        "water_unlocked": "bay"
+      },
+      "requires_previous_scenery": false,
+      "changes_fishing_water": false,
+      "production_bonus": 0,
+      "background": "background/expansion-v1/tank_aurora.webp",
+      "mobile": "background/expansion-v1/tank_aurora_mobile.webp",
+      "thumbnail": "background/expansion-v1/tank_aurora_thumb.webp",
+      "aspect_ratio": [
+        16,
+        10
+      ],
+      "music_mood": "upbeat",
+      "decor_tone": {
+        "color": "#5d80ab",
+        "normal_blend_alpha_by_depth": {
+          "far": 0.16,
+          "mid": 0.12,
+          "near": 0.08
+        },
+        "fog_color": "#bddeea",
+        "fog_alpha_by_depth": {
+          "far": 0.08,
+          "mid": 0.035,
+          "near": 0
+        },
+        "keep_original_alpha": true,
+        "replace_other_scene_tints": true,
+        "warm_light_items": [
+          "trinket_star_lamp",
+          "trinket_pearl",
+          "trinket_crystal"
+        ],
+        "warm_light_tint_multiplier": 0.5
+      },
+      "placement": {
+        "ground_y_ranges": {
+          "far": [
+            0.76,
+            0.83
+          ],
+          "mid": [
+            0.83,
+            0.9
+          ],
+          "near": [
+            0.9,
+            0.96
+          ]
+        },
+        "center_swimming_rect": [
+          0.2,
+          0.18,
+          0.8,
+          0.7
+        ],
+        "floor_clear_from_y": 0.78,
+        "geometry_source": "decor-layout-v1.json; preserve per-item anchors and widths"
+      }
+    }
+  ]
+}

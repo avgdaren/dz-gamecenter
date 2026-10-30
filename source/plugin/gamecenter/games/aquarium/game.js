@@ -88,6 +88,7 @@
         busy = false;
         // 购买/补给会改变「是否拥有」，卡片需要重建而不是只刷新状态
         if (action === 'buy' || action === 'devgrant' || action === 'expand') { dom.panelMode = ''; }
+        if (action === 'layout') { syncSceneMusic(); }
         paint(); schedule();
       });
     }
@@ -99,6 +100,21 @@
 
     /* ---------------- 声音 ---------------- */
     var AUDIO1 = ASSETS + 'audio/v1/', AUDIO2 = ASSETS + 'audio/v2/', AUDIO_USER = ASSETS + 'audio/user/';
+    var AUDIO_UPBEAT = ASSETS + 'audio/upbeat-v1/';
+    // 场景 → 曲目。月光与星眠用 PR #41 的月光曲；拿不到就回退到轻快曲
+    var SCENE_MUSIC = {
+      tank_day: 'bubble_skip',
+      tank_moon: 'moonlit',
+      tank_sakura: 'bubble_skip',
+      tank_coral: 'bubble_skip',
+      tank_aurora: 'bubble_skip',
+      tank_star_ruins: 'moonlit'
+    };
+    var TRACK_URL = {
+      bubble_skip: AUDIO_UPBEAT + 'bgm_bubble_skip',
+      moonlit: AUDIO2 + 'bgm_moonlit_garden',
+      sunlit: AUDIO1 + 'bgm_sunlit_fish'
+    };
     var V2_SFX = { splash: 1, water: 1, coin: 1 };
     var extCache = null;
     function pickExt() {
@@ -108,20 +124,54 @@
       extCache = can('audio/ogg; codecs="vorbis"') ? '.ogg' : '.mp3';
       return extCache;
     }
-    function bgmUrl() {
-      return (background === 'tank_moon' ? AUDIO2 + 'bgm_moonlit_garden' : AUDIO1 + 'bgm_sunlit_fish') + pickExt();
+    function trackFor(scene) { return SCENE_MUSIC[scene] || 'bubble_skip'; }
+    function bgmUrl(scene, track) {
+      var key = track || trackFor(scene || background);
+      return TRACK_URL[key] + pickExt();
     }
-    function ensureBgm() {
+    function ensureBgm(force) {
       var want = bgmUrl();
-      if (sound.bgm && sound.bgm.getAttribute('data-src') === want) { return sound.bgm; }
-      if (sound.bgm) { sound.bgm.pause(); sound.bgm.remove(); sound.bgm = null; }
+      if (!force && sound.bgm && sound.bgm.getAttribute('data-src') === want) { return sound.bgm; }
+      var old = sound.bgm;
       var a = new Audio(want);
-      a.loop = true; a.volume = 0.35; a.preload = 'auto'; a.id = 'aq-bgm';
+      a.loop = true; a.volume = 0; a.preload = 'auto'; a.id = 'aq-bgm';
       a.setAttribute('data-src', want);
       a.style.display = 'none';
+      a.addEventListener('error', function () {
+        // 月光曲拿不到就退回轻快曲；再失败就保持静音，不反复重试
+        var fallback = bgmUrl(background, 'bubble_skip');
+        if (a.getAttribute('data-src') === fallback) { return; }
+        a.setAttribute('data-src', fallback);
+        a.src = fallback;
+        if (sound.music) { a.play().catch(function () {}); }
+      });
       document.body.appendChild(a);
       sound.bgm = a;
+      if (old) {
+        // 交叉淡出旧曲
+        var v = old.volume;
+        var fade = setInterval(function () {
+          v = Math.max(0, v - 0.06);
+          old.volume = v;
+          if (v <= 0) { clearInterval(fade); old.pause(); old.remove(); }
+        }, 40);
+      }
       return a;
+    }
+    function fadeTo(audio, target) {
+      var v = audio.volume;
+      var t = setInterval(function () {
+        v = Math.min(target, v + 0.05);
+        audio.volume = v;
+        if (v >= target) { clearInterval(t); }
+      }, 40);
+    }
+    /** 场景变了：音乐开着才换曲，绝不因为换背景把音乐打开 */
+    function syncSceneMusic() {
+      if (!sound.music) { return; }
+      var a = ensureBgm();
+      if (a.paused) { a.play().then(function () { fadeTo(a, 0.35); }).catch(function () {}); }
+      else { fadeTo(a, 0.35); }
     }
     function playSfx(id, force) {
       if (!sound.sfx && !force) { return; }
@@ -150,11 +200,8 @@
       sound.music = !sound.music;
       if (sound.music) {
         var a = ensureBgm();
-        a.play().then(function () {
-          a.volume = 0;
-          var v = 0;
-          var t = setInterval(function () { v = Math.min(0.35, v + 0.05); a.volume = v; if (v >= 0.35) { clearInterval(t); } }, 40);
-        }).catch(function () { sound.music = false; note = '浏览器拦住了播放，再点一次'; paint(); });
+        a.play().then(function () { fadeTo(a, 0.35); })
+          .catch(function () { sound.music = false; note = '浏览器拦住了播放，再点一次'; paint(); });
       } else if (sound.bgm) { sound.bgm.pause(); }
       paint();
     }
