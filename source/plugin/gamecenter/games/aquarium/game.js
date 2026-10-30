@@ -76,7 +76,14 @@
       return post(action, extra).then(function (r) {
         if (r.snapshot) { snap = r.snapshot; syncAt = Date.now(); background = snap.layout.background; }
         if (r.catalog) { catalog = r.catalog; }
-        note = r.ok ? '' : (r.msg || '暂时无法同步');
+        if (r.ok) {
+          note = '';
+        } else if (!r.code && r.msg) {
+          // 服务端没返回 code、只给了中文提示：多半是插件文件版本不一致（旧 inc.php 不认 op=aquarium）
+          note = r.msg + '（服务端插件版本与界面不一致：请确认 gamecenter.inc.php 已覆盖，并重启 PHP / 重新扫描插件）';
+        } else {
+          note = r.msg || '暂时无法同步';
+        }
         if (r.ok && action !== 'sync' && action !== 'catalog' && action !== 'init') {
           return post('catalog', {}).then(function (x) {
             if (x.snapshot) { snap = x.snapshot; syncAt = Date.now(); background = snap.layout.background; }
