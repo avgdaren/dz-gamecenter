@@ -141,3 +141,9 @@
 .aq-preset { border-style: dashed; }
 .aq-preset:hover { color: var(--aq-accent); border-color: var(--aq-accent); }
 .aq-preset-dim { opacity: .72; }
+
+.aq-btn-sm { font-size: 12px; padding: 4px 9px; }
+.aq-waters { gap: 6px; align-items: flex-start; }
+.aq-waters .aq-muted { font-size: 11px; line-height: 1.5; }
+.aq-note p { margin: 6px 0 0; line-height: 1.7; }
+.aq-note strong { color: var(--aq-ink); }

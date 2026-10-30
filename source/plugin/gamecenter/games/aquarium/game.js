@@ -84,6 +84,20 @@
             if (x.ok) { note = ''; }
           });
         }
+        if (r.ok && action === 'sync') {
+          var discovered = snap && snap.fish ? Object.keys(snap.fish).length : 0;
+          var known = catalog && catalog.fish ? catalog.fish.filter(function (f) { return f.discovered; }).length : 0;
+          var newIds = (snap && snap.summary && snap.summary.new_fish_ids) || [];
+          if (newIds.length && catalog) {
+            var names = newIds.map(function (id) {
+              var f = findFish(id);
+              return f ? f.name : id;
+            });
+            lastCatch = '最近钓到新鱼：' + names.join('、') + '（去图鉴点它就能放进缸）';
+          }
+          // 图鉴的「已发现」状态只在 catalog 里，同步后对不上就补拉一次
+          if (discovered !== known) { needCatalog = true; }
+        }
       }).catch(function () {
         note = '连接中断，操作结果尚未确认。点「同步」再看一眼。';
       }).then(function () {
@@ -92,7 +106,19 @@
         if (action === 'buy' || action === 'devgrant' || action === 'expand') { dom.panelMode = ''; }
         if (action === 'layout') { syncSceneMusic(); }
         paint(); schedule();
+        if (needCatalog) { fetchCatalogQuiet(); }
       });
+    }
+
+    var lastCatch = '';
+    var needCatalog = false;
+    function fetchCatalogQuiet() {
+      needCatalog = false;
+      return post('catalog', {}).then(function (x) {
+        if (x.snapshot) { snap = x.snapshot; syncAt = Date.now(); background = snap.layout.background; }
+        if (x.catalog) { catalog = x.catalog; }
+        if (dom) { dom.panelMode = ''; paint(); }
+      }).catch(function () {});
     }
 
     function schedule() {
@@ -517,8 +543,23 @@
       wrap.appendChild(body);
 
       var info = el('details', 'aq-note');
-      info.appendChild(el('summary', null, '说明与管理员提示'));
-      info.appendChild(el('p', null, '离线最多累计 24 小时，超出部分不计入；金币只在本游戏使用。'));
+      info.appendChild(el('summary', null, '玩法说明 · 怎么放鱼和装饰'));
+      var tips = [
+        ['自动钓鱼', '鱼竿自己下钩，到点自动收。在线离线同速，单次最多累计 24 小时，超出部分不计入；金币只在本游戏使用。'],
+        ['怎么赚金币', '每钓到一条鱼都给金币，重复鱼按同规则给，不会因为鱼种重复而变少。升鱼竿能缩短下一条的等待，也能提高每条鱼的收益。'],
+        ['怎么放鱼', '在图鉴里点一条鱼，它就直接进缸、占一个鱼位。点缸里的鱼，是把那一条收起来。同一个鱼种只要钓到过就能重复放，但**最多放你钓到的条数**——钓到 5 条彩鳞鱼，才能同时摆 5 条。鱼缸默认 4 位，可扩容到 8、12 位。'],
+        ['怎么放装饰', '切到「装饰」页，点一件装饰就直接摆进缸里；再点一次、或者点缸里那件装饰，就是收起来。每层（后景/前景）最多 3 件。装饰按透视自动定位，前景挡住鱼时会自动变淡，鱼不会凭空消失。'],
+        ['布景预设', '「装饰」页最下面的「布景」是整套方案：点一下就把缸里的装饰换成这一套、顺带换背景，不用一件件摆。分日光 6 套、月光 6 套；缺的装饰会被跳过并提示。旁边还有「清空装饰」。'],
+        ['钓点与扩容', '在池塘发现足够多种鱼后可以解锁浅湾，那里的鱼更值钱。右侧状态栏能看到下一个钓点的解锁条件和花费。'],
+        ['声音', '音效默认开、音乐默认关；两个按钮在右侧，随时可以关。']
+      ];
+      tips.forEach(function (row) {
+        var p2 = el('p', null, '');
+        var b2 = el('strong', null, row[0] + '：');
+        p2.appendChild(b2);
+        p2.appendChild(document.createTextNode(String(row[1]).replace(/\*\*/g, '')));
+        info.appendChild(p2);
+      });
       wrap.appendChild(info);
 
       stage.appendChild(wrap);
@@ -679,7 +720,47 @@
       host.appendChild(stat('金币', fmt(snap.coins), 'aq-coins'));
       var rod = stat('鱼竿 Lv.' + snap.rod_level, '下一条 ' + countdown(), 'aq-countdown');
       host.appendChild(rod);
-      host.appendChild(stat('钓点', waterName(snap.current_water)));
+
+      // 鱼竿升级：费用与周期都来自服务端
+      var periods = (snap.rules && snap.rules.periods_ms) || [];
+      var rodCosts = (snap.rules && snap.rules.rod_costs) || [];
+      var nextLv = snap.rod_level + 1;
+      if (nextLv < periods.length) {
+        var rCost = rodCosts[nextLv];
+        var rShort = rCost - snap.coins;
+        var rb = el('button', 'aq-btn' + (rShort <= 0 ? ' aq-btn-primary' : ''),
+          '升级鱼竿 Lv.' + nextLv + (rShort > 0 ? (' · 还差 ' + fmt(rShort)) : ('（' + fmt(rCost) + ' 金币）')));
+        rb.disabled = rShort > 0 || busy;
+        rb.addEventListener('click', function () { call('upgrade', { expected_version: snap.version, target_level: nextLv }); });
+        host.appendChild(rb);
+      }
+
+      // 钓点：当前的点位 + 其它点位的解锁/切换
+      var waters = (snap.rules && snap.rules.waters) || {};
+      var waterBox = el('div', 'aq-stat aq-waters');
+      waterBox.appendChild(el('span', 'aq-stat-label', '钓点 · ' + waterName(snap.current_water)));
+      Object.keys(waters).forEach(function (wid) {
+        if (wid === snap.current_water) { return; }
+        var unlocked = (snap.unlocked_waters || []).indexOf(wid) >= 0;
+        var need = (waters[wid] || {}).requires_count || 0;
+        var wcost = (waters[wid] || {}).cost || 0;
+        var btn = el('button', 'aq-btn aq-btn-sm');
+        if (unlocked) {
+          btn.textContent = '切换到' + waterName(wid);
+          btn.addEventListener('click', function () { call('switch', { expected_version: snap.version, water_id: wid }); });
+        } else {
+          var short = wcost - snap.coins;
+          btn.textContent = '解锁' + waterName(wid) + (short > 0 ? (' · 还差 ' + fmt(short)) : ('（' + fmt(wcost) + '）'));
+          btn.disabled = short > 0 || busy;
+          if (need > 0) {
+            waterBox.appendChild(el('span', 'aq-muted',
+              waterName(wid) + '：需在' + waterName(snap.current_water) + '发现 ' + need + ' 种鱼'));
+          }
+          btn.addEventListener('click', function () { call('unlock', { expected_version: snap.version, water_id: wid }); });
+        }
+        waterBox.appendChild(btn);
+      });
+      host.appendChild(waterBox);
       host.appendChild(stat('鱼位', snap.layout.fish.filter(Boolean).length + ' / ' + snap.fish_capacity, 'aq-slots'));
 
       var caps = (snap.rules && snap.rules.fish_capacities) || [];
@@ -775,7 +856,9 @@
         }
         return;
       }
-      dom.headNote.textContent = note || '离线也会继续钓鱼，最多累计 24 小时。';
+      var head = note || '离线也会继续钓鱼，最多累计 24 小时。';
+      if (lastCatch) { head += ' · ' + lastCatch; }
+      dom.headNote.textContent = head;
       updateBackground();
       buildSide();
       updateSide();
@@ -792,9 +875,20 @@
       var s = Math.ceil(left / 1000);
       return ('0' + Math.floor(s / 60)).slice(-2) + ':' + ('0' + (s % 60)).slice(-2);
     }
+    var settledPending = false;
     function tickCountdown() {
       var n = document.getElementById('aq-countdown');
-      if (n) { n.textContent = '下一条 ' + countdown(); }
+      if (!n || !snap) { return; }
+      var period = snap.rules.periods_ms[snap.rod_level];
+      var elapsed = (Date.now() - syncAt) + snap.progress_ms;
+      var left = period - (elapsed % period);
+      n.textContent = '下一条 ' + countdown();
+      // 到点就直接拉一次，别让玩家自己刷新
+      if (left <= 900 && !settledPending && !busy) {
+        settledPending = true;
+        call('sync');
+        setTimeout(function () { settledPending = false; }, 4000);
+      }
     }
 
     /* ---------------- 每帧 ---------------- */
