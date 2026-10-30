@@ -208,7 +208,13 @@ class gamecenter_view {
 			$note = $aq ? ($_G['uid'] ? '当前用户组暂不能建立或查看水族馆。' : '请登录论坛账号后建立或查看水族馆。') : $why.'，现在是试玩模式。';
 			$h .= '<div class="gc-note">'.self::e($note).'</div>';
 		}
-		$h .= '<div class="gc-box"><h4>玩法</h4><p>'.self::e($m['help'] ?: $m['intro']).'</p>';
+		$h .= '<div class="gc-box"><h4>玩法</h4>';
+		$gc_help = (string)($m['help'] ?: $m['intro']);
+		foreach(preg_split('/\r\n|\r|\n/', $gc_help) as $gc_line) {
+			$gc_line = trim($gc_line);
+			if($gc_line === '') { continue; }
+			$h .= '<p>'.self::e($gc_line).'</p>';
+		}
 		$rl = self::reward_lines($g);
 		if($rl) {
 			$h .= '<h4>奖励</h4><ul class="gc-list">';
