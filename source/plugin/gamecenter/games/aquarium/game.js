@@ -267,13 +267,45 @@
     function removeFish(slot) {
       var rec = fishBySlot[slot];
       if (!rec) { return; }
-      var next = snap.layout.fish.slice();
+      var next = fishLayout();
       next[slot] = null;
       playSfx('select');
       call('layout', { expected_version: snap.version, layout: { fish: next, decor: snap.layout.decor, background: snap.layout.background } });
     }
+    /** 该鱼种最多能放几条＝已钓到的条数 */
+    function allowedFor(id) {
+      var f = snap && snap.fish ? snap.fish[id] : null;
+      return f ? Math.max(0, parseInt(f.catch_count, 10) || 0) : 0;
+    }
+    function shownFor(id) {
+      return snap.layout.fish.filter(function (x) { return x === id; }).length;
+    }
+    /** 生成要提交的鱼位数组：旧档超额的部分先收起，避免整次写布置被服务端拒绝 */
+    function fishLayout() {
+      var list = snap.layout.fish.slice();
+      var per = {}, dropped = 0;
+      for (var i = 0; i < list.length; i++) {
+        var id = list[i];
+        if (!id) { continue; }
+        per[id] = (per[id] || 0) + 1;
+        if (per[id] > allowedFor(id)) { list[i] = null; dropped++; }
+      }
+      if (dropped > 0) {
+        note = '有 ' + dropped + ' 条重复鱼超过已钓数量，已自动收起';
+      }
+      return list;
+    }
+
     function addFish(id) {
-      var next = snap.layout.fish.slice();
+      var limit = allowedFor(id);
+      if (shownFor(id) >= limit) {
+        note = limit <= 0
+          ? '还没钓到过这种鱼'
+          : '「' + ((findFish(id) || {}).name || id) + '」只钓到 ' + limit + ' 条，最多放 ' + limit + ' 条';
+        paint();
+        return;
+      }
+      var next = fishLayout();
       var slot = next.indexOf(null);
       if (slot < 0) { note = '鱼位满了，先收起一条，或扩容'; paint(); return; }
       next[slot] = id;
@@ -410,7 +442,7 @@
         paint();
         return;
       }
-      var next = { fish: snap.layout.fish, decor: out, background: pz.background };
+      var next = { fish: fishLayout(), decor: out, background: pz.background };
       activeHints = pz.hints || null;
       // 先把缸里现有的装饰全部收掉，再按预设摆——避免"点完还要手动取消"
       clearDecorVisual();
@@ -435,7 +467,7 @@
         if (i >= 0) { next[l].splice(i, 1); }
       });
       playSfx('select');
-      call('layout', { expected_version: snap.version, layout: { fish: snap.layout.fish, decor: next, background: snap.layout.background } });
+      call('layout', { expected_version: snap.version, layout: { fish: fishLayout(), decor: next, background: snap.layout.background } });
     }
     function addDecor(id) {
       activeHints = null;
@@ -450,7 +482,7 @@
         next[layer].push(id);
       }
       playSfx(pos >= 0 ? 'select' : 'place');
-      call('layout', { expected_version: snap.version, layout: { fish: snap.layout.fish, decor: next, background: snap.layout.background } });
+      call('layout', { expected_version: snap.version, layout: { fish: fishLayout(), decor: next, background: snap.layout.background } });
     }
 
     /* ---------------- 拼装 ---------------- */
@@ -560,7 +592,7 @@
           clearDecorVisual();
           playSfx('select');
           call('layout', { expected_version: snap.version, layout: {
-            fish: snap.layout.fish,
+            fish: fishLayout(),
             decor: { back: [], front: [] },
             background: snap.layout.background
           } });
@@ -615,7 +647,10 @@
         var cnt = snap.layout.fish.filter(function (x) { return x === id; }).length;
         card.classList.toggle('is-on', cnt > 0);
         var tags = card.querySelectorAll('.aq-tag');
-        if (tags.length > 1) { tags[1].textContent = cnt ? ('已展示 ' + cnt + ' 条') : '点一下放入'; }
+        if (tags.length > 1) {
+          var cap = allowedFor(id);
+          tags[1].textContent = cnt ? ('已展示 ' + cnt + ' / 已钓 ' + cap) : ('已钓 ' + cap + ' 条 · 点一下放入');
+        }
       });
       Object.keys(decorCards).forEach(function (id) {
         var card = decorCards[id];
@@ -668,7 +703,7 @@
       });
       bgSel.addEventListener('change', function () {
         playSfx('water');
-        call('layout', { expected_version: snap.version, layout: { fish: snap.layout.fish, decor: snap.layout.decor, background: bgSel.value } });
+        call('layout', { expected_version: snap.version, layout: { fish: fishLayout(), decor: snap.layout.decor, background: bgSel.value } });
       });
       bgRow.appendChild(bgSel);
       host.appendChild(bgRow);

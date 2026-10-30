@@ -47,10 +47,9 @@ final class gamecenter_aquarium_shop {
         }
         $slots = $s['layout']['fish'];
         if(count($slots) !== (int)$s['fish_capacity']) { throw new DomainException('state-layout'); }
-        // $seen 保留给装饰唯一性；鱼允许重复
+        // 同种鱼可重复展示，但最多展示「钓到的条数」；旧档可能超额，读取时只校验已发现
         foreach($slots as $fid) {
             if($fid === null) { continue; }
-            // 同种鱼允许重复展示（Issue #44）：只校验已发现，不做去重
             if(!is_string($fid) || !isset($s['fish'][$fid])) { throw new DomainException('state-layout'); }
         }
         $decorSeen = [];
@@ -109,16 +108,19 @@ final class gamecenter_aquarium_shop {
         $next = $s;
 
         if(array_key_exists('fish', $payload)) {
-            $list = $payload['fish'];
-            if(!is_array($list) || !array_is_list($list) || count($list) !== (int)$s['fish_capacity']) { return [$s, 'input']; }
-            $seen = [];
-            $clean = [];
-            foreach($list as $fid) {
-                if($fid === null || $fid === '') { $clean[] = null; continue; }
-            if(!is_string($fid) || !isset($s['fish'][$fid])) { return [$s, 'target']; }
-            $clean[] = $fid;
-            }
-            $next['layout']['fish'] = $clean;
+			$list = $payload['fish'];
+			if(!is_array($list) || !array_is_list($list) || count($list) !== (int)$s['fish_capacity']) { return [$s, 'input']; }
+			$clean = [];
+			$perSpecies = [];
+			foreach($list as $fid) {
+				if($fid === null || $fid === '') { $clean[] = null; continue; }
+				if(!is_string($fid) || !isset($s['fish'][$fid])) { return [$s, 'target']; }
+				// 钓几条才能放几条：展示数不得超过该鱼种的捕获数
+				$perSpecies[$fid] = ($perSpecies[$fid] ?? 0) + 1;
+				if($perSpecies[$fid] > (int)($s['fish'][$fid]['catch_count'] ?? 0)) { return [$s, 'condition']; }
+				$clean[] = $fid;
+			}
+			$next['layout']['fish'] = $clean;
         }
 
         if(array_key_exists('decor', $payload)) {
