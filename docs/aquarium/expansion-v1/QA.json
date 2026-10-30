@@ -1,0 +1,42 @@
+{
+  "author": "GPT / Codex",
+  "title": "气泡小步舞",
+  "bpm": 112,
+  "bars": 64,
+  "seconds": 137.14285714285714,
+  "key": "F major",
+  "seed": 2026103047,
+  "samples": 6048000,
+  "score_events": 1444,
+  "files": {
+    "bgm_bubble_skip.ogg": {
+      "bytes": 1126327,
+      "sha256": "1eef231f941bd208d0dc658c47124d2189dd686e82a0c0ea755d9e9cfa29dceb",
+      "seconds": 137.14285714285714,
+      "peak": 0.35970064997673035,
+      "rms_dbfs": -22.987248355118997,
+      "clipped_samples": 0,
+      "finite": true,
+      "loop_boundary_step": 0.001770075410604477,
+      "local_step_p99": 0.00904485397040844
+    },
+    "bgm_bubble_skip.mp3": {
+      "bytes": 1646386,
+      "sha256": "d16c6b1e13df164d35c2d4f1dc959e54a5b75cec98b132b13abfa909074bd498",
+      "seconds": 137.14285714285714,
+      "peak": 0.34591808915138245,
+      "rms_dbfs": -23.445060160224447,
+      "clipped_samples": 0,
+      "finite": true,
+      "loop_boundary_step": 0.0035975053906440735,
+      "local_step_p99": 0.008824653923511505
+    }
+  },
+  "browser_tested": false,
+  "user_listening_accepted": false,
+  "loudness_ogg": {
+    "integrated_lufs": -20.72,
+    "true_peak_dbtp": -8.88,
+    "lra_lu": 5.8
+  }
+}

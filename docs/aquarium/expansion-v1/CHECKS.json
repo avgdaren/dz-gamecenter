@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": 58,
+  "image_count": 12,
+  "background_count": 4,
+  "scope": "catalog invariants, decoded image geometry, runtime hashes, audio signal metrics, preview links and syntax",
+  "image_visual_review": "four distinct themes with open center and placement floor; source art viewed, no real fish/decor composition tested",
+  "browser_tested": false,
+  "native_windows_tested": false,
+  "real_site_tested": false,
+  "purchase_implementation_tested": false,
+  "user_full_track_listening_accepted": false
+}

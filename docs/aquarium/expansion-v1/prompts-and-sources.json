@@ -1,0 +1,72 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "tool": "built-in imagegen",
+  "reference": "existing approved tank_day sample",
+  "night_refinement": "tank_star_ruins lighting changed via built-in imagegen to moonlit indigo/lavender while preserving geometry",
+  "items": [
+    {
+      "id": "tank_sakura",
+      "name": "樱溪浅梦",
+      "source_size": [
+        1586,
+        992
+      ],
+      "crop_box": [
+        0,
+        0,
+        1586,
+        991
+      ],
+      "master": "masters/tank_sakura.png",
+      "prompt": "Edit the referenced aquarium game background into a completely new purchasable environment in the SAME clean Japanese fantasy anime game illustration style: controlled cel-like shapes, luminous clear water, readable silhouettes, delicate outlines, polished 2D painted scene, not photographic or 3D. Deliver ONE landscape full-bleed background, exactly 16:10 aspect ratio, preferably 1536x960. Underwater camera looking slightly down across a wide flat pale substrate. Water occupies the entire image, NO above-water sky or landscape view. Preserve the functional composition: bottom 22% a continuous calm flat open placement floor, middle 60% mostly empty clear swimming space, thematic scenery restricted to outer edges and distant backdrop, soft upper water-surface caustics. No fish, creatures, people, UI, frame, glass tank rim, text, logo, watermarks, floating foreground debris, bubbles drawn as white circles, or large center obstacle. It must accept 12 independently animated colorful fish and separate user-placeable decor without visual clutter. Change the actual terrain silhouettes and palette, not just recolor existing ruins. Theme: Sakura spring creek, jade-mint and pale aquamarine water with warm blush-pink reflected illumination. Delicate SUBMERGED twisting roots, pale smooth river stones and small clusters of soft pink aquatic leaves at far left and right. Faint distant root terraces framing an empty central sandy clearing. Tiny sparse petal-like aquatic leaves may sit at the very margins, never shower across the center. Gentle sunlit romantic spring morning. Natural freshwater scenery, NO architecture, no torii, no literal cherry trees growing across the middle, no sky."
+    },
+    {
+      "id": "tank_coral",
+      "name": "珊瑚晴湾",
+      "source_size": [
+        1586,
+        992
+      ],
+      "crop_box": [
+        0,
+        0,
+        1586,
+        991
+      ],
+      "master": "masters/tank_coral.png",
+      "prompt": "Edit the referenced aquarium game background into a completely new purchasable environment in the SAME clean Japanese fantasy anime game illustration style: controlled cel-like shapes, luminous clear water, readable silhouettes, delicate outlines, polished 2D painted scene, not photographic or 3D. Deliver ONE landscape full-bleed background, exactly 16:10 aspect ratio, preferably 1536x960. Underwater camera looking slightly down across a wide flat pale substrate. Water occupies the entire image, NO above-water sky or landscape view. Preserve the functional composition: bottom 22% a continuous calm flat open placement floor, middle 60% mostly empty clear swimming space, thematic scenery restricted to outer edges and distant backdrop, soft upper water-surface caustics. No fish, creatures, people, UI, frame, glass tank rim, text, logo, watermarks, floating foreground debris, bubbles drawn as white circles, or large center obstacle. It must accept 12 independently animated colorful fish and separate user-placeable decor without visual clutter. Change the actual terrain silhouettes and palette, not just recolor existing ruins. Theme: Bright tropical coral lagoon, luminous turquoise water with pale warm cream sand. Rich but controlled peach-coral, lilac and golden branching reef shapes clustered on the OUTER left and right terraces only, distant low reef silhouettes. A broad open sandy shallow channel in center with no feature larger than a small pebble. Cheerful clear midday light, color contrast friendly to little fish. NO ruins or pillars, not a crowded reef photograph."
+    },
+    {
+      "id": "tank_star_ruins",
+      "name": "星眠遗庭",
+      "source_size": [
+        1585,
+        992
+      ],
+      "crop_box": [
+        0,
+        0,
+        1585,
+        991
+      ],
+      "master": "masters/tank_star_ruins.png",
+      "prompt": "Edit the referenced aquarium game background into a completely new purchasable environment in the SAME clean Japanese fantasy anime game illustration style: controlled cel-like shapes, luminous clear water, readable silhouettes, delicate outlines, polished 2D painted scene, not photographic or 3D. Deliver ONE landscape full-bleed background, exactly 16:10 aspect ratio, preferably 1536x960. Underwater camera looking slightly down across a wide flat pale substrate. Water occupies the entire image, NO above-water sky or landscape view. Preserve the functional composition: bottom 22% a continuous calm flat open placement floor, middle 60% mostly empty clear swimming space, thematic scenery restricted to outer edges and distant backdrop, soft upper water-surface caustics. No fish, creatures, people, UI, frame, glass tank rim, text, logo, watermarks, floating foreground debris, bubbles drawn as white circles, or large center obstacle. It must accept 12 independently animated colorful fish and separate user-placeable decor without visual clutter. Change the actual terrain silhouettes and palette, not just recolor existing ruins. Theme: Starlit submerged ruined garden, deep but readable indigo-to-cobalt water, luminous blue-gray stone floor. Distinct enormous BROKEN CIRCULAR STONE ARC far behind at the upper right edge, a low stepped ruin terrace at the far left edge, sparse tiny warm gold inlays and soft lavender aquatic foliage at extreme corners. Empty center. Moonlight shafts through the upper water, restrained gentle mystical atmosphere, no black abyss, no starry sky, no intact central palace, no bright lamp in foreground."
+    },
+    {
+      "id": "tank_aurora",
+      "name": "极光冰湖",
+      "source_size": [
+        1586,
+        992
+      ],
+      "crop_box": [
+        0,
+        0,
+        1586,
+        991
+      ],
+      "master": "masters/tank_aurora.png",
+      "prompt": "Edit the referenced aquarium game background into a completely new purchasable environment in the SAME clean Japanese fantasy anime game illustration style: controlled cel-like shapes, luminous clear water, readable silhouettes, delicate outlines, polished 2D painted scene, not photographic or 3D. Deliver ONE landscape full-bleed background, exactly 16:10 aspect ratio, preferably 1536x960. Underwater camera looking slightly down across a wide flat pale substrate. Water occupies the entire image, NO above-water sky or landscape view. Preserve the functional composition: bottom 22% a continuous calm flat open placement floor, middle 60% mostly empty clear swimming space, thematic scenery restricted to outer edges and distant backdrop, soft upper water-surface caustics. No fish, creatures, people, UI, frame, glass tank rim, text, logo, watermarks, floating foreground debris, bubbles drawn as white circles, or large center obstacle. It must accept 12 independently animated colorful fish and separate user-placeable decor without visual clutter. Change the actual terrain silhouettes and palette, not just recolor existing ruins. Theme: Crystal-clear enchanted glacial lake, soft icy turquoise and luminous lilac water, broad pale pearl sandy-silt lake bed not reflective ice. Translucent rounded blue ice-rock shelves at outer edges and wispy submerged ribbon plants in cool sage. A few soft flowing mint and lilac AURORA-LIKE REFRACTED LIGHT BANDS far in the water behind the empty central swimming area, not an above-water night sky. Clean elegant magical serenity, sufficiently bright to read colorful fish, no ruins, no neon rainbow, no large crystals blocking the middle."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "method": "static opportunity cost, not a progression or discovery simulation",
+  "expected_coins_per_catch": {
+    "pond": 2.64,
+    "bay": 5.06
+  },
+  "coins_per_hour": {
+    "lv0": {
+      "pond": 79.2,
+      "bay": 151.79999999999998
+    },
+    "lv4": {
+      "pond": 132.0,
+      "bay": 252.99999999999997
+    }
+  },
+  "scenery": [
+    {
+      "id": "tank_sakura",
+      "cost": 600,
+      "saving_hours_at_fixed_gear_water": {
+        "lv0": {
+          "pond": 7.58,
+          "bay": 3.95
+        },
+        "lv4": {
+          "pond": 4.55,
+          "bay": 2.37
+        }
+      }
+    },
+    {
+      "id": "tank_coral",
+      "cost": 1200,
+      "saving_hours_at_fixed_gear_water": {
+        "lv0": {
+          "pond": 15.15,
+          "bay": 7.91
+        },
+        "lv4": {
+          "pond": 9.09,
+          "bay": 4.74
+        }
+      }
+    },
+    {
+      "id": "tank_star_ruins",
+      "cost": 2400,
+      "saving_hours_at_fixed_gear_water": {
+        "lv0": {
+          "pond": 30.3,
+          "bay": 15.81
+        },
+        "lv4": {
+          "pond": 18.18,
+          "bay": 9.49
+        }
+      }
+    },
+    {
+      "id": "tank_aurora",
+      "cost": 3600,
+      "saving_hours_at_fixed_gear_water": {
+        "lv0": {
+          "pond": 45.45,
+          "bay": 23.72
+        },
+        "lv4": {
+          "pond": 27.27,
+          "bay": 14.23
+        }
+      }
+    }
+  ],
+  "total_cost": 7800,
+  "limitations": [
+    "Unchanged fishing odds; ignores pity influence.",
+    "Discovery requirements and prior purchases are NOT included in these saving hours.",
+    "24h cap applies per settlement gap; 3-day absences do not yield 72h."
+  ]
+}

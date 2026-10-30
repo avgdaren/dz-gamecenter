@@ -1,0 +1,127 @@
+{
+  "schema": "aquarium-expansion-assets-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "candidate-not-active",
+  "reference_aspect_ratio": [
+    16,
+    10
+  ],
+  "files": [
+    {
+      "path": "audio/upbeat-v1/bgm_bubble_skip.mp3",
+      "bytes": 1646386,
+      "sha256": "d16c6b1e13df164d35c2d4f1dc959e54a5b75cec98b132b13abfa909074bd498"
+    },
+    {
+      "path": "audio/upbeat-v1/bgm_bubble_skip.ogg",
+      "bytes": 1126327,
+      "sha256": "1eef231f941bd208d0dc658c47124d2189dd686e82a0c0ea755d9e9cfa29dceb"
+    },
+    {
+      "path": "audio/upbeat-v1/manifest.json",
+      "bytes": 1319,
+      "sha256": "d14efebab7b08d4943c54d81b8f97086c418f931287444bd79cbf5ab7ba9cb28"
+    },
+    {
+      "path": "background/expansion-v1/catalog.json",
+      "bytes": 7896,
+      "sha256": "c25f23b345c1bef1789dd12fa0305a159134820a69353e4d8a98efab3288441d"
+    },
+    {
+      "path": "background/expansion-v1/tank_aurora.webp",
+      "bytes": 198386,
+      "sha256": "10caf5bd160e9c61ce9efae514d64132c45ec86acc43de5e2fb78ebe37ad9424",
+      "width": 1536,
+      "height": 960,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_aurora_mobile.webp",
+      "bytes": 61728,
+      "sha256": "1de0d6191eacd1e52100a3ea6a80459ec83e96c6dccadd220a5f61d1236e6e1f",
+      "width": 768,
+      "height": 480,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_aurora_thumb.webp",
+      "bytes": 14378,
+      "sha256": "3afe02e02f6d4f5e5d958597709211e082103c07204477e6db4693ed89250e32",
+      "width": 320,
+      "height": 200,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_coral.webp",
+      "bytes": 220966,
+      "sha256": "5f1f149b7e098fb8e865716b4bcfd487ae6d9b2f84bebb80d0d3181a5e39d524",
+      "width": 1536,
+      "height": 960,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_coral_mobile.webp",
+      "bytes": 67176,
+      "sha256": "9f0cffd9956db89c0cb9a552e2a53ab7dda2521f14e317135bba2e13e8d977f2",
+      "width": 768,
+      "height": 480,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_coral_thumb.webp",
+      "bytes": 14846,
+      "sha256": "e9569c3ea0a54384acc32c79e69ee6a6f60e676177b8562bcde1ee41201b0fc8",
+      "width": 320,
+      "height": 200,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_sakura.webp",
+      "bytes": 272880,
+      "sha256": "844269e326b893aa49826bb00744bd95516e2bc9fdb9346777d0730ca402429b",
+      "width": 1536,
+      "height": 960,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_sakura_mobile.webp",
+      "bytes": 82396,
+      "sha256": "a43e6aa78904b80c7b75793bcaad80ac6df683567c3814c8cb943de3c73d8792",
+      "width": 768,
+      "height": 480,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_sakura_thumb.webp",
+      "bytes": 17618,
+      "sha256": "2fdab0a17e3abc6360b1cbd66ce12dd9e1998a4c6c2343c8f76b63cf04a0f2df",
+      "width": 320,
+      "height": 200,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_star_ruins.webp",
+      "bytes": 195842,
+      "sha256": "c105349b2c667b25a739680ecd02b2bc82fe819e7cbd018c1272542df7632a51",
+      "width": 1536,
+      "height": 960,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_star_ruins_mobile.webp",
+      "bytes": 62052,
+      "sha256": "b7f54aea3b828a53407cbd3662774cffe3993fb5e4837a0a28121a7267b901bc",
+      "width": 768,
+      "height": 480,
+      "mode": "RGB"
+    },
+    {
+      "path": "background/expansion-v1/tank_star_ruins_thumb.webp",
+      "bytes": 13868,
+      "sha256": "856c992a63b73ed45986a854b8675cb36ed092775e73f53edf998b6b6f9acfb9",
+      "width": 320,
+      "height": 200,
+      "mode": "RGB"
+    }
+  ]
+}
