@@ -1,0 +1,85 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "source_commit": "3bb6a63fab05a10384ee8858b1fea0379991b91b",
+  "source_path": "source/plugin/gamecenter/games/aquarium/data/content-v1-candidate.json",
+  "source_blob": "66caf2f2fe2de6ba583202f12b0d70faf64c4e36",
+  "layers": {
+    "building_angel_gate": [
+      "back"
+    ],
+    "building_bridge": [
+      "back"
+    ],
+    "building_columns": [
+      "back"
+    ],
+    "building_moon_gate": [
+      "back"
+    ],
+    "building_pavilion": [
+      "back"
+    ],
+    "building_ruin_arch": [
+      "back"
+    ],
+    "plant_crimson": [
+      "back",
+      "front"
+    ],
+    "plant_fern": [
+      "back"
+    ],
+    "plant_lily": [
+      "front"
+    ],
+    "plant_meadow": [
+      "back",
+      "front"
+    ],
+    "plant_ribbon": [
+      "back"
+    ],
+    "plant_tide": [
+      "back"
+    ],
+    "scape_cave": [
+      "back"
+    ],
+    "scape_coral": [
+      "back",
+      "front"
+    ],
+    "scape_layers": [
+      "back",
+      "front"
+    ],
+    "scape_moss": [
+      "back"
+    ],
+    "scape_pebbles": [
+      "front"
+    ],
+    "scape_wood": [
+      "back"
+    ],
+    "trinket_crescent": [
+      "front"
+    ],
+    "trinket_crystal": [
+      "front"
+    ],
+    "trinket_pearl": [
+      "front"
+    ],
+    "trinket_shell": [
+      "front"
+    ],
+    "trinket_star_lamp": [
+      "back",
+      "front"
+    ],
+    "trinket_wings": [
+      "front"
+    ]
+  }
+}

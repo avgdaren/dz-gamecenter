@@ -1,0 +1,32 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "PASS",
+  "valid_checks": 501,
+  "negative_cases": 11,
+  "new_presets": 9,
+  "legacy_corrected": 3,
+  "backgrounds": [
+    "tank_day",
+    "tank_moon"
+  ],
+  "service_layer_source": "independent content-v1-candidate.json layer snapshot",
+  "viewports": [
+    [
+      960,
+      600
+    ],
+    [
+      390,
+      243.75
+    ],
+    [
+      960,
+      720
+    ]
+  ],
+  "all_24_decor_used_in_new_presets": true,
+  "browser_tested": false,
+  "actual_art_composite_tested": false,
+  "real_site_tested": false,
+  "ui_integration_implemented": false
+}
