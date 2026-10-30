@@ -104,14 +104,16 @@
     var AUDIO1 = ASSETS + 'audio/v1/', AUDIO2 = ASSETS + 'audio/v2/', AUDIO_USER = ASSETS + 'audio/user/';
     var AUDIO_UPBEAT = ASSETS + 'audio/upbeat-v1/';
     // 场景 → 曲目。月光与星眠用 PR #41 的月光曲；拿不到就回退到轻快曲
+    // 默认统一用轻快版《气泡小步舞》；月光曲留作可选，默认不挂
     var SCENE_MUSIC = {
       tank_day: 'bubble_skip',
-      tank_moon: 'moonlit',
+      tank_moon: 'bubble_skip',
       tank_sakura: 'bubble_skip',
       tank_coral: 'bubble_skip',
       tank_aurora: 'bubble_skip',
-      tank_star_ruins: 'moonlit'
+      tank_star_ruins: 'bubble_skip'
     };
+    var DEFAULT_TRACK = 'bubble_skip';
     var TRACK_URL = {
       bubble_skip: AUDIO_UPBEAT + 'bgm_bubble_skip',
       moonlit: AUDIO2 + 'bgm_moonlit_garden',
@@ -401,13 +403,29 @@
         if (out[layer].length >= maxSlots) { missing++; return; }
         out[layer].push(id);
       });
+      var total = out.back.length + out.front.length;
+      if (total === 0) {
+        note = '「' + pz.name + '」要用的装饰你还没有，先去下面买几件再套布景';
+        playSfx('select');
+        paint();
+        return;
+      }
       var next = { fish: snap.layout.fish, decor: out, background: pz.background };
       activeHints = pz.hints || null;
       // 先把缸里现有的装饰全部收掉，再按预设摆——避免"点完还要手动取消"
       clearDecorVisual();
       playSfx('place');
       note = missing > 0 ? ('「' + pz.name + '」里 ' + missing + ' 件暂时摆不上（未拥有或该层已满）') : '';
-      call('layout', { expected_version: snap.version, layout: next });
+      var ver = snap.version;
+      call('layout', { expected_version: ver, layout: next }).then(function () {
+        // 版本冲突（比如连点两套）：拉一次最新状态，再套一次
+        if (/状态已更新|conflict/.test(note || '')) {
+          return post('sync', {}).then(function (r) {
+            if (r.snapshot) { snap = r.snapshot; background = snap.layout.background; }
+            return call('layout', { expected_version: snap.version, layout: next });
+          });
+        }
+      });
     }
 
     function removeDecor(id) {
