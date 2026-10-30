@@ -1,0 +1,563 @@
+{
+  "schema": "aquarium-decor-presets-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-10-30",
+  "status": "candidate-awaiting-real-composite-and-ui-integration",
+  "source_issue_comment": 6512172977,
+  "new_count": 9,
+  "legacy_corrected_count": 3,
+  "backgrounds": [
+    "tank_day",
+    "tank_moon"
+  ],
+  "max_items_per_layer": 3,
+  "presets_are_free": true,
+  "preserve_fish": true,
+  "apply_scope": [
+    "layout.decor",
+    "layout.background"
+  ],
+  "placement_is_display_hint_not_save_schema": true,
+  "items": [
+    {
+      "id": "natural_water",
+      "name": "自然水景",
+      "background": "tank_day",
+      "back": [
+        "scape_wood",
+        "building_bridge"
+      ],
+      "front": [
+        "scape_pebbles",
+        "plant_meadow",
+        "trinket_star_lamp"
+      ],
+      "concept": "小桥与花枝沉木构成开阔的自然小景。",
+      "main": "building_bridge",
+      "supporting": [
+        "scape_wood",
+        "scape_pebbles",
+        "plant_meadow",
+        "trinket_star_lamp"
+      ],
+      "placement_hints": {
+        "scape_wood": {
+          "anchor_x": 0.23,
+          "soft": true
+        },
+        "building_bridge": {
+          "anchor_x": 0.66,
+          "soft": true
+        },
+        "scape_pebbles": {
+          "anchor_x": 0.49,
+          "soft": true
+        },
+        "plant_meadow": {
+          "anchor_x": 0.17,
+          "soft": true
+        },
+        "trinket_star_lamp": {
+          "anchor_x": 0.84,
+          "soft": true
+        }
+      },
+      "composition_note": "旧套修正：卵石移到前景；桥偏右、沉木偏左，避免两个宽件叠在一列。",
+      "group": "legacy-corrected",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "ruin_realm",
+      "name": "遗迹秘境",
+      "background": "tank_day",
+      "back": [
+        "building_ruin_arch",
+        "scape_layers",
+        "plant_ribbon"
+      ],
+      "front": [
+        "scape_pebbles",
+        "trinket_shell"
+      ],
+      "concept": "在残拱与低台阶之间留出明亮的观鱼通道。",
+      "main": "building_ruin_arch",
+      "supporting": [
+        "scape_layers",
+        "plant_ribbon",
+        "scape_pebbles",
+        "trinket_shell"
+      ],
+      "placement_hints": {
+        "building_ruin_arch": {
+          "anchor_x": 0.63,
+          "soft": true
+        },
+        "scape_layers": {
+          "anchor_x": 0.22,
+          "soft": true
+        },
+        "plant_ribbon": {
+          "anchor_x": 0.1,
+          "soft": true
+        },
+        "scape_pebbles": {
+          "anchor_x": 0.27,
+          "soft": true
+        },
+        "trinket_shell": {
+          "anchor_x": 0.8,
+          "soft": true
+        }
+      },
+      "composition_note": "旧套修正：长叶草移到后景、卵石移到前景；主体残拱不能被前景堆满。",
+      "group": "legacy-corrected",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "moon_garden",
+      "name": "月光庭院",
+      "background": "tank_moon",
+      "back": [
+        "building_angel_gate"
+      ],
+      "front": [
+        "scape_pebbles",
+        "plant_lily",
+        "trinket_star_lamp"
+      ],
+      "concept": "天使庭门立于月色中，一盏暖灯照着睡莲。",
+      "main": "building_angel_gate",
+      "supporting": [
+        "scape_pebbles",
+        "plant_lily",
+        "trinket_star_lamp"
+      ],
+      "placement_hints": {
+        "building_angel_gate": {
+          "anchor_x": 0.5,
+          "soft": true
+        },
+        "scape_pebbles": {
+          "anchor_x": 0.2,
+          "soft": true
+        },
+        "plant_lily": {
+          "anchor_x": 0.79,
+          "soft": true
+        },
+        "trinket_star_lamp": {
+          "anchor_x": 0.64,
+          "soft": true
+        }
+      },
+      "composition_note": "旧套修正：卵石移到前景；保留中央门的完整轮廓。",
+      "group": "legacy-corrected",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "spring_shallows",
+      "name": "春汀花影",
+      "background": "tank_day",
+      "back": [
+        "scape_wood",
+        "plant_fern"
+      ],
+      "front": [
+        "plant_lily",
+        "plant_meadow",
+        "trinket_pearl"
+      ],
+      "concept": "以低矮花枝和水草做一处轻盈的春日浅汀。",
+      "main": "scape_wood",
+      "supporting": [
+        "plant_fern",
+        "plant_lily",
+        "plant_meadow",
+        "trinket_pearl"
+      ],
+      "placement_hints": {
+        "scape_wood": {
+          "anchor_x": 0.58,
+          "soft": true
+        },
+        "plant_fern": {
+          "anchor_x": 0.15,
+          "soft": true
+        },
+        "plant_lily": {
+          "anchor_x": 0.23,
+          "soft": true
+        },
+        "plant_meadow": {
+          "anchor_x": 0.8,
+          "soft": true
+        },
+        "trinket_pearl": {
+          "anchor_x": 0.46,
+          "soft": true
+        }
+      },
+      "composition_note": "沉木是主景；蕨叶放远处左缘，珍珠台留小，中央上方让给鱼。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "crimson_bridge",
+      "name": "绯叶溪桥",
+      "background": "tank_day",
+      "back": [
+        "building_bridge",
+        "scape_moss"
+      ],
+      "front": [
+        "plant_crimson",
+        "scape_pebbles"
+      ],
+      "concept": "一丛绯红叶映着石桥，像走进微暖的秋日溪谷。",
+      "main": "building_bridge",
+      "supporting": [
+        "scape_moss",
+        "plant_crimson",
+        "scape_pebbles"
+      ],
+      "placement_hints": {
+        "building_bridge": {
+          "anchor_x": 0.56,
+          "soft": true
+        },
+        "scape_moss": {
+          "anchor_x": 0.15,
+          "soft": true
+        },
+        "plant_crimson": {
+          "anchor_x": 0.82,
+          "soft": true
+        },
+        "scape_pebbles": {
+          "anchor_x": 0.27,
+          "soft": true
+        }
+      },
+      "composition_note": "桥保持横向舒展；红叶偏右点色，苔石靠左，别把桥夹成狭窄门洞。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "coral_glimmer",
+      "name": "珊瑚拾光",
+      "background": "tank_day",
+      "back": [
+        "scape_coral",
+        "plant_tide"
+      ],
+      "front": [
+        "trinket_shell",
+        "trinket_pearl"
+      ],
+      "concept": "珊瑚、贝壳和珍珠组成小而明亮的海湾角落。",
+      "main": "scape_coral",
+      "supporting": [
+        "plant_tide",
+        "trinket_shell",
+        "trinket_pearl"
+      ],
+      "placement_hints": {
+        "scape_coral": {
+          "anchor_x": 0.62,
+          "soft": true
+        },
+        "plant_tide": {
+          "anchor_x": 0.16,
+          "soft": true
+        },
+        "trinket_shell": {
+          "anchor_x": 0.31,
+          "soft": true
+        },
+        "trinket_pearl": {
+          "anchor_x": 0.78,
+          "soft": true
+        }
+      },
+      "composition_note": "珊瑚主景偏右；海藻是远处轮廓，贝壳与珍珠分散点缀，不铺满底边。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "quiet_pool",
+      "name": "幽潭听泉",
+      "background": "tank_moon",
+      "back": [
+        "scape_cave",
+        "plant_ribbon",
+        "scape_moss"
+      ],
+      "front": [
+        "plant_meadow",
+        "trinket_crystal"
+      ],
+      "concept": "月色下的岩洞留出暗亮对比，水晶像一处小小泉光。",
+      "main": "scape_cave",
+      "supporting": [
+        "plant_ribbon",
+        "scape_moss",
+        "plant_meadow",
+        "trinket_crystal"
+      ],
+      "placement_hints": {
+        "scape_cave": {
+          "anchor_x": 0.43,
+          "soft": true
+        },
+        "plant_ribbon": {
+          "anchor_x": 0.12,
+          "soft": true
+        },
+        "scape_moss": {
+          "anchor_x": 0.82,
+          "soft": true
+        },
+        "plant_meadow": {
+          "anchor_x": 0.2,
+          "soft": true
+        },
+        "trinket_crystal": {
+          "anchor_x": 0.71,
+          "soft": true
+        }
+      },
+      "composition_note": "保住岩洞入口可辨；长叶不插在洞口，水晶偏右当次要亮点，不新造喷泉特效。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "moon_pavilion",
+      "name": "月下潮亭",
+      "background": "tank_moon",
+      "back": [
+        "building_pavilion",
+        "plant_fern"
+      ],
+      "front": [
+        "plant_lily",
+        "trinket_crescent",
+        "trinket_star_lamp"
+      ],
+      "concept": "远处小亭与近处弯月、暖灯构成安静的观景角。",
+      "main": "building_pavilion",
+      "supporting": [
+        "plant_fern",
+        "plant_lily",
+        "trinket_crescent",
+        "trinket_star_lamp"
+      ],
+      "placement_hints": {
+        "building_pavilion": {
+          "anchor_x": 0.65,
+          "soft": true
+        },
+        "plant_fern": {
+          "anchor_x": 0.15,
+          "soft": true
+        },
+        "plant_lily": {
+          "anchor_x": 0.22,
+          "soft": true
+        },
+        "trinket_crescent": {
+          "anchor_x": 0.46,
+          "soft": true
+        },
+        "trinket_star_lamp": {
+          "anchor_x": 0.8,
+          "soft": true
+        }
+      },
+      "composition_note": "亭子保持远景的小尺度；暖灯只作点光，避免把灯放在亭子正下方遮住轮廓。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "moon_gate_view",
+      "name": "圆门望月",
+      "background": "tank_moon",
+      "back": [
+        "building_moon_gate",
+        "plant_ribbon"
+      ],
+      "front": [
+        "trinket_pearl",
+        "trinket_crystal"
+      ],
+      "concept": "圆门框住清透水色，珍珠与晶簇轻轻呼应。",
+      "main": "building_moon_gate",
+      "supporting": [
+        "plant_ribbon",
+        "trinket_pearl",
+        "trinket_crystal"
+      ],
+      "placement_hints": {
+        "building_moon_gate": {
+          "anchor_x": 0.52,
+          "soft": true
+        },
+        "plant_ribbon": {
+          "anchor_x": 0.15,
+          "soft": true
+        },
+        "trinket_pearl": {
+          "anchor_x": 0.3,
+          "soft": true
+        },
+        "trinket_crystal": {
+          "anchor_x": 0.77,
+          "soft": true
+        }
+      },
+      "composition_note": "圆门主景居中偏后；门洞内不再塞建筑，近景小件分置两侧。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "star_scar_garden",
+      "name": "星痕遗庭",
+      "background": "tank_moon",
+      "back": [
+        "building_ruin_arch",
+        "scape_layers"
+      ],
+      "front": [
+        "scape_pebbles",
+        "trinket_wings"
+      ],
+      "concept": "断拱旁的羽翼像遗留的纪念物，带一点故事感。",
+      "main": "building_ruin_arch",
+      "supporting": [
+        "scape_layers",
+        "scape_pebbles",
+        "trinket_wings"
+      ],
+      "placement_hints": {
+        "building_ruin_arch": {
+          "anchor_x": 0.62,
+          "soft": true
+        },
+        "scape_layers": {
+          "anchor_x": 0.2,
+          "soft": true
+        },
+        "scape_pebbles": {
+          "anchor_x": 0.27,
+          "soft": true
+        },
+        "trinket_wings": {
+          "anchor_x": 0.79,
+          "soft": true
+        }
+      },
+      "composition_note": "主景残拱偏右，台阶偏左；羽翼近景做小焦点，不能放大成第二座门。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "sleeping_temple",
+      "name": "沉眠神殿",
+      "background": "tank_moon",
+      "back": [
+        "building_columns",
+        "plant_tide"
+      ],
+      "front": [
+        "trinket_crystal",
+        "trinket_crescent"
+      ],
+      "concept": "完整列柱组与一点星晶，营造沉睡神殿的纵深。",
+      "main": "building_columns",
+      "supporting": [
+        "plant_tide",
+        "trinket_crystal",
+        "trinket_crescent"
+      ],
+      "placement_hints": {
+        "building_columns": {
+          "anchor_x": 0.54,
+          "soft": true
+        },
+        "plant_tide": {
+          "anchor_x": 0.14,
+          "soft": true
+        },
+        "trinket_crystal": {
+          "anchor_x": 0.26,
+          "soft": true
+        },
+        "trinket_crescent": {
+          "anchor_x": 0.79,
+          "soft": true
+        }
+      },
+      "composition_note": "列柱本身已经是组合主景，不复制、不再叠一座大门；左边海藻保持轻薄。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "winglight_court",
+      "name": "羽光圣庭",
+      "background": "tank_day",
+      "back": [
+        "building_angel_gate",
+        "plant_fern"
+      ],
+      "front": [
+        "trinket_wings",
+        "trinket_star_lamp",
+        "plant_lily"
+      ],
+      "concept": "明亮庭门和近处羽翼、暖灯组成柔和的天使主题。",
+      "main": "building_angel_gate",
+      "supporting": [
+        "plant_fern",
+        "trinket_wings",
+        "trinket_star_lamp",
+        "plant_lily"
+      ],
+      "placement_hints": {
+        "building_angel_gate": {
+          "anchor_x": 0.53,
+          "soft": true
+        },
+        "plant_fern": {
+          "anchor_x": 0.13,
+          "soft": true
+        },
+        "trinket_wings": {
+          "anchor_x": 0.24,
+          "soft": true
+        },
+        "trinket_star_lamp": {
+          "anchor_x": 0.73,
+          "soft": true
+        },
+        "plant_lily": {
+          "anchor_x": 0.88,
+          "soft": true
+        }
+      },
+      "composition_note": "庭门是唯一建筑；羽翼和灯分开摆，睡莲贴右缘，保住门内的清空区域。",
+      "group": "new",
+      "cost": 0,
+      "auto_purchase_missing": false
+    }
+  ]
+}

@@ -12,15 +12,17 @@
     var snap = null, catalog = null, busy = false, note = '';
     var tab = 'book', cat = 'all', background = 'tank_day';
 
-    // 布景预设：一次提交，装饰与背景一起换
+    // 布景预设：读 assets/layout/decor-presets-v1.json，读不到就用内置三套
     var PRESETS = [
-      { key: 'nature', name: '自然水景', background: 'tank_day',
-        back: ['scape_wood', 'building_bridge', 'scape_pebbles'], front: ['plant_meadow', 'trinket_star_lamp'] },
-      { key: 'ruin', name: '遗迹秘境', background: 'tank_day',
-        back: ['building_ruin_arch', 'scape_layers', 'scape_pebbles'], front: ['plant_ribbon', 'trinket_shell'] },
-      { key: 'moon', name: '月光庭院', background: 'tank_moon',
-        back: ['building_angel_gate', 'scape_pebbles'], front: ['plant_lily', 'trinket_star_lamp'] }
+      { id: 'natural_water', name: '自然水景', background: 'tank_day',
+        back: ['scape_wood', 'building_bridge'], front: ['scape_pebbles', 'plant_meadow', 'trinket_star_lamp'] },
+      { id: 'ruin_realm', name: '遗迹秘境', background: 'tank_day',
+        back: ['building_ruin_arch', 'scape_layers', 'plant_ribbon'], front: ['scape_pebbles', 'trinket_shell'] },
+      { id: 'moon_garden', name: '月光庭院', background: 'tank_moon',
+        back: ['building_angel_gate'], front: ['scape_pebbles', 'plant_lily', 'trinket_star_lamp'] }
     ];
+    var PRESET_HINTS = {};
+    var activeHints = null;   // 当前布景给的横向锚点（软提示，玩家手动改动后失效）
     var MOTION = {}, SPEC = {}, SCENE = null;
     var timer = null, stopped = false, syncAt = 0;
 
@@ -309,7 +311,10 @@
           var probe;
           try { probe = window.AquariumDecorLayout.rect(spec, r.width, r.height, 0.5); } catch (e) { return; }
           var w = probe.sprite.width;
-          var prefs = (spec.preferred_x && spec.preferred_x.length) ? spec.preferred_x : [0.5];
+          var hint = activeHints && activeHints[id] && typeof activeHints[id].anchor_x === 'number'
+            ? activeHints[id].anchor_x : null;
+          var prefs = hint !== null ? [Math.min(0.9, Math.max(0.1, hint))]
+            : ((spec.preferred_x && spec.preferred_x.length) ? spec.preferred_x : [0.5]);
           var bestX = prefs[0], bestClear = -Infinity;
           prefs.forEach(function (px) {
             var clear = r.width;
@@ -397,6 +402,7 @@
         out[layer].push(id);
       });
       var next = { fish: snap.layout.fish, decor: out, background: pz.background };
+      activeHints = pz.hints || null;
       // 先把缸里现有的装饰全部收掉，再按预设摆——避免"点完还要手动取消"
       clearDecorVisual();
       playSfx('place');
@@ -414,6 +420,7 @@
       call('layout', { expected_version: snap.version, layout: { fish: snap.layout.fish, decor: next, background: snap.layout.background } });
     }
     function addDecor(id) {
+      activeHints = null;
       var meta = findDecor(id);
       if (!meta) { return; }
       if (!meta.owned) { note = '「' + meta.name + '」还没拥有'; paint(); return; }
@@ -519,11 +526,16 @@
         host.appendChild(chips);
         var presets = el('div', 'aq-presets');
         presets.appendChild(el('span', 'aq-presets-label', '布景'));
-        PRESETS.forEach(function (pz) {
-          var b = el('button', 'aq-chip aq-preset',
-            pz.name + (snap.layout.background === pz.background ? '' : ''));
-          b.addEventListener('click', function () { applyPreset(pz); });
-          presets.appendChild(b);
+        [['tank_day', '日光'], ['tank_moon', '月光']].forEach(function (grp) {
+          var row = el('div', 'aq-preset-row');
+          row.appendChild(el('span', 'aq-preset-tag', grp[1]));
+          PRESETS.filter(function (pz) { return pz.background === grp[0]; }).forEach(function (pz) {
+            var b = el('button', 'aq-chip aq-preset', pz.name);
+            if (snap.layout.background === pz.background) { b.classList.add('aq-preset-dim'); }
+            b.addEventListener('click', function () { applyPreset(pz); });
+            row.appendChild(b);
+          });
+          presets.appendChild(row);
         });
         var clearBtn = el('button', 'aq-chip aq-preset', '清空装饰');
         clearBtn.addEventListener('click', function () {
@@ -535,7 +547,9 @@
             background: snap.layout.background
           } });
         });
-        presets.appendChild(clearBtn);
+        var clearRow = el('div', 'aq-preset-row');
+        clearRow.appendChild(clearBtn);
+        presets.appendChild(clearRow);
         host.appendChild(presets);
         var grid2 = el('div', 'aq-grid');
         catalog.decor.forEach(function (d) {
@@ -846,7 +860,18 @@
       fetch(ASSETS + 'layout/decor-layout-v1.json').then(function (r) { return r.json(); })
         .then(function (j) { (j.items || []).forEach(function (it) { SPEC[it.id] = it; }); }).catch(function () {}),
       fetch(ASSETS + 'layout/decor-scene-v1.json').then(function (r) { return r.json(); })
-        .then(function (j) { SCENE = j; }).catch(function () {})
+        .then(function (j) { SCENE = j; }).catch(function () {}),
+      fetch(withBuild(ASSETS + 'layout/decor-presets-v1.json')).then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (j && j.schema === 'aquarium-decor-presets-v1' && j.items && j.items.length) {
+            PRESETS = j.items.map(function (it) {
+              return { id: it.id, name: it.name, background: it.background,
+                back: it.back || [], front: it.front || [], hints: it.placement_hints || null };
+            });
+            PRESETS.forEach(function (pz) { PRESET_HINTS[pz.id] = pz.hints; });
+            if (dom) { dom.panelMode = ''; }
+          }
+        }).catch(function () {})
     ]);
     });
 

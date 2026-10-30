@@ -132,3 +132,12 @@
 }
 
 .n/* 布景预设 */.n.aq-presets { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; }.n.aq-presets-label { font-size: 12px; color: var(--aq-muted); }.n.aq-preset { border-style: dashed; }.n.aq-preset:hover { color: var(--aq-accent); border-color: var(--aq-accent); }
+
+/* 布景预设：日光 / 月光 两行 */
+.aq-presets { display: flex; flex-direction: column; gap: 6px; margin: 0 0 10px; }
+.aq-presets-label { font-size: 12px; color: var(--aq-muted); }
+.aq-preset-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.aq-preset-tag { font-size: 11px; color: var(--aq-muted); border: 1px solid var(--aq-line); border-radius: 8px; padding: 0 6px; }
+.aq-preset { border-style: dashed; }
+.aq-preset:hover { color: var(--aq-accent); border-color: var(--aq-accent); }
+.aq-preset-dim { opacity: .72; }
