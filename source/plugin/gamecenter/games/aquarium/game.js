@@ -323,6 +323,15 @@
       placeDecor();
     }
 
+    function clearDecorVisual() {
+      Object.keys(decorEls).forEach(function (id) { decorEls[id].classList.add('out'); });
+      decorEls = {};
+      ['back', 'front'].forEach(function (layer) {
+        var host = layer === 'back' ? dom.back : dom.front;
+        while (host.firstChild) { host.removeChild(host.firstChild); }
+      });
+    }
+
     function applyPreset(pz) {
       var maxSlots = catalog.decor_slots_per_layer || 3;
       var out = { back: [], front: [] };
@@ -341,6 +350,8 @@
         out[layer].push(id);
       });
       var next = { fish: snap.layout.fish, decor: out, background: pz.background };
+      // 先把缸里现有的装饰全部收掉，再按预设摆——避免"点完还要手动取消"
+      clearDecorVisual();
       playSfx('place');
       note = missing > 0 ? ('「' + pz.name + '」里 ' + missing + ' 件暂时摆不上（未拥有或该层已满）') : '';
       call('layout', { expected_version: snap.version, layout: next });
@@ -467,6 +478,17 @@
           b.addEventListener('click', function () { applyPreset(pz); });
           presets.appendChild(b);
         });
+        var clearBtn = el('button', 'aq-chip aq-preset', '清空装饰');
+        clearBtn.addEventListener('click', function () {
+          clearDecorVisual();
+          playSfx('select');
+          call('layout', { expected_version: snap.version, layout: {
+            fish: snap.layout.fish,
+            decor: { back: [], front: [] },
+            background: snap.layout.background
+          } });
+        });
+        presets.appendChild(clearBtn);
         host.appendChild(presets);
         var grid2 = el('div', 'aq-grid');
         catalog.decor.forEach(function (d) {
