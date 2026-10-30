@@ -42,6 +42,7 @@ final class gamecenter_aquarium {
         foreach(['coins','rod_level','last_settled_ms','progress_ms','catch_seq','current_water','unlocked_waters','fish','no_new_count',
                  'fish_capacity','decor_owned','layout'] as $k) { $out[$k]=$s[$k]??null; }
         $out['version']=$version;
+        $out['is_admin']=((int)($GLOBALS['_G']['adminid']??0))===1;
         $out['summary']=null;
         if(isset($s['recent_summary']) && is_array($s['recent_summary'])) {
             $x=$s['recent_summary']; $clean=[];
@@ -64,6 +65,26 @@ final class gamecenter_aquarium {
             'backgrounds'=>gamecenter_aquarium_shop::backgrounds()];
         return $out;
     }
+    /** 管理员测试补给：加金币、开全部装饰与水域。只影响自己的存档，走同一套校验与版本控制。 */
+    private static function devgrant(array $s,array $c,int $now): array {
+        $add=100000;
+        $s['coins']=min(gamecenter_aquarium_rules::MAX_VALUE,$s['coins']+$add);
+        if(!isset($s['decor_owned']) || !is_array($s['decor_owned'])) { $s['decor_owned']=[]; }
+        if(isset($c['decor']) && is_array($c['decor'])) {
+            foreach(array_keys($c['decor']) as $id) {
+                if(!isset($s['decor_owned'][$id])) { $s['decor_owned'][$id]=$now; }
+            }
+            ksort($s['decor_owned'],SORT_STRING);
+        }
+        if(isset($c['waters']) && is_array($c['waters'])) {
+            $list=$s['unlocked_waters'] ?? [];
+            foreach(array_keys($c['waters']) as $wid) { if(!in_array($wid,$list,true)) { $list[]=$wid; } }
+            sort($list,SORT_STRING);
+            $s['unlocked_waters']=$list;
+        }
+        return [$s,''];
+    }
+
     /** 目录：名称/品级/文案来自内容模块，价格与条件来自服务端配置；客户端不提交任何价格或币值。 */
     private function catalog(array $s): array {
         require_once __DIR__.'/aquarium_content.php';
@@ -87,21 +108,22 @@ final class gamecenter_aquarium {
             'backgrounds'=>gamecenter_aquarium_shop::backgrounds(),
             'decor_slots_per_layer'=>gamecenter_aquarium_shop::decor_slots_per_layer(),
             'catalog_version'=>$meta['version'],'assets_version'=>gamecenter_aquarium_configs::assets_version()];
-    }    public function request(int $uid,bool $allowed,array $data): array {
+    }    public function request(int $uid,bool $allowed,array $data,bool $isAdmin=false): array {
         if($uid<1) { return $this->result('login'); }
         if(!$allowed) { return $this->result('permission'); }
         if(gamecenter_aquarium_configs::maintenance()) { return $this->result('maintenance'); }
         if(strlen(serialize($data))>8192 || ($data['client_version']??'')!==self::CLIENT) { return $this->result('client'); }
         $action=$data['action']??'';
-        $actions=['init','sync','upgrade','unlock','switch','catalog','buy','expand','layout'];
+        $actions=['init','sync','upgrade','unlock','switch','catalog','buy','expand','layout','devgrant'];
         if(!is_string($action) || !in_array($action,$actions,true)) { return $this->result('input'); }
         // 购买/扩容/布置只存在于内容配置；foundation 阶段没有装饰与容量字段。
         if(in_array($action,['catalog','buy','expand','layout'],true)
             && (!isset($this->c['decor']) || !isset($this->c['fish_capacities']) || !isset($this->c['initial_fish_capacity']))) {
             return $this->result('config');
         }
+        if($action==='devgrant' && !$isAdmin) { return $this->result('permission'); }
         $keys=['action','client_version','formhash'];
-        $mutating=in_array($action,['upgrade','unlock','switch','buy','expand','layout'],true);
+        $mutating=in_array($action,['upgrade','unlock','switch','buy','expand','layout','devgrant'],true);
         if($mutating) { $keys[]='expected_version'; }
         if($action==='upgrade') { $keys[]='target_level'; }
         if(in_array($action,['unlock','switch'],true)) { $keys[]='water_id'; }
@@ -152,6 +174,7 @@ final class gamecenter_aquarium {
                 elseif($action==='buy') { list($next,$code)=gamecenter_aquarium_shop::buy($next,$data['decor_id'],$this->c,$now); }
                 elseif($action==='expand') { list($next,$code)=gamecenter_aquarium_shop::expand($next,$this->c); }
                 elseif($action==='layout') { list($next,$code)=gamecenter_aquarium_shop::setLayout($next,$data['layout'],$this->c); }
+                elseif($action==='devgrant') { list($next,$code)=self::devgrant($next,$this->c,$now); }
                 if($r['catches'] || $r['discarded_ms']) {
                     $next['recent_summary']=['from_ms'=>$s['last_settled_ms'],'to_ms'=>$next['last_settled_ms'],
                         'coins'=>array_sum(array_column($r['catches'],'coins')),'catch_count'=>count($r['catches']),

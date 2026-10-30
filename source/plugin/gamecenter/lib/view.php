@@ -105,7 +105,7 @@ class gamecenter_view {
 		}
 		$h .= '<div class="gc-grid">';
 		foreach($games as $g) {
-			if($g['gkey'] === 'aquarium' && (int)$_G['adminid'] !== 1) { continue; } // 仅管理员可见大厅卡片
+			
 			// 1.3.0／1.4.0：聯機對戰遊戲走房間：卡片顯示等級分，不顯示排行與積分
 			if(gamecenter_core::is_room($g)) {
 				require_once __DIR__.'/room.php';
@@ -158,7 +158,7 @@ class gamecenter_view {
 		$why = gamecenter_core::can_play();
 		$base = 'source/plugin/gamecenter/';
 		$h = '<div class="gc-hero gc-hero-sm'.($aq ? ' aq-hero' : '').'">'.self::icon($g).'<div><h1>'.self::e($m['name']).'</h1>'.($aq ? '' : '<p>'.self::e($m['intro']).'</p>').'</div>'.self::nav('').'</div>';
-		if($aq) { $h .= '<div class="gc-note">当前仅管理员可见；内容与美术仍在验收中，不发论坛积分。</div>'; }
+		if($aq) { $h .= '<div class="gc-note">水族馆仍在验收中，内容与美术可能继续调整；本游戏不发论坛积分，金币只在缸内使用。</div>'; }
 		if(!$g['available'] && !$aq) {
 			$h .= '<div class="gc-warn">这个游戏尚未开放，只有管理员看得到（试玩用，成绩照常记录）。</div>';
 		}
@@ -409,7 +409,7 @@ class gamecenter_view {
 			if(!$g['m']) {
 				continue;
 			}
-			if($g['gkey'] === 'aquarium' && (int)$_G['adminid'] !== 1) { continue; }
+			
 			$b = gamecenter_core::best_of($g['gkey'], 'a', '0', $uid);
 			if($b === null) {
 				continue;

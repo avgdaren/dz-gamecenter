@@ -66,12 +66,10 @@ if($gc_op !== '') {
 	if(!$gc_game) {
 		$gc_json(['ok' => 0, 'msg' => '这个游戏不存在或尚未开放']);
 	}
-	// 水族馆A阶段仅管理员诊断。独立权威档拒绝走通用槽位、分块或成绩入口。
-	if($gc_game['gkey'] === 'aquarium' && !$gc_admin) { $gc_json(['ok'=>0,'code'=>'permission','msg'=>'水族馆底盘测试暂未开放']); }
 	if($gc_op === 'aquarium') {
 		if($gc_game['gkey'] !== 'aquarium') { $gc_json(['ok'=>0,'code'=>'input','msg'=>'这个游戏不支持水族馆存档']); }
 		require_once __DIR__.'/lib/aquarium.php';
-		try { $gc_json((new gamecenter_aquarium())->request((int)$_G['uid'],gamecenter_core::can_play()==='',$_POST)); }
+		try { $gc_json((new gamecenter_aquarium())->request((int)$_G['uid'],gamecenter_core::can_play()==='',$_POST,$gc_admin)); }
 		catch(Throwable $e) { $gc_json(['ok'=>0,'code'=>'config','msg'=>'暂时无法读取水族馆，请等待维护']); }
 	}
 	if($gc_game['gkey'] === 'aquarium') { $gc_json(['ok'=>0,'code'=>'input','msg'=>'请通过水族馆独立存档操作']); }
@@ -125,7 +123,6 @@ if($gc_op !== '') {
 }
 
 // ---------- 頁面 ----------
-if($gc_game && $gc_game['gkey']==='aquarium' && !$gc_admin) { showmessage('水族馆底盘测试暂未开放。', 'plugin.php?id=gamecenter'); }
 if($gc_game && $gc_game['gkey']==='aquarium' && $gc_mod==='rank') { $gc_mod='play'; }
 gamecenter_core::settle_weeks();
 $gc_title = '游戏中心';

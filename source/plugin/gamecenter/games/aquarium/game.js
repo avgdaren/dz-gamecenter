@@ -11,6 +11,16 @@
 
     var snap = null, catalog = null, busy = false, note = '';
     var tab = 'book', cat = 'all', background = 'tank_day';
+
+    // 布景预设：一次提交，装饰与背景一起换
+    var PRESETS = [
+      { key: 'nature', name: '自然水景', background: 'tank_day',
+        back: ['scape_wood', 'building_bridge', 'scape_pebbles'], front: ['plant_meadow', 'trinket_star_lamp'] },
+      { key: 'ruin', name: '遗迹秘境', background: 'tank_day',
+        back: ['building_ruin_arch', 'scape_layers', 'scape_pebbles'], front: ['plant_ribbon', 'trinket_shell'] },
+      { key: 'moon', name: '月光庭院', background: 'tank_moon',
+        back: ['building_angel_gate', 'scape_pebbles'], front: ['plant_lily', 'trinket_star_lamp'] }
+    ];
     var MOTION = {}, SPEC = {}, SCENE = null;
     var timer = null, stopped = false, syncAt = 0;
 
@@ -19,7 +29,8 @@
     var fishCards = {}, decorCards = {};
     var dom = null;
     var lastFrame = 0, fadeTick = 0, stageBox = { left: 0, top: 0 };
-    var sound = { music: false, sfx: false, bgm: null, lastSelect: 0, lastCoin: 0, playing: [] };
+    // 音效默认开（点击后才发声，符合浏览器自动播放策略）；音乐默认关，避免突然出声
+    var sound = { music: false, sfx: true, bgm: null, lastSelect: 0, lastCoin: 0, playing: [] };
 
     /* ---------------- 小工具 ---------------- */
     function el(tag, cls, text) {
@@ -74,7 +85,10 @@
       }).catch(function () {
         note = '连接中断，操作结果尚未确认。点「同步」再看一眼。';
       }).then(function () {
-        busy = false; paint(); schedule();
+        busy = false;
+        // 购买/补给会改变「是否拥有」，卡片需要重建而不是只刷新状态
+        if (action === 'buy' || action === 'devgrant' || action === 'expand') { dom.panelMode = ''; }
+        paint(); schedule();
       });
     }
 
@@ -309,6 +323,29 @@
       placeDecor();
     }
 
+    function applyPreset(pz) {
+      var maxSlots = catalog.decor_slots_per_layer || 3;
+      var out = { back: [], front: [] };
+      var wanted = pz.back.map(function (id) { return [id, 'back']; })
+        .concat(pz.front.map(function (id) { return [id, 'front']; }));
+      var missing = 0;
+      wanted.forEach(function (pair) {
+        var id = pair[0], layer = pair[1];
+        var d = findDecor(id);
+        if (!d || !d.owned) { missing++; return; }
+        if (out.back.indexOf(id) >= 0 || out.front.indexOf(id) >= 0) { return; }
+        // 服务端只允许摆在素材声明支持的层
+        var layers = d.layers || ['back'];
+        if (layers.indexOf(layer) < 0) { layer = layers.indexOf('front') >= 0 ? 'front' : 'back'; }
+        if (out[layer].length >= maxSlots) { missing++; return; }
+        out[layer].push(id);
+      });
+      var next = { fish: snap.layout.fish, decor: out, background: pz.background };
+      playSfx('place');
+      note = missing > 0 ? ('「' + pz.name + '」里 ' + missing + ' 件暂时摆不上（未拥有或该层已满）') : '';
+      call('layout', { expected_version: snap.version, layout: next });
+    }
+
     function removeDecor(id) {
       var next = { back: snap.layout.decor.back.slice(), front: snap.layout.decor.front.slice() };
       ['back', 'front'].forEach(function (l) {
@@ -422,6 +459,15 @@
           chips.appendChild(b);
         });
         host.appendChild(chips);
+        var presets = el('div', 'aq-presets');
+        presets.appendChild(el('span', 'aq-presets-label', '布景'));
+        PRESETS.forEach(function (pz) {
+          var b = el('button', 'aq-chip aq-preset',
+            pz.name + (snap.layout.background === pz.background ? '' : ''));
+          b.addEventListener('click', function () { applyPreset(pz); });
+          presets.appendChild(b);
+        });
+        host.appendChild(presets);
         var grid2 = el('div', 'aq-grid');
         catalog.decor.forEach(function (d) {
           if (cat !== 'all' && d.category !== cat) { return; }
@@ -532,6 +578,17 @@
       var sb = el('button', 'aq-btn' + (sound.sfx ? ' is-on' : ''), '♬ 音效');
       sb.addEventListener('click', toggleSfx);
       audio.appendChild(mb); audio.appendChild(sb);
+      if (snap.is_admin) {
+        var gb = el('button', 'aq-btn aq-btn-dev', '测试补给（+10 万金币·全装饰）');
+        gb.disabled = busy;
+        gb.addEventListener('click', function () {
+          call('devgrant', { expected_version: snap.version });
+        });
+        gb.style.marginTop = '6px';
+        gb.style.width = '100%';
+        gb.style.fontSize = '12px';
+        host.appendChild(gb);
+      }
       host.appendChild(audio);
       dom.audioBtns = { music: mb, sfx: sb };
       dom.bgSel = bgSel;
@@ -700,9 +757,18 @@
         document.head.appendChild(s);
       });
     }
+    var BUILD = (function () {
+      try {
+        var s = document.currentScript;
+        var m = s && s.src ? s.src.match(/[?&]v=([^&]+)/) : null;
+        return m ? m[1] : '';
+      } catch (e) { return ''; }
+    }());
+    function withBuild(url) { return BUILD ? (url + (url.indexOf('?') < 0 ? '?' : '&') + 'v=' + BUILD) : url; }
+
     var deps = Promise.all([
-      loadScript(ASSETS + '../fish-sprites.js'),
-      loadScript(ASSETS + '../decor-layout.js')
+      loadScript(withBuild(ASSETS + '../fish-sprites.js')),
+      loadScript(withBuild(ASSETS + '../decor-layout.js'))
     ]);
 
     var ready = deps.then(function () { return Promise.all([
