@@ -958,6 +958,17 @@
         if (holdEl) {
           holdEl.textContent = '持有 ' + ownedFor(id) + ' · 展示 ' + cnt;
         }
+        // 终身 x/3 跟着最新捕获走（同种第 2/3 条不增加发现进度，但要更新这里）
+        var lifeEl = card.querySelector('.aq-card-life');
+        if (lifeEl) {
+          var meta = findFish(id);
+          var capN = meta && meta.lifetime_cap ? meta.lifetime_cap : 0;
+          var caught = snap.fish && snap.fish[id] ? (parseInt(snap.fish[id].catch_count, 10) || 0) : 0;
+          if (capN > 0) {
+            var shownN = Math.min(capN, caught);
+            lifeEl.textContent = '终身 ' + shownN + '/' + capN + (shownN >= capN ? ' · 已收满' : '');
+          }
+        }
         var sellBtn = card.querySelector('.aq-sell');
         if (sellBtn) {
           var k = sellableNow(id);
@@ -1211,7 +1222,9 @@
           // 追随食物时用该物种的追食上限，巡航用它的巡航速度
           var speciesCruise = (f.motion ? f.motion.cruise : 26) * refK;
           // 追食必须先快过饲料下沉，否则永远追不上（这就是"追得慢"的根因）
-          var speciesFeedMax = Math.max((f.motion ? f.motion.feedMax : 40) * refK, FEED_SINK_SPEED * refK * 2.2);
+          // 粒子的 vy 是固定 CSS px/s，鱼这边的下限必须同单位，不能各自缩放
+          // （之前写成 FEED_SINK_SPEED * refK * 2.2，360px 宽时反而低于粒子速度）
+          var speciesFeedMax = Math.max((f.motion ? f.motion.feedMax : 40) * refK, FEED_SINK_SPEED * 2.2);
           if (!isFinite(f.speed)) { f.speed = cruise * 0.8; }
           // 喂养：先游向自己认领的那粒饲料，吃到后去自己的停靠位
           if (f.feedX !== null && f.feedX !== undefined) {

@@ -3,6 +3,7 @@
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 require_once __DIR__.'/aquarium_rules.php';
 require_once __DIR__.'/aquarium_configs.php';
+require_once __DIR__.'/aquarium_stock.php';
 
 final class gamecenter_aquarium_migrate {
     const MAX_REASON = 120;
@@ -21,10 +22,10 @@ final class gamecenter_aquarium_migrate {
     public function targetVersion(): string { return $this->target['version']; }
 
     /** 统一切点：不早于已有档的最大结算锚点，也不早于 now。 */
-    public function cutoff(int $now): int {
-        $row = $this->db->first('SELECT MAX(updated_ms) AS m FROM %t', ['gamecenter_aquarium_save']);
-        $m = isset($row['m']) && $row['m'] !== null ? (int)$row['m'] : 0;
-        return max($now, $m);
+    /** 固定切点：由调用方给定（维护排空后的可信 N）；未给则用当前时间。
+     *  绝不因为某行锚点在未来就把全表推到未来——那种行应隔离。 */
+    public function cutoff(int $now, ?int $explicit = null): int {
+        return $explicit !== null && $explicit > 0 ? $explicit : $now;
     }
 
     public function total(): int {
@@ -48,7 +49,16 @@ final class gamecenter_aquarium_migrate {
         $uid = (int)$row['uid'];
         $s = json_decode((string)$row['state_json'], true, 32, JSON_THROW_ON_ERROR);
         if(!is_array($s) || ($s['uid'] ?? null) !== $uid) { throw new DomainException('state-uid'); }
+        if((int)$row['save_version'] !== 1) { throw new DomainException('save-version'); }
+        $rv = (int)$row['version'];
+        if($rv < 1 || $rv >= gamecenter_aquarium_rules::MAX_VALUE) { throw new DomainException('row-version'); }
+        if((int)($s['last_settled_ms'] ?? -1) !== (int)$row['updated_ms']) { throw new DomainException('anchor-mismatch'); }
+        if((string)$row['config_version'] !== $this->source['version']) { throw new DomainException('row-config'); }
         gamecenter_aquarium_rules::validate($s, $this->source);
+        // 源档必须已完成库存补字段且本身干净：异常/半字段/不守恒/超展示都不许迁移
+        $cls = gamecenter_aquarium_stock::classify($s, $this->source,
+            ['uid'=>$uid,'save_version'=>1,'config_version'=>$row['config_version'],'updated_ms'=>$row['updated_ms']]);
+        if($cls['kind'] !== 'new') { throw new DomainException('stock:'.$cls['kind'].':'.$cls['why']); }
 
         $r = gamecenter_aquarium_rules::settle($s, $cutoff, $this->source);
         $next = $r['save'];
@@ -147,15 +157,23 @@ final class gamecenter_aquarium_migrate {
         if($v === $this->target['version']) {
             $s = json_decode((string)$row['state_json'], true, 32, JSON_THROW_ON_ERROR);
             if(!is_array($s)) { return ['status'=>'failed', 'reason'=>'target-json']; }
+            if(($s['uid'] ?? null) !== $uid) { return ['status'=>'failed', 'reason'=>'target-uid']; }
             if(($s['config_version'] ?? null) !== $this->target['version']) { return ['status'=>'failed', 'reason'=>'row-json-version']; }
+            if((int)$row['save_version'] !== 1) { return ['status'=>'failed', 'reason'=>'save-version']; }
+            $rv = (int)$row['version'];
+            if($rv < 1 || $rv >= gamecenter_aquarium_rules::MAX_VALUE) { return ['status'=>'failed', 'reason'=>'row-version']; }
             if(($s['last_settled_ms'] ?? null) !== (int)$row['updated_ms']) { return ['status'=>'failed', 'reason'=>'anchor-mismatch']; }
             gamecenter_aquarium_rules::validate($s, $this->target);
+            $cls = gamecenter_aquarium_stock::classify($s, $this->target,
+                ['uid'=>$uid,'save_version'=>1,'config_version'=>$row['config_version'],'updated_ms'=>$row['updated_ms']]);
+            if($cls['kind'] !== 'new') { return ['status'=>'failed', 'reason'=>'stock:'.$cls['why']]; }
             return ['status'=>'skipped'];
         }
         if($v !== $this->source['version']) { return ['status'=>'failed', 'reason'=>'unknown-version']; }
         if((int)$row['updated_ms'] > $cutoff) { return ['status'=>'failed', 'reason'=>'anchor-after-cutoff']; }
         if((int)$row['save_version'] !== 1) { return ['status'=>'failed', 'reason'=>'save-version']; }
-        $conv = $this->convert($row, $cutoff);
+        try { $conv = $this->convert($row, $cutoff); }
+        catch(Throwable $e) { return ['status'=>'failed', 'reason'=>$e->getMessage()]; }
         return ['status'=>'migrated'] + $conv;
     }
 

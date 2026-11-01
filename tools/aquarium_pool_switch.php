@@ -24,8 +24,14 @@ $tablepre = $opt('tablepre', 'pre_'); $apply = $opt('apply', '') === '1';
 $from = $opt('from', 'aquarium-content-candidate-v1');
 $to = $opt('to', 'aquarium-content-v2-candidate-v1');
 $onlyUid = (int)$opt('uid', '0');
+$pluginDir = $opt('plugin-dir', rtrim($dz, '/' . DIRECTORY_SEPARATOR).'/source/plugin/gamecenter');
+if(!is_dir($pluginDir.'/lib')) { fwrite(STDERR, "plugin-dir 不像游戏中心插件目录：$pluginDir" . PHP_EOL); exit(2); }
 
 if($dz === '' || $dsn === '') { fwrite(STDERR, "需要 --dz-root 与 --dsn\n"); exit(2); }
+$allowedEdges = [['aquarium-content-candidate-v1', 'aquarium-content-v2-candidate-v1']];
+$okEdge = false;
+foreach($allowedEdges as $e) { if($from === $e[0] && $to === $e[1]) { $okEdge = true; } }
+if(!$okEdge) { fwrite(STDERR, '本批只允许 v1 -> v2' . PHP_EOL); exit(2); }
 
 function getglobal($key) {
     if($key === 'db_driver') { return getenv('GC_TEST_DRIVER') ?: 'pdo'; }
@@ -33,7 +39,7 @@ function getglobal($key) {
     return null;
 }
 function dintval($v) { return is_array($v) ? array_map('intval', $v) : (int)$v; }
-function DISCUZ_PLUGIN($id) { return dirname(__DIR__).'/source/plugin/'.$id; }
+function DISCUZ_PLUGIN($id) { global $pluginDir; return $pluginDir; }
 function getgpc($k, $t = '') { return ''; }
 function formhash() { return 'cli'; }
 
@@ -55,8 +61,10 @@ $mig = new gamecenter_aquarium_migrate($store,
     gamecenter_aquarium_configs::for_version($from),
     gamecenter_aquarium_configs::for_version($to));
 
-$cutoff = $mig->cutoff(time() * 1000);
+$explicitCutoff = (int)$opt('cutoff', '0');
+$cutoff = $mig->cutoff(time() * 1000, $explicitCutoff > 0 ? $explicitCutoff : null);
 echo json_encode(['mode'=>$apply ? 'apply' : 'dry-run','from'=>$from,'to'=>$to,'cutoff'=>$cutoff,
+    'cutoff_pinned'=>$explicitCutoff > 0,
     'same_ids'=>$mig->sameIds(),'distribution'=>$mig->distribution(),'total'=>$mig->total()], JSON_UNESCAPED_UNICODE), "\n";
 
 $sql = $onlyUid > 0
