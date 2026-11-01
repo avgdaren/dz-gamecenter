@@ -37,7 +37,7 @@
     var FEED_MAX_FISH = 4;
     var FEED_MAX_PELLETS = 8;      // 场上最多同时存在几粒（一次点击只撒一粒）
     var FEED_IDLE_CLEAR = 4000;    // 全被吃掉后再过多久清场
-    var FEED_SINK_SPEED = 46;      // 饲料下沉速度 px/s（到底就消失）
+    var FEED_SINK_SPEED = 34;      // 饲料下沉速度 px/s（到底就消失）
 
     /* 各物种运动基线：数值来自 docs/aquarium/release-1-spec/motion-profiles.json
        速度/摆幅按实际缸宽 / 880 缩放；摆幅是相对路径锚点的绝对 sin 位移，不逐帧累加 */
@@ -433,6 +433,8 @@
         fish.parkX = Math.min(W - 30, Math.max(30, px + Math.cos(ang) * 54));
         fish.parkY = Math.min(H - 30, Math.max(30, py + Math.sin(ang) * 34));
         fish.feedArrived = 0;
+        fish.pause = 0;
+        fish.speed = Math.max(fish.speed || 0, 110);  // 起步直接给足初速，像窜出去
         pellet.claimedBy = cand;
       }
     }
@@ -1181,7 +1183,8 @@
           var cruise = f.cruiseF * W;
           // 追随食物时用该物种的追食上限，巡航用它的巡航速度
           var speciesCruise = (f.motion ? f.motion.cruise : 26) * refK;
-          var speciesFeedMax = (f.motion ? f.motion.feedMax : 40) * refK;
+          // 追食必须先快过饲料下沉，否则永远追不上（这就是"追得慢"的根因）
+          var speciesFeedMax = Math.max((f.motion ? f.motion.feedMax : 40) * refK, FEED_SINK_SPEED * refK * 2.2);
           if (!isFinite(f.speed)) { f.speed = cruise * 0.8; }
           // 喂养：先游向自己认领的那粒饲料，吃到后去自己的停靠位
           if (f.feedX !== null && f.feedX !== undefined) {
@@ -1199,6 +1202,8 @@
               f.angle = want; f.target = want;
               f.cruiseF = 0.05; f.pause = 0;
               f.nextTurn = now + 800;
+              // 扑食硬下限：离目标还远时必须明显快过巡航，不能和下沉同速
+              if (f.speed < speciesFeedMax * 0.9) { f.speed = speciesFeedMax * 0.9; }
             } else {
               f.cruiseF = 0.006; f.pause = now + 500;
               // 到达自己那粒且还没被吃 → 确认消费（只触发一次）
@@ -1225,9 +1230,12 @@
           f.angle += Math.max(-maxTurn, Math.min(maxTurn, d));
           var wantSpeed = (now < f.pause) ? 0 : ((f.feedPellet && !f.feedPellet.consumed) ? speciesFeedMax : speciesCruise);
           var targetSpeed = wantSpeed;
-          f.speed += (targetSpeed - f.speed) * Math.min(1, dt * 1.6);
+          var accel = (f.feedPellet && !f.feedPellet.consumed) ? dt * 7 : dt * 2.2;
+          f.speed += (targetSpeed - f.speed) * Math.min(1, accel);
+          // 巡航时纵向压到 0.6（看起来更自然），扑食时放开到 1.0，否则追不上往下的饲料
+          var yScale = (f.feedPellet && !f.feedPellet.consumed) ? 1.0 : 0.6;
           f.nx += Math.cos(f.angle) * f.speed * dt / W;
-          f.ny += Math.sin(f.angle) * f.speed * 0.6 * dt / H;
+          f.ny += Math.sin(f.angle) * f.speed * yScale * dt / H;
           if (f.motion) { f.bobPhase += dt * (Math.PI * 2) / f.motion.bobT; }
           var band = (f.motion && f.motion.band) ? f.motion.band : [0.12, 0.82];
           var mx = 0.07, top = band[0], bottom = band[1];
