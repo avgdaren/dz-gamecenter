@@ -47,7 +47,7 @@ final class gamecenter_aquarium_content {
 
     /* ---------------- v2：16 种（含 4 种终身上限 3 条） ---------------- */
     const V2_FILE='content-v2-candidate.json';
-    const V2_HASH='9c34cb6d242998890314e758b00a0d3a1f57a49a5395e0f1f603af34745ebfb5';
+    const V2_HASH='c9423868b665127d6bc63da2373d442bd79d4f4e9dbe9b96157718725035040b';
     const V2_VERSION='aquarium-content-v2-candidate-v1';
     const V2_LIMITED=['pond_curl_seahorse','pond_bell_jelly','bay_moon_mermaid','bay_gummy_octopus'];
     private static ?array $v2=null;
@@ -69,11 +69,12 @@ final class gamecenter_aquarium_content {
         }
         if(count($all)!==16 || array_diff_key($all,$d['fish']) || array_diff_key($d['fish'],$all)) { throw new DomainException('content-v2'); }
 
-        // 终身上限：必须在 waters[water].fish[fid] 上，且只允许 4 种新鱼
+        // 终身上限 + 鱼竿门槛：都必须在 waters[water].fish[fid] 上，且只允许 4 种新鱼
         $limited=[];
         foreach($c['waters'] as $wid=>$w) {
             foreach($w['fish'] as $fid=>$f) {
                 if(isset($f['lifetime_cap'])) { $limited[]=$fid; if(!in_array($fid,self::V2_LIMITED,true)) { throw new DomainException('content-v2-cap'); } }
+                if(isset($f['min_rod_level']) && !in_array($fid,self::V2_LIMITED,true)) { throw new DomainException('content-v2-rod'); }
             }
         }
         sort($limited);

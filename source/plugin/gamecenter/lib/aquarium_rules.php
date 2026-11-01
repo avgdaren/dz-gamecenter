@@ -33,8 +33,14 @@ final class gamecenter_aquarium_rules {
                     if(!self::number($f['lifetime_cap'],1,100)) { throw new DomainException('config'); }
                     $cap = '#' . (int)$f['lifetime_cap'];
                 }
+                // 鱼竿门槛：达到该等级才开始遇见这种鱼
+                $rod = '';
+                if(array_key_exists('min_rod_level', $f)) {
+                    if(!self::number($f['min_rod_level'],1,20)) { throw new DomainException('config'); }
+                    $rod = '@' . (int)$f['min_rod_level'];
+                }
                 $ids[$fid]=true; $sum+=$f['weight'];
-                $canonical.=$wid."\t".$fid."\t".$f['weight'].$cap."\n";
+                $canonical.=$wid."\t".$fid."\t".$f['weight'].$cap.$rod."\n";
             }
             if($sum>2147483648) { throw new DomainException('config'); }
         }
@@ -110,8 +116,12 @@ final class gamecenter_aquarium_rules {
             // A = 当前水域所有鱼里，剔除已达到终身上限的物种
             $open=[];
             foreach($pool as $fid=>$f) {
+                // 终身上限
                 $cap=isset($f['lifetime_cap']) ? (int)$f['lifetime_cap'] : null;
                 if($cap!==null && isset($s['fish'][$fid]) && (int)$s['fish'][$fid]['catch_count']>=$cap) { continue; }
+                // 鱼竿门槛：等级不够时不进池
+                $need=isset($f['min_rod_level']) ? (int)$f['min_rod_level'] : 0;
+                if($need>0 && (int)$s['rod_level'] < $need) { continue; }
                 $open[$fid]=$f;
             }
             if(!$open) { throw new DomainException('pool-empty'); }   // 旧 6 种无限，正常不会走到

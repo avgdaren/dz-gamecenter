@@ -23,8 +23,9 @@ $check(count($caps) === 4 && min($caps) === 3 && max($caps) === 3, '四个物种
 /* 长跑：把时间推到很多个周期之后，看是否出现第 4 条 */
 $period = $c['periods_ms'][$s['rod_level']];
 $guard = 0;
-// 两个水域都开，轮流钓，才能集齐 16 种
+// 两个水域都开、鱼竿升到 Lv.4，才可能集齐 16 种（限量鱼有鱼竿门槛）
 foreach(['pond','bay'] as $w) { if(!in_array($w, $s['unlocked_waters'], true)) { $s['unlocked_waters'][] = $w; } }
+$s['rod_level'] = 3; $s['progress_ms'] = 0;      // Lv.4
 while($guard++ < 400) {
     $now += $period * 40;               // 每次推进 40 个周期
     $s['current_water'] = ($guard % 2 === 0) ? 'pond' : 'bay';
@@ -77,6 +78,49 @@ $r3 = gamecenter_aquarium_rules::settle($s3, $now + $period * 6, $c);
 $first = $r3['catches'][0];
 $capIds = array_keys($caps);
 $check(!in_array($first['fish_id'], $capIds, true) || $first['is_new'], '保底命中的不是已满额物种');
+
+
+/* 鱼竿门槛：等级不够时，新鱼不进池 */
+$rodTest = gamecenter_aquarium_rules::initial(11, str_repeat('ef', 16), 1700000000000, $c);
+$rodTest = gamecenter_aquarium_shop::defaults($rodTest, $c);
+$rodTest['unlocked_waters'] = ['pond','bay'];
+$check((int)$rodTest['rod_level'] === 0, '新档鱼竿为 Lv.1');
+$seenLow = [];
+$t0 = 1700000000000;
+for($i=0;$i<80;$i++) {
+    $t0 += 120000 * 4;
+    $rodTest['current_water'] = 'pond';
+    $r = gamecenter_aquarium_rules::settle($rodTest, $t0, $c);
+    $rodTest = $r['save'];
+    foreach($r['catches'] as $cc) { $seenLow[$cc['fish_id']] = true; }
+}
+$check(!isset($seenLow['pond_curl_seahorse']) && !isset($seenLow['pond_bell_jelly']), 'Lv.1 钓不到池塘限量鱼');
+
+/* 升到 Lv.3（rod_level=2）后开始出现 */
+$t1 = $t0 + 1000;
+$rodTest['rod_level'] = 2; $rodTest['progress_ms'] = 0; $rodTest['last_settled_ms'] = $t1;
+$seenHigh = [];
+for($i=0;$i<300;$i++) {
+    $t1 += 120000 * 3;
+    $rodTest['current_water'] = 'pond';
+    $r = gamecenter_aquarium_rules::settle($rodTest, $t1, $c);
+    $rodTest = $r['save'];
+    foreach($r['catches'] as $cc) { $seenHigh[$cc['fish_id']] = true; }
+}
+$check(isset($seenHigh['pond_curl_seahorse']) || isset($seenHigh['pond_bell_jelly']), 'Lv.3 能钓到池塘限量鱼');
+
+/* 浅湾限量鱼要 Lv.4：Lv.3 仍钓不到 */
+$t2 = $t1 + 1000;
+$rodTest['rod_level'] = 2; $rodTest['progress_ms'] = 0; $rodTest['last_settled_ms'] = $t2;
+$seenBay = [];
+for($i=0;$i<200;$i++) {
+    $t2 += 96000 * 3;
+    $rodTest['current_water'] = 'bay';
+    $r = gamecenter_aquarium_rules::settle($rodTest, $t2, $c);
+    $rodTest = $r['save'];
+    foreach($r['catches'] as $cc) { $seenBay[$cc['fish_id']] = true; }
+}
+$check(!isset($seenBay['bay_moon_mermaid']) && !isset($seenBay['bay_gummy_octopus']), 'Lv.3 钓不到浅湾限量鱼');
 
 echo "\n".json_encode(['status'=> $fail ? 'FAIL' : 'PASS', 'checks'=>$checks, 'fail'=>$fail])."\n";
 exit($fail ? 1 : 0);
