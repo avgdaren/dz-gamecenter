@@ -44,7 +44,8 @@ final class gamecenter_aquarium {
                  'fish_capacity','decor_owned','layout'] as $k) { $out[$k]=$s[$k]??null; }
         $out['version']=$version;
         $out['is_admin']=((int)($GLOBALS['_G']['adminid']??0))===1;
-        $out['capabilities']=['sell'=>gamecenter_aquarium_configs::saleAllowed((int)$s['uid'])];
+        $out['capabilities']=['sell'=>gamecenter_aquarium_configs::saleAllowed((int)$s['uid'])
+            && empty($s['inventory_anomaly']) && (int)($s['inventory_schema'] ?? 0) === 1];
         $out['inventory']=['schema'=>(int)($s['inventory_schema']??0),'anomaly'=>!empty($s['inventory_anomaly'])];
         $out['recent_sale']=$s['recent_sale'] ?? [];
         require_once __DIR__.'/aquarium_stats.php';
@@ -185,6 +186,8 @@ final class gamecenter_aquarium {
                 }
                 if($action==='catalog') { $out=$this->result('',$this->snapshot($s,$version)); $out['catalog']=$this->catalog($s); return $out; }
                 if($mutating && $data['expected_version']!==$version) { return $this->result('conflict',$this->snapshot($s,$version)); }
+                $lastReceiptBefore = (!empty($s['recent_sale']) && is_array($s['recent_sale']))
+                    ? json_encode(end($s['recent_sale'])) : '';
                 $r=gamecenter_aquarium_rules::settle($s,$now,$this->c); $next=$r['save']; $code='';
                 if(in_array($action,['upgrade','unlock','switch'],true)) { $op=gamecenter_aquarium_rules::operate($next,$data,$this->c); $next=$op['save']; $code=$op['code']; }
                 elseif($action==='buy') { list($next,$code)=gamecenter_aquarium_shop::buy($next,$data['decor_id'],$this->c,$now); }
@@ -204,7 +207,10 @@ final class gamecenter_aquarium {
                 if($next!==$s) {
                     if(isset($this->c['decor'],$this->c['fish_capacities'],$this->c['initial_fish_capacity'])) { gamecenter_aquarium_shop::validateState($next,$this->c); }
                     $version++; $row['state_json']=json_encode($next,JSON_THROW_ON_ERROR); $row['version']=$version; $row['updated_ms']=$next['last_settled_ms'];
-                    if($action==='sell' && !empty($next['recent_sale'])) {
+                    $lastReceiptAfter = (!empty($next['recent_sale']) && is_array($next['recent_sale']))
+                        ? json_encode(end($next['recent_sale'])) : '';
+                    // 只有本次确实新增了回执才绑定版本；失败的售卖不得改写上一笔成功记录
+                    if($action==='sell' && $lastReceiptAfter !== '' && $lastReceiptAfter !== $lastReceiptBefore) {
                         // 用真实行版本补齐回执，便于丢响应时核对（不是幂等键）
                         $idx=count($next['recent_sale'])-1;
                         $next['recent_sale'][$idx]['before_version']=$version-1;

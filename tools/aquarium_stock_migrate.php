@@ -68,6 +68,9 @@ DB::init('db_driver_'.getglobal('db_driver'), [1=>['dsn'=>$dsn, 'dbhost'=>$h[1] 
 
 require DISCUZ_PLUGIN('gamecenter').'/lib/aquarium_configs.php';
 require DISCUZ_PLUGIN('gamecenter').'/lib/aquarium_stock.php';
+require DISCUZ_PLUGIN('gamecenter').'/lib/aquarium_store.php';
+
+$store = new gamecenter_aquarium_store();
 
 $c = gamecenter_aquarium_configs::for_version(gamecenter_aquarium_configs::CONTENT);
 $meta = gamecenter_aquarium_content::catalog();
@@ -92,7 +95,8 @@ function rowHeader(array $row): array {
 
 function inventoryAgg(array $s): array {
     global $rarityOf, $priceOf;
-    $shown = gamecenter_aquarium_stock::shown($s);
+    $shown = [];
+    foreach((($s['layout'] ?? [])['fish'] ?? []) as $x) { if(is_string($x) && $x !== '') { $shown[$x] = ($shown[$x] ?? 0) + 1; } }
     $byRarity = []; $total = 0;
     foreach(($s['fish'] ?? []) as $fid=>$f) {
         if(!is_array($f)) { continue; }
@@ -118,7 +122,7 @@ if($mode === 'verify') {
         'bad_sum'=>0,'over_display'=>0,'bad_json'=>0,'bad_header'=>0,'flagged'=>0,'details'=>[]];
     $last = 0;
     do {
-        $rows = DB::fetch_all('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $last, $batch]);
+        $rows = $store->rows('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $last, $batch]);
         foreach($rows as $row) {
             $v['accounts']++; $last = (int)$row['uid'];
             $sx = json_decode((string)$row['state_json'], true);
@@ -135,7 +139,7 @@ if($mode === 'verify') {
                 $v['details'][] = ['uid'=>$last,'why'=>$why];
                 continue;
             }
-            if((int)($sx['inventory_schema'] ?? 0) !== 1) { $v['missing_marker']++; $v['details'][] = ['uid'=>$last,'why'=>'no-marker']; continue; }
+            if($cls['kind'] === 'needs-marker') { $v['missing_marker']++; $v['details'][] = ['uid'=>$last,'why'=>'marker-missing']; continue; }
             $v['ok']++;
         }
     } while(count($rows) === $batch);
@@ -146,7 +150,7 @@ if($mode === 'verify') {
 /* ---------------- 主循环 ---------------- */
 $lastUid = 0;
 do {
-    $rows = DB::fetch_all('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $lastUid, $batch]);
+    $rows = $store->rows('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $lastUid, $batch]);
     foreach($rows as $row) {
         $counts['total']++; $lastUid = (int)$row['uid'];
         $s = json_decode((string)$row['state_json'], true);
@@ -169,27 +173,37 @@ do {
 
         if($mode !== 'apply') { continue; }
         if($cls['kind'] === 'new') { continue; }
+        // needs-marker：只补标记，绝不重置 sold
         if(!$yes) { continue; }
 
         $ok = true;
         try { $ok = (bool)DB::begin_transaction(); } catch(Throwable $e) { $ok = false; }
         if(!$ok) { $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'tx-begin']; continue; }
         try {
-            $locked = DB::fetch_first('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid=%d FOR UPDATE', [$table, $lastUid]);
+            $locked = $store->first('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid=%d FOR UPDATE', [$table, $lastUid]);
             if(!$locked) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'lock-missing']; continue; }
             $cur = json_decode((string)$locked['state_json'], true);
             if(!is_array($cur)) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'lock-json']; continue; }
+            $rowVersion = (int)($locked['version'] ?? 0);
+            if($rowVersion < 1 || $rowVersion >= 999999999) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'row-version']; continue; }
             $re = gamecenter_aquarium_stock::classify($cur, $c, rowHeader($locked));
             if($re['kind'] === 'anomaly') { DB::rollback(); $counts['anomaly']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'lock-'.$re['why']]; continue; }
             if($re['kind'] === 'new') { DB::rollback(); continue; }
 
-            $next = gamecenter_aquarium_stock::migrate($cur);
+            $next = ($re['kind'] === 'needs-marker') ? gamecenter_aquarium_stock::markOnly($cur) : gamecenter_aquarium_stock::migrate($cur);
             $json = json_encode($next, JSON_UNESCAPED_UNICODE);
             if($json === false) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'encode']; continue; }
             $upd = DB::update($table, ['state_json'=>$json, 'version'=>(int)$locked['version']+1], ['uid'=>$lastUid]);
             if($upd === false) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'update']; continue; }
             $cmt = DB::commit();
-            if($cmt === false) { $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'commit-unknown']; continue; }
+            if($cmt === false) {
+                // 提交结果不明：立即停下，不继续处理下一个账号，也不猜成未提交
+                $counts['failed']++;
+                $anomalies[] = ['uid'=>$lastUid,'why'=>'commit-unknown','action'=>'stop'];
+                $say(['mode'=>'apply','stopped'=>true,'uid'=>$lastUid,'why'=>'commit-unknown',
+                    'written'=>$counts['written'],'failed'=>$counts['failed']]);
+                exit(3);
+            }
             $counts['written']++;
         } catch(Throwable $e) {
             try { DB::rollback(); } catch(Throwable $e2) {}
@@ -202,13 +216,16 @@ do {
 if($mode === 'stats' || $mode === 'dry-run') {
     $acc = $agg['accounts']; sort($acc);
     $pct = static function(array $a, float $q) { if(!$a) { return 0; } return $a[(int)floor((count($a)-1)*$q)]; };
-    $say(['mode'=>$mode,'accounts'=>$counts['total'],'legacy'=>$counts['legacy'],'new'=>$counts['new'],'anomaly'=>$counts['anomaly'],
+    $say(['mode'=>$mode,'accounts'=>$counts['total'],'legacy'=>$counts['legacy'],'needs_marker'=>$counts['needs_marker'] ?? 0,
+        'new'=>$counts['new'],'anomaly'=>$counts['anomaly'],
         'potential_total'=>$agg['potential'],'by_rarity'=>$agg['byRarity'],
         'per_account_potential'=>['median'=>$pct($acc,0.5),'p90'=>$pct($acc,0.9),'p95'=>$pct($acc,0.95),'p99'=>$pct($acc,0.99),'max'=>$acc ? end($acc) : 0],
         'anomalies'=>$anomalies]);
+    if($mode === 'dry-run' && $counts['anomaly'] > 0) { exit(1); }
 } else {
     $say(['mode'=>$mode,'accounts'=>$counts['total'],'legacy'=>$counts['legacy'],'new'=>$counts['new'],
         'anomaly'=>$counts['anomaly'],'written'=>$counts['written'],'failed'=>$counts['failed'],
         'dry_run'=>!$yes,'anomalies'=>$anomalies]);
-    exit($counts['failed'] ? 1 : 0);
+    // apply：异常未处理也算失败，不能 exit 0
+    exit(($counts['failed'] || $counts['anomaly']) ? 1 : 0);
 }

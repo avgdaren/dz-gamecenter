@@ -108,8 +108,8 @@ final class gamecenter_aquarium_rules {
             if($isNew) { $s['fish'][$fid]=['discovered_at'=>$at,'catch_count'=>0,'owned_count'=>0,'sold_count'=>0]; }
             $s['fish'][$fid]['catch_count']++;
             // 库存口径：catch = owned + sold；每钓到一条持有 +1
-            if(!isset($s['fish'][$fid]['owned_count'])) { $s['fish'][$fid]['owned_count']=(int)$s['fish'][$fid]['catch_count']-1; }
-            if(!isset($s['fish'][$fid]['sold_count'])) { $s['fish'][$fid]['sold_count']=0; }
+            // 库存必须已就绪（异常档不结算、迁移在入口完成）；捕获不回填任何缺失字段
+            if(!isset($s['fish'][$fid]['owned_count'])) { throw new DomainException('stock-not-ready'); }
             $s['fish'][$fid]['owned_count']++;
             $s['coins']+=$coins;
             $s['no_new_count'][$wid]=$isNew ? 0 : ($missing ? min(80,$s['no_new_count'][$wid]+1) : $s['no_new_count'][$wid]);

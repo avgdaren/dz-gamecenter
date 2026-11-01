@@ -11,12 +11,6 @@ final class gamecenter_aquarium_shop {
     /** 旧档没有这些字段时的默认值（迁移前的档、或 S2 之前建的档）。 */
     public static function defaults(array $s, array $c): array {
         if(!isset($s['fish_capacity'])) { $s['fish_capacity'] = $c['initial_fish_capacity']; }
-        // 库存模式判定与迁移统一走 gamecenter_aquarium_stock（运行时与 CLI 同一套规则）
-        if(isset($s['fish']) && is_array($s['fish'])) {
-            $cls = gamecenter_aquarium_stock::classify($s, $c);
-            if($cls['kind'] === 'legacy') { $s = gamecenter_aquarium_stock::migrate($s); }
-            elseif($cls['kind'] === 'anomaly') { $s['inventory_anomaly'] = true; }
-        }
         if(!isset($s['decor_owned']) || !is_array($s['decor_owned'])) { $s['decor_owned'] = []; }
         if(!isset($s['layout']) || !is_array($s['layout'])) {
             $s['layout'] = ['fish'=>[], 'decor'=>['back'=>[], 'front'=>[]], 'background'=>self::backgrounds()[0]];
@@ -35,6 +29,12 @@ final class gamecenter_aquarium_shop {
         }
         if(!is_string($s['layout']['background'] ?? null) || !in_array($s['layout']['background'], self::backgrounds(), true)) {
             $s['layout']['background'] = self::backgrounds()[0];
+        }
+        // 库存模式判定与迁移统一走 gamecenter_aquarium_stock（运行时与 CLI 同一套规则）
+        if(isset($s['fish']) && is_array($s['fish'])) {
+            $cls = gamecenter_aquarium_stock::classify($s, $c);
+            if($cls['kind'] === 'legacy') { $s = gamecenter_aquarium_stock::migrate($s); }
+            elseif($cls['kind'] === 'anomaly') { $s['inventory_anomaly'] = true; }
         }
         return $s;
     }

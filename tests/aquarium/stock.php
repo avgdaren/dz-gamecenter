@@ -38,10 +38,42 @@ $check($r['kind'] === 'anomaly' && strpos($r['why'],'overdisplay') === 0, '旧�
 $r = gamecenter_aquarium_stock::classify($base, $c);
 $check($r['kind'] === 'new', '新档 → new');
 
-/* 4) 新档缺标记 → anomaly */
+/* 4) 新档缺标记 → needs-marker（只补标记，不重置 sold） */
 $n1 = $base; unset($n1['inventory_schema']);
 $r = gamecenter_aquarium_stock::classify($n1, $c);
-$check($r['kind'] === 'anomaly' && $r['why'] === 'new-without-marker', '新档缺标记 → new-without-marker');
+$check($r['kind'] === 'needs-marker', '新档缺标记 → needs-marker');
+
+/* 4b) 旧档 catch_count 类型错误 → anomaly（不能当可迁移旧档） */
+foreach(['"20"', '-1', 'missing'] as $bad) {
+    $x = $legacy;
+    if($bad === 'missing') { unset($x['fish'][$fid]['catch_count']); }
+    else { $x['fish'][$fid]['catch_count'] = $bad === '-1' ? -1 : '20'; if($bad === '-1') { $x['fish'][$fid]['catch_count'] = -1; } }
+    $r = gamecenter_aquarium_stock::classify($x, $c);
+    $check($r['kind'] === 'anomaly', '旧档 catch_count '.$bad.' → anomaly');
+}
+
+/* 4c) 空 fish → anomaly（不能当 legacy） */
+$e1 = $legacy; $e1['fish'] = [];
+$r = gamecenter_aquarium_stock::classify($e1, $c);
+$check($r['kind'] === 'anomaly' && $r['why'] === 'no-fish', '空 fish → anomaly');
+
+/* 4d) 显式 schema=null / 0 → anomaly（只有键缺失才算未标记） */
+$s0 = $legacy; $s0['inventory_schema'] = null;
+$r = gamecenter_aquarium_stock::classify($s0, $c);
+$check($r['kind'] === 'anomaly' && $r['why'] === 'schema-unknown', 'schema=null → anomaly');
+$s0b = $legacy; $s0b['inventory_schema'] = 0;
+$r = gamecenter_aquarium_stock::classify($s0b, $c);
+$check($r['kind'] === 'anomaly' && $r['why'] === 'schema-unknown', 'schema=0 → anomaly');
+
+/* 4e) 配置哈希不符 → anomaly */
+$h2 = $base; $h2['config_hash'] = str_repeat('0', 64);
+$r = gamecenter_aquarium_stock::classify($h2, $c);
+$check($r['kind'] === 'anomaly' && $r['why'] === 'config_hash', '配置哈希不符 → anomaly');
+
+/* 4f) 已标记异常优先于其他判定 */
+$f2 = $legacy; $f2['inventory_anomaly'] = true;
+$r = gamecenter_aquarium_stock::classify($f2, $c);
+$check($r['kind'] === 'anomaly' && $r['why'] === 'flagged', '已标记异常优先 → flagged');
 
 /* 5) 混合：一条新库存 + 一条两字段都缺 → mixed */
 $m1 = $base;
@@ -97,5 +129,13 @@ $check((int)$after['fish'][$fid]['owned_count'] === 20 && (int)$after['fish'][$f
 $check($after['coins'] === $before['coins'] && $after['layout'] === $before['layout'], 'migrate 不动金币与布局');
 $check($after['fish'][$fid]['catch_count'] === $before['fish'][$fid]['catch_count'], 'migrate 不动捕获数');
 
+
+/* 15) markOnly：只补标记，不动 sold/owned */
+$mk = $base; unset($mk['inventory_schema']);
+$mk['fish'][$fid]['owned_count'] = 9; $mk['fish'][$fid]['sold_count'] = 3; $mk['fish'][$fid]['catch_count'] = 12;
+$mk2 = gamecenter_aquarium_stock::markOnly($mk);
+$check($mk2['inventory_schema'] === 1, 'markOnly 补标记');
+$check($mk2['fish'][$fid]['owned_count'] === 9 && $mk2['fish'][$fid]['sold_count'] === 3, 'markOnly 不动库存与售出');
+$check($mk2['coins'] === $mk['coins'] && $mk2['layout'] === $mk['layout'], 'markOnly 不动金币与布局');
 echo "\n".json_encode(['status'=> $fail ? 'FAIL' : 'PASS', 'checks'=>$checks, 'fail'=>$fail])."\n";
 exit($fail ? 1 : 0);
