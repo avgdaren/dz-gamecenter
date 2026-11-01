@@ -47,6 +47,8 @@ final class gamecenter_aquarium {
         $out['capabilities']=['sell'=>gamecenter_aquarium_configs::saleAllowed((int)$s['uid'])];
         $out['inventory']=['schema'=>(int)($s['inventory_schema']??0),'anomaly'=>!empty($s['inventory_anomaly'])];
         $out['recent_sale']=$s['recent_sale'] ?? [];
+        require_once __DIR__.'/aquarium_stats.php';
+        $out['participants']=gamecenter_aquarium_stats::display();
         $out['summary']=null;
         if(isset($s['recent_summary']) && is_array($s['recent_summary'])) {
             $x=$s['recent_summary']; $clean=[];
@@ -175,6 +177,12 @@ final class gamecenter_aquarium {
                 }
                 $s=$this->decode($row,$uid); $version=(int)$row['version'];
                 if($action==='init') { return $this->result('',$this->snapshot($s,$version)); }
+                if(!empty($s['inventory_anomaly'])) {
+                    // 库存异常账号：只读隔离。不结算、不购物、不布景、不售卖、不写原档。
+                    if($action==='catalog') { $out=$this->result('',$this->snapshot($s,$version)); $out['catalog']=$this->catalog($s); return $out; }
+                    if($action==='sync' || $action==='init') { return $this->result('',$this->snapshot($s,$version)); }
+                    return $this->result('maintenance',$this->snapshot($s,$version));
+                }
                 if($action==='catalog') { $out=$this->result('',$this->snapshot($s,$version)); $out['catalog']=$this->catalog($s); return $out; }
                 if($mutating && $data['expected_version']!==$version) { return $this->result('conflict',$this->snapshot($s,$version)); }
                 $r=gamecenter_aquarium_rules::settle($s,$now,$this->c); $next=$r['save']; $code='';
@@ -196,6 +204,13 @@ final class gamecenter_aquarium {
                 if($next!==$s) {
                     if(isset($this->c['decor'],$this->c['fish_capacities'],$this->c['initial_fish_capacity'])) { gamecenter_aquarium_shop::validateState($next,$this->c); }
                     $version++; $row['state_json']=json_encode($next,JSON_THROW_ON_ERROR); $row['version']=$version; $row['updated_ms']=$next['last_settled_ms'];
+                    if($action==='sell' && !empty($next['recent_sale'])) {
+                        // 用真实行版本补齐回执，便于丢响应时核对（不是幂等键）
+                        $idx=count($next['recent_sale'])-1;
+                        $next['recent_sale'][$idx]['before_version']=$version-1;
+                        $next['recent_sale'][$idx]['after_version']=$version;
+                        $row['state_json']=json_encode($next,JSON_THROW_ON_ERROR);
+                    }
                     $this->db->save($row);
                 }
                 return $this->result($code,$this->snapshot($next,$version));

@@ -9,17 +9,13 @@
  *       --user=root --password=*** --tablepre=pre_
  *
  * 模式：
- *   stats     只读：分类统计 + 各品级可售量/潜在总额（不写库）
- *   dry-run   只读：逐行判定会做什么，输出聚合与异常清单
- *   apply     逐行事务迁移（--yes 才真写）
- *   verify    全表核对：标记齐全、守恒、展示≤持有
+ *   stats     只读：分类统计 + 各品级可售量/潜在总额
+ *   dry-run   只读：逐行判定会做什么
+ *   apply     逐行事务迁移（--yes 才真写；仅在维护窗口内用）
+ *   verify    全表核对：模式、标记、守恒、展示≤持有、行头一致
  *
- * 约定（对应部署方案 §1）：
- *   - 纯旧档（该行所有鱼都没库存字段、也没有 inventory_schema）→ owned=catch、sold=0、标记=1
- *   - 已迁移档（字段合法且守恒）→ 只在缺标记时补标记，绝不改 owned/sold
- *   - 混合 / 缺一字段 / 不守恒 / 展示超持有 → 记异常，原行不动
- *   - 纯库存迁移：不调用 settle()、不动金币/捕获/时间锚点/布局，updated_ms 保持原值
- *   - 每行一个事务，row.version +1；崩溃后重跑不会重复改
+ * 分类规则与运行时共用 lib/aquarium_stock.php，避免两套口径。
+ * 纯库存迁移：不调用 settle()、不动金币/捕获/时间锚点/布局；updated_ms 保持原值，只 version+1。
  */
 if(PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 ini_set('display_errors', 'stderr');
@@ -42,10 +38,7 @@ $batch = max(1, (int)$opt('batch', '200'));
 $yes = $opt('yes', '') === '1';
 $outFile = $opt('out', '');
 
-if($dz === '' || $dsn === '') {
-    fwrite(STDERR, "需要 --dz-root 与 --dsn；不默认连接任何库。\n");
-    exit(2);
-}
+if($dz === '' || $dsn === '') { fwrite(STDERR, "需要 --dz-root 与 --dsn；不默认连接任何库。\n"); exit(2); }
 if(!is_file($dz.'/source/class/db/db_driver_mysqli.php')) { fwrite(STDERR, "dz-root 不像 X5 根目录：$dz\n"); exit(2); }
 
 function getglobal($key) {
@@ -74,6 +67,7 @@ DB::init('db_driver_'.getglobal('db_driver'), [1=>['dsn'=>$dsn, 'dbhost'=>$h[1] 
     'dbname'=>$d[1] ?? '', 'dbcharset'=>'utf8mb4', 'compress'=>0, 'dbuser'=>$user, 'dbpw'=>$pass, 'pconnect'=>0, 'tablepre'=>$tablepre]]);
 
 require DISCUZ_PLUGIN('gamecenter').'/lib/aquarium_configs.php';
+require DISCUZ_PLUGIN('gamecenter').'/lib/aquarium_stock.php';
 
 $c = gamecenter_aquarium_configs::for_version(gamecenter_aquarium_configs::CONTENT);
 $meta = gamecenter_aquarium_content::catalog();
@@ -83,49 +77,27 @@ foreach($meta['fish'] as $it) { $rarityOf[$it['id']] = (string)($it['rarity'] ??
 $say = static function(array $x) use ($outFile) {
     $line = json_encode($x, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     echo $line, "\n";
-    if($outFile !== '') { file_put_contents($outFile, $line."\n", FILE_APPEND); }
+    if($outFile !== '') { @file_put_contents($outFile, $line."\n", FILE_APPEND); }
 };
 
-/** 判定一行的库存状态：legacy / migrated / anomaly */
-function classify(array $s, array $c): array {
-    $fish = $s['fish'] ?? null;
-    if(!is_array($fish)) { return ['kind'=>'anomaly','why'=>'no-fish']; }
-    $schema = (int)($s['inventory_schema'] ?? 0);
-    $anyStock = false; $anyMissing = false; $bad = '';
-    foreach($fish as $fid=>$f) {
-        if(!is_array($f)) { $bad = 'fish-entry'; break; }
-        $hasOwned = array_key_exists('owned_count', $f);
-        $hasSold  = array_key_exists('sold_count', $f);
-        if($hasOwned || $hasSold) { $anyStock = true; }
-        if(!$hasOwned || !$hasSold) { $anyMissing = true; continue; }
-        $owned = $f['owned_count']; $sold = $f['sold_count']; $catch = (int)($f['catch_count'] ?? 0);
-        if(!is_int($owned) || !is_int($sold) || $owned < 0 || $sold < 0) { $bad = 'nonint:'.$fid; break; }
-        if($owned + $sold !== $catch) { $bad = 'sum:'.$fid; break; }
-    }
-    if($bad !== '') { return ['kind'=>'anomaly','why'=>$bad]; }
-    // 展示数不得超过持有量
-    $shown = [];
-    foreach(($s['layout']['fish'] ?? []) as $x) { if(is_string($x)) { $shown[$x] = ($shown[$x] ?? 0) + 1; } }
-    foreach($shown as $fid=>$n) {
-        $owned = isset($fish[$fid]) ? (int)($fish[$fid]['owned_count'] ?? 0) : 0;
-        if($n > $owned) { return ['kind'=>'anomaly','why'=>'overdisplay:'.$fid]; }
-    }
-    if(!$anyStock) { return ['kind'=> $schema === 0 ? 'legacy' : 'anomaly', 'why'=> $schema === 0 ? '' : 'marker-without-fields']; }
-    if($anyMissing) { return ['kind'=>'anomaly','why'=>'partial']; }
-    return ['kind'=>'migrated', 'why'=> $schema === 0 ? 'needs-marker' : ''];
+$table = 'gamecenter_aquarium_save';
+$counts = ['total'=>0,'legacy'=>0,'new'=>0,'anomaly'=>0,'written'=>0,'failed'=>0];
+$agg = ['potential'=>0,'byRarity'=>[], 'accounts'=>[]];
+$anomalies = [];
+
+function rowHeader(array $row): array {
+    return ['uid'=>$row['uid'], 'save_version'=>$row['save_version'] ?? 1,
+        'config_version'=>$row['config_version'] ?? '', 'updated_ms'=>$row['updated_ms'] ?? 0];
 }
 
-/** 可售与潜在金额（只统计，不写库）：可售 = owned − max(4, 展示数) */
 function inventoryAgg(array $s): array {
     global $rarityOf, $priceOf;
-    $shown = [];
-    foreach(($s['layout']['fish'] ?? []) as $x) { if(is_string($x)) { $shown[$x] = ($shown[$x] ?? 0) + 1; } }
+    $shown = gamecenter_aquarium_stock::shown($s);
     $byRarity = []; $total = 0;
     foreach(($s['fish'] ?? []) as $fid=>$f) {
         if(!is_array($f)) { continue; }
         $owned = (int)($f['owned_count'] ?? $f['catch_count'] ?? 0);
-        $keep = max(4, $shown[$fid] ?? 0);
-        $sellable = max(0, $owned - $keep);
+        $sellable = max(0, $owned - max(4, $shown[$fid] ?? 0));
         $rar = $rarityOf[$fid] ?? '';
         $price = $priceOf[$rar] ?? 0;
         $pot = $sellable * $price;
@@ -140,121 +112,103 @@ function inventoryAgg(array $s): array {
     return ['byRarity'=>$byRarity, 'potential'=>$total];
 }
 
-$table = 'gamecenter_aquarium_save';
-$lastUid = 0;
-$counts = ['total'=>0,'legacy'=>0,'migrated'=>0,'anomaly'=>0,'written'=>0];
-$agg = ['potential'=>0,'byRarity'=>[], 'accounts'=>[]];
-$anomalies = [];
-
-do {
-    $rows = DB::fetch_all('SELECT uid, version, updated_ms, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $lastUid, $batch]);
-    foreach($rows as $row) {
-        $counts['total']++;
-        $lastUid = (int)$row['uid'];
-        $raw = (string)$row['state_json'];
-        $s = json_decode($raw, true);
-        if(!is_array($s)) { $counts['anomaly']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'json']; continue; }
-        $cls = classify($s, $c);
-        $counts[$cls['kind']]++;
-
-        if($mode === 'verify') {
-    // 全表核对：标记齐全、守恒、展示≤持有
-    $vLast = 0; $v = ['accounts'=>0,'ok'=>0,'missing_marker'=>0,'bad_sum'=>0,'over_display'=>0,'bad_json'=>0,'details'=>[]];
+/* ---------------- verify：独立全扫，计数真实递增 ---------------- */
+if($mode === 'verify') {
+    $v = ['mode'=>'verify','accounts'=>0,'ok'=>0,'legacy'=>0,'anomaly'=>0,'missing_marker'=>0,
+        'bad_sum'=>0,'over_display'=>0,'bad_json'=>0,'bad_header'=>0,'flagged'=>0,'details'=>[]];
+    $last = 0;
     do {
-        $rows2 = DB::fetch_all('SELECT uid, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $vLast, $batch]);
-        foreach($rows2 as $r2) {
-            $v['accounts']++; $vLast = (int)$r2['uid'];
-            $sx = json_decode((string)$r2['state_json'], true);
-            if(!is_array($sx)) { $v['bad_json']++; $v['details'][] = ['uid'=>$vLast,'why'=>'json']; continue; }
-            $cls = classify($sx, $c);
-            if($cls['kind'] === 'anomaly') { $v['details'][] = ['uid'=>$vLast,'why'=>$cls['why']]; continue; }
-            if((int)($sx['inventory_schema'] ?? 0) !== 1) { $v['missing_marker']++; $v['details'][] = ['uid'=>$vLast,'why'=>'no-marker']; continue; }
+        $rows = DB::fetch_all('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $last, $batch]);
+        foreach($rows as $row) {
+            $v['accounts']++; $last = (int)$row['uid'];
+            $sx = json_decode((string)$row['state_json'], true);
+            if(!is_array($sx)) { $v['bad_json']++; $v['details'][] = ['uid'=>$last,'why'=>'json']; continue; }
+            $cls = gamecenter_aquarium_stock::classify($sx, $c, rowHeader($row));
+            if($cls['kind'] === 'legacy') { $v['legacy']++; $v['details'][] = ['uid'=>$last,'why'=>'legacy-unmigrated']; continue; }
+            if($cls['kind'] === 'anomaly') {
+                $v['anomaly']++;
+                $why = $cls['why'];
+                if(strpos($why,'overdisplay') === 0) { $v['over_display']++; }
+                elseif($why === 'flagged') { $v['flagged']++; }
+                elseif(strpos($why,'stock') === 0) { $v['bad_sum']++; }
+                elseif(in_array($why, ['uid-mismatch','save-version','config-version','anchor'], true)) { $v['bad_header']++; }
+                $v['details'][] = ['uid'=>$last,'why'=>$why];
+                continue;
+            }
+            if((int)($sx['inventory_schema'] ?? 0) !== 1) { $v['missing_marker']++; $v['details'][] = ['uid'=>$last,'why'=>'no-marker']; continue; }
             $v['ok']++;
         }
-    } while(count($rows2) === $batch);
-    $say(['mode'=>'verify'] + $v);
+    } while(count($rows) === $batch);
+    $say($v);
     exit(($v['ok'] === $v['accounts']) ? 0 : 1);
 }
 
-if($mode === 'stats' || $mode === 'dry-run') {
-            if($cls['kind'] !== 'anomaly') {
-                $a = inventoryAgg($s);
-                $agg['potential'] += $a['potential'];
-                foreach($a['byRarity'] as $k=>$v) {
-                    if(!isset($agg['byRarity'][$k])) { $agg['byRarity'][$k] = ['owned'=>0,'sellable'=>0,'potential'=>0]; }
-                    foreach($v as $vv=>$vvv) { if($vv !== 'species') { $agg['byRarity'][$k][$vv] += $vvv; } }
-                }
-                $agg['accounts'][] = $a['potential'];
-            } else {
-                $anomalies[] = ['uid'=>$lastUid,'why'=>$cls['why']];
+/* ---------------- 主循环 ---------------- */
+$lastUid = 0;
+do {
+    $rows = DB::fetch_all('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $lastUid, $batch]);
+    foreach($rows as $row) {
+        $counts['total']++; $lastUid = (int)$row['uid'];
+        $s = json_decode((string)$row['state_json'], true);
+        if(!is_array($s)) { $counts['anomaly']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'json']; continue; }
+        $cls = gamecenter_aquarium_stock::classify($s, $c, rowHeader($row));
+        $counts[$cls['kind'] === 'new' ? 'new' : $cls['kind']]++;
+
+        if($cls['kind'] === 'anomaly') { $anomalies[] = ['uid'=>$lastUid,'why'=>$cls['why']]; continue; }
+
+        if($mode === 'stats' || $mode === 'dry-run') {
+            $a = inventoryAgg($s);
+            $agg['potential'] += $a['potential'];
+            foreach($a['byRarity'] as $k=>$vv) {
+                if(!isset($agg['byRarity'][$k])) { $agg['byRarity'][$k] = ['owned'=>0,'sellable'=>0,'potential'=>0]; }
+                foreach($vv as $kk=>$vvv) { if($kk !== 'species') { $agg['byRarity'][$k][$kk] += $vvv; } }
             }
-            if($mode === 'dry-run') { continue; }
+            $agg['accounts'][] = $a['potential'];
             continue;
         }
 
-        if($cls['kind'] === 'anomaly') { $anomalies[] = ['uid'=>$lastUid,'why'=>$cls['why']]; continue; }
-        if($cls['kind'] === 'migrated' && $cls['why'] === '') { continue; }   // 已完成
+        if($mode !== 'apply') { continue; }
+        if($cls['kind'] === 'new') { continue; }
+        if(!$yes) { continue; }
 
-        if($mode === 'apply') {
-            if(!$yes) { continue; }
-            DB::begin_transaction();
-            try {
-                $locked = DB::fetch_first('SELECT uid, version, updated_ms, state_json FROM %t WHERE uid=%d FOR UPDATE', [$table, $lastUid]);
-                $cur = json_decode((string)$locked['state_json'], true);
-                $re = classify($cur, $c);
-                if($re['kind'] === 'anomaly' || ($re['kind'] === 'migrated' && $re['why'] === '')) {
-                    DB::commit(); continue;   // 别人已处理 / 数据有问题，不写
-                }
-                if($re['kind'] === 'legacy') {
-                    foreach($cur['fish'] as $fid=>$f) {
-                        if(!is_array($f)) { continue; }
-                        if(!array_key_exists('owned_count', $f)) { $cur['fish'][$fid]['owned_count'] = (int)($f['catch_count'] ?? 0); }
-                        if(!array_key_exists('sold_count', $f)) { $cur['fish'][$fid]['sold_count'] = 0; }
-                    }
-                }
-                $cur['inventory_schema'] = 1;
-                DB::update($table, ['state_json' => json_encode($cur, JSON_UNESCAPED_UNICODE), 'version' => (int)$locked['version'] + 1],
-                    ['uid' => $lastUid]);
-                DB::commit();
-                $counts['written']++;
-            } catch(Throwable $e) {
-                DB::rollback();
-                $anomalies[] = ['uid'=>$lastUid,'why'=>'write:'.$e->getMessage()];
-            }
+        $ok = true;
+        try { $ok = (bool)DB::begin_transaction(); } catch(Throwable $e) { $ok = false; }
+        if(!$ok) { $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'tx-begin']; continue; }
+        try {
+            $locked = DB::fetch_first('SELECT uid, save_version, config_version, version, updated_ms, state_json FROM %t WHERE uid=%d FOR UPDATE', [$table, $lastUid]);
+            if(!$locked) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'lock-missing']; continue; }
+            $cur = json_decode((string)$locked['state_json'], true);
+            if(!is_array($cur)) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'lock-json']; continue; }
+            $re = gamecenter_aquarium_stock::classify($cur, $c, rowHeader($locked));
+            if($re['kind'] === 'anomaly') { DB::rollback(); $counts['anomaly']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'lock-'.$re['why']]; continue; }
+            if($re['kind'] === 'new') { DB::rollback(); continue; }
+
+            $next = gamecenter_aquarium_stock::migrate($cur);
+            $json = json_encode($next, JSON_UNESCAPED_UNICODE);
+            if($json === false) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'encode']; continue; }
+            $upd = DB::update($table, ['state_json'=>$json, 'version'=>(int)$locked['version']+1], ['uid'=>$lastUid]);
+            if($upd === false) { DB::rollback(); $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'update']; continue; }
+            $cmt = DB::commit();
+            if($cmt === false) { $counts['failed']++; $anomalies[] = ['uid'=>$lastUid,'why'=>'commit-unknown']; continue; }
+            $counts['written']++;
+        } catch(Throwable $e) {
+            try { DB::rollback(); } catch(Throwable $e2) {}
+            $counts['failed']++;
+            $anomalies[] = ['uid'=>$lastUid,'why'=>'tx:'.$e->getMessage()];
         }
     }
 } while(count($rows) === $batch);
 
-if($mode === 'verify') {
-    // 全表核对：标记齐全、守恒、展示≤持有
-    $vLast = 0; $v = ['accounts'=>0,'ok'=>0,'missing_marker'=>0,'bad_sum'=>0,'over_display'=>0,'bad_json'=>0,'details'=>[]];
-    do {
-        $rows2 = DB::fetch_all('SELECT uid, state_json FROM %t WHERE uid>%d ORDER BY uid LIMIT %d', [$table, $vLast, $batch]);
-        foreach($rows2 as $r2) {
-            $v['accounts']++; $vLast = (int)$r2['uid'];
-            $sx = json_decode((string)$r2['state_json'], true);
-            if(!is_array($sx)) { $v['bad_json']++; $v['details'][] = ['uid'=>$vLast,'why'=>'json']; continue; }
-            $cls = classify($sx, $c);
-            if($cls['kind'] === 'anomaly') { $v['details'][] = ['uid'=>$vLast,'why'=>$cls['why']]; continue; }
-            if((int)($sx['inventory_schema'] ?? 0) !== 1) { $v['missing_marker']++; $v['details'][] = ['uid'=>$vLast,'why'=>'no-marker']; continue; }
-            $v['ok']++;
-        }
-    } while(count($rows2) === $batch);
-    $say(['mode'=>'verify'] + $v);
-    exit(($v['ok'] === $v['accounts']) ? 0 : 1);
-}
-
 if($mode === 'stats' || $mode === 'dry-run') {
-    $acc = $agg['accounts'];
-    sort($acc);
-    $pct = static function(array $a, float $q) { if(!$a) { return 0; } $i = (int)floor((count($a) - 1) * $q); return $a[$i]; };
-    $say(['mode'=>$mode, 'accounts'=>$counts['total'], 'legacy'=>$counts['legacy'], 'migrated'=>$counts['migrated'],
-        'anomaly'=>$counts['anomaly'], 'potential_total'=>$agg['potential'],
-        'by_rarity'=>$agg['byRarity'],
+    $acc = $agg['accounts']; sort($acc);
+    $pct = static function(array $a, float $q) { if(!$a) { return 0; } return $a[(int)floor((count($a)-1)*$q)]; };
+    $say(['mode'=>$mode,'accounts'=>$counts['total'],'legacy'=>$counts['legacy'],'new'=>$counts['new'],'anomaly'=>$counts['anomaly'],
+        'potential_total'=>$agg['potential'],'by_rarity'=>$agg['byRarity'],
         'per_account_potential'=>['median'=>$pct($acc,0.5),'p90'=>$pct($acc,0.9),'p95'=>$pct($acc,0.95),'p99'=>$pct($acc,0.99),'max'=>$acc ? end($acc) : 0],
         'anomalies'=>$anomalies]);
 } else {
-    $say(['mode'=>$mode, 'accounts'=>$counts['total'], 'legacy'=>$counts['legacy'], 'migrated'=>$counts['migrated'],
-        'anomaly'=>$counts['anomaly'], 'written'=>$counts['written'],
-        'dry_run'=> !$yes, 'anomalies'=>$anomalies]);
+    $say(['mode'=>$mode,'accounts'=>$counts['total'],'legacy'=>$counts['legacy'],'new'=>$counts['new'],
+        'anomaly'=>$counts['anomaly'],'written'=>$counts['written'],'failed'=>$counts['failed'],
+        'dry_run'=>!$yes,'anomalies'=>$anomalies]);
+    exit($counts['failed'] ? 1 : 0);
 }

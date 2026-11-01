@@ -30,6 +30,7 @@
     var decorEls = {};       // id -> 元素
     var fishCards = {}, decorCards = {};
     var dom = null;
+    var domPeople = null;
     var lastFrame = 0, fadeTick = 0, stageBox = { left: 0, top: 0 };
     // 音效默认开（点击后才发声，符合浏览器自动播放策略）；音乐默认关，避免突然出声
     var sound = { music: false, sfx: true, bgm: null, lastSelect: 0, lastCoin: 0, playing: [] };
@@ -607,6 +608,11 @@
       tank.appendChild(back); tank.appendChild(fishLayer); tank.appendChild(front);
       main.appendChild(tank);
 
+      var people = el('p', 'aq-people');
+      people.style.display = 'none';
+      domPeople = people;
+      main.appendChild(people);
+
       var tabBar = el('div', 'aq-tabs');
       var panel = el('div', 'aq-panel');
       main.appendChild(tabBar);
@@ -933,6 +939,15 @@
       var head = note || '离线也会继续钓鱼，最多累计 24 小时。';
       if (lastCatch) { head += ' · ' + lastCatch; }
       dom.headNote.textContent = head;
+      if (domPeople) {
+        var pc = snap.participants;
+        if (pc && typeof pc.count === 'number' && pc.count > 0) {
+          domPeople.style.display = '';
+          domPeople.textContent = '已有 ' + String(pc.count).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 位鱼友建立水族馆';
+        } else {
+          domPeople.style.display = 'none';
+        }
+      }
       updateBackground();
       buildSide();
       updateSide();

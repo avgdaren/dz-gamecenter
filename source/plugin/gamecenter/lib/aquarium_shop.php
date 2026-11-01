@@ -3,6 +3,7 @@
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 require_once __DIR__.'/aquarium_rules.php';
 require_once __DIR__.'/aquarium_configs.php';
+require_once __DIR__.'/aquarium_stock.php';
 
 final class gamecenter_aquarium_shop {
     const MAX_SLOTS = 12;
@@ -10,30 +11,11 @@ final class gamecenter_aquarium_shop {
     /** 旧档没有这些字段时的默认值（迁移前的档、或 S2 之前建的档）。 */
     public static function defaults(array $s, array $c): array {
         if(!isset($s['fish_capacity'])) { $s['fish_capacity'] = $c['initial_fish_capacity']; }
-        // 库存迁移：旧档没有 owned/sold 时，把历史捕获量当作当前持有（不自动卖、不发币）
+        // 库存模式判定与迁移统一走 gamecenter_aquarium_stock（运行时与 CLI 同一套规则）
         if(isset($s['fish']) && is_array($s['fish'])) {
-            $schema = (int)($s['inventory_schema'] ?? 0);
-            $dirty = false; $bad = false;
-            foreach($s['fish'] as $fid=>$f) {
-                if(!is_array($f)) { $bad=true; continue; }
-                $hasOwned = array_key_exists('owned_count',$f);
-                $hasSold  = array_key_exists('sold_count',$f);
-                if(!$hasOwned && !$hasSold) {
-                    // 纯旧档：只在这种情况才初始化
-                    if($schema === 0) {
-                        $s['fish'][$fid]['owned_count'] = (int)($f['catch_count'] ?? 0);
-                        $s['fish'][$fid]['sold_count'] = 0;
-                        $dirty = true;
-                    } else { $bad = true; }
-                    continue;
-                }
-                if(!$hasOwned || !$hasSold) { $bad = true; continue; }   // 只有一半：不补、不猜
-                if(!gamecenter_aquarium_rules::number($f['owned_count']) || !gamecenter_aquarium_rules::number($f['sold_count'])) { $bad = true; continue; }
-                $catch = (int)($f['catch_count'] ?? 0);
-                if((int)$f['owned_count'] + (int)$f['sold_count'] !== $catch) { $bad = true; }
-            }
-            if($dirty) { $s['inventory_schema'] = 1; }
-            if($bad) { $s['inventory_anomaly'] = true; }   // 隔离：允许多数操作，但拒绝售卖、人工处理
+            $cls = gamecenter_aquarium_stock::classify($s, $c);
+            if($cls['kind'] === 'legacy') { $s = gamecenter_aquarium_stock::migrate($s); }
+            elseif($cls['kind'] === 'anomaly') { $s['inventory_anomaly'] = true; }
         }
         if(!isset($s['decor_owned']) || !is_array($s['decor_owned'])) { $s['decor_owned'] = []; }
         if(!isset($s['layout']) || !is_array($s['layout'])) {

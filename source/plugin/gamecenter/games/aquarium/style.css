@@ -155,3 +155,4 @@
 .aq-qty { width: 72px; text-align: center; font: inherit; padding: 5px 6px; border: 1px solid var(--aq-line); border-radius: 8px; }
 .aq-modal-acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
 .aq-sell { margin-top: 4px; }
+.aq-people { margin: 6px 0 0; font-size: 12px; color: var(--aq-muted); text-align: center; }
