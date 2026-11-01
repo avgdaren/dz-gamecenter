@@ -37,6 +37,7 @@
     var FEED_MAX_FISH = 4;
     var FEED_MAX_PELLETS = 8;      // 场上最多同时存在几粒（一次点击只撒一粒）
     var FEED_IDLE_CLEAR = 4000;    // 全被吃掉后再过多久清场
+    var FEED_SINK_SPEED = 46;      // 饲料下沉速度 px/s（到底就消失）
     var FEED_ASSETS = ASSETS + 'feeding/v1/';
     var FEED_PELLETS = ['pellet_01.webp', 'pellet_02.webp', 'pellet_03.webp'];
     var FEED_SOUNDS = ['eat_01', 'eat_02', 'eat_03'];
@@ -360,7 +361,7 @@
       dot.style.left = px + 'px';
       dot.style.top = py + 'px';
       feedLayer.appendChild(dot);
-      var pellet = { id: feed.pellets.length, x: px, y: py, el: dot, consumed: false, claimedBy: null };
+      var pellet = { id: feed.pellets.length, x: px, y: py, el: dot, consumed: false, claimedBy: null, vy: FEED_SINK_SPEED };
       feed.pellets.push(pellet);
       feed.lastAt = performance.now();
       feed.emptyAt = 0;
@@ -1099,6 +1100,31 @@
         var r = dom.tank.getBoundingClientRect();
         var W = r.width, H = r.height;
         stageBox = { left: r.left, top: r.top };
+        // 饲料缓慢下沉；沉到缸底就消失（鱼没赶上就没了）
+        if (feed && feed.pellets) {
+          for (var pi = 0; pi < feed.pellets.length; pi++) {
+            var pl = feed.pellets[pi];
+            if (pl.consumed) { continue; }
+            pl.y += pl.vy * dt;
+            var floorY = H - 10;
+            if (pl.y >= floorY) {
+              pl.consumed = true;                    // 到底消失，不触发吃食音
+              var deadEl = pl.el;
+              if (deadEl) {
+                deadEl.classList.add('eaten');
+                setTimeout(function (node) { return function () { if (node && node.parentNode) { node.parentNode.removeChild(node); } }; }(deadEl), 180);
+              }
+              var owner = pl.claimedBy !== null ? fishBySlot[pl.claimedBy] : null;
+              if (owner && owner.feedPellet === pl) { owner.feedPellet = null; owner.feedX = owner.parkX; owner.feedY = owner.parkY; }
+              continue;
+            }
+            if (pl.el) { pl.el.style.top = pl.y + 'px'; }
+            // 认领的鱼要跟着粒子走（粒子在沉）
+            var chaser = pl.claimedBy !== null ? fishBySlot[pl.claimedBy] : null;
+            if (chaser && chaser.feedPellet === pl) { chaser.feedX = pl.x; chaser.feedY = pl.y; }
+          }
+        }
+
         // 所有粒子都被吃完、且安静了一段时间，才收场
         if (feed) {
           var pending = feed.pellets.some(function (q) { return !q.consumed; });
