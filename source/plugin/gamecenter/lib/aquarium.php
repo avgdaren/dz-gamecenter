@@ -22,6 +22,7 @@ final class gamecenter_aquarium {
             'target'=>'目标等级或水域已变化','coins'=>'游戏金币不足','condition'=>'尚未满足条件','owned'=>'已经拥有这件装饰',
             'maintenance'=>'水族馆正在维护，你的存档不会丢失，请稍后回来',
             'config'=>'配置或存档版本不匹配，请等待维护，不要清空存档','busy'=>'暂时无法同步，请稍后重试',
+        'migrate_readonly'=>'存档正在升级，暂时只能查看，收益和操作稍后恢复',
             'limit'=>'这次数量会让金币超出上限，请分批卖','closed'=>'售卖功能暂未开放'];
         return ['ok'=>$code===''?1:0,'code'=>$code,'msg'=>$code===''?'已同步':($messages[$code]??$messages['busy']),'snapshot'=>$snapshot];
     }
@@ -204,6 +205,9 @@ final class gamecenter_aquarium {
                     require_once __DIR__.'/aquarium_migrate.php';
                     try {
                         $src = gamecenter_aquarium_configs::for_version((string)$s['config_version']);
+                        // 老档可能没有库存字段：先按源配置补齐（只有整行纯旧档才补，异常档打标记）
+                        $s = gamecenter_aquarium_shop::defaults($s, $src);
+                        if(!empty($s['inventory_anomaly'])) { return $this->result('maintenance', $this->snapshot($s,$version)); }
                         $mig = new gamecenter_aquarium_migrate($this->db, $src, $this->c);
                         if($mig->sameIds()) {
                             $sw = gamecenter_aquarium_migrate::switchPool($s, $src, $this->c, $now);
@@ -218,10 +222,11 @@ final class gamecenter_aquarium {
                                 ]);
                             }
                         } else {
-                            return $this->result('config');   // 需要 CLI 映射的跨命名迁移，不在网页里做
+                            return $this->result('migrate_readonly', $this->snapshot($s,$version));   // 跨命名迁移需 CLI
                         }
                     } catch(Throwable $e) {
-                        return $this->result('config');
+                        // 迁移不了也不能让玩家看到"还没有水族馆"：原档只读呈现，等维护修复
+                        return $this->result('migrate_readonly', $this->snapshot($s,$version));
                     }
                 }
                 if($action==='init') { return $this->result('',$this->snapshot($s,$version)); }

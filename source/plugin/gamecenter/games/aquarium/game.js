@@ -1103,15 +1103,19 @@
     function paint() {
       if (!dom) { buildShell(); buildTabs(); }
       if (!snap) {
-        dom.headNote.textContent = note || '还没有你的水族馆。';
+        // 服务端报错时不要冒充"还没有水族馆"，避免玩家以为存档丢了去重建
+        var serverErr = note && note !== '';
+        dom.headNote.textContent = serverErr ? note : '还没有你的水族馆。';
         if (!stage.querySelector('.aq-empty')) {
           while (dom.panel.firstChild) { dom.panel.removeChild(dom.panel.firstChild); }
           var empty = el('div', 'aq-empty');
           empty.appendChild(el('p', null, note || '还没有你的水族馆。'));
-          var b = el('button', 'aq-btn aq-btn-primary', '建立我的水族馆');
-          b.disabled = busy;
-          b.addEventListener('click', function () { call('init'); });
-          empty.appendChild(b);
+          if (!serverErr) {
+            var b = el('button', 'aq-btn aq-btn-primary', '建立我的水族馆');
+            b.disabled = busy;
+            b.addEventListener('click', function () { call('init'); });
+            empty.appendChild(b);
+          }
           dom.panel.appendChild(empty);
           dom.panelMode = 'empty';
         }
