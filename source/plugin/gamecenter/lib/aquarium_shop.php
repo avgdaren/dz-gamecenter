@@ -10,6 +10,18 @@ final class gamecenter_aquarium_shop {
     /** 旧档没有这些字段时的默认值（迁移前的档、或 S2 之前建的档）。 */
     public static function defaults(array $s, array $c): array {
         if(!isset($s['fish_capacity'])) { $s['fish_capacity'] = $c['initial_fish_capacity']; }
+        // 库存迁移：旧档没有 owned/sold 时，把历史捕获量当作当前持有（不自动卖、不发币）
+        if(isset($s['fish']) && is_array($s['fish'])) {
+            foreach($s['fish'] as $fid=>$f) {
+                if(!is_array($f)) { continue; }
+                if(!isset($s['fish'][$fid]['owned_count']) || !gamecenter_aquarium_rules::number($s['fish'][$fid]['owned_count'])) {
+                    $s['fish'][$fid]['owned_count'] = (int)($f['catch_count'] ?? 0);
+                }
+                if(!isset($s['fish'][$fid]['sold_count']) || !gamecenter_aquarium_rules::number($s['fish'][$fid]['sold_count'])) {
+                    $s['fish'][$fid]['sold_count'] = 0;
+                }
+            }
+        }
         if(!isset($s['decor_owned']) || !is_array($s['decor_owned'])) { $s['decor_owned'] = []; }
         if(!isset($s['layout']) || !is_array($s['layout'])) {
             $s['layout'] = ['fish'=>[], 'decor'=>['back'=>[], 'front'=>[]], 'background'=>self::backgrounds()[0]];
@@ -45,6 +57,14 @@ final class gamecenter_aquarium_shop {
             if(!isset($c['decor'][$id]) || !gamecenter_aquarium_rules::number($at)) { throw new DomainException('state-decor'); }
             $owned[$id] = true;
         }
+        foreach($s['fish'] as $fid=>$f) {
+            // 缺字段按迁移口径补：持有＝历史捕获、卖出＝0（不因旧档/缺字段判死）
+            $stockOwned = array_key_exists('owned_count',$f) ? $f['owned_count'] : ($f['catch_count'] ?? 0);
+            $stockSold  = array_key_exists('sold_count',$f) ? $f['sold_count'] : 0;
+            if(!gamecenter_aquarium_rules::number($stockOwned) || !gamecenter_aquarium_rules::number($stockSold)) { throw new DomainException('state-stock'); }
+            $catchAll = (int)($f['catch_count'] ?? 0);
+            if((int)$stockOwned > $catchAll || (int)$stockSold > $catchAll) { throw new DomainException('state-stock-sum'); }
+        }
         $slots = $s['layout']['fish'];
         if(count($slots) !== (int)$s['fish_capacity']) { throw new DomainException('state-layout'); }
         // 同种鱼可重复展示，但最多展示「钓到的条数」；旧档可能超额，读取时只校验已发现
@@ -74,6 +94,43 @@ final class gamecenter_aquarium_shop {
             'total_fish'=>max(0, (int)$g['total_fish'] - count($s['fish'])),
             'water'=>($g['water_unlocked'] !== '' && !in_array($g['water_unlocked'], $s['unlocked_waters'], true)) ? $g['water_unlocked'] : '',
         ];
+    }
+
+    /** 售卖价：按品级固定，只对旧鱼生效；限量物种可售恒为 0。 */
+    public static function sellPrice(string $rarity): int {
+        $table = ['常见'=>1,'少见'=>2,'稀有'=>5,'珍奇'=>10];
+        return $table[$rarity] ?? 0;
+    }
+
+    /** 该鱼种当前可售数量：持有 − max(保留4条, 缸内展示数)。 */
+    public static function sellable(array $s, string $fid): int {
+        $f = $s['fish'][$fid] ?? null;
+        if(!$f) { return 0; }
+        $owned = (int)($f['owned_count'] ?? 0);
+        $shown = 0;
+        foreach($s['layout']['fish'] as $x) { if($x === $fid) { $shown++; } }
+        $keep = max(4, $shown);
+        return max(0, $owned - $keep);
+    }
+
+    /** 卖鱼：一次只卖一个鱼种指定条数，数量上限在服务端再算一次。 */
+    public static function sell(array $s, string $fid, int $qty, array $c, int $now): array {
+        if(!isset($s['fish'][$fid])) { return [$s, 'target']; }
+        if($qty < 1) { return [$s, 'input']; }
+        if(isset($c['fish'][$fid]['lifetime_cap'])) { return [$s, 'condition']; }
+        $max = self::sellable($s, $fid);
+        if($qty > $max) { return [$s, 'condition']; }
+        require_once __DIR__.'/aquarium_content.php';
+        $meta = gamecenter_aquarium_content::catalog();
+        $rarity = '';
+        foreach($meta['fish'] as $it) { if(($it['id'] ?? '') === $fid) { $rarity = (string)($it['rarity'] ?? ''); break; } }
+        $price = self::sellPrice($rarity);
+        if($price < 1) { return [$s, 'condition']; }
+        $gain = $qty * $price;
+        $s['coins'] = min(gamecenter_aquarium_rules::MAX_VALUE, (int)$s['coins'] + $gain);
+        $s['fish'][$fid]['owned_count'] = (int)$s['fish'][$fid]['owned_count'] - $qty;
+        $s['fish'][$fid]['sold_count'] = (int)($s['fish'][$fid]['sold_count'] ?? 0) + $qty;
+        return [$s, ''];
     }
 
     public static function buy(array $s, string $id, array $c, int $now): array {
@@ -117,7 +174,8 @@ final class gamecenter_aquarium_shop {
 				if(!is_string($fid) || !isset($s['fish'][$fid])) { return [$s, 'target']; }
 				// 钓几条才能放几条：展示数不得超过该鱼种的捕获数
 				$perSpecies[$fid] = ($perSpecies[$fid] ?? 0) + 1;
-				if($perSpecies[$fid] > (int)($s['fish'][$fid]['catch_count'] ?? 0)) { return [$s, 'condition']; }
+				$held = (int)($s['fish'][$fid]['owned_count'] ?? $s['fish'][$fid]['catch_count'] ?? 0);
+        if($perSpecies[$fid] > $held) { return [$s, 'condition']; }
 				$clean[] = $fid;
 			}
 			$next['layout']['fish'] = $clean;

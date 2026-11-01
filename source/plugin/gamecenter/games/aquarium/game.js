@@ -110,7 +110,7 @@
       }).then(function () {
         busy = false;
         // 购买/补给会改变「是否拥有」，卡片需要重建而不是只刷新状态
-        if (action === 'buy' || action === 'devgrant' || action === 'expand') { dom.panelMode = ''; }
+        if (action === 'buy' || action === 'devgrant' || action === 'expand' || action === 'sell') { dom.panelMode = ''; }
         if (action === 'layout') { syncSceneMusic(); }
         paint(); schedule();
         if (needCatalog) { fetchCatalogQuiet(); }
@@ -313,6 +313,19 @@
     function shownFor(id) {
       return snap.layout.fish.filter(function (x) { return x === id; }).length;
     }
+    function ownedFor(id) {
+      var f = snap && snap.fish ? snap.fish[id] : null;
+      return f ? Math.max(0, parseInt(f.owned_count, 10) || 0) : 0;
+    }
+    /** 可售 = 持有 − max(保留 4 条, 当前展示数) */
+    function sellableFor(id) {
+      return Math.max(0, ownedFor(id) - Math.max(4, shownFor(id)));
+    }
+    var SELL_PRICE = { '常见': 1, '少见': 2, '稀有': 5, '珍奇': 10 };
+    function priceOf(id) {
+      var f = findFish(id);
+      return (f && SELL_PRICE[f.rarity]) || 0;
+    }
     /** 生成要提交的鱼位数组：旧档超额的部分先收起，避免整次写布置被服务端拒绝 */
     function fishLayout() {
       var list = snap.layout.fish.slice();
@@ -493,6 +506,50 @@
       });
     }
 
+    function openSell(fid) {
+      var max = sellableFor(fid);
+      var price = priceOf(fid);
+      if (max < 1 || price < 1) { note = '这场鱼暂时不能卖'; paint(); return; }
+      var old = document.querySelector('.aq-modal'); if (old) { old.remove(); }
+      var mask = el('div', 'aq-modal');
+      var box = el('div', 'aq-modal-box');
+      box.appendChild(el('h4', null, '卖出 ' + ((findFish(fid) || {}).name || fid)));
+      box.appendChild(el('p', 'aq-muted', '单价 ' + price + ' 金币；每种至少保留 4 条，缸里展示的不会被卖。'));
+      var row = el('div', 'aq-modal-row');
+      var minus = el('button', 'aq-btn aq-btn-sm', '−');
+      var input = el('input', 'aq-qty');
+      input.type = 'number'; input.min = '1'; input.max = String(max); input.value = String(Math.min(1, max));
+      var plus = el('button', 'aq-btn aq-btn-sm', '+');
+      var total = el('b', null, '');
+      function clamp() {
+        var v = parseInt(input.value, 10) || 1;
+        v = Math.max(1, Math.min(max, v));
+        input.value = String(v);
+        total.textContent = '到账 ' + (v * price) + ' 金币';
+      }
+      minus.addEventListener('click', function () { input.value = String(Math.max(1, (parseInt(input.value, 10) || 1) - 1)); clamp(); });
+      plus.addEventListener('click', function () { input.value = String(Math.min(max, (parseInt(input.value, 10) || 1) + 1)); clamp(); });
+      input.addEventListener('input', clamp);
+      row.appendChild(minus); row.appendChild(input); row.appendChild(plus); row.appendChild(total);
+      box.appendChild(row);
+      var acts = el('div', 'aq-modal-acts');
+      var cancel = el('button', 'aq-btn', '取消');
+      cancel.addEventListener('click', function () { mask.remove(); });
+      var ok = el('button', 'aq-btn aq-btn-primary', '确认卖出');
+      ok.addEventListener('click', function () {
+        var qty = parseInt(input.value, 10) || 1;
+        mask.remove();
+        playSfx('coin');
+        call('sell', { expected_version: snap.version, fish_id: fid, qty: qty });
+      });
+      acts.appendChild(cancel); acts.appendChild(ok);
+      box.appendChild(acts);
+      mask.appendChild(box);
+      mask.addEventListener('click', function (ev) { if (ev.target === mask) { mask.remove(); } });
+      stage.appendChild(mask);
+      clamp();
+    }
+
     function removeDecor(id) {
       var next = { back: snap.layout.decor.back.slice(), front: snap.layout.decor.front.slice() };
       ['back', 'front'].forEach(function (l) {
@@ -610,6 +667,10 @@
           bodyEl.appendChild(meta);
           card.appendChild(bodyEl);
           if (f.discovered) { card.addEventListener('click', function () { addFish(f.id); }); }
+          var sellBtn = el('button', 'aq-btn aq-btn-sm aq-sell', '');
+          sellBtn.style.display = 'none';
+          sellBtn.addEventListener('click', function (ev) { ev.stopPropagation(); openSell(f.id); });
+          bodyEl.appendChild(sellBtn);
           fishCards[f.id] = card;
           grid.appendChild(card);
         });
@@ -696,8 +757,14 @@
         card.classList.toggle('is-on', cnt > 0);
         var tags = card.querySelectorAll('.aq-tag');
         if (tags.length > 1) {
-          var cap = allowedFor(id);
-          tags[1].textContent = cnt ? ('已展示 ' + cnt + ' / 已钓 ' + cap) : ('已钓 ' + cap + ' 条 · 点一下放入');
+          var owned = ownedFor(id), canSell = sellableFor(id);
+          tags[1].textContent = '持有 ' + owned + ' · 展示 ' + cnt;
+        }
+        var sellBtn = card.querySelector('.aq-sell');
+        if (sellBtn) {
+          var k = sellableFor(id);
+          sellBtn.style.display = k > 0 ? '' : 'none';
+          sellBtn.textContent = k > 0 ? ('卖 ' + k + ' 条' + (priceOf(id) ? (' · ' + (k * priceOf(id)) + ' 金币') : '')) : '';
         }
       });
       Object.keys(decorCards).forEach(function (id) {

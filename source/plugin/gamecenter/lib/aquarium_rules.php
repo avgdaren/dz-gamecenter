@@ -47,7 +47,7 @@ final class gamecenter_aquarium_rules {
         $s=['uid'=>$uid,'save_version'=>1,'config_version'=>$c['version'],'pool_hash'=>$c['pool_hash'],'config_hash'=>$c['config_hash'],
             'seed_hex'=>$seedHex,'coins'=>$c['initial_coins']+$c['waters'][$wid]['fish'][$fid]['coins'],'rod_level'=>0,
             'last_settled_ms'=>$now,'progress_ms'=>0,'catch_seq'=>0,'current_water'=>$wid,'unlocked_waters'=>[$wid],
-            'fish'=>[$fid=>['discovered_at'=>$now,'catch_count'=>1]],'no_new_count'=>array_fill_keys(array_keys($c['waters']),0)];
+            'fish'=>[$fid=>['discovered_at'=>$now,'catch_count'=>1,'owned_count'=>1,'sold_count'=>0]],'no_new_count'=>array_fill_keys(array_keys($c['waters']),0)];
         self::validate($s,$c); return $s;
     }
     public static function validate(array $s, array $c): void {
@@ -104,8 +104,13 @@ final class gamecenter_aquarium_rules {
             $sum=array_sum(array_column($eligible,'weight'));
             $s['catch_seq']++; $fid=self::pick($eligible,self::ticket($s['seed_hex'],$s['uid'],$s['catch_seq'],$sum));
             $at=$l+($d-$old)+$i*$d; $isNew=!isset($s['fish'][$fid]); $coins=$pool[$fid]['coins'];
-            if($isNew) { $s['fish'][$fid]=['discovered_at'=>$at,'catch_count'=>0]; }
-            $s['fish'][$fid]['catch_count']++; $s['coins']+=$coins;
+            if($isNew) { $s['fish'][$fid]=['discovered_at'=>$at,'catch_count'=>0,'owned_count'=>0,'sold_count'=>0]; }
+            $s['fish'][$fid]['catch_count']++;
+            // 库存口径：catch = owned + sold；每钓到一条持有 +1
+            if(!isset($s['fish'][$fid]['owned_count'])) { $s['fish'][$fid]['owned_count']=(int)$s['fish'][$fid]['catch_count']-1; }
+            if(!isset($s['fish'][$fid]['sold_count'])) { $s['fish'][$fid]['sold_count']=0; }
+            $s['fish'][$fid]['owned_count']++;
+            $s['coins']+=$coins;
             $s['no_new_count'][$wid]=$isNew ? 0 : ($missing ? min(80,$s['no_new_count'][$wid]+1) : $s['no_new_count'][$wid]);
             $catches[]=['fish_id'=>$fid,'coins'=>$coins,'is_new'=>$isNew,'caught_ms'=>$at];
         }

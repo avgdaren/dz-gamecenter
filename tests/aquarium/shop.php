@@ -57,7 +57,8 @@ $fid = $c['initial_fish'];
 list($x, $code) = gamecenter_aquarium_shop::setLayout($s, ['fish'=>['pond_orange_tail',null,null,null,null,null,null,null]], $c);
 $check($code === 'target', 'undiscovered fish rejected: '.$code);
 
-// 布置：已发现的鱼可以放，并且不能重复
+// 布置：已发现的鱼可以放；同种可重复，但不得超过持有量（钓几条放几条）
+$s['fish'][$fid]['owned_count'] = 3; $s['fish'][$fid]['catch_count'] = 3;   // 先给到 3 条库存（钓到 3 条）
 list($s, $code) = gamecenter_aquarium_shop::setLayout($s, ['fish'=>[$fid,null,null,null,null,null,null,null]], $c);
 $check($code === '', 'discovered fish placed');
 list($s, $code) = gamecenter_aquarium_shop::setLayout($s, ['fish'=>[$fid,$fid,null,null,null,null,null,null]], $c);

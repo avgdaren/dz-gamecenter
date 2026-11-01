@@ -147,3 +147,11 @@
 .aq-waters .aq-muted { font-size: 11px; line-height: 1.5; }
 .aq-note p { margin: 6px 0 0; line-height: 1.7; }
 .aq-note strong { color: var(--aq-ink); }
+/* 售卖面板 */
+.aq-modal { position: fixed; inset: 0; background: rgba(10,30,45,.42); display: flex; align-items: center; justify-content: center; z-index: 60; }
+.aq-modal-box { background: #fff; border-radius: 14px; padding: 18px 20px 16px; width: min(360px, 88vw); box-shadow: 0 18px 50px rgba(10,40,60,.28); }
+.aq-modal-box h4 { margin: 0 0 6px; font-size: 16px; }
+.aq-modal-row { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; }
+.aq-qty { width: 72px; text-align: center; font: inherit; padding: 5px 6px; border: 1px solid var(--aq-line); border-radius: 8px; }
+.aq-modal-acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.aq-sell { margin-top: 4px; }
