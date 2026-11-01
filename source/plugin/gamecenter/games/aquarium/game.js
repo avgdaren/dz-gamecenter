@@ -38,29 +38,70 @@
     var FEED_MAX_PELLETS = 8;      // 场上最多同时存在几粒（一次点击只撒一粒）
     var FEED_IDLE_CLEAR = 4000;    // 全被吃掉后再过多久清场
     var FEED_SINK_SPEED = 46;      // 饲料下沉速度 px/s（到底就消失）
+
+    /* 各物种运动基线：数值来自 docs/aquarium/release-1-spec/motion-profiles.json
+       速度/摆幅按实际缸宽 / 880 缩放；摆幅是相对路径锚点的绝对 sin 位移，不逐帧累加 */
+    var AQ_MOTION = {
+      bay_moon_mermaid:   { cruise:[20,32], feedMax:40, bobA:[3,5], bobT:[3,4], flipH:true,  tilt:4, band:[0.24,0.66] },
+      pond_bell_jelly:    { cruise:[8,14],  feedMax:20, bobA:[5,8], bobT:[3,5], flipH:false, tilt:0, band:[0.20,0.68] },
+      pond_curl_seahorse: { cruise:[10,18], feedMax:26, bobA:[3,5], bobT:[3,4], flipH:true,  tilt:3, band:[0.30,0.72] },
+      bay_gummy_octopus:  { cruise:[14,24], feedMax:32, bobA:[2,3], bobT:[3,4], flipH:true,  tilt:3, band:[0.62,0.80] }
+    };
+    var AQ_MOTION_DEFAULT = { cruise:[22,40], feedMax:52, bobA:[4,7], bobT:[2.2,3], flipH:true, tilt:9, band:[0.12,0.82] };
+    var AQ_MOTION_REF_W = 880;
+    function motionOf(id) {
+      // 用 hasOwnProperty 兜底：避免 id 撞上 constructor/toString 之类的原型键
+      var m = (typeof id === 'string' && Object.prototype.hasOwnProperty.call(AQ_MOTION, id)) ? AQ_MOTION[id] : AQ_MOTION_DEFAULT;
+      return {
+        cruise: m.cruise[0] + Math.random() * (m.cruise[1] - m.cruise[0]),
+        feedMax: m.feedMax,
+        bobA: m.bobA[0] + Math.random() * (m.bobA[1] - m.bobA[0]),
+        bobT: m.bobT[0] + Math.random() * (m.bobT[1] - m.bobT[0]),
+        flipH: m.flipH, tilt: m.tilt, band: m.band
+      };
+    }
     var FEED_ASSETS = ASSETS + 'feeding/v1/';
+    var FEED_AUDIO = ASSETS + 'feeding/v2/';
     var FEED_PELLETS = ['pellet_01.webp', 'pellet_02.webp', 'pellet_03.webp'];
-    var FEED_SOUNDS = ['eat_01', 'eat_02', 'eat_03'];
-    var FEED_VOLUME = 0.45;
-    var FEED_SOUND_GAP = 140;      // 全局最短触发间隔
-    var FEED_MAX_VOICES = 2;
-    var feedGen = 0;
+    var FEED_BITES = ['bite_01', 'bite_02', 'bite_03', 'bite_04'];
+    var FEED_DROPS = ['drop_01', 'drop_02'];
+    var FEED_BITE_VOL = 0.45, FEED_DROP_VOL = 0.32;
+    var FEED_BITE_GAP = 140;       // 咬合最短间隔
+    var FEED_DROP_GAP = 100;       // 入水最短间隔
+    var FEED_MAX_VOICES = 2;       // 全场共享并发
     var feedVoices = 0;
-    var feedLastSound = 0;
-    var feedEatIndex = -1;
-    function playEatSfx() {
-      if (!sound.sfx) { return; }
-      var now = performance.now();
-      if (now - feedLastSound < FEED_SOUND_GAP) { return; }   // 超限就跳过，不补播
-      if (feedVoices >= FEED_MAX_VOICES) { return; }
-      feedLastSound = now;
-      var idx = (feedEatIndex + 1 + Math.floor(Math.random() * (FEED_SOUNDS.length - 1))) % FEED_SOUNDS.length;
-      feedEatIndex = idx;
-      var a = new Audio(FEED_ASSETS + FEED_SOUNDS[idx] + pickExt());
-      a.volume = FEED_VOLUME;
+    var feedLastBite = 0, feedLastDrop = 0;
+    var feedBiteIndex = -1, feedDropIndex = -1;
+
+    function feedVoiceFree() { return feedVoices < FEED_MAX_VOICES; }
+    function fireFeedSound(name, vol) {
+      var a = new Audio(FEED_AUDIO + name + pickExt());
+      a.volume = vol;
       feedVoices++;
       a.addEventListener('ended', function () { feedVoices = Math.max(0, feedVoices - 1); a.remove(); });
       a.play().catch(function () { feedVoices = Math.max(0, feedVoices - 1); });
+    }
+    // 咬合：只在本地确认消费后触发，四变体不连续重复
+    function playEatSfx() {
+      if (!sound.sfx) { return; }
+      var now = performance.now();
+      if (now - feedLastBite < FEED_BITE_GAP) { return; }
+      if (!feedVoiceFree()) { return; }          // 忙就跳过，不补播
+      feedLastBite = now;
+      var idx = (feedBiteIndex + 1 + Math.floor(Math.random() * (FEED_BITES.length - 1))) % FEED_BITES.length;
+      feedBiteIndex = idx;
+      fireFeedSound(FEED_BITES[idx], FEED_BITE_VOL);
+    }
+    // 入水：只有成功创建粒子才响；满 8 粒被拒时不响
+    function playDropSfx() {
+      if (!sound.sfx) { return; }
+      var now = performance.now();
+      if (now - feedLastDrop < FEED_DROP_GAP) { return; }
+      if (!feedVoiceFree()) { return; }
+      feedLastDrop = now;
+      var idx = (feedDropIndex + 1) % FEED_DROPS.length;
+      feedDropIndex = idx;
+      fireFeedSound(FEED_DROPS[idx], FEED_DROP_VOL);
     }
     var lastFrame = 0, fadeTick = 0, stageBox = { left: 0, top: 0 };
     // 音效默认开（点击后才发声，符合浏览器自动播放策略）；音乐默认关，避免突然出声
@@ -304,8 +345,10 @@
       box.addEventListener('click', function (ev) { ev.stopPropagation(); removeFish(slot); });
       setTimeout(function () { box.classList.remove('enter'); }, 700);
       setTimeout(function () { var rp = box.querySelector('.aq-ripple'); if (rp) { rp.remove(); } }, 900);
+      var motion = motionOf(id);
       return {
-        id: id, slot: slot, el: box, sprite: sprite,
+        id: id, slot: slot, el: box, sprite: sprite, motion: motion,
+        bobPhase: Math.random() * Math.PI * 2,
         nx: 0.12 + ((slot % 4) + 0.5) / 4 * 0.76,
         ny: 0.2 + (Math.floor(slot / 4) % 3 + 0.5) / 3 * 0.52,
         angle: a0, target: a0, speed: NaN, cruiseF: 0.04,
@@ -365,6 +408,7 @@
       feed.pellets.push(pellet);
       feed.lastAt = performance.now();
       feed.emptyAt = 0;
+      playDropSfx();
 
       // 挑一条「目前没在吃」且够得着的鱼来接这一粒
       var busy = {};
@@ -391,7 +435,6 @@
         fish.feedArrived = 0;
         pellet.claimedBy = cand;
       }
-      playSfx('select');
     }
 
     function clearFeed(keepFood) {
@@ -1134,7 +1177,11 @@
         Object.keys(fishBySlot).forEach(function (k) {
           var f = fishBySlot[k];
           if (!W || !H) { return; }
+          var refK = W / AQ_MOTION_REF_W;
           var cruise = f.cruiseF * W;
+          // 追随食物时用该物种的追食上限，巡航用它的巡航速度
+          var speciesCruise = (f.motion ? f.motion.cruise : 26) * refK;
+          var speciesFeedMax = (f.motion ? f.motion.feedMax : 40) * refK;
           if (!isFinite(f.speed)) { f.speed = cruise * 0.8; }
           // 喂养：先游向自己认领的那粒饲料，吃到后去自己的停靠位
           if (f.feedX !== null && f.feedX !== undefined) {
@@ -1167,7 +1214,7 @@
             }
           } else if (now > f.nextTurn) {
             f.target = f.angle + (Math.random() - 0.5) * 1.6;
-            f.cruiseF = 0.035 + Math.random() * 0.03;
+            f.cruiseF = speciesCruise / Math.max(1, W);
             f.pause = Math.random() < 0.18 ? now + 500 + Math.random() * 1100 : 0;
             f.nextTurn = now + 1100 + Math.random() * 2400;
           }
@@ -1176,22 +1223,27 @@
           while (d > Math.PI) { d -= Math.PI * 2; }
           while (d < -Math.PI) { d += Math.PI * 2; }
           f.angle += Math.max(-maxTurn, Math.min(maxTurn, d));
-          var targetSpeed = now < f.pause ? 0 : cruise;
+          var wantSpeed = (now < f.pause) ? 0 : ((f.feedPellet && !f.feedPellet.consumed) ? speciesFeedMax : speciesCruise);
+          var targetSpeed = wantSpeed;
           f.speed += (targetSpeed - f.speed) * Math.min(1, dt * 1.6);
           f.nx += Math.cos(f.angle) * f.speed * dt / W;
           f.ny += Math.sin(f.angle) * f.speed * 0.6 * dt / H;
-          f.bob += dt * 2.4;
-          f.ny += Math.sin(f.bob) * 6 * dt / H;
-          var mx = 0.07, top = 0.12, bottom = 0.82;
+          if (f.motion) { f.bobPhase += dt * (Math.PI * 2) / f.motion.bobT; }
+          var band = (f.motion && f.motion.band) ? f.motion.band : [0.12, 0.82];
+          var mx = 0.07, top = band[0], bottom = band[1];
           if (f.nx < mx) { f.nx = mx; f.angle = Math.PI - f.angle; f.target = f.angle; }
           if (f.nx > 1 - mx) { f.nx = 1 - mx; f.angle = Math.PI - f.angle; f.target = f.angle; }
           if (f.ny < top) { f.ny = top; f.angle = -f.angle; f.target = f.angle; }
           if (f.ny > bottom) { f.ny = bottom; f.angle = -f.angle; f.target = f.angle; }
-          if (Math.cos(f.angle) < -0.22) { f.flip = -1; } else if (Math.cos(f.angle) > 0.22) { f.flip = 1; }
-          var tiltTarget = Math.max(-9, Math.min(9, Math.sin(f.angle) * 9 * f.flip));
+          if (!f.motion || f.motion.flipH !== false) {
+            if (Math.cos(f.angle) < -0.22) { f.flip = -1; } else if (Math.cos(f.angle) > 0.22) { f.flip = 1; }
+          }
+          var tiltMax = (f.motion && f.motion.tilt) || 9;
+          var tiltTarget = Math.max(-tiltMax, Math.min(tiltMax, Math.sin(f.angle) * tiltMax * f.flip));
           f.tilt += (tiltTarget - f.tilt) * Math.min(1, dt * 5);
+          var bobPx = f.motion ? Math.sin(f.bobPhase) * f.motion.bobA * refK : 0;
           f.el.style.left = (f.nx * W) + 'px';
-          f.el.style.top = (f.ny * H) + 'px';
+          f.el.style.top = (f.ny * H + bobPx) + 'px';
           f.el.style.transform = 'translate(-50%,-50%) rotate(' + (f.tilt * f.flip).toFixed(2) + 'deg) scaleX(' + f.flip + ')';
         });
         if (now - fadeTick > 120) {
