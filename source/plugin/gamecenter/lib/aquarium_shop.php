@@ -111,6 +111,7 @@ final class gamecenter_aquarium_shop {
 
     /** 卖鱼：一次只卖一个鱼种指定条数，数量上限在服务端再算一次。 */
     public static function sell(array $s, string $fid, int $qty, array $c, int $now): array {
+        if(gamecenter_aquarium_configs::sellHardOff()) { return [$s, 'closed']; }   // 兼容关闭版：售卖恒关
         if(!empty($s['inventory_anomaly'])) { return [$s, 'condition']; }
         if(!isset($s['fish'][$fid])) { return [$s, 'target']; }
         if($qty < 1) { return [$s, 'input']; }

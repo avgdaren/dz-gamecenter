@@ -33,6 +33,13 @@ final class gamecenter_aquarium_configs {
 
     public static function versions(): array { return [self::FOUNDATION, self::CONTENT, self::CONTENT_V2]; }
 
+    /** 硬关闭：兼容关闭版在插件目录放 SELL_HARD_OFF，此时无论 sale-switch.json 写什么都不可售。 */
+    public static function sellHardOff(): bool {
+        static $v = null;
+        if($v === null) { $v = is_file(__DIR__.'/../games/aquarium/data/SELL_HARD_OFF'); }
+        return $v;
+    }
+
     /** 售卖开关：off / allowlist / all。缺失或读取失败一律按 off（关闭）。 */
     public static function saleSwitch(): array {
         static $cache=null;
@@ -50,6 +57,7 @@ final class gamecenter_aquarium_configs {
 
     /** 该账号此刻能否售卖。 */
     public static function saleAllowed(int $uid): bool {
+        if(self::sellHardOff()) { return false; }   // 兼容关闭版：无论 mode 写什么都不可售
         $s=self::saleSwitch();
         if($s['mode']==='all') { return true; }
         if($s['mode']==='allowlist') { return in_array($uid, $s['uids'], true); }
