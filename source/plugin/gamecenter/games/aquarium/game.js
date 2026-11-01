@@ -36,6 +36,30 @@
     var feed = null;
     var FEED_MAX_FISH = 4;
     var FEED_DURATION = 9000;
+    var FEED_ASSETS = ASSETS + 'feeding/v1/';
+    var FEED_PELLETS = ['pellet_01.webp', 'pellet_02.webp', 'pellet_03.webp'];
+    var FEED_SOUNDS = ['eat_01', 'eat_02', 'eat_03'];
+    var FEED_VOLUME = 0.45;
+    var FEED_SOUND_GAP = 140;      // 全局最短触发间隔
+    var FEED_MAX_VOICES = 2;
+    var feedGen = 0;
+    var feedVoices = 0;
+    var feedLastSound = 0;
+    var feedEatIndex = -1;
+    function playEatSfx() {
+      if (!sound.sfx) { return; }
+      var now = performance.now();
+      if (now - feedLastSound < FEED_SOUND_GAP) { return; }   // 超限就跳过，不补播
+      if (feedVoices >= FEED_MAX_VOICES) { return; }
+      feedLastSound = now;
+      var idx = (feedEatIndex + 1 + Math.floor(Math.random() * (FEED_SOUNDS.length - 1))) % FEED_SOUNDS.length;
+      feedEatIndex = idx;
+      var a = new Audio(FEED_ASSETS + FEED_SOUNDS[idx] + pickExt());
+      a.volume = FEED_VOLUME;
+      feedVoices++;
+      a.addEventListener('ended', function () { feedVoices = Math.max(0, feedVoices - 1); a.remove(); });
+      a.play().catch(function () { feedVoices = Math.max(0, feedVoices - 1); });
+    }
     var lastFrame = 0, fadeTick = 0, stageBox = { left: 0, top: 0 };
     // 音效默认开（点击后才发声，符合浏览器自动播放策略）；音乐默认关，避免突然出声
     var sound = { music: false, sfx: true, bgm: null, lastSelect: 0, lastCoin: 0, playing: [] };
@@ -311,44 +335,64 @@
       if (!dom || !feedLayer) { return; }
       var shown = Object.keys(fishBySlot);
       if (!shown.length) { note = '先放一条鱼进缸，再喂它们'; paint(); return; }
-      clearFeed(true);
+      clearFeed(false);
+      feedGen++;
 
-      for (var i = 0; i < 6; i++) {
-        var dot = el('span', 'aq-food');
-        var ang = Math.random() * Math.PI * 2, rad = Math.random() * 26;
-        dot.style.left = (x + Math.cos(ang) * rad) + 'px';
-        dot.style.top = (y + Math.sin(ang) * rad * 0.7) + 'px';
-        dot.style.animationDelay = (i * 60) + 'ms';
-        feedLayer.appendChild(dot);
-      }
-
-      // 最近的最多 4 条：按屏幕距离排序
       var tank = dom.tank.getBoundingClientRect();
       var W = tank.width, H = tank.height;
+
+      // 6 粒饲料，围绕点击点散开；边上点击时向内收，避免出手
+      var pellets = [];
+      for (var i = 0; i < 6; i++) {
+        var ang = (Math.PI * 2 / 6) * i + Math.random() * 0.5;
+        var rad = 8 + Math.random() * 20;
+        var px = Math.min(W - 10, Math.max(10, x + Math.cos(ang) * rad));
+        var py = Math.min(H - 10, Math.max(10, y + Math.sin(ang) * rad * 0.8));
+        var dot = el('span', 'aq-food');
+        dot.style.backgroundImage = 'url("' + FEED_ASSETS + FEED_PELLETS[i % FEED_PELLETS.length] + '")';
+        dot.style.left = px + 'px';
+        dot.style.top = py + 'px';
+        dot.style.animationDelay = (i * 50) + 'ms';
+        feedLayer.appendChild(dot);
+        pellets.push({ id: i, x: px, y: py, el: dot, consumed: false });
+      }
+
+      // 最近的 4 条，且必须真的够得着（超过 0.9 个缸宽的不响应）
       var picked = shown.map(function (k) {
         var f = fishBySlot[k];
         var dx = f.nx * W - x, dy = f.ny * H - y;
-        return { slot: Number(k), d: dx * dx + dy * dy };
-      }).sort(function (a, b) { return a.d - b.d; }).slice(0, FEED_MAX_FISH);
+        return { slot: Number(k), d: Math.sqrt(dx * dx + dy * dy) };
+      }).filter(function (o) { return o.d < W * 0.9; })
+        .sort(function (a, b) { return a.d - b.d; })
+        .slice(0, FEED_MAX_FISH);
 
-      var ids = [];
-      picked.forEach(function (item) {
+      var eaters = [];
+      picked.forEach(function (item, idx) {
         var f = fishBySlot[item.slot];
         if (!f) { return; }
-        f.feedX = x; f.feedY = y;
-        f.feedArrived = performance.now() + 1200 + Math.random() * 900;
-        ids.push(item.slot);
+        // 每鱼认领一粒；数量不够就重复分配但会先被吃掉、自然错开
+        var pellet = pellets[idx % pellets.length];
+        // 停靠位：围绕食物点错开，避免所有鱼挤在同一坐标
+        var parkAng = (Math.PI * 2 / Math.max(1, picked.length)) * idx;
+        var parkX = Math.min(W - 30, Math.max(30, x + Math.cos(parkAng) * 46));
+        var parkY = Math.min(H - 30, Math.max(30, y + Math.sin(parkAng) * 30));
+        f.feedPellet = pellet;
+        f.feedX = pellet.x; f.feedY = pellet.y;
+        f.parkX = parkX; f.parkY = parkY;
+        f.feedArrived = 0;
+        eaters.push(item.slot);
       });
-      feed = { x: x, y: y, until: performance.now() + FEED_DURATION, fish: ids };
+      feed = { gen: feedGen, x: x, y: y, until: performance.now() + FEED_DURATION, pellets: pellets, fish: eaters };
       playSfx('select');
     }
 
     function clearFeed(keepFood) {
       Object.keys(fishBySlot).forEach(function (k) {
         var f = fishBySlot[k];
-        if (f) { f.feedX = null; f.feedY = null; f.feedArrived = 0; }
+        if (f) { f.feedX = null; f.feedY = null; f.feedPellet = null; f.parkX = null; f.parkY = null; f.feedArrived = 0; }
       });
       feed = null;
+      feedVoices = 0;
       if (!keepFood && feedLayer) {
         while (feedLayer.firstChild) { feedLayer.removeChild(feedLayer.firstChild); }
       }
@@ -1055,17 +1099,34 @@
           if (!W || !H) { return; }
           var cruise = f.cruiseF * W;
           if (!isFinite(f.speed)) { f.speed = cruise * 0.8; }
-          // 喂养：朝食物点游过去，到达后停留，不参与随机转向
+          // 喂养：先游向自己认领的那粒饲料，吃到后去自己的停靠位
           if (f.feedX !== null && f.feedX !== undefined) {
-            var fdx = f.feedX - f.nx * W, fdy = f.feedY - f.ny * H;
+            var targetX = f.feedX, targetY = f.feedY;
+            var pellet = f.feedPellet;
+            if (pellet && pellet.consumed) {
+              // 自己那粒被吃掉了 → 改去停靠位，避免所有鱼挤在食物点
+              targetX = f.parkX !== null ? f.parkX : f.feedX;
+              targetY = f.parkY !== null ? f.parkY : f.feedY;
+            }
+            var fdx = targetX - f.nx * W, fdy = targetY - f.ny * H;
             var dist = Math.sqrt(fdx * fdx + fdy * fdy);
-            if (dist > 16) {
+            if (dist > 14) {
               var want = Math.atan2(fdy / H, fdx / W);
               f.angle = want; f.target = want;
               f.cruiseF = 0.05; f.pause = 0;
               f.nextTurn = now + 800;
-            } else if (now > f.feedArrived) {
-              f.cruiseF = 0.006; f.pause = now + 400;
+            } else {
+              f.cruiseF = 0.006; f.pause = now + 500;
+              // 到达自己那粒且还没被吃 → 确认消费（只触发一次）
+              if (pellet && !pellet.consumed && dist <= 14) {
+                pellet.consumed = true;
+                if (pellet.el) {
+                  pellet.el.classList.add('eaten');
+                  var dead = pellet.el;
+                  setTimeout(function () { if (dead.parentNode) { dead.parentNode.removeChild(dead); } }, 180);
+                }
+                playEatSfx();
+              }
             }
           } else if (now > f.nextTurn) {
             f.target = f.angle + (Math.random() - 0.5) * 1.6;
