@@ -341,18 +341,22 @@
       var tank = dom.tank.getBoundingClientRect();
       var W = tank.width, H = tank.height;
 
-      // 6 粒饲料，围绕点击点散开；边上点击时向内收，避免出手
+      // 6 粒饲料横向撒开一片（宽 ±90 / 高 ±45），粒子之间保留最小间距
       var pellets = [];
+      var placed = [];
       for (var i = 0; i < 6; i++) {
-        var ang = (Math.PI * 2 / 6) * i + Math.random() * 0.5;
-        var rad = 8 + Math.random() * 20;
-        var px = Math.min(W - 10, Math.max(10, x + Math.cos(ang) * rad));
-        var py = Math.min(H - 10, Math.max(10, y + Math.sin(ang) * rad * 0.8));
+        var px = 0, py = 0, tries = 0;
+        do {
+          px = Math.min(W - 14, Math.max(14, x + (Math.random() * 2 - 1) * 90));
+          py = Math.min(H - 14, Math.max(14, y + (Math.random() * 2 - 1) * 45));
+          tries++;
+        } while (tries < 24 && placed.some(function (q) { return Math.hypot(q.x - px, q.y - py) < 26; }));
+        placed.push({ x: px, y: py });
         var dot = el('span', 'aq-food');
         dot.style.backgroundImage = 'url("' + FEED_ASSETS + FEED_PELLETS[i % FEED_PELLETS.length] + '")';
         dot.style.left = px + 'px';
         dot.style.top = py + 'px';
-        dot.style.animationDelay = (i * 50) + 'ms';
+        dot.style.animationDelay = (i * 90 + Math.round(Math.random() * 60)) + 'ms';
         feedLayer.appendChild(dot);
         pellets.push({ id: i, x: px, y: py, el: dot, consumed: false });
       }
@@ -374,8 +378,8 @@
         var pellet = pellets[idx % pellets.length];
         // 停靠位：围绕食物点错开，避免所有鱼挤在同一坐标
         var parkAng = (Math.PI * 2 / Math.max(1, picked.length)) * idx;
-        var parkX = Math.min(W - 30, Math.max(30, x + Math.cos(parkAng) * 46));
-        var parkY = Math.min(H - 30, Math.max(30, y + Math.sin(parkAng) * 30));
+        var parkX = Math.min(W - 30, Math.max(30, x + Math.cos(parkAng) * 72));
+        var parkY = Math.min(H - 30, Math.max(30, y + Math.sin(parkAng) * 42));
         f.feedPellet = pellet;
         f.feedX = pellet.x; f.feedY = pellet.y;
         f.parkX = parkX; f.parkY = parkY;
