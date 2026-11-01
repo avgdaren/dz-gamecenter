@@ -35,7 +35,8 @@
     // 当前这一场投喂：{x,y,until,fish:[slot...]}；全局单场，重复点击直接替换
     var feed = null;
     var FEED_MAX_FISH = 4;
-    var FEED_DURATION = 9000;
+    var FEED_MAX_PELLETS = 8;      // 场上最多同时存在几粒（一次点击只撒一粒）
+    var FEED_IDLE_CLEAR = 4000;    // 全被吃掉后再过多久清场
     var FEED_ASSETS = ASSETS + 'feeding/v1/';
     var FEED_PELLETS = ['pellet_01.webp', 'pellet_02.webp', 'pellet_03.webp'];
     var FEED_SOUNDS = ['eat_01', 'eat_02', 'eat_03'];
@@ -331,62 +332,64 @@
       var dead = rec.el;
       setTimeout(function () { dead.remove(); }, 320);
     }
+    // 一次点击 = 撒一粒。想多喂就多点几下；场上最多同时存在 FEED_MAX_PELLETS 粒。
     function dropFeed(x, y) {
       if (!dom || !feedLayer) { return; }
       var shown = Object.keys(fishBySlot);
       if (!shown.length) { note = '先放一条鱼进缸，再喂它们'; paint(); return; }
-      clearFeed(false);
-      feedGen++;
 
       var tank = dom.tank.getBoundingClientRect();
       var W = tank.width, H = tank.height;
 
-      // 6 粒饲料横向撒开一片（宽 ±90 / 高 ±45），粒子之间保留最小间距
-      var pellets = [];
-      var placed = [];
-      for (var i = 0; i < 6; i++) {
-        var px = 0, py = 0, tries = 0;
-        do {
-          px = Math.min(W - 14, Math.max(14, x + (Math.random() * 2 - 1) * 90));
-          py = Math.min(H - 14, Math.max(14, y + (Math.random() * 2 - 1) * 45));
-          tries++;
-        } while (tries < 24 && placed.some(function (q) { return Math.hypot(q.x - px, q.y - py) < 26; }));
-        placed.push({ x: px, y: py });
-        var dot = el('span', 'aq-food');
-        dot.style.backgroundImage = 'url("' + FEED_ASSETS + FEED_PELLETS[i % FEED_PELLETS.length] + '")';
-        dot.style.left = px + 'px';
-        dot.style.top = py + 'px';
-        dot.style.animationDelay = (i * 90 + Math.round(Math.random() * 60)) + 'ms';
-        feedLayer.appendChild(dot);
-        pellets.push({ id: i, x: px, y: py, el: dot, consumed: false });
+      if (!feed) {
+        feed = { pellets: [], lastAt: 0, emptyAt: 0 };
+      }
+      // 场上粒子到顶就不再撒（不会一次性倒一堆，也不清掉已有的）
+      var alive = feed.pellets.filter(function (q) { return !q.consumed; });
+      if (alive.length >= FEED_MAX_PELLETS) {
+        note = '缸里已经有 ' + FEED_MAX_PELLETS + ' 粒了，等它们吃完再喂';
+        paint();
+        setTimeout(function () { note = ''; paint(); }, 1600);
+        return;
       }
 
-      // 最近的 4 条，且必须真的够得着（超过 0.9 个缸宽的不响应）
-      var picked = shown.map(function (k) {
-        var f = fishBySlot[k];
-        var dx = f.nx * W - x, dy = f.ny * H - y;
-        return { slot: Number(k), d: Math.sqrt(dx * dx + dy * dy) };
-      }).filter(function (o) { return o.d < W * 0.9; })
-        .sort(function (a, b) { return a.d - b.d; })
-        .slice(0, FEED_MAX_FISH);
+      var px = Math.min(W - 14, Math.max(14, x + (Math.random() * 2 - 1) * 10));
+      var py = Math.min(H - 14, Math.max(14, y + (Math.random() * 2 - 1) * 8));
+      var dot = el('span', 'aq-food');
+      dot.style.backgroundImage = 'url("' + FEED_ASSETS + FEED_PELLETS[feed.pellets.length % FEED_PELLETS.length] + '")';
+      dot.style.left = px + 'px';
+      dot.style.top = py + 'px';
+      feedLayer.appendChild(dot);
+      var pellet = { id: feed.pellets.length, x: px, y: py, el: dot, consumed: false, claimedBy: null };
+      feed.pellets.push(pellet);
+      feed.lastAt = performance.now();
+      feed.emptyAt = 0;
 
-      var eaters = [];
-      picked.forEach(function (item, idx) {
-        var f = fishBySlot[item.slot];
-        if (!f) { return; }
-        // 每鱼认领一粒；数量不够就重复分配但会先被吃掉、自然错开
-        var pellet = pellets[idx % pellets.length];
-        // 停靠位：围绕食物点错开，避免所有鱼挤在同一坐标
-        var parkAng = (Math.PI * 2 / Math.max(1, picked.length)) * idx;
-        var parkX = Math.min(W - 30, Math.max(30, x + Math.cos(parkAng) * 72));
-        var parkY = Math.min(H - 30, Math.max(30, y + Math.sin(parkAng) * 42));
-        f.feedPellet = pellet;
-        f.feedX = pellet.x; f.feedY = pellet.y;
-        f.parkX = parkX; f.parkY = parkY;
-        f.feedArrived = 0;
-        eaters.push(item.slot);
+      // 挑一条「目前没在吃」且够得着的鱼来接这一粒
+      var busy = {};
+      Object.keys(fishBySlot).forEach(function (k) {
+        var f = fishBySlot[k];
+        if (f && f.feedPellet && !f.feedPellet.consumed) { busy[k] = true; }
       });
-      feed = { gen: feedGen, x: x, y: y, until: performance.now() + FEED_DURATION, pellets: pellets, fish: eaters };
+      var cand = null, best = Infinity;
+      shown.forEach(function (k) {
+        if (busy[k]) { return; }
+        var f = fishBySlot[k];
+        if (!f) { return; }
+        var d = Math.hypot(f.nx * W - px, f.ny * H - py);
+        if (d < W * 0.9 && d < best) { best = d; cand = Number(k); }
+      });
+      if (cand !== null) {
+        var fish = fishBySlot[cand];
+        fish.feedPellet = pellet;
+        fish.feedX = px; fish.feedY = py;
+        // 停靠位：略偏离这粒，避免吃完还压在饲料点上
+        var ang = Math.random() * Math.PI * 2;
+        fish.parkX = Math.min(W - 30, Math.max(30, px + Math.cos(ang) * 54));
+        fish.parkY = Math.min(H - 30, Math.max(30, py + Math.sin(ang) * 34));
+        fish.feedArrived = 0;
+        pellet.claimedBy = cand;
+      }
       playSfx('select');
     }
 
@@ -740,7 +743,7 @@
         ['怎么放装饰', '切到「装饰」页，点一件装饰就直接摆进缸里；再点一次、或者点缸里那件装饰，就是收起来。每层（后景/前景）最多 3 件。装饰按透视自动定位，前景挡住鱼时会自动变淡，鱼不会凭空消失。'],
         ['布景预设', '「装饰」页最下面的「布景」是整套方案：点一下就把缸里的装饰换成这一套、顺带换背景，不用一件件摆；缺的装饰会被跳过并提示。旁边还有「清空装饰」。'],
         ['钓点与扩容', '在池塘发现足够多种鱼后可以解锁浅湾，那里的鱼更值钱。右侧状态栏能看到下一个钓点的解锁条件和花费。'],
-        ['喂鱼', '直接点鱼缸里的空白水面就行，会撒下几粒饲料，离得最近的 4 条鱼会游过来吃，吃完自然散开。点鱼身上还是「收起这条鱼」，两种操作分开。喂鱼不花金币、不产生金币，纯看着玩。'],
+        ['喂鱼', '点一下鱼缸里的空白水面＝撒一粒饲料，想多喂就多点几下；一次最多放 8 粒，吃完再喂。哪条鱼离得近，哪条就来吃，吃完会散开。点鱼身上还是「收起这条鱼」，两种操作分开。喂鱼不花金币、不产生金币，纯看着玩。'],
         ['声音', '音效默认开、音乐默认关；两个按钮在右侧，随时可以关。']
       ];
       tips.forEach(function (row) {
@@ -1096,8 +1099,12 @@
         var r = dom.tank.getBoundingClientRect();
         var W = r.width, H = r.height;
         stageBox = { left: r.left, top: r.top };
-        // 投喂到时统一收场（不依赖某条鱼是否还在追）
-        if (feed && now > feed.until) { clearFeed(false); }
+        // 所有粒子都被吃完、且安静了一段时间，才收场
+        if (feed) {
+          var pending = feed.pellets.some(function (q) { return !q.consumed; });
+          if (!pending && !feed.emptyAt) { feed.emptyAt = now; }
+          if (!pending && feed.emptyAt && now - feed.emptyAt > FEED_IDLE_CLEAR) { clearFeed(false); }
+        }
         Object.keys(fishBySlot).forEach(function (k) {
           var f = fishBySlot[k];
           if (!W || !H) { return; }
