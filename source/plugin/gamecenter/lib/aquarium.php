@@ -25,14 +25,14 @@ final class gamecenter_aquarium {
             'limit'=>'这次数量会让金币超出上限，请分批卖','closed'=>'售卖功能暂未开放'];
         return ['ok'=>$code===''?1:0,'code'=>$code,'msg'=>$code===''?'已同步':($messages[$code]??$messages['busy']),'snapshot'=>$snapshot];
     }
-    private function decode(array $row,int $uid): array {
-        if((int)$row['uid']!==$uid || (int)$row['save_version']!==1 || $row['config_version']!==$this->c['version']
+    private function decode(array $row,int $uid,bool $strictVersion=true): array {
+        if((int)$row['uid']!==$uid || (int)$row['save_version']!==1 || ($strictVersion && $row['config_version']!==$this->c['version'])
             || !ctype_digit((string)$row['version']) || (int)$row['version']<1 || (int)$row['version']>=gamecenter_aquarium_rules::MAX_VALUE
             || strlen($row['state_json'])>131072) { throw new DomainException('state'); }
         $s=json_decode($row['state_json'],true,32,JSON_THROW_ON_ERROR);
         if(!is_array($s) || ($s['uid']??null)!==$uid || ($s['last_settled_ms']??null)!==(int)$row['updated_ms']) { throw new DomainException('state'); }
-        gamecenter_aquarium_rules::validate($s,$this->c);
-        if(isset($this->c['decor'],$this->c['fish_capacities'],$this->c['initial_fish_capacity'])) {
+        if($strictVersion) { gamecenter_aquarium_rules::validate($s,$this->c); }
+        if($strictVersion && isset($this->c['decor'],$this->c['fish_capacities'],$this->c['initial_fish_capacity'])) {
             $s=gamecenter_aquarium_shop::defaults($s,$this->c);
             gamecenter_aquarium_shop::validateState($s,$this->c);
         }
@@ -195,7 +195,35 @@ final class gamecenter_aquarium {
                         'version'=>1,'updated_ms'=>$now];
                     $this->db->insert($row); return $this->result('',$this->snapshot($s,1));
                 }
-                $s=$this->decode($row,$uid); $version=(int)$row['version'];
+                // 先宽容解码（版本可能落后），迁移后再严格校验
+                $s=$this->decode($row,$uid,false); $version=(int)$row['version'];
+
+                // 配置版本落后于当前 ACTIVE_CONFIG：在同一个事务里做一次池切换
+                // （旧配置结算到本次 now，再改标识；不额外结算、不重开 24h 预算）
+                if(($s['config_version'] ?? '') !== $this->c['version']) {
+                    require_once __DIR__.'/aquarium_migrate.php';
+                    try {
+                        $src = gamecenter_aquarium_configs::for_version((string)$s['config_version']);
+                        $mig = new gamecenter_aquarium_migrate($this->db, $src, $this->c);
+                        if($mig->sameIds()) {
+                            $sw = gamecenter_aquarium_migrate::switchPool($s, $src, $this->c, $now);
+                            if($sw['changed']) {
+                                $s = $sw['save'];
+                                $version++;
+                                $row['version']=$version;
+                                $this->db->save_versioned([
+                                    'uid'=>$uid,'save_version'=>1,'config_version'=>$s['config_version'],
+                                    'state_json'=>json_encode($s,JSON_THROW_ON_ERROR),
+                                    'version'=>$version,'updated_ms'=>$s['last_settled_ms'],
+                                ]);
+                            }
+                        } else {
+                            return $this->result('config');   // 需要 CLI 映射的跨命名迁移，不在网页里做
+                        }
+                    } catch(Throwable $e) {
+                        return $this->result('config');
+                    }
+                }
                 if($action==='init') { return $this->result('',$this->snapshot($s,$version)); }
                 if(!empty($s['inventory_anomaly'])) {
                     // 库存异常账号：只读隔离。不结算、不购物、不布景、不售卖、不写原档。

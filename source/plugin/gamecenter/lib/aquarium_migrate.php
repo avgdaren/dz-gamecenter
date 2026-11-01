@@ -218,4 +218,25 @@ final class gamecenter_aquarium_migrate {
         }
         return $n;
     }
+
+
+    /**
+     * 纯计算版池切换（控制器在事务内调用）：
+     * 源配置结算到 now → 只改配置标识 → 目标配置校验。
+     * 不做 ID 映射（调用方须先确认 sameIds）。
+     */
+    public static function switchPool(array $s, array $cOld, array $cNew, int $now): array {
+        if(($s['config_version'] ?? '') === $cNew['version']) { return ['save'=>$s,'catches'=>[],'changed'=>false]; }
+        if(($s['config_version'] ?? '') !== $cOld['version']) { throw new DomainException('migrate-source'); }
+        if(($s['pool_hash'] ?? '') !== $cOld['pool_hash'] || ($s['config_hash'] ?? '') !== $cOld['config_hash']) { throw new DomainException('migrate-hash'); }
+        if($now < (int)$s['last_settled_ms']) { throw new DomainException('clock-back'); }
+
+        $r = gamecenter_aquarium_rules::settle($s, $now, $cOld);
+        $next = $r['save'];
+        $next['config_version'] = $cNew['version'];
+        $next['pool_hash'] = $cNew['pool_hash'];
+        $next['config_hash'] = $cNew['config_hash'];
+        gamecenter_aquarium_rules::validate($next, $cNew);
+        return ['save'=>$next,'catches'=>$r['catches'],'changed'=>true];
+    }
 }
