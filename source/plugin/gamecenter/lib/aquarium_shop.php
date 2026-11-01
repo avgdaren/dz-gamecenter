@@ -114,7 +114,10 @@ final class gamecenter_aquarium_shop {
         if(!empty($s['inventory_anomaly'])) { return [$s, 'condition']; }
         if(!isset($s['fish'][$fid])) { return [$s, 'target']; }
         if($qty < 1) { return [$s, 'input']; }
-        if(isset($c['fish'][$fid]['lifetime_cap'])) { return [$s, 'condition']; }
+        // 限量物种禁止售卖：上限在 waters[water].fish[fid] 上，不在顶层
+        foreach(($c['waters'] ?? []) as $w) {
+            if(isset($w['fish'][$fid]['lifetime_cap'])) { return [$s, 'condition']; }
+        }
         $max = self::sellable($s, $fid);
         if($qty > $max) { return [$s, 'condition']; }
         require_once __DIR__.'/aquarium_content.php';

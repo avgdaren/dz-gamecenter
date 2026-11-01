@@ -27,7 +27,14 @@ final class gamecenter_aquarium_rules {
             foreach($w['fish'] as $fid=>$f) {
                 if(!self::id($fid) || isset($ids[$fid]) || !is_array($f) || !self::number($f['weight'] ?? null,1,2147483648)
                     || !self::number($f['coins'] ?? null,0,1000000)) { throw new DomainException('config'); }
-                $ids[$fid]=true; $sum+=$f['weight']; $canonical.=$wid."\t".$fid."\t".$f['weight']."\n";
+                // 终身收集上限（可选）：必须同时出现在 waters[water].fish[fid]
+                $cap = '';
+                if(array_key_exists('lifetime_cap', $f)) {
+                    if(!self::number($f['lifetime_cap'],1,100)) { throw new DomainException('config'); }
+                    $cap = '#' . (int)$f['lifetime_cap'];
+                }
+                $ids[$fid]=true; $sum+=$f['weight'];
+                $canonical.=$wid."\t".$fid."\t".$f['weight'].$cap."\n";
             }
             if($sum>2147483648) { throw new DomainException('config'); }
         }
@@ -100,8 +107,16 @@ final class gamecenter_aquarium_rules {
         $d=$c['periods_ms'][$s['rod_level']]; $old=$s['progress_ms'];
         $k=intdiv($old+$t,$d); $pool=$c['waters'][$s['current_water']]['fish']; $wid=$s['current_water']; $catches=[];
         for($i=0;$i<$k;$i++) {
-            $missing=array_diff_key($pool,$s['fish']);
-            $eligible=($missing && $s['no_new_count'][$wid]>=80) ? $missing : $pool;
+            // A = 当前水域所有鱼里，剔除已达到终身上限的物种
+            $open=[];
+            foreach($pool as $fid=>$f) {
+                $cap=isset($f['lifetime_cap']) ? (int)$f['lifetime_cap'] : null;
+                if($cap!==null && isset($s['fish'][$fid]) && (int)$s['fish'][$fid]['catch_count']>=$cap) { continue; }
+                $open[$fid]=$f;
+            }
+            if(!$open) { throw new DomainException('pool-empty'); }   // 旧 6 种无限，正常不会走到
+            $missing=array_diff_key($open,$s['fish']);                // M：A 里尚未发现
+            $eligible=($missing && $s['no_new_count'][$wid]>=80) ? $missing : $open;
             $sum=array_sum(array_column($eligible,'weight'));
             $s['catch_seq']++; $fid=self::pick($eligible,self::ticket($s['seed_hex'],$s['uid'],$s['catch_seq'],$sum));
             $at=$l+($d-$old)+$i*$d; $isNew=!isset($s['fish'][$fid]); $coins=$pool[$fid]['coins'];
@@ -112,7 +127,9 @@ final class gamecenter_aquarium_rules {
             if(!isset($s['fish'][$fid]['owned_count'])) { throw new DomainException('stock-not-ready'); }
             $s['fish'][$fid]['owned_count']++;
             $s['coins']+=$coins;
-            $s['no_new_count'][$wid]=$isNew ? 0 : ($missing ? min(80,$s['no_new_count'][$wid]+1) : $s['no_new_count'][$wid]);
+            // 发现新种归 0；A 里仍有未发现却本次没抽到 → +1 封顶 80；A 已无未发现 → 归 0
+            if($isNew) { $s['no_new_count'][$wid]=0; }
+            else { $s['no_new_count'][$wid]=$missing ? min(80,$s['no_new_count'][$wid]+1) : 0; }
             $catches[]=['fish_id'=>$fid,'coins'=>$coins,'is_new'=>$isNew,'caught_ms'=>$at];
         }
         $s['progress_ms']=($old+$t)%$d; $s['last_settled_ms']=max($l,$now);

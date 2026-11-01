@@ -7,6 +7,7 @@ require_once __DIR__.'/aquarium_content.php';
 final class gamecenter_aquarium_configs {
     const FOUNDATION='aquarium-foundation-v1';
     const CONTENT='aquarium-content-candidate-v1';
+    const CONTENT_V2='aquarium-content-v2-candidate-v1';
 
     /**
      * 当前对外服务的配置版本。
@@ -24,12 +25,13 @@ final class gamecenter_aquarium_configs {
     public static function for_version(string $v): array {
         if($v===self::FOUNDATION) { return gamecenter_aquarium_config::load(); }
         if($v===self::CONTENT) { return gamecenter_aquarium_content::rules_config(); }
+        if($v===self::CONTENT_V2) { return gamecenter_aquarium_content::rules_config_v2(); }
         throw new DomainException('config');
     }
 
     public static function active(): array { return self::for_version(self::active_version()); }
 
-    public static function versions(): array { return [self::FOUNDATION, self::CONTENT]; }
+    public static function versions(): array { return [self::FOUNDATION, self::CONTENT, self::CONTENT_V2]; }
 
     /** 售卖开关：off / allowlist / all。缺失或读取失败一律按 off（关闭）。 */
     public static function saleSwitch(): array {

@@ -44,6 +44,67 @@ final class gamecenter_aquarium_content {
         $d['config']=$c;self::$data=$d;return $d;
     }
     public static function rules_config(): array { return self::load()['config']; }
+
+    /* ---------------- v2：16 种（含 4 种终身上限 3 条） ---------------- */
+    const V2_FILE='content-v2-candidate.json';
+    const V2_HASH='9c34cb6d242998890314e758b00a0d3a1f57a49a5395e0f1f603af34745ebfb5';
+    const V2_VERSION='aquarium-content-v2-candidate-v1';
+    const V2_LIMITED=['pond_curl_seahorse','pond_bell_jelly','bay_moon_mermaid','bay_gummy_octopus'];
+    private static ?array $v2=null;
+
+    private static function loadV2(): array {
+        if(self::$v2!==null) { return self::$v2; }
+        $raw=file_get_contents(__DIR__.'/../games/aquarium/data/'.self::V2_FILE);
+        if(!is_string($raw) || strlen($raw)>262144 || !hash_equals(self::V2_HASH,hash('sha256',$raw))) { throw new DomainException('content-v2'); }
+        $d=json_decode($raw,true,64,JSON_THROW_ON_ERROR);
+        if(($d['status']??null)!=='candidate-not-active') { throw new DomainException('content-v2'); }
+        $c=gamecenter_aquarium_rules::prepare($d['config']);
+        if($c['version']!==self::V2_VERSION || $c['cap_ms']!==86400000 || count($d['fish'])!==16 || count($d['decor'])!==24
+            || $c['fish_capacities']!==[4,8,12] || $c['fish_capacity_costs']!==[0,800,3000] || $c['initial_fish_capacity']!==4) { throw new DomainException('content-v2'); }
+
+        $all=[];
+        foreach($c['waters'] as $wid=>$w) {
+            if(count($w['fish'])!==8 || !isset($d['waters'][$wid])) { throw new DomainException('content-v2'); }
+            foreach($w['fish'] as $fid=>$f) { $all[$fid]=$wid; }
+        }
+        if(count($all)!==16 || array_diff_key($all,$d['fish']) || array_diff_key($d['fish'],$all)) { throw new DomainException('content-v2'); }
+
+        // 终身上限：必须在 waters[water].fish[fid] 上，且只允许 4 种新鱼
+        $limited=[];
+        foreach($c['waters'] as $wid=>$w) {
+            foreach($w['fish'] as $fid=>$f) {
+                if(isset($f['lifetime_cap'])) { $limited[]=$fid; if(!in_array($fid,self::V2_LIMITED,true)) { throw new DomainException('content-v2-cap'); } }
+            }
+        }
+        sort($limited);
+        $expect=self::V2_LIMITED; sort($expect);
+        if($limited!==$expect) { throw new DomainException('content-v2-cap'); }
+
+        // 旧 12 种 ID / index / 品级 不得变动
+        $v1=self::load();
+        foreach($v1['fish'] as $id=>$m) {
+            if(!isset($d['fish'][$id])) { throw new DomainException('content-v2-legacy'); }
+            if((int)$d['fish'][$id]['index']!==(int)$m['index']) { throw new DomainException('content-v2-index'); }
+            if($d['fish'][$id]['water']!==$m['water'] || $d['fish'][$id]['rarity']!==$m['rarity']) { throw new DomainException('content-v2-meta'); }
+        }
+        // 索引 1..16 连续
+        $idx=[]; foreach($d['fish'] as $m) { $idx[]=(int)($m['index']??0); }
+        sort($idx,SORT_NUMERIC);
+        if($idx!==range(1,16)) { throw new DomainException('content-v2-index'); }
+
+        $d['config']=$c; self::$v2=$d; return $d;
+    }
+
+    public static function rules_config_v2(): array { return self::loadV2()['config']; }
+
+    public static function catalog_v2(): array {
+        $d=self::loadV2(); $c=$d['config']; $fish=[]; $decor=[];
+        foreach($d['fish'] as $id=>$m) { $fish[]=array_merge(['id'=>$id],$m,$c['waters'][$m['water']]['fish'][$id]); }
+        foreach($d['decor'] as $id=>$m) { $decor[]=array_merge(['id'=>$id],$m,$c['decor'][$id]); }
+        usort($fish,static fn($a,$b)=>$a['index']<=>$b['index']); usort($decor,static fn($a,$b)=>$a['index']<=>$b['index']);
+        return ['version'=>$c['version'],'status'=>'candidate-not-active','fish'=>$fish,'decor'=>$decor,'water_names'=>$d['waters'],
+            'cap_ms'=>$c['cap_ms'],'fish_capacities'=>$c['fish_capacities'],'fish_capacity_costs'=>$c['fish_capacity_costs']];
+    }
     /** 无私有随机信息；价格/权重只从同一规则配置投影，图鉴按显式index排序。 */
     public static function catalog(): array {
         $d=self::load();$c=$d['config'];$fish=[];$decor=[];
