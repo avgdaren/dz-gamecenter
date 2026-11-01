@@ -325,7 +325,9 @@
     function mountSprite(host, id) {
       var meta = MOTION[id];
       if (!meta || !window.AquariumFishSprites) {
-        host.innerHTML = '<img src="' + ASSETS + 'fish/' + id + '.webp" alt="">';
+        host.innerHTML = '<img src="' + ASSETS + 'fish/' + id + '.webp" alt="" data-aq-fallback="1">';
+        var im = host.querySelector('img');
+        if (im) { im.onerror = function () { host.classList.add('aq-fish-missing'); im.style.visibility = 'hidden'; }; }
         return null;
       }
       return window.AquariumFishSprites.mount(host, {
@@ -333,7 +335,9 @@
         fallbackUrl: ASSETS + 'fish/' + id + '.webp',
         size: meta.frame_size[0], columns: meta.grid[0], frames: meta.frame_count,
         cycleMs: meta.cycle_ms,
-        onError: function () { host.innerHTML = '<img src="' + ASSETS + 'fish/' + id + '.webp" alt="">'; }
+        onError: function () { host.innerHTML = '<img src="' + ASSETS + 'fish/' + id + '.webp" alt="" data-aq-fallback="1">';
+        var im = host.querySelector('img');
+        if (im) { im.onerror = function () { host.classList.add('aq-fish-missing'); im.style.visibility = 'hidden'; }; } }
       });
     }
     function createFish(id, slot) {
@@ -835,6 +839,11 @@
           var img = el('img');
           img.src = ASSETS + 'thumbs/fish/' + f.id + '.webp?v=' + version();
           img.alt = f.discovered ? f.name : '未发现';
+          // 新物种美术可能还没交付：缺图时不要显示裂图，改成占位块
+          img.onerror = function () {
+            img.style.display = 'none';
+            pic.classList.add('is-missing');
+          };
           img.loading = 'lazy'; img.decoding = 'async';
           if (!f.discovered) { img.className = 'aq-silhouette'; }
           pic.appendChild(img); card.appendChild(pic);

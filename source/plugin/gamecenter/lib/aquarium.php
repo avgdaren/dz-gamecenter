@@ -16,6 +16,12 @@ final class gamecenter_aquarium {
         $this->clock=$clock ?? static fn()=>(int)floor(microtime(true)*1000);
         $this->c=$config===null ? gamecenter_aquarium_configs::active() : gamecenter_aquarium_rules::prepare($config);
     }
+    /** 诊断：把真实异常写到 data/diag.log（不含存档内容，只记消息与 uid） */
+    public static function diag(string $msg, int $uid=0): void {
+        $f = __DIR__.'/../games/aquarium/data/diag.log';
+        @file_put_contents($f, date('c').' uid='.$uid.' '.$msg."\n", FILE_APPEND);
+    }
+
     private function result(string $code='',?array $snapshot=null): array {
         $messages=['login'=>'登录论坛账号后才能建立水族馆','permission'=>'当前用户组暂不能操作水族馆','input'=>'参数不正确',
             'client'=>'请刷新页面后重试','uninitialized'=>'尚未建立测试存档','conflict'=>'状态已更新，请查看最新进度后重新选择',
@@ -273,7 +279,7 @@ final class gamecenter_aquarium {
                 }
                 return $this->result($code,$this->snapshot($next,$version));
             });
-        } catch(DomainException $e) { return $this->result('config'); }
-        catch(Throwable $e) { return $this->result('busy'); }
+        } catch(DomainException $e) { self::diag('request:'.$e->getMessage(), $uid); return $this->result('config'); }
+        catch(Throwable $e) { self::diag('request-throw:'.$e->getMessage(), $uid); return $this->result('busy'); }
     }
 }

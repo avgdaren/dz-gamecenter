@@ -170,3 +170,8 @@
 .aq-card-life { margin-top: 4px; font-size: 12px; color: #b26b1f; }
 .aq-card-hold { margin-top: 2px; font-size: 12px; color: var(--aq-muted); }
 .aq-card-tip { margin-top: 4px; font-size: 12px; color: var(--aq-muted); }
+/* 美术未交付时的占位，不显示裂图 */
+.aq-card-pic.is-missing { position: relative; background: #eef4f8; }
+.aq-card-pic.is-missing::after { content: '待补图'; position: absolute; inset: 0; display: flex;
+  align-items: center; justify-content: center; color: #93a7b6; font-size: 12px; }
+.aq-fish-missing { border-radius: 40% 60% 55% 45%; background: radial-gradient(circle at 40% 35%, #cfe6f5, #9ec6e0); opacity: .5; }
