@@ -72,7 +72,7 @@
     var FEED_ASSETS = ASSETS + 'feeding/v1/';
     var FEED_AUDIO = ASSETS + 'feeding/v2/';
     var FEED_PELLETS = ['pellet_01.webp', 'pellet_02.webp', 'pellet_03.webp'];
-    var FEED_BITES = ['bite_01', 'bite_02', 'bite_03', 'bite_04'];
+    var FEED_BITE_FINAL = 'final-v1/bite_01';   // 用户选定：固定这一声，单次播放
     var FEED_DROPS = ['drop_01', 'drop_02'];
     var FEED_BITE_VOL = 0.45, FEED_DROP_VOL = 0.32;
     var FEED_BITE_GAP = 140;       // 咬合最短间隔
@@ -83,23 +83,23 @@
     var feedBiteIndex = -1, feedDropIndex = -1;
 
     function feedVoiceFree() { return feedVoices < FEED_MAX_VOICES; }
-    function fireFeedSound(name, vol) {
-      var a = new Audio(FEED_AUDIO + name + pickExt());
+    function fireFeedSound(name, vol, isFinal) {
+      var base = isFinal ? (ASSETS + 'feeding/') : FEED_AUDIO;
+      var a = new Audio(base + name + pickExt());
+      a.loop = false;
       a.volume = vol;
       feedVoices++;
       a.addEventListener('ended', function () { feedVoices = Math.max(0, feedVoices - 1); a.remove(); });
       a.play().catch(function () { feedVoices = Math.max(0, feedVoices - 1); });
     }
-    // 咬合：只在本地确认消费后触发，四变体不连续重复
+    // 咬合：每次确认吃到一粒只播这一声，不轮换、不变调、不连播
     function playEatSfx() {
       if (!sound.sfx) { return; }
       var now = performance.now();
       if (now - feedLastBite < FEED_BITE_GAP) { return; }
       if (!feedVoiceFree()) { return; }          // 忙就跳过，不补播
       feedLastBite = now;
-      var idx = (feedBiteIndex + 1 + Math.floor(Math.random() * (FEED_BITES.length - 1))) % FEED_BITES.length;
-      feedBiteIndex = idx;
-      fireFeedSound(FEED_BITES[idx], FEED_BITE_VOL);
+      fireFeedSound(FEED_BITE_FINAL, FEED_BITE_VOL, true);
     }
     // 入水：只有成功创建粒子才响；满 8 粒被拒时不响
     function playDropSfx() {
@@ -349,6 +349,20 @@
         if (im) { im.onerror = function () { host.classList.add('aq-fish-missing'); im.style.visibility = 'hidden'; }; } }
       });
     }
+    /** 清单异步到达后，把此前因为没有 MOTION 记录而退化成静态图的鱼重新挂载 */
+    function remountFishSprites() {
+      if (!dom) { return; }
+      Object.keys(fishBySlot).forEach(function (k) {
+        var f = fishBySlot[k];
+        if (!f || !f.sprite) { return; }          // 已经是播放器
+        var host = f.el.querySelector('.aq-fin');
+        if (!host) { return; }
+        host.innerHTML = '';
+        var player = mountSprite(host, f.id);
+        if (player) { f.sprite = player; }
+      });
+    }
+
     function createFish(id, slot) {
       var box = el('div', 'aq-fish enter');
       box.innerHTML = '<span class="aq-fin"></span><span class="aq-ripple"></span>';
@@ -1400,8 +1414,16 @@
     ]);
 
     var ready = deps.then(function () { return Promise.all([
-      fetch(ASSETS + 'fish-motion/v1/manifest.json').then(function (r) { return r.json(); })
-        .then(function (j) { (j.items || []).forEach(function (it) { MOTION[it.id] = it; }); }).catch(function () {}),
+      fetch(withBuild(ASSETS + 'fish-motion/v1/manifest.json')).then(function (r) { return r.json(); })
+        .then(function (j) {
+          (j.items || []).forEach(function (it) {
+            // 人鱼/水母的摆动频率太急：放慢循环周期（不动美术，只改播放节奏）
+            if (it.id === 'bay_moon_mermaid') { it.cycle_ms = 2400; }
+            if (it.id === 'pond_bell_jelly') { it.cycle_ms = 2600; }
+            MOTION[it.id] = it;
+          });
+          remountFishSprites();   // 清单到货后，把还在静态图的鱼升级成动画
+        }).catch(function () {}),
       fetch(ASSETS + 'layout/decor-layout-v1.json').then(function (r) { return r.json(); })
         .then(function (j) { (j.items || []).forEach(function (it) { SPEC[it.id] = it; }); }).catch(function () {}),
       fetch(ASSETS + 'layout/decor-scene-v1.json').then(function (r) { return r.json(); })
