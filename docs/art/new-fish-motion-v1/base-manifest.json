@@ -1,0 +1,408 @@
+{
+  "schema": "aquarium-fish-motion-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "candidate-awaiting-live-integration",
+  "method": "single-texture continuous inverse deformation; not hand-drawn frames",
+  "source_manifest": "assets/manifest.json",
+  "source_facing": "right",
+  "items": [
+    {
+      "id": "pond_blue",
+      "name": "晴蓝鱼",
+      "source_sha256": "e72a880065babc9c3aceafb31ceeaf9579b0fafc465f5dfac151fe41416153bb",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 720,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.36,
+        "headLock": 0.7,
+        "amplitude": 0.04,
+        "finAmplitude": 0.006,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "pond_blue.webp",
+      "bytes": 209214,
+      "sha256": "408802087c71ccb76e35abb9b5edae4294c1fb7f009413e284cce38127b436da",
+      "git_blob_sha": "95be55d2f0426ef5350062ec16672bcc22ec2c9a"
+    },
+    {
+      "id": "pond_orange_tail",
+      "name": "橘尾鱼",
+      "source_sha256": "6e76656abaf31ec52c89cbd3e260e0bfa8ba9de85ebf49989126e2b85b033b6f",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 760,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.49,
+        "headLock": 0.76,
+        "amplitude": 0.045,
+        "finAmplitude": 0.005,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "pond_orange_tail.webp",
+      "bytes": 253692,
+      "sha256": "8451bc59313a6f62f9ff3492da3968c13e27b86314c22360841e8ca78b4e63b8",
+      "git_blob_sha": "b1fcd89949a0dbb74a9d3a27f049d0165f93fb82"
+    },
+    {
+      "id": "pond_leaf",
+      "name": "叶纹鱼",
+      "source_sha256": "0002de98c73ccb91cd18848587b7af26f1c7a6c0388d2b922e92778dd7abccc4",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 580,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.34,
+        "headLock": 0.74,
+        "amplitude": 0.035,
+        "finAmplitude": 0.004,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "pond_leaf.webp",
+      "bytes": 76370,
+      "sha256": "23ef2d349419752610e38cc2421f65c7f7c803106c38b29c8f7244f392435d4d",
+      "git_blob_sha": "7bad4aa1c6ba8fef421587ea7b6740926c93443f"
+    },
+    {
+      "id": "pond_peach",
+      "name": "桃心鱼",
+      "source_sha256": "93f49637e6e9a401f305b65b88d19686e4e2e357a4c76b4d520a65d87dfaa1e9",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 820,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.49,
+        "headLock": 0.76,
+        "amplitude": 0.042,
+        "finAmplitude": 0.005,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "pond_peach.webp",
+      "bytes": 248904,
+      "sha256": "d67426fae076e0ede0b0b94e3d935f37a1e21250b257ddc4229c8b3930adc493",
+      "git_blob_sha": "8c4e3358f1b16e8475084a187ef43be3dacf5143"
+    },
+    {
+      "id": "pond_glass_moon",
+      "name": "玻璃月鱼",
+      "source_sha256": "9d79db72755e91108f9bfba4b267d34a7b9e4801b3e37345f8b17c5c93f41d8a",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 920,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.43,
+        "headLock": 0.71,
+        "amplitude": 0.03,
+        "finAmplitude": 0.007,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "pond_glass_moon.webp",
+      "bytes": 257976,
+      "sha256": "3b2a2a428daf3c5bdb87402663ff56145e5a2876751a6177e57246d772631451",
+      "git_blob_sha": "f116be8fb21bce22bae1fb7617c9624c997d0ca9"
+    },
+    {
+      "id": "pond_feather",
+      "name": "羽鳍鱼",
+      "source_sha256": "7258bee821a48f3369732f5d02c597d37a9e4d6e6d4a21ad2b8c31f06a99cebb",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 1000,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.66,
+        "headLock": 0.8,
+        "amplitude": 0.04,
+        "finAmplitude": 0.006,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "pond_feather.webp",
+      "bytes": 396104,
+      "sha256": "e27b49a33a610c02ce39336f3caae69c56bf83dd3428def1b094f87fc8f6a152",
+      "git_blob_sha": "deaf03d5825dd9dcf9db1ae70868caa5e8068284"
+    },
+    {
+      "id": "bay_silver",
+      "name": "银沙鱼",
+      "source_sha256": "448e6ddb23d4571b1da8eb5944da3cca8a0d392bfac1877814d9df77e8627ee5",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 540,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.33,
+        "headLock": 0.75,
+        "amplitude": 0.032,
+        "finAmplitude": 0.004,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "bay_silver.webp",
+      "bytes": 77326,
+      "sha256": "6d79d7ba373c1d7a54b347fff2cda46d495b2e0b180e5bdc6a1fab6d25e82a96",
+      "git_blob_sha": "77ab89bbb5370438671824585cae6583a0cc4a10"
+    },
+    {
+      "id": "bay_coral",
+      "name": "珊瑚鱼",
+      "source_sha256": "7d6c0831e3717b5d39709f3206b777e0f2b4553ce2820e9c4be4b471247aecd3",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 800,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.35,
+        "headLock": 0.73,
+        "amplitude": 0.03,
+        "finAmplitude": 0.007,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "bay_coral.webp",
+      "bytes": 267672,
+      "sha256": "59f37dd42efd5ceeee869f6ad033ed86580d71357170d0e173b1685f76ce8432",
+      "git_blob_sha": "1b210c19304342927e8eaad46707e9453f362952"
+    },
+    {
+      "id": "bay_lantern",
+      "name": "灯笼鱼",
+      "source_sha256": "fe61f051fc989d3d2a765ef4307518d2428bd135ccaeb7dfc6eb55f5a872f58f",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 840,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.31,
+        "headLock": 0.7,
+        "amplitude": 0.035,
+        "finAmplitude": 0.006,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "bay_lantern.webp",
+      "bytes": 182328,
+      "sha256": "b3f390365e8574db52847cc1b0b2ef6ffdfd3c7c8ceba76d9579a5a134a5c594",
+      "git_blob_sha": "633e24c41e3ace42b278135b179d4cfce76efa40"
+    },
+    {
+      "id": "bay_ribbon",
+      "name": "丝带鱼",
+      "source_sha256": "423d78bfbd0ad6ebcad1ff08fd074f2f6780235cfd0f4de10a4225b83213767a",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 1100,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.78,
+        "headLock": 0.86,
+        "amplitude": 0.05,
+        "finAmplitude": 0.004,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "bay_ribbon.webp",
+      "bytes": 189390,
+      "sha256": "69cd607206021b4cda8ee849853ff3ca5606904f9c7b4ac56734ecc57d70ca4c",
+      "git_blob_sha": "e71b6507948c5a79baf2e0b21df5daa241f48f94"
+    },
+    {
+      "id": "bay_star_ray",
+      "name": "星斑鳐",
+      "source_sha256": "aadd57afee3cfd1c036d2b4a018f61f9d881328846460a317e2d8f9895a79044",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 1200,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.67,
+        "headLock": 0.74,
+        "amplitude": 0.024,
+        "finAmplitude": 0.009,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "bay_star_ray.webp",
+      "bytes": 160544,
+      "sha256": "770563ce356ae70e34e21fa72b4aace2ee989cf613b798c8ce3b12ec387d04a5",
+      "git_blob_sha": "047ba608d2de3116c2cd9a3bb11503b39c65e5b3"
+    },
+    {
+      "id": "bay_aurora",
+      "name": "极光天使鱼",
+      "source_sha256": "32f8c0cb7edb96c80247480042f4b9a451e48dfa1c31fef9a5c570f052b72f40",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "frame_count": 12,
+      "cycle_ms": 1000,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "warp": {
+        "hinge": 0.46,
+        "headLock": 0.73,
+        "amplitude": 0.03,
+        "finAmplitude": 0.008,
+        "finStart": 0.26,
+        "pivotY": 0.5
+      },
+      "file": "bay_aurora.webp",
+      "bytes": 264106,
+      "sha256": "be3f205014346a703535d475216511f0eb887c3077c0dc7076f451e2d06cdb96",
+      "git_blob_sha": "45fcf0417c2ba3d70baf9e0a5f669bedf1b4c08f"
+    }
+  ],
+  "decoded_rgba_bytes_per_sheet": 3145728,
+  "all_sheets_decoded_rgba_bytes": 37748736
+}

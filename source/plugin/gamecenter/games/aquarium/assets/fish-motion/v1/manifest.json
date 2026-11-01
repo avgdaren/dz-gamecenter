@@ -2,7 +2,7 @@
   "schema": "aquarium-fish-motion-v1",
   "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
   "status": "candidate-awaiting-live-integration",
-  "method": "single-texture continuous inverse deformation; not hand-drawn frames",
+  "method": "mixed: unchanged legacy inverse-deformation sheets + four imagegen distinct-pose animation sheets",
   "source_manifest": "assets/manifest.json",
   "source_facing": "right",
   "items": [
@@ -401,8 +401,120 @@
       "bytes": 264106,
       "sha256": "be3f205014346a703535d475216511f0eb887c3077c0dc7076f451e2d06cdb96",
       "git_blob_sha": "45fcf0417c2ba3d70baf9e0a5f669bedf1b4c08f"
+    },
+    {
+      "id": "pond_curl_seahorse",
+      "name": "卷尾海马",
+      "source_sha256": "dc114987cf46ce1e815c4c4597f8a249a1638664f0993411780f1dcbdf9fe060",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1000,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "method": "imagegen distinct pose frames; uniform rescale and anchor packing; no inverse warp",
+      "action": "dorsal fin ripple",
+      "file": "pond_curl_seahorse.webp",
+      "bytes": 129900,
+      "sha256": "5a6ed50fda0e858d412eaa3dcfb7fbb78297db7c072f2cc02c2c13d12b758670",
+      "git_blob_sha": "330581082f41befb4ba5ffcf6a8430be6b6a78df",
+      "decoded_rgba_bytes": 1048576
+    },
+    {
+      "id": "pond_bell_jelly",
+      "name": "铃伞水母",
+      "source_sha256": "35475da29561880ed1efb11f5f9c4dbbd057bfb76fe52c73f8b9550bd46a3844",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1400,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "method": "imagegen distinct pose frames; uniform rescale and anchor packing; no inverse warp",
+      "action": "bell contraction with trailing tentacles",
+      "file": "pond_bell_jelly.webp",
+      "bytes": 164836,
+      "sha256": "5c069d135bc214a7ef6865f2f3cbec22b2793517ec76e39f3cf6a38788bc7d33",
+      "git_blob_sha": "203493e0968ca29bf4f5bc0c5cee13cf4e3ae9c8",
+      "decoded_rgba_bytes": 1048576
+    },
+    {
+      "id": "bay_gummy_octopus",
+      "name": "软糖章鱼",
+      "source_sha256": "2754c983d4b67d3331d73a935b511e2a57eda85072c7091aab1d09ad97dffc8b",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1100,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "method": "imagegen distinct pose frames; uniform rescale and anchor packing; no inverse warp",
+      "action": "alternating arm curls",
+      "file": "bay_gummy_octopus.webp",
+      "bytes": 156604,
+      "sha256": "5d3c9134a9d45d42143baba4b2da0ba8ad5d6483602bfd19420e6bdea5769014",
+      "git_blob_sha": "e5862334c983a9231942a394cf224dd425b5f0c0",
+      "decoded_rgba_bytes": 1048576
+    },
+    {
+      "id": "bay_moon_mermaid",
+      "name": "月汐人鱼",
+      "source_sha256": "90fb149319fa6dcca578d88b8cd7f84b61514c9da7eeafa8f2db4a99579c363d",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        8,
+        1
+      ],
+      "frame_count": 8,
+      "cycle_ms": 1200,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "method": "imagegen distinct pose frames; uniform rescale and anchor packing; no inverse warp",
+      "action": "tail and fan-fin undulation",
+      "file": "bay_moon_mermaid.webp",
+      "bytes": 361092,
+      "sha256": "c1510ad73e08387f6e7add926e59b2e2fdaf6e74061e8d9b32303c3c8a72e4f7",
+      "git_blob_sha": "69ee47dff6f99962cf6ab69b8b788197f16e6d03",
+      "decoded_rgba_bytes": 2097152
     }
   ],
-  "decoded_rgba_bytes_per_sheet": 3145728,
-  "all_sheets_decoded_rgba_bytes": 37748736
+  "all_sheets_decoded_rgba_bytes": 42991616,
+  "legacy_decoded_rgba_bytes_per_sheet": 3145728
 }
