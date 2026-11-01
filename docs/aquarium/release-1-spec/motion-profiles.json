@@ -1,0 +1,148 @@
+{
+  "schema": "aquarium-motion-profiles-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "implementation-spec-not-runtime-registered",
+  "reference_width_px": 880,
+  "scale": "speeds and pixel amplitudes multiplied by actual tank width / 880",
+  "units": {
+    "speed": "CSS px/s at reference width",
+    "bob_amplitude": "CSS px; plus/minus displacement",
+    "bob_period_s": "seconds",
+    "center_y_band": "fraction of actual tank height; tighten for visible half-height and bob amplitude"
+  },
+  "common": {
+    "allow_vertical_feed_sprint": false,
+    "flip_stable_direction_ms": 350,
+    "eat_pause_ms": [
+      200,
+      350
+    ],
+    "phase_per_slot": true,
+    "bob_mode": "absolute sine displacement around path anchor; never cumulative per-frame addition",
+    "max_responding_fish": 4,
+    "sprite_draws_per_instance": 1,
+    "collision": "visible body clearance; distinct reservation per pellet; decline unreachable targets"
+  },
+  "profiles": {
+    "bay_moon_mermaid": {
+      "name": "月汐人鱼",
+      "cruise_speed": [
+        20,
+        32
+      ],
+      "feed_speed_max": 40,
+      "vertical_speed_max": 14,
+      "bob_amplitude": [
+        3,
+        5
+      ],
+      "bob_period_s": [
+        3,
+        4
+      ],
+      "horizontal_flip": true,
+      "vertical_flip": false,
+      "tilt_deg_max": 4,
+      "turn_ms": 1000,
+      "center_y_band": [
+        0.24,
+        0.66
+      ],
+      "feeding_nudge": [
+        2,
+        3
+      ],
+      "posture": "horizontal_glide_face_stable"
+    },
+    "pond_bell_jelly": {
+      "name": "铃伞水母",
+      "cruise_speed": [
+        8,
+        14
+      ],
+      "feed_speed_max": 20,
+      "vertical_speed_max": 22,
+      "bob_amplitude": [
+        5,
+        8
+      ],
+      "bob_period_s": [
+        3,
+        5
+      ],
+      "horizontal_flip": false,
+      "vertical_flip": false,
+      "tilt_deg_max": 0,
+      "turn_ms": 0,
+      "center_y_band": [
+        0.2,
+        0.68
+      ],
+      "feeding_nudge": [
+        0,
+        0
+      ],
+      "posture": "upright_bell_vertical_float"
+    },
+    "pond_curl_seahorse": {
+      "name": "卷尾海马",
+      "cruise_speed": [
+        10,
+        18
+      ],
+      "feed_speed_max": 26,
+      "vertical_speed_max": 12,
+      "bob_amplitude": [
+        3,
+        5
+      ],
+      "bob_period_s": [
+        3,
+        4
+      ],
+      "horizontal_flip": true,
+      "vertical_flip": false,
+      "tilt_deg_max": 3,
+      "turn_ms": 700,
+      "center_y_band": [
+        0.3,
+        0.72
+      ],
+      "feeding_nudge": [
+        1,
+        2
+      ],
+      "posture": "upright_hover"
+    },
+    "bay_gummy_octopus": {
+      "name": "软糖章鱼",
+      "cruise_speed": [
+        14,
+        24
+      ],
+      "feed_speed_max": 32,
+      "vertical_speed_max": 8,
+      "bob_amplitude": [
+        2,
+        3
+      ],
+      "bob_period_s": [
+        3,
+        4
+      ],
+      "horizontal_flip": true,
+      "vertical_flip": false,
+      "tilt_deg_max": 3,
+      "turn_ms": 600,
+      "center_y_band": [
+        0.62,
+        0.8
+      ],
+      "feeding_nudge": [
+        1,
+        2
+      ],
+      "posture": "low_layer_glide_no_floor_crossing"
+    }
+  }
+}
