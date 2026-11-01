@@ -70,12 +70,15 @@
       }).then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); });
     }
 
+    var lastCallOk = false;
     function call(action, extra) {
       if (busy) { return Promise.resolve(); }
+      lastCallOk = false;
       busy = true; note = '正在同步…'; paint();
       return post(action, extra).then(function (r) {
         if (r.snapshot) { snap = r.snapshot; syncAt = Date.now(); background = snap.layout.background; }
         if (r.catalog) { catalog = r.catalog; }
+        lastCallOk = !!r.ok;
         if (r.ok) {
           note = '';
         } else if (!r.code && r.msg) {
@@ -112,6 +115,7 @@
         // 购买/补给会改变「是否拥有」，卡片需要重建而不是只刷新状态
         if (action === 'buy' || action === 'devgrant' || action === 'expand' || action === 'sell') { dom.panelMode = ''; }
         if (action === 'layout') { syncSceneMusic(); }
+        if (action === 'sell' && lastCallOk) { playSfx('coin'); }
         paint(); schedule();
         if (needCatalog) { fetchCatalogQuiet(); }
       });
@@ -321,7 +325,14 @@
     function sellableFor(id) {
       return Math.max(0, ownedFor(id) - Math.max(4, shownFor(id)));
     }
+    function sellableNow(id) {
+      return Math.min(SELL_MAX_QTY, sellableFor(id));
+    }
     var SELL_PRICE = { '常见': 1, '少见': 2, '稀有': 5, '珍奇': 10 };
+    var SELL_MAX_QTY = 9999;   // 与服务端单次上限一致
+    function sellOpen() {
+      return !!(snap && snap.capabilities && snap.capabilities.sell);
+    }
     function priceOf(id) {
       var f = findFish(id);
       return (f && SELL_PRICE[f.rarity]) || 0;
@@ -507,9 +518,10 @@
     }
 
     function openSell(fid) {
-      var max = sellableFor(fid);
+      if (!sellOpen()) { note = '售卖功能暂未开放'; paint(); return; }
+      var max = sellableNow(fid);
       var price = priceOf(fid);
-      if (max < 1 || price < 1) { note = '这场鱼暂时不能卖'; paint(); return; }
+      if (max < 1 || price < 1) { note = '这条鱼暂时不能卖'; paint(); return; }
       var old = document.querySelector('.aq-modal'); if (old) { old.remove(); }
       var mask = el('div', 'aq-modal');
       var box = el('div', 'aq-modal-box');
@@ -539,7 +551,6 @@
       ok.addEventListener('click', function () {
         var qty = parseInt(input.value, 10) || 1;
         mask.remove();
-        playSfx('coin');
         call('sell', { expected_version: snap.version, fish_id: fid, qty: qty });
       });
       acts.appendChild(cancel); acts.appendChild(ok);
@@ -762,8 +773,8 @@
         }
         var sellBtn = card.querySelector('.aq-sell');
         if (sellBtn) {
-          var k = sellableFor(id);
-          sellBtn.style.display = k > 0 ? '' : 'none';
+          var k = sellableNow(id);
+          sellBtn.style.display = (k > 0 && sellOpen()) ? '' : 'none';
           sellBtn.textContent = k > 0 ? ('卖 ' + k + ' 条' + (priceOf(id) ? (' · ' + (k * priceOf(id)) + ' 金币') : '')) : '';
         }
       });

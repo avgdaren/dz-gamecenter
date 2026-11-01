@@ -47,7 +47,8 @@ final class gamecenter_aquarium_rules {
         $s=['uid'=>$uid,'save_version'=>1,'config_version'=>$c['version'],'pool_hash'=>$c['pool_hash'],'config_hash'=>$c['config_hash'],
             'seed_hex'=>$seedHex,'coins'=>$c['initial_coins']+$c['waters'][$wid]['fish'][$fid]['coins'],'rod_level'=>0,
             'last_settled_ms'=>$now,'progress_ms'=>0,'catch_seq'=>0,'current_water'=>$wid,'unlocked_waters'=>[$wid],
-            'fish'=>[$fid=>['discovered_at'=>$now,'catch_count'=>1,'owned_count'=>1,'sold_count'=>0]],'no_new_count'=>array_fill_keys(array_keys($c['waters']),0)];
+            'fish'=>[$fid=>['discovered_at'=>$now,'catch_count'=>1,'owned_count'=>1,'sold_count'=>0]],'no_new_count'=>array_fill_keys(array_keys($c['waters']),0),
+            'inventory_schema'=>1];
         self::validate($s,$c); return $s;
     }
     public static function validate(array $s, array $c): void {

@@ -31,6 +31,29 @@ final class gamecenter_aquarium_configs {
 
     public static function versions(): array { return [self::FOUNDATION, self::CONTENT]; }
 
+    /** 售卖开关：off / allowlist / all。缺失或读取失败一律按 off（关闭）。 */
+    public static function saleSwitch(): array {
+        static $cache=null;
+        if($cache!==null) { return $cache; }
+        $f=__DIR__.'/../games/aquarium/data/sale-switch.json';
+        if(!is_file($f) || !is_readable($f)) { return $cache=['mode'=>'off','uids'=>[]]; }
+        $j=json_decode((string)@file_get_contents($f), true);
+        if(!is_array($j) || !in_array(($j['mode'] ?? ''), ['off','allowlist','all'], true)) {
+            return $cache=['mode'=>'off','uids'=>[]];
+        }
+        $uids=[];
+        foreach((array)($j['uids'] ?? []) as $u) { if(is_int($u) || (is_string($u) && ctype_digit($u))) { $uids[]=(int)$u; } }
+        return $cache=['mode'=>$j['mode'],'uids'=>$uids];
+    }
+
+    /** 该账号此刻能否售卖。 */
+    public static function saleAllowed(int $uid): bool {
+        $s=self::saleSwitch();
+        if($s['mode']==='all') { return true; }
+        if($s['mode']==='allowlist') { return in_array($uid, $s['uids'], true); }
+        return false;
+    }
+
     /** 美术包版本，用于前端资源缓存键；与配置版本相互独立。 */
     public static function assets_version(): string {
         static $v=null;

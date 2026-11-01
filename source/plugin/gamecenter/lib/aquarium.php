@@ -21,7 +21,8 @@ final class gamecenter_aquarium {
             'client'=>'请刷新页面后重试','uninitialized'=>'尚未建立测试存档','conflict'=>'状态已更新，请查看最新进度后重新选择',
             'target'=>'目标等级或水域已变化','coins'=>'游戏金币不足','condition'=>'尚未满足条件','owned'=>'已经拥有这件装饰',
             'maintenance'=>'水族馆正在维护，你的存档不会丢失，请稍后回来',
-            'config'=>'配置或存档版本不匹配，请等待维护，不要清空存档','busy'=>'暂时无法同步，请稍后重试'];
+            'config'=>'配置或存档版本不匹配，请等待维护，不要清空存档','busy'=>'暂时无法同步，请稍后重试',
+            'limit'=>'这次数量会让金币超出上限，请分批卖','closed'=>'售卖功能暂未开放'];
         return ['ok'=>$code===''?1:0,'code'=>$code,'msg'=>$code===''?'已同步':($messages[$code]??$messages['busy']),'snapshot'=>$snapshot];
     }
     private function decode(array $row,int $uid): array {
@@ -43,6 +44,9 @@ final class gamecenter_aquarium {
                  'fish_capacity','decor_owned','layout'] as $k) { $out[$k]=$s[$k]??null; }
         $out['version']=$version;
         $out['is_admin']=((int)($GLOBALS['_G']['adminid']??0))===1;
+        $out['capabilities']=['sell'=>gamecenter_aquarium_configs::saleAllowed((int)$s['uid'])];
+        $out['inventory']=['schema'=>(int)($s['inventory_schema']??0),'anomaly'=>!empty($s['inventory_anomaly'])];
+        $out['recent_sale']=$s['recent_sale'] ?? [];
         $out['summary']=null;
         if(isset($s['recent_summary']) && is_array($s['recent_summary'])) {
             $x=$s['recent_summary']; $clean=[];
@@ -179,7 +183,10 @@ final class gamecenter_aquarium {
                 elseif($action==='expand') { list($next,$code)=gamecenter_aquarium_shop::expand($next,$this->c); }
                 elseif($action==='layout') { list($next,$code)=gamecenter_aquarium_shop::setLayout($next,$data['layout'],$this->c); }
                 elseif($action==='devgrant') { list($next,$code)=self::devgrant($next,$this->c,$now); }
-                elseif($action==='sell') { list($next,$code)=gamecenter_aquarium_shop::sell($next,$data['fish_id'],(int)$data['qty'],$this->c,$now); }
+                elseif($action==='sell') {
+                    if(!gamecenter_aquarium_configs::saleAllowed($uid)) { $code='closed'; }
+                    else { list($next,$code)=gamecenter_aquarium_shop::sell($next,$data['fish_id'],(int)$data['qty'],$this->c,$now); }
+                }
                 if($r['catches'] || $r['discarded_ms']) {
                     $next['recent_summary']=['from_ms'=>$s['last_settled_ms'],'to_ms'=>$next['last_settled_ms'],
                         'coins'=>array_sum(array_column($r['catches'],'coins')),'catch_count'=>count($r['catches']),

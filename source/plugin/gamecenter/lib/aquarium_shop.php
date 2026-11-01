@@ -12,15 +12,28 @@ final class gamecenter_aquarium_shop {
         if(!isset($s['fish_capacity'])) { $s['fish_capacity'] = $c['initial_fish_capacity']; }
         // 库存迁移：旧档没有 owned/sold 时，把历史捕获量当作当前持有（不自动卖、不发币）
         if(isset($s['fish']) && is_array($s['fish'])) {
+            $schema = (int)($s['inventory_schema'] ?? 0);
+            $dirty = false; $bad = false;
             foreach($s['fish'] as $fid=>$f) {
-                if(!is_array($f)) { continue; }
-                if(!isset($s['fish'][$fid]['owned_count']) || !gamecenter_aquarium_rules::number($s['fish'][$fid]['owned_count'])) {
-                    $s['fish'][$fid]['owned_count'] = (int)($f['catch_count'] ?? 0);
+                if(!is_array($f)) { $bad=true; continue; }
+                $hasOwned = array_key_exists('owned_count',$f);
+                $hasSold  = array_key_exists('sold_count',$f);
+                if(!$hasOwned && !$hasSold) {
+                    // 纯旧档：只在这种情况才初始化
+                    if($schema === 0) {
+                        $s['fish'][$fid]['owned_count'] = (int)($f['catch_count'] ?? 0);
+                        $s['fish'][$fid]['sold_count'] = 0;
+                        $dirty = true;
+                    } else { $bad = true; }
+                    continue;
                 }
-                if(!isset($s['fish'][$fid]['sold_count']) || !gamecenter_aquarium_rules::number($s['fish'][$fid]['sold_count'])) {
-                    $s['fish'][$fid]['sold_count'] = 0;
-                }
+                if(!$hasOwned || !$hasSold) { $bad = true; continue; }   // 只有一半：不补、不猜
+                if(!gamecenter_aquarium_rules::number($f['owned_count']) || !gamecenter_aquarium_rules::number($f['sold_count'])) { $bad = true; continue; }
+                $catch = (int)($f['catch_count'] ?? 0);
+                if((int)$f['owned_count'] + (int)$f['sold_count'] !== $catch) { $bad = true; }
             }
+            if($dirty) { $s['inventory_schema'] = 1; }
+            if($bad) { $s['inventory_anomaly'] = true; }   // 隔离：允许多数操作，但拒绝售卖、人工处理
         }
         if(!isset($s['decor_owned']) || !is_array($s['decor_owned'])) { $s['decor_owned'] = []; }
         if(!isset($s['layout']) || !is_array($s['layout'])) {
@@ -57,13 +70,14 @@ final class gamecenter_aquarium_shop {
             if(!isset($c['decor'][$id]) || !gamecenter_aquarium_rules::number($at)) { throw new DomainException('state-decor'); }
             $owned[$id] = true;
         }
-        foreach($s['fish'] as $fid=>$f) {
-            // 缺字段按迁移口径补：持有＝历史捕获、卖出＝0（不因旧档/缺字段判死）
-            $stockOwned = array_key_exists('owned_count',$f) ? $f['owned_count'] : ($f['catch_count'] ?? 0);
-            $stockSold  = array_key_exists('sold_count',$f) ? $f['sold_count'] : 0;
-            if(!gamecenter_aquarium_rules::number($stockOwned) || !gamecenter_aquarium_rules::number($stockSold)) { throw new DomainException('state-stock'); }
-            $catchAll = (int)($f['catch_count'] ?? 0);
-            if((int)$stockOwned > $catchAll || (int)$stockSold > $catchAll) { throw new DomainException('state-stock-sum'); }
+        if(empty($s['inventory_anomaly'])) {
+            foreach($s['fish'] as $fid=>$f) {
+                if(!array_key_exists('owned_count',$f) || !array_key_exists('sold_count',$f)) { throw new DomainException('state-stock-missing'); }
+                if(!gamecenter_aquarium_rules::number($f['owned_count']) || !gamecenter_aquarium_rules::number($f['sold_count'])) { throw new DomainException('state-stock'); }
+                $stockOwned = (int)$f['owned_count']; $stockSold = (int)$f['sold_count'];
+                if($stockOwned < 0 || $stockSold < 0) { throw new DomainException('state-stock-negative'); }
+                if($stockOwned + $stockSold !== (int)($f['catch_count'] ?? 0)) { throw new DomainException('state-stock-sum'); }
+            }
         }
         $slots = $s['layout']['fish'];
         if(count($slots) !== (int)$s['fish_capacity']) { throw new DomainException('state-layout'); }
@@ -115,6 +129,7 @@ final class gamecenter_aquarium_shop {
 
     /** 卖鱼：一次只卖一个鱼种指定条数，数量上限在服务端再算一次。 */
     public static function sell(array $s, string $fid, int $qty, array $c, int $now): array {
+        if(!empty($s['inventory_anomaly'])) { return [$s, 'condition']; }
         if(!isset($s['fish'][$fid])) { return [$s, 'target']; }
         if($qty < 1) { return [$s, 'input']; }
         if(isset($c['fish'][$fid]['lifetime_cap'])) { return [$s, 'condition']; }
@@ -127,9 +142,17 @@ final class gamecenter_aquarium_shop {
         $price = self::sellPrice($rarity);
         if($price < 1) { return [$s, 'condition']; }
         $gain = $qty * $price;
-        $s['coins'] = min(gamecenter_aquarium_rules::MAX_VALUE, (int)$s['coins'] + $gain);
+        // 金额上限：整笔拒绝，不截断（截断会扣鱼少给钱）
+        if($gain < 1 || $gain > gamecenter_aquarium_rules::MAX_VALUE) { return [$s, 'limit']; }
+        if((int)$s['coins'] + $gain > gamecenter_aquarium_rules::MAX_VALUE) { return [$s, 'limit']; }
+        $s['coins'] = (int)$s['coins'] + $gain;
+        $before = (int)($s['version'] ?? 0);
         $s['fish'][$fid]['owned_count'] = (int)$s['fish'][$fid]['owned_count'] - $qty;
         $s['fish'][$fid]['sold_count'] = (int)($s['fish'][$fid]['sold_count'] ?? 0) + $qty;
+        // 有界回执：便于丢响应时核对，不当成幂等键
+        if(!isset($s['recent_sale']) || !is_array($s['recent_sale'])) { $s['recent_sale']=[]; }
+        $s['recent_sale'][] = ['fish_id'=>$fid,'qty'=>$qty,'price'=>$price,'gain'=>$gain,'at_ms'=>$now];
+        $s['recent_sale'] = array_slice($s['recent_sale'], -5);
         return [$s, ''];
     }
 
