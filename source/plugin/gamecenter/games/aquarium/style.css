@@ -158,7 +158,10 @@
 .aq-people { margin: 6px 0 0; font-size: 12px; color: var(--aq-muted); text-align: center; }
 /* 喂养 */
 .aq-feed { pointer-events: none; }
-.aq-food { position: absolute; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%;
-  background: radial-gradient(circle, #ffe9a8, #d9a13b); box-shadow: 0 0 4px rgba(255,220,140,.8);
-  animation: aqFoodDrop .9s ease-out both; }
+/* 饲料：用 assets/feeding/v1 的 32px 透明颗粒，显示 5px（4–6px 可调，手机不小于 3px） */
+.aq-food { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+  background-repeat: no-repeat; background-size: 100% 100%; background-position: center;
+  animation: aqFoodDrop .9s ease-out both; transition: transform .16s ease, opacity .16s ease; }
+.aq-food.eaten { transform: scale(.4); opacity: 0; }
+@media (max-width: 760px) { .aq-food { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; } }
 @keyframes aqFoodDrop { from { transform: translateY(-14px) scale(.6); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: .95; } }

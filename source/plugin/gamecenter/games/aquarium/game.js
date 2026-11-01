@@ -35,7 +35,33 @@
     // 当前这一场投喂：{x,y,until,fish:[slot...]}；全局单场，重复点击直接替换
     var feed = null;
     var FEED_MAX_FISH = 4;
-    var FEED_DURATION = 9000;
+    var FEED_MAX_PELLETS = 8;      // 场上最多同时存在几粒（一次点击只撒一粒）
+    var FEED_IDLE_CLEAR = 4000;    // 全被吃掉后再过多久清场
+    var FEED_SINK_SPEED = 46;      // 饲料下沉速度 px/s（到底就消失）
+    var FEED_ASSETS = ASSETS + 'feeding/v1/';
+    var FEED_PELLETS = ['pellet_01.webp', 'pellet_02.webp', 'pellet_03.webp'];
+    var FEED_SOUNDS = ['eat_01', 'eat_02', 'eat_03'];
+    var FEED_VOLUME = 0.45;
+    var FEED_SOUND_GAP = 140;      // 全局最短触发间隔
+    var FEED_MAX_VOICES = 2;
+    var feedGen = 0;
+    var feedVoices = 0;
+    var feedLastSound = 0;
+    var feedEatIndex = -1;
+    function playEatSfx() {
+      if (!sound.sfx) { return; }
+      var now = performance.now();
+      if (now - feedLastSound < FEED_SOUND_GAP) { return; }   // 超限就跳过，不补播
+      if (feedVoices >= FEED_MAX_VOICES) { return; }
+      feedLastSound = now;
+      var idx = (feedEatIndex + 1 + Math.floor(Math.random() * (FEED_SOUNDS.length - 1))) % FEED_SOUNDS.length;
+      feedEatIndex = idx;
+      var a = new Audio(FEED_ASSETS + FEED_SOUNDS[idx] + pickExt());
+      a.volume = FEED_VOLUME;
+      feedVoices++;
+      a.addEventListener('ended', function () { feedVoices = Math.max(0, feedVoices - 1); a.remove(); });
+      a.play().catch(function () { feedVoices = Math.max(0, feedVoices - 1); });
+    }
     var lastFrame = 0, fadeTick = 0, stageBox = { left: 0, top: 0 };
     // 音效默认开（点击后才发声，符合浏览器自动播放策略）；音乐默认关，避免突然出声
     var sound = { music: false, sfx: true, bgm: null, lastSelect: 0, lastCoin: 0, playing: [] };
@@ -307,48 +333,74 @@
       var dead = rec.el;
       setTimeout(function () { dead.remove(); }, 320);
     }
+    // 一次点击 = 撒一粒。想多喂就多点几下；场上最多同时存在 FEED_MAX_PELLETS 粒。
     function dropFeed(x, y) {
       if (!dom || !feedLayer) { return; }
       var shown = Object.keys(fishBySlot);
       if (!shown.length) { note = '先放一条鱼进缸，再喂它们'; paint(); return; }
-      clearFeed(true);
 
-      for (var i = 0; i < 6; i++) {
-        var dot = el('span', 'aq-food');
-        var ang = Math.random() * Math.PI * 2, rad = Math.random() * 26;
-        dot.style.left = (x + Math.cos(ang) * rad) + 'px';
-        dot.style.top = (y + Math.sin(ang) * rad * 0.7) + 'px';
-        dot.style.animationDelay = (i * 60) + 'ms';
-        feedLayer.appendChild(dot);
-      }
-
-      // 最近的最多 4 条：按屏幕距离排序
       var tank = dom.tank.getBoundingClientRect();
       var W = tank.width, H = tank.height;
-      var picked = shown.map(function (k) {
-        var f = fishBySlot[k];
-        var dx = f.nx * W - x, dy = f.ny * H - y;
-        return { slot: Number(k), d: dx * dx + dy * dy };
-      }).sort(function (a, b) { return a.d - b.d; }).slice(0, FEED_MAX_FISH);
 
-      var ids = [];
-      picked.forEach(function (item) {
-        var f = fishBySlot[item.slot];
-        if (!f) { return; }
-        f.feedX = x; f.feedY = y;
-        f.feedArrived = performance.now() + 1200 + Math.random() * 900;
-        ids.push(item.slot);
+      if (!feed) {
+        feed = { pellets: [], lastAt: 0, emptyAt: 0 };
+      }
+      // 场上粒子到顶就不再撒（不会一次性倒一堆，也不清掉已有的）
+      var alive = feed.pellets.filter(function (q) { return !q.consumed; });
+      if (alive.length >= FEED_MAX_PELLETS) {
+        note = '缸里已经有 ' + FEED_MAX_PELLETS + ' 粒了，等它们吃完再喂';
+        paint();
+        setTimeout(function () { note = ''; paint(); }, 1600);
+        return;
+      }
+
+      var px = Math.min(W - 14, Math.max(14, x + (Math.random() * 2 - 1) * 10));
+      var py = Math.min(H - 14, Math.max(14, y + (Math.random() * 2 - 1) * 8));
+      var dot = el('span', 'aq-food');
+      dot.style.backgroundImage = 'url("' + FEED_ASSETS + FEED_PELLETS[feed.pellets.length % FEED_PELLETS.length] + '")';
+      dot.style.left = px + 'px';
+      dot.style.top = py + 'px';
+      feedLayer.appendChild(dot);
+      var pellet = { id: feed.pellets.length, x: px, y: py, el: dot, consumed: false, claimedBy: null, vy: FEED_SINK_SPEED };
+      feed.pellets.push(pellet);
+      feed.lastAt = performance.now();
+      feed.emptyAt = 0;
+
+      // 挑一条「目前没在吃」且够得着的鱼来接这一粒
+      var busy = {};
+      Object.keys(fishBySlot).forEach(function (k) {
+        var f = fishBySlot[k];
+        if (f && f.feedPellet && !f.feedPellet.consumed) { busy[k] = true; }
       });
-      feed = { x: x, y: y, until: performance.now() + FEED_DURATION, fish: ids };
+      var cand = null, best = Infinity;
+      shown.forEach(function (k) {
+        if (busy[k]) { return; }
+        var f = fishBySlot[k];
+        if (!f) { return; }
+        var d = Math.hypot(f.nx * W - px, f.ny * H - py);
+        if (d < W * 0.9 && d < best) { best = d; cand = Number(k); }
+      });
+      if (cand !== null) {
+        var fish = fishBySlot[cand];
+        fish.feedPellet = pellet;
+        fish.feedX = px; fish.feedY = py;
+        // 停靠位：略偏离这粒，避免吃完还压在饲料点上
+        var ang = Math.random() * Math.PI * 2;
+        fish.parkX = Math.min(W - 30, Math.max(30, px + Math.cos(ang) * 54));
+        fish.parkY = Math.min(H - 30, Math.max(30, py + Math.sin(ang) * 34));
+        fish.feedArrived = 0;
+        pellet.claimedBy = cand;
+      }
       playSfx('select');
     }
 
     function clearFeed(keepFood) {
       Object.keys(fishBySlot).forEach(function (k) {
         var f = fishBySlot[k];
-        if (f) { f.feedX = null; f.feedY = null; f.feedArrived = 0; }
+        if (f) { f.feedX = null; f.feedY = null; f.feedPellet = null; f.parkX = null; f.parkY = null; f.feedArrived = 0; }
       });
       feed = null;
+      feedVoices = 0;
       if (!keepFood && feedLayer) {
         while (feedLayer.firstChild) { feedLayer.removeChild(feedLayer.firstChild); }
       }
@@ -692,7 +744,7 @@
         ['怎么放装饰', '切到「装饰」页，点一件装饰就直接摆进缸里；再点一次、或者点缸里那件装饰，就是收起来。每层（后景/前景）最多 3 件。装饰按透视自动定位，前景挡住鱼时会自动变淡，鱼不会凭空消失。'],
         ['布景预设', '「装饰」页最下面的「布景」是整套方案：点一下就把缸里的装饰换成这一套、顺带换背景，不用一件件摆；缺的装饰会被跳过并提示。旁边还有「清空装饰」。'],
         ['钓点与扩容', '在池塘发现足够多种鱼后可以解锁浅湾，那里的鱼更值钱。右侧状态栏能看到下一个钓点的解锁条件和花费。'],
-        ['喂鱼', '直接点鱼缸里的空白水面就行，会撒下几粒饲料，离得最近的 4 条鱼会游过来吃，吃完自然散开。点鱼身上还是「收起这条鱼」，两种操作分开。喂鱼不花金币、不产生金币，纯看着玩。'],
+        ['喂鱼', '点一下鱼缸里的空白水面＝撒一粒饲料，想多喂就多点几下；一次最多放 8 粒，吃完再喂。哪条鱼离得近，哪条就来吃，吃完会散开。点鱼身上还是「收起这条鱼」，两种操作分开。喂鱼不花金币、不产生金币，纯看着玩。'],
         ['声音', '音效默认开、音乐默认关；两个按钮在右侧，随时可以关。']
       ];
       tips.forEach(function (row) {
@@ -1048,24 +1100,70 @@
         var r = dom.tank.getBoundingClientRect();
         var W = r.width, H = r.height;
         stageBox = { left: r.left, top: r.top };
-        // 投喂到时统一收场（不依赖某条鱼是否还在追）
-        if (feed && now > feed.until) { clearFeed(false); }
+        // 饲料缓慢下沉；沉到缸底就消失（鱼没赶上就没了）
+        if (feed && feed.pellets) {
+          for (var pi = 0; pi < feed.pellets.length; pi++) {
+            var pl = feed.pellets[pi];
+            if (pl.consumed) { continue; }
+            pl.y += pl.vy * dt;
+            var floorY = H - 10;
+            if (pl.y >= floorY) {
+              pl.consumed = true;                    // 到底消失，不触发吃食音
+              var deadEl = pl.el;
+              if (deadEl) {
+                deadEl.classList.add('eaten');
+                setTimeout(function (node) { return function () { if (node && node.parentNode) { node.parentNode.removeChild(node); } }; }(deadEl), 180);
+              }
+              var owner = pl.claimedBy !== null ? fishBySlot[pl.claimedBy] : null;
+              if (owner && owner.feedPellet === pl) { owner.feedPellet = null; owner.feedX = owner.parkX; owner.feedY = owner.parkY; }
+              continue;
+            }
+            if (pl.el) { pl.el.style.top = pl.y + 'px'; }
+            // 认领的鱼要跟着粒子走（粒子在沉）
+            var chaser = pl.claimedBy !== null ? fishBySlot[pl.claimedBy] : null;
+            if (chaser && chaser.feedPellet === pl) { chaser.feedX = pl.x; chaser.feedY = pl.y; }
+          }
+        }
+
+        // 所有粒子都被吃完、且安静了一段时间，才收场
+        if (feed) {
+          var pending = feed.pellets.some(function (q) { return !q.consumed; });
+          if (!pending && !feed.emptyAt) { feed.emptyAt = now; }
+          if (!pending && feed.emptyAt && now - feed.emptyAt > FEED_IDLE_CLEAR) { clearFeed(false); }
+        }
         Object.keys(fishBySlot).forEach(function (k) {
           var f = fishBySlot[k];
           if (!W || !H) { return; }
           var cruise = f.cruiseF * W;
           if (!isFinite(f.speed)) { f.speed = cruise * 0.8; }
-          // 喂养：朝食物点游过去，到达后停留，不参与随机转向
+          // 喂养：先游向自己认领的那粒饲料，吃到后去自己的停靠位
           if (f.feedX !== null && f.feedX !== undefined) {
-            var fdx = f.feedX - f.nx * W, fdy = f.feedY - f.ny * H;
+            var targetX = f.feedX, targetY = f.feedY;
+            var pellet = f.feedPellet;
+            if (pellet && pellet.consumed) {
+              // 自己那粒被吃掉了 → 改去停靠位，避免所有鱼挤在食物点
+              targetX = f.parkX !== null ? f.parkX : f.feedX;
+              targetY = f.parkY !== null ? f.parkY : f.feedY;
+            }
+            var fdx = targetX - f.nx * W, fdy = targetY - f.ny * H;
             var dist = Math.sqrt(fdx * fdx + fdy * fdy);
-            if (dist > 16) {
+            if (dist > 14) {
               var want = Math.atan2(fdy / H, fdx / W);
               f.angle = want; f.target = want;
               f.cruiseF = 0.05; f.pause = 0;
               f.nextTurn = now + 800;
-            } else if (now > f.feedArrived) {
-              f.cruiseF = 0.006; f.pause = now + 400;
+            } else {
+              f.cruiseF = 0.006; f.pause = now + 500;
+              // 到达自己那粒且还没被吃 → 确认消费（只触发一次）
+              if (pellet && !pellet.consumed && dist <= 14) {
+                pellet.consumed = true;
+                if (pellet.el) {
+                  pellet.el.classList.add('eaten');
+                  var dead = pellet.el;
+                  setTimeout(function () { if (dead.parentNode) { dead.parentNode.removeChild(dead); } }, 180);
+                }
+                playEatSfx();
+              }
             }
           } else if (now > f.nextTurn) {
             f.target = f.angle + (Math.random() - 0.5) * 1.6;

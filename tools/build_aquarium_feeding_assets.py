@@ -72,7 +72,7 @@ for row,(bg,fg) in enumerate([('#cbeaf2','#24495b'),('#132b4c','#d7e7f3')]):
         master=Image.open(DOC/f'pellet_{i+1:02d}_master.png')
         icon=master.resize((88,88),Image.Resampling.LANCZOS)
         preview.paste(icon,(126+i*275,y0+32),icon)
-        for j,size in enumerate([4,5,6,8]):
+        for j,size in enumerate([5,7,9,12]):
             tiny=master.resize((size,size),Image.Resampling.LANCZOS)
             preview.paste(tiny,(235+i*275,y0+45+j*23),tiny)
             d.text((254+i*275,y0+38+j*23),f'{size}px',font=small,fill=fg)

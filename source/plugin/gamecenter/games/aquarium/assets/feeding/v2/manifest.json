@@ -225,8 +225,11 @@
     "particles_per_click": 1,
     "max_particles": 8,
     "max_responding_fish": 4,
-    "particle_ttl_ms": 25000,
-    "particle_fade_ms": 500,
+    "particle_expiry": "tank_floor",
+    "sink_speed_css_px_s": 46,
+    "desktop_pellet_px": 9,
+    "mobile_pellet_px": 7,
+    "floor_fade_ms": 250,
     "quiet_clear_ms": 4000
   }
 }

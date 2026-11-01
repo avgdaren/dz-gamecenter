@@ -1,6 +1,6 @@
 # 给小蓝：饲料美术与吃食音效 v1
 
-> 更新：美术继续使用；旧eat音效由feeding/v2的4个bite取代。投喂改成一点1粒、最多8粒、每粒25秒过期。以下v1旧规格仅留历史，当前以`../release-1-spec/HANDOFF.md`和`../feeding-audio-v2/README.md`为准。
+> 更新：美术继续使用；旧eat音效由feeding/v2的4个bite取代。投喂改成一点1粒、最多8粒、沉底即消失，桌面9px/手机7px。以下v1旧规格仅留历史，当前以`../release-1-spec/HANDOFF.md`和`../feeding-audio-v2/README.md`为准。
 
 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。2026-11-01。Refs #53。
 
