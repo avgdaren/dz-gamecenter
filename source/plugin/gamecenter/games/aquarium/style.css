@@ -147,3 +147,5 @@
 .aq-waters .aq-muted { font-size: 11px; line-height: 1.5; }
 .aq-note p { margin: 6px 0 0; line-height: 1.7; }
 .aq-note strong { color: var(--aq-ink); }
+
+.aq-people { margin: 6px 0 0; font-size: 12px; color: var(--aq-muted); text-align: center; }

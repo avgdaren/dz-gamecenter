@@ -42,6 +42,8 @@ final class gamecenter_aquarium {
         foreach(['coins','rod_level','last_settled_ms','progress_ms','catch_seq','current_water','unlocked_waters','fish','no_new_count',
                  'fish_capacity','decor_owned','layout'] as $k) { $out[$k]=$s[$k]??null; }
         $out['version']=$version;
+        require_once __DIR__.'/aquarium_stats.php';
+        $out['participants']=gamecenter_aquarium_stats::display();
         $out['is_admin']=((int)($GLOBALS['_G']['adminid']??0))===1;
         $out['summary']=null;
         if(isset($s['recent_summary']) && is_array($s['recent_summary'])) {
