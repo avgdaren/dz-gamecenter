@@ -1,0 +1,47 @@
+{
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "base": "944c17f00562737e73618cd750a02bca5fc76f13",
+  "old12_deep_equal": true,
+  "new_species_count": 4,
+  "asset_checks": [
+    {
+      "id": "pond_curl_seahorse",
+      "sha256": "5a6ed50fda0e858d412eaa3dcfb7fbb78297db7c072f2cc02c2c13d12b758670",
+      "bytes": 129900,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "pond_bell_jelly",
+      "sha256": "5c069d135bc214a7ef6865f2f3cbec22b2793517ec76e39f3cf6a38788bc7d33",
+      "bytes": 164836,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "bay_gummy_octopus",
+      "sha256": "5d3c9134a9d45d42143baba4b2da0ba8ad5d6483602bfd19420e6bdea5769014",
+      "bytes": 156604,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "bay_moon_mermaid",
+      "sha256": "c1510ad73e08387f6e7add926e59b2e2fdaf6e74061e8d9b32303c3c8a72e4f7",
+      "bytes": 361092,
+      "alpha": [
+        0,
+        255
+      ]
+    }
+  ],
+  "renderer_check": "DOM/canvas simulation only; 12 mounts,4 loads,20 frame slices,wrap,clear,reduce motion,dispose passed",
+  "visual_check": "static contact sheet inspected; live animation and tank not verified",
+  "database_upgrade": false
+}

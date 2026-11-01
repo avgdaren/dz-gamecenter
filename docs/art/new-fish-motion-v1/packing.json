@@ -1,0 +1,494 @@
+{
+  "pond_curl_seahorse": {
+    "sheet_size": [
+      1024,
+      256
+    ],
+    "bytes": 129900,
+    "transparent_fraction": 0.7897453308105469,
+    "unique_frames": 4,
+    "frame_count": 4,
+    "frame_records": [
+      {
+        "source_bbox": [
+          174,
+          9,
+          513,
+          601
+        ],
+        "source_anchor": [
+          397,
+          140
+        ],
+        "target_anchor": [
+          148,
+          64
+        ],
+        "packed_bbox": [
+          64,
+          15,
+          191,
+          237
+        ]
+      },
+      {
+        "source_bbox": [
+          801,
+          9,
+          1143,
+          603
+        ],
+        "source_anchor": [
+          1025,
+          140
+        ],
+        "target_anchor": [
+          148,
+          64
+        ],
+        "packed_bbox": [
+          64,
+          15,
+          192,
+          238
+        ]
+      },
+      {
+        "source_bbox": [
+          175,
+          637,
+          515,
+          1230
+        ],
+        "source_anchor": [
+          397,
+          767
+        ],
+        "target_anchor": [
+          148,
+          64
+        ],
+        "packed_bbox": [
+          65,
+          15,
+          193,
+          237
+        ]
+      },
+      {
+        "source_bbox": [
+          801,
+          637,
+          1142,
+          1228
+        ],
+        "source_anchor": [
+          1026,
+          767
+        ],
+        "target_anchor": [
+          148,
+          64
+        ],
+        "packed_bbox": [
+          64,
+          15,
+          192,
+          237
+        ]
+      }
+    ],
+    "all_alpha_edges_clear": true
+  },
+  "pond_bell_jelly": {
+    "sheet_size": [
+      1024,
+      256
+    ],
+    "bytes": 164836,
+    "transparent_fraction": 0.6741409301757812,
+    "unique_frames": 4,
+    "frame_count": 4,
+    "frame_records": [
+      {
+        "source_bbox": [
+          47,
+          48,
+          612,
+          631
+        ],
+        "source_anchor": [
+          333,
+          300
+        ],
+        "target_anchor": [
+          128,
+          109
+        ],
+        "packed_bbox": [
+          29,
+          22,
+          224,
+          223
+        ]
+      },
+      {
+        "source_bbox": [
+          734,
+          56,
+          1205,
+          612
+        ],
+        "source_anchor": [
+          970,
+          302
+        ],
+        "target_anchor": [
+          128,
+          109
+        ],
+        "packed_bbox": [
+          47,
+          24,
+          209,
+          216
+        ]
+      },
+      {
+        "source_bbox": [
+          35,
+          660,
+          638,
+          1206
+        ],
+        "source_anchor": [
+          337,
+          910
+        ],
+        "target_anchor": [
+          128,
+          109
+        ],
+        "packed_bbox": [
+          24,
+          23,
+          232,
+          211
+        ]
+      },
+      {
+        "source_bbox": [
+          691,
+          662,
+          1223,
+          1222
+        ],
+        "source_anchor": [
+          957,
+          910
+        ],
+        "target_anchor": [
+          128,
+          109
+        ],
+        "packed_bbox": [
+          36,
+          23,
+          220,
+          216
+        ]
+      }
+    ],
+    "all_alpha_edges_clear": true
+  },
+  "bay_gummy_octopus": {
+    "sheet_size": [
+      1024,
+      256
+    ],
+    "bytes": 156604,
+    "transparent_fraction": 0.6406478881835938,
+    "unique_frames": 4,
+    "frame_count": 4,
+    "frame_records": [
+      {
+        "source_bbox": [
+          61,
+          103,
+          653,
+          579
+        ],
+        "source_anchor": [
+          310,
+          255
+        ],
+        "target_anchor": [
+          124,
+          83
+        ],
+        "packed_bbox": [
+          36,
+          29,
+          246,
+          198
+        ]
+      },
+      {
+        "source_bbox": [
+          683,
+          102,
+          1228,
+          607
+        ],
+        "source_anchor": [
+          937,
+          255
+        ],
+        "target_anchor": [
+          124,
+          83
+        ],
+        "packed_bbox": [
+          34,
+          29,
+          227,
+          208
+        ]
+      },
+      {
+        "source_bbox": [
+          28,
+          697,
+          603,
+          1168
+        ],
+        "source_anchor": [
+          335,
+          850
+        ],
+        "target_anchor": [
+          124,
+          83
+        ],
+        "packed_bbox": [
+          15,
+          29,
+          219,
+          196
+        ]
+      },
+      {
+        "source_bbox": [
+          671,
+          689,
+          1236,
+          1165
+        ],
+        "source_anchor": [
+          936,
+          842
+        ],
+        "target_anchor": [
+          124,
+          83
+        ],
+        "packed_bbox": [
+          30,
+          29,
+          231,
+          198
+        ]
+      }
+    ],
+    "all_alpha_edges_clear": true
+  },
+  "bay_moon_mermaid": {
+    "sheet_size": [
+      2048,
+      256
+    ],
+    "bytes": 361092,
+    "transparent_fraction": 0.7342491149902344,
+    "unique_frames": 8,
+    "frame_count": 8,
+    "frame_records": [
+      {
+        "source_bbox": [
+          15,
+          147,
+          405,
+          464
+        ],
+        "source_anchor": [
+          320,
+          217
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          16,
+          44,
+          231,
+          218
+        ]
+      },
+      {
+        "source_bbox": [
+          417,
+          147,
+          789,
+          444
+        ],
+        "source_anchor": [
+          704,
+          218
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          26,
+          44,
+          231,
+          207
+        ]
+      },
+      {
+        "source_bbox": [
+          784,
+          147,
+          1173,
+          428
+        ],
+        "source_anchor": [
+          1088,
+          218
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          17,
+          44,
+          231,
+          199
+        ]
+      },
+      {
+        "source_bbox": [
+          1174,
+          147,
+          1530,
+          419
+        ],
+        "source_anchor": [
+          1468,
+          218
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          22,
+          44,
+          218,
+          194
+        ]
+      },
+      {
+        "source_bbox": [
+          18,
+          586,
+          405,
+          875
+        ],
+        "source_anchor": [
+          320,
+          655
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          18,
+          45,
+          231,
+          204
+        ]
+      },
+      {
+        "source_bbox": [
+          414,
+          578,
+          791,
+          892
+        ],
+        "source_anchor": [
+          704,
+          648
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          24,
+          44,
+          231,
+          217
+        ]
+      },
+      {
+        "source_bbox": [
+          792,
+          578,
+          1173,
+          918
+        ],
+        "source_anchor": [
+          1088,
+          647
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          21,
+          45,
+          231,
+          232
+        ]
+      },
+      {
+        "source_bbox": [
+          1170,
+          581,
+          1533,
+          906
+        ],
+        "source_anchor": [
+          1468,
+          651
+        ],
+        "target_anchor": [
+          184,
+          83
+        ],
+        "packed_bbox": [
+          20,
+          44,
+          220,
+          223
+        ]
+      }
+    ],
+    "all_alpha_edges_clear": true
+  }
+}

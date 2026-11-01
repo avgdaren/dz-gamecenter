@@ -49,6 +49,15 @@
     };
     var AQ_MOTION_DEFAULT = { cruise:[22,40], feedMax:52, bobA:[4,7], bobT:[2.2,3], flipH:true, tilt:9, band:[0.12,0.82] };
     var AQ_MOTION_REF_W = 880;
+    // 来自 assets/fish-next/v1/runtime-map.json：海马/水母按高度，章鱼/人鱼按宽度
+    var AQ_FISH_SIZE = {
+      pond_curl_seahorse: { axis: 'width', ratio: 0.12 },
+      pond_bell_jelly:    { axis: 'width', ratio: 0.12 },
+      bay_gummy_octopus:  { axis: 'width', ratio: 0.12 },
+      bay_moon_mermaid:   { axis: 'width', ratio: 0.26 }
+    };
+    // 人形生物不吃饲料：不参与投喂认领，饲料照常沉底
+    var AQ_NO_FEED = { bay_moon_mermaid: true };
     function motionOf(id) {
       // 用 hasOwnProperty 兜底：避免 id 撞上 constructor/toString 之类的原型键
       var m = (typeof id === 'string' && Object.prototype.hasOwnProperty.call(AQ_MOTION, id)) ? AQ_MOTION[id] : AQ_MOTION_DEFAULT;
@@ -343,7 +352,22 @@
     function createFish(id, slot) {
       var box = el('div', 'aq-fish enter');
       box.innerHTML = '<span class="aq-fin"></span><span class="aq-ripple"></span>';
-      box.style.width = '10%'; box.style.maxWidth = '160px';
+      var sz = AQ_FISH_SIZE[id];
+      var tankBox = dom && dom.tank ? dom.tank.getBoundingClientRect() : null;
+      var TW = tankBox && tankBox.width ? tankBox.width : 880;
+      var TH = tankBox && tankBox.height ? tankBox.height : 550;
+      if (sz && sz.axis === 'width') {
+        box.style.width = Math.round(TW * sz.ratio) + 'px';
+        box.style.height = 'auto';
+        box.style.maxWidth = 'none';
+      } else if (sz && sz.axis === 'height') {
+        box.style.height = Math.round(TH * sz.ratio) + 'px';
+        box.style.width = 'auto';
+        box.style.maxWidth = 'none';
+        box.classList.add('aq-fish-h');
+      } else {
+        box.style.width = '10%'; box.style.maxWidth = '160px';
+      }
       var sprite = mountSprite(box.querySelector('.aq-fin'), id);
       var a0 = Math.random() * Math.PI * 2;
       box.addEventListener('click', function (ev) { ev.stopPropagation(); removeFish(slot); });
@@ -425,6 +449,7 @@
         if (busy[k]) { return; }
         var f = fishBySlot[k];
         if (!f) { return; }
+        if (AQ_NO_FEED[f.id]) { return; }   // 人鱼这类不喂饲料
         var d = Math.hypot(f.nx * W - px, f.ny * H - py);
         if (d < W * 0.9 && d < best) { best = d; cand = Number(k); }
       });
@@ -1288,6 +1313,8 @@
           if (f.motion) { f.bobPhase += dt * (Math.PI * 2) / f.motion.bobT; }
           var band = (f.motion && f.motion.band) ? f.motion.band : [0.12, 0.82];
           var mx = 0.07, top = band[0], bottom = band[1];
+          // 追食时放开活动带：饲料会一路沉到缸底，否则水母/人鱼这种上层鱼永远够不着
+          if (f.feedPellet && !f.feedPellet.consumed) { top = 0.06; bottom = 0.94; }
           if (f.nx < mx) { f.nx = mx; f.angle = Math.PI - f.angle; f.target = f.angle; }
           if (f.nx > 1 - mx) { f.nx = 1 - mx; f.angle = Math.PI - f.angle; f.target = f.angle; }
           if (f.ny < top) { f.ny = top; f.angle = -f.angle; f.target = f.angle; }

@@ -175,3 +175,5 @@
 .aq-card-pic.is-missing::after { content: '待补图'; position: absolute; inset: 0; display: flex;
   align-items: center; justify-content: center; color: #93a7b6; font-size: 12px; }
 .aq-fish-missing { border-radius: 40% 60% 55% 45%; background: radial-gradient(circle at 40% 35%, #cfe6f5, #9ec6e0); opacity: .5; }
+/* 高度驱动的鱼（海马/水母）：按缸高比例定尺寸 */
+.aq-fish-h .aq-fin img, .aq-fish-h .aq-fin canvas { height: 100%; width: auto; display: block; }
