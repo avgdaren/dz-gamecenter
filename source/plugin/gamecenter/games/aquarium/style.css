@@ -165,3 +165,8 @@
 .aq-food.eaten { transform: scale(.4); opacity: 0; }
 @media (max-width: 760px) { .aq-food { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; } }
 @keyframes aqFoodDrop { from { transform: translateY(-14px) scale(.6); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: .95; } }
+/* 图鉴：终身/持有/门槛 */
+.aq-book-head { margin: 0 0 10px; font-size: 13px; color: var(--aq-muted); }
+.aq-card-life { margin-top: 4px; font-size: 12px; color: #b26b1f; }
+.aq-card-hold { margin-top: 2px; font-size: 12px; color: var(--aq-muted); }
+.aq-card-tip { margin-top: 4px; font-size: 12px; color: var(--aq-muted); }

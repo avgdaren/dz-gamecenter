@@ -95,15 +95,33 @@ final class gamecenter_aquarium {
     /** 目录：名称/品级/文案来自内容模块，价格与条件来自服务端配置；客户端不提交任何价格或币值。 */
     private function catalog(array $s): array {
         require_once __DIR__.'/aquarium_content.php';
-        $meta=gamecenter_aquarium_content::catalog();
+        // 图鉴按存档实际配置版本取：v2 是 16 种，v1 保持 12 种
+        $v2 = (($this->c['version'] ?? '') === gamecenter_aquarium_configs::CONTENT_V2);
+        $meta = $v2 ? gamecenter_aquarium_content::catalog_v2() : gamecenter_aquarium_content::catalog();
+
+        // 展示位里每种鱼占几格
+        $shown = [];
+        foreach(($s['layout']['fish'] ?? []) as $slot) {
+            if(is_string($slot) && $slot !== '') { $shown[$slot] = ($shown[$slot] ?? 0) + 1; }
+        }
         $fish=[];
         foreach($meta['fish'] as $f) {
             $own=$s['fish'][$f['id']]??null;
+            $owned=(int)($own['owned_count'] ?? 0);
             $f['discovered']=$own!==null;
             $f['discovered_at']=$own['discovered_at']??null;
             $f['catch_count']=$own['catch_count']??0;
+            $f['owned']=$owned;
+            $f['shown']=$shown[$f['id']] ?? 0;
+            $f['lifetime_cap']=isset($f['lifetime_cap']) ? (int)$f['lifetime_cap'] : null;
+            $f['rod_gate']=isset($f['min_rod_level']) ? (int)$f['min_rod_level'] : 0;
+            $f['rod_ready']=$f['rod_gate'] === 0 || (int)$s['rod_level'] >= $f['rod_gate'];
+            // 限量种不可售；普通种可售 = 持有 - max(4, 展示)
+            $f['sellable'] = $f['lifetime_cap'] !== null ? 0 : max(0, $owned - max(4, $f['shown']));
             $fish[]=$f;
         }
+        $discovered = 0;
+        foreach($fish as $f) { if($f['discovered']) { $discovered++; } }
         $decor=[];
         foreach($meta['decor'] as $d) {
             $d['owned']=isset($s['decor_owned'][$d['id']]);
@@ -111,6 +129,7 @@ final class gamecenter_aquarium {
             $decor[]=$d;
         }
         return ['fish'=>$fish,'decor'=>$decor,'waters'=>$meta['water_names'],
+            'book'=>['discovered'=>$discovered,'total'=>count($fish)],
             'capacities'=>$this->c['fish_capacities'],'capacity_costs'=>$this->c['fish_capacity_costs'],
             'backgrounds'=>gamecenter_aquarium_shop::backgrounds(),
             'decor_slots_per_layer'=>gamecenter_aquarium_shop::decor_slots_per_layer(),

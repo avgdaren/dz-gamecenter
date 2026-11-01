@@ -52,7 +52,8 @@ final class gamecenter_aquarium_migrate {
 
         $r = gamecenter_aquarium_rules::settle($s, $cutoff, $this->source);
         $next = $r['save'];
-        $next = $this->remap($next);
+        // 同 ID 版本（v1 -> v2）不重映射；跨命名版本才走 id_map
+        if(!$this->sameIds()) { $next = $this->remap($next); }
 
         $oldPeriod = (int)$this->source['periods_ms'][$next['rod_level']];
         $newPeriod = (int)$this->target['periods_ms'][$next['rod_level']];
@@ -65,6 +66,16 @@ final class gamecenter_aquarium_migrate {
         gamecenter_aquarium_rules::validate($next, $this->target);
 
         return ['state'=>$next, 'version'=>(int)$row['version'] + 1, 'updated_ms'=>$next['last_settled_ms'], 'catches'=>count($r['catches'])];
+    }
+
+    /** 源与目标是否共用同一套水域/鱼 ID（v1 -> v2 是；foundation -> v1 不是） */
+    public function sameIds(): bool {
+        $a = $this->source['waters'] ?? [];
+        $b = $this->target['waters'] ?? [];
+        $ka = []; foreach($a as $w=>$cfg) { foreach($cfg['fish'] as $fid=>$f) { $ka[$fid] = $w; } }
+        $kb = []; foreach($b as $w=>$cfg) { foreach($cfg['fish'] as $fid=>$f) { $kb[$fid] = $w; } }
+        foreach($ka as $fid=>$w) { if(!isset($kb[$fid]) || $kb[$fid] !== $w) { return false; } }
+        return true;
     }
 
     private function remap(array $s): array {

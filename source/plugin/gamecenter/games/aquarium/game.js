@@ -823,6 +823,10 @@
       fishCards = {}; decorCards = {};
       if (!catalog) { host.appendChild(el('p', 'aq-muted', '正在读取…')); return; }
       if (tab === 'book') {
+        if (catalog.book) {
+          var bookHead = el('p', 'aq-book-head', '已发现 ' + catalog.book.discovered + ' / ' + catalog.book.total);
+          host.appendChild(bookHead);
+        }
         var grid = el('div', 'aq-grid');
         catalog.fish.forEach(function (f) {
           var card = el('button', 'aq-card' + (f.discovered ? '' : ' is-locked'));
@@ -835,11 +839,30 @@
           if (!f.discovered) { img.className = 'aq-silhouette'; }
           pic.appendChild(img); card.appendChild(pic);
           var bodyEl = el('div', 'aq-card-body');
-          bodyEl.appendChild(el('strong', null, f.discovered ? f.name : '？？？'));
+          // 未发现也保留名字与水域（灰剪影卡），不是只放一把锁
+          bodyEl.appendChild(el('strong', null, f.name));
           var meta = el('div', 'aq-card-meta');
           meta.appendChild(el('span', 'aq-tag', f.rarity));
-          meta.appendChild(el('span', 'aq-tag', ''));
+          var waterName = (catalog.waters && catalog.waters[f.water]) || '';
+          meta.appendChild(el('span', 'aq-tag', waterName));
           bodyEl.appendChild(meta);
+          // 限量种：终身 x/3（与"持有/展示"分开）
+          if (f.lifetime_cap) {
+            var life = el('div', 'aq-card-life');
+            var caughtLife = Math.min(f.lifetime_cap, f.catch_count || 0);
+            life.textContent = '终身 ' + caughtLife + '/' + f.lifetime_cap + (caughtLife >= f.lifetime_cap ? ' · 已收满' : '');
+            bodyEl.appendChild(life);
+          }
+          // 持有 · 展示（持有含展示，不做相加）
+          var holds = el('div', 'aq-card-hold');
+          holds.textContent = '持有 ' + (f.owned || 0) + ' · 展示 ' + (f.shown || 0);
+          bodyEl.appendChild(holds);
+          // 未发现：够门槛写"尚未发现"，不够写鱼竿条件
+          if (!f.discovered) {
+            var tip = el('div', 'aq-card-tip');
+            tip.textContent = f.rod_ready ? '尚未发现' : ('鱼竿 Lv.' + (f.rod_gate + 1) + ' 起可钓');
+            bodyEl.appendChild(tip);
+          }
           card.appendChild(bodyEl);
           if (f.discovered) { card.addEventListener('click', function () { addFish(f.id); }); }
           var sellBtn = el('button', 'aq-btn aq-btn-sm aq-sell', '');
@@ -930,10 +953,10 @@
         var card = fishCards[id];
         var cnt = snap.layout.fish.filter(function (x) { return x === id; }).length;
         card.classList.toggle('is-on', cnt > 0);
-        var tags = card.querySelectorAll('.aq-tag');
-        if (tags.length > 1) {
-          var owned = ownedFor(id), canSell = sellableFor(id);
-          tags[1].textContent = '持有 ' + owned + ' · 展示 ' + cnt;
+        // 持有/展示写到独立一行，不覆盖品级/水域标签
+        var holdEl = card.querySelector('.aq-card-hold');
+        if (holdEl) {
+          holdEl.textContent = '持有 ' + ownedFor(id) + ' · 展示 ' + cnt;
         }
         var sellBtn = card.querySelector('.aq-sell');
         if (sellBtn) {
