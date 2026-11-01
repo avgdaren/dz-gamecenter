@@ -1,0 +1,45 @@
+{
+  "schema": "aquarium-feeding-final-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "user-selected-awaiting-runtime-integration",
+  "selection": {
+    "source": "whistle-v5",
+    "id": "whistle_03",
+    "index_in_audition": 3,
+    "user_decision": "感觉用第三段这版比较好，然后一声就行",
+    "audio_modified_after_selection": false
+  },
+  "sound": {
+    "id": "bite_01",
+    "content_ms": 115,
+    "sample_rate": 44100,
+    "channels": 1,
+    "master_peak_dbfs": -12,
+    "files": [
+      {
+        "file": "bite_01.mp3",
+        "bytes": 2969,
+        "sha256": "478cf41787e761de7323ba4e4e6b99bf18fe19916458f8c0c5dd436bb25205ec",
+        "git_blob_sha": "eb1ca21bca76cb04d7b13c32247dbc997735a74c"
+      },
+      {
+        "file": "bite_01.ogg",
+        "bytes": 4486,
+        "sha256": "c4731119ae1a1589e3db92d989ca06ca97f12d94e4c0685da65c319e29c343ce",
+        "git_blob_sha": "481a163aada4e7805759349fc738dcc74b4923ab"
+      }
+    ]
+  },
+  "playback": {
+    "trigger": "confirmed local pellet consumption",
+    "play_count_per_event": 1,
+    "loop": false,
+    "variant_count": 1,
+    "random_pitch": false,
+    "min_interval_ms": 140,
+    "shared_max_voices": 2,
+    "overflow": "skip; do not queue or replay"
+  },
+  "other_audio": "drop/pop/BGM unchanged",
+  "runtime_integration_tested": false
+}

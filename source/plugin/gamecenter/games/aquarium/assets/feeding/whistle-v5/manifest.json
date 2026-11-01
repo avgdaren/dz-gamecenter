@@ -1,7 +1,7 @@
 {
   "schema": "aquarium-feeding-whistle-v5",
   "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
-  "status": "audition-only-not-selected",
+  "status": "selection-complete-awaiting-runtime-integration",
   "supersedes": "whoosh-v4: user heard rubbing/scraping rather than 咻; not accepted",
   "method": "deterministic coherent sine whistle glide + 1.5-4.5 percent weak second harmonic; zero random noise; smooth attack and release",
   "items": [
@@ -137,5 +137,8 @@
         }
       ]
     }
-  ]
+  ],
+  "selected_id": "whistle_03",
+  "selected_play_count": 1,
+  "final_manifest": "../final-v1/manifest.json"
 }
