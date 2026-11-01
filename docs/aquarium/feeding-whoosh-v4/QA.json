@@ -1,0 +1,151 @@
+{
+  "schema": "aquarium-feeding-whoosh-v4",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "audition-only-not-selected",
+  "method": "original seeded procedural swept-air synthesis; smooth envelope; no impact layer",
+  "user_feedback": "A/B/C rejected as too hard; try short soft 咻",
+  "trigger_contract": {
+    "consumption_confirmed_only": true,
+    "min_gap_ms": 140,
+    "shared_max_voices": 2,
+    "overflow": "skip, no queue"
+  },
+  "items": [
+    {
+      "id": "whoosh_01",
+      "label": "轻气流",
+      "ms": 92,
+      "start": 2400,
+      "end": 1050,
+      "q": 0.65,
+      "tone": 0.06,
+      "seed": 831,
+      "sample_rate": 44100,
+      "channels": 1,
+      "master_peak_dbfs": -10.0,
+      "master_rms_dbfs": -23.38,
+      "first_sample": 0,
+      "last_sample": 0,
+      "files": [
+        {
+          "file": "whoosh_01.mp3",
+          "bytes": 2551,
+          "sha256": "619895ebad8bbc4b9fdf6568fa043e770bd425a108e023f77b78db7f32f1c4a5",
+          "decoded_ms": 92.0,
+          "decoded_peak_dbfs": -10.44,
+          "clipped_samples": 0
+        },
+        {
+          "file": "whoosh_01.ogg",
+          "bytes": 5010,
+          "sha256": "9f3d9be11075e329a1e63a863be09a299ee0ead97ba8699e47913c72e5e40d55",
+          "decoded_ms": 89.09,
+          "decoded_peak_dbfs": -10.87,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "whoosh_02",
+      "label": "柔滑音",
+      "ms": 108,
+      "start": 1700,
+      "end": 700,
+      "q": 0.95,
+      "tone": 0.14,
+      "seed": 832,
+      "sample_rate": 44100,
+      "channels": 1,
+      "master_peak_dbfs": -10.0,
+      "master_rms_dbfs": -23.34,
+      "first_sample": 0,
+      "last_sample": 0,
+      "files": [
+        {
+          "file": "whoosh_02.mp3",
+          "bytes": 2969,
+          "sha256": "f4b55641622b5a7039bd740eb574252f713c6311814eca3c72a9d92d36cd6348",
+          "decoded_ms": 108.0,
+          "decoded_peak_dbfs": -10.45,
+          "clipped_samples": 0
+        },
+        {
+          "file": "whoosh_02.ogg",
+          "bytes": 5093,
+          "sha256": "c2b73af8c5fb93ccb36c01579baea2175afb262c058b1b470ed8bb04f5c35896",
+          "decoded_ms": 105.1,
+          "decoded_peak_dbfs": -9.91,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "whoosh_03",
+      "label": "轻上扬",
+      "ms": 82,
+      "start": 1050,
+      "end": 2550,
+      "q": 0.7,
+      "tone": 0.08,
+      "seed": 833,
+      "sample_rate": 44100,
+      "channels": 1,
+      "master_peak_dbfs": -10.0,
+      "master_rms_dbfs": -22.5,
+      "first_sample": 0,
+      "last_sample": 0,
+      "files": [
+        {
+          "file": "whoosh_03.mp3",
+          "bytes": 2551,
+          "sha256": "62f70ed008ba41f832529fb8cb12874d619d41d08b5461aab9cfe2f3da3d775a",
+          "decoded_ms": 82.0,
+          "decoded_peak_dbfs": -10.52,
+          "clipped_samples": 0
+        },
+        {
+          "file": "whoosh_03.ogg",
+          "bytes": 4998,
+          "sha256": "3e3777eceec9fb332008b5191e10b23f614e4ca2a73341e7082b5aaa1bb7bee0",
+          "decoded_ms": 79.09,
+          "decoded_peak_dbfs": -10.67,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "whoosh_04",
+      "label": "圆润下滑",
+      "ms": 118,
+      "start": 1350,
+      "end": 540,
+      "q": 1.2,
+      "tone": 0.2,
+      "seed": 834,
+      "sample_rate": 44100,
+      "channels": 1,
+      "master_peak_dbfs": -10.0,
+      "master_rms_dbfs": -24.36,
+      "first_sample": 0,
+      "last_sample": 0,
+      "files": [
+        {
+          "file": "whoosh_04.mp3",
+          "bytes": 2969,
+          "sha256": "eac89a35cef21f7be3cdb1bc01eaff8b855a7edf3834651d938c5b427ea87ec9",
+          "decoded_ms": 118.0,
+          "decoded_peak_dbfs": -10.47,
+          "clipped_samples": 0
+        },
+        {
+          "file": "whoosh_04.ogg",
+          "bytes": 5134,
+          "sha256": "c1f620dcd258dd08a0d81c15b4cd630bd8e76575c5d5e716e7f36ff9a1d53d77",
+          "decoded_ms": 140.77,
+          "decoded_peak_dbfs": -10.33,
+          "clipped_samples": 0
+        }
+      ]
+    }
+  ]
+}
