@@ -82,6 +82,31 @@ class DB3 { public static function result_first($sql, $args) { return '42'; } }
 $ok = gamecenter_aquarium_stats::refresh();   // 仍走真实 DB 类，这里只验证不抛错
 $check(is_array($ok) || $ok === null, 'refresh 返回结构合法');
 
+/* Carinoasd 补：current() 页面兜底刷新 */
+$write(['schema'=>1,'count'=>3,'updated_at'=>time()-60]);
+DB::$queries = 0;
+$c = gamecenter_aquarium_stats::current();
+$check(($c['count'] ?? null) === 3 && DB::$queries === 0, 'current：缓存 1 分钟内直接用，0 次查询');
+$write(['schema'=>1,'count'=>3,'updated_at'=>time()-660]);
+DB::$queries = 0;
+$c = gamecenter_aquarium_stats::current();
+$check(($c['count'] ?? null) === 7 && DB::$queries === 1, 'current：超过 10 分钟刷新一次（COUNT=7）');
+$check((gamecenter_aquarium_stats::read()['count'] ?? null) === 7, 'current：刷新结果写回缓存');
+@unlink($file);
+DB::$queries = 0;
+$c = gamecenter_aquarium_stats::current();
+$check(($c['count'] ?? null) === 7 && DB::$queries === 1, 'current：缓存缺失也刷新');
+$write(['schema'=>1,'count'=>4,'updated_at'=>time()-660]);
+$lock = fopen($dir.'/refresh.lock', 'c'); flock($lock, LOCK_EX);
+DB::$queries = 0;
+$c = gamecenter_aquarium_stats::current();
+$check(($c['count'] ?? null) === 4 && DB::$queries === 0, 'current：锁忙时沿用旧值，0 次查询');
+flock($lock, LOCK_UN); fclose($lock);
+$write(['schema'=>1,'count'=>4,'updated_at'=>time()-90000]);
+$lock = fopen($dir.'/refresh.lock', 'c'); flock($lock, LOCK_EX);
+$check(gamecenter_aquarium_stats::current() === null, 'current：锁忙且超过 24 小时 → null（不显示）');
+flock($lock, LOCK_UN); fclose($lock);
+
 @unlink($dir.'/participants.json');
 @unlink($dir.'/refresh.lock');
 @rmdir($dir);
