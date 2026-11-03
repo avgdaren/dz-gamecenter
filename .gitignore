@@ -30,3 +30,8 @@ _backup/
 # Python verification caches
 **/__pycache__/
 *.pyc
+
+# Aquarium static v2 configuration; runtime data stays ignored.
+!source/plugin/gamecenter/games/aquarium/data/
+source/plugin/gamecenter/games/aquarium/data/*
+!source/plugin/gamecenter/games/aquarium/data/content-v2-candidate.json

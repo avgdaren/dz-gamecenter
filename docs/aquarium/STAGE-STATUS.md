@@ -1,5 +1,13 @@
 # 天使水族馆：阶段台账与证据归属
 
+## 2026-11-03 首轮接手覆盖记录
+
+当前游戏 1.2.0，候选 `feat/aquarium-release-1@2a974d5`；16 生物、24 装饰（6 建筑），鱼位 4→8→12，前/后景各 3 件，喂养已实现。v2 静态配置已从准确本地文件恢复，哈希不变。本轮有真实隔离 InnoDB 两驱动各 59 PASS，另有规则/模型/浏览器证据；统一校验、CLI cutoff 和 360px 夹具布局 FAIL。完整结果及未验证项见 [CODEX-HANDOFF-1.2.0](CODEX-HANDOFF-1.2.0.md) 与 Issue #60。未部署、未合并、无插件 DDL。
+
+**以下台账保留为历史证据；其中“当前阶段”“未实现喂养”“装饰位未定”等不再描述现状。**
+
+---
+
 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。更新：2026-10-29（北京时间）。来源：[阶段交接](https://github.com/avgdaren/dz-gamecenter/issues/22#issuecomment-6495674599)、[小蓝实站回执](https://github.com/avgdaren/dz-gamecenter/pull/25#issuecomment-6495583176)。
 
 ## 当前阶段

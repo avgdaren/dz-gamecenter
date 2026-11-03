@@ -1,5 +1,15 @@
 # 天使水族馆 A：测试范围与复现
 
+## 2026-11-03：1.2.0 当前复现入口
+
+候选基线 `feat/aquarium-release-1@2a974d5`。本轮恢复精确 v2 配置，执行当前专项套件、原版 X5 两驱动隔离库（各 59 PASS）及独立浏览器夹具；存在明确失败，历史统计不可沿用。请先读 [本轮命令、结果和边界](../../docs/aquarium/CODEX-HANDOFF-1.2.0.md)。
+
+新增：`handoff_validation.php`（当前 36 检查/23 失败，保留真实校验缺口）、`release_assets_check.py`（分包字节/解码 450 PASS，需现有 Pillow）、`browser_fixture.php`（回环地址合成玩家，无 DB/Discuz，引擎源码不改）。
+
+**下方旧测试报告是历史资料。1.4.0 为早期插件集成版本，不能作为当前水族馆 1.2.0 的验收结论。**
+
+---
+
 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。
 
 关联 Issue #24。本目录所有worker仅CLI运行，时间/故障/隔离库注入不进入HTTP接口。生产诊断页只使用真实服务器时间。需64位PHP 8.1+（项目目标8.3），Node与Python仅用于开发测试，不是线上依赖。
