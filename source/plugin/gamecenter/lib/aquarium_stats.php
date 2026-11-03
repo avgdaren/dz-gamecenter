@@ -5,7 +5,9 @@
  *  缓存文件：<插件目录>/games/aquarium/data/stats/participants.json
  *  { schema:1, count:int, updated_at:int(unix) }
  *
- *  刷新由定时任务调用 refresh()；页面只 read()，不在请求里 COUNT。
+ *  刷新由定时任务调用 refresh()（tools/aquarium_participants_refresh.php）；页面用 current()。
+ *  Carinoasd 补：没有配置计划任务时（那支 CLI 不在插件目录里、要带数据库参数，部署时容易漏），
+ *  current() 在缓存缺失或超过 REFRESH_AFTER_SECONDS 时才在请求里刷新一次；锁忙或目录不可写就沿用旧值，0 次查询。
  *  并发：**先拿非阻塞排他锁，再 COUNT**；锁忙时 0 次查询，旧文件原样保留。
  */
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
@@ -14,6 +16,7 @@ final class gamecenter_aquarium_stats {
     const SCHEMA = 1;
     const STALE_HIDE_SECONDS = 86400;   // 超过 24 小时不展示
     const FUTURE_TOLERANCE = 300;       // 允许 5 分钟时钟偏差
+    const REFRESH_AFTER_SECONDS = 600;  // 页面兜底刷新的间隔（与计划任务同为 10 分钟）
 
     /** 缓存目录（相对插件根；可用 GC_STATS_DIR 覆盖，便于仓库/部署目录分离时校验） */
     public static function dir(): string {
@@ -49,6 +52,14 @@ final class gamecenter_aquarium_stats {
         if($c === null) { return null; }
         if(time() - $c['updated_at'] > self::STALE_HIDE_SECONDS) { return null; }
         return $c;
+    }
+
+    /** 页面用：缓存新鲜就直接用；缺失或超过 10 分钟才刷新一次（拿不到锁、写不进去就退回 display()）。 */
+    public static function current(): ?array {
+        $c = self::display();
+        if($c !== null && time() - $c['updated_at'] <= self::REFRESH_AFTER_SECONDS) { return $c; }
+        $fresh = self::refresh();
+        return $fresh !== null ? ['count'=>$fresh['count'], 'updated_at'=>$fresh['updated_at']] : $c;
     }
 
     /**

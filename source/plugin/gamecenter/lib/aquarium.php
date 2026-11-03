@@ -47,7 +47,7 @@ final class gamecenter_aquarium {
         $out['inventory']=['schema'=>(int)($s['inventory_schema']??0),'anomaly'=>!empty($s['inventory_anomaly'])];
         $out['recent_sale']=$s['recent_sale'] ?? [];
         require_once __DIR__.'/aquarium_stats.php';
-        $out['participants']=gamecenter_aquarium_stats::display();
+        $out['participants']=gamecenter_aquarium_stats::current();   // 缺失或超过 10 分钟才刷新一次
         $out['summary']=null;
         if(isset($s['recent_summary']) && is_array($s['recent_summary'])) {
             $x=$s['recent_summary']; $clean=[];
