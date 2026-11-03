@@ -1,10 +1,11 @@
 <?php
-/** 作者：GPT / Codex · 小蓝（DSH）；原插件 (C) 2026 Carinoasd。水族馆服务端存档服务，路由限管理员；不发论坛积分。 */
+/** 作者：GPT / Codex · 小蓝（DSH）；原插件 (C) 2026 Carinoasd。水族馆服务端存档服务；用户组准入由路由检查，不发论坛积分。 */
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 require_once __DIR__.'/aquarium_config.php';
 require_once __DIR__.'/aquarium_configs.php';
 require_once __DIR__.'/aquarium_shop.php';
 require_once __DIR__.'/aquarium_store.php';
+require_once __DIR__.'/aquarium_state.php';
 final class gamecenter_aquarium {
     const CLIENT='aquarium-foundation-1';
     const MAX_LAYOUT_BYTES=2048;
@@ -31,19 +32,6 @@ final class gamecenter_aquarium {
         'migrate_readonly'=>'存档正在升级，暂时只能查看，收益和操作稍后恢复',
             'limit'=>'这次数量会让金币超出上限，请分批卖','closed'=>'售卖功能暂未开放'];
         return ['ok'=>$code===''?1:0,'code'=>$code,'msg'=>$code===''?'已同步':($messages[$code]??$messages['busy']),'snapshot'=>$snapshot];
-    }
-    private function decode(array $row,int $uid,bool $strictVersion=true): array {
-        if((int)$row['uid']!==$uid || (int)$row['save_version']!==1 || ($strictVersion && $row['config_version']!==$this->c['version'])
-            || !ctype_digit((string)$row['version']) || (int)$row['version']<1 || (int)$row['version']>=gamecenter_aquarium_rules::MAX_VALUE
-            || strlen($row['state_json'])>131072) { throw new DomainException('state'); }
-        $s=json_decode($row['state_json'],true,32,JSON_THROW_ON_ERROR);
-        if(!is_array($s) || ($s['uid']??null)!==$uid || ($s['last_settled_ms']??null)!==(int)$row['updated_ms']) { throw new DomainException('state'); }
-        if($strictVersion) { gamecenter_aquarium_rules::validate($s,$this->c); }
-        if($strictVersion && isset($this->c['decor'],$this->c['fish_capacities'],$this->c['initial_fish_capacity'])) {
-            $s=gamecenter_aquarium_shop::defaults($s,$this->c);
-            gamecenter_aquarium_shop::validateState($s,$this->c);
-        }
-        return $s;
     }
     private function snapshot(array $s,int $version): array {
         $out=[];
@@ -186,7 +174,8 @@ final class gamecenter_aquarium {
         if(isset($data['qty']) && (!preg_match('/\A[1-9][0-9]{0,3}\z/D',(string)$data['qty']))) { return $this->result('input'); }
         if(isset($data['qty'])) { $data['qty']=(int)$data['qty']; }
         if(isset($data['layout']) && is_string($data['layout'])) {
-            $decoded=json_decode($data['layout'],true,8,JSON_THROW_ON_ERROR);
+            try { $decoded=json_decode($data['layout'],true,8,JSON_THROW_ON_ERROR); }
+            catch(JsonException $e) { return $this->result('input'); }
             if(!is_array($decoded)) { return $this->result('input'); }
             $data['layout']=$decoded;
         }
@@ -202,46 +191,33 @@ final class gamecenter_aquarium {
                         'version'=>1,'updated_ms'=>$now];
                     $this->db->insert($row); return $this->result('',$this->snapshot($s,1));
                 }
-                // 先宽容解码（版本可能落后），迁移后再严格校验
-                $s=$this->decode($row,$uid,false); $version=(int)$row['version'];
+                // 先核对行头，再按存档的真实源配置校验；同版本请求也不能跳过。
+                $s=gamecenter_aquarium_state::decode($row,$uid); $version=(int)$row['version'];
+                $src=gamecenter_aquarium_configs::for_version($s['config_version']);
+                $s=gamecenter_aquarium_state::validate($s,$src,true);
 
                 // 配置版本落后于当前 ACTIVE_CONFIG：在同一个事务里做一次池切换
                 // （旧配置结算到本次 now，再改标识；不额外结算、不重开 24h 预算）
                 if(($s['config_version'] ?? '') !== $this->c['version']) {
                     require_once __DIR__.'/aquarium_migrate.php';
-                    try {
-                        $src = gamecenter_aquarium_configs::for_version((string)$s['config_version']);
-                        // 老档可能没有库存字段：先按源配置补齐（只有整行纯旧档才补，异常档打标记）
-                        $s = gamecenter_aquarium_shop::defaults($s, $src);
-                        if(!empty($s['inventory_anomaly'])) { return $this->result('maintenance', $this->snapshot($s,$version)); }
-                        $mig = new gamecenter_aquarium_migrate($this->db, $src, $this->c);
-                        if($mig->sameIds()) {
-                            $sw = gamecenter_aquarium_migrate::switchPool($s, $src, $this->c, $now);
-                            if($sw['changed']) {
-                                $s = $sw['save'];
-                                $version++;
-                                $row['version']=$version;
-                                $this->db->save_versioned([
-                                    'uid'=>$uid,'save_version'=>1,'config_version'=>$s['config_version'],
-                                    'state_json'=>json_encode($s,JSON_THROW_ON_ERROR),
-                                    'version'=>$version,'updated_ms'=>$s['last_settled_ms'],
-                                ]);
-                            }
-                        } else {
-                            return $this->result('migrate_readonly', $this->snapshot($s,$version));   // 跨命名迁移需 CLI
-                        }
-                    } catch(Throwable $e) {
-                        // 迁移不了也不能让玩家看到"还没有水族馆"：原档只读呈现，等维护修复
-                        return $this->result('migrate_readonly', $this->snapshot($s,$version));
+                    $mig = new gamecenter_aquarium_migrate($this->db, $src, $this->c);
+                    if(!$mig->sameIds()) { return $this->result('migrate_readonly', $this->snapshot($s,$version)); }
+                    try { $sw = gamecenter_aquarium_migrate::switchPool($s, $src, $this->c, $now); }
+                    catch(DomainException $e) { return $this->result('migrate_readonly', $this->snapshot($s,$version)); }
+                    if($sw['changed']) {
+                        $migrated = $sw['save'];
+                        $newRow = [
+                            'uid'=>$uid,'save_version'=>1,'config_version'=>$migrated['config_version'],
+                            'state_json'=>json_encode($migrated,JSON_THROW_ON_ERROR),
+                            'version'=>$version+1,'updated_ms'=>$migrated['last_settled_ms'],
+                        ];
+                        // DB 异常必须交给外层事务回滚/重试；写成功后才对外采用新版本。
+                        $this->db->save_versioned($newRow);
+                        $s=$migrated; $row=$newRow; $version=(int)$newRow['version'];
                     }
                 }
+                $s=gamecenter_aquarium_state::validate($s,$this->c);
                 if($action==='init') { return $this->result('',$this->snapshot($s,$version)); }
-                if(!empty($s['inventory_anomaly'])) {
-                    // 库存异常账号：只读隔离。不结算、不购物、不布景、不售卖、不写原档。
-                    if($action==='catalog') { $out=$this->result('',$this->snapshot($s,$version)); $out['catalog']=$this->catalog($s); return $out; }
-                    if($action==='sync' || $action==='init') { return $this->result('',$this->snapshot($s,$version)); }
-                    return $this->result('maintenance',$this->snapshot($s,$version));
-                }
                 if($action==='catalog') { $out=$this->result('',$this->snapshot($s,$version)); $out['catalog']=$this->catalog($s); return $out; }
                 if($mutating && $data['expected_version']!==$version) { return $this->result('conflict',$this->snapshot($s,$version)); }
                 $lastReceiptBefore = (!empty($s['recent_sale']) && is_array($s['recent_sale']))
@@ -263,7 +239,7 @@ final class gamecenter_aquarium {
                         'effective_ms'=>$r['effective_ms'],'discarded_ms'=>$r['discarded_ms']];
                 }
                 if($next!==$s) {
-                    if(isset($this->c['decor'],$this->c['fish_capacities'],$this->c['initial_fish_capacity'])) { gamecenter_aquarium_shop::validateState($next,$this->c); }
+                    gamecenter_aquarium_state::validate($next,$this->c);
                     $version++; $row['state_json']=json_encode($next,JSON_THROW_ON_ERROR); $row['version']=$version; $row['updated_ms']=$next['last_settled_ms'];
                     $lastReceiptAfter = (!empty($next['recent_sale']) && is_array($next['recent_sale']))
                         ? json_encode(end($next['recent_sale'])) : '';

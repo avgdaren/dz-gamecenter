@@ -49,7 +49,8 @@ while(($line=fgets(STDIN))!==false) {
   } elseif($op==='hold') {
    $store->transaction(function()use($store,$x){$store->lock($x['uid']);usleep(2300000);});$r=['ok'=>1];
   } else {
-   $service=new gamecenter_aquarium($store,isset($x['now'])?fn()=>(int)$x['now']:null);
+   $config = gamecenter_aquarium_configs::for_version(getenv('GC_TEST_CONFIG') ?: gamecenter_aquarium_configs::FOUNDATION);
+   $service=new gamecenter_aquarium($store,isset($x['now'])?fn()=>(int)$x['now']:null,$config);
    $r=$service->request((int)$x['uid'],$x['allowed']??true,$x['data']);
   }
   echo json_encode($r,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR)."\n";

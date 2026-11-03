@@ -22,7 +22,7 @@ foreach(['pond','bay'] as $wid) {
  $s=gamecenter_aquarium_rules::initial(7,'000102030405060708090a0b0c0d0e0f',1000000,$c);
  if($wid==='bay'){$s['unlocked_waters']=['bay','pond'];$s['current_water']='bay';}
  $rare=$wid==='pond'?'pond_feather':'bay_aurora';
- foreach($c['waters'][$wid]['fish'] as $id=>$f)if($id!==$rare)$s['fish'][$id]=['discovered_at'=>1000000,'catch_count'=>1];
+ foreach($c['waters'][$wid]['fish'] as $id=>$f)if($id!==$rare)$s['fish'][$id]=['discovered_at'=>1000000,'catch_count'=>1,'owned_count'=>1,'sold_count'=>0];
  $s['no_new_count'][$wid]=80;$r=gamecenter_aquarium_rules::settle($s,1120000,$c);
  ck($r['catches'][0]['fish_id']===$rare,'81st forces missing rare at rod0 '.$wid);
  ck($r['save']['no_new_count'][$wid]===0,'pity reset '.$wid);
@@ -44,7 +44,7 @@ ck($book[5]['description']===null&&is_string($book[0]['description']),'only disc
 $hint=gamecenter_aquarium_content::decor_conditions($s,'plant_meadow');ck($hint['eligible'],'normal cheap decoration eligible');
 $hint=gamecenter_aquarium_content::decor_conditions($s,'building_moon_gate');ck(!$hint['eligible']&&$hint['missing']['coins']===2678&&$hint['missing']['total_fish']===7,'exact money/collection deficit');
 ck(gamecenter_aquarium_content::decor_conditions($s,'scape_coral')['missing']['water_id']==='bay','locked bay gate');
-$s['coins']=10000;$s['unlocked_waters']=['bay','pond'];foreach($c['waters'] as $w)foreach($w['fish'] as $id=>$f)$s['fish'][$id]=['discovered_at'=>1000000,'catch_count'=>1];
+$s['coins']=10000;$s['unlocked_waters']=['bay','pond'];foreach($c['waters'] as $w)foreach($w['fish'] as $id=>$f)$s['fish'][$id]=['discovered_at'=>1000000,'catch_count'=>1,'owned_count'=>1,'sold_count'=>0];
 foreach($cat['decor'] as $d)ck(gamecenter_aquarium_content::decor_conditions($s,$d['id'])['eligible'],'normal complete book gate '.$d['id']);
 rejects(fn()=>gamecenter_aquarium_content::decor_conditions($s,'fake_decor'),'unknown decor rejected');
 $bad=$s;$bad['coins']=-1;rejects(fn()=>gamecenter_aquarium_content::book($bad),'corrupt state rejected');

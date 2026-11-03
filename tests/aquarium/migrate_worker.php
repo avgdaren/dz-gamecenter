@@ -46,7 +46,7 @@ while(($line = fgets(STDIN)) !== false) {
             $store->query(gamecenter_aquarium_schema::sql());
             $r = ['ok'=>1];
         } elseif($op === 'seed') {
-            $c = gamecenter_aquarium_configs::for_version(gamecenter_aquarium_configs::FOUNDATION);
+            $c = gamecenter_aquarium_configs::for_version($x['config'] ?? gamecenter_aquarium_configs::FOUNDATION);
             $base = (int)($x['base_ms'] ?? 1700000000000);
             $made = 0;
             for($i = 1; $i <= (int)$x['n']; $i++) {
@@ -56,6 +56,7 @@ while(($line = fgets(STDIN)) !== false) {
                 $advance = ($uid % 2 === 0) ? 40 : 12;
                 $settled = gamecenter_aquarium_rules::settle($s, $base + $advance * 120000, $c);
                 $s2 = $settled['save'];
+                if(isset($c['fish_capacities'])) { $s2 = gamecenter_aquarium_shop::defaults($s2,$c); }
                 $store->query('INSERT INTO %t (uid,save_version,config_version,state_json,version,updated_ms) VALUES (%d,%d,%s,%s,%d,%d)',
                     ['gamecenter_aquarium_save', $uid, 1, $c['version'], json_encode($s2, JSON_THROW_ON_ERROR), 1, $s2['last_settled_ms']]);
                 $made++;
@@ -69,6 +70,11 @@ while(($line = fgets(STDIN)) !== false) {
         } elseif($op === 'corrupt') {
             $store->query('UPDATE %t SET state_json=%s WHERE uid=%d', ['gamecenter_aquarium_save', '{bad', (int)$x['uid']]);
             $r = ['ok'=>1];
+        } elseif($op === 'replace_state') {
+            $s = $x['state'];
+            $store->save_versioned(['uid'=>(int)$x['uid'],'save_version'=>1,'config_version'=>$s['config_version'],
+                'state_json'=>json_encode($s,JSON_THROW_ON_ERROR),'version'=>1,'updated_ms'=>$s['last_settled_ms']]);
+            $r=['ok'=>1];
         } elseif($op === 'counts') {
             $r = $store->rows('SELECT config_version AS v, COUNT(*) AS c FROM %t GROUP BY config_version', ['gamecenter_aquarium_save']);
         } else {

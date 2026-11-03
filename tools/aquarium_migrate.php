@@ -35,6 +35,10 @@ $tablepre = $opt('tablepre', 'pre_');
 $mode = $opt('mode', 'dry-run');
 $jobFile = $opt('job', 'aquarium-migration-job.json');
 $cutoffArg = $opt('cutoff', '');
+$trustedNow = (int)floor(microtime(true)*1000);
+if($cutoffArg !== '' && (!preg_match('/\A[1-9][0-9]{0,12}\z/D', $cutoffArg) || (int)$cutoffArg > $trustedNow)) {
+    fwrite(STDERR, "cutoff 必须是固定正整数毫秒，且不得晚于当前服务器时间\n"); exit(2);
+}
 $batch = (int)$opt('batch', '200');
 $maxBatches = (int)$opt('max-batches', '0'); // >0 时只跑这么多批，用于中断/续跑演练
 $yes = $opt('yes', '') === '1';
@@ -122,8 +126,12 @@ if(is_file($jobFile)) {
     }
     $job = $prev;
 }
-if($cutoffArg !== '') { $job['cutoff_ms'] = (int)$cutoffArg; }
-if((int)$job['cutoff_ms'] <= 0) { $job['cutoff_ms'] = $mig->cutoff((int)floor(microtime(true)*1000)); }
+if(is_file($jobFile)) {
+    if(!gamecenter_aquarium_rules::number($job['cutoff_ms'] ?? null, 1, $trustedNow)
+        || ($cutoffArg !== '' && (int)$cutoffArg !== $job['cutoff_ms'])) {
+        fwrite(STDERR, "job 的固定 cutoff 无效或与参数不一致，拒绝续跑。\n"); exit(3);
+    }
+} else { $job['cutoff_ms'] = $mig->cutoff($trustedNow, $cutoffArg === '' ? null : (int)$cutoffArg); }
 
 $say(['mode'=>$mode, 'source_version'=>$job['source'], 'target_version'=>$job['target'], 'cutoff_ms'=>$job['cutoff_ms'],
     'total'=>$mig->total(), 'distribution'=>$mig->distribution(), 'cursor'=>$job['cursor_uid']]);

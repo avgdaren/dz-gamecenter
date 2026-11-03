@@ -4,7 +4,7 @@ if(PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 define('IN_DISCUZ', true);
 require __DIR__.'/../../source/plugin/gamecenter/lib/aquarium_configs.php';
 require __DIR__.'/../../source/plugin/gamecenter/lib/aquarium_migrate.php';
-require __DIR__.'/../../source/plugin/gamecenter/lib/aquarium_shop.php';
+require_once __DIR__.'/../../source/plugin/gamecenter/lib/aquarium_shop.php';
 
 $checks = 0; $fail = 0;
 $check = function(bool $ok, string $msg) use (&$checks, &$fail) {
@@ -65,7 +65,7 @@ $check($r['status'] === 'failed' && $r['reason'] === 'row-version', '行版本 0
 
 /* JSON.uid 与行 uid 不一致 → failed */
 $r = $mig->classify($row($s, ['uid' => 2]), $now + 1000);
-$check($r['status'] === 'failed' && $r['reason'] === 'target-uid', 'uid 不一致 → failed');
+$check($r['status'] === 'failed' && $r['reason'] === 'state-uid', 'uid 不一致 → failed');
 
 /* 展示超持有 → failed */
 $bad3 = $s; $fid = array_key_first($bad3['fish']);
