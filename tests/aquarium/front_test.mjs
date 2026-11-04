@@ -25,7 +25,7 @@ class El {
   setAttribute(k,v){this[k]=v;} addEventListener(k,fn){this.handlers[k]=fn;}
   click(){if(!this.disabled)return this.handlers.click?.({stopPropagation(){}});}
   querySelectorAll(sel){const nodes=this.children.flatMap(x=>[x,...x.querySelectorAll('*')]);
-    return nodes.filter(x=>sel==='*'||(sel.startsWith('.')?x.classList.contains(sel.slice(1)):x.tag===sel));}
+    return nodes.filter(x=>sel==='*'||(sel.startsWith('.')?x.classList.contains(sel.slice(1)):sel.startsWith('#')?x.id===sel.slice(1):x.tag===sel));}
   querySelector(sel){return this.querySelectorAll(sel)[0]??null;}
   getBoundingClientRect(){return {width:880,height:550,left:0,top:0};}
 }
@@ -36,9 +36,10 @@ const doc={hidden:false,head,body,createElement:tag=>new El(tag),createTextNode:
   querySelector:sel=>body.querySelector(sel),getElementById:id=>body.querySelectorAll('*').find(e=>e.id===id),
   handlers:{},addEventListener(k,fn){this.handlers[k]=fn;}};
 const win={handlers:{},addEventListener(k,fn){this.handlers[k]=fn;}};
-let register,queue=[],requests=[],assets=[],timers=new Map(),timerId=0;
+let register,queue=[],requests=[],assets=[],timers=new Map(),timerId=0,intervals=[],clock=1700000000000;
+class TestDate extends Date {static now(){return clock;}}
 vm.runInNewContext(code,{GameCenter:{register(k,fn){check(k==='aquarium','registration');register=fn;}},
-  document:doc,window:win,FormData,performance,console,requestAnimationFrame(){},setInterval(){},
+  document:doc,window:win,FormData,performance,console,Date:TestDate,requestAnimationFrame(){},setInterval(fn,ms){intervals.push({fn,ms});},
   setTimeout(fn,ms){const id=++timerId;timers.set(id,{fn,ms});return id;},clearTimeout(id){timers.delete(id);},
   fetch(url,opts){
     if(!opts?.body){assets.push(url);return Promise.resolve({json:()=>Promise.resolve(JSON.parse(readFileSync(new URL(url.split('?')[0],root),'utf8')))});}
@@ -48,8 +49,8 @@ vm.runInNewContext(code,{GameCenter:{register(k,fn){check(k==='aquarium','regist
 const button=prefix=>stage.querySelectorAll('button').find(e=>e.textContent.startsWith(prefix));
 const flush=async()=>{for(let i=0;i<40;i++)await Promise.resolve();};
 const reply=async data=>{const q=queue.shift();assert.ok(q,'pending API request');q.resolve({ok:true,json:()=>Promise.resolve(data)});await flush();};
-const catalog={fish:[{id:'pond_blue',name:'彩鳞鱼',water:'pond',rarity:'常见',discovered:true,owned:1,shown:0}],decor:[],waters:{pond:'池塘'},book:{discovered:1,total:1}};
-const snap=(version,level=0)=>({coins:1000,rod_level:level,progress_ms:0,catch_seq:0,fish:{pond_blue:{catch_count:1,owned_count:1,sold_count:0}},summary:null,version,
+const catalog={fish:[{id:'pond_blue',name:'彩鳞鱼',water:'pond',rarity:'常见',discovered:true,owned:1,shown:0}],decor:[{id:'trinket_crystal',name:'星晶花簇',owned:false,cost:1002,missing:{coins:2,pond_fish:0,total_fish:0,water:''}}],waters:{pond:'池塘'},book:{discovered:1,total:1}};
+const snap=(version,level=0)=>({coins:1000,last_settled_ms:clock,rod_level:level,progress_ms:0,catch_seq:0,fish:{pond_blue:{catch_count:1,owned_count:1,sold_count:0}},summary:null,version,
   current_water:'pond',unlocked_waters:['pond'],fish_capacity:4,layout:{fish:[null,null,null,null],decor:{back:[],front:[]},background:'tank_day'},
   rules:{periods_ms:[120000,108000,96000],rod_costs:[0,120,260],waters:{pond:{}}}});
 register(stage,{uid:1,start(){throw Error('must not start a score game');}});
@@ -80,4 +81,35 @@ win.handlers.pagehide();const count=requests.length;button('同步').click();but
 check(requests.length===count,'pagehide stops all calls');
 win.handlers.pageshow();await reply({ok:1,snapshot:snap(3,1)});
 check(requests.length===count+1,'bfcache resume reads once');
+// Regression: crossing the actual due time must sync without a user action.
+const tick=intervals.find(x=>x.ms===1000).fn;
+button('装饰').click();check(button('购买').disabled,'below-cost purchase initially disabled');
+let requestCount=requests.length;
+clock+=107900;tick();
+check(requests.length===requestCount,'no premature settlement 100ms before due');
+clock+=150;tick();
+check(requests.length===requestCount+1&&requests.at(-1).data.action==='sync','crossed deadline syncs even after modulo would wrap');
+tick();check(requests.length===requestCount+1,'busy deadline never duplicates request');
+const settledAt=clock;
+const earned={...snap(4,1),coins:1007};
+await reply({ok:1,snapshot:earned});
+check(doc.getElementById('aq-coins').textContent==='1,007','automatic sync paints authoritative earned coins');
+check(!button('购买').disabled,'earned coins refresh purchase availability despite old catalog shortfall');
+// A read-only snapshot must not restart the catch clock.
+clock+=1000;button('同步').click();await reply({ok:1,snapshot:earned});
+clock=settledAt+108100;tick();
+check(requests.at(-1).data.action==='sync'&&queue.length===1,'unchanged snapshot preserves due time');
+queue.shift().reject(Error('temporary offline'));await flush();
+requestCount=requests.length;clock+=1000;tick();
+check(requests.length===requestCount,'failed sync is throttled');
+clock+=3000;tick();
+check(requests.length===requestCount+1,'overdue sync retries after four seconds');
+await reply({ok:1,snapshot:{...snap(5,1),coins:1009}});
+requestCount=requests.length;clock+=400000;doc.hidden=true;tick();
+check(requests.length===requestCount,'hidden countdown never makes a request');
+doc.hidden=false;tick();
+check(requests.length===requestCount+1,'late timer across several periods still syncs once');
+await reply({ok:1,snapshot:{...snap(6,1),coins:1015}});
+win.handlers.pagehide();clock+=400000;requestCount=requests.length;tick();
+check(requests.length===requestCount,'stopped countdown never makes a request');
 console.log(JSON.stringify({status:'PASS',checks,scope:'current asynchronous DOM model, not browser/Discuz'}));

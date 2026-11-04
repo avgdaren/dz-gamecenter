@@ -1,5 +1,7 @@
 # 天使水族馆 A：测试范围与复现
 
+> **2026-11-04 Issue #65：** 金币到期刷新与装饰排布修复，前端模型 29 项、可见边界 3,467 组、shop 27 项通过，并做了独立浏览器夹具验证。见[本轮记录与未验证项](../../docs/aquarium/DISPLAY-FIXES-ISSUE-65.md)。未部署论坛。
+
 > **2026-11-03 后续修复已完成本轮本地回归：** 严格校验 359 PASS；PDO/mysqli 的 v2 各 126、迁移各 41、池切换各 45 PASS；360px 布局已修。以[修复记录](../../docs/aquarium/CODEX-FIXES-1.2.0.md)为当前结果。下文首轮失败与更早记录仅保留历史。用户取消真实场景验收；未部署论坛、未改正式玩家数据、未合 main。
 
 ## 2026-11-03：1.2.0 当前复现入口
@@ -34,6 +36,7 @@ python3 tests/aquarium/reference_check.py
 python3 tests/aquarium/service_test.py
 python3 tests/aquarium/entry_test.py
 node tests/aquarium/front_test.mjs
+node tests/aquarium/decor_layout_test.mjs
 python3 tests/aquarium/integration_140_test.py
 php tests/aquarium/legacy_rules_smoke.php
 python3 tests/aquarium/db_test.py

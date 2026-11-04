@@ -178,3 +178,6 @@
 .aq-fish-missing { border-radius: 40% 60% 55% 45%; background: radial-gradient(circle at 40% 35%, #cfe6f5, #9ec6e0); opacity: .5; }
 /* 高度驱动的鱼（海马/水母）：按缸高比例定尺寸 */
 .aq-fish-h .aq-fin img, .aq-fish-h .aq-fin canvas { height: 100%; width: auto; display: block; }
+
+/* GPT / Codex（小典）：装饰位置调整；按钮不触发卡片收起。 */
+.aq-decor-moves { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
