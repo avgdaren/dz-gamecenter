@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """作者：GPT / Codex；原插件 (C) 2026 Carinoasd。真实音轨检查；缺FFmpeg报SKIP，不代替耳听。"""
+import array
 import hashlib
 import json
 import os
@@ -40,7 +41,7 @@ def main():
             raise AssertionError(label)
         checks += 1
     tracks = {}
-    for name in ('battle.mp3', 'battle-phase2.mp3'):
+    for name in ('battle.mp3', 'battle-phase2.mp3', 'victory.mp3'):
         path = ASSETS / name
         check(path.is_file() and 0 < path.stat().st_size <= 800_000, name + ' file budget')
         run = subprocess.run([ffmpeg, '-hide_banner', '-nostats', '-i', str(path),
@@ -49,12 +50,22 @@ def main():
         measured = parse_loudnorm(run.stderr, run.stdout)
         integrated, peak = float(measured['input_i']), float(measured['input_tp'])
         check(-13 <= integrated <= -12, name + ' integrated loudness range')
-        check(peak <= -.5, name + ' decoded true peak headroom')
+        check(peak <= -1.0, name + ' decoded true peak headroom')
         tracks[name] = {'integrated_lufs': integrated, 'true_peak_db': peak, 'bytes': path.stat().st_size,
                        'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
-    first, second = tracks.values()
-    check(abs(first['integrated_lufs'] - second['integrated_lufs']) <= .5, 'two tracks loudness matched')
-    check(first['sha256'] != second['sha256'], 'second phase is a different track')
+    levels = [v['integrated_lufs'] for v in tracks.values()]
+    check(max(levels)-min(levels) <= .5, 'three tracks loudness matched')
+    check(len({v['sha256'] for v in tracks.values()}) == 3, 'three different tracks')
+    # FFmpeg progress duration is not the container duration. Read decoded PCM sample count.
+    pcm = subprocess.run([ffmpeg, '-v', 'error', '-i', str(ASSETS/'victory.mp3'), '-f', 's16le', '-ac', '2', '-ar', '44100', '-'], capture_output=True, check=True).stdout
+    duration = len(pcm)/(2*2*44100)
+    check(20 <= duration <= 40, 'victory decoded duration 20-40 seconds')
+    tracks['victory.mp3']['decoded_seconds'] = duration
+    samples = array.array('h'); samples.frombytes(pcm)
+    if __import__('sys').byteorder != 'little': samples.byteswap()
+    endpoint_jump = max(abs(samples[c]-samples[-2+c])/32768 for c in range(2))
+    check(endpoint_jump < .02, 'victory decoded endpoint click bound')
+    tracks['victory.mp3']['endpoint_jump'] = endpoint_jump
     print(json.dumps({'status': 'PASS', 'checks': checks, 'tracks': tracks, 'scope': 'decoded files; no listening claim'}))
     return 0
 

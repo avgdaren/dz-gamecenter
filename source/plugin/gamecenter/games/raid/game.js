@@ -28,7 +28,7 @@
 <section class="journal"><h3>战斗记录 <span data-gcr="log-count"></span></h3><ol data-gcr="logs" reversed></ol></section>
 </div>
 <details class="rules"><summary>第一次挑战？展开规则</summary><div><p data-gcr="rule-basics">每人生命 40。攻击造成 10 伤害；恢复为自己或队友治疗 28，最多回到 40。单人可恢复 4 次，双人各 2 次。</p><p>守护可以保护自己或队友：对目标本轮的伤害降至五分之一并向上取整，不叠加。守护队友时，你自己不会同时受保护。</p><p>首领依次使用月刃、全体星潮、重击、回气。成功守护重击并存活，下一轮回气时攻击造成 20 伤害。半血后的预告更强。</p><p data-gcr="round-rules">每轮确认后不能修改；你和仍在战斗的队友都确认即结算，否则等待 30 秒。玩家先于首领行动，单人最多 18 轮，双人最多 16 轮；上限轮结束时首领仍存活则失败。双人有人倒地后，另一人可以继续，但不会降低首领数值。</p><p>尝试自己找出打法；失败后可从记录中查看原因，再挑战一次。</p></div></details>
-<details class="recent"><summary>最近十次讨伐</summary><ul data-gcr="recent-list"></ul><button data-gcr="history-refresh">刷新记录</button></details><footer>BGM：nene — Boss Battle #9 [Metal] / Boss Battle 10 [Metal]（二阶段），CC0，本地版本。</footer>
+<details class="recent"><summary>最近十次讨伐</summary><ul data-gcr="recent-list"></ul><button data-gcr="history-refresh">刷新记录</button></details><footer>BGM：nene — Boss Battle #9 [Metal] / Boss Battle 10 [Metal]（二阶段），CC0；胜利曲：cynicmusic — Victory Theme for RPG（CC0），本地版本。</footer>
 </div>`; stage.append(root);
   const uid=Number(api.uid)||0, storageKey='gcr-pending-'+uid;
   const entryURL=new URL(location.href),invitedRoom=entryURL.searchParams.get('room');
@@ -55,7 +55,7 @@
   let state = null, generation = 0, token = '', offset = 0, busy = false, pending = null;
   let signature = '', selectionRound = '', choices = {}, lastSuccess = null;
   const feedback = new globalThis.RaidFeedback();
-  const music = new globalThis.RaidMusic(musicButton,new URL('assets/battle.mp3?v=0.1.4',assetBase).href,new URL('assets/battle-phase2.mp3?v=0.1.4',assetBase).href);
+  const music = new globalThis.RaidMusic(musicButton,new URL('assets/battle.mp3?v=0.1.13',assetBase).href,new URL('assets/battle-phase2.mp3?v=0.1.13',assetBase).href,{victorySrc:new URL('assets/victory.mp3?v=0.1.13',assetBase).href});
   const effectTimers = new Set(), effectNodes = new Set(), effectHosts = new Set();
   const make = (tag, cls, text) => { const el = document.createElement(tag); if(cls) el.className = cls; if(text !== undefined) el.textContent = text; return el; };
   const slot = i => i === state?.seat ? '你' : '队友';
@@ -179,7 +179,7 @@
     const batch=feedback.observe(data.snapshot,data.snapshot?.room || 'empty');
     token='forum'; generation=data.snapshot?.room || ''; offset=data.server_ms-Date.now();
     state=data.snapshot;
-    music.setActive(!freshLanding && state?.status===1,state?.preview?.phase===2?2:1);
+    music.setActive(!freshLanding && [1,2].includes(state?.status),state?.status===2?'victory':state?.preview?.phase===2?2:1);
     const next = state ? `${generation}:${state.version}` : 'empty';
     if(next !== signature) {
       clearEffects();
@@ -419,6 +419,8 @@
       if(!data.history.length)$('recent-list').append(make('li','','还没有已结束的讨伐。'));
     }catch(_){notice('读取记录失败，请稍后重试。',true);}finally{busy=false;controls();schedule();}
   });
+  document.addEventListener('pointerdown',()=>music.gesture(),true);
+  document.addEventListener('keydown',()=>music.gesture(),true);
   document.addEventListener('visibilitychange',()=>{clearTimeout(pollTimer);feedback.pause();face.reset();clearEffects();music.sync();if(!document.hidden)sync();});
   window.addEventListener('pagehide',()=>{clearTimeout(pollTimer);feedback.pause();face.reset();clearEffects();music.pause();});
   setInterval(()=>{if(!document.hidden)clock();},250);

@@ -6,11 +6,11 @@ let checks=0;const check=(yes,name)=>{assert.ok(yes,name);checks++;};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 function setup(saved=false){
   let time=0,nextFrame=0;const frames=new Map();
-  const storage=new Map(saved?[['gcr_bgm','1']]:[]), audios=[],listeners={},others=[];let reject=false;
-  class Audio {constructor(){this.paused=true;this.plays=0;this.pauses=0;audios.push(this);}play(){this.plays++;if(reject)return Promise.reject(new Error('blocked'));this.paused=false;return Promise.resolve();}pause(){this.pauses++;this.paused=true;}}
+  const storage=new Map(saved?[['gcr_bgm','1']]:[]), audios=[],listeners={},others=[];let reject=false,defer=false;const pending=[];
+  class Audio {constructor(){this.listeners={};this.paused=true;this.plays=0;this.pauses=0;audios.push(this);}addEventListener(n,f){this.listeners[n]=f;}play(){this.plays++;if(reject)return Promise.reject(new Error('blocked'));this.paused=false;return defer?new Promise(resolve=>pending.push(resolve)):Promise.resolve();}pause(){this.pauses++;this.paused=true;}}
   const document={hidden:false,addEventListener:(type,fn)=>listeners[type]=fn,querySelectorAll:()=>others};
   const context={Date:class extends Date{static now(){return time;}},requestAnimationFrame:fn=>{const id=++nextFrame;frames.set(id,fn);return id;},cancelAnimationFrame:id=>frames.delete(id),window:{Audio,localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v)}},document};
-  vm.runInNewContext(code,context);return {music:new context.RaidMusic(),storage,audios,document,listeners,others,block:v=>reject=v,frames,at(ms){time=ms;const pending=[...frames];frames.clear();for(const [,fn]of pending)fn(ms);}};
+  vm.runInNewContext(code,context);return {music:new context.RaidMusic(),storage,audios,document,listeners,others,block:v=>reject=v,delay:v=>defer=v,resolve:()=>pending.splice(0).forEach(f=>f()),frames,at(ms){time=ms;const pending=[...frames];frames.clear();for(const [,fn]of pending)fn(ms);}};
 }
 {
   const {music,audios,storage,document,listeners,others}=setup();
@@ -77,5 +77,47 @@ if(forum) {
  check(!music.duck()&&frames.size===0,'duck cannot unmute disabled music');
  music.toggle();await flush();music.duck();e.document.hidden=true;music.sync();check(audio.paused&&audio.volume===.28&&frames.size===0,'page hiding clears duck');
  e.document.hidden=false;music.sync();await flush();music.duck();music.setActive(false);check(audio.paused&&frames.size===0,'terminal stops duck and music');
+}
+
+if(forum) {
+ const e=setup(),{music,audios,frames,document}=e;
+ music.setActive(true,2);music.toggle();await flush();const audio=audios[0];
+ music.duck();music.setActive(true,'victory');
+ check(music.phase==='victory'&&audio.src.endsWith('battle-phase2.mp3')&&frames.size===1,'victory starts a single fade, cancels old duck');
+ e.at(125);check(Math.abs(audio.volume-.14)<1e-9,'battle half-volume after 125ms');
+ const plays=audio.plays;music.setActive(true,'victory');
+ e.at(250);await flush();check(audio.src.endsWith('victory.mp3')&&!audio.paused&&audio.volume===0&&audio.plays===plays+1&&audios.length===1,'250ms pauses old source and starts victory at zero on same element');
+ e.at(375);check(Math.abs(audio.volume-.14)<1e-9,'victory half-volume after another 125ms');
+ e.at(500);check(audio.volume===.28&&frames.size===0,'victory full gain after 250ms fade in');
+ check(!music.duck(),'victory is not ducked by late combat effects');
+ for(let i=0;i<10;i++)music.setActive(true,'victory');
+ check(audio.plays===plays+1,'terminal polls never restart victory');
+ document.hidden=true;music.sync();check(audio.paused&&frames.size===0,'background pauses victory');
+ document.hidden=false;music.sync();await flush();check(!audio.paused,'foreground resumes victory');
+ music.setActive(true,1);await flush();check(audio.src.endsWith('/battle.mp3')&&audio.currentTime===0&&audio.volume===.28&&frames.size===0,'restart stops victory and returns to phase one');
+ music.setActive(true,'victory');e.at(625);music.toggle();
+ check(audio.paused&&frames.size===0&&!music.on,'mute during fade cancels all animation');
+ e.at(1000);check(audio.paused,'cancelled fade cannot start music later');
+ music.setActive(false,1);check(audio.paused&&audio.src.endsWith('/battle.mp3'),'failure retreat cancel are inactive without victory');
+}
+if(forum) {
+ const e=setup(true),{music,audios,document}=e;
+ music.setActive(true,'victory');await flush();check(audios.length===0,'refreshed victory never autoplays');
+ music.gesture();await flush();check(audios.length===1&&audios[0].src.endsWith('victory.mp3')&&audios[0].volume===0,'interaction restores selected victory at zero');
+ e.at(250);check(audios[0].volume===.28,'restored victory fades in');
+ music.setActive(true,1);await flush();music.setActive(true,'victory');
+ document.hidden=true;music.sync();e.at(1000);check(audios[0].paused&&e.frames.size===0,'hide during fade prevents deferred playback');
+ document.hidden=false;music.sync();await flush();e.at(1250);
+ const a=audios[0];a.listeners.error();const n=a.plays;
+ check(a.paused&&music.blocked,'decode or resource error leaves silence');
+ for(let i=0;i<10;i++)music.gesture();await flush();check(a.plays===n,'failed resource is not retried on every click');
+ music.setActive(true,1);await flush();check(!a.paused&&a.src.endsWith('/battle.mp3'),'new battle can recover from failed victory');
+}
+if(forum) {
+ const e=setup();e.delay(true);e.music.setActive(true);e.music.toggle();
+ e.music.setActive(true,'victory');e.resolve();await flush();
+ check(e.audios[0].src.endsWith('/battle.mp3')&&e.frames.size===1,'late old play promise cannot replace outgoing fade');
+ e.delay(false);e.at(250);await flush();e.at(500);
+ check(e.audios[0].src.endsWith('victory.mp3')&&e.audios[0].volume===.28,'late play race still completes victory switch');
 }
 console.log(JSON.stringify({status:'PASS',checks,audio:'mock HTMLAudio; loop seam and listening need real browser'}));
