@@ -20,7 +20,7 @@ for uid in [1, 2, 7, 12345, 2147483647]:
     assert not p.stderr, p.stderr
     actual = json.loads(p.stdout)
     assert actual['config'] == config
-    fish = {'test_pond_a': dict(discovered_at=1000000, catch_count=1)}
+    fish = {'test_pond_a': dict(discovered_at=1000000, catch_count=1, owned_count=1, sold_count=0)}
     coins, no_new, catches = 122, 0, []
     pool = config['waters']['test_pond']['fish']
     for seq in range(1, 721):
@@ -44,8 +44,9 @@ for uid in [1, 2, 7, 12345, 2147483647]:
         at = 1000000+seq*120000
         is_new = fid not in fish
         if is_new:
-            fish[fid] = dict(discovered_at=at, catch_count=0)
+            fish[fid] = dict(discovered_at=at, catch_count=0, owned_count=0, sold_count=0)
         fish[fid]['catch_count'] += 1
+        fish[fid]['owned_count'] += 1
         coins += pool[fid]['coins']
         no_new = 0 if is_new else min(80, no_new+1) if missing else no_new
         catches.append(dict(fish_id=fid, coins=pool[fid]['coins'], is_new=is_new, caught_ms=at))

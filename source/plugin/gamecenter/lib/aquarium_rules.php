@@ -88,6 +88,10 @@ final class gamecenter_aquarium_rules {
             if(!isset($known[$fid]) || !in_array($known[$fid],$s['unlocked_waters'],true) || !is_array($f)
                 || !self::number($f['discovered_at'] ?? null,0,$s['last_settled_ms']) || !self::number($f['catch_count'] ?? null,1)) { throw new DomainException('state'); }
         }
+        foreach($s['fish'] as $fid=>$f) {
+            $cap=$c['waters'][$known[$fid]]['fish'][$fid]['lifetime_cap'] ?? null;
+            if($cap !== null && $f['catch_count'] > $cap) { throw new DomainException('state-lifetime-cap'); }
+        }
         if(!isset($s['fish'][$c['initial_fish']])) { throw new DomainException('state'); }
     }
     public static function ticket(string $seedHex,int $uid,int $seq,int $weight,?callable $digest=null): int {

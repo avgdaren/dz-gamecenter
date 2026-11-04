@@ -100,7 +100,7 @@ with tempfile.TemporaryDirectory(prefix='aq-migrate-', ignore_cleanup_errors=Tru
         check(not fid.startswith('test_'), 'fish id remapped', fid)
     check(state['current_water'] in ('pond', 'bay'), 'water remapped', state['current_water'])
     check(set(state['no_new_count'].keys()) == {'pond', 'bay'}, 'no_new_count remapped', str(list(state['no_new_count'])))
-    check(state['last_settled_ms'] == row['updated_ms'], 'anchor equals row updated_ms')
+    check(state['last_settled_ms'] == int(row['updated_ms']), 'anchor equals row updated_ms')
 
     # 6. 重复执行幂等
     rc, out, err = tool('--mode=apply', '--yes', '--batch=5', '--job=' + job)
@@ -139,6 +139,13 @@ with tempfile.TemporaryDirectory(prefix='aq-migrate-', ignore_cleanup_errors=Tru
     check(worker(op='raw', uid=6)['config_version'] == 'aquarium-foundation-v1', 'second batch untouched')
     job_saved = json.loads(Path(job2).read_text(encoding='utf-8'))
     check(int(job_saved['cursor_uid']) == 5, 'cursor persisted at batch boundary', str(job_saved['cursor_uid']))
+
+    fixed = job_saved['cutoff_ms']
+    untouched = worker(op='raw', uid=6)
+    rc, out, err = tool('--mode=apply', '--yes', '--cutoff='+str(fixed-1), '--job='+job2)
+    check(rc != 0, 'resume rejects changed cutoff')
+    check(worker(op='raw', uid=6) == untouched, 'rejected resume never writes')
+    check(json.loads(Path(job2).read_text(encoding='utf-8')) == job_saved, 'rejected resume preserves job')
 
     # 10. 续跑收尾，且切点不被重取
     rc, out, err = tool('--mode=apply', '--yes', '--batch=3', '--job=' + job2)

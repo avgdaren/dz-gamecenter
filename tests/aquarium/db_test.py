@@ -67,5 +67,29 @@ with concurrent.futures.ThreadPoolExecutor(2) as pool:
     time.sleep(.15)
     read = call(3, 'sync', 1120000)
     check(hold.result()['ok'] and read['ok'], 'lock wait retry recovers')
+if os.getenv('GC_TEST_CONFIG') == 'aquarium-content-v2-candidate-v1':
+    call(10, 'init')
+    healthy = send(op='raw', uid=10)
+    base = json.loads(healthy['state_json'])
+    import copy
+    bad_states = []
+    for key, value in [('inventory_schema',99),('inventory_anomaly',True),('config_version','aquarium-content-candidate-v1')]:
+        state = copy.deepcopy(base); state[key] = value; bad_states.append(state)
+    state=copy.deepcopy(base); state['fish']['pond_blue']['sold_count']=1; bad_states.append(state)
+    state=copy.deepcopy(base); state['layout']['fish']=['pond_blue','pond_blue',None,None]; bad_states.append(state)
+    state=copy.deepcopy(base); state['fish']['pond_curl_seahorse']=dict(discovered_at=1000000,catch_count=4,owned_count=4,sold_count=0); bad_states.append(state)
+    for state in bad_states:
+        send(op='corrupt',uid=10,json=json.dumps(state))
+        before=send(op='raw',uid=10)
+        for action in ['init','catalog','sync','layout','upgrade','expand','unlock','switch','buy','sell']:
+            extra={} if action in ['init','catalog','sync'] else dict(expected_version=1)
+            extra.update(dict(layout=base['layout']) if action=='layout' else dict(target_level=1) if action=='upgrade'
+                else dict(water_id='bay') if action in ['unlock','switch'] else dict(decor_id='plant_meadow') if action=='buy'
+                else dict(fish_id='pond_blue',qty=1) if action=='sell' else {})
+            check(call(10,action,1120000,**extra)['code']=='config', 'v2 corrupt '+action+' refused')
+        check(send(op='raw',uid=10)==before, 'v2 invalid row byte-for-byte unchanged')
+    send(op='corrupt',uid=10,json=healthy['state_json'])
+    check(call(10,'sync',1120000)['ok']==1,'healthy v2 continues after invalid-row checks')
 print(json.dumps(dict(status='PASS', checks=checks, driver=os.getenv('GC_TEST_DRIVER', 'pdo'),
+                     config=os.getenv('GC_TEST_CONFIG','aquarium-foundation-v1'),
                      scope='actual InnoDB with original X5 driver; forum browser still excluded')))

@@ -23,6 +23,13 @@ $dz = $opt('dz-root'); $dsn = $opt('dsn'); $user = $opt('user'); $pass = $opt('p
 $tablepre = $opt('tablepre', 'pre_'); $apply = $opt('apply', '') === '1';
 $from = $opt('from', 'aquarium-content-candidate-v1');
 $to = $opt('to', 'aquarium-content-v2-candidate-v1');
+// apply 必须沿用 dry-run 打印的固定毫秒 N；在连接数据库前拒绝坏参数。
+$cutoffArg = $opt('cutoff', '');
+$now = (int)floor(microtime(true) * 1000);
+if(($apply && $cutoffArg === '') || ($cutoffArg !== '' &&
+    (!preg_match('/\A[1-9][0-9]{0,12}\z/D', $cutoffArg) || (int)$cutoffArg > $now))) {
+    fwrite(STDERR, "需要 --cutoff=固定正整数毫秒，且不得晚于当前服务器时间\n"); exit(2);
+}
 $onlyUid = (int)$opt('uid', '0');
 $pluginDir = $opt('plugin-dir', rtrim($dz, '/' . DIRECTORY_SEPARATOR).'/source/plugin/gamecenter');
 if(!is_dir($pluginDir.'/lib')) { fwrite(STDERR, "plugin-dir 不像游戏中心插件目录：$pluginDir" . PHP_EOL); exit(2); }
@@ -61,10 +68,10 @@ $mig = new gamecenter_aquarium_migrate($store,
     gamecenter_aquarium_configs::for_version($from),
     gamecenter_aquarium_configs::for_version($to));
 
-$explicitCutoff = (int)$opt('cutoff', '0');
-$cutoff = $mig->cutoff(time() * 1000, $explicitCutoff > 0 ? $explicitCutoff : null);
+$explicitCutoff = $cutoffArg === '' ? null : (int)$cutoffArg;
+$cutoff = $mig->cutoff($now, $explicitCutoff);
 echo json_encode(['mode'=>$apply ? 'apply' : 'dry-run','from'=>$from,'to'=>$to,'cutoff'=>$cutoff,
-    'cutoff_pinned'=>$explicitCutoff > 0,
+    'cutoff_pinned'=>$explicitCutoff !== null,
     'same_ids'=>$mig->sameIds(),'distribution'=>$mig->distribution(),'total'=>$mig->total()], JSON_UNESCAPED_UNICODE), "\n";
 
 $sql = $onlyUid > 0

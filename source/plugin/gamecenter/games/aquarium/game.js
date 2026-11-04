@@ -9,7 +9,7 @@
     var formhash = stage.dataset.formhash;
     var url = stage.dataset.url;
 
-    var snap = null, catalog = null, busy = false, note = '';
+    var snap = null, catalog = null, busy = false, uncertain = false, note = '';
     var tab = 'book', cat = 'all', background = 'tank_day';
 
     // 布景预设：读 assets/layout/decor-presets-v1.json，读不到就用内置三套
@@ -154,13 +154,14 @@
 
     var lastCallOk = false;
     function call(action, extra) {
-      if (busy) { return Promise.resolve(); }
+      if (stopped || busy || (uncertain && action !== 'sync' && action !== 'catalog')) { return Promise.resolve(); }
       lastCallOk = false;
       busy = true; note = '正在同步…'; paint();
       return post(action, extra).then(function (r) {
         if (r.snapshot) { snap = r.snapshot; syncAt = Date.now(); background = snap.layout.background; }
         if (r.catalog) { catalog = r.catalog; }
         lastCallOk = !!r.ok;
+        if (r.ok && r.snapshot && (action === 'sync' || action === 'catalog')) { uncertain = false; }
         if (r.ok) {
           note = '';
         } else if (!r.code && r.msg) {
@@ -169,7 +170,7 @@
         } else {
           note = r.msg || '暂时无法同步';
         }
-        if (r.ok && action !== 'sync' && action !== 'catalog' && action !== 'init') {
+        if (r.ok && action !== 'sync' && action !== 'catalog') {
           return post('catalog', {}).then(function (x) {
             if (x.snapshot) { snap = x.snapshot; syncAt = Date.now(); background = snap.layout.background; }
             if (x.catalog) { catalog = x.catalog; }
@@ -191,6 +192,7 @@
           if (discovered !== known) { needCatalog = true; }
         }
       }).catch(function () {
+        if (action !== 'sync' && action !== 'catalog') { uncertain = true; }
         note = '连接中断，操作结果尚未确认。点「同步」再看一眼。';
       }).then(function () {
         busy = false;
@@ -787,6 +789,9 @@
       head.appendChild(el('h3', null, '我的鱼缸'));
       var headNote = el('p', 'aq-muted', '');
       head.appendChild(headNote);
+      var syncButton = el('button', 'aq-btn aq-btn-sm', '同步');
+      syncButton.addEventListener('click', function () { call('sync'); });
+      head.appendChild(syncButton);
       wrap.appendChild(head);
 
       var body = el('div', 'aq-body');
@@ -977,7 +982,7 @@
             if (d.missing.water) { miss.push('需先解锁' + waterName(d.missing.water)); }
             if (miss.length) { bodyEl.appendChild(el('span', 'aq-muted', miss.slice(0, 2).join('；'))); }
             var buy = el('button', 'aq-btn', '购买');
-            buy.disabled = miss.length > 0 || busy;
+            buy.disabled = miss.length > 0 || busy || uncertain;
             buy.addEventListener('click', function (ev) {
               ev.stopPropagation();
               call('buy', { decor_id: d.id, expected_version: snap.version });
@@ -1061,7 +1066,7 @@
         var rShort = rCost - snap.coins;
         var rb = el('button', 'aq-btn' + (rShort <= 0 ? ' aq-btn-primary' : ''),
           '升级鱼竿 Lv.' + nextLv + (rShort > 0 ? (' · 还差 ' + fmt(rShort)) : ('（' + fmt(rCost) + ' 金币）')));
-        rb.disabled = rShort > 0 || busy;
+        rb.disabled = rShort > 0 || busy || uncertain;
         rb.addEventListener('click', function () { call('upgrade', { expected_version: snap.version, target_level: nextLv }); });
         host.appendChild(rb);
       }
@@ -1082,7 +1087,7 @@
         } else {
           var short = wcost - snap.coins;
           btn.textContent = '解锁' + waterName(wid) + (short > 0 ? (' · 还差 ' + fmt(short)) : ('（' + fmt(wcost) + '）'));
-          btn.disabled = short > 0 || busy;
+          btn.disabled = short > 0 || busy || uncertain;
           if (need > 0) {
             waterBox.appendChild(el('span', 'aq-muted',
               waterName(wid) + '：需在' + waterName(snap.current_water) + '发现 ' + need + ' 种鱼'));
@@ -1100,7 +1105,7 @@
         var cost = snap.rules.fish_capacity_costs[idx + 1];
         var shortfall = cost - snap.coins;
         var eb = el('button', 'aq-btn', '扩容到 ' + caps[idx + 1] + ' 位' + (shortfall > 0 ? (' · 还差 ' + fmt(shortfall)) : ('（' + fmt(cost) + '）')));
-        eb.disabled = shortfall > 0 || busy;
+        eb.disabled = shortfall > 0 || busy || uncertain;
         eb.addEventListener('click', function () { call('expand', { expected_version: snap.version }); });
         host.appendChild(eb);
       }
@@ -1171,7 +1176,7 @@
           empty.appendChild(el('p', null, note || '还没有你的水族馆。'));
           if (!serverErr) {
             var b = el('button', 'aq-btn aq-btn-primary', '建立我的水族馆');
-            b.disabled = busy;
+            b.disabled = busy || uncertain;
             b.addEventListener('click', function () { call('init'); });
             empty.appendChild(b);
           }

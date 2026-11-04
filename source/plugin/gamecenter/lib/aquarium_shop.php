@@ -45,7 +45,7 @@ final class gamecenter_aquarium_shop {
     public static function decor_slots_per_layer(): int { return 3; }
 
     public static function validateState(array $s, array $c): void {
-        if(!in_array((int)($s['fish_capacity'] ?? 0), $c['fish_capacities'], true)) { throw new DomainException('state-capacity'); }
+        if(!is_int($s['fish_capacity'] ?? null) || !in_array($s['fish_capacity'], $c['fish_capacities'], true)) { throw new DomainException('state-capacity'); }
         if(!is_array($s['decor_owned'] ?? null) || !is_array($s['layout'] ?? null)) { throw new DomainException('state-layout'); }
         $owned = [];
         foreach($s['decor_owned'] as $id=>$at) {
@@ -61,7 +61,11 @@ final class gamecenter_aquarium_shop {
                 if($stockOwned + $stockSold !== (int)($f['catch_count'] ?? 0)) { throw new DomainException('state-stock-sum'); }
             }
         }
-        $slots = $s['layout']['fish'];
+        $slots = $s['layout']['fish'] ?? null;
+        if(!is_array($slots) || !array_is_list($slots)) { throw new DomainException('state-layout'); }
+        if(empty($s['inventory_anomaly']) && gamecenter_aquarium_stock::classify($s,$c)['kind'] !== 'new') {
+            throw new DomainException('state-stock');
+        }
         if(count($slots) !== (int)$s['fish_capacity']) { throw new DomainException('state-layout'); }
         // 同种鱼可重复展示，但最多展示「钓到的条数」；旧档可能超额，读取时只校验已发现
         foreach($slots as $fid) {
@@ -70,7 +74,8 @@ final class gamecenter_aquarium_shop {
         }
         $decorSeen = [];
         foreach(['back','front'] as $layer) {
-            $list = $s['layout']['decor'][$layer];
+            $list = $s['layout']['decor'][$layer] ?? null;
+            if(!is_array($list) || !array_is_list($list)) { throw new DomainException('state-layout'); }
             if(count($list) > self::decor_slots_per_layer()) { throw new DomainException('state-layout'); }
             foreach($list as $id) {
                 if(!is_string($id) || !isset($owned[$id]) || isset($decorSeen[$id])) { throw new DomainException('state-layout'); }

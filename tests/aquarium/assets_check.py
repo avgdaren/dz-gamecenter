@@ -61,5 +61,18 @@ for item in m['items']:
 for old in json.loads((art/'samples/manifest-v02.json').read_text())['samples']:
     ck(hashlib.sha256((root/old['path']).read_bytes()).hexdigest() == old['sha256'], 'approved master unchanged '+old['id'])
 ck(len(seen) == 79, '79 runtime images')
-ck(seen == {str(p.relative_to(out)) for p in out.rglob('*.webp')}, 'no missing/unlisted runtime images')
+extra = set()
+motion = json.loads((out/'fish-motion/v1/manifest.json').read_text(encoding='utf-8'))
+extra.update('fish-motion/v1/'+x['file'] for x in motion['items'])
+next_fish = json.loads((out/'fish-next/v1/manifest.json').read_text(encoding='utf-8'))
+for x in next_fish['items']:
+    extra.update('fish-next/v1/'+f['file'] for f in x['files'].values() if f['file'].endswith('.webp'))
+    extra.update(folder+'/'+x['id']+'.webp' for folder in ['fish','thumbs/fish'])
+feeding = json.loads((out/'feeding/v1/manifest.json').read_text(encoding='utf-8'))
+extra.update('feeding/v1/'+f['file'] for f in feeding['files'] if f['file'].endswith('.webp'))
+scenery = json.loads((out/'background/expansion-v1/catalog.json').read_text(encoding='utf-8'))
+for x in scenery['items']:
+    extra.update(x[k] for k in ['background','mobile','thumbnail'])
+actual = {str(p.relative_to(out)).replace('\\','/') for p in out.rglob('*.webp')}
+ck(seen | extra == actual, 'all WebP files belong to an explicit pack or compatibility alias')
 print(json.dumps(dict(status='PASS', checks=checks, items=41, runtime_images=len(seen), bytes=sum(f['bytes'] for x in m['items'] for f in x['files']), scope='asset files only; not player UI/mobile/performance/forum acceptance')))

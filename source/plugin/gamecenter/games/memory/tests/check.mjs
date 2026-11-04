@@ -54,7 +54,8 @@ for (const key of ['v', 'score', 'moves']) {
 for (const score of ['7', '257', '08', '+8', '-8', '8.0', '8\n', ' 8', '999999999999999999999999']) {
   bad(`bad score ${JSON.stringify(score)}`, { ...valid, score });
 }
-for (const v of ['2', '01', '1.0', '1\n']) bad(`bad version ${JSON.stringify(v)}`, { ...valid, v });
+add('current v2 default 8 pairs', { seed, data: { ...valid, v: '2' } }, { ok: 1, score: 8 });
+for (const v of ['3', '01', '1.0', '1\n']) bad(`bad version ${JSON.stringify(v)}`, { ...valid, v });
 for (const raw of ['', valid.moves + '\n', ' ' + valid.moves, '00,' + valid.moves, '16,' + valid.moves,
   '-1,' + valid.moves, valid.moves + ',', valid.moves.replace(',', ',,'), valid.moves + '\0',
   valid.moves.split(',').slice(1).join(','), Array(514).fill(0).join(','), '0,'.repeat(1100)]) {

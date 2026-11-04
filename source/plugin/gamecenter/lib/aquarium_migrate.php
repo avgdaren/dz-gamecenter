@@ -4,6 +4,7 @@ if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 require_once __DIR__.'/aquarium_rules.php';
 require_once __DIR__.'/aquarium_configs.php';
 require_once __DIR__.'/aquarium_stock.php';
+require_once __DIR__.'/aquarium_state.php';
 
 final class gamecenter_aquarium_migrate {
     const MAX_REASON = 120;
@@ -21,11 +22,13 @@ final class gamecenter_aquarium_migrate {
     public function sourceVersion(): string { return $this->source['version']; }
     public function targetVersion(): string { return $this->target['version']; }
 
-    /** 统一切点：不早于已有档的最大结算锚点，也不早于 now。 */
-    /** 固定切点：由调用方给定（维护排空后的可信 N）；未给则用当前时间。
-     *  绝不因为某行锚点在未来就把全表推到未来——那种行应隔离。 */
+    /** 固定切点必须是正整数且不晚于调用方的可信时钟；不能由坏行抬高。 */
     public function cutoff(int $now, ?int $explicit = null): int {
-        return $explicit !== null && $explicit > 0 ? $explicit : $now;
+        $cutoff = $explicit ?? $now;
+        if(!gamecenter_aquarium_rules::number($now,1) || !gamecenter_aquarium_rules::number($cutoff,1,$now)) {
+            throw new DomainException('cutoff');
+        }
+        return $cutoff;
     }
 
     public function total(): int {
@@ -46,19 +49,9 @@ final class gamecenter_aquarium_migrate {
      * 返回 ['state'=>..., 'version'=>新行版本, 'updated_ms'=>..., 'catches'=>捕获次数]。
      */
     public function convert(array $row, int $cutoff): array {
-        $uid = (int)$row['uid'];
-        $s = json_decode((string)$row['state_json'], true, 32, JSON_THROW_ON_ERROR);
-        if(!is_array($s) || ($s['uid'] ?? null) !== $uid) { throw new DomainException('state-uid'); }
-        if((int)$row['save_version'] !== 1) { throw new DomainException('save-version'); }
-        $rv = (int)$row['version'];
-        if($rv < 1 || $rv >= gamecenter_aquarium_rules::MAX_VALUE) { throw new DomainException('row-version'); }
-        if((int)($s['last_settled_ms'] ?? -1) !== (int)$row['updated_ms']) { throw new DomainException('anchor-mismatch'); }
-        if((string)$row['config_version'] !== $this->source['version']) { throw new DomainException('row-config'); }
-        gamecenter_aquarium_rules::validate($s, $this->source);
-        // 源档必须已完成库存补字段且本身干净：异常/半字段/不守恒/超展示都不许迁移
-        $cls = gamecenter_aquarium_stock::classify($s, $this->source,
-            ['uid'=>$uid,'save_version'=>1,'config_version'=>$row['config_version'],'updated_ms'=>$row['updated_ms']]);
-        if($cls['kind'] !== 'new') { throw new DomainException('stock:'.$cls['kind'].':'.$cls['why']); }
+        $s = gamecenter_aquarium_state::decode($row);
+        $s = gamecenter_aquarium_state::validate($s, $this->source);
+        if($s['last_settled_ms'] > $cutoff) { throw new DomainException('anchor-after-cutoff'); }
 
         $r = gamecenter_aquarium_rules::settle($s, $cutoff, $this->source);
         $next = $r['save'];
@@ -73,7 +66,11 @@ final class gamecenter_aquarium_migrate {
         $next['config_version'] = $this->target['version'];
         $next['pool_hash'] = $this->target['pool_hash'];
         $next['config_hash'] = $this->target['config_hash'];
-        gamecenter_aquarium_rules::validate($next, $this->target);
+        // foundation 没有商店字段：完成显式 ID 映射后再建立目标默认布局。
+        if(!isset($this->source['fish_capacities']) && isset($this->target['fish_capacities'])) {
+            $next = gamecenter_aquarium_shop::defaults($next, $this->target);
+        }
+        gamecenter_aquarium_state::validate($next, $this->target);
 
         return ['state'=>$next, 'version'=>(int)$row['version'] + 1, 'updated_ms'=>$next['last_settled_ms'], 'catches'=>count($r['catches'])];
     }
@@ -152,29 +149,15 @@ final class gamecenter_aquarium_migrate {
 
     /** 只判断，不写库。返回 status/ reason（迁移时附新状态）。 */
     public function classify(array $row, int $cutoff): array {
-        $uid = (int)$row['uid'];
-        $v = (string)$row['config_version'];
-        if($v === $this->target['version']) {
-            $s = json_decode((string)$row['state_json'], true, 32, JSON_THROW_ON_ERROR);
-            if(!is_array($s)) { return ['status'=>'failed', 'reason'=>'target-json']; }
-            if(($s['uid'] ?? null) !== $uid) { return ['status'=>'failed', 'reason'=>'target-uid']; }
-            if(($s['config_version'] ?? null) !== $this->target['version']) { return ['status'=>'failed', 'reason'=>'row-json-version']; }
-            if((int)$row['save_version'] !== 1) { return ['status'=>'failed', 'reason'=>'save-version']; }
-            $rv = (int)$row['version'];
-            if($rv < 1 || $rv >= gamecenter_aquarium_rules::MAX_VALUE) { return ['status'=>'failed', 'reason'=>'row-version']; }
-            if(($s['last_settled_ms'] ?? null) !== (int)$row['updated_ms']) { return ['status'=>'failed', 'reason'=>'anchor-mismatch']; }
-            gamecenter_aquarium_rules::validate($s, $this->target);
-            $cls = gamecenter_aquarium_stock::classify($s, $this->target,
-                ['uid'=>$uid,'save_version'=>1,'config_version'=>$row['config_version'],'updated_ms'=>$row['updated_ms']]);
-            if($cls['kind'] !== 'new') { return ['status'=>'failed', 'reason'=>'stock:'.$cls['why']]; }
-            return ['status'=>'skipped'];
-        }
-        if($v !== $this->source['version']) { return ['status'=>'failed', 'reason'=>'unknown-version']; }
-        if((int)$row['updated_ms'] > $cutoff) { return ['status'=>'failed', 'reason'=>'anchor-after-cutoff']; }
-        if((int)$row['save_version'] !== 1) { return ['status'=>'failed', 'reason'=>'save-version']; }
-        try { $conv = $this->convert($row, $cutoff); }
-        catch(Throwable $e) { return ['status'=>'failed', 'reason'=>$e->getMessage()]; }
-        return ['status'=>'migrated'] + $conv;
+        try {
+            $s = gamecenter_aquarium_state::decode($row);
+            if($row['config_version'] === $this->target['version']) {
+                gamecenter_aquarium_state::validate($s, $this->target);
+                return ['status'=>'skipped'];
+            }
+            if($row['config_version'] !== $this->source['version']) { return ['status'=>'failed','reason'=>'unknown-version']; }
+            return ['status'=>'migrated'] + $this->convert($row, $cutoff);
+        } catch(Throwable $e) { return ['status'=>'failed', 'reason'=>$e->getMessage()]; }
     }
 
     /** 按 UID 游标跑一批，返回下一游标与统计。 */
@@ -206,10 +189,8 @@ final class gamecenter_aquarium_migrate {
                 continue;
             }
             try {
-                $s = json_decode((string)$row['state_json'], true, 32, JSON_THROW_ON_ERROR);
-                if(!is_array($s) || ($s['config_version'] ?? null) !== $this->target['version']
-                    || ($s['last_settled_ms'] ?? null) !== (int)$row['updated_ms']) { throw new DomainException('row-json'); }
-                gamecenter_aquarium_rules::validate($s, $this->target);
+                $s = gamecenter_aquarium_state::decode($row);
+                gamecenter_aquarium_state::validate($s, $this->target);
                 $out['target']++;
             } catch(Throwable $e) {
                 $out['broken'][] = ['uid'=>$uid, 'reason'=>substr($e->getMessage(), 0, self::MAX_REASON)];
@@ -244,7 +225,11 @@ final class gamecenter_aquarium_migrate {
      * 不做 ID 映射（调用方须先确认 sameIds）。
      */
     public static function switchPool(array $s, array $cOld, array $cNew, int $now): array {
-        if(($s['config_version'] ?? '') === $cNew['version']) { return ['save'=>$s,'catches'=>[],'changed'=>false]; }
+        if(($s['config_version'] ?? '') === $cNew['version']) {
+            gamecenter_aquarium_state::validate($s, $cNew);
+            return ['save'=>$s,'catches'=>[],'changed'=>false];
+        }
+        gamecenter_aquarium_state::validate($s, $cOld);
         if(($s['config_version'] ?? '') !== $cOld['version']) { throw new DomainException('migrate-source'); }
         if(($s['pool_hash'] ?? '') !== $cOld['pool_hash'] || ($s['config_hash'] ?? '') !== $cOld['config_hash']) { throw new DomainException('migrate-hash'); }
         if($now < (int)$s['last_settled_ms']) { throw new DomainException('clock-back'); }
@@ -254,7 +239,7 @@ final class gamecenter_aquarium_migrate {
         $next['config_version'] = $cNew['version'];
         $next['pool_hash'] = $cNew['pool_hash'];
         $next['config_hash'] = $cNew['config_hash'];
-        gamecenter_aquarium_rules::validate($next, $cNew);
+        gamecenter_aquarium_state::validate($next, $cNew);
         return ['save'=>$next,'catches'=>$r['catches'],'changed'=>true];
     }
 }

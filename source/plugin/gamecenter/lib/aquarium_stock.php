@@ -98,13 +98,19 @@ final class gamecenter_aquarium_stock {
             if($f['discovered_at'] > (int)($s['last_settled_ms'] ?? 0)) { return ['kind'=>'anomaly','why'=>'discovered-future:'.$fid]; }
             $k = self::fishKind($f);
             if($k === 'bad') { return ['kind'=>'anomaly','why'=>'stock:'.$fid]; }
+            foreach($c['waters'] as $w) {
+                if(isset($w['fish'][$fid]['lifetime_cap']) && $f['catch_count'] > $w['fish'][$fid]['lifetime_cap']) {
+                    return ['kind'=>'anomaly','why'=>'lifetime-cap:'.$fid];
+                }
+            }
             $kinds[$k]++;
         }
         if($kinds['old'] > 0 && $kinds['new'] > 0) { return ['kind'=>'anomaly','why'=>'mixed']; }
         $mode = $kinds['new'] > 0 ? 'new' : 'legacy';
 
         // 布局形状 + 展示保护（旧档用 catch_count 推算持有量）
-        $lay = self::layoutShown($s);
+        $lay = !array_key_exists('layout', $s) && !isset($c['fish_capacities'])
+            ? ['shown'=>[]] : self::layoutShown($s);
         if(isset($lay['error'])) { return ['kind'=>'anomaly','why'=>$lay['error']]; }
         foreach($lay['shown'] as $fid=>$n) {
             if(!isset($fish[$fid])) { return ['kind'=>'anomaly','why'=>'shown-missing:'.$fid]; }

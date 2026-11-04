@@ -25,7 +25,7 @@ for water in ['pond', 'bay']:
         run = subprocess.run([os.getenv('PHP_BIN', 'php'), '-r', php], input=json.dumps(dict(uid=uid, water=water)), encoding='utf-8', capture_output=True, cwd=root, check=True)
         assert not run.stderr, run.stderr
         actual = json.loads(run.stdout)
-        fish = {'pond_blue': dict(discovered_at=1000000, catch_count=1)}
+        fish = {'pond_blue': dict(discovered_at=1000000, catch_count=1, owned_count=1, sold_count=0)}
         coins, no_new, catches = 122, 0, []
         pool = c['waters'][water]['fish']
         for seq in range(1, 721):
@@ -47,8 +47,9 @@ for water in ['pond', 'bay']:
                 ticket -= f['weight']
             is_new, at = fid not in fish, 1000000+seq*120000
             if is_new:
-                fish[fid] = dict(discovered_at=at, catch_count=0)
+                fish[fid] = dict(discovered_at=at, catch_count=0, owned_count=0, sold_count=0)
             fish[fid]['catch_count'] += 1
+            fish[fid]['owned_count'] += 1
             coins += pool[fid]['coins']
             no_new = 0 if is_new else min(80, no_new+1) if missing else no_new
             catches.append(dict(fish_id=fid, coins=pool[fid]['coins'], is_new=is_new, caught_ms=at))

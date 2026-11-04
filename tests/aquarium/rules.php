@@ -7,7 +7,7 @@ $c=gamecenter_aquarium_config::load(); $n=0;
 function check($x,string $label): void { global $n; $n++; if(!$x) { throw new RuntimeException($label); } }
 function fails(callable $fn,string $label): void { try { $fn(); } catch(DomainException $e) { check(true,$label); return; } check(false,$label); }
 function fresh(int $uid=12345): array { global $c; return gamecenter_aquarium_rules::initial($uid,'000102030405060708090a0b0c0d0e0f',1000000,$c); }
-function allFish(array $s,string $wid): array { global $c; foreach($c['waters'][$wid]['fish'] as $id=>$f) $s['fish'][$id]=['discovered_at'=>1000000,'catch_count'=>1]; return $s; }
+function allFish(array $s,string $wid): array { global $c; foreach($c['waters'][$wid]['fish'] as $id=>$f) $s['fish'][$id]=['discovered_at'=>1000000,'catch_count'=>1,'owned_count'=>1,'sold_count'=>0]; return $s; }
 $vectors=[
  ['eeda8e559ee6f75186defca0b8fa7d906602a251e88b2eddca5fb645f8905c17',4007300693,93],
  ['264abd3eda3a86ff90be121f40815cd1eb021c41ac73d1d4a70049a726c4a83a',642432318,18],
