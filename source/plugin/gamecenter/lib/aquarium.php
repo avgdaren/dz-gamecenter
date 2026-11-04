@@ -20,6 +20,8 @@ final class gamecenter_aquarium {
     /** 诊断：把真实异常写到 data/diag.log（不含存档内容，只记消息与 uid） */
     public static function diag(string $msg, int $uid=0): void {
         $f = __DIR__.'/../games/aquarium/data/diag.log';
+        // 只保留最近 256KB：超出时截断重写，避免异常反复触发时把日志写满插件目录
+        if(is_file($f) && filesize($f) > 262144) { @file_put_contents($f, ''); }
         @file_put_contents($f, date('c').' uid='.$uid.' '.$msg."\n", FILE_APPEND);
     }
 
