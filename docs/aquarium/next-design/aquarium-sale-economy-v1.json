@@ -1,0 +1,3401 @@
+{
+    "study": "aquarium-next-economy-v1",
+    "author": "GPT / Codex (小典)",
+    "baseline_reference": "74fab2426f38b068aa91c8a95be121ea43d812b2",
+    "provenance": {
+        "config_version": "aquarium-content-v2-candidate-v1",
+        "config_hash": "607c7e97315f8a06ec2a532eb9e6a27c34a4ea2279e2e3015ee8cc36c54f611b",
+        "pool_hash": "d9e7c1dfe4d5730a3ea4a96491edeb3e0d746edabd7a78f508b470268bc893e9",
+        "frozen_content_sha256": {
+            "content-v1-candidate.json": "754fa33008f6dd95406bd7b5710c04e0a58702a679dea63909d86c11fe9a4a09",
+            "content-v2-candidate.json": "c9423868b665127d6bc63da2373d442bd79d4f4e9dbe9b96157718725035040b"
+        },
+        "rule_sha256": {
+            "aquarium_rules.php": "8383917d3f0e7f351cca31913baf3e43696c1db6eb12ed0daf5b49039ee64966",
+            "aquarium_shop.php": "a7dbe48754a91f0c2f7e4d0ed3eb55520b86f20a769831421b77d1d8f340ee3d",
+            "aquarium_stock.php": "987ad37ea72a53246be5d50b058f8a69913eed54536b009ddc1c8b071dfaded8",
+            "aquarium_content.php": "629f3f649c67315c5ef847bee3c270d4833d55d37cedd360d1db7b6d93ef5101",
+            "aquarium_configs.php": "b22acaa726eeac7bedf2a29ffb7749464f7ddcaf4d1595e117a09457f66dd823"
+        },
+        "php_version": "8.3.36"
+    },
+    "model": {
+        "synthetic_only": true,
+        "runtime_sale_enabled_by_tool": false,
+        "player_data_accessed": false,
+        "seed_count": 16,
+        "seed_formula": "first 32 hex characters of SHA256('aquarium-next-economy-v1:' + zero-based sample index)",
+        "uid_formula": "10001 + zero-based sample index",
+        "start_ms": 1700000000000,
+        "quantiles": "nearest-rank: sorted[ceil(p*n)-1]; 16 seeds are a small sensitivity sample, not player estimates",
+        "waters": [
+            "bay",
+            "pond"
+        ],
+        "rod_levels_internal": [
+            0,
+            1,
+            2,
+            3,
+            4
+        ],
+        "rod_note": "Internal 0..4 only; UI labels may differ. Higher rod shortens catch period; it does not multiply per-fish coins.",
+        "fixed_capability_note": "Water access and rod level are set on synthetic valid states without paying unlock/upgrade costs. This is NOT a new-player progression simulation.",
+        "initial_inventory": "Actual initial grant (one pond_blue); income excludes all initial coins. Each scenario fixes one water and an empty 4-slot display.",
+        "daily_visits_days": [
+            1,
+            7,
+            30
+        ],
+        "single_absence_days": 30,
+        "effective_absence_days": 1,
+        "sale_prices": {
+            "常见": 1,
+            "少见": 2,
+            "稀有": 5,
+            "珍奇": 10
+        },
+        "retention": "owned_count - max(4, displayed_count), clamped at zero; limited species excluded",
+        "stockpile_note": "Cashout value is the alternative end-only sale total, not an additional income on top of daily sales. No pre-existing real-player stockpile is assumed.",
+        "comparison_scope": "Daily vs end-only equality holds for unchanged prices/display reserve and no spending or purchases affecting catches; receipt timestamps/counts need not match.",
+        "excluded": [
+            "real accounts",
+            "database",
+            "network",
+            "runtime flag writes",
+            "new fish or invented config",
+            "upgrade/unlock spending",
+            "shop buying gates",
+            "future paid background implementation",
+            "inflation or player behavior forecasts"
+        ]
+    },
+    "checks": {
+        "passed": true,
+        "daily_catch_stream_comparisons": 4800,
+        "daily_vs_checkpoint_cashout_comparisons": 480,
+        "single_absence_comparisons": 160,
+        "stock_conservation": true,
+        "limited_sale_rejected": true,
+        "limited_lifetime_caps_validated": true,
+        "prices_and_frozen_config_hashes": true,
+        "display_reserve_cases": [
+            {
+                "rarity": "常见",
+                "price": 1,
+                "owned_before": 20,
+                "shown": 12,
+                "sellable": 8,
+                "cashout_deferred_vs_keep4": 8
+            },
+            {
+                "rarity": "少见",
+                "price": 2,
+                "owned_before": 20,
+                "shown": 12,
+                "sellable": 8,
+                "cashout_deferred_vs_keep4": 16
+            },
+            {
+                "rarity": "稀有",
+                "price": 5,
+                "owned_before": 20,
+                "shown": 12,
+                "sellable": 8,
+                "cashout_deferred_vs_keep4": 40
+            },
+            {
+                "rarity": "珍奇",
+                "price": 10,
+                "owned_before": 20,
+                "shown": 12,
+                "sellable": 8,
+                "cashout_deferred_vs_keep4": 80
+            }
+        ],
+        "independent_steady_per_catch": {
+            "pond_capture": 2.64,
+            "bay_capture": 5.06,
+            "sale_both": 1.72
+        }
+    },
+    "daily_visit_scenarios": [
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 3480,
+                    "p10": 3527,
+                    "p50": 3628,
+                    "p90": 3731,
+                    "max": 3789,
+                    "mean": 3636.375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1058,
+                    "p10": 1079,
+                    "p50": 1147,
+                    "p90": 1213,
+                    "max": 1244,
+                    "mean": 1150.5
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1058,
+                    "p10": 1079,
+                    "p50": 1147,
+                    "p90": 1213,
+                    "max": 1244,
+                    "mean": 1150.5
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 4538,
+                    "p10": 4606,
+                    "p50": 4775,
+                    "p90": 4944,
+                    "max": 5033,
+                    "mean": 4786.875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 720,
+                    "p10": 720,
+                    "p50": 720,
+                    "p90": 720,
+                    "max": 720,
+                    "mean": 720
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 25224,
+                    "p10": 25230,
+                    "p50": 25445,
+                    "p90": 25657,
+                    "max": 25832,
+                    "mean": 25486.1875
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 8393,
+                    "p10": 8419,
+                    "p50": 8530,
+                    "p90": 8690,
+                    "max": 8812,
+                    "mean": 8574.125
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 8393,
+                    "p10": 8419,
+                    "p50": 8530,
+                    "p90": 8690,
+                    "max": 8812,
+                    "mean": 8574.125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 33617,
+                    "p10": 33649,
+                    "p50": 33973,
+                    "p90": 34347,
+                    "max": 34644,
+                    "mean": 34060.3125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 5040,
+                    "p10": 5040,
+                    "p50": 5040,
+                    "p90": 5040,
+                    "max": 5040,
+                    "mean": 5040
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 108814,
+                    "p10": 108943,
+                    "p50": 109226,
+                    "p90": 109784,
+                    "max": 110110,
+                    "mean": 109305.5625
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 36736,
+                    "p10": 36826,
+                    "p50": 37050,
+                    "p90": 37383,
+                    "max": 37597,
+                    "mean": 37073.4375
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 36736,
+                    "p10": 36826,
+                    "p50": 37050,
+                    "p90": 37383,
+                    "max": 37597,
+                    "mean": 37073.4375
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 145550,
+                    "p10": 145780,
+                    "p50": 146295,
+                    "p90": 147167,
+                    "max": 147707,
+                    "mean": 146379
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 21600,
+                    "p10": 21600,
+                    "p50": 21600,
+                    "p90": 21600,
+                    "max": 21600,
+                    "mean": 21600
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 3872,
+                    "p10": 3933,
+                    "p50": 4036,
+                    "p90": 4153,
+                    "max": 4175,
+                    "mean": 4043
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1184,
+                    "p10": 1218,
+                    "p50": 1288,
+                    "p90": 1365,
+                    "max": 1372,
+                    "mean": 1289.5625
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1184,
+                    "p10": 1218,
+                    "p50": 1288,
+                    "p90": 1365,
+                    "max": 1372,
+                    "mean": 1289.5625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 5056,
+                    "p10": 5151,
+                    "p50": 5324,
+                    "p90": 5518,
+                    "max": 5547,
+                    "mean": 5332.5625
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 800,
+                    "p10": 800,
+                    "p50": 800,
+                    "p90": 800,
+                    "max": 800,
+                    "mean": 800
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 28075,
+                    "p10": 28079,
+                    "p50": 28312,
+                    "p90": 28563,
+                    "max": 28677,
+                    "mean": 28321.9375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 9368,
+                    "p10": 9393,
+                    "p50": 9526,
+                    "p90": 9698,
+                    "max": 9789,
+                    "mean": 9539.0625
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 9368,
+                    "p10": 9393,
+                    "p50": 9526,
+                    "p90": 9698,
+                    "max": 9789,
+                    "mean": 9539.0625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 37443,
+                    "p10": 37472,
+                    "p50": 37842,
+                    "p90": 38261,
+                    "max": 38466,
+                    "mean": 37861
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 5600,
+                    "p10": 5600,
+                    "p50": 5600,
+                    "p90": 5600,
+                    "max": 5600,
+                    "mean": 5600
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 120790,
+                    "p10": 121050,
+                    "p50": 121337,
+                    "p90": 121807,
+                    "max": 122280,
+                    "mean": 121435.875
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 40744,
+                    "p10": 40922,
+                    "p50": 41132,
+                    "p90": 41438,
+                    "max": 41748,
+                    "mean": 41194.3125
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 40744,
+                    "p10": 40922,
+                    "p50": 41132,
+                    "p90": 41438,
+                    "max": 41748,
+                    "mean": 41194.3125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 161534,
+                    "p10": 161972,
+                    "p50": 162516,
+                    "p90": 163245,
+                    "max": 164028,
+                    "mean": 162630.1875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 24000,
+                    "p10": 24000,
+                    "p50": 24000,
+                    "p90": 24000,
+                    "max": 24000,
+                    "mean": 24000
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 4349,
+                    "p10": 4412,
+                    "p50": 4549,
+                    "p90": 4654,
+                    "max": 4678,
+                    "mean": 4542.3125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1338,
+                    "p10": 1370,
+                    "p50": 1465,
+                    "p90": 1534,
+                    "max": 1540,
+                    "mean": 1457
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1338,
+                    "p10": 1370,
+                    "p50": 1465,
+                    "p90": 1534,
+                    "max": 1540,
+                    "mean": 1457
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 5687,
+                    "p10": 5782,
+                    "p50": 6020,
+                    "p90": 6188,
+                    "max": 6218,
+                    "mean": 5999.3125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 900,
+                    "p10": 900,
+                    "p50": 900,
+                    "p90": 900,
+                    "max": 900,
+                    "mean": 900
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 31617,
+                    "p10": 31645,
+                    "p50": 31849,
+                    "p90": 32121,
+                    "max": 32305,
+                    "mean": 31870.4375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 10573,
+                    "p10": 10606,
+                    "p50": 10721,
+                    "p90": 10905,
+                    "max": 11048,
+                    "mean": 10745.3125
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 10573,
+                    "p10": 10606,
+                    "p50": 10721,
+                    "p90": 10905,
+                    "max": 11048,
+                    "mean": 10745.3125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 42190,
+                    "p10": 42252,
+                    "p50": 42570,
+                    "p90": 43026,
+                    "max": 43353,
+                    "mean": 42615.75
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 6300,
+                    "p10": 6300,
+                    "p50": 6300,
+                    "p90": 6300,
+                    "max": 6300,
+                    "mean": 6300
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 135970,
+                    "p10": 136395,
+                    "p50": 136555,
+                    "p90": 136947,
+                    "max": 137537,
+                    "mean": 136610.0625
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 45904,
+                    "p10": 46183,
+                    "p50": 46319,
+                    "p90": 46588,
+                    "max": 46944,
+                    "mean": 46349.75
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 45904,
+                    "p10": 46183,
+                    "p50": 46319,
+                    "p90": 46588,
+                    "max": 46944,
+                    "mean": 46349.75
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 181874,
+                    "p10": 182590,
+                    "p50": 182861,
+                    "p90": 183535,
+                    "max": 184481,
+                    "mean": 182959.8125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 27000,
+                    "p10": 27000,
+                    "p50": 27000,
+                    "p90": 27000,
+                    "max": 27000,
+                    "mean": 27000
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 4982,
+                    "p10": 5082,
+                    "p50": 5216,
+                    "p90": 5300,
+                    "max": 5346,
+                    "mean": 5214.4375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1527,
+                    "p10": 1587,
+                    "p50": 1675,
+                    "p90": 1730,
+                    "max": 1766,
+                    "mean": 1675.1875
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1527,
+                    "p10": 1587,
+                    "p50": 1675,
+                    "p90": 1730,
+                    "max": 1766,
+                    "mean": 1675.1875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 6509,
+                    "p10": 6669,
+                    "p50": 6891,
+                    "p90": 7030,
+                    "max": 7112,
+                    "mean": 6889.625
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 1028,
+                    "p10": 1028,
+                    "p50": 1028,
+                    "p90": 1028,
+                    "max": 1028,
+                    "mean": 1028
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 36105,
+                    "p10": 36173,
+                    "p50": 36456,
+                    "p90": 36750,
+                    "max": 36781,
+                    "mean": 36435.0625
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 12062,
+                    "p10": 12113,
+                    "p50": 12284,
+                    "p90": 12505,
+                    "max": 12508,
+                    "mean": 12280.5
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 12062,
+                    "p10": 12113,
+                    "p50": 12284,
+                    "p90": 12505,
+                    "max": 12508,
+                    "mean": 12280.5
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 48167,
+                    "p10": 48286,
+                    "p50": 48740,
+                    "p90": 49255,
+                    "max": 49289,
+                    "mean": 48715.5625
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 7200,
+                    "p10": 7200,
+                    "p50": 7200,
+                    "p90": 7200,
+                    "max": 7200,
+                    "mean": 7200
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 155386,
+                    "p10": 155835,
+                    "p50": 155990,
+                    "p90": 156638,
+                    "max": 156949,
+                    "mean": 156119.8125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 52474,
+                    "p10": 52787,
+                    "p50": 52882,
+                    "p90": 53280,
+                    "max": 53506,
+                    "mean": 52963.5625
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 52474,
+                    "p10": 52787,
+                    "p50": 52882,
+                    "p90": 53280,
+                    "max": 53506,
+                    "mean": 52963.5625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 207860,
+                    "p10": 208648,
+                    "p50": 208950,
+                    "p90": 209918,
+                    "max": 210455,
+                    "mean": 209083.375
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 30857,
+                    "p10": 30857,
+                    "p50": 30857,
+                    "p90": 30857,
+                    "max": 30857,
+                    "mean": 30857
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 7,
+                    "p10": 7,
+                    "p50": 7,
+                    "p90": 7,
+                    "max": 7,
+                    "mean": 7
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 5885,
+                    "p10": 5997,
+                    "p50": 6076,
+                    "p90": 6173,
+                    "max": 6215,
+                    "mean": 6086.4375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1841,
+                    "p10": 1915,
+                    "p50": 1956,
+                    "p90": 2023,
+                    "max": 2057,
+                    "mean": 1971.5625
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1841,
+                    "p10": 1915,
+                    "p50": 1956,
+                    "p90": 2023,
+                    "max": 2057,
+                    "mean": 1971.5625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 7726,
+                    "p10": 7912,
+                    "p50": 8032,
+                    "p90": 8194,
+                    "max": 8272,
+                    "mean": 8058
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 1200,
+                    "p10": 1200,
+                    "p50": 1200,
+                    "p90": 1200,
+                    "max": 1200,
+                    "mean": 1200
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 42105,
+                    "p10": 42146,
+                    "p50": 42579,
+                    "p90": 42840,
+                    "max": 42922,
+                    "mean": 42525.375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 14091,
+                    "p10": 14099,
+                    "p50": 14364,
+                    "p90": 14565,
+                    "max": 14637,
+                    "mean": 14352.9375
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 14091,
+                    "p10": 14099,
+                    "p50": 14364,
+                    "p90": 14565,
+                    "max": 14637,
+                    "mean": 14352.9375
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 56196,
+                    "p10": 56245,
+                    "p50": 56949,
+                    "p90": 57405,
+                    "max": 57559,
+                    "mean": 56878.3125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 8400,
+                    "p10": 8400,
+                    "p50": 8400,
+                    "p90": 8400,
+                    "max": 8400,
+                    "mean": 8400
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 181578,
+                    "p10": 181624,
+                    "p50": 182176,
+                    "p90": 182479,
+                    "max": 183105,
+                    "mean": 182154
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 61419,
+                    "p10": 61485,
+                    "p50": 61836,
+                    "p90": 62018,
+                    "max": 62442,
+                    "mean": 61819.125
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 61419,
+                    "p10": 61485,
+                    "p50": 61836,
+                    "p90": 62018,
+                    "max": 62442,
+                    "mean": 61819.125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 242997,
+                    "p10": 243109,
+                    "p50": 244012,
+                    "p90": 244497,
+                    "max": 245547,
+                    "mean": 243973.125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 36000,
+                    "p10": 36000,
+                    "p50": 36000,
+                    "p90": 36000,
+                    "max": 36000,
+                    "mean": 36000
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 7,
+                    "p10": 7,
+                    "p50": 8,
+                    "p90": 8,
+                    "max": 8,
+                    "mean": 7.75
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 1814,
+                    "p10": 1849,
+                    "p50": 1890,
+                    "p90": 1953,
+                    "max": 1985,
+                    "mean": 1896.9375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1046,
+                    "p10": 1096,
+                    "p50": 1149,
+                    "p90": 1216,
+                    "max": 1248,
+                    "mean": 1151.75
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1046,
+                    "p10": 1096,
+                    "p50": 1149,
+                    "p90": 1216,
+                    "max": 1248,
+                    "mean": 1151.75
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 2860,
+                    "p10": 2945,
+                    "p50": 3039,
+                    "p90": 3169,
+                    "max": 3233,
+                    "mean": 3048.6875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 720,
+                    "p10": 720,
+                    "p50": 720,
+                    "p90": 720,
+                    "max": 720,
+                    "mean": 720
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 13097,
+                    "p10": 13128,
+                    "p50": 13310,
+                    "p90": 13406,
+                    "max": 13409,
+                    "mean": 13273.125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 8349,
+                    "p10": 8376,
+                    "p50": 8585,
+                    "p90": 8693,
+                    "max": 8697,
+                    "mean": 8545.6875
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 8349,
+                    "p10": 8376,
+                    "p50": 8585,
+                    "p90": 8693,
+                    "max": 8697,
+                    "mean": 8545.6875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 21446,
+                    "p10": 21506,
+                    "p50": 21902,
+                    "p90": 22102,
+                    "max": 22103,
+                    "mean": 21818.8125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 5040,
+                    "p10": 5040,
+                    "p50": 5040,
+                    "p90": 5040,
+                    "max": 5040,
+                    "mean": 5040
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 56667,
+                    "p10": 56739,
+                    "p50": 56997,
+                    "p90": 57257,
+                    "max": 57286,
+                    "mean": 57012.8125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 36649,
+                    "p10": 36734,
+                    "p50": 37046,
+                    "p90": 37325,
+                    "max": 37378,
+                    "mean": 37052.5625
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 36649,
+                    "p10": 36734,
+                    "p50": 37046,
+                    "p90": 37325,
+                    "max": 37378,
+                    "mean": 37052.5625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 93316,
+                    "p10": 93473,
+                    "p50": 94046,
+                    "p90": 94565,
+                    "max": 94664,
+                    "mean": 94065.375
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 21600,
+                    "p10": 21600,
+                    "p50": 21600,
+                    "p90": 21600,
+                    "max": 21600,
+                    "mean": 21600
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 2019,
+                    "p10": 2050,
+                    "p50": 2099,
+                    "p90": 2167,
+                    "max": 2192,
+                    "mean": 2104.125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1175,
+                    "p10": 1213,
+                    "p50": 1281,
+                    "p90": 1359,
+                    "max": 1380,
+                    "mean": 1285.0625
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1175,
+                    "p10": 1213,
+                    "p50": 1281,
+                    "p90": 1359,
+                    "max": 1380,
+                    "mean": 1285.0625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 3194,
+                    "p10": 3263,
+                    "p50": 3383,
+                    "p90": 3526,
+                    "max": 3572,
+                    "mean": 3389.1875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 800,
+                    "p10": 800,
+                    "p50": 800,
+                    "p90": 800,
+                    "max": 800,
+                    "mean": 800
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 14546,
+                    "p10": 14615,
+                    "p50": 14772,
+                    "p90": 14877,
+                    "max": 14959,
+                    "mean": 14754.375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 9270,
+                    "p10": 9348,
+                    "p50": 9537,
+                    "p90": 9647,
+                    "max": 9743,
+                    "mean": 9512.3125
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 9270,
+                    "p10": 9348,
+                    "p50": 9537,
+                    "p90": 9647,
+                    "max": 9743,
+                    "mean": 9512.3125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 23816,
+                    "p10": 23963,
+                    "p50": 24309,
+                    "p90": 24524,
+                    "max": 24702,
+                    "mean": 24266.6875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 5600,
+                    "p10": 5600,
+                    "p50": 5600,
+                    "p90": 5600,
+                    "max": 5600,
+                    "mean": 5600
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 62966,
+                    "p10": 62980,
+                    "p50": 63349,
+                    "p90": 63696,
+                    "max": 63775,
+                    "mean": 63373.125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 40721,
+                    "p10": 40773,
+                    "p50": 41188,
+                    "p90": 41599,
+                    "max": 41640,
+                    "mean": 41208.4375
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 40721,
+                    "p10": 40773,
+                    "p50": 41188,
+                    "p90": 41599,
+                    "max": 41640,
+                    "mean": 41208.4375
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 103687,
+                    "p10": 103762,
+                    "p50": 104536,
+                    "p90": 105295,
+                    "max": 105415,
+                    "mean": 104581.5625
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 24000,
+                    "p10": 24000,
+                    "p50": 24000,
+                    "p90": 24000,
+                    "max": 24000,
+                    "mean": 24000
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 2269,
+                    "p10": 2293,
+                    "p50": 2356,
+                    "p90": 2428,
+                    "max": 2454,
+                    "mean": 2364.5
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1320,
+                    "p10": 1350,
+                    "p50": 1436,
+                    "p90": 1508,
+                    "max": 1547,
+                    "mean": 1440.8125
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1320,
+                    "p10": 1350,
+                    "p50": 1436,
+                    "p90": 1508,
+                    "max": 1547,
+                    "mean": 1440.8125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 3589,
+                    "p10": 3643,
+                    "p50": 3792,
+                    "p90": 3936,
+                    "max": 4001,
+                    "mean": 3805.3125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 900,
+                    "p10": 900,
+                    "p50": 900,
+                    "p90": 900,
+                    "max": 900,
+                    "mean": 900
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 16314,
+                    "p10": 16434,
+                    "p50": 16588,
+                    "p90": 16744,
+                    "max": 16779,
+                    "mean": 16587.75
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 10374,
+                    "p10": 10506,
+                    "p50": 10678,
+                    "p90": 10846,
+                    "max": 10902,
+                    "mean": 10687.375
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 10374,
+                    "p10": 10506,
+                    "p50": 10678,
+                    "p90": 10846,
+                    "max": 10902,
+                    "mean": 10687.375
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 26688,
+                    "p10": 26940,
+                    "p50": 27266,
+                    "p90": 27590,
+                    "max": 27681,
+                    "mean": 27275.125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 6300,
+                    "p10": 6300,
+                    "p50": 6300,
+                    "p90": 6300,
+                    "max": 6300,
+                    "mean": 6300
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 70876,
+                    "p10": 70885,
+                    "p50": 71324,
+                    "p90": 71578,
+                    "max": 71718,
+                    "mean": 71313.3125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 45857,
+                    "p10": 45910,
+                    "p50": 46411,
+                    "p90": 46660,
+                    "max": 46875,
+                    "mean": 46377.875
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 45857,
+                    "p10": 45910,
+                    "p50": 46411,
+                    "p90": 46660,
+                    "max": 46875,
+                    "mean": 46377.875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 116733,
+                    "p10": 116795,
+                    "p50": 117735,
+                    "p90": 118237,
+                    "max": 118593,
+                    "mean": 117691.1875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 27000,
+                    "p10": 27000,
+                    "p50": 27000,
+                    "p90": 27000,
+                    "max": 27000,
+                    "mean": 27000
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 2615,
+                    "p10": 2627,
+                    "p50": 2705,
+                    "p90": 2770,
+                    "max": 2779,
+                    "mean": 2707.5
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1551,
+                    "p10": 1565,
+                    "p50": 1665,
+                    "p90": 1732,
+                    "max": 1754,
+                    "mean": 1666.875
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1551,
+                    "p10": 1565,
+                    "p50": 1665,
+                    "p90": 1732,
+                    "max": 1754,
+                    "mean": 1666.875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 4166,
+                    "p10": 4192,
+                    "p50": 4370,
+                    "p90": 4501,
+                    "max": 4533,
+                    "mean": 4374.375
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 1028,
+                    "p10": 1028,
+                    "p50": 1028,
+                    "p90": 1028,
+                    "max": 1028,
+                    "mean": 1028
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 18770,
+                    "p10": 18809,
+                    "p50": 18953,
+                    "p90": 19133,
+                    "max": 19166,
+                    "mean": 18965.875
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 12012,
+                    "p10": 12057,
+                    "p50": 12230,
+                    "p90": 12434,
+                    "max": 12467,
+                    "mean": 12238
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 12012,
+                    "p10": 12057,
+                    "p50": 12230,
+                    "p90": 12434,
+                    "max": 12467,
+                    "mean": 12238
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 30782,
+                    "p10": 30866,
+                    "p50": 31195,
+                    "p90": 31567,
+                    "max": 31633,
+                    "mean": 31203.875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 7200,
+                    "p10": 7200,
+                    "p50": 7200,
+                    "p90": 7200,
+                    "max": 7200,
+                    "mean": 7200
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 81152,
+                    "p10": 81231,
+                    "p50": 81553,
+                    "p90": 81750,
+                    "max": 81802,
+                    "mean": 81519.3125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 52592,
+                    "p10": 52711,
+                    "p50": 53106,
+                    "p90": 53284,
+                    "max": 53403,
+                    "mean": 53042
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 52592,
+                    "p10": 52711,
+                    "p50": 53106,
+                    "p90": 53284,
+                    "max": 53403,
+                    "mean": 53042
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 133744,
+                    "p10": 133943,
+                    "p50": 134659,
+                    "p90": 135034,
+                    "max": 135205,
+                    "mean": 134561.3125
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 30857,
+                    "p10": 30857,
+                    "p50": 30857,
+                    "p90": 30857,
+                    "max": 30857,
+                    "mean": 30857
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 7,
+                    "p10": 7,
+                    "p50": 7,
+                    "p90": 7,
+                    "max": 7,
+                    "mean": 7
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "days": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 3085,
+                    "p10": 3103,
+                    "p50": 3152,
+                    "p90": 3240,
+                    "max": 3250,
+                    "mean": 3162.3125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1867,
+                    "p10": 1889,
+                    "p50": 1950,
+                    "p90": 2055,
+                    "max": 2055,
+                    "mean": 1962.875
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 1867,
+                    "p10": 1889,
+                    "p50": 1950,
+                    "p90": 2055,
+                    "max": 2055,
+                    "mean": 1962.875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 4952,
+                    "p10": 4992,
+                    "p50": 5102,
+                    "p90": 5295,
+                    "max": 5305,
+                    "mean": 5125.1875
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 1200,
+                    "p10": 1200,
+                    "p50": 1200,
+                    "p90": 1200,
+                    "max": 1200,
+                    "mean": 1200
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "days": 7,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 21941,
+                    "p10": 21946,
+                    "p50": 22080,
+                    "p90": 22362,
+                    "max": 22408,
+                    "mean": 22120.25
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 14083,
+                    "p10": 14088,
+                    "p50": 14218,
+                    "p90": 14566,
+                    "max": 14613,
+                    "mean": 14283.125
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 14083,
+                    "p10": 14088,
+                    "p50": 14218,
+                    "p90": 14566,
+                    "max": 14613,
+                    "mean": 14283.125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 36024,
+                    "p10": 36034,
+                    "p50": 36298,
+                    "p90": 36928,
+                    "max": 37021,
+                    "mean": 36403.375
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 8400,
+                    "p10": 8400,
+                    "p50": 8400,
+                    "p90": 8400,
+                    "max": 8400,
+                    "mean": 8400
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 6,
+                    "p10": 6,
+                    "p50": 6,
+                    "p90": 6,
+                    "max": 6,
+                    "mean": 6
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "days": 30,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 94784,
+                    "p10": 94856,
+                    "p50": 95144,
+                    "p90": 95362,
+                    "max": 95437,
+                    "mean": 95118.5
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 61527,
+                    "p10": 61611,
+                    "p50": 61921,
+                    "p90": 62224,
+                    "max": 62247,
+                    "mean": 61910.9375
+                },
+                "stockpile_cashout_value": {
+                    "n": 16,
+                    "min": 61527,
+                    "p10": 61611,
+                    "p50": 61921,
+                    "p90": 62224,
+                    "max": 62247,
+                    "mean": 61910.9375
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 156311,
+                    "p10": 156467,
+                    "p50": 157091,
+                    "p90": 157586,
+                    "max": 157684,
+                    "mean": 157029.4375
+                },
+                "daily_minus_end_sale_income": {
+                    "n": 16,
+                    "min": 0,
+                    "p10": 0,
+                    "p50": 0,
+                    "p90": 0,
+                    "max": 0,
+                    "mean": 0
+                },
+                "captures": {
+                    "n": 16,
+                    "min": 36000,
+                    "p10": 36000,
+                    "p50": 36000,
+                    "p90": 36000,
+                    "max": 36000,
+                    "mean": 36000
+                },
+                "end_cashout_transactions": {
+                    "n": 16,
+                    "min": 7,
+                    "p10": 7,
+                    "p50": 8,
+                    "p90": 8,
+                    "max": 8,
+                    "mean": 7.875
+                }
+            }
+        }
+    ],
+    "single_30_day_absence_scenarios": [
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 3480,
+                    "p10": 3527,
+                    "p50": 3628,
+                    "p90": 3731,
+                    "max": 3789,
+                    "mean": 3636.375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1058,
+                    "p10": 1079,
+                    "p50": 1147,
+                    "p90": 1213,
+                    "max": 1244,
+                    "mean": 1150.5
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 4538,
+                    "p10": 4606,
+                    "p50": 4775,
+                    "p90": 4944,
+                    "max": 5033,
+                    "mean": 4786.875
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 3872,
+                    "p10": 3933,
+                    "p50": 4036,
+                    "p90": 4153,
+                    "max": 4175,
+                    "mean": 4043
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1184,
+                    "p10": 1218,
+                    "p50": 1288,
+                    "p90": 1365,
+                    "max": 1372,
+                    "mean": 1289.5625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 5056,
+                    "p10": 5151,
+                    "p50": 5324,
+                    "p90": 5518,
+                    "max": 5547,
+                    "mean": 5332.5625
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 4349,
+                    "p10": 4412,
+                    "p50": 4549,
+                    "p90": 4654,
+                    "max": 4678,
+                    "mean": 4542.3125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1338,
+                    "p10": 1370,
+                    "p50": 1465,
+                    "p90": 1534,
+                    "max": 1540,
+                    "mean": 1457
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 5687,
+                    "p10": 5782,
+                    "p50": 6020,
+                    "p90": 6188,
+                    "max": 6218,
+                    "mean": 5999.3125
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 4982,
+                    "p10": 5082,
+                    "p50": 5216,
+                    "p90": 5300,
+                    "max": 5346,
+                    "mean": 5214.4375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1527,
+                    "p10": 1587,
+                    "p50": 1675,
+                    "p90": 1730,
+                    "max": 1766,
+                    "mean": 1675.1875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 6509,
+                    "p10": 6669,
+                    "p50": 6891,
+                    "p90": 7030,
+                    "max": 7112,
+                    "mean": 6889.625
+                }
+            }
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 5885,
+                    "p10": 5997,
+                    "p50": 6076,
+                    "p90": 6173,
+                    "max": 6215,
+                    "mean": 6086.4375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1841,
+                    "p10": 1915,
+                    "p50": 1956,
+                    "p90": 2023,
+                    "max": 2057,
+                    "mean": 1971.5625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 7726,
+                    "p10": 7912,
+                    "p50": 8032,
+                    "p90": 8194,
+                    "max": 8272,
+                    "mean": 8058
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 1814,
+                    "p10": 1849,
+                    "p50": 1890,
+                    "p90": 1953,
+                    "max": 1985,
+                    "mean": 1896.9375
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1046,
+                    "p10": 1096,
+                    "p50": 1149,
+                    "p90": 1216,
+                    "max": 1248,
+                    "mean": 1151.75
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 2860,
+                    "p10": 2945,
+                    "p50": 3039,
+                    "p90": 3169,
+                    "max": 3233,
+                    "mean": 3048.6875
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 2019,
+                    "p10": 2050,
+                    "p50": 2099,
+                    "p90": 2167,
+                    "max": 2192,
+                    "mean": 2104.125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1175,
+                    "p10": 1213,
+                    "p50": 1281,
+                    "p90": 1359,
+                    "max": 1380,
+                    "mean": 1285.0625
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 3194,
+                    "p10": 3263,
+                    "p50": 3383,
+                    "p90": 3526,
+                    "max": 3572,
+                    "mean": 3389.1875
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 2269,
+                    "p10": 2293,
+                    "p50": 2356,
+                    "p90": 2428,
+                    "max": 2454,
+                    "mean": 2364.5
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1320,
+                    "p10": 1350,
+                    "p50": 1436,
+                    "p90": 1508,
+                    "max": 1547,
+                    "mean": 1440.8125
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 3589,
+                    "p10": 3643,
+                    "p50": 3792,
+                    "p90": 3936,
+                    "max": 4001,
+                    "mean": 3805.3125
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 2615,
+                    "p10": 2627,
+                    "p50": 2705,
+                    "p90": 2770,
+                    "max": 2779,
+                    "mean": 2707.5
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1551,
+                    "p10": 1565,
+                    "p50": 1665,
+                    "p90": 1732,
+                    "max": 1754,
+                    "mean": 1666.875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 4166,
+                    "p10": 4192,
+                    "p50": 4370,
+                    "p90": 4501,
+                    "max": 4533,
+                    "mean": 4374.375
+                }
+            }
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "metrics": {
+                "capture_income": {
+                    "n": 16,
+                    "min": 3085,
+                    "p10": 3103,
+                    "p50": 3152,
+                    "p90": 3240,
+                    "max": 3250,
+                    "mean": 3162.3125
+                },
+                "extra_sale_income": {
+                    "n": 16,
+                    "min": 1867,
+                    "p10": 1889,
+                    "p50": 1950,
+                    "p90": 2055,
+                    "max": 2055,
+                    "mean": 1962.875
+                },
+                "combined_income": {
+                    "n": 16,
+                    "min": 4952,
+                    "p10": 4992,
+                    "p50": 5102,
+                    "p90": 5295,
+                    "max": 5305,
+                    "mean": 5125.1875
+                }
+            }
+        }
+    ],
+    "steady_state_theory": [
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "period_ms": 120000,
+            "ordinary_species": [
+                "bay_aurora",
+                "bay_coral",
+                "bay_lantern",
+                "bay_ribbon",
+                "bay_silver",
+                "bay_star_ray"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 5.06,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 720,
+            "capture_per_24h": 3643.2,
+            "sale_extra_per_24h": 1238.4,
+            "combined_per_24h": 4881.6,
+            "sale_uplift_percent": 33.99209486166008
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "period_ms": 108000,
+            "ordinary_species": [
+                "bay_aurora",
+                "bay_coral",
+                "bay_lantern",
+                "bay_ribbon",
+                "bay_silver",
+                "bay_star_ray"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 5.06,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 800,
+            "capture_per_24h": 4047.9999999999995,
+            "sale_extra_per_24h": 1376,
+            "combined_per_24h": 5424,
+            "sale_uplift_percent": 33.99209486166008
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "period_ms": 96000,
+            "ordinary_species": [
+                "bay_aurora",
+                "bay_coral",
+                "bay_lantern",
+                "bay_ribbon",
+                "bay_silver",
+                "bay_star_ray"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 5.06,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 900,
+            "capture_per_24h": 4554,
+            "sale_extra_per_24h": 1548,
+            "combined_per_24h": 6102,
+            "sale_uplift_percent": 33.99209486166008
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "period_ms": 84000,
+            "ordinary_species": [
+                "bay_aurora",
+                "bay_coral",
+                "bay_lantern",
+                "bay_ribbon",
+                "bay_silver",
+                "bay_star_ray"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 5.06,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 1028.5714285714287,
+            "capture_per_24h": 5204.571428571428,
+            "sale_extra_per_24h": 1769.1428571428573,
+            "combined_per_24h": 6973.714285714286,
+            "sale_uplift_percent": 33.99209486166008
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "period_ms": 72000,
+            "ordinary_species": [
+                "bay_aurora",
+                "bay_coral",
+                "bay_lantern",
+                "bay_ribbon",
+                "bay_silver",
+                "bay_star_ray"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 5.06,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 1200,
+            "capture_per_24h": 6071.999999999999,
+            "sale_extra_per_24h": 2064,
+            "combined_per_24h": 8135.999999999999,
+            "sale_uplift_percent": 33.99209486166008
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "period_ms": 120000,
+            "ordinary_species": [
+                "pond_blue",
+                "pond_feather",
+                "pond_glass_moon",
+                "pond_leaf",
+                "pond_orange_tail",
+                "pond_peach"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 2.64,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 720,
+            "capture_per_24h": 1900.8000000000002,
+            "sale_extra_per_24h": 1238.4,
+            "combined_per_24h": 3139.2000000000003,
+            "sale_uplift_percent": 65.15151515151514
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "period_ms": 108000,
+            "ordinary_species": [
+                "pond_blue",
+                "pond_feather",
+                "pond_glass_moon",
+                "pond_leaf",
+                "pond_orange_tail",
+                "pond_peach"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 2.64,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 800,
+            "capture_per_24h": 2112,
+            "sale_extra_per_24h": 1376,
+            "combined_per_24h": 3488,
+            "sale_uplift_percent": 65.15151515151514
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "period_ms": 96000,
+            "ordinary_species": [
+                "pond_blue",
+                "pond_feather",
+                "pond_glass_moon",
+                "pond_leaf",
+                "pond_orange_tail",
+                "pond_peach"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 2.64,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 900,
+            "capture_per_24h": 2376,
+            "sale_extra_per_24h": 1548,
+            "combined_per_24h": 3924,
+            "sale_uplift_percent": 65.15151515151514
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "period_ms": 84000,
+            "ordinary_species": [
+                "pond_blue",
+                "pond_feather",
+                "pond_glass_moon",
+                "pond_leaf",
+                "pond_orange_tail",
+                "pond_peach"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 2.64,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 1028.5714285714287,
+            "capture_per_24h": 2715.428571428572,
+            "sale_extra_per_24h": 1769.1428571428573,
+            "combined_per_24h": 4484.571428571429,
+            "sale_uplift_percent": 65.15151515151514
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "period_ms": 72000,
+            "ordinary_species": [
+                "pond_blue",
+                "pond_feather",
+                "pond_glass_moon",
+                "pond_leaf",
+                "pond_orange_tail",
+                "pond_peach"
+            ],
+            "ordinary_weight_sum": 2700,
+            "capture_per_catch": 2.64,
+            "sale_per_catch": 1.72,
+            "long_run_catches_per_24h": 1200,
+            "capture_per_24h": 3168,
+            "sale_extra_per_24h": 2064,
+            "combined_per_24h": 5232,
+            "sale_uplift_percent": 65.15151515151514
+        }
+    ],
+    "illustrative_affordability": [
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.21958717610891526,
+            "steady_24h_visits_with_sale": 0.16388069485414616
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.32938076416337286,
+            "steady_24h_visits_with_sale": 0.24582104228121926
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.38427755819060166,
+            "steady_24h_visits_with_sale": 0.2867912159947558
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 0.6587615283267457,
+            "steady_24h_visits_with_sale": 0.4916420845624385
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 0.9881422924901186,
+            "steady_24h_visits_with_sale": 0.7374631268436578
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 1.6469038208168645,
+            "steady_24h_visits_with_sale": 1.2291052114060963
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 2.580149319279754,
+            "steady_24h_visits_with_sale": 1.9255981645362175
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 4.117259552042161,
+            "steady_24h_visits_with_sale": 3.0727630285152405
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 0,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 5.4896794027228815,
+            "steady_24h_visits_with_sale": 4.097017371353655
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.19762845849802374,
+            "steady_24h_visits_with_sale": 0.14749262536873156
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.2964426877470356,
+            "steady_24h_visits_with_sale": 0.22123893805309736
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.34584980237154156,
+            "steady_24h_visits_with_sale": 0.2581120943952802
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 0.5928853754940712,
+            "steady_24h_visits_with_sale": 0.4424778761061947
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 0.8893280632411068,
+            "steady_24h_visits_with_sale": 0.6637168141592921
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 1.482213438735178,
+            "steady_24h_visits_with_sale": 1.1061946902654867
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 2.322134387351779,
+            "steady_24h_visits_with_sale": 1.733038348082596
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 3.7055335968379453,
+            "steady_24h_visits_with_sale": 2.765486725663717
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 1,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 4.940711462450594,
+            "steady_24h_visits_with_sale": 3.687315634218289
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.1756697408871322,
+            "steady_24h_visits_with_sale": 0.13110455588331696
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.2635046113306983,
+            "steady_24h_visits_with_sale": 0.19665683382497542
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.30742204655248134,
+            "steady_24h_visits_with_sale": 0.22943297279580466
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 0.5270092226613966,
+            "steady_24h_visits_with_sale": 0.39331366764995085
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 0.7905138339920948,
+            "steady_24h_visits_with_sale": 0.5899705014749262
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 1.3175230566534915,
+            "steady_24h_visits_with_sale": 0.983284169124877
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 2.0641194554238034,
+            "steady_24h_visits_with_sale": 1.5404785316289742
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 3.2938076416337285,
+            "steady_24h_visits_with_sale": 2.4582104228121926
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 2,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 4.391743522178305,
+            "steady_24h_visits_with_sale": 3.2776138970829236
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.15371102327624067,
+            "steady_24h_visits_with_sale": 0.11471648639790231
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.230566534914361,
+            "steady_24h_visits_with_sale": 0.17207472959685347
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.2689942907334212,
+            "steady_24h_visits_with_sale": 0.20075385119632905
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 0.461133069828722,
+            "steady_24h_visits_with_sale": 0.34414945919370693
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 0.691699604743083,
+            "steady_24h_visits_with_sale": 0.5162241887905604
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 1.152832674571805,
+            "steady_24h_visits_with_sale": 0.8603736479842674
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 1.806104523495828,
+            "steady_24h_visits_with_sale": 1.3479187151753522
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 2.8820816864295127,
+            "steady_24h_visits_with_sale": 2.1509341199606684
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 3,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 3.8427755819060168,
+            "steady_24h_visits_with_sale": 2.867912159947558
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.13175230566534915,
+            "steady_24h_visits_with_sale": 0.09832841691248773
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.19762845849802374,
+            "steady_24h_visits_with_sale": 0.1474926253687316
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.23056653491436105,
+            "steady_24h_visits_with_sale": 0.17207472959685352
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 0.3952569169960475,
+            "steady_24h_visits_with_sale": 0.2949852507374632
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 0.5928853754940713,
+            "steady_24h_visits_with_sale": 0.44247787610619477
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 0.9881422924901188,
+            "steady_24h_visits_with_sale": 0.7374631268436579
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 1.5480895915678528,
+            "steady_24h_visits_with_sale": 1.1553588987217307
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 2.470355731225297,
+            "steady_24h_visits_with_sale": 1.8436578171091447
+        },
+        {
+            "water": "bay",
+            "rod_level_internal": 4,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 3.293807641633729,
+            "steady_24h_visits_with_sale": 2.458210422812193
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.42087542087542085,
+            "steady_24h_visits_with_sale": 0.254841997961264
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.6313131313131313,
+            "steady_24h_visits_with_sale": 0.38226299694189597
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.7365319865319865,
+            "steady_24h_visits_with_sale": 0.445973496432212
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 1.2626262626262625,
+            "steady_24h_visits_with_sale": 0.7645259938837919
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 1.8939393939393938,
+            "steady_24h_visits_with_sale": 1.146788990825688
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 3.156565656565656,
+            "steady_24h_visits_with_sale": 1.91131498470948
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 4.945286195286195,
+            "steady_24h_visits_with_sale": 2.994393476044852
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 7.891414141414141,
+            "steady_24h_visits_with_sale": 4.7782874617737
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 0,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 10.52188552188552,
+            "steady_24h_visits_with_sale": 6.3710499490316
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.3787878787878788,
+            "steady_24h_visits_with_sale": 0.22935779816513763
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.5681818181818182,
+            "steady_24h_visits_with_sale": 0.3440366972477064
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.6628787878787878,
+            "steady_24h_visits_with_sale": 0.4013761467889908
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 1.1363636363636365,
+            "steady_24h_visits_with_sale": 0.6880733944954128
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 1.7045454545454546,
+            "steady_24h_visits_with_sale": 1.0321100917431192
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 2.840909090909091,
+            "steady_24h_visits_with_sale": 1.7201834862385321
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 4.450757575757576,
+            "steady_24h_visits_with_sale": 2.694954128440367
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 7.1022727272727275,
+            "steady_24h_visits_with_sale": 4.3004587155963305
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 1,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 9.469696969696969,
+            "steady_24h_visits_with_sale": 5.73394495412844
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.3367003367003367,
+            "steady_24h_visits_with_sale": 0.2038735983690112
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.5050505050505051,
+            "steady_24h_visits_with_sale": 0.3058103975535168
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.5892255892255892,
+            "steady_24h_visits_with_sale": 0.3567787971457696
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 1.0101010101010102,
+            "steady_24h_visits_with_sale": 0.6116207951070336
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 1.5151515151515151,
+            "steady_24h_visits_with_sale": 0.9174311926605505
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 2.525252525252525,
+            "steady_24h_visits_with_sale": 1.529051987767584
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 3.9562289562289563,
+            "steady_24h_visits_with_sale": 2.3955147808358817
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 6.313131313131313,
+            "steady_24h_visits_with_sale": 3.8226299694189603
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 2,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 8.417508417508417,
+            "steady_24h_visits_with_sale": 5.096839959225281
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.29461279461279455,
+            "steady_24h_visits_with_sale": 0.17838939857288477
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.4419191919191918,
+            "steady_24h_visits_with_sale": 0.2675840978593272
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.5155723905723905,
+            "steady_24h_visits_with_sale": 0.3121814475025484
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 0.8838383838383836,
+            "steady_24h_visits_with_sale": 0.5351681957186544
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 1.3257575757575755,
+            "steady_24h_visits_with_sale": 0.8027522935779815
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 2.2095959595959593,
+            "steady_24h_visits_with_sale": 1.3379204892966359
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 3.461700336700336,
+            "steady_24h_visits_with_sale": 2.096075433231396
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 5.523989898989898,
+            "steady_24h_visits_with_sale": 3.3448012232415896
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 3,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 7.365319865319864,
+            "steady_24h_visits_with_sale": 4.459734964322119
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 800,
+            "steady_24h_visits_capture_only": 0.25252525252525254,
+            "steady_24h_visits_with_sale": 0.1529051987767584
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 1200,
+            "steady_24h_visits_capture_only": 0.3787878787878788,
+            "steady_24h_visits_with_sale": 0.22935779816513763
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 1400,
+            "steady_24h_visits_capture_only": 0.44191919191919193,
+            "steady_24h_visits_with_sale": 0.26758409785932724
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 2400,
+            "steady_24h_visits_capture_only": 0.7575757575757576,
+            "steady_24h_visits_with_sale": 0.45871559633027525
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 3600,
+            "steady_24h_visits_capture_only": 1.1363636363636365,
+            "steady_24h_visits_with_sale": 0.6880733944954128
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 6000,
+            "steady_24h_visits_capture_only": 1.893939393939394,
+            "steady_24h_visits_with_sale": 1.146788990825688
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 9400,
+            "steady_24h_visits_capture_only": 2.967171717171717,
+            "steady_24h_visits_with_sale": 1.7966360856269112
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 15000,
+            "steady_24h_visits_capture_only": 4.734848484848484,
+            "steady_24h_visits_with_sale": 2.86697247706422
+        },
+        {
+            "water": "pond",
+            "rod_level_internal": 4,
+            "illustrative_cost": 20000,
+            "steady_24h_visits_capture_only": 6.313131313131313,
+            "steady_24h_visits_with_sale": 3.8226299694189603
+        }
+    ],
+    "affordability_note": "Illustrative coin costs only, not approved prices. Constant mature capability, full book, limited caps exhausted, each 24h visited, zero other spending; excludes unlock conditions and starting savings."
+}
