@@ -1,4 +1,4 @@
-/** 作者：小蓝（DSH）；原插件 (C) 2026 Carinoasd。天使水族馆玩家界面 V2。 */
+/** 作者：小蓝（DSH）；原插件 (C) 2026 Carinoasd。天使水族馆玩家界面 V2。金币同步/装饰排布修复：GPT / Codex（小典）。 */
 (function () {
   'use strict';
 
@@ -21,8 +21,6 @@
       { id: 'moon_garden', name: '月光庭院', background: 'tank_moon',
         back: ['building_angel_gate'], front: ['scape_pebbles', 'plant_lily', 'trinket_star_lamp'] }
     ];
-    var PRESET_HINTS = {};
-    var activeHints = null;   // 当前布景给的横向锚点（软提示，玩家手动改动后失效）
     var MOTION = {}, SPEC = {}, SCENE = null;
     var timer = null, stopped = false, syncAt = 0;
 
@@ -152,13 +150,23 @@
       }).then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); });
     }
 
+    // catalog 只读，不能把同一结算快照的倒计时重新从响应时刻计起。
+    function acceptSnapshot(next) {
+      if (!next || (snap && next.version < snap.version)) { return; }
+      var sameClock = snap && typeof next.last_settled_ms === 'number'
+        && next.last_settled_ms === snap.last_settled_ms && next.progress_ms === snap.progress_ms;
+      if (!sameClock) { syncAt = Date.now(); }
+      if (dom && snap && next.coins !== snap.coins) { dom.panelMode = ''; }
+      snap = next; background = snap.layout.background;
+    }
+
     var lastCallOk = false;
     function call(action, extra) {
       if (stopped || busy || (uncertain && action !== 'sync' && action !== 'catalog')) { return Promise.resolve(); }
       lastCallOk = false;
       busy = true; note = '正在同步…'; paint();
       return post(action, extra).then(function (r) {
-        if (r.snapshot) { snap = r.snapshot; syncAt = Date.now(); background = snap.layout.background; }
+        if (r.snapshot) { acceptSnapshot(r.snapshot); }
         if (r.catalog) { catalog = r.catalog; }
         lastCallOk = !!r.ok;
         if (r.ok && r.snapshot && (action === 'sync' || action === 'catalog')) { uncertain = false; }
@@ -172,7 +180,7 @@
         }
         if (r.ok && action !== 'sync' && action !== 'catalog') {
           return post('catalog', {}).then(function (x) {
-            if (x.snapshot) { snap = x.snapshot; syncAt = Date.now(); background = snap.layout.background; }
+            if (x.snapshot) { acceptSnapshot(x.snapshot); }
             if (x.catalog) { catalog = x.catalog; }
             if (x.ok) { note = ''; }
           });
@@ -210,7 +218,7 @@
     function fetchCatalogQuiet() {
       needCatalog = false;
       return post('catalog', {}).then(function (x) {
-        if (x.snapshot) { snap = x.snapshot; syncAt = Date.now(); background = snap.layout.background; }
+        if (x.snapshot) { acceptSnapshot(x.snapshot); }
         if (x.catalog) { catalog = x.catalog; }
         if (dom) { dom.panelMode = ''; paint(); }
       }).catch(function () {});
@@ -583,33 +591,25 @@
     function placeDecor() {
       if (!snap || !dom || !window.AquariumDecorLayout) { return; }
       var r = dom.tank.getBoundingClientRect();
-      if (!r.width) { return; }
+      if (!r.width || !r.height) { return; }
       var scene = (SCENE && SCENE.scenes && SCENE.scenes[background]) || null;
       var override = (SCENE && SCENE.item_overrides) || {};
       var shadow = (SCENE && SCENE.contact_shadow) || {};
       ['back', 'front'].forEach(function (layer) {
         var host = layer === 'back' ? dom.back : dom.front;
-        var placed = [];
-        snap.layout.decor[layer].forEach(function (id) {
-          var box = decorEls[id];
-          var spec = specOf(id);
-          if (!box || !spec) { return; }
-          var probe;
-          try { probe = window.AquariumDecorLayout.rect(spec, r.width, r.height, 0.5); } catch (e) { return; }
-          var w = probe.sprite.width;
-          var hint = activeHints && activeHints[id] && typeof activeHints[id].anchor_x === 'number'
-            ? activeHints[id].anchor_x : null;
-          var prefs = hint !== null ? [Math.min(0.9, Math.max(0.1, hint))]
-            : ((spec.preferred_x && spec.preferred_x.length) ? spec.preferred_x : [0.5]);
-          var bestX = prefs[0], bestClear = -Infinity;
-          prefs.forEach(function (px) {
-            var clear = r.width;
-            placed.forEach(function (q) { clear = Math.min(clear, Math.abs(px - q.x) * r.width - (w + q.w) / 2); });
-            if (clear > bestClear) { bestClear = clear; bestX = px; }
-          });
-          placed.push({ x: bestX, w: w });
-          var g;
-          try { g = window.AquariumDecorLayout.rect(spec, r.width, r.height, bestX); } catch (e) { return; }
+        var items = snap.layout.decor[layer].map(specOf).filter(function (spec) {
+          if (!spec) { return false; }
+          try { window.AquariumDecorLayout.rect(spec, r.width, r.height, 0.5); return true; }
+          catch (e) { return false; }
+        });
+        var arrangement = window.AquariumDecorLayout.arrange(items, r.width, r.height);
+        arrangement.forEach(function (entry, index) {
+          var spec = items[index], id = spec.id, box = decorEls[id], g = entry.rect;
+          if (!box) { return; }
+          var position = items.length === 1 ? (entry.x < 0.4 ? '左侧' : entry.x > 0.6 ? '右侧' : '中间')
+            : index === 0 ? '左侧' : index === items.length - 1 ? '右侧' : '中间';
+          box.dataset.position = position;
+          box.title = ((findDecor(id) || {}).name || id) + ' · ' + (layer === 'back' ? '后景' : '前景') + ' · ' + position + '（点一下收起）';
           if (box.parentNode !== host) { host.appendChild(box); }
           box.style.left = g.sprite.left + 'px';
           box.style.top = g.sprite.top + 'px';
@@ -694,8 +694,19 @@
         paint();
         return;
       }
+      // 用现有数组顺序保存左右关系；刷新后不依赖丢失的内存提示。
+      ['back', 'front'].forEach(function (layer) {
+        out[layer].sort(function (a, b) {
+          function preferred(id) {
+            var hint = pz.hints && pz.hints[id], spec = specOf(id);
+            return hint && typeof hint.anchor_x === 'number' ? hint.anchor_x
+              : spec && spec.preferred_x ? spec.preferred_x[0] : 0.5;
+          }
+          return preferred(a) - preferred(b);
+        });
+      });
       var next = { fish: fishLayout(), decor: out, background: pz.background };
-      activeHints = pz.hints || null;
+
       // 先把缸里现有的装饰全部收掉，再按预设摆——避免"点完还要手动取消"
       clearDecorVisual();
       clearFeed(false);
@@ -706,7 +717,7 @@
         // 版本冲突（比如连点两套）：拉一次最新状态，再套一次
         if (/状态已更新|conflict/.test(note || '')) {
           return post('sync', {}).then(function (r) {
-            if (r.snapshot) { snap = r.snapshot; background = snap.layout.background; }
+            if (r.snapshot) { acceptSnapshot(r.snapshot); }
             return call('layout', { expected_version: snap.version, layout: next });
           });
         }
@@ -766,8 +777,16 @@
       playSfx('select');
       call('layout', { expected_version: snap.version, layout: { fish: fishLayout(), decor: next, background: snap.layout.background } });
     }
+    function moveDecor(id, direction) {
+      if (!snap || busy || uncertain) { return; }
+      var next = { back: snap.layout.decor.back.slice(), front: snap.layout.decor.front.slice() };
+      var layer = next.back.indexOf(id) >= 0 ? 'back' : 'front';
+      var index = next[layer].indexOf(id), target = index + direction;
+      if (index < 0 || target < 0 || target >= next[layer].length) { return; }
+      next[layer][index] = next[layer][target]; next[layer][target] = id;
+      call('layout', { expected_version: snap.version, layout: { fish: fishLayout(), decor: next, background: snap.layout.background } });
+    }
     function addDecor(id) {
-      activeHints = null;
       var meta = findDecor(id);
       if (!meta) { return; }
       if (!meta.owned) { note = '「' + meta.name + '」还没拥有'; paint(); return; }
@@ -832,9 +851,9 @@
       info.appendChild(el('summary', null, '玩法说明 · 怎么放鱼和装饰'));
       var tips = [
         ['自动钓鱼', '鱼竿自己下钩，到点自动收。在线离线同速，单次最多累计 24 小时，超出部分不计入；金币只在本游戏使用。'],
-        ['怎么赚金币', '每钓到一条鱼都给金币，重复鱼按同规则给，不会因为鱼种重复而变少。升鱼竿能缩短下一条的等待，也能提高每条鱼的收益。'],
+        ['怎么赚金币', '每钓到一条鱼都给金币，重复鱼按同规则给，不会因为鱼种重复而变少。升鱼竿能缩短下一条的等待时间。'],
         ['怎么放鱼', '在图鉴里点一条鱼，它就直接进缸、占一个鱼位。点缸里的鱼，是把那一条收起来。同一个鱼种只要钓到过就能重复放，但**最多放你钓到的条数**——钓到 5 条彩鳞鱼，才能同时摆 5 条。鱼缸初始可放 4 条，可花费金币扩容升级。'],
-        ['怎么放装饰', '切到「装饰」页，点一件装饰就直接摆进缸里；再点一次、或者点缸里那件装饰，就是收起来。每层（后景/前景）最多 3 件。装饰按透视自动定位，前景挡住鱼时会自动变淡，鱼不会凭空消失。'],
+        ['怎么放装饰', '切到「装饰」页，点一件装饰就直接摆进缸里；再点一次、或者点缸里那件装饰，就是收起来。每层（后景/前景）最多 3 件。同层装饰会自动排开；卡片会标出左侧、中间或右侧，用「左移/右移」交换顺序，刷新后保留。宽件放满时会等比缩小以免叠放。前景挡住鱼时会自动变淡。'],
         ['布景预设', '「装饰」页最下面的「布景」是整套方案：点一下就把缸里的装饰换成这一套、顺带换背景，不用一件件摆；缺的装饰会被跳过并提示。旁边还有「清空装饰」。'],
         ['钓点与扩容', '在池塘发现足够多种鱼后可以解锁浅湾，那里的鱼更值钱。右侧状态栏能看到下一个钓点的解锁条件和花费。'],
         ['喂鱼', '点一下鱼缸里的空白水面＝撒一粒饲料，想多喂就多点几下；一次最多放 8 粒，吃完再喂。哪条鱼离得近，哪条就来吃，吃完会散开。点鱼身上还是「收起这条鱼」，两种操作分开。喂鱼不花金币、不产生金币，纯看着玩。'],
@@ -976,7 +995,7 @@
           bodyEl.appendChild(el('span', 'aq-tag', ''));
           if (!d.owned) {
             var miss = [];
-            if (d.missing.coins > 0) { miss.push('还差 ' + fmt(d.missing.coins) + ' 金币'); }
+            if (d.cost > snap.coins) { miss.push('还差 ' + fmt(d.cost - snap.coins) + ' 金币'); }
             if (d.missing.pond_fish > 0) { miss.push('池塘还差 ' + d.missing.pond_fish + ' 种鱼'); }
             if (d.missing.total_fish > 0) { miss.push('图鉴还差 ' + d.missing.total_fish + ' 种'); }
             if (d.missing.water) { miss.push('需先解锁' + waterName(d.missing.water)); }
@@ -990,6 +1009,14 @@
             bodyEl.appendChild(buy);
           } else {
             card.addEventListener('click', function () { addDecor(d.id); });
+            var moves = el('div', 'aq-decor-moves');
+            [-1, 1].forEach(function (direction) {
+              var move = el('button', 'aq-btn aq-btn-sm', direction < 0 ? '← 左移' : '右移 →');
+              move.setAttribute('aria-label', d.name + (direction < 0 ? '左移' : '右移'));
+              move.addEventListener('click', function (ev) { ev.stopPropagation(); moveDecor(d.id, direction); });
+              moves.appendChild(move);
+            });
+            bodyEl.appendChild(moves);
           }
           card.appendChild(bodyEl);
           decorCards[d.id] = card;
@@ -1033,10 +1060,20 @@
         var card = decorCards[id];
         var d = findDecor(id);
         if (!d || !d.owned) { return; }
-        var placed = snap.layout.decor.back.indexOf(id) >= 0 || snap.layout.decor.front.indexOf(id) >= 0;
+        var layer = snap.layout.decor.back.indexOf(id) >= 0 ? 'back' : 'front';
+        var index = snap.layout.decor[layer].indexOf(id), placed = index >= 0;
         card.classList.toggle('is-on', placed);
         var tags = card.querySelectorAll('.aq-tag');
-        if (tags.length > 1) { tags[1].textContent = placed ? '已在缸里' : '点一下摆放'; }
+        var position = decorEls[id] && decorEls[id].dataset.position;
+        if (tags.length > 1) { tags[1].textContent = placed
+          ? (layer === 'back' ? '后景' : '前景') + ' · ' + (position || '已摆放') + ' · 点卡片收起' : '点一下自动摆放'; }
+        var moves = card.querySelector('.aq-decor-moves');
+        if (moves) {
+          moves.style.display = placed ? '' : 'none';
+          var buttons = moves.querySelectorAll('button');
+          buttons[0].disabled = !placed || index === 0 || busy || uncertain;
+          buttons[1].disabled = !placed || index === snap.layout.decor[layer].length - 1 || busy || uncertain;
+        }
       });
     }
 
@@ -1203,29 +1240,28 @@
       if (dom.panelMode !== 'grid') { dom.panelMode = 'grid'; buildPanel(); } else { refreshCards(); }
       syncFish();
       syncDecor();
+      refreshCards();
     }
 
     function countdown() {
       if (!snap) { return '00:00'; }
       var period = snap.rules.periods_ms[snap.rod_level];
       var elapsed = (Date.now() - syncAt) + snap.progress_ms;
-      var left = Math.max(0, period - (elapsed % period));
+      var left = Math.max(0, period - elapsed);
       var s = Math.ceil(left / 1000);
       return ('0' + Math.floor(s / 60)).slice(-2) + ':' + ('0' + (s % 60)).slice(-2);
     }
-    var settledPending = false;
+    var settleRetryAt = 0;
     function tickCountdown() {
-      var n = document.getElementById('aq-countdown');
-      if (!n || !snap) { return; }
+      if (!snap || stopped || document.hidden) { return; }
+      var n = stage.querySelector('#aq-countdown');
+      if (n) { n.textContent = '下一条 ' + countdown(); }
       var period = snap.rules.periods_ms[snap.rod_level];
       var elapsed = (Date.now() - syncAt) + snap.progress_ms;
-      var left = period - (elapsed % period);
-      n.textContent = '下一条 ' + countdown();
-      // 到点就直接拉一次，别让玩家自己刷新
-      if (left <= 900 && !settledPending && !busy) {
-        settledPending = true;
+      // 必须越过到期点再结算；定时器迟到/跨周期也不会漏掉。
+      if (elapsed >= period && !busy && Date.now() >= settleRetryAt) {
+        settleRetryAt = Date.now() + 4000;
         call('sync');
-        setTimeout(function () { settledPending = false; }, 4000);
       }
     }
 
@@ -1440,7 +1476,6 @@
               return { id: it.id, name: it.name, background: it.background,
                 back: it.back || [], front: it.front || [], hints: it.placement_hints || null };
             });
-            PRESETS.forEach(function (pz) { PRESET_HINTS[pz.id] = pz.hints; });
             if (dom) { dom.panelMode = ''; }
           }
         }).catch(function () {})
@@ -1451,7 +1486,7 @@
       paint();
       setInterval(tickCountdown, 1000);
       requestAnimationFrame(frame);
-      if (api.uid) { call('catalog'); }
+      if (api.uid) { call('catalog').then(function () { if (snap) { return call('sync'); } }); }
     });
   });
 }());
