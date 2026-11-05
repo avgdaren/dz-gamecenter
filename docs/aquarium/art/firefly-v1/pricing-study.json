@@ -1,0 +1,802 @@
+{
+  "study": "firefly-proposed-prices-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "approved": false,
+  "single_total": 25000,
+  "bundle_total": 20000,
+  "ownership_scenarios": [
+    {
+      "owned": [],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house",
+        "building_tide_mill",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 25000,
+      "bundle_pay": 20000,
+      "missing_discount": 5000,
+      "owned_credit_at_bundle_price": 0,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house",
+        "building_tide_mill",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 13000,
+      "bundle_pay": 10400,
+      "missing_discount": 2600,
+      "owned_credit_at_bundle_price": 9600,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_tide_mill",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 23400,
+      "bundle_pay": 18720,
+      "missing_discount": 4680,
+      "owned_credit_at_bundle_price": 1280,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_tide_mill"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 22600,
+      "bundle_pay": 18080,
+      "missing_discount": 4520,
+      "owned_credit_at_bundle_price": 1920,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house",
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 21400,
+      "bundle_pay": 17120,
+      "missing_discount": 4280,
+      "owned_credit_at_bundle_price": 2880,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house",
+        "building_tide_mill",
+        "building_star_clock"
+      ],
+      "missing_single_sum": 19600,
+      "bundle_pay": 15680,
+      "missing_discount": 3920,
+      "owned_credit_at_bundle_price": 4320,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_tide_mill",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 11400,
+      "bundle_pay": 9120,
+      "missing_discount": 2280,
+      "owned_credit_at_bundle_price": 10880,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_tide_mill",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 10600,
+      "bundle_pay": 8480,
+      "missing_discount": 2120,
+      "owned_credit_at_bundle_price": 11520,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house",
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 9400,
+      "bundle_pay": 7520,
+      "missing_discount": 1880,
+      "owned_credit_at_bundle_price": 12480,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house",
+        "building_tide_mill",
+        "building_star_clock"
+      ],
+      "missing_single_sum": 7600,
+      "bundle_pay": 6080,
+      "missing_discount": 1520,
+      "owned_credit_at_bundle_price": 13920,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_tide_mill"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 21000,
+      "bundle_pay": 16800,
+      "missing_discount": 4200,
+      "owned_credit_at_bundle_price": 3200,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 19800,
+      "bundle_pay": 15840,
+      "missing_discount": 3960,
+      "owned_credit_at_bundle_price": 4160,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_tide_mill",
+        "building_star_clock"
+      ],
+      "missing_single_sum": 18000,
+      "bundle_pay": 14400,
+      "missing_discount": 3600,
+      "owned_credit_at_bundle_price": 5600,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock",
+        "building_tide_mill"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 19000,
+      "bundle_pay": 15200,
+      "missing_discount": 3800,
+      "owned_credit_at_bundle_price": 4800,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house",
+        "building_star_clock"
+      ],
+      "missing_single_sum": 17200,
+      "bundle_pay": 13760,
+      "missing_discount": 3440,
+      "owned_credit_at_bundle_price": 6240,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house",
+        "building_tide_mill"
+      ],
+      "missing_single_sum": 16000,
+      "bundle_pay": 12800,
+      "missing_discount": 3200,
+      "owned_credit_at_bundle_price": 7200,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_tide_mill",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 9000,
+      "bundle_pay": 7200,
+      "missing_discount": 1800,
+      "owned_credit_at_bundle_price": 12800,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 7800,
+      "bundle_pay": 6240,
+      "missing_discount": 1560,
+      "owned_credit_at_bundle_price": 13760,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_tide_mill",
+        "building_star_clock"
+      ],
+      "missing_single_sum": 6000,
+      "bundle_pay": 4800,
+      "missing_discount": 1200,
+      "owned_credit_at_bundle_price": 15200,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock",
+        "building_tide_mill",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 7000,
+      "bundle_pay": 5600,
+      "missing_discount": 1400,
+      "owned_credit_at_bundle_price": 14400,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_tide_mill",
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house",
+        "building_star_clock"
+      ],
+      "missing_single_sum": 5200,
+      "bundle_pay": 4160,
+      "missing_discount": 1040,
+      "owned_credit_at_bundle_price": 15840,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock",
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house",
+        "building_tide_mill"
+      ],
+      "missing_single_sum": 4000,
+      "bundle_pay": 3200,
+      "missing_discount": 800,
+      "owned_credit_at_bundle_price": 16800,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock",
+        "building_tide_mill"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 17400,
+      "bundle_pay": 13920,
+      "missing_discount": 3480,
+      "owned_credit_at_bundle_price": 6080,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_star_clock"
+      ],
+      "missing_single_sum": 15600,
+      "bundle_pay": 12480,
+      "missing_discount": 3120,
+      "owned_credit_at_bundle_price": 7520,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock",
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_tide_mill"
+      ],
+      "missing_single_sum": 14400,
+      "bundle_pay": 11520,
+      "missing_discount": 2880,
+      "owned_credit_at_bundle_price": 8480,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock",
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove",
+        "building_shell_house"
+      ],
+      "missing_single_sum": 13600,
+      "bundle_pay": 10880,
+      "missing_discount": 2720,
+      "owned_credit_at_bundle_price": 9120,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock",
+        "building_tide_mill",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_wreck_cafe"
+      ],
+      "missing_single_sum": 5400,
+      "bundle_pay": 4320,
+      "missing_discount": 1080,
+      "owned_credit_at_bundle_price": 15680,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_tide_mill",
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_star_clock"
+      ],
+      "missing_single_sum": 3600,
+      "bundle_pay": 2880,
+      "missing_discount": 720,
+      "owned_credit_at_bundle_price": 17120,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock",
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_tide_mill"
+      ],
+      "missing_single_sum": 2400,
+      "bundle_pay": 1920,
+      "missing_discount": 480,
+      "owned_credit_at_bundle_price": 18080,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_star_clock",
+        "building_tide_mill",
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [
+        "building_shell_house"
+      ],
+      "missing_single_sum": 1600,
+      "bundle_pay": 1280,
+      "missing_discount": 320,
+      "owned_credit_at_bundle_price": 18720,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock",
+        "building_tide_mill",
+        "building_wreck_cafe"
+      ],
+      "missing": [
+        "tank_firefly_grove"
+      ],
+      "missing_single_sum": 12000,
+      "bundle_pay": 9600,
+      "missing_discount": 2400,
+      "owned_credit_at_bundle_price": 10400,
+      "already_owned": false
+    },
+    {
+      "owned": [
+        "building_shell_house",
+        "building_star_clock",
+        "building_tide_mill",
+        "building_wreck_cafe",
+        "tank_firefly_grove"
+      ],
+      "missing": [],
+      "missing_single_sum": 0,
+      "bundle_pay": 0,
+      "missing_discount": 0,
+      "owned_credit_at_bundle_price": 20000,
+      "already_owned": true
+    }
+  ],
+  "checks": 209,
+  "income_equivalents": [
+    {
+      "water": "bay",
+      "internal_rod": 0,
+      "cost": 12000,
+      "steady_capture_per_24h": 3643.2,
+      "steady_sale_extra_per_24h": 1238.4,
+      "income_equivalent_days_sale_off": 3.293807641633729,
+      "income_equivalent_days_sale_on": 2.458210422812193
+    },
+    {
+      "water": "bay",
+      "internal_rod": 0,
+      "cost": 20000,
+      "steady_capture_per_24h": 3643.2,
+      "steady_sale_extra_per_24h": 1238.4,
+      "income_equivalent_days_sale_off": 5.4896794027228815,
+      "income_equivalent_days_sale_on": 4.097017371353655
+    },
+    {
+      "water": "bay",
+      "internal_rod": 0,
+      "cost": 25000,
+      "steady_capture_per_24h": 3643.2,
+      "steady_sale_extra_per_24h": 1238.4,
+      "income_equivalent_days_sale_off": 6.862099253403602,
+      "income_equivalent_days_sale_on": 5.121271714192069
+    },
+    {
+      "water": "bay",
+      "internal_rod": 1,
+      "cost": 12000,
+      "steady_capture_per_24h": 4047.9999999999995,
+      "steady_sale_extra_per_24h": 1376.0,
+      "income_equivalent_days_sale_off": 2.964426877470356,
+      "income_equivalent_days_sale_on": 2.212389380530974
+    },
+    {
+      "water": "bay",
+      "internal_rod": 1,
+      "cost": 20000,
+      "steady_capture_per_24h": 4047.9999999999995,
+      "steady_sale_extra_per_24h": 1376.0,
+      "income_equivalent_days_sale_off": 4.940711462450594,
+      "income_equivalent_days_sale_on": 3.68731563421829
+    },
+    {
+      "water": "bay",
+      "internal_rod": 1,
+      "cost": 25000,
+      "steady_capture_per_24h": 4047.9999999999995,
+      "steady_sale_extra_per_24h": 1376.0,
+      "income_equivalent_days_sale_off": 6.175889328063242,
+      "income_equivalent_days_sale_on": 4.609144542772862
+    },
+    {
+      "water": "bay",
+      "internal_rod": 2,
+      "cost": 12000,
+      "steady_capture_per_24h": 4554.0,
+      "steady_sale_extra_per_24h": 1548.0,
+      "income_equivalent_days_sale_off": 2.635046113306983,
+      "income_equivalent_days_sale_on": 1.9665683382497545
+    },
+    {
+      "water": "bay",
+      "internal_rod": 2,
+      "cost": 20000,
+      "steady_capture_per_24h": 4554.0,
+      "steady_sale_extra_per_24h": 1548.0,
+      "income_equivalent_days_sale_off": 4.391743522178305,
+      "income_equivalent_days_sale_on": 3.277613897082924
+    },
+    {
+      "water": "bay",
+      "internal_rod": 2,
+      "cost": 25000,
+      "steady_capture_per_24h": 4554.0,
+      "steady_sale_extra_per_24h": 1548.0,
+      "income_equivalent_days_sale_off": 5.489679402722881,
+      "income_equivalent_days_sale_on": 4.0970173713536555
+    },
+    {
+      "water": "bay",
+      "internal_rod": 3,
+      "cost": 12000,
+      "steady_capture_per_24h": 5204.571428571428,
+      "steady_sale_extra_per_24h": 1769.1428571428573,
+      "income_equivalent_days_sale_off": 2.30566534914361,
+      "income_equivalent_days_sale_on": 1.720747295968535
+    },
+    {
+      "water": "bay",
+      "internal_rod": 3,
+      "cost": 20000,
+      "steady_capture_per_24h": 5204.571428571428,
+      "steady_sale_extra_per_24h": 1769.1428571428573,
+      "income_equivalent_days_sale_off": 3.8427755819060168,
+      "income_equivalent_days_sale_on": 2.8679121599475583
+    },
+    {
+      "water": "bay",
+      "internal_rod": 3,
+      "cost": 25000,
+      "steady_capture_per_24h": 5204.571428571428,
+      "steady_sale_extra_per_24h": 1769.1428571428573,
+      "income_equivalent_days_sale_off": 4.803469477382521,
+      "income_equivalent_days_sale_on": 3.584890199934448
+    },
+    {
+      "water": "bay",
+      "internal_rod": 4,
+      "cost": 12000,
+      "steady_capture_per_24h": 6071.999999999999,
+      "steady_sale_extra_per_24h": 2064.0,
+      "income_equivalent_days_sale_off": 1.9762845849802375,
+      "income_equivalent_days_sale_on": 1.4749262536873158
+    },
+    {
+      "water": "bay",
+      "internal_rod": 4,
+      "cost": 20000,
+      "steady_capture_per_24h": 6071.999999999999,
+      "steady_sale_extra_per_24h": 2064.0,
+      "income_equivalent_days_sale_off": 3.293807641633729,
+      "income_equivalent_days_sale_on": 2.458210422812193
+    },
+    {
+      "water": "bay",
+      "internal_rod": 4,
+      "cost": 25000,
+      "steady_capture_per_24h": 6071.999999999999,
+      "steady_sale_extra_per_24h": 2064.0,
+      "income_equivalent_days_sale_off": 4.117259552042161,
+      "income_equivalent_days_sale_on": 3.0727630285152414
+    },
+    {
+      "water": "pond",
+      "internal_rod": 0,
+      "cost": 12000,
+      "steady_capture_per_24h": 1900.8000000000002,
+      "steady_sale_extra_per_24h": 1238.4,
+      "income_equivalent_days_sale_off": 6.313131313131312,
+      "income_equivalent_days_sale_on": 3.82262996941896
+    },
+    {
+      "water": "pond",
+      "internal_rod": 0,
+      "cost": 20000,
+      "steady_capture_per_24h": 1900.8000000000002,
+      "steady_sale_extra_per_24h": 1238.4,
+      "income_equivalent_days_sale_off": 10.52188552188552,
+      "income_equivalent_days_sale_on": 6.3710499490316
+    },
+    {
+      "water": "pond",
+      "internal_rod": 0,
+      "cost": 25000,
+      "steady_capture_per_24h": 1900.8000000000002,
+      "steady_sale_extra_per_24h": 1238.4,
+      "income_equivalent_days_sale_off": 13.152356902356901,
+      "income_equivalent_days_sale_on": 7.9638124362894995
+    },
+    {
+      "water": "pond",
+      "internal_rod": 1,
+      "cost": 12000,
+      "steady_capture_per_24h": 2112.0,
+      "steady_sale_extra_per_24h": 1376.0,
+      "income_equivalent_days_sale_off": 5.681818181818182,
+      "income_equivalent_days_sale_on": 3.440366972477064
+    },
+    {
+      "water": "pond",
+      "internal_rod": 1,
+      "cost": 20000,
+      "steady_capture_per_24h": 2112.0,
+      "steady_sale_extra_per_24h": 1376.0,
+      "income_equivalent_days_sale_off": 9.469696969696969,
+      "income_equivalent_days_sale_on": 5.7339449541284395
+    },
+    {
+      "water": "pond",
+      "internal_rod": 1,
+      "cost": 25000,
+      "steady_capture_per_24h": 2112.0,
+      "steady_sale_extra_per_24h": 1376.0,
+      "income_equivalent_days_sale_off": 11.837121212121213,
+      "income_equivalent_days_sale_on": 7.167431192660549
+    },
+    {
+      "water": "pond",
+      "internal_rod": 2,
+      "cost": 12000,
+      "steady_capture_per_24h": 2376.0,
+      "steady_sale_extra_per_24h": 1548.0,
+      "income_equivalent_days_sale_off": 5.05050505050505,
+      "income_equivalent_days_sale_on": 3.0581039755351678
+    },
+    {
+      "water": "pond",
+      "internal_rod": 2,
+      "cost": 20000,
+      "steady_capture_per_24h": 2376.0,
+      "steady_sale_extra_per_24h": 1548.0,
+      "income_equivalent_days_sale_off": 8.417508417508417,
+      "income_equivalent_days_sale_on": 5.09683995922528
+    },
+    {
+      "water": "pond",
+      "internal_rod": 2,
+      "cost": 25000,
+      "steady_capture_per_24h": 2376.0,
+      "steady_sale_extra_per_24h": 1548.0,
+      "income_equivalent_days_sale_off": 10.521885521885523,
+      "income_equivalent_days_sale_on": 6.371049949031599
+    },
+    {
+      "water": "pond",
+      "internal_rod": 3,
+      "cost": 12000,
+      "steady_capture_per_24h": 2715.428571428572,
+      "steady_sale_extra_per_24h": 1769.1428571428573,
+      "income_equivalent_days_sale_off": 4.419191919191919,
+      "income_equivalent_days_sale_on": 2.6758409785932717
+    },
+    {
+      "water": "pond",
+      "internal_rod": 3,
+      "cost": 20000,
+      "steady_capture_per_24h": 2715.428571428572,
+      "steady_sale_extra_per_24h": 1769.1428571428573,
+      "income_equivalent_days_sale_off": 7.365319865319864,
+      "income_equivalent_days_sale_on": 4.459734964322119
+    },
+    {
+      "water": "pond",
+      "internal_rod": 3,
+      "cost": 25000,
+      "steady_capture_per_24h": 2715.428571428572,
+      "steady_sale_extra_per_24h": 1769.1428571428573,
+      "income_equivalent_days_sale_off": 9.20664983164983,
+      "income_equivalent_days_sale_on": 5.574668705402649
+    },
+    {
+      "water": "pond",
+      "internal_rod": 4,
+      "cost": 12000,
+      "steady_capture_per_24h": 3168.0,
+      "steady_sale_extra_per_24h": 2064.0,
+      "income_equivalent_days_sale_off": 3.787878787878788,
+      "income_equivalent_days_sale_on": 2.293577981651376
+    },
+    {
+      "water": "pond",
+      "internal_rod": 4,
+      "cost": 20000,
+      "steady_capture_per_24h": 3168.0,
+      "steady_sale_extra_per_24h": 2064.0,
+      "income_equivalent_days_sale_off": 6.313131313131313,
+      "income_equivalent_days_sale_on": 3.8226299694189603
+    },
+    {
+      "water": "pond",
+      "internal_rod": 4,
+      "cost": 25000,
+      "steady_capture_per_24h": 3168.0,
+      "steady_sale_extra_per_24h": 2064.0,
+      "income_equivalent_days_sale_off": 7.891414141414141,
+      "income_equivalent_days_sale_on": 4.7782874617737
+    }
+  ],
+  "config_sha256": "c9423868b665127d6bc63da2373d442bd79d4f4e9dbe9b96157718725035040b",
+  "shop_sha256": "a7dbe48754a91f0c2f7e4d0ed3eb55520b86f20a769831421b77d1d8f340ee3d",
+  "model": "mature full book, ordinary reserve filled, limited caps exhausted; fixed water/rod, each 24h collected; no other spending; not new-player progression",
+  "limits": [
+    "sale defaults off in release",
+    "old real inventory not read",
+    "no 18-species config",
+    "income-equivalent days are not guaranteed unlock dates"
+  ],
+  "credit_note": "each owned item is credited at its discounted bundle value; no refund of earlier single-item premium"
+}
