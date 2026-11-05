@@ -6,11 +6,11 @@
    "adminid": "0",
    "name": "游戏中心",
    "identifier": "gamecenter",
-   "description": "論壇小遊戲平台：用論壇帳號直接玩、日榜／週榜／總榜、每局積分獎勵與週榜獎勵、伺服器重播校驗成績。內建贪食蛇；新遊戲放進 games/ 資料夾即可接入。作者 Carinoasd。 支持五子棋好友约战、房间恢复与服务端判胜。 支持天使讨伐令单人/双人合作挑战，独立保存讨伐记录，不发积分。",
-   "datatables": "gamecenter_game,gamecenter_session,gamecenter_play,gamecenter_best,gamecenter_reward,gamecenter_settle,gamecenter_room,gamecenter_room_member,gamecenter_room_action,gamecenter_raid_room,gamecenter_raid_member,gamecenter_raid_action",
+   "description": "論壇小遊戲平台：用論壇帳號直接玩、日榜／週榜／總榜、每局積分獎勵與週榜獎勵、伺服器重播校驗成績、幽靈挑戰與每日挑戰；聯機對戰通用房間（自動配對、等級分、回放）、伺服器存檔、長局分段提交。內建贪食蛇、俄罗斯方块、天使扫雷、翻牌记忆配对、好友五子棋、黑白棋、天使讨伐令（單人／雙人合作打首領）、天使水族馆（自動釣魚＋布置鱼缸的放置遊戲，伺服器存檔）、天使弹幕（純躲避彈幕，伺服器重播校驗，支援幽靈挑戰與每日挑戰）；天使讨伐令與天使水族馆獨立記錄不發積分；新遊戲放進 games/ 資料夾即可接入。作者 Carinoasd。",
+   "datatables": "gamecenter_game,gamecenter_session,gamecenter_play,gamecenter_best,gamecenter_reward,gamecenter_settle,gamecenter_replay,gamecenter_challenge,gamecenter_room,gamecenter_room_member,gamecenter_room_seat,gamecenter_room_action,gamecenter_match,gamecenter_rating,gamecenter_save,gamecenter_chunk,gamecenter_raid_room,gamecenter_raid_member,gamecenter_raid_action,gamecenter_aquarium_save",
    "directory": "gamecenter/",
    "copyright": "游戏中心 gamecenter · (C) 2026 Carinoasd",
-   "version": "1.3.0",
+   "version": "1.8.1",
    "__modules": [
     {
      "name": "gamecenter",
@@ -72,6 +72,6 @@
     "value": "a:3:{i:0;s:1:\"4\";i:1;s:1:\"5\";i:2;s:1:\"6\";}"
    }
   ],
-  "intro": "游戏中心（gamecenter）v1.1.0　作者：Carinoasd\n\n論壇小遊戲平台。帳號就是論壇帳號（不另外註冊），遊客只能試玩。每款遊戲有日榜、週榜、總榜；後台可為每款遊戲設定每局積分獎勵（每 N 分 1 點、單局上限、每日上限）與週榜前幾名獎勵（下一週自動結算、發站內提醒）。\n\n防作弊：開局由伺服器發一次性憑證與亂數種子；有 verify.php 的遊戲（例如內建贪食蛇）由伺服器重播玩家操作算出分數，並檢查遊戲花的時間。\n\n接新遊戲：在 games/<識別碼>/ 放 game.json＋game.js（要伺服器校驗再加 verify.php），後台「遊戲管理」按「重新掃描」即可。寫法見 DEVELOP.md 與 games/_example 範例。\n\n建六張自有表，不修改任何模板檔與核心檔。\n\n(C) 2026 Carinoasd\n\n1.2.0：新增五子棋房间与三张独立联机表，现有单机接口保持兼容。"
+  "intro": "游戏中心（gamecenter）v1.4.0　作者：Carinoasd\n\n論壇小遊戲平台。帳號就是論壇帳號（不另外註冊），遊客只能試玩。每款遊戲有日榜、週榜、總榜；後台可為每款遊戲設定每局積分獎勵（每 N 分 1 點、單局上限、每日上限）與週榜前幾名獎勵（下一週自動結算、發站內提醒）。\n\n挑戰（1.2.0）：排行榜上點 ⚔ 用同一張地圖挑戰別人的紀錄（對手以幽靈同步重播，贏了通知對方、對方可回敬）；每日挑戰全站同一張地圖、每人每天限次數、另有挑戰榜與獎勵。挑戰局不進一般排行、不發每局積分。\n\n聯機對戰（1.4.0 通用房間）：一款遊戲只寫 rules.php，平台負責開房、加入、自動配對、同步、限時、認輸、逾時、Elo 等級分、對局回放；內建好友五子棋（規則與介面 GPT / Codex）與黑白棋。另有伺服器存檔（續玩）、長局分段提交與可調的交成績期限、成績附加資料。\n\n防作弊：開局由伺服器發一次性憑證與亂數種子；有 verify.php 的遊戲（例如內建贪食蛇）由伺服器重播玩家操作算出分數，並檢查遊戲花的時間。\n\n接新遊戲：在 games/<識別碼>/ 放 game.json＋game.js（要伺服器校驗再加 verify.php），後台「遊戲管理」按「重新掃描」即可。寫法見 DEVELOP.md 與 games/_example 範例。\n\n建十六張自有表，不修改任何模板檔與核心檔。\n\n(C) 2026 Carinoasd"
  }
 }

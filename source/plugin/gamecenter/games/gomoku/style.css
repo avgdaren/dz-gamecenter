@@ -1,4 +1,4 @@
-/* 作者：GPT / Codex。五子棋专用样式。 */
+/* 五子棋专用样式。原作者 GPT / Codex；1.4.0 补配对、结果、回放样式（Carinoasd）。 */
 .gcg{color:var(--gc-ink,#1d2733);max-width:650px;margin:auto;font-size:14px;line-height:1.6}
 .gcg *{box-sizing:border-box}
 .gcg [hidden]{display:none!important}
@@ -33,3 +33,13 @@
 .gcg .gcg-history summary{cursor:pointer}
 .gcg .gcg-history ul{padding-left:18px;font-size:12px;overflow-wrap:anywhere}
 @media(max-width:520px){.gcg .gcg-lobby{gap:12px}.gcg .gcg-seats{font-size:12px}.gcg .gcg-tools{gap:8px}.gcg .gcg-selection{flex-basis:100%;text-align:center}.gcg .gcg-join input{width:140px}}
+/* 1.4.0：配對佇列、結果、回放 */
+.gcg .gcg-lobby-btns{display:flex;gap:8px;flex-wrap:wrap}
+.gcg .gcg-queue{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:10px;border-radius:8px;background:var(--gc-soft,#f4f7fb)}
+.gcg .gcg-result{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px;border-radius:10px;background:var(--gc-soft,#f4f7fb);margin-top:10px}
+.gcg .gcg-result b{font-size:16px}
+.gcg .gcg-history li a{margin-left:6px}
+.gcg .gcg-replay{margin-top:16px;border-top:1px solid var(--gc-line,#e3e8ef);padding-top:12px}
+.gcg .gcg-replay-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:13px}
+.gcg .gcg-replay-bar b{flex-basis:100%}
+.gcg .gcg-grid-rp .gcg-cell{cursor:default}

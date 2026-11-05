@@ -1,5 +1,5 @@
 <?php
-/** 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。讨伐 Discuz DB 适配；所有状态变化在原连接的事务内完成。 */
+/** 天使讨伐令 — Discuz DB 适配；所有状态变化在原连接的事务内完成。作者：GPT / Codex；1.5.0 并入平台：Carinoasd · (C) 2026 Carinoasd */
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 class gamecenter_raid_store {
 	/**

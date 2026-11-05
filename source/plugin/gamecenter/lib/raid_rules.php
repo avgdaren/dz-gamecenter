@@ -1,7 +1,7 @@
 <?php
 /**
  * 作者：GPT / Codex。天使讨伐队纯规则；不读会话、时钟或数据库。
- * 插件原始代码版权 (C) 2026 Carinoasd，保留署名。私有自用。
+ * 1.5.0 并入游戏中心平台：Carinoasd · (C) 2026 Carinoasd
  */
 declare(strict_types=1);
 

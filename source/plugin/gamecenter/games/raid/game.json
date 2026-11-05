@@ -2,12 +2,11 @@
   "name": "天使讨伐令",
   "intro": "独自挑战蚀月魔女，或与伙伴组队一起迎战她",
   "help": "先看预告，再选择攻击、守护或恢复。每轮最多30秒，你和队友确认后立即结算。单人110生命/4次恢复；双人150生命/各2次恢复。单人最多18轮，双人16轮。保存最近十次讨伐记录。",
-  "version": "0.1.12",
-  "author": "GPT / Codex（原插件 Carinoasd）",
-  "order": "desc",
-  "unit": "次",
+  "version": "0.1.13",
+  "author": "规则、界面与音乐：GPT / Codex；1.5.0 并入平台：Carinoasd",
   "script": "game.js",
   "style": "style.css",
   "icon": "icon.webp",
-  "displayorder": 40
+  "displayorder": 40,
+  "standalone": "raid"
 }

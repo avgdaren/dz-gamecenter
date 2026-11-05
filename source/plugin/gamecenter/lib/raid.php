@@ -1,5 +1,9 @@
 <?php
-/** 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。账号由论坛传入，结算只在房间行锁内。 */
+/**
+ * 天使讨伐令 — 服务端结算（op=raid）。账号由论坛传入，结算只在房间行锁内。
+ * 作者：GPT / Codex；1.5.0 并入平台：Carinoasd · (C) 2026 Carinoasd
+ * 1.5.0：三张表改由 install.php／upgrade.php 建（不再在请求中建表）；表不在时回「请管理员先升级游戏中心」。
+ */
 if(!defined('IN_DISCUZ')) { exit('Access Denied'); }
 require_once __DIR__.'/raid_rules.php';
 require_once __DIR__.'/raid_store.php';
@@ -12,6 +16,7 @@ final class gamecenter_raid {
         $this->db = $db ?? new gamecenter_raid_store();
         $this->clock = $clock ?? fn() => (int)floor(microtime(true)*1000);
     }
+
     private function now(): int { return (int)($this->clock)(); }
     private function error(string $code, ?array $r = null, int $uid = 0): array {
         $messages = ['login'=>'请先登录论坛账号。','permission'=>'当前账号没有参与权限。',

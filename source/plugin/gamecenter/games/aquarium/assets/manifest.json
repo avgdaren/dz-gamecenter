@@ -1,0 +1,2426 @@
+{
+  "schema": "aquarium-assets-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "version": "art-candidate-v1",
+  "status": "content-art-complete-awaiting-integration",
+  "export": "ImageMagick geometric packing; Pillow WebP encoding; originals unchanged; alpha>=16 used only for bbox",
+  "decor_slot_count": null,
+  "items": [
+    {
+      "id": "pond_blue",
+      "name": "晴蓝鱼",
+      "kind": "fish",
+      "index": 1,
+      "master": "docs/aquarium/art/samples/pond_blue-sample-v01.png",
+      "source_sha256": "e72a880065babc9c3aceafb31ceeaf9579b0fafc465f5dfac151fe41416153bb",
+      "review": "user-approved-style",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        92,
+        240,
+        1177,
+        1018
+      ],
+      "exported_content_bounds": [
+        32,
+        95,
+        480,
+        416
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/pond_blue.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 33394,
+          "sha256": "82f2ca6ce2db282e6e825e48ae964bc6d291fae1ba23a7d4b5e0e698bde8af07",
+          "git_blob": "a11c0a06169ba21ae18a882fd9d119fe6a8126ac"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/pond_blue.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 14946,
+          "sha256": "4ced32f24d8eaa3bce5deead8b87fa1c65a05ae34d4a001274daa8abff01facd",
+          "git_blob": "ea0c745bc0565c286c98330b774efb1f764c66fb"
+        }
+      ]
+    },
+    {
+      "id": "pond_orange_tail",
+      "name": "橘尾鱼",
+      "kind": "fish",
+      "index": 2,
+      "master": "docs/aquarium/art/masters/pond_orange_tail.png",
+      "source_sha256": "6e76656abaf31ec52c89cbd3e260e0bfa8ba9de85ebf49989126e2b85b033b6f",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        77,
+        49,
+        1471,
+        963
+      ],
+      "exported_content_bounds": [
+        32,
+        109,
+        480,
+        403
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/pond_orange_tail.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 32312,
+          "sha256": "1bac925964cf4453131909bb6cb9a7d83c2f2a326b08fa73221d5c3f52465852",
+          "git_blob": "bf7124c57b46f656ddd7f55b2efbf915a6a6e595"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/pond_orange_tail.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 14010,
+          "sha256": "6c4002f4ef23e667512c8b31e23bf1a186847631b08ebe3550cc0370f040634a",
+          "git_blob": "744cba5768b6a891f61ef17426d2705088913438"
+        }
+      ]
+    },
+    {
+      "id": "pond_leaf",
+      "name": "叶纹鱼",
+      "kind": "fish",
+      "index": 3,
+      "master": "docs/aquarium/art/masters/pond_leaf.png",
+      "source_sha256": "0002de98c73ccb91cd18848587b7af26f1c7a6c0388d2b922e92778dd7abccc4",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        60,
+        173,
+        1706,
+        711
+      ],
+      "exported_content_bounds": [
+        32,
+        183,
+        480,
+        329
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/pond_leaf.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 19030,
+          "sha256": "f1ae83959b755786dabd9ea864e516206b0b96ddb8d1218fee36340217560a9d",
+          "git_blob": "fdf931e7932ef05aa2133bb76c19c25749b4de96"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/pond_leaf.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 8094,
+          "sha256": "f06c60830add3efc6d024c5746f2f6405514e1842db2ad008b883aba5d78e2dc",
+          "git_blob": "8a2542c6c252a17b5db23c1739438c5e2f1d8d6d"
+        }
+      ]
+    },
+    {
+      "id": "pond_peach",
+      "name": "桃心鱼",
+      "kind": "fish",
+      "index": 4,
+      "master": "docs/aquarium/art/masters/pond_peach.png",
+      "source_sha256": "93f49637e6e9a401f305b65b88d19686e4e2e357a4c76b4d520a65d87dfaa1e9",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        158,
+        121,
+        1397,
+        904
+      ],
+      "exported_content_bounds": [
+        32,
+        114,
+        480,
+        397
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/pond_peach.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 32898,
+          "sha256": "34101e74e58c7a395ce9172dce0abd4e770183cbcff4229ea515205c8825b8c5",
+          "git_blob": "b4c13e88e5217d56cb02886a6845e3f59e77166a"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/pond_peach.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 14744,
+          "sha256": "62165fad74deb2fc0f9d7fd408bd1e265af51f50a94c0d0eddddf5574c287b64",
+          "git_blob": "e1de5ebb2a0e1239b445cbd91e3907dc8b45f724"
+        }
+      ]
+    },
+    {
+      "id": "pond_glass_moon",
+      "name": "玻璃月鱼",
+      "kind": "fish",
+      "index": 5,
+      "master": "docs/aquarium/art/masters/pond_glass_moon.png",
+      "source_sha256": "9d79db72755e91108f9bfba4b267d34a7b9e4801b3e37345f8b17c5c93f41d8a",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        222,
+        8,
+        1280,
+        1013
+      ],
+      "exported_content_bounds": [
+        32,
+        43,
+        480,
+        469
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/pond_glass_moon.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 46640,
+          "sha256": "62c33e4bf26d9b66a6f60b0e3093db09cc6d285fec73750b92e6628dc0c7609f",
+          "git_blob": "08c4b0eaabe51f021e391ce98de0ed3b9b2d3b4a"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/pond_glass_moon.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 16818,
+          "sha256": "af08d578753633e4b75d4951ab57918b9030988eb3595a68cb69724fb8fa2302",
+          "git_blob": "773e1e33dcca03ebf7282b53382a2c7bea63f620"
+        }
+      ]
+    },
+    {
+      "id": "pond_feather",
+      "name": "羽鳍鱼",
+      "kind": "fish",
+      "index": 6,
+      "master": "docs/aquarium/art/samples/pond_feather-sample-v01.png",
+      "source_sha256": "7258bee821a48f3369732f5d02c597d37a9e4d6e6d4a21ad2b8c31f06a99cebb",
+      "review": "user-approved-style",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        35,
+        114,
+        1229,
+        1125
+      ],
+      "exported_content_bounds": [
+        32,
+        66,
+        480,
+        445
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/pond_feather.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 50648,
+          "sha256": "3f1846563058e60be087e4baeb6f8510af2cc775ecc2892a2011f3a5ec100813",
+          "git_blob": "093aac16e127533bdac0b22ec463018504925edf"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/pond_feather.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 18422,
+          "sha256": "b6fb922da497b1e85800d56687fe48dcaa480e37757038e02c709d020b7d04da",
+          "git_blob": "480300f358e95914ff81b21100e2d35d75cc894c"
+        }
+      ]
+    },
+    {
+      "id": "bay_silver",
+      "name": "银沙鱼",
+      "kind": "fish",
+      "index": 7,
+      "master": "docs/aquarium/art/masters/bay_silver.png",
+      "source_sha256": "448e6ddb23d4571b1da8eb5944da3cca8a0d392bfac1877814d9df77e8627ee5",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        35,
+        95,
+        1720,
+        815
+      ],
+      "exported_content_bounds": [
+        32,
+        160,
+        480,
+        351
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/bay_silver.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 21664,
+          "sha256": "325d553981a17eb2d450759ea7f498ce425b18a0f64a6147f77d9df20fd0399c",
+          "git_blob": "39bf6f6dd323392118ea91e30c7bb292e8fddad6"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/bay_silver.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 8542,
+          "sha256": "ddf78b1f20b785d27c71b37cd084c5b7a15f0648f07f68d8b30f1de3b8abe7bd",
+          "git_blob": "0de18d15bd9bae21cd1bd7e029eff5e558312d39"
+        }
+      ]
+    },
+    {
+      "id": "bay_coral",
+      "name": "珊瑚鱼",
+      "kind": "fish",
+      "index": 8,
+      "master": "docs/aquarium/art/masters/bay_coral.png",
+      "source_sha256": "7d6c0831e3717b5d39709f3206b777e0f2b4553ce2820e9c4be4b471247aecd3",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        71,
+        13,
+        1335,
+        1104
+      ],
+      "exported_content_bounds": [
+        32,
+        62,
+        480,
+        449
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/bay_coral.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 46572,
+          "sha256": "b41ad7e1b562e81b83e841ce0ed80808c7f3b9778ff2d5f9634481507933e412",
+          "git_blob": "1d4148a02c4ffa6034289b63478809c7ac45202f"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/bay_coral.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 18378,
+          "sha256": "5688e9aa4850ee5719a69917f9c22648fd1d0e31ca8dab70c9df02413d586c44",
+          "git_blob": "16d09711a3ad0935533a855df359a8a2002a5612"
+        }
+      ]
+    },
+    {
+      "id": "bay_lantern",
+      "name": "灯笼鱼",
+      "kind": "fish",
+      "index": 9,
+      "master": "docs/aquarium/art/masters/bay_lantern.png",
+      "source_sha256": "fe61f051fc989d3d2a765ef4307518d2428bd135ccaeb7dfc6eb55f5a872f58f",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        212,
+        104,
+        1302,
+        927
+      ],
+      "exported_content_bounds": [
+        32,
+        87,
+        480,
+        425
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/bay_lantern.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 30062,
+          "sha256": "ae2844ceb41be6b23607d16eed953a54c84726fcec75b33ccd3a89d56f328925",
+          "git_blob": "95b93c414b5d2e3024555fd841abed6cb2847428"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/bay_lantern.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 14498,
+          "sha256": "e500ad552600c615244a8d274b254a7c062db623fd9c1872ec665f99e69db763",
+          "git_blob": "2729bcc916155241bf21df631dee228079ce1d5c"
+        }
+      ]
+    },
+    {
+      "id": "bay_ribbon",
+      "name": "丝带鱼",
+      "kind": "fish",
+      "index": 10,
+      "master": "docs/aquarium/art/masters/bay_ribbon.png",
+      "source_sha256": "423d78bfbd0ad6ebcad1ff08fd074f2f6780235cfd0f4de10a4225b83213767a",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        44,
+        195,
+        1740,
+        738
+      ],
+      "exported_content_bounds": [
+        32,
+        184,
+        480,
+        327
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/bay_ribbon.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 22172,
+          "sha256": "5011d0c348ee10ab26fb5f53f966cb30a2b4efea9f7d03f50654d230d72e6990",
+          "git_blob": "ce17ba786ee9d3e0b0c4141a01106189882fcdb9"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/bay_ribbon.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 8666,
+          "sha256": "ad496b0a3daec718ef026805a82724af7122776c3eb38be91c9c32f512fc4b30",
+          "git_blob": "01760a1532abc432276eeaf979fc410ab92f337b"
+        }
+      ]
+    },
+    {
+      "id": "bay_star_ray",
+      "name": "星斑鳐",
+      "kind": "fish",
+      "index": 11,
+      "master": "docs/aquarium/art/masters/bay_star_ray.png",
+      "source_sha256": "aadd57afee3cfd1c036d2b4a018f61f9d881328846460a317e2d8f9895a79044",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        45,
+        135,
+        1501,
+        863
+      ],
+      "exported_content_bounds": [
+        32,
+        144,
+        480,
+        368
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/bay_star_ray.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 25256,
+          "sha256": "d92a8659d7c73838bdaa074a1137d8dc389474c9b692a19be77749e66d9b7e8f",
+          "git_blob": "923151dcd2453a0a2e169e4efb08f4dfac575e97"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/bay_star_ray.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 9680,
+          "sha256": "3fbe6bd2770a30bca71277e9d182367e5b0ae381c1177e31e1dfc8ca1db31d57",
+          "git_blob": "e5400b5e657fac69cb6578c7211a5da8bb6b56d8"
+        }
+      ]
+    },
+    {
+      "id": "bay_aurora",
+      "name": "极光天使鱼",
+      "kind": "fish",
+      "index": 12,
+      "master": "docs/aquarium/art/masters/bay_aurora.png",
+      "source_sha256": "32f8c0cb7edb96c80247480042f4b9a451e48dfa1c31fef9a5c570f052b72f40",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        115,
+        23,
+        1210,
+        1163
+      ],
+      "exported_content_bounds": [
+        49,
+        41,
+        462,
+        471
+      ],
+      "facing": "right",
+      "layers": null,
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/bay_aurora.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 47026,
+          "sha256": "902c04c8702d301442441ef1f9baff7d889265e3ff7f7f78a2425750ce533ee6",
+          "git_blob": "527329b2cb1c3143014c52457ab017a892f6e265"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/bay_aurora.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 18324,
+          "sha256": "2a2950908cada8c2e533b526654baec414415c2554b9a2b20a3cd8527749830e",
+          "git_blob": "27078c0650f8ea54be3a4a53cf007b83f1f8de34"
+        }
+      ]
+    },
+    {
+      "id": "plant_meadow",
+      "name": "晴光水草",
+      "kind": "decor",
+      "index": 1,
+      "master": "docs/aquarium/art/samples/plant_meadow-sample-v01.png",
+      "source_sha256": "02819876f834b2303a5998d9a04383122464762493d24cf456ed2421c2750302",
+      "review": "user-approved-style",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        68,
+        155,
+        1221,
+        1124
+      ],
+      "exported_content_bounds": [
+        32,
+        84,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back",
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_meadow.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 52330,
+          "sha256": "780714b3825f457c30a9b5f3203080ce938206bc837a93e75b39e5acbcb18a0b",
+          "git_blob": "65a94775438143b0e257122ef670e1d63f88b84f"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_meadow.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 20026,
+          "sha256": "16a7b653f889a4421c0f5a137b4b450ff4f8fc951ffe46dd6b35e9a51d04ffe2",
+          "git_blob": "252d00efb8fc1fcf298688263e1481d6c056631d"
+        }
+      ]
+    },
+    {
+      "id": "plant_lily",
+      "name": "睡莲小丛",
+      "kind": "decor",
+      "index": 2,
+      "master": "docs/aquarium/art/masters/plant_lily.png",
+      "source_sha256": "1847abfc0078a1b9652488d67def0f0fdb9dadfa3ad68fb9e53ae8d63b577b15",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        110,
+        146,
+        1281,
+        999
+      ],
+      "exported_content_bounds": [
+        32,
+        135,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_lily.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 42562,
+          "sha256": "d1514154987cf974b1a456e01fa8d07f08d1c1a489f85ef62d702e59d17c3bf9",
+          "git_blob": "2eea21dd1f51aa01bcb7caf0d8e78c162e53c22d"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_lily.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 16594,
+          "sha256": "b0d99330ed12d5ab1fcca80c49492b93dcedc5ad782b1e4a564a1522ce6cb152",
+          "git_blob": "9e255b69371c128a445cbd26ba56eda0e0104fa5"
+        }
+      ]
+    },
+    {
+      "id": "plant_ribbon",
+      "name": "飘带长叶",
+      "kind": "decor",
+      "index": 3,
+      "master": "docs/aquarium/art/masters/plant_ribbon.png",
+      "source_sha256": "f89960f9db320b36d82fe2ae1e31f15d838346eaff586bbaea63eb639b364af1",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        284,
+        50,
+        773,
+        1499
+      ],
+      "exported_content_bounds": [
+        183,
+        31,
+        328,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_ribbon.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 26714,
+          "sha256": "5d0b131bec8e56a67c7ee15795de6cfc1b40e19c29f5fbb0ea0d0b56cae22fbc",
+          "git_blob": "6d86ad761dc75bbf7ba2a5d2b7767fb83bf6a455"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_ribbon.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 9046,
+          "sha256": "eaeec648d03b871e18ce04ba648bf9f6fffc5539d8d18836fdb1277d961471c2",
+          "git_blob": "c197b94708fe4763bf65ae28b6951a319c0d23bd"
+        }
+      ]
+    },
+    {
+      "id": "plant_crimson",
+      "name": "绯叶水草",
+      "kind": "decor",
+      "index": 4,
+      "master": "docs/aquarium/art/masters/plant_crimson.png",
+      "source_sha256": "cc032eba6a53a5ec3d2147a59bdc381d9b8684ae49b4f20f280254d0120c76e5",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        45,
+        56,
+        1263,
+        1145
+      ],
+      "exported_content_bounds": [
+        32,
+        60,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back",
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_crimson.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 44282,
+          "sha256": "9de939d3862b9199a88c72638fbea3ef917b0adde82f0ab057abf44d8d93ec33",
+          "git_blob": "593f6f3b3a2225699fe51ccb5383d1ea9637024a"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_crimson.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 18440,
+          "sha256": "75bc4cf71e3e3ac7d3ee4bbf43a5bbd8767541956b03f256f8184c58c1873fa3",
+          "git_blob": "4918967d4094bc8073551695762ec276b925e2db"
+        }
+      ]
+    },
+    {
+      "id": "plant_fern",
+      "name": "羽叶水蕨",
+      "kind": "decor",
+      "index": 5,
+      "master": "docs/aquarium/art/masters/plant_fern.png",
+      "source_sha256": "887c1d2b67bef3548f22c936fc1c1caadc9fc6df20d749042ba9bf7a073a86f9",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        20,
+        35,
+        1294,
+        1167
+      ],
+      "exported_content_bounds": [
+        32,
+        63,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_fern.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 62522,
+          "sha256": "67e561d426a6a9a1b4f07e1468b0788f0719a3b7b6e8f4f8724d3fa423114ab6",
+          "git_blob": "7ea91588ceef65f3cc396379545d305a68555204"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_fern.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 18014,
+          "sha256": "ffe9a116c67876950403d596e72342cf6dd7e5fdc9a921a39c79485545347e2b",
+          "git_blob": "5725a32ee3320ef777763f1679a0c9b3cd995623"
+        }
+      ]
+    },
+    {
+      "id": "plant_tide",
+      "name": "星潮海藻",
+      "kind": "decor",
+      "index": 6,
+      "master": "docs/aquarium/art/masters/plant_tide.png",
+      "source_sha256": "72b09a96c7b2b3c49d444b712f842d4c585220c8db5b5ea7b96057f7efcde260",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        83,
+        77,
+        1242,
+        1128
+      ],
+      "exported_content_bounds": [
+        32,
+        55,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_tide.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 51758,
+          "sha256": "05c4e7c8c4ec5a9cb23806b9aa426312f4ef68a61039554bab4b14dd543fa04c",
+          "git_blob": "13ff35f31af4a69d237fb481d1e69b83ad6da943"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_tide.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 20874,
+          "sha256": "87c241b4a6144fe72f4a9471f9179b8f6957b5d9b84f46f4d3f616106e2aba75",
+          "git_blob": "9558f658c6c9f967394d75cc21a3cc3863a18380"
+        }
+      ]
+    },
+    {
+      "id": "scape_pebbles",
+      "name": "圆润卵石",
+      "kind": "decor",
+      "index": 7,
+      "master": "docs/aquarium/art/masters/scape_pebbles.png",
+      "source_sha256": "a2f36af38e02a4cff03c92da7ccd1482e9b4d7dfd5d1e00d33a9d07595dde314",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        103,
+        329,
+        1436,
+        838
+      ],
+      "exported_content_bounds": [
+        32,
+        290,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_pebbles.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 18764,
+          "sha256": "e26d137c1f0aceb8158ec66e17a44bac605cbff81a6504842789bc978bdda560",
+          "git_blob": "2c1b04e4138233d803f47876d59b598ba3653fd6"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_pebbles.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 8680,
+          "sha256": "a103dfa98b982446d922e3fa4754f9bb1137334b2f67e94cbbe0e7ebef179de4",
+          "git_blob": "8b4fd9bb35518e4ff4d05a420cd6a10f02ae81cc"
+        }
+      ]
+    },
+    {
+      "id": "scape_layers",
+      "name": "晴灰层岩",
+      "kind": "decor",
+      "index": 8,
+      "master": "docs/aquarium/art/masters/scape_layers.png",
+      "source_sha256": "6eec96ec332ace2b8eeb9a16dea104f0cd33b14697cb4772bf91f941e18b741e",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        157,
+        290,
+        1390,
+        872
+      ],
+      "exported_content_bounds": [
+        32,
+        250,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back",
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_layers.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 22770,
+          "sha256": "889bb5756949589bd2e3ba5890730021e3232098f3f8b9d9e2a99fd0cfda95dd",
+          "git_blob": "3f0fc9683b7abf1645720f43db27bfa8df144a11"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_layers.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 10290,
+          "sha256": "e8687e83f9e6c3c97a0773d2e70fb30c509724c5f7199a605f4c3ba24f54c75a",
+          "git_blob": "94ca6a0e9237daea05526fc87628467eda5dc9bc"
+        }
+      ]
+    },
+    {
+      "id": "scape_moss",
+      "name": "苔绿山石",
+      "kind": "decor",
+      "index": 9,
+      "master": "docs/aquarium/art/masters/scape_moss.png",
+      "source_sha256": "3e8353d266431b1a6e8221746b197e851b36075541f42b7c9a9c2382d9d3b77b",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        109,
+        58,
+        1110,
+        1242
+      ],
+      "exported_content_bounds": [
+        74,
+        31,
+        438,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_moss.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 47684,
+          "sha256": "20526df259525924a3ed541c6bcb8caf3a35aecd31a192a28ee11f257a97feb7",
+          "git_blob": "126a005f129cbb4f0cb70fe0bb12ae4f09e63b92"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_moss.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 15606,
+          "sha256": "8a55fa116639fd5ede9a339c1077674ca309da19aae5e079922eae887fb4f28d",
+          "git_blob": "0650847524d2b5df9d0f31ec23fec32d71043f4e"
+        }
+      ]
+    },
+    {
+      "id": "scape_wood",
+      "name": "花枝沉木",
+      "kind": "decor",
+      "index": 10,
+      "master": "docs/aquarium/art/masters/scape_wood.png",
+      "source_sha256": "c71daac1462f5e26120b6dae94cd847a7602d95795aeeafea3d6ee49c60da4d8",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        78,
+        134,
+        1456,
+        883
+      ],
+      "exported_content_bounds": [
+        32,
+        217,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_wood.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 28578,
+          "sha256": "8e16774155884475143515750aef38471259b84a75235dc506d3b0726a16b30d",
+          "git_blob": "54688c217506cff0310df2b957d8caa72a3552d1"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_wood.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 10246,
+          "sha256": "d4480386759a6bfd65889177d6bac64a0cf611283e191bb7236d359095dc3051",
+          "git_blob": "244304798038a3d1068c2bc267d6ccc061119647"
+        }
+      ]
+    },
+    {
+      "id": "scape_cave",
+      "name": "静谧岩洞",
+      "kind": "decor",
+      "index": 11,
+      "master": "docs/aquarium/art/masters/scape_cave.png",
+      "source_sha256": "2be787347e8f3cdee207a88e3e2c690a7e9160cf7ed916fbdf7e87f4672372dd",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        58,
+        91,
+        1478,
+        950
+      ],
+      "exported_content_bounds": [
+        32,
+        190,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_cave.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 49006,
+          "sha256": "7e7b718030d96018d6274a5fbaa449851eb601882371a3febf47c260c26c3049",
+          "git_blob": "7d4a6a8d796afd2ea8c03c9e9c61c838c7bcc770"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_cave.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 15504,
+          "sha256": "e3529a364ac1feb1ad1a76ec182affb2fc117f500bfa40b66d46ef0e446e6578",
+          "git_blob": "64c813ce6bef2487b237c179b8b8de18cae3de06"
+        }
+      ]
+    },
+    {
+      "id": "scape_coral",
+      "name": "绮色珊瑚",
+      "kind": "decor",
+      "index": 12,
+      "master": "docs/aquarium/art/samples/scape_coral-sample-v01.png",
+      "source_sha256": "eb2af99b972ddbdd93492c5574ad930276aedf8389e5211425226e83502794ae",
+      "review": "user-approved-style",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        86,
+        115,
+        1176,
+        1176
+      ],
+      "exported_content_bounds": [
+        35,
+        31,
+        477,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back",
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_coral.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 64012,
+          "sha256": "e6f3d99cad32a2361e5833932034538b76d38326392adf21323ec4a221f966d1",
+          "git_blob": "93971a2e91d18d9c99bc697027dcd530acafb2db"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_coral.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 24152,
+          "sha256": "be19d107be38b0e6953706415550955ad15b1efeacb44850d6ebdf9f7e682d23",
+          "git_blob": "924b49d3b94019a22d325513c79c34151f561684"
+        }
+      ]
+    },
+    {
+      "id": "building_bridge",
+      "name": "翼纹小桥",
+      "kind": "decor",
+      "index": 13,
+      "master": "docs/aquarium/art/masters/building_bridge.png",
+      "source_sha256": "1dae16cd7b6e35ae293260e05f415d268ee77f3fd18205df720236f298d3698c",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        43,
+        148,
+        1732,
+        719
+      ],
+      "exported_content_bounds": [
+        32,
+        136,
+        992,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_bridge.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 92636,
+          "sha256": "87d12116a92d4800ae3177c992f0e34566a3cfecac4fcf28d79792c9112b9097",
+          "git_blob": "92c69bdaa13e15bbc422a17be2d32e2d73f3d584"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_bridge.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 9768,
+          "sha256": "42f8fe7d8e6df831935953b74dc42a77e4caa7163edfe2852897e81027b175c4",
+          "git_blob": "1bb23232ff960cf974b393635af1511bd42c28ba"
+        }
+      ]
+    },
+    {
+      "id": "building_pavilion",
+      "name": "潮音凉亭",
+      "kind": "decor",
+      "index": 14,
+      "master": "docs/aquarium/art/masters/building_pavilion.png",
+      "source_sha256": "ee2a39a7f2c408c2d87528bdb75b6f8d14a8a0c9f6ff9bbf62e5d211f7ac5018",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        95,
+        23,
+        1132,
+        1234
+      ],
+      "exported_content_bounds": [
+        72,
+        31,
+        440,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_pavilion.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 53782,
+          "sha256": "85080c928ea4535fdb2a48df55f92747051e5c191000000b54bad13914259b93",
+          "git_blob": "faa94a7d570b5090e73e81438a61358a60ec1230"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_pavilion.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 17492,
+          "sha256": "58c688e582880c42872d72cc34c91b589cbbd3d101d31d5be15cbbc508866d0e",
+          "git_blob": "7d73b7279749fc86f80cd63a350215ea758b8d4a"
+        }
+      ]
+    },
+    {
+      "id": "building_moon_gate",
+      "name": "月庭圆门",
+      "kind": "decor",
+      "index": 15,
+      "master": "docs/aquarium/art/samples/building_moon_gate-sample-v01.png",
+      "source_sha256": "8db20a89c557c4625a0c32fa9c3f59fa1a2b7350b4b8c1befcd311d737b3f0d7",
+      "review": "user-approved-style",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        19,
+        31,
+        1235,
+        1161
+      ],
+      "exported_content_bounds": [
+        32,
+        45,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_moon_gate.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 50800,
+          "sha256": "1871b418bb3a51eab3f391113490393e40aab2b0894326f38f4613a0bcbe0f24",
+          "git_blob": "400bf099243b1d46ca65d9d72c0b70dbec3c9cfa"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_moon_gate.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 17912,
+          "sha256": "7889881a39c962cec1645acf93e6c97e17e2c2fdcd5cf50fa656edd3dcc9f0d7",
+          "git_blob": "c07b9e8fe48f7f14c8e60fa356dd1dc96c358629"
+        }
+      ]
+    },
+    {
+      "id": "building_ruin_arch",
+      "name": "星痕拱门",
+      "kind": "decor",
+      "index": 16,
+      "master": "docs/aquarium/art/masters/building_ruin_arch.png",
+      "source_sha256": "e023abe97b4b482ac8a79a0a341c3f0e0a952e1123ddd9bcf20e040eb8581ff1",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        31,
+        56,
+        1282,
+        1147
+      ],
+      "exported_content_bounds": [
+        32,
+        70,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_ruin_arch.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 48910,
+          "sha256": "68f4639d473a0587e46c5aa00ff5a536add5bf8cd555a9a8403e11c47e5c2bb1",
+          "git_blob": "83ebf86727f51e20d59749bcf2c8597fb3b609d7"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_ruin_arch.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 17440,
+          "sha256": "88b89b058b309b7b523bbbfd0c6c93d3f8d80552f31c33666eb05091565e97e9",
+          "git_blob": "05e5c57549000bcb78f92f277a142e6f6040da27"
+        }
+      ]
+    },
+    {
+      "id": "building_columns",
+      "name": "沉眠列柱",
+      "kind": "decor",
+      "index": 17,
+      "master": "docs/aquarium/art/masters/building_columns.png",
+      "source_sha256": "6bca5a5a9e2c0f5e314a2a990bbb11499b9ae147898da14a6ae7238d21704e63",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        103,
+        17,
+        1679,
+        858
+      ],
+      "exported_content_bounds": [
+        109,
+        31,
+        915,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_columns.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 95474,
+          "sha256": "8f59ee5c86779a1bebbf9405ccd51ac08277cb794882191721161d0d076f815d",
+          "git_blob": "744c6c24125bd6cac9cb8825289962b7831c315a"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_columns.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 9528,
+          "sha256": "ac5b22e3f9b7b0282679109a737029190c141caa8a2f4408a3916b8c43354617",
+          "git_blob": "b481c10b24fb1c0ecb4e8544a30533b15f5e267f"
+        }
+      ]
+    },
+    {
+      "id": "building_angel_gate",
+      "name": "天使庭门",
+      "kind": "decor",
+      "index": 18,
+      "master": "docs/aquarium/art/masters/building_angel_gate.png",
+      "source_sha256": "86f8f4da97e5925c85cc3480cf05c4505b4ec7aeaabc1c9f005552c40a59d6af",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        7,
+        30,
+        1614,
+        907
+      ],
+      "exported_content_bounds": [
+        118,
+        31,
+        906,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_angel_gate.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 119068,
+          "sha256": "6f799e0f46dea916b379c9bd8029f00c9b359c1d036d85fe32c72d08a9189554",
+          "git_blob": "90de7539288ae204916619fe3f8bf612224369e3"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_angel_gate.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 11752,
+          "sha256": "8fcd6adb7dc5a8f99dc649492199c08734787b9412de7814e4129b79f76f1175",
+          "git_blob": "c664f7c3e971bf415d4be9dcc1618f8b6804baf1"
+        }
+      ]
+    },
+    {
+      "id": "trinket_shell",
+      "name": "珍光贝壳",
+      "kind": "decor",
+      "index": 19,
+      "master": "docs/aquarium/art/masters/trinket_shell.png",
+      "source_sha256": "fa8fc38b6698698084dca7939e70706c36a564b8706d1522ea96a6a44c7685ba",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        111,
+        89,
+        1200,
+        1116
+      ],
+      "exported_content_bounds": [
+        32,
+        39,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_shell.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 44544,
+          "sha256": "cfa8ade778d163b20e7be10013579aaf71477c59df840c04f5a54851769330c3",
+          "git_blob": "38a580c7bc284187b1e5ea9996356e3fb6972d85"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_shell.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 20436,
+          "sha256": "a9ea92b1bf8cf30e2b83a77fbcc92baa63dc69d836b600d44047bf40c56eaf60",
+          "git_blob": "55d902548e81a561f8d1f43d934cb62e9d73b821"
+        }
+      ]
+    },
+    {
+      "id": "trinket_pearl",
+      "name": "月露珍珠台",
+      "kind": "decor",
+      "index": 20,
+      "master": "docs/aquarium/art/masters/trinket_pearl.png",
+      "source_sha256": "0b139b0b60d66945f955264c19ac1ddc2dbd2b4dcedf3d41544d2ad62b76b7b5",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        133,
+        145,
+        1241,
+        1051
+      ],
+      "exported_content_bounds": [
+        32,
+        95,
+        480,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_pearl.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 34418,
+          "sha256": "b7627401995887b9a54874e792b0cd1fca9030e300f8c6744d48ded3e28b1767",
+          "git_blob": "f4d45b343bb7ab8d4b446824c6136f4f48f96525"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_pearl.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 15804,
+          "sha256": "9d56a4f40cf62277ae81b1106ce885da74928afad5ca174a0d20430d0f9da3ad",
+          "git_blob": "0068706e1066750392f5806ba19677a4d70db787"
+        }
+      ]
+    },
+    {
+      "id": "trinket_star_lamp",
+      "name": "星辉提灯",
+      "kind": "decor",
+      "index": 21,
+      "master": "docs/aquarium/art/samples/trinket_star_lamp-sample-v01.png",
+      "source_sha256": "1a9771d0b4781e880d41518ac4ee4d8dfa8f4958bea356865b89374d22a634b9",
+      "review": "user-approved-style",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        272,
+        49,
+        981,
+        1187
+      ],
+      "exported_content_bounds": [
+        122,
+        31,
+        390,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "back",
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_star_lamp.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 55316,
+          "sha256": "975683ce261636087ba43df1261bdfb259a6dfaed29be5a322811d13a2de530f",
+          "git_blob": "b76b91111971a4342ed848b827ef2d416b290d67"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_star_lamp.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 16394,
+          "sha256": "5c094b1c7f473838e0ed6c48aab45e4382f4d428908d2d3351bc4123692b7f1e",
+          "git_blob": "6b4ea7a87d17b1b1ff01b6887fc860f0ec1c6fc9"
+        }
+      ]
+    },
+    {
+      "id": "trinket_crescent",
+      "name": "弯月小景",
+      "kind": "decor",
+      "index": 22,
+      "master": "docs/aquarium/art/masters/trinket_crescent.png",
+      "source_sha256": "6c2f84ef1e707e60775ade1ca2f7d6b01f9ffeaf39bc3d4ba77c597ecbad7095",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        187,
+        55,
+        1124,
+        1144
+      ],
+      "exported_content_bounds": [
+        71,
+        31,
+        441,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_crescent.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 38944,
+          "sha256": "0e38d92514979550033e7d65354d37389f04b39154096bacb2006fc7ab29f2cd",
+          "git_blob": "59f7b41dd5fb12cba784473e86ab8f9722d5f549"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_crescent.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 14956,
+          "sha256": "bb06443df56b559b7ed19c401eddc508d25bdd1c26db84a6d3f0913ff2390333",
+          "git_blob": "3a8277614532b908398842d7b755edf98c798d11"
+        }
+      ]
+    },
+    {
+      "id": "trinket_crystal",
+      "name": "星晶花簇",
+      "kind": "decor",
+      "index": 23,
+      "master": "docs/aquarium/art/masters/trinket_crystal.png",
+      "source_sha256": "c3cd4c6e554da51301acd2f3c943686229e3819fd599cf50351ddc88d4b58bd1",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        118,
+        71,
+        1091,
+        1220
+      ],
+      "exported_content_bounds": [
+        74,
+        31,
+        438,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_crystal.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 46946,
+          "sha256": "6a0417a0811ef7e43914286df1801ae8579e7d7042d30b19c91d873b7d687aa6",
+          "git_blob": "40b80737197258a4e62c8003fa6054d084828902"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_crystal.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 17832,
+          "sha256": "e1ba60652268824df5332a0a578ddaaffbb6708c74c99d18ed81f9be9c00e2a7",
+          "git_blob": "77bd0270059d935e4c4c9e777a143378fc195e0b"
+        }
+      ]
+    },
+    {
+      "id": "trinket_wings",
+      "name": "羽翼纪念像",
+      "kind": "decor",
+      "index": 24,
+      "master": "docs/aquarium/art/masters/trinket_wings.png",
+      "source_sha256": "40fbc4b9a130cea6580bc29adc90eb100f0c6d9b8954d951b9243197896c0ffb",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_visible_bbox": [
+        98,
+        61,
+        1215,
+        1142
+      ],
+      "exported_content_bounds": [
+        34,
+        31,
+        478,
+        461
+      ],
+      "facing": null,
+      "layers": [
+        "front"
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_wings.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 49746,
+          "sha256": "46bbee977a65cddb1e964964b7bf143ce591121ebb64734cde5d79d674d5da9d",
+          "git_blob": "e5662855293e7b1b0849b0b41c88815d54c232ce"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_wings.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 18720,
+          "sha256": "397289ca1993686feeaa22ef804f59c812555be44ef91a415cf4059e8598f47e",
+          "git_blob": "e94a18732bebaf43ebc236346745bbe90db07b7c"
+        }
+      ]
+    },
+    {
+      "id": "tank_day",
+      "name": "日光",
+      "kind": "background",
+      "master": "docs/aquarium/art/samples/tank_day-sample-v01.png",
+      "source_sha256": "c27408581d7dc6ce23aa83ef33966f6a80d2a0b7dc49e3359b66ee3e4d658403",
+      "review": "user-approved-style",
+      "files": [
+        {
+          "role": "main",
+          "file": "background/tank_day.webp",
+          "size": [
+            1600,
+            900
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "bytes": 169012,
+          "sha256": "36072ab2d94276fc07aeebb7f579eeb935327c5a0ce0d077dd283960aa7cd968",
+          "git_blob": "335f9a75d14bce89ad53c5a0a50b81d62f9b20b2"
+        },
+        {
+          "role": "mobile",
+          "file": "background/tank_day_mobile.webp",
+          "size": [
+            960,
+            720
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "bytes": 77984,
+          "sha256": "2d7d80a7945da5d0ebd408b5170ca6eab770d89928c2afff99cc7eec3a4eec2f",
+          "git_blob": "73a5f10980b1bee8d9ba94f545605069204ef51b"
+        }
+      ]
+    },
+    {
+      "id": "tank_moon",
+      "name": "月光",
+      "kind": "background",
+      "master": "docs/aquarium/art/masters/tank_moon.png",
+      "source_sha256": "7e463db67f1dea9bab929bf15b50c0d5a09d85e5df12e5ea4cb58caf2ab0f448",
+      "review": "generated-art-candidate",
+      "files": [
+        {
+          "role": "main",
+          "file": "background/tank_moon.webp",
+          "size": [
+            1600,
+            900
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "bytes": 189900,
+          "sha256": "399eb63a2876532576fd52a4c56f4455150d788945c46dda0c6241e91cfafa4b",
+          "git_blob": "87f2aa8415440ad501b6d5d3371429c2854760fc"
+        },
+        {
+          "role": "mobile",
+          "file": "background/tank_moon_mobile.webp",
+          "size": [
+            960,
+            720
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "bytes": 98226,
+          "sha256": "1bd137943e8a72195bdbc54e7bfac1aac5ddf71e940ec5728fc5e9143dbad279",
+          "git_blob": "f4cde2021ffd5ba630d854d0de4ffe3aac9abdb1"
+        }
+      ]
+    },
+    {
+      "id": "pond",
+      "name": "晴光池塘",
+      "kind": "water",
+      "master": "docs/aquarium/art/masters/water_pond.png",
+      "source_sha256": "780bc325b85cce058d8ef58410864d643b8d224f6b621efeba239a6666cd8c22",
+      "review": "generated-art-candidate",
+      "files": [
+        {
+          "role": "main",
+          "file": "water/pond.webp",
+          "size": [
+            480,
+            270
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "bytes": 55680,
+          "sha256": "25876ecb9576b36e75d57656b35ff38125ec2b40b98e8c8c5baaf35c063ae4d6",
+          "git_blob": "ddc2b6c8b943d0c31157d6cb54f9826922401e50"
+        }
+      ]
+    },
+    {
+      "id": "bay",
+      "name": "星潮浅湾",
+      "kind": "water",
+      "master": "docs/aquarium/art/masters/water_bay.png",
+      "source_sha256": "ab23256d9ebe25869254e8bc20fa0ea7cfd710c4eb33c7b4a2661af0185c03cc",
+      "review": "generated-art-candidate",
+      "files": [
+        {
+          "role": "main",
+          "file": "water/bay.webp",
+          "size": [
+            480,
+            270
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "bytes": 45482,
+          "sha256": "9a27ab297f11c7cb8e76c9fef701b3cd22fc56460f0a0476157499af955a2dc9",
+          "git_blob": "dab1929516a9b77bb21fe3a5bdd24745eefa399a"
+        }
+      ]
+    },
+    {
+      "id": "rod",
+      "name": "鱼竿",
+      "kind": "icon",
+      "master": "docs/aquarium/art/masters/rod.png",
+      "source_sha256": "2d98a3d1ab0556b936b4ad3d59cce80af0e4cc64dda0b63b6e9bb8597c4c5ae1",
+      "review": "generated-art-candidate",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "source_visible_bbox": [
+        52,
+        64,
+        1224,
+        1191
+      ],
+      "exported_content_bounds": [
+        32,
+        35,
+        224,
+        220
+      ],
+      "files": [
+        {
+          "role": "main",
+          "file": "icons/rod.webp",
+          "size": [
+            256,
+            256
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "bytes": 10866,
+          "sha256": "04880675c9a973584cf8685ea4c6ae90228ff67410fa1dfafe3b6c34bca671ff",
+          "git_blob": "b17d33a72ebd21a5062b2d2f5983c3891cae9bd8"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "fish": 12,
+    "decor": 24,
+    "background": 2,
+    "water": 2,
+    "icon": 1
+  }
+}

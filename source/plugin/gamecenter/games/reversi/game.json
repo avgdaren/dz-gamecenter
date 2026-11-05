@@ -1,0 +1,17 @@
+{
+  "name": "黑白棋",
+  "intro": "8×8 翻转棋：夹住对方的棋子就翻面，终局子多者胜。好友约战或自动匹配。",
+  "help": "黑先。落子必须夹住至少一枚对方棋子，被夹住的全部翻成自己的颜色；无子可下时自动让手。双方都无子可下或棋盘下满时结束，子多者胜。每回合 60 秒，超时判负。棋盘上的小圆点是可下的位置。胜负计入等级分，不发积分。",
+  "version": "1.0.0",
+  "author": "Carinoasd",
+  "script": "game.js",
+  "style": "style.css",
+  "icon": "icon.svg",
+  "displayorder": 31,
+  "room": {
+    "players": 2,
+    "turn_ms": 60000,
+    "wait_ms": 300000,
+    "rating": true
+  }
+}

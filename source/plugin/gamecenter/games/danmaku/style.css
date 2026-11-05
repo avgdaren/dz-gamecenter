@@ -1,0 +1,40 @@
+/* 天使弹幕 · 作者：Carinoasd · (C) 2026 Carinoasd */
+.gcd{display:flex;flex-direction:column;align-items:center}
+.gcd-hud{display:flex;align-items:center;gap:16px;flex-wrap:wrap;width:100%;margin-bottom:8px;color:var(--gc-mut)}
+.gcd-hud b{color:var(--gc-ink);font-size:18px;font-variant-numeric:tabular-nums}
+.gcd-lives{color:#ff5d8f;font-size:17px;letter-spacing:2px;min-width:54px}
+.gcd-lives i{font-style:normal;color:var(--gc-line)}
+.gcd-bestbox.gcd-flash b{color:var(--gc-gold)}
+.gcd-bestbox.gcd-flash::after{content:"新纪录！";margin-left:4px;color:var(--gc-gold);font-weight:bold;animation:gcd-blink 1s infinite}
+@keyframes gcd-blink{50%{opacity:.3}}
+.gcd-tools{margin-left:auto;display:flex;gap:6px}
+.gcd-tool{width:34px;height:30px;border:1px solid var(--gc-line);background:var(--gc-soft);color:var(--gc-ink);border-radius:8px;cursor:pointer;font-size:15px;line-height:1}
+.gcd-tool:hover{border-color:var(--gc-acc)}
+.gcd-chase{width:100%;min-height:22px;margin:-2px 0 8px;font-size:13px;color:var(--gc-mut);text-align:left}
+.gcd-chase b{color:var(--gc-acc)}
+.gcd-chase .gcd-top{color:var(--gc-gold);font-weight:bold}
+.gcd-board{position:relative;width:360px;height:480px;max-width:100%;border-radius:12px;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;box-shadow:0 8px 30px rgba(10,20,40,.35)}
+.gcd-board canvas{width:100%;height:100%;display:block;touch-action:none}
+.gcd-cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(7,11,24,.66);color:#fff}
+.gcd-title{font-size:30px;font-weight:bold;letter-spacing:2px}
+.gcd-tip{opacity:.85;padding:0 14px;text-align:center}
+.gcd-sum{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;max-width:90%;font-size:13px;opacity:.9}
+.gcd-sum:empty{display:none}
+.gcd-sum b{font-size:15px}
+.gcd-cover .gc-btn{padding:10px 28px;font-size:16px}
+.gcd-count{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:110px;font-weight:bold;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.5);pointer-events:none}
+.gcd-count.gcd-pop{animation:gcd-pop .66s ease-out}
+@keyframes gcd-pop{0%{transform:scale(1.8);opacity:0}30%{opacity:1}100%{transform:scale(.9);opacity:.2}}
+/* 全屏與專注模式（手機） */
+.gc-stage:fullscreen{background:#0b1220;border-radius:0;display:flex;align-items:center;justify-content:center;padding:10px}
+.gc-stage:fullscreen .gcd{width:100%}
+.gc-stage:fullscreen .gcd-hud,.gc-stage:fullscreen .gcd-chase{color:#9fb0c6}
+.gc-stage:fullscreen .gcd-hud b{color:#fff}
+.gc-stage:fullscreen .gc-modal{border-radius:0}
+.gc-stage.gcd-focus{position:fixed;inset:0;z-index:2147483000;margin:0;border-radius:0;background:#0b1220;display:flex;align-items:center;justify-content:center;padding:10px}
+.gc-stage.gcd-focus .gcd{width:100%}
+.gc-stage.gcd-focus .gcd-hud,.gc-stage.gcd-focus .gcd-chase{color:#9fb0c6}
+.gc-stage.gcd-focus .gcd-hud b{color:#fff}
+.gc-stage.gcd-focus .gc-modal{border-radius:0}
+html.gcd-noscroll,html.gcd-noscroll body{overflow:hidden}
+@media (max-width:760px){.gcd-hud{gap:10px;font-size:13px}.gcd-hud b{font-size:16px}}

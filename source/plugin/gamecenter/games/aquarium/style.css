@@ -1,0 +1,179 @@
+/* 作者：小蓝（DSH）；原插件 (C) 2026 Carinoasd。天使水族馆玩家界面 V2 */
+
+.aq-wrap {
+  --aq-line: #cfe2ee;
+  --aq-ink: #14394f;
+  --aq-muted: #6e8a9b;
+  --aq-accent: #2f86bd;
+  --aq-accent-2: #6fc3e8;
+  background: linear-gradient(180deg, #eef8fd 0%, #f7fbfe 60%, #fff 100%);
+  border: 1px solid var(--aq-line);
+  border-radius: 12px;
+  padding: 14px 16px 18px;
+  color: var(--aq-ink);
+}
+.aq-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.aq-head h3 { margin: 0; font-size: 18px; letter-spacing: .5px; }
+.aq-muted { color: var(--aq-muted); font-size: 12px; margin: 0; }
+
+.aq-body { display: flex; gap: 14px; align-items: flex-start; }
+.aq-main { flex: 1 1 auto; min-width: 0; }
+.aq-side { flex: 0 0 190px; display: flex; flex-direction: column; gap: 8px; }
+
+/* 鱼缸 */
+.aq-tank {
+  position: relative; width: 100%; max-width: 880px; margin: 0 auto;
+  aspect-ratio: 16 / 10; height: auto;
+  border-radius: 12px; overflow: hidden; background: #cfe6f2;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6), 0 8px 20px rgba(30,70,100,.14);
+}
+/* 窄屏保底，避免过矮 */
+@supports not (aspect-ratio: 16 / 10) {
+  .aq-tank::after { content: ''; display: block; padding-top: 62.5%; }
+}
+.aq-bg { position: absolute; inset: 0; overflow: hidden; }
+.aq-bg picture, .aq-bg img { display: block; width: 100%; height: 100%; }
+.aq-bg img { object-fit: cover; }
+.aq-layer { position: absolute; inset: 0; pointer-events: none; }
+
+/* 鱼 */
+.aq-fish { position: absolute; line-height: 0; pointer-events: auto; cursor: pointer; will-change: left, top, transform; }
+.aq-fin { display: block; position: relative; line-height: 0; }
+.aq-fin canvas { display: block; width: 100%; height: auto; }
+.aq-fin img { display: block; width: 100%; height: auto; }
+.aq-fish.enter .aq-fin { animation: aqFishIn .65s cubic-bezier(.2,.85,.3,1) both; }
+.aq-fish.out .aq-fin { animation: aqFishOut .3s ease both; }
+@keyframes aqFishIn { from { transform: translateY(26px) scale(.72); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: 1; } }
+@keyframes aqFishOut { to { transform: translateY(18px) scale(.8); opacity: 0; } }
+.aq-ripple { position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  border-radius: 50%; border: 2px solid rgba(255,255,255,.85); pointer-events: none; animation: aqRip .8s ease-out forwards; }
+@keyframes aqRip { to { width: 120px; height: 120px; margin: -60px 0 0 -60px; opacity: 0; border-width: 1px; } }
+
+/* 装饰 */
+.aq-decor { position: absolute; line-height: 0; pointer-events: auto; cursor: pointer; transition: opacity .22s ease; }
+.aq-decor .aq-din { display: block; }
+.aq-decor img { display: block; width: 100%; height: 100%; }
+.aq-decor .aq-tint, .aq-decor .aq-fog { position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask-image: var(--art); mask-image: var(--art);
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+.aq-decor::before { content: ''; position: absolute; left: 50%; top: var(--ground, 90%);
+  width: calc(70% * var(--vis, 1)); height: calc(7% * var(--vis, 1)); transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(12,32,54,var(--sh,.18)), rgba(12,32,54,0) 72%);
+  filter: blur(var(--blur, 2px)); pointer-events: none; z-index: -1; }
+.aq-decor.enter .aq-din { animation: aqDecorDrop .5s cubic-bezier(.2,.9,.3,1.15) both; }
+.aq-decor.out .aq-din { animation: aqDecorOut .28s ease both; }
+@keyframes aqDecorDrop { from { transform: translateY(-18px) scale(.86); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes aqDecorOut { to { transform: translateY(10px) scale(.9); opacity: 0; } }
+.aq-decor.occluded { opacity: .42; }
+
+/* 页签 */
+.aq-tabs { display: flex; gap: 4px; margin: 12px 0 10px; border-bottom: 1px solid var(--aq-line); }
+.aq-tab { background: none; border: 0; padding: 8px 14px; cursor: pointer; color: var(--aq-muted);
+  font-size: 14px; border-bottom: 2px solid transparent; }
+.aq-tab.is-on { color: var(--aq-accent); border-bottom-color: var(--aq-accent); font-weight: 600; }
+
+/* 卡片 */
+.aq-panel { display: block; }
+.aq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.aq-card { border: 1px solid var(--aq-line); border-radius: 11px; background: #fff; overflow: hidden;
+  display: flex; flex-direction: column; text-align: left; font: inherit; color: inherit; padding: 0; cursor: pointer; }
+.aq-card:hover { border-color: var(--aq-accent-2); box-shadow: 0 4px 12px rgba(47,134,189,.12); }
+.aq-card.is-locked { background: #f4f8fb; cursor: default; }
+.aq-card.is-on { border-color: var(--aq-accent); box-shadow: 0 0 0 1px var(--aq-accent) inset; }
+.aq-card-pic { height: 104px; display: flex; align-items: center; justify-content: center; background: #e9f4fa; }
+.aq-card-pic img { max-width: 88%; max-height: 88%; object-fit: contain; }
+.aq-silhouette { filter: brightness(0) opacity(.25); }
+.aq-card-body { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
+.aq-card-body strong { font-size: 13px; }
+.aq-card-meta { display: flex; gap: 4px; flex-wrap: wrap; }
+.aq-tag { display: inline-block; font-size: 11px; color: var(--aq-muted); border: 1px solid var(--aq-line);
+  border-radius: 9px; padding: 0 7px; align-self: flex-start; }
+.aq-tag.is-on { color: var(--aq-accent); border-color: var(--aq-accent); background: #eaf6fd; }
+
+/* 筛选与按钮 */
+.aq-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.aq-chip { font-size: 12px; padding: 3px 11px; border-radius: 12px; border: 1px solid var(--aq-line);
+  background: #fff; cursor: pointer; color: var(--aq-muted); }
+.aq-chip.is-on { color: #fff; background: var(--aq-accent); border-color: var(--aq-accent); }
+.aq-btn { font-size: 13px; padding: 6px 13px; border-radius: 9px; border: 1px solid var(--aq-line);
+  background: #fff; color: var(--aq-accent); cursor: pointer; }
+.aq-btn:hover:not(:disabled) { border-color: var(--aq-accent); }
+.aq-btn:disabled { opacity: .5; cursor: not-allowed; color: var(--aq-muted); }
+.aq-btn.is-on { background: var(--aq-accent); border-color: var(--aq-accent); color: #fff; }
+.aq-btn-primary { background: var(--aq-accent); border-color: var(--aq-accent); color: #fff; }
+
+/* 右侧 */
+.aq-stat { display: flex; flex-direction: column; gap: 2px; padding: 7px 10px; border: 1px solid var(--aq-line);
+  border-radius: 9px; background: rgba(255,255,255,.9); font-size: 13px; }
+.aq-stat-label { color: var(--aq-muted); font-size: 11px; }
+.aq-stat b { font-size: 14px; font-variant-numeric: tabular-nums; }
+.aq-stat.aq-inline { flex-direction: row; align-items: center; justify-content: space-between; }
+.aq-select { font-size: 13px; padding: 4px 8px; border-radius: 7px; border: 1px solid var(--aq-line); background: #fff; }
+.aq-audio { display: flex; gap: 6px; }
+.aq-audio .aq-btn { flex: 1 1 auto; }
+
+.aq-empty { border: 1px dashed var(--aq-line); border-radius: 11px; padding: 30px; text-align: center;
+  color: var(--aq-muted); background: #fff; }
+.aq-note { border: 1px solid var(--aq-line); border-radius: 10px; background: #fff; padding: 8px 12px;
+  font-size: 12px; color: var(--aq-muted); margin-top: 12px; }
+.aq-note summary { cursor: pointer; color: var(--aq-accent); }
+.aq-note p { margin: 8px 0 0; line-height: 1.6; }
+
+@media (max-width: 760px) {
+  .aq-wrap { padding: 10px 10px 14px; }
+  .aq-body { flex-direction: column; align-items: stretch; } /* 1.8.1：直向排列时要撑满，否则鱼缸缩成内容最小宽（手机版只剩 133px） */
+  .aq-side { flex: 1 1 auto; width: 100%; }
+  .aq-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aq-fish.enter .aq-fin, .aq-decor.enter .aq-din { animation: none; }
+}
+
+.n/* 布景预设 */.n.aq-presets { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; }.n.aq-presets-label { font-size: 12px; color: var(--aq-muted); }.n.aq-preset { border-style: dashed; }.n.aq-preset:hover { color: var(--aq-accent); border-color: var(--aq-accent); }
+
+/* 布景预设：日光 / 月光 两行 */
+.aq-presets { display: flex; flex-direction: column; gap: 6px; margin: 0 0 10px; }
+.aq-presets-label { font-size: 12px; color: var(--aq-muted); }
+.aq-preset-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.aq-preset-tag { font-size: 11px; color: var(--aq-muted); border: 1px solid var(--aq-line); border-radius: 8px; padding: 0 6px; }
+.aq-preset { border-style: dashed; }
+.aq-preset:hover { color: var(--aq-accent); border-color: var(--aq-accent); }
+.aq-preset-dim { opacity: .72; }
+
+.aq-btn-sm { font-size: 12px; padding: 4px 9px; }
+.aq-waters { gap: 6px; align-items: flex-start; }
+.aq-waters .aq-muted { font-size: 11px; line-height: 1.5; }
+.aq-note p { margin: 6px 0 0; line-height: 1.7; }
+.aq-note strong { color: var(--aq-ink); }
+/* 售卖面板 */
+.aq-modal { position: fixed; inset: 0; background: rgba(10,30,45,.42); display: flex; align-items: center; justify-content: center; z-index: 60; }
+.aq-modal-box { background: #fff; border-radius: 14px; padding: 18px 20px 16px; width: min(360px, 88vw); box-shadow: 0 18px 50px rgba(10,40,60,.28); }
+.aq-modal-box h4 { margin: 0 0 6px; font-size: 16px; }
+.aq-modal-row { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; }
+.aq-qty { width: 72px; text-align: center; font: inherit; padding: 5px 6px; border: 1px solid var(--aq-line); border-radius: 8px; }
+.aq-modal-acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.aq-sell { margin-top: 4px; }
+.aq-people { margin: 6px 0 0; font-size: 12px; color: var(--aq-muted); text-align: center; }
+/* 喂养 */
+.aq-feed { pointer-events: none; }
+/* 饲料：用 assets/feeding/v1 的 32px 透明颗粒，显示 5px（4–6px 可调，手机不小于 3px） */
+.aq-food { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+  background-repeat: no-repeat; background-size: 100% 100%; background-position: center;
+  animation: aqFoodDrop .9s ease-out both; transition: transform .16s ease, opacity .16s ease; }
+.aq-food.eaten { transform: scale(.4); opacity: 0; }
+@media (max-width: 760px) { .aq-food { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; } }
+@keyframes aqFoodDrop { from { transform: translateY(-14px) scale(.6); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: .95; } }
+/* 图鉴：终身/持有/门槛 */
+.aq-book-head { margin: 0 0 10px; font-size: 13px; color: var(--aq-muted); }
+.aq-card-life { margin-top: 4px; font-size: 12px; color: #b26b1f; }
+.aq-card-hold { margin-top: 2px; font-size: 12px; color: var(--aq-muted); }
+.aq-card-tip { margin-top: 4px; font-size: 12px; color: var(--aq-muted); }
+/* 美术未交付时的占位，不显示裂图 */
+.aq-card-pic.is-missing { position: relative; background: #eef4f8; }
+.aq-card-pic.is-missing::after { content: '待补图'; position: absolute; inset: 0; display: flex;
+  align-items: center; justify-content: center; color: #93a7b6; font-size: 12px; }
+.aq-fish-missing { border-radius: 40% 60% 55% 45%; background: radial-gradient(circle at 40% 35%, #cfe6f5, #9ec6e0); opacity: .5; }
+/* 高度驱动的鱼（海马/水母）：按缸高比例定尺寸 */
+.aq-fish-h .aq-fin img, .aq-fish-h .aq-fin canvas { height: 100%; width: auto; display: block; }

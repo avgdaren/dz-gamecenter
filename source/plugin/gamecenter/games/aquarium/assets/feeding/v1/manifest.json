@@ -1,0 +1,152 @@
+{
+  "schema": "aquarium-feeding-assets-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "pellets": [
+    {
+      "id": "pellet_01",
+      "file": "pellet_01.webp",
+      "size": [
+        32,
+        32
+      ],
+      "atlas_rect": [
+        0,
+        0,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "pellet_02",
+      "file": "pellet_02.webp",
+      "size": [
+        32,
+        32
+      ],
+      "atlas_rect": [
+        32,
+        0,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "pellet_03",
+      "file": "pellet_03.webp",
+      "size": [
+        32,
+        32
+      ],
+      "atlas_rect": [
+        64,
+        0,
+        32,
+        32
+      ]
+    }
+  ],
+  "atlas": {
+    "file": "pellets_atlas.png",
+    "size": [
+      96,
+      32
+    ]
+  },
+  "sounds": [
+    {
+      "id": "eat_01",
+      "master_duration_s": 0.174,
+      "peak_dbfs": -12.0,
+      "rms_dbfs": -25.74,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5301,
+      "ogg": "eat_01.ogg",
+      "mp3": "eat_01.mp3"
+    },
+    {
+      "id": "eat_02",
+      "master_duration_s": 0.189,
+      "peak_dbfs": -12.0,
+      "rms_dbfs": -26.36,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5302,
+      "ogg": "eat_02.ogg",
+      "mp3": "eat_02.mp3"
+    },
+    {
+      "id": "eat_03",
+      "master_duration_s": 0.164,
+      "peak_dbfs": -12.0,
+      "rms_dbfs": -25.78,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5303,
+      "ogg": "eat_03.ogg",
+      "mp3": "eat_03.mp3"
+    }
+  ],
+  "playback": {
+    "suggested_volume": 0.45,
+    "global_cooldown_ms": 140,
+    "max_simultaneous_voices": 2,
+    "trigger": "pellet consumption confirmed locally; never on drop, arrival alone or server rewards"
+  },
+  "provenance": {
+    "art": "built-in imagegen; prompt in docs",
+    "sound": "original procedural DSP; no third-party recordings"
+  },
+  "files": [
+    {
+      "file": "eat_01.mp3",
+      "bytes": 2866,
+      "sha256": "a13a25610e34bdc463a5850ac8edd44a870b161641bf56788ba92a3b2ca7975d"
+    },
+    {
+      "file": "eat_01.ogg",
+      "bytes": 4639,
+      "sha256": "54d9db2d2d8e3dbbf85d44340a20fa579c28900830d5309e22d7f5ef5ff411de"
+    },
+    {
+      "file": "eat_02.mp3",
+      "bytes": 3179,
+      "sha256": "51a8fb33208b465769ea17871d1fd1898cbda42e670130f83ed74d7c84500cf2"
+    },
+    {
+      "file": "eat_02.ogg",
+      "bytes": 4688,
+      "sha256": "2e7c8133677b03750c3e4cc71e99782c9a4174237644b025b75c5b388143001c"
+    },
+    {
+      "file": "eat_03.mp3",
+      "bytes": 2866,
+      "sha256": "8353150907f56365ecb9b63201d5b6ac47a9830b17ef539d43754da8d640a785"
+    },
+    {
+      "file": "eat_03.ogg",
+      "bytes": 4536,
+      "sha256": "723cdcc6d66a7a573a077be9261e4cf0da6f086264f2a286d383a64498b078aa"
+    },
+    {
+      "file": "pellet_01.webp",
+      "bytes": 1804,
+      "sha256": "576cd4f9214be1f71512887f9c2b64d3ea0b5b710b12738e52c788ebe9d3e2ee"
+    },
+    {
+      "file": "pellet_02.webp",
+      "bytes": 1512,
+      "sha256": "4cf0b6d7be5a7526af5ef500ca9bd01b70153e93492cca3506bcac121a39c783"
+    },
+    {
+      "file": "pellet_03.webp",
+      "bytes": 1676,
+      "sha256": "34243117a543d4d1553785a5864a5d4f4e25ce106948f5529f0e5d1c9a40497e"
+    },
+    {
+      "file": "pellets_atlas.png",
+      "bytes": 5677,
+      "sha256": "51a368386d2bbdd4ba9f094f4484631004702e89f4005a4e21c53cf0af498781"
+    }
+  ]
+}
