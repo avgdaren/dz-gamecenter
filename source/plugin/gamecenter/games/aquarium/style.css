@@ -13,6 +13,7 @@
   color: var(--aq-ink);
 }
 .aq-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.aq-head h3, .aq-head > .aq-btn { flex-shrink: 0; white-space: nowrap; }
 .aq-head h3 { margin: 0; font-size: 18px; letter-spacing: .5px; }
 .aq-muted { color: var(--aq-muted); font-size: 12px; margin: 0; }
 
@@ -122,7 +123,7 @@
 
 @media (max-width: 760px) {
   .aq-wrap { padding: 10px 10px 14px; }
-  .aq-body { flex-direction: column; align-items: stretch; } /* 1.8.1：直向排列时要撑满，否则鱼缸缩成内容最小宽（手机版只剩 133px） */
+  .aq-body { flex-direction: column; align-items: stretch; }
   .aq-side { flex: 1 1 auto; width: 100%; }
   .aq-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
 }
@@ -131,7 +132,6 @@
   .aq-fish.enter .aq-fin, .aq-decor.enter .aq-din { animation: none; }
 }
 
-.n/* 布景预设 */.n.aq-presets { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; }.n.aq-presets-label { font-size: 12px; color: var(--aq-muted); }.n.aq-preset { border-style: dashed; }.n.aq-preset:hover { color: var(--aq-accent); border-color: var(--aq-accent); }
 
 /* 布景预设：日光 / 月光 两行 */
 .aq-presets { display: flex; flex-direction: column; gap: 6px; margin: 0 0 10px; }
@@ -177,3 +177,6 @@
 .aq-fish-missing { border-radius: 40% 60% 55% 45%; background: radial-gradient(circle at 40% 35%, #cfe6f5, #9ec6e0); opacity: .5; }
 /* 高度驱动的鱼（海马/水母）：按缸高比例定尺寸 */
 .aq-fish-h .aq-fin img, .aq-fish-h .aq-fin canvas { height: 100%; width: auto; display: block; }
+
+/* GPT / Codex（小典）：装饰位置调整；按钮不触发卡片收起。 */
+.aq-decor-moves { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
