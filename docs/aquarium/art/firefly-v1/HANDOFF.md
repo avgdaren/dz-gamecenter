@@ -39,3 +39,5 @@
 制作基线 `606e505`（1.2.2）；本轮经 Git 代理和 GitHub 只读核对，远端候选仍为 `feat/aquarium-release-1@3bbdff2b4f7356aa5a115bb14624fe45923671d4`（1.2.3）。未合并进美术分支。接入前重新检查最新远端，不依赖已删除的 `aquarium_scenery.php`。
 
 后续先评审四建筑、候选价格和不返单买差价政策，再独立推进 1.2.3 基线接入、新配置、商店与本地论坛验证。真实线上场景按主人要求不做；本轮资源不等于上线内容。
+
+主人于 2026-11-05 确认仓库已改为公开，用于频繁修改及管理员交接，并授权本轮公开推送和 Issue/PR 同步。管理员平台线协作仍在 PR #67；小蓝[原回复](https://github.com/avgdaren/dz-gamecenter/pull/67#issuecomment-6656881593) 保持不动，确认尚无管理员后续回复后，另发[一次跟进](https://github.com/avgdaren/dz-gamecenter/pull/67#issuecomment-6662655770)。平台线合并仍待 1.8.1 源码与接口口径，不混入本轮美术验收。

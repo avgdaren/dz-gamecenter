@@ -36,8 +36,10 @@
 
 所有 git 命令必须带 AGENTS 指定的 `-c http.proxy=http://127.0.0.1:7897 -c https.proxy=http://127.0.0.1:7897`。冻结配置 v2 哈希 `c9423868b665127d6bc63da2373d442bd79d4f4e9dbe9b96157718725035040b`。
 
-## 本轮发布状态（须先处理）
+## 公开协作授权与管理员跟进
 
-资源验收实现已保存于本地提交 `135f12c`。推送原美术分支被自动审批拒绝，理由是未明确确认该具体远端/分支的发布授权与信任。随后 GitHub get_repo 实查 visibility=public，与原会话“私有仓库”和 AGENTS 的私有自用口径不符；尚未重试推送，也未通过其他 API 上传内容。
+资源验收实现保存于提交 `135f12c`。2026-11-05 主人明确确认：因频繁修改及与天使论坛管理员交接，仓库已改为公开，公开推送没有问题；已授权将本轮成果推送至 `avgdaren/dz-gamecenter` 的 `codex/issue-68-aquarium-town-art` 并同步 Issue #68 / Draft PR #69。原有“私有仓库”描述不能再用来重复索要本轮公开协作授权。此前自动审批阻断的检查点留在历史提交 `ffc431b`，已获得主人澄清。
 
-Issue #68 / Draft PR #69 正文已拟好，位于工作区 `output/aquarium-firefly-qc-20261105/issue68-body.md` 和 `pr69-body.md`，**尚未更新远端**。本地美术分支领先远端；推送后再用 GitHub 连接器同步两处正文并验证仍为 Draft。下一步需主人明确确认向这个公开仓库/分支推送并同步 Issue/PR。不要把本地提交或拟稿写成远端已交付。
+Issue #68 / Draft PR #69 正文拟稿位于工作区 `output/aquarium-firefly-qc-20261105/issue68-body.md` 和 `pr69-body.md`；读取远端核对同步结果，保持 Draft，不合并或部署。
+
+主人要求保留小蓝与管理员的原回复，若管理员未回复可以另行跟进。本轮核对 [小蓝原回复](https://github.com/avgdaren/dz-gamecenter/pull/67#issuecomment-6656881593) 后尚无 Carinoasd 回复，已另发[一次跟进](https://github.com/avgdaren/dz-gamecenter/pull/67#issuecomment-6662655770)，请求 1.8.1 源码/独立平台分支与 `inspect()` 对接口径。未编辑或覆盖小蓝原评论；后续先读最新讨论，避免重复催问。
