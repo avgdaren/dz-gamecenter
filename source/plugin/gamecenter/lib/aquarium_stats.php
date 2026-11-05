@@ -69,7 +69,9 @@ final class gamecenter_aquarium_stats {
     public static function refresh(): ?array {
         $dir = self::dir();
         if(!is_dir($dir)) { @mkdir($dir, 0775, true); }
-        if(!is_dir($dir) || !is_writable($dir)) { return null; }
+        // 不预判 is_writable()：Windows 沙箱/受限挂载点上它会假阴性（目录实际能写却报不可写）。
+        // 真的写不进去，下面 file_put_contents 返回 false / 短写，同样返回 null 并保留旧缓存。
+        if(!is_dir($dir)) { return null; }
 
         $lock = $dir.'/refresh.lock';
         $fh = @fopen($lock, 'c');

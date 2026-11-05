@@ -31,7 +31,11 @@ _backup/
 **/__pycache__/
 *.pyc
 
-# Aquarium static v2 configuration; runtime data stays ignored.
+# Aquarium 静态配置必须入库：干净检出缺 ACTIVE_CONFIG 会退回 foundation 配置，
+# 缺 sale-switch.json 则部署后找不到可改的开关文件。运行时数据仍忽略。
 !source/plugin/gamecenter/games/aquarium/data/
 source/plugin/gamecenter/games/aquarium/data/*
+!source/plugin/gamecenter/games/aquarium/data/ACTIVE_CONFIG
+!source/plugin/gamecenter/games/aquarium/data/content-v1-candidate.json
 !source/plugin/gamecenter/games/aquarium/data/content-v2-candidate.json
+!source/plugin/gamecenter/games/aquarium/data/sale-switch.json
