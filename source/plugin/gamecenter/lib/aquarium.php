@@ -17,12 +17,15 @@ final class gamecenter_aquarium {
         $this->clock=$clock ?? static fn()=>(int)floor(microtime(true)*1000);
         $this->c=$config===null ? gamecenter_aquarium_configs::active() : gamecenter_aquarium_rules::prepare($config);
     }
-    /** 诊断：把真实异常写到 data/diag.log（不含存档内容，只记消息与 uid） */
+    /** 诊断：把真实异常写进论坛日志（不含存档内容，只记消息与 uid）。
+     *  Carinoasd 改：原来写在 games/aquarium/data/diag.log，可从网址直接下载、也不会轮替；
+     *  改用原生 writelog → data/log/<年月>_gamecenter_aquarium.php（每行带 exit 头、超过 2MB 自动换档）。
+     *  命令行测试没有论坛环境（没有 helper_log）时不写。 */
     public static function diag(string $msg, int $uid=0): void {
-        $f = __DIR__.'/../games/aquarium/data/diag.log';
-        // 只保留最近 256KB：超出时截断重写，避免异常反复触发时把日志写满插件目录
-        if(is_file($f) && filesize($f) > 262144) { @file_put_contents($f, ''); }
-        @file_put_contents($f, date('c').' uid='.$uid.' '.$msg."\n", FILE_APPEND);
+
+        if(!class_exists('helper_log')) { return; }
+        helper_log::writelog('gamecenter_aquarium', date('c')."\tuid=".$uid."\t".substr((string)preg_replace('/[\r\n\t]+/', ' ', $msg), 0, 200));
+
     }
 
     private function result(string $code='',?array $snapshot=null): array {
@@ -46,7 +49,7 @@ final class gamecenter_aquarium {
         $out['inventory']=['schema'=>(int)($s['inventory_schema']??0),'anomaly'=>!empty($s['inventory_anomaly'])];
         $out['recent_sale']=$s['recent_sale'] ?? [];
         require_once __DIR__.'/aquarium_stats.php';
-        $out['participants']=gamecenter_aquarium_stats::display();
+        $out['participants']=gamecenter_aquarium_stats::current();   // 缺失或超过 10 分钟才刷新一次
         $out['summary']=null;
         if(isset($s['recent_summary']) && is_array($s['recent_summary'])) {
             $x=$s['recent_summary']; $clean=[];
