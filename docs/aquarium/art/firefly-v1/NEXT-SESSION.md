@@ -35,3 +35,9 @@
 工具：PHP `E:\dzx5-env\php\php.exe`；带 Pillow 的 Python `E:\tool\FormatFactory\FFModules\python\python.exe`；FFmpeg `E:\tool\FormatFactory\ffmpeg.exe`。复现命令见 VALIDATION；仓库外重跑证据在 `E:\GPT工作区\output\aquarium-firefly-qc-20261105`。没有待等后台命令。
 
 所有 git 命令必须带 AGENTS 指定的 `-c http.proxy=http://127.0.0.1:7897 -c https.proxy=http://127.0.0.1:7897`。冻结配置 v2 哈希 `c9423868b665127d6bc63da2373d442bd79d4f4e9dbe9b96157718725035040b`。
+
+## 本轮发布状态（须先处理）
+
+资源验收实现已保存于本地提交 `135f12c`。推送原美术分支被自动审批拒绝，理由是未明确确认该具体远端/分支的发布授权与信任。随后 GitHub get_repo 实查 visibility=public，与原会话“私有仓库”和 AGENTS 的私有自用口径不符；尚未重试推送，也未通过其他 API 上传内容。
+
+Issue #68 / Draft PR #69 正文已拟好，位于工作区 `output/aquarium-firefly-qc-20261105/issue68-body.md` 和 `pr69-body.md`，**尚未更新远端**。本地美术分支领先远端；推送后再用 GitHub 连接器同步两处正文并验证仍为 Draft。下一步需主人明确确认向这个公开仓库/分支推送并同步 Issue/PR。不要把本地提交或拟稿写成远端已交付。
