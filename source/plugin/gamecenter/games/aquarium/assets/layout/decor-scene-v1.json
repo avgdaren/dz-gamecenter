@@ -1,0 +1,101 @@
+{
+  "schema": "aquarium-decor-scene-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "candidate-awaiting-real-art-composite-and-site-review",
+  "date": "2026-10-30",
+  "geometry": "decor-layout-v1.json unchanged",
+  "compositing": {
+    "scope": "decor pixels only; preserve original alpha; do not tint transparent rectangle, fish, UI or entire tank",
+    "order": [
+      "night_tint",
+      "depth_fog"
+    ],
+    "blend": "normal RGB interpolation; alpha_out = alpha_in",
+    "replace_legacy_atmosphere": true,
+    "remove_global_saturate_brightness": true
+  },
+  "scenes": {
+    "tank_day": {
+      "night_tint_color": "#213c68",
+      "fog_color": "#b0d8e3",
+      "depth": {
+        "far": {
+          "night_tint_alpha": 0,
+          "fog_alpha": 0.08
+        },
+        "mid": {
+          "night_tint_alpha": 0,
+          "fog_alpha": 0.035
+        },
+        "near": {
+          "night_tint_alpha": 0,
+          "fog_alpha": 0
+        }
+      }
+    },
+    "tank_moon": {
+      "night_tint_color": "#213c68",
+      "fog_color": "#648da8",
+      "depth": {
+        "far": {
+          "night_tint_alpha": 0.26,
+          "fog_alpha": 0.08
+        },
+        "mid": {
+          "night_tint_alpha": 0.22,
+          "fog_alpha": 0.035
+        },
+        "near": {
+          "night_tint_alpha": 0.16,
+          "fog_alpha": 0
+        }
+      }
+    }
+  },
+  "item_overrides": {
+    "trinket_star_lamp": {
+      "tank_moon": {
+        "night_tint_alpha": 0.1,
+        "fog_alpha": 0.015
+      },
+      "reason": "keep warm lamp readable; no duplicated lamp or new glow texture"
+    },
+    "trinket_pearl": {
+      "tank_moon": {
+        "night_tint_alpha": 0.12,
+        "fog_alpha": 0
+      }
+    },
+    "trinket_crystal": {
+      "tank_moon": {
+        "night_tint_alpha": 0.12,
+        "fog_alpha": 0
+      }
+    }
+  },
+  "contact_shadow": {
+    "baked_into_art": false,
+    "shape": "radial ellipse separate from decor artwork",
+    "color": "#0c2036",
+    "width_ratio_of_visible_art": 0.7,
+    "height_ratio_of_visible_art": 0.07,
+    "center": "geometry ground anchor, not transparent image bottom",
+    "opacity_by_depth": {
+      "far": 0.12,
+      "mid": 0.18,
+      "near": 0.22
+    },
+    "blur_px_at_tank_width_960": 2,
+    "pointer_events": "none",
+    "z_order": "immediately below its owner in same paint layer",
+    "occlusion": "inherit owner fade so shadow does not remain dark"
+  },
+  "occlusion": {
+    "opacity_when_occluded": 0.42,
+    "transition_ms": 220,
+    "sample_interval_ms": 120,
+    "collision_bounds": "visible artwork rectangles, not full transparent image bounds",
+    "release_margin_px_at_tank_width_960": 4,
+    "note": "candidate; use enter/exit hysteresis to avoid flicker with multiple fish"
+  }
+}

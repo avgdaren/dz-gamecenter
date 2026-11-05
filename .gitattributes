@@ -1,0 +1,8 @@
+# 本仓库以「仓库内容 = 部署目录字节」为核对口径（见 docs/sync/GAMECENTER-1.4.0-SYNC.md）。
+# Windows 下 core.autocrlf=true 会把检出结果改成 CRLF，导致与部署目录的哈希对不上，
+# 因此统一强制 LF 检出；二进制文件由 text=auto 自动识别，不受影响。
+* text=auto eol=lf
+
+# Frozen configurations are hashed as bytes; preserve exact source bytes.
+source/plugin/gamecenter/games/aquarium/data/content-v1-candidate.json -text
+source/plugin/gamecenter/games/aquarium/data/content-v2-candidate.json -text

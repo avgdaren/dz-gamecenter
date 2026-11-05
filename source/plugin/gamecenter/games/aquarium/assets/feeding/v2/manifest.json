@@ -1,0 +1,235 @@
+{
+  "schema": "aquarium-feeding-audio-v2",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "provenance": "original deterministic procedural synthesis; no third-party samples",
+  "supersedes": "feeding/v1/eat_01..03 audio only; keep feeding/v1 pellet art",
+  "sounds": [
+    {
+      "id": "bite_01",
+      "seconds": 0.082,
+      "peak_dbfs": -8,
+      "rms_dbfs": -17.86,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5411,
+      "encoded": [
+        {
+          "file": "bite_01.ogg",
+          "bytes": 4460,
+          "sha256": "3075e7823ef0f3be2d6e7711200a88071f0774d9019d238fd2b90cd5a9e64f60",
+          "decoded_seconds": 0.07909,
+          "peak_dbfs": -7.07,
+          "rms_dbfs": -17.92,
+          "clipped_samples": 0
+        },
+        {
+          "file": "bite_01.mp3",
+          "bytes": 2551,
+          "sha256": "21f3e0cfcc202bec928913061233cad9a7856ff09aed08752f04bb561aa458fb",
+          "decoded_seconds": 0.082,
+          "peak_dbfs": -8.33,
+          "rms_dbfs": -18.33,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "bite_02",
+      "seconds": 0.09701,
+      "peak_dbfs": -8,
+      "rms_dbfs": -19.93,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5412,
+      "encoded": [
+        {
+          "file": "bite_02.ogg",
+          "bytes": 4562,
+          "sha256": "dd4702f98e65d636d4893890ead4fff7b7ddc9d0db1b5e1b3808c9cc6efc2039",
+          "decoded_seconds": 0.0941,
+          "peak_dbfs": -7.34,
+          "rms_dbfs": -20.02,
+          "clipped_samples": 0
+        },
+        {
+          "file": "bite_02.mp3",
+          "bytes": 2551,
+          "sha256": "956667373369ab126dde7dfbdef7795d08e89b7fa83928d0bb353c68c21c2a0c",
+          "decoded_seconds": 0.09701,
+          "peak_dbfs": -8.54,
+          "rms_dbfs": -20.37,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "bite_03",
+      "seconds": 0.072,
+      "peak_dbfs": -8,
+      "rms_dbfs": -18.46,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5413,
+      "encoded": [
+        {
+          "file": "bite_03.ogg",
+          "bytes": 4448,
+          "sha256": "a82a17c99f6efd0db14af0e7d3e6e42ba915ad389313ce715d7e09c31f416f3a",
+          "decoded_seconds": 0.06909,
+          "peak_dbfs": -7.97,
+          "rms_dbfs": -18.43,
+          "clipped_samples": 0
+        },
+        {
+          "file": "bite_03.mp3",
+          "bytes": 2133,
+          "sha256": "93b29f63e106218743a1674a692a286fe9fc795d22e776924bc04eb8f66e9901",
+          "decoded_seconds": 0.072,
+          "peak_dbfs": -8.35,
+          "rms_dbfs": -18.9,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "bite_04",
+      "seconds": 0.11701,
+      "peak_dbfs": -8,
+      "rms_dbfs": -20.85,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5414,
+      "encoded": [
+        {
+          "file": "bite_04.ogg",
+          "bytes": 4756,
+          "sha256": "3ff334534073ceec9ada496716d36f046d0817fb731e0917b54abb58d70e3cfe",
+          "decoded_seconds": 0.1141,
+          "peak_dbfs": -7.92,
+          "rms_dbfs": -21.0,
+          "clipped_samples": 0
+        },
+        {
+          "file": "bite_04.mp3",
+          "bytes": 2969,
+          "sha256": "5e8760b232f7a9fa3df1b0876f13f8c00bb191510a6435e476361bc5227785f5",
+          "decoded_seconds": 0.11701,
+          "peak_dbfs": -8.46,
+          "rms_dbfs": -21.29,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "drop_01",
+      "seconds": 0.10698,
+      "peak_dbfs": -10,
+      "rms_dbfs": -23.52,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5421,
+      "encoded": [
+        {
+          "file": "drop_01.ogg",
+          "bytes": 4567,
+          "sha256": "543bff08a98b755c6e36aee07e2ba6dc348313728ab6a042ce2e0fb3561d0326",
+          "decoded_seconds": 0.10408,
+          "peak_dbfs": -10.05,
+          "rms_dbfs": -23.48,
+          "clipped_samples": 0
+        },
+        {
+          "file": "drop_01.mp3",
+          "bytes": 2969,
+          "sha256": "da3a97c0cebb2065b024035eee1463c2e6a6f817a82d78914e0c62e4ddd4b9be",
+          "decoded_seconds": 0.10698,
+          "peak_dbfs": -10.44,
+          "rms_dbfs": -23.96,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "drop_02",
+      "seconds": 0.132,
+      "peak_dbfs": -10,
+      "rms_dbfs": -24.86,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5422,
+      "encoded": [
+        {
+          "file": "drop_02.ogg",
+          "bytes": 4723,
+          "sha256": "bf40d2bd75a7a455489cd68153c3729e18951ae701bc6cd8f8482408368c1a76",
+          "decoded_seconds": 0.12909,
+          "peak_dbfs": -10.68,
+          "rms_dbfs": -25.1,
+          "clipped_samples": 0
+        },
+        {
+          "file": "drop_02.mp3",
+          "bytes": 3387,
+          "sha256": "e51ff191d236fe030e4659222a40cd63ac40b132ba3fbaa61ab62b61b6b2fd44",
+          "decoded_seconds": 0.132,
+          "peak_dbfs": -10.45,
+          "rms_dbfs": -25.3,
+          "clipped_samples": 0
+        }
+      ]
+    },
+    {
+      "id": "pop_01",
+      "seconds": 0.14698,
+      "peak_dbfs": -12,
+      "rms_dbfs": -24.7,
+      "sample_rate": 44100,
+      "channels": 1,
+      "seed": 5431,
+      "encoded": [
+        {
+          "file": "pop_01.ogg",
+          "bytes": 4560,
+          "sha256": "06cb74b95bbd86fa2c098c0530018fd95e0034687f35b001e6b8c138b7ab0d12",
+          "decoded_seconds": 0.14408,
+          "peak_dbfs": -11.88,
+          "rms_dbfs": -24.53,
+          "clipped_samples": 0
+        },
+        {
+          "file": "pop_01.mp3",
+          "bytes": 3387,
+          "sha256": "61d05dd256ca7d3761bf256717a695fd1715449bbcfeabcc688ca0aac1823f3a",
+          "decoded_seconds": 0.14698,
+          "peak_dbfs": -12.45,
+          "rms_dbfs": -25.14,
+          "clipped_samples": 0
+        }
+      ]
+    }
+  ],
+  "playback": {
+    "bite_volume": 0.45,
+    "drop_volume": 0.32,
+    "pop_volume": 0.22,
+    "bite_global_cooldown_ms": 140,
+    "max_total_voices": 2,
+    "default_pitch": "fixed; alternate four bites without immediate repeats",
+    "optional_playback_rate_range": [
+      0.92,
+      1.08
+    ],
+    "pop_enabled_by_default": false
+  },
+  "feeding": {
+    "particles_per_click": 1,
+    "max_particles": 8,
+    "max_responding_fish": 4,
+    "particle_expiry": "tank_floor",
+    "sink_speed_css_px_s": 46,
+    "desktop_pellet_px": 9,
+    "mobile_pellet_px": 7,
+    "floor_fade_ms": 250,
+    "quiet_clear_ms": 4000
+  }
+}

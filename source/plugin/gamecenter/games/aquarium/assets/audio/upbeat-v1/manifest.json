@@ -1,0 +1,37 @@
+{
+  "schema": "aquarium-audio-track-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "id": "bgm_bubble_skip",
+  "title": "气泡小步舞",
+  "bpm": 112,
+  "bars": 64,
+  "duration_seconds": 137.14285714285714,
+  "loop": true,
+  "gain": 0.35,
+  "music_default_enabled": false,
+  "sfx_gain_unchanged": 0.5,
+  "source": "original deterministic composition and synthesis; no external samples",
+  "formats": [
+    {
+      "file": "bgm_bubble_skip.ogg",
+      "mime": "audio/ogg",
+      "bytes": 1126327,
+      "sha256": "1eef231f941bd208d0dc658c47124d2189dd686e82a0c0ea755d9e9cfa29dceb"
+    },
+    {
+      "file": "bgm_bubble_skip.mp3",
+      "mime": "audio/mpeg",
+      "bytes": 1646386,
+      "sha256": "d16c6b1e13df164d35c2d4f1dc959e54a5b75cec98b132b13abfa909074bd498"
+    }
+  ],
+  "scene_binding": {
+    "tank_day": "bgm_bubble_skip",
+    "tank_sakura": "bgm_bubble_skip",
+    "tank_coral": "bgm_bubble_skip",
+    "tank_aurora": "bgm_bubble_skip",
+    "tank_moon": "existing bgm_moonlit_garden when PR #41 available",
+    "tank_star_ruins": "existing bgm_moonlit_garden when PR #41 available"
+  },
+  "dependency_note": "New track is complete standalone. Existing moonlit track belongs to PR #41; do not request missing URL. Fallback to this track if moonlit unavailable. Never auto-enable music."
+}

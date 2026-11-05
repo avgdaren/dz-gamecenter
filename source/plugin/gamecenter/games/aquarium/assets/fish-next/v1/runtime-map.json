@@ -1,0 +1,84 @@
+{
+  "schema": "aquarium-new-fish-runtime-art-map-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "source_commit": "457ea7e621953fefe2d2c0ee81efa2b9e9727611",
+  "note": "Art paths only. Current server configuration is authoritative for weight, coins, cap and rod gates. Static textures; no animation sequence frames.",
+  "items": [
+    {
+      "id": "pond_curl_seahorse",
+      "name": "卷尾海马",
+      "facing": "right",
+      "size_axis": "height",
+      "size_ratio": 0.18,
+      "sprite": "source/plugin/gamecenter/games/aquarium/assets/fish/pond_curl_seahorse.webp",
+      "icon": "source/plugin/gamecenter/games/aquarium/assets/thumbs/fish/pond_curl_seahorse.webp",
+      "mobile": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/pond_curl_seahorse_mobile.webp",
+      "silhouette": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/pond_curl_seahorse_silhouette.webp",
+      "sprite_visible_bbox": [
+        75,
+        32,
+        459,
+        475
+      ],
+      "source_sprite_sha": "dc6ce11670f1854b9c378331e0c6d24b30b55092",
+      "source_icon_sha": "cddf6c89dd732489e498c0f9c734ba2efa5cd9d8"
+    },
+    {
+      "id": "pond_bell_jelly",
+      "name": "铃伞水母",
+      "facing": "near-front",
+      "size_axis": "height",
+      "size_ratio": 0.19,
+      "sprite": "source/plugin/gamecenter/games/aquarium/assets/fish/pond_bell_jelly.webp",
+      "icon": "source/plugin/gamecenter/games/aquarium/assets/thumbs/fish/pond_bell_jelly.webp",
+      "mobile": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/pond_bell_jelly_mobile.webp",
+      "silhouette": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/pond_bell_jelly_silhouette.webp",
+      "sprite_visible_bbox": [
+        61,
+        39,
+        459,
+        466
+      ],
+      "source_sprite_sha": "b157041e860e0a4eefad1fd70fc9c36f564be652",
+      "source_icon_sha": "97c218c5308d46d05c1f5769e6785d3e2def93db"
+    },
+    {
+      "id": "bay_gummy_octopus",
+      "name": "软糖章鱼",
+      "facing": "near-front-right",
+      "size_axis": "width",
+      "size_ratio": 0.12,
+      "sprite": "source/plugin/gamecenter/games/aquarium/assets/fish/bay_gummy_octopus.webp",
+      "icon": "source/plugin/gamecenter/games/aquarium/assets/thumbs/fish/bay_gummy_octopus.webp",
+      "mobile": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/bay_gummy_octopus_mobile.webp",
+      "silhouette": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/bay_gummy_octopus_silhouette.webp",
+      "sprite_visible_bbox": [
+        40,
+        32,
+        474,
+        471
+      ],
+      "source_sprite_sha": "100d62724dc043146825780521daaafad02be855",
+      "source_icon_sha": "c2a532c076ed203f251000cb0320d82210d65472"
+    },
+    {
+      "id": "bay_moon_mermaid",
+      "name": "月汐人鱼",
+      "facing": "right",
+      "size_axis": "width",
+      "size_ratio": 0.2,
+      "sprite": "source/plugin/gamecenter/games/aquarium/assets/fish/bay_moon_mermaid.webp",
+      "icon": "source/plugin/gamecenter/games/aquarium/assets/thumbs/fish/bay_moon_mermaid.webp",
+      "mobile": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/bay_moon_mermaid_mobile.webp",
+      "silhouette": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v1/bay_moon_mermaid_silhouette.webp",
+      "sprite_visible_bbox": [
+        42,
+        110,
+        480,
+        401
+      ],
+      "source_sprite_sha": "b35d6b7ca3b901682fd4da84ae14a67ed00a7206",
+      "source_icon_sha": "f6b7ca3e59f34ac4e81bb810045e64793e2e9d51"
+    }
+  ]
+}

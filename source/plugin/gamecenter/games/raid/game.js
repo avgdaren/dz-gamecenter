@@ -1,7 +1,28 @@
 /* 作者：GPT / Codex；原插件 (C) 2026 Carinoasd。PHP 权威结算，原生 JS 显示与输入。 */
 (() => {
   'use strict';
-  GameCenter.register('raid', (stage, api) => {
+  // 自加载依赖：平台未引用 feedback.js / music.js 时（增量部署），由游戏自己按需加载
+const HERE = (document.currentScript && document.currentScript.src) || location.href;
+function loadDep(name) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = new URL(name, HERE).href;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error(name));
+    (document.head || document.documentElement).appendChild(s);
+  });
+}
+function start() {
+  const need = [];
+  if (typeof globalThis.RaidFeedback !== 'function') need.push('feedback.js');
+  if (typeof globalThis.RaidMusic !== 'function') need.push('music.js');
+  if (!need.length) { GameCenter.register('raid', boot); return; }
+  Promise.all(need.map(loadDep)).then(() => GameCenter.register('raid', boot)).catch(() => {
+    const st = document.getElementById('gc-stage');
+    if (st) st.innerHTML = '<div class="gcr"><p class="notice" style="color:#c33">游戏资源未完整加载（feedback.js / music.js），请刷新页面重试；若反复出现请联系管理员检查插件文件。</p></div>';
+  });
+}
+function boot(stage, api) {
   const root=document.createElement('div'); root.className='gcr';
   root.innerHTML=`<div class="gcr-main">
 
@@ -426,6 +447,7 @@
   try {const saved=JSON.parse(sessionStorage.getItem(restartKey));if(saved&&/^[A-F0-9]{12}$/.test(saved.room)&&['solo','duo'].includes(saved.mode))queuedMode=saved;}catch(_){}
   try {$('join-code').value=new URL(location.href).searchParams.get('room')||'';}catch(_){}
   render();controls();if(uid)sync();else notice('登录论坛后即可挑战；下方规则可以直接阅读。');
-  });
-})();
+}
 
+start();
+})();

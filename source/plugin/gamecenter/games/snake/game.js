@@ -25,6 +25,62 @@
     get: function (k) { try { return localStorage.getItem('gc_snake_' + k); } catch (e) { return null; } },
     set: function (k, v) { try { localStorage.setItem('gc_snake_' + k, v); } catch (e) {} }
   };
+  /**
+   * 一條蛇的遊戲邏輯（與 verify.php 一致）。玩家與幽靈蛇各跑一個。
+   * step(d)：d＝這一步要轉的方向（null＝不轉）；回傳這一步發生的事 {turned, eat, star, gain, end, at}。
+   */
+  function Sim(seed) {
+    var g = {
+      s: seed, body: [[15, 15], [14, 15], [13, 15]], prev: null, occ: {}, dir: 0, tick: 0, eaten: 0, score: 0,
+      food: -1, bonus: -1, bonusExp: 0, foodTick: 0, foodDist: 0, streak: 0, maxStreak: 0, stars: 0, over: false, win: false, death: null
+    };
+    function place() {
+      var free = [];
+      for (var i = 0; i < W * H; i++) if (!g.occ[i] && i !== g.food && i !== g.bonus) free.push(i);
+      if (!free.length) return -1;
+      g.s = (g.s * 48271) % 2147483647;
+      return free[g.s % free.length];
+    }
+    g.body.forEach(function (p) { g.occ[p[1] * W + p[0]] = 1; });
+    g.prev = g.body.slice();
+    g.food = place();
+    g.foodDist = g.food < 0 ? 0 : dist(g.food, 15, 15);
+    g.step = function (d) {
+      var ev = { turned: false, eat: false, star: false, gain: 0, end: false };
+      g.tick++;
+      if (d != null && d !== g.dir && d !== (g.dir + 2) % 4) { g.dir = d; ev.turned = true; }
+      g.prev = g.body.slice();
+      var hx = g.body[0][0] + DX[g.dir], hy = g.body[0][1] + DY[g.dir];
+      ev.at = [hx, hy];
+      if (hx < 0 || hy < 0 || hx >= W || hy >= H) { g.over = ev.end = true; g.death = [hx, hy]; return ev; }
+      var hi = hy * W + hx, t;
+      ev.eat = hi === g.food;
+      ev.star = hi === g.bonus;
+      if (!ev.eat && !ev.star) { t = g.body.pop(); delete g.occ[t[1] * W + t[0]]; }
+      if (g.occ[hi]) { if (t) g.body.push(t); g.over = ev.end = true; g.death = [hx, hy]; return ev; }
+      g.body.unshift([hx, hy]);
+      g.occ[hi] = 1;
+      if (ev.star) { g.score += BONUS_SCORE; g.bonus = -1; g.stars++; ev.gain += BONUS_SCORE; }
+      if (ev.eat) {
+        g.eaten++;
+        g.streak = g.tick - g.foodTick <= g.foodDist + COMBO_SLACK ? g.streak + 1 : 0;
+        g.maxStreak = Math.max(g.maxStreak, g.streak);
+        var gain = FOOD_SCORE + COMBO_STEP * Math.min(g.streak, COMBO_MAX);
+        g.score += gain;
+        ev.food = gain;
+        g.food = -1;
+        g.food = place();
+        if (g.food < 0) { g.over = g.win = ev.end = true; return ev; }
+        g.foodTick = g.tick;
+        g.foodDist = dist(g.food, hx, hy);
+        if (g.eaten % BONUS_EVERY === 0 && g.bonus < 0) { g.bonus = place(); g.bonusExp = g.tick + BONUS_LIFE; }
+      }
+      if (g.bonus >= 0 && g.tick >= g.bonusExp) g.bonus = -1;
+      return ev;
+    };
+    return g;
+  }
+  function dist(i, x, y) { return Math.abs(i % W - x) + Math.abs(Math.floor(i / W) - y); }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
   }
@@ -56,12 +112,21 @@
     var $score = q('.gcs-score'), $len = q('.gcs-len'), $lv = q('.gcs-lv'), $best = q('.gcs-best'), $bestbox = q('.gcs-bestbox');
     var soundBtn = q('[data-t="sound"]');
 
-    var st = null;          // 一局的邏輯狀態
+    var st = null;          // 一局的邏輯狀態（Sim＋玩家專用欄位）
+    var ghost = null;       // 幽靈蛇（幽靈挑戰才有）
     var fx = [];            // 特效（粒子、飄字）
     var shake = 0, raf = 0, scale = 1, starting = false, bg = null;
-    var best = api.best;
+    var best = api.best;                // 個人總榜最佳（造型解鎖看這個）
+    var dbest = api.dailyBest;          // 今日每日挑戰最佳
+    function curBest() { return api.mode === 'daily' ? dbest : best; }
     var skin = SKINS[0];
     tip.textContent = api.mobile ? '在棋盘上滑动，或用下方方向键' : '按方向键 / WASD 开始，空白键暂停，F 全屏';
+    if (api.mode === 'ghost') { title.textContent = '幽灵挑战'; $bestbox.style.display = 'none'; }
+    else if (api.mode === 'daily') {
+      title.textContent = '每日挑战';
+      $bestbox.firstChild.textContent = '今日最佳 ';
+      $best.textContent = dbest == null ? '-' : dbest;
+    }
 
     /* ---------- 版面：棋盤依可用空間放大 ---------- */
     function isFull() { return document.fullscreenElement === stage || stage.classList.contains('gcs-focus'); }
@@ -145,6 +210,19 @@
       return (api.rivals || []).filter(function (r) { return r.u !== api.uid; }).sort(function (a, b) { return b.s - a.s; });
     }
     function updateChase() {
+      if (api.mode === 'ghost') {
+        if (!ghost) { chase.innerHTML = '<span>⚔ 幽灵挑战：同一张地图，对手的幽灵蛇会同步出现</span>'; return; }
+        var me = st ? st.score : 0, diff = me - ghost.score;
+        chase.innerHTML = '<span class="gcs-ghost">⚔ 你 <b>' + me + '</b> : <b>' + ghost.score + '</b> ' + esc(ghost.name) +
+          '（对手最终 ' + ghost.final + ' 分）' + (ghost.over ? (me > ghost.final ? ' · <b>已经赢了！</b>' : ' · 再 <b>' + (ghost.final - me + 1) + '</b> 分就赢') :
+          diff > 0 ? ' · 领先 ' + diff : diff < 0 ? ' · 落后 ' + (-diff) : '') + '</span>';
+        return;
+      }
+      if (api.mode === 'daily') {
+        var dd = st && st.info && st.info.daily;
+        chase.innerHTML = '<span class="gcs-daily">📅 每日挑战' + (dd ? ' · 第 ' + dd.try + '/' + dd.tries + ' 次' : '') + ' · 今天全站同一张地图</span>';
+        return;
+      }
       if (!api.uid || !st && !(api.rivals || []).length) { chase.innerHTML = ''; return; }
       var list = others(), cur = st ? st.score : 0, tgt = null;
       for (var i = list.length - 1; i >= 0; i--) if (list[i].s >= cur) { tgt = list[i]; break; }
@@ -155,26 +233,12 @@
       else chase.innerHTML = '<span>🎯 再 <b>' + (tgt.s - cur + 1) + '</b> 分超过本周第 ' + rank + ' 名 <b>' + esc(tgt.n) + '</b>（' + tgt.s + '）</span>';
     }
 
-    /* ---------- 遊戲邏輯（與 verify.php 一致） ---------- */
-    function place() {
-      var free = [];
-      for (var i = 0; i < W * H; i++) if (!st.occ[i] && i !== st.food && i !== st.bonus) free.push(i);
-      if (!free.length) return -1;
-      st.s = (st.s * 48271) % 2147483647;
-      return free[st.s % free.length];
-    }
-    function dist(i, x, y) { return Math.abs(i % W - x) + Math.abs(Math.floor(i / W) - y); }
+    /* ---------- 一局（玩家）；規則在 Sim ---------- */
     function newGame(info) {
-      st = {
-        info: info, s: info.seed, body: [[15, 15], [14, 15], [13, 15]], prev: null, occ: {}, dir: 0, q: [],
-        tick: 0, eaten: 0, score: 0, moves: [], over: false, paused: false, timer: 0,
-        food: -1, bonus: -1, bonusExp: 0, last: 0, iv: interval(0), newBest: false, still: true,
-        foodTick: 0, foodDist: 0, streak: 0, maxStreak: 0, stars: 0, t0: 0, ms: 0, death: null
-      };
-      st.body.forEach(function (p) { st.occ[p[1] * W + p[0]] = 1; });
-      st.prev = st.body.slice();
-      st.food = place();
-      st.foodDist = st.food < 0 ? 0 : dist(st.food, 15, 15);
+      st = Sim(info.seed);
+      st.info = info; st.q = []; st.moves = []; st.paused = false; st.timer = 0;
+      st.last = 0; st.iv = interval(0); st.newBest = false; st.still = true; st.t0 = 0; st.ms = 0;
+      ghost = info.ghost ? newGhost(info.seed, info.ghost) : null;
       fx = [];
       hud();
       loop();
@@ -189,55 +253,62 @@
     }
     function step() {
       if (st.over || st.paused) return;
-      st.tick++;
       st.still = false;
+      var d = null;
       while (st.q.length) {
-        var d = st.q.shift();
-        if (d !== st.dir && d !== (st.dir + 2) % 4) { st.dir = d; st.moves.push(st.tick + ':' + d); break; }
+        var x = st.q.shift();
+        if (x !== st.dir && x !== (st.dir + 2) % 4) { d = x; break; }
       }
-      st.prev = st.body.slice();
-      var hx = st.body[0][0] + DX[st.dir], hy = st.body[0][1] + DY[st.dir];
-      if (hx < 0 || hy < 0 || hx >= W || hy >= H) return finish(false, [hx, hy]);
-      var hi = hy * W + hx, eat = hi === st.food, gotStar = hi === st.bonus, t;
-      if (!eat && !gotStar) { t = st.body.pop(); delete st.occ[t[1] * W + t[0]]; }
-      if (st.occ[hi]) { if (t) st.body.push(t); return finish(false, [hx, hy]); }
-      st.body.unshift([hx, hy]);
-      st.occ[hi] = 1;
-      if (gotStar) {
-        st.score += BONUS_SCORE;
-        st.bonus = -1;
-        st.stars++;
+      var ev = st.step(d);
+      if (ev.turned) st.moves.push(st.tick + ':' + d);
+      if (ev.end && !st.win) return finish(false, ev.at);
+      var hx = st.body[0][0], hy = st.body[0][1];
+      if (ev.star) {
         burst(hx, hy, '#ffd54a', 22, '+' + BONUS_SCORE);
         beep([660, 880, 1320], 0.06);
         buzz(30);
       }
-      if (eat) {
-        st.eaten++;
-        st.streak = st.tick - st.foodTick <= st.foodDist + COMBO_SLACK ? st.streak + 1 : 0;
-        st.maxStreak = Math.max(st.maxStreak, st.streak);
-        var gain = FOOD_SCORE + COMBO_STEP * Math.min(st.streak, COMBO_MAX);
-        st.score += gain;
-        burst(hx, hy, st.streak ? '#ffb86b' : '#ff6b81', 12 + Math.min(st.streak, 4) * 3, '+' + gain + (st.streak ? ' 连击×' + Math.min(st.streak, COMBO_MAX) : ''));
+      if (ev.eat) {
+        burst(hx, hy, st.streak ? '#ffb86b' : '#ff6b81', 12 + Math.min(st.streak, 4) * 3, '+' + ev.food + (st.streak ? ' 连击×' + Math.min(st.streak, COMBO_MAX) : ''));
         beep([880 + Math.min(st.streak, 4) * 110], 0.05);
         buzz(12);
-        st.food = -1;
-        st.food = place();
-        if (st.food < 0) { hud(); return finish(true); }
-        st.foodTick = st.tick;
-        st.foodDist = dist(st.food, hx, hy);
-        if (st.eaten % BONUS_EVERY === 0 && st.bonus < 0) {
-          st.bonus = place();
-          st.bonusExp = st.tick + BONUS_LIFE;
-        }
       }
-      if (st.bonus >= 0 && st.tick >= st.bonusExp) st.bonus = -1;
       hud();
+      if (st.win) return finish(true);
       schedule();
+    }
+
+    /* ---------- 幽靈蛇：同一顆種子，照對手的轉向紀錄自己跑（速度照原本那局） ---------- */
+    function newGhost(seed, gi) {
+      var d = gi.data || {}, moves = {};
+      String(d.moves || '').split(',').forEach(function (p) { var a = p.split(':'); if (a.length === 2) moves[+a[0]] = +a[1]; });
+      var g = Sim(seed);
+      g.name = gi.name || ('UID ' + gi.uid); g.final = +gi.score || 0; g.ticks = +d.ticks || 0; g.map = moves;
+      g.timer = 0; g.last = 0; g.iv = interval(0); g.still = true;
+      return g;
+    }
+    function ghostGo() {
+      if (!ghost) return;
+      clearTimeout(ghost.timer);
+      if (ghost.over || !st || st.over || st.paused) return;
+      ghost.iv = interval(ghost.eaten);
+      ghost.last = performance.now();
+      ghost.timer = setTimeout(function ghostStep() {
+        if (!ghost || ghost.over || st.over || st.paused) return;
+        ghost.still = false;
+        ghost.step(ghost.map[ghost.tick + 1]);
+        // 重播到原本那局的最後一步就停（照理會剛好撞到）
+        if (ghost.tick >= ghost.ticks) ghost.over = true;
+        if (ghost.over) { ghost.endAt = performance.now(); beep([330, 262], 0.1, 'triangle'); }
+        hud();
+        ghostGo();
+      }, ghost.iv);
     }
     function finish(win, at) {
       st.over = true;
       st.win = win;
-      st.death = at || null;
+      st.death = win ? null : at || st.death;
+      if (ghost) clearTimeout(ghost.timer);
       st.endAt = performance.now();
       comboEl.classList.remove('on');
       st.ms += performance.now() - st.t0;
@@ -247,7 +318,11 @@
       buzz(win ? [30, 40, 30] : [60, 40, 90]);
       var payload = { v: RULE, score: st.score, ticks: st.tick, moves: st.moves.join(',') };
       api.submit(st.info, payload, win ? '全部吃光，过关！' : '游戏结束').then(function (res) {
-        if (res && res.ok && res.best != null) { best = res.best; $best.textContent = res.best; renderSkins(); }
+        if (res && res.ok && res.best != null) {
+          if (res.mode === 'daily') dbest = res.best; else best = res.best;
+          $best.textContent = res.best;
+          renderSkins();
+        }
         updateChase();
       });
       var sec = Math.round(st.ms / 1000), g = st;
@@ -255,7 +330,7 @@
         if (st !== g) return;   // 已經開了下一局（例如馬上按方向鍵），不要把結束畫面蓋回去
         cover.style.display = '';
         title.textContent = win ? '过关！' : '游戏结束';
-        tip.textContent = '本局 ' + st.score + ' 分';
+        tip.textContent = '本局 ' + st.score + ' 分' + (ghost ? (st.score > ghost.final ? ' · 赢了 ' + ghost.name + '！' : ' · 对手 ' + ghost.final + ' 分') : '');
         sum.innerHTML = '<span>食物 <b>' + st.eaten + '</b></span><span>金星 <b>' + st.stars + '</b></span><span>最高连击 <b>' + st.maxStreak +
           '</b></span><span>长度 <b>' + st.body.length + '</b></span><span>用时 <b>' + Math.floor(sec / 60) + ':' + ('0' + sec % 60).slice(-2) + '</b></span>';
         go.textContent = '再来一局';
@@ -267,7 +342,8 @@
       $lv.textContent = 1 + Math.min(30, st.eaten);
       comboEl.textContent = st.streak ? '连击 ×' + Math.min(st.streak, COMBO_MAX) : '';
       comboEl.classList.toggle('on', !!st.streak);
-      if (best != null && st.score > best && !st.newBest) {
+      var cb = curBest();
+      if (api.mode !== 'ghost' && cb != null && st.score > cb && !st.newBest) {
         st.newBest = true;
         $bestbox.classList.add('gcs-flash');
       }
@@ -347,8 +423,8 @@
       ctx.lineWidth = 2;
       ctx.beginPath(); ctx.arc(c[0], c[1], C * 0.72, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.max(0, left)); ctx.stroke();
     }
-    function drawSnake(f, now) {
-      var b = st.body, n = b.length, pv = st.prev;
+    function drawSnake(sn, f, now, isGhost) {
+      var b = sn.body, n = b.length, pv = sn.prev;
       // 路徑：插值的頭 → 身體各格中心 → 插值的尾巴（尾巴從上一步的位置滑到這一步）
       var pts = [];
       var h = center(b[0]), h1 = center(n > 1 ? b[1] : b[0]);
@@ -356,19 +432,21 @@
       for (var i = 1; i < n; i++) pts.push(center(b[i]));
       var pt = center(pv[pv.length - 1]), nt = center(b[n - 1]);
       if (pv.length === n) pts.push([lerp(pt[0], nt[0], f), lerp(pt[1], nt[1], f)]);
-      var dead = st.over && !st.win;
+      var dead = !isGhost && sn.over && !sn.win;
       ctx.lineCap = ctx.lineJoin = 'round';
+      if (isGhost) ctx.globalAlpha = sn.over ? 0.18 : 0.42;
       for (var k = pts.length - 1; k > 0; k--) {
         var qq = k / Math.max(1, pts.length - 1);
-        ctx.strokeStyle = dead ? 'hsl(0,' + (55 - qq * 25) + '%,' + (60 - qq * 18) + '%)'
+        ctx.strokeStyle = isGhost ? 'hsl(265,' + (70 - qq * 30) + '%,' + (82 - qq * 20) + '%)'
+          : dead ? 'hsl(0,' + (55 - qq * 25) + '%,' + (60 - qq * 18) + '%)'
           : skin.gold ? 'hsl(' + (46 - qq * 8) + ',' + (90 - qq * 20) + '%,' + (62 - qq * 22 + (Math.sin(now / 200 - k * 0.5) + 1) * 6) + '%)'
           : 'hsl(' + skin.hue(qq, now) + ',65%,' + (60 - qq * 22) + '%)';
         ctx.lineWidth = C * (0.82 - qq * 0.3);
         ctx.beginPath(); ctx.moveTo(pts[k][0], pts[k][1]); ctx.lineTo(pts[k - 1][0], pts[k - 1][1]); ctx.stroke();
       }
-      var hp = pts[0], ex = DX[st.dir], ey = DY[st.dir];
+      var hp = pts[0], ex = DX[sn.dir], ey = DY[sn.dir];
       // 靠近食物時吐舌頭
-      if (!dead && st.food >= 0 && dist(st.food, b[0][0], b[0][1]) <= 3 && Math.floor(now / 160) % 2) {
+      if (!dead && !isGhost && sn.food >= 0 && dist(sn.food, b[0][0], b[0][1]) <= 3 && Math.floor(now / 160) % 2) {
         ctx.strokeStyle = '#ff5d73';
         ctx.lineWidth = 1.6;
         ctx.beginPath();
@@ -379,9 +457,9 @@
         ctx.lineTo(hp[0] + ex * 16 - ey * 3, hp[1] + ey * 16 - ex * 3);
         ctx.stroke();
       }
-      ctx.fillStyle = dead ? '#ff8a8a' : skin.k === 'rainbow' ? 'hsl(' + skin.hue(0, now) + ',80%,72%)' : skin.head;
+      ctx.fillStyle = isGhost ? '#e4d8ff' : dead ? '#ff8a8a' : skin.k === 'rainbow' ? 'hsl(' + skin.hue(0, now) + ',80%,72%)' : skin.head;
       ctx.beginPath(); ctx.arc(hp[0], hp[1], C * 0.47, 0, Math.PI * 2); ctx.fill();
-      var blink = !dead && now % 3600 < 130;
+      var blink = !dead && !isGhost && now % 3600 < 130;
       [-1, 1].forEach(function (s) {
         var ox = ex ? ex * 3.5 : s * 4.5, oy = ex ? s * 4.5 : ey * 3.5;
         if (blink) {
@@ -394,6 +472,19 @@
         ctx.fillStyle = '#0f1a2b';
         ctx.beginPath(); ctx.arc(hp[0] + ox + ex, hp[1] + oy + ey, dead ? 0.8 : 1.6, 0, Math.PI * 2); ctx.fill();
       });
+      if (isGhost) {
+        ctx.globalAlpha = sn.over ? 0.45 : 0.85;
+        ctx.font = 'bold 12px sans-serif';
+        ctx.textAlign = 'center';
+        var label = sn.name + ' ' + sn.score + (sn.over ? '（结束）' : '');
+        var lx = Math.max(60, Math.min(SIZE - 60, hp[0])), ly = hp[1] < 30 ? hp[1] + 26 : hp[1] - 16;
+        ctx.fillStyle = 'rgba(40,20,80,.65)';
+        var tw = ctx.measureText(label).width + 10;
+        ctx.fillRect(lx - tw / 2, ly - 11, tw, 15);
+        ctx.fillStyle = '#e4d8ff';
+        ctx.fillText(label, lx, ly);
+        ctx.globalAlpha = 1;
+      }
     }
     function drawDeath(now) {
       if (!st.death) return;
@@ -434,7 +525,11 @@
       var f = st.over || st.paused || st.still ? 1 : Math.min(1, (now - st.last) / st.iv);
       if (st.food >= 0) drawFood(st.food, now);
       if (st.bonus >= 0) drawBonus(now);
-      drawSnake(f, now);
+      if (ghost) {
+        var gf = ghost.over || st.paused || ghost.still ? 1 : Math.min(1, (now - ghost.last) / ghost.iv);
+        drawSnake(ghost, gf, now, true);
+      }
+      drawSnake(st, f, now, false);
       drawDeath(now);
       drawFx(now);
     }
@@ -469,9 +564,11 @@
       } else {
         st.t0 = performance.now();
         st.still = true;
+        if (ghost) ghost.still = true;
         loop();
       }
       schedule();
+      ghostGo();
     }
     function countdown(done) {
       starting = true;
@@ -502,9 +599,9 @@
         cover.style.display = 'none';
         sum.innerHTML = '';
         $bestbox.classList.remove('gcs-flash');
-        $best.textContent = best == null ? '-' : best;
+        $best.textContent = curBest() == null ? '-' : curBest();
         newGame(info);
-        countdown(function () { st.t0 = performance.now(); schedule(); });
+        countdown(function () { st.t0 = performance.now(); schedule(); ghostGo(); });
       });
     }
     function toggleFull() {

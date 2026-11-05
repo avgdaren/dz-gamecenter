@@ -1,5 +1,13 @@
 # ENVIRONMENT · 本地开发环境（不含任何凭据）
 
+> **2026-11-03 后续修复已完成本轮本地回归：** 严格校验 359 PASS；PDO/mysqli 的 v2 各 126、迁移各 41、池切换各 45 PASS；360px 布局已修。以[修复记录](aquarium/CODEX-FIXES-1.2.0.md)为当前结果。下文首轮失败与更早记录仅保留历史。用户取消真实场景验收；未部署论坛、未改正式玩家数据、未合 main。
+
+## 2026-11-03 接手复核
+
+现有 Discuz X5.0.4.Open Release 20261010 / PHP 8.3.36 / MariaDB 10.11.19 / nginx 1.30.6 已在本机重新读取版本；Node 24.19.0、Python 3.12.10 可用。原仓库/部署目录保持不写，用户确认的独立 clone 为 `E:\GPT工作区\dz-gamecenter-handoff`，分支 `codex/issue-60-aquarium-handoff`。实际配置来源、专用隔离库、工具路径和当前测试失败见 [水族馆接手记录](aquarium/CODEX-HANDOFF-1.2.0.md)。**本文下方部署示例仅供历史参考，本轮没有执行，不代表已获部署授权。**
+
+---
+
 > 只写版本、结构与复现命令。**密码、token、cookie 一律不写在这里。**
 
 ## 一、版本

@@ -1,0 +1,856 @@
+{
+  "schema": "aquarium-art-registry-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "content-art-complete-runtime-exports-ready",
+  "production_ready": false,
+  "asset_root": "source/plugin/gamecenter/games/aquarium/assets/",
+  "decor_slot_count": null,
+  "fish": [
+    {
+      "id": "pond_blue",
+      "name": "晴蓝鱼",
+      "index": 1,
+      "water": "pond",
+      "rarity": "常见",
+      "file": "fish/pond_blue.webp",
+      "thumb": "thumbs/fish/pond_blue.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "pond_orange_tail",
+      "name": "橘尾鱼",
+      "index": 2,
+      "water": "pond",
+      "rarity": "常见",
+      "file": "fish/pond_orange_tail.webp",
+      "thumb": "thumbs/fish/pond_orange_tail.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "pond_leaf",
+      "name": "叶纹鱼",
+      "index": 3,
+      "water": "pond",
+      "rarity": "少见",
+      "file": "fish/pond_leaf.webp",
+      "thumb": "thumbs/fish/pond_leaf.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "pond_peach",
+      "name": "桃心鱼",
+      "index": 4,
+      "water": "pond",
+      "rarity": "少见",
+      "file": "fish/pond_peach.webp",
+      "thumb": "thumbs/fish/pond_peach.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "pond_glass_moon",
+      "name": "玻璃月鱼",
+      "index": 5,
+      "water": "pond",
+      "rarity": "稀有",
+      "file": "fish/pond_glass_moon.webp",
+      "thumb": "thumbs/fish/pond_glass_moon.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "pond_feather",
+      "name": "羽鳍鱼",
+      "index": 6,
+      "water": "pond",
+      "rarity": "珍奇",
+      "file": "fish/pond_feather.webp",
+      "thumb": "thumbs/fish/pond_feather.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "bay_silver",
+      "name": "银沙鱼",
+      "index": 7,
+      "water": "bay",
+      "rarity": "常见",
+      "file": "fish/bay_silver.webp",
+      "thumb": "thumbs/fish/bay_silver.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "bay_coral",
+      "name": "珊瑚鱼",
+      "index": 8,
+      "water": "bay",
+      "rarity": "常见",
+      "file": "fish/bay_coral.webp",
+      "thumb": "thumbs/fish/bay_coral.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "bay_lantern",
+      "name": "灯笼鱼",
+      "index": 9,
+      "water": "bay",
+      "rarity": "少见",
+      "file": "fish/bay_lantern.webp",
+      "thumb": "thumbs/fish/bay_lantern.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "bay_ribbon",
+      "name": "丝带鱼",
+      "index": 10,
+      "water": "bay",
+      "rarity": "少见",
+      "file": "fish/bay_ribbon.webp",
+      "thumb": "thumbs/fish/bay_ribbon.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "bay_star_ray",
+      "name": "星斑鳐",
+      "index": 11,
+      "water": "bay",
+      "rarity": "稀有",
+      "file": "fish/bay_star_ray.webp",
+      "thumb": "thumbs/fish/bay_star_ray.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "bay_aurora",
+      "name": "极光天使鱼",
+      "index": 12,
+      "water": "bay",
+      "rarity": "珍奇",
+      "file": "fish/bay_aurora.webp",
+      "thumb": "thumbs/fish/bay_aurora.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right"
+    }
+  ],
+  "decor": [
+    {
+      "id": "plant_meadow",
+      "name": "晴光水草",
+      "index": 1,
+      "category": "水草",
+      "themes": [
+        "自然"
+      ],
+      "layers": [
+        "back",
+        "front"
+      ],
+      "file": "decor/plant_meadow.webp",
+      "thumb": "thumbs/decor/plant_meadow.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "plant_lily",
+      "name": "睡莲小丛",
+      "index": 2,
+      "category": "水草",
+      "themes": [
+        "自然",
+        "月光"
+      ],
+      "layers": [
+        "front"
+      ],
+      "file": "decor/plant_lily.webp",
+      "thumb": "thumbs/decor/plant_lily.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "plant_ribbon",
+      "name": "飘带长叶",
+      "index": 3,
+      "category": "水草",
+      "themes": [
+        "自然"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/plant_ribbon.webp",
+      "thumb": "thumbs/decor/plant_ribbon.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "plant_crimson",
+      "name": "绯叶水草",
+      "index": 4,
+      "category": "水草",
+      "themes": [
+        "珊瑚",
+        "月光"
+      ],
+      "layers": [
+        "back",
+        "front"
+      ],
+      "file": "decor/plant_crimson.webp",
+      "thumb": "thumbs/decor/plant_crimson.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "plant_fern",
+      "name": "羽叶水蕨",
+      "index": 5,
+      "category": "水草",
+      "themes": [
+        "自然",
+        "遗迹"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/plant_fern.webp",
+      "thumb": "thumbs/decor/plant_fern.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "plant_tide",
+      "name": "星潮海藻",
+      "index": 6,
+      "category": "水草",
+      "themes": [
+        "珊瑚"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/plant_tide.webp",
+      "thumb": "thumbs/decor/plant_tide.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "scape_pebbles",
+      "name": "圆润卵石",
+      "index": 7,
+      "category": "石景",
+      "themes": [
+        "自然"
+      ],
+      "layers": [
+        "front"
+      ],
+      "file": "decor/scape_pebbles.webp",
+      "thumb": "thumbs/decor/scape_pebbles.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "scape_layers",
+      "name": "晴灰层岩",
+      "index": 8,
+      "category": "石景",
+      "themes": [
+        "自然",
+        "遗迹"
+      ],
+      "layers": [
+        "back",
+        "front"
+      ],
+      "file": "decor/scape_layers.webp",
+      "thumb": "thumbs/decor/scape_layers.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "scape_moss",
+      "name": "苔绿山石",
+      "index": 9,
+      "category": "石景",
+      "themes": [
+        "自然",
+        "遗迹"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/scape_moss.webp",
+      "thumb": "thumbs/decor/scape_moss.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "scape_wood",
+      "name": "花枝沉木",
+      "index": 10,
+      "category": "石景",
+      "themes": [
+        "自然",
+        "月光"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/scape_wood.webp",
+      "thumb": "thumbs/decor/scape_wood.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "scape_cave",
+      "name": "静谧岩洞",
+      "index": 11,
+      "category": "石景",
+      "themes": [
+        "自然",
+        "遗迹"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/scape_cave.webp",
+      "thumb": "thumbs/decor/scape_cave.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "scape_coral",
+      "name": "绮色珊瑚",
+      "index": 12,
+      "category": "石景",
+      "themes": [
+        "珊瑚"
+      ],
+      "layers": [
+        "back",
+        "front"
+      ],
+      "file": "decor/scape_coral.webp",
+      "thumb": "thumbs/decor/scape_coral.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "building_bridge",
+      "name": "翼纹小桥",
+      "index": 13,
+      "category": "建筑",
+      "themes": [
+        "自然",
+        "月光"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/building_bridge.webp",
+      "thumb": "thumbs/decor/building_bridge.webp",
+      "target_px": [
+        1024,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "building_pavilion",
+      "name": "潮音凉亭",
+      "index": 14,
+      "category": "建筑",
+      "themes": [
+        "珊瑚",
+        "自然"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/building_pavilion.webp",
+      "thumb": "thumbs/decor/building_pavilion.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "building_moon_gate",
+      "name": "月庭圆门",
+      "index": 15,
+      "category": "建筑",
+      "themes": [
+        "月光"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/building_moon_gate.webp",
+      "thumb": "thumbs/decor/building_moon_gate.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "building_ruin_arch",
+      "name": "星痕拱门",
+      "index": 16,
+      "category": "建筑",
+      "themes": [
+        "遗迹",
+        "月光"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/building_ruin_arch.webp",
+      "thumb": "thumbs/decor/building_ruin_arch.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "building_columns",
+      "name": "沉眠列柱",
+      "index": 17,
+      "category": "建筑",
+      "themes": [
+        "遗迹"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/building_columns.webp",
+      "thumb": "thumbs/decor/building_columns.webp",
+      "target_px": [
+        1024,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "building_angel_gate",
+      "name": "天使庭门",
+      "index": 18,
+      "category": "建筑",
+      "themes": [
+        "月光",
+        "遗迹"
+      ],
+      "layers": [
+        "back"
+      ],
+      "file": "decor/building_angel_gate.webp",
+      "thumb": "thumbs/decor/building_angel_gate.webp",
+      "target_px": [
+        1024,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "trinket_shell",
+      "name": "珍光贝壳",
+      "index": 19,
+      "category": "摆件",
+      "themes": [
+        "珊瑚"
+      ],
+      "layers": [
+        "front"
+      ],
+      "file": "decor/trinket_shell.webp",
+      "thumb": "thumbs/decor/trinket_shell.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "trinket_pearl",
+      "name": "月露珍珠台",
+      "index": 20,
+      "category": "摆件",
+      "themes": [
+        "珊瑚",
+        "月光"
+      ],
+      "layers": [
+        "front"
+      ],
+      "file": "decor/trinket_pearl.webp",
+      "thumb": "thumbs/decor/trinket_pearl.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "trinket_star_lamp",
+      "name": "星辉提灯",
+      "index": 21,
+      "category": "摆件",
+      "themes": [
+        "月光"
+      ],
+      "layers": [
+        "back",
+        "front"
+      ],
+      "file": "decor/trinket_star_lamp.webp",
+      "thumb": "thumbs/decor/trinket_star_lamp.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "trinket_crescent",
+      "name": "弯月小景",
+      "index": 22,
+      "category": "摆件",
+      "themes": [
+        "月光"
+      ],
+      "layers": [
+        "front"
+      ],
+      "file": "decor/trinket_crescent.webp",
+      "thumb": "thumbs/decor/trinket_crescent.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "trinket_crystal",
+      "name": "星晶花簇",
+      "index": 23,
+      "category": "摆件",
+      "themes": [
+        "珊瑚",
+        "月光"
+      ],
+      "layers": [
+        "front"
+      ],
+      "file": "decor/trinket_crystal.webp",
+      "thumb": "thumbs/decor/trinket_crystal.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "id": "trinket_wings",
+      "name": "羽翼纪念像",
+      "index": 24,
+      "category": "摆件",
+      "themes": [
+        "月光",
+        "遗迹"
+      ],
+      "layers": [
+        "front"
+      ],
+      "file": "decor/trinket_wings.webp",
+      "thumb": "thumbs/decor/trinket_wings.webp",
+      "target_px": [
+        512,
+        512
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ]
+    }
+  ],
+  "backgrounds": [
+    {
+      "id": "tank_day",
+      "name": "日光",
+      "index": 1,
+      "desktop": "background/tank_day.webp",
+      "mobile": "background/tank_day_mobile.webp",
+      "desktop_px": [
+        1600,
+        900
+      ],
+      "mobile_px": [
+        960,
+        720
+      ]
+    },
+    {
+      "id": "tank_moon",
+      "name": "月光",
+      "index": 2,
+      "desktop": "background/tank_moon.webp",
+      "mobile": "background/tank_moon_mobile.webp",
+      "desktop_px": [
+        1600,
+        900
+      ],
+      "mobile_px": [
+        960,
+        720
+      ]
+    }
+  ],
+  "water_thumbs": [
+    {
+      "id": "pond",
+      "name": "晴光池塘",
+      "file": "water/pond.webp",
+      "target_px": [
+        480,
+        270
+      ]
+    },
+    {
+      "id": "bay",
+      "name": "星潮浅湾",
+      "file": "water/bay.webp",
+      "target_px": [
+        480,
+        270
+      ]
+    }
+  ],
+  "sample_review": {
+    "date": "2026-10-29",
+    "style_approved_ids": [
+      "pond_blue",
+      "pond_feather",
+      "tank_day",
+      "plant_meadow",
+      "scape_coral",
+      "building_moon_gate",
+      "trinket_star_lamp"
+    ],
+    "awaiting_review_ids": [],
+    "production_exports_approved": false,
+    "diversity_brief": "DIVERSITY-v0.1.md",
+    "exchange_tiers": {
+      "plant_meadow": "cheap",
+      "scape_coral": "cheap",
+      "building_moon_gate": "expensive",
+      "trinket_star_lamp": "expensive"
+    },
+    "exact_coin_prices_approved": false
+  },
+  "runtime_exports_ready": true,
+  "integration_review_pending": true,
+  "runtime_manifest": "source/plugin/gamecenter/games/aquarium/assets/manifest.json",
+  "batch_review": {
+    "new_art_count": 34,
+    "status": "generated-and-technically-checked-not-individually-user-approved"
+  }
+}

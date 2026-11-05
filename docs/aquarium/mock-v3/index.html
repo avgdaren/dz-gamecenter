@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>天使水族馆 · 交互样稿 V3</title>
+<style>
+  :root{ --line:#cfe2ee; --ink:#14394f; --muted:#6e8a9b; --accent:#2f86bd; --accent2:#6fc3e8; }
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 "Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:#eaf4fa}
+  .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 16px;background:#fff;border-bottom:1px solid var(--line)}
+  .bar h1{font-size:15px;margin:0 12px 0 0}
+  .sp{color:var(--muted);font-size:12px}
+  .seg{display:flex;gap:6px;align-items:center}
+  button{font:inherit;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--accent);padding:5px 11px;border-radius:9px}
+  button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .wrap{padding:14px 16px 24px;max-width:1500px;margin:0 auto}
+  .stage{display:flex;gap:14px;align-items:flex-start}
+  body[data-width="phone"] .wrap{max-width:430px}
+  body[data-width="phone"] .stage{flex-direction:column}
+
+  .tank{position:relative;flex:1 1 auto;min-width:0;border-radius:14px;overflow:hidden;background:#bfe0ef;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 10px 26px rgba(20,70,100,.18)}
+  .tank[data-ratio="16:10"]{aspect-ratio:16/10}
+  .tank[data-ratio="4:3"]{aspect-ratio:4/3}
+  body[data-width="phone"] .tank{width:100%}
+  .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+  .layer{position:absolute;inset:0;pointer-events:none}
+  .decor{position:absolute;bottom:0;transform:translateX(-50%);line-height:0;pointer-events:auto;cursor:pointer;
+    transition:left .22s cubic-bezier(.3,.9,.3,1), width .22s cubic-bezier(.3,.9,.3,1)}
+  .decor .din{display:block;transition:filter .15s}
+  .decor img{display:block;width:100%;height:auto}
+  .decor.picked .din{filter:drop-shadow(0 0 10px #ffd97a)}
+  .decor.picked::after{content:'';position:absolute;inset:-6px;border:2px dashed #ffd97a;border-radius:10px;pointer-events:none}
+  .decor.enter .din{animation:decorDrop .5s cubic-bezier(.2,.9,.3,1.15) both}
+  .decor.out .din{animation:decorOut .28s ease both}
+  @keyframes decorDrop{from{transform:translateY(-18px) scale(.86);opacity:0}to{transform:none;opacity:1}}
+  @keyframes decorOut{to{transform:translateY(10px) scale(.9);opacity:0}}
+
+  .fishlayer{position:absolute;inset:0;pointer-events:none}
+  .fish{position:absolute;line-height:0;pointer-events:auto;cursor:pointer;will-change:left,top,transform}
+  .fish img{display:block;width:100%;height:auto;pointer-events:none}
+  .fish .nm{position:absolute;left:50%;top:-20px;transform:translateX(-50%);font-size:11px;color:#fff;
+    background:rgba(12,45,65,.66);padding:1px 8px;border-radius:8px;white-space:nowrap;opacity:0;transition:opacity .15s}
+  .fish:hover .nm{opacity:1}
+  .fish.enter .fin{animation:fishIn .65s cubic-bezier(.2,.85,.3,1) both}
+  .fish.out .fin{animation:fishOut .3s ease both}
+  @keyframes fishIn{from{transform:translateY(26px) scale(.72);opacity:0}60%{opacity:1}to{transform:none;opacity:1}}
+  @keyframes fishOut{to{transform:translateY(18px) scale(.8);opacity:0}}
+  .ripple{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;
+    border:2px solid rgba(255,255,255,.85);animation:rip .8s ease-out forwards;pointer-events:none}
+  @keyframes rip{to{width:120px;height:120px;margin:-60px 0 0 -60px;opacity:0;border-width:1px}}
+
+  .tank-tip{position:absolute;left:10px;top:10px;background:rgba(255,255,255,.9);border-radius:9px;padding:5px 10px;
+    font-size:12px;color:var(--accent)}
+
+  .panel{flex:0 0 230px;display:flex;flex-direction:column;gap:10px}
+  body[data-width="phone"] .panel{flex:1 1 auto;width:100%}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .card h3{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:400}
+  .card .big{font-size:20px;font-variant-numeric:tabular-nums}
+  .water{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+  .arrow{display:block;width:100%;text-align:left;margin-top:6px}
+
+  .lib{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px 16px}
+  .lib-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+  .lib-head h2{font-size:15px;margin:0 10px 0 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+  .item{border:1px solid var(--line);border-radius:10px;background:#fff;padding:6px;text-align:center;cursor:pointer;
+    transition:border-color .15s, box-shadow .15s}
+  .item:hover{border-color:var(--accent2);box-shadow:0 4px 10px rgba(47,134,189,.14)}
+  .item img{max-width:100%;height:56px;object-fit:contain;display:block;margin:0 auto 4px}
+  .item .nm{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .item .st{font-size:10px;color:var(--muted)}
+  .item.locked{opacity:.55}
+  .item.placed{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+  .item.pop{animation:pop .3s ease}
+  @keyframes pop{50%{transform:scale(1.06)}}
+
+  .queue{position:fixed;right:14px;bottom:14px;width:270px;max-height:42vh;overflow:auto;background:#fff;
+    border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(20,60,90,.18);font-size:12px}
+  .queue header{padding:8px 10px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+  .queue ul{list-style:none;margin:0;padding:6px 10px 10px}
+  .queue li{padding:3px 0;display:flex;gap:6px;align-items:baseline}
+  .tag{font-size:10px;padding:0 6px;border-radius:7px;border:1px solid var(--line);color:var(--muted)}
+  .tag.ok{color:#2e8a57;border-color:#b7e0c8;background:#eefaf2}
+  .tag.wait{color:#8a6f2e;border-color:#eddfb4;background:#fdf8e9}
+  .queue .muted{color:var(--muted)}
+</style>
+</head>
+<body data-width="desktop">
+<div class="bar">
+  <h1>天使水族馆 · 交互样稿 V3</h1>
+  <div class="seg"><span class="sp">比例</span>
+    <button data-ratio="16:10" class="on">16:10</button><button data-ratio="4:3">4:3</button></div>
+  <div class="seg"><span class="sp">宽度</span>
+    <button data-width="desktop" class="on">桌面</button><button data-width="phone">390 手机</button></div>
+  <div class="seg"><span class="sp">宽件</span><button id="spanToggle">占 2 格</button></div>
+  <div class="seg"><button id="conflictBtn">制造一次版本冲突</button></div>
+  <div class="seg"><button id="clearBtn">清空鱼缸</button></div>
+</div>
+
+<div class="wrap">
+  <div class="stage">
+    <div class="tank" id="tank" data-ratio="16:10">
+      <img class="bg" src="/source/plugin/gamecenter/games/aquarium/assets/background/tank_day.webp" alt="">
+      <div class="layer" id="backLayer"></div>
+      <div class="fishlayer" id="fishLayer"></div>
+      <div class="layer" id="frontLayer"></div>
+      <div class="tank-tip" id="tankTip">点下方卡片，直接放进鱼缸</div>
+    </div>
+    <aside class="panel">
+      <div class="card"><h3>金币</h3><div class="big">3,761</div></div>
+      <div class="card"><h3>自动钓鱼</h3>
+        <div class="water"><span>晴光池塘</span><span id="countdown">00:47</span></div>
+        <button class="arrow">更换水域 ›</button></div>
+      <div class="card"><h3>离线</h3><span class="sp">最多累计 24 小时</span></div>
+      <div class="card"><h3>图鉴</h3><div class="big" id="bookCount">3 / 12</div></div>
+      <div class="card"><h3>布置</h3><div class="sp" id="placedInfo">鱼 3 · 装饰 3</div></div>
+    </aside>
+  </div>
+
+  <section class="lib">
+    <div class="lib-head"><h2>鱼类图鉴</h2><span class="sp">点一下放进鱼缸，再点收起</span></div>
+    <div class="grid" id="fishGrid"></div>
+    <div class="lib-head" style="margin-top:14px">
+      <h2>装饰库</h2>
+      <div class="seg" id="catChips">
+        <button data-cat="all" class="on">全部</button><button data-cat="plant">水草</button>
+        <button data-cat="scape">石景</button><button data-cat="building">建筑</button><button data-cat="trinket">摆件</button>
+      </div>
+    </div>
+    <div class="grid" id="decorGrid"></div>
+  </section>
+</div>
+
+<div class="queue" id="queue">
+  <header><span>保存队列</span><span class="sp" id="qState">空闲</span></header>
+  <ul id="qList"></ul>
+</div>
+
+<script>
+(() => {
+  const ASSETS = '/source/plugin/gamecenter/games/aquarium/assets/';
+  const FISH = { pond_blue:'晴蓝鱼', pond_orange_tail:'橘尾鱼', pond_leaf:'叶纹鱼',
+    pond_peach:'桃心鱼', pond_glass_moon:'玻璃月鱼', pond_feather:'羽鳍鱼' };
+  const DECOR = {
+    plant_meadow:{name:'晴光水草',cat:'plant',layer:'front',owned:true},
+    plant_lily:{name:'睡莲小丛',cat:'plant',layer:'front',owned:true},
+    plant_ribbon:{name:'飘带长叶',cat:'plant',layer:'front',owned:false},
+    plant_crimson:{name:'绯叶水草',cat:'plant',layer:'front',owned:false},
+    scape_pebbles:{name:'圆润卵石',cat:'scape',layer:'back',owned:true},
+    scape_wood:{name:'花枝沉木',cat:'scape',layer:'back',owned:true},
+    scape_layers:{name:'晴灰层岩',cat:'scape',layer:'back',owned:false},
+    trinket_star_lamp:{name:'星辉提灯',cat:'trinket',layer:'front',owned:true},
+    trinket_shell:{name:'珍光贝壳',cat:'trinket',layer:'front',owned:false},
+    building_bridge:{name:'翼纹小桥',cat:'building',layer:'back',owned:true,wide:true},
+    building_angel_gate:{name:'天使庭门',cat:'building',layer:'back',owned:true,wide:true},
+    building_ruin_arch:{name:'星痕拱门',cat:'building',layer:'back',owned:true,wide:true}
+  };
+  const SCALE = { plant:0.60, scape:0.80, building:1.00, trinket:0.70 };
+
+  const state = {
+    layout:{ fish:['pond_blue','pond_orange_tail','pond_leaf',null,null,null,null,null],
+             decor:{ back:['scape_wood','building_bridge'], front:['trinket_star_lamp'] } },
+    spanWide:false, cat:'all', picked:null, version:41
+  };
+
+  const tank=document.getElementById('tank'), backLayer=document.getElementById('backLayer'),
+        frontLayer=document.getElementById('frontLayer'), fishLayer=document.getElementById('fishLayer'),
+        tip=document.getElementById('tankTip');
+
+  const q=[]; let flushing=false, serverVersion=state.version;
+  const qList=document.getElementById('qList'), qState=document.getElementById('qState');
+  function addOp(label){
+    const li=document.createElement('li');
+    li.innerHTML='<span class="tag wait">排队</span><span>'+label+'</span>';
+    qList.prepend(li); q.push({label,el:li}); flush();
+  }
+  async function flush(){
+    if(flushing) return; flushing=true;
+    while(q.length){
+      const op=q.shift(); qState.textContent='保存中…';
+      await new Promise(r=>setTimeout(r,140));
+      if(serverVersion!==state.version){
+        state.version=serverVersion;
+        op.el.firstChild.className='tag wait'; op.el.firstChild.textContent='重试';
+        await new Promise(r=>setTimeout(r,160));
+      }
+      state.version+=1; serverVersion=state.version;
+      op.el.firstChild.className='tag ok'; op.el.firstChild.textContent='已保存';
+    }
+    flushing=false; qState.textContent='空闲';
+  }
+
+  const decorEls=new Map();
+  const FRONT_X=[72,28,50];
+
+  function pack(list){
+    const items=list.map(id=>({id,span:(state.spanWide&&DECOR[id]&&DECOR[id].wide)?2:1}));
+    const SLOTS=3, BAND=72, used=items.reduce((s,i)=>s+i.span,0)||SLOTS;
+    const base=(SLOTS-Math.min(used,SLOTS))/2;
+    let acc=0;
+    return items.map(it=>{
+      const center=(acc+it.span/2+base)/SLOTS; acc+=it.span;
+      const cat=(DECOR[it.id]||{}).cat||'scape';
+      return { id:it.id, x:Math.min(12+center*BAND,88), width:(BAND/SLOTS)*it.span*(SCALE[cat]||0.8) };
+    });
+  }
+
+  function syncDecor(layer){
+    const host=layer==='back'?backLayer:frontLayer;
+    const wanted=pack(state.layout.decor[layer]);
+
+    for(const [id,el] of decorEls){
+      if(el.dataset.layer!==layer) continue;
+      if(!wanted.some(w=>w.id===id)){
+        el.classList.add('out');
+        const dead=el; setTimeout(()=>dead.remove(),300);
+        decorEls.delete(id);
+      }
+    }
+    wanted.forEach((w,idx)=>{
+      let el=decorEls.get(w.id);
+      if(!el){
+        el=document.createElement('div');
+        el.className='decor enter'; el.dataset.id=w.id; el.dataset.layer=layer;
+        el.innerHTML='<span class="din"><img src="'+ASSETS+'decor/'+w.id+'.webp" alt=""></span>';
+        el.addEventListener('click',()=>pickDecor(w.id));
+        host.appendChild(el);
+        decorEls.set(w.id,el);
+        setTimeout(()=>el.classList.remove('enter'),600);
+      }
+      el.style.left=(layer==='front'?FRONT_X[Math.min(idx,2)]:w.x)+'%';
+      el.style.width=w.width+'%';
+      el.style.zIndex=layer==='back'?'1':'4';
+      el.classList.toggle('picked',state.picked===w.id);
+    });
+    decorEls.forEach((el,key)=>el.classList.toggle('picked',key===state.picked));
+    refreshCounts();
+  }
+
+  function pickDecor(id){
+    const d=DECOR[id]||{name:id};
+    state.picked=state.picked===id?null:id;
+    decorEls.forEach((el,key)=>el.classList.toggle('picked',key===state.picked));
+    tip.textContent=state.picked?'已选中「'+d.name+'」：再点它取消':'点下方卡片，直接放进鱼缸';
+  }
+
+  const fishObjs=new Map();
+  const norm=a=>{while(a>Math.PI)a-=Math.PI*2;while(a<-Math.PI)a+=Math.PI*2;return a;};
+
+  function refreshCounts(){
+    const fish=state.layout.fish.filter(Boolean).length;
+    const dec=state.layout.decor.back.length+state.layout.decor.front.length;
+    document.getElementById('placedInfo').textContent='鱼 '+fish+' · 装饰 '+dec;
+    document.getElementById('bookCount').textContent=fish+' / 12';
+  }
+
+  function syncFish(){
+    const ids=state.layout.fish.filter(Boolean);
+    for(const [id,rec] of fishObjs){
+      if(!ids.includes(id)){
+        rec.el.classList.add('out');
+        const dead=rec.el; setTimeout(()=>dead.remove(),320);
+        fishObjs.delete(id);
+      }
+    }
+    ids.forEach(id=>{
+      if(fishObjs.has(id)) return;
+      const el=document.createElement('div');
+      el.className='fish enter';
+      el.innerHTML='<span class="fin"><img src="'+ASSETS+'fish/'+id+'.webp" alt=""></span><span class="nm">'+(FISH[id]||id)+'</span>';
+      el.style.width='13%'; el.style.maxWidth='170px';
+      fishLayer.appendChild(el);
+      const a0=Math.random()*Math.PI*2;
+      fishObjs.set(id,{ el, nx:0.22+Math.random()*0.5, ny:0.3+Math.random()*0.36,
+        angle:a0, target:a0, speed:26+Math.random()*14, cruise:26+Math.random()*14,
+        pause:0, nextTurn:performance.now()+1200+Math.random()*1800,
+        bob:Math.random()*Math.PI*2, flip:Math.cos(a0)<0?-1:1, tilt:0 });
+      const rip=document.createElement('div'); rip.className='ripple';
+      el.appendChild(rip); setTimeout(()=>rip.remove(),900);
+      setTimeout(()=>el.classList.remove('enter'),700);
+    });
+    refreshCounts();
+  }
+
+  let last=performance.now();
+  function frame(now){
+    const dt=Math.min(0.05,(now-last)/1000); last=now;
+    const r=tank.getBoundingClientRect(), W=r.width, H=r.height;
+    for(const f of fishObjs.values()){
+      if(now>f.nextTurn){
+        f.target=f.angle+(Math.random()-0.5)*1.6;
+        f.cruise=22+Math.random()*26;
+        f.pause=Math.random()<0.18?now+500+Math.random()*1100:0;
+        f.nextTurn=now+1100+Math.random()*2400;
+      }
+      const maxTurn=1.6*dt;
+      const d=norm(f.target-f.angle);
+      f.angle+=Math.max(-maxTurn,Math.min(maxTurn,d));
+      const targetSpeed=now<f.pause?0:f.cruise;
+      f.speed+=(targetSpeed-f.speed)*Math.min(1,dt*1.6);
+
+      const vx=Math.cos(f.angle)*f.speed, vy=Math.sin(f.angle)*f.speed*0.6;
+      f.nx+=vx*dt/W; f.ny+=vy*dt/H;
+      f.bob+=dt*2.4; f.ny+=Math.sin(f.bob)*6*dt/H;
+
+      const mx=0.1, top=0.18, bottom=0.78;
+      if(f.nx<mx){f.nx=mx;f.angle=norm(Math.PI-f.angle);f.target=f.angle;}
+      if(f.nx>1-mx){f.nx=1-mx;f.angle=norm(Math.PI-f.angle);f.target=f.angle;}
+      if(f.ny<top){f.ny=top;f.angle=norm(-f.angle);f.target=f.angle;}
+      if(f.ny>bottom){f.ny=bottom;f.angle=norm(-f.angle);f.target=f.angle;}
+
+      if(Math.cos(f.angle)<-0.22) f.flip=-1;
+      else if(Math.cos(f.angle)>0.22) f.flip=1;
+      const tiltTarget=Math.max(-9,Math.min(9,Math.sin(f.angle)*9*f.flip));
+      f.tilt+=(tiltTarget-f.tilt)*Math.min(1,dt*5);
+
+      f.el.style.left=(f.nx*W)+'px';
+      f.el.style.top=(f.ny*H)+'px';
+      f.el.style.transform='translate(-50%,-50%) rotate('+(f.tilt*f.flip).toFixed(2)+'deg) scaleX('+f.flip+')';
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const fishCards=new Map(), decorCards=new Map();
+
+  function buildFishGrid(){
+    const g=document.getElementById('fishGrid'); g.innerHTML='';
+    Object.keys(FISH).forEach(id=>{
+      const el=document.createElement('div');
+      el.className='item';
+      el.innerHTML='<img src="'+ASSETS+'thumbs/fish/'+id+'.webp" alt=""><div class="nm">'+FISH[id]+'</div><div class="st"></div>';
+      el.addEventListener('click',()=>toggleFish(id));
+      fishCards.set(id,el); g.appendChild(el);
+    });
+    Object.keys(FISH).forEach(updateFishCard);
+  }
+  function updateFishCard(id){
+    const el=fishCards.get(id); if(!el) return;
+    const placed=state.layout.fish.includes(id);
+    el.classList.toggle('placed',placed);
+    el.querySelector('.st').textContent=placed?'已在缸里':'点一下放入';
+  }
+  function toggleFish(id){
+    const el=fishCards.get(id);
+    if(state.layout.fish.includes(id)){
+      state.layout.fish[state.layout.fish.indexOf(id)]=null;
+      addOp('收起鱼 '+FISH[id]);
+      tip.textContent='「'+FISH[id]+'」已收起';
+    }else{
+      const i=state.layout.fish.indexOf(null);
+      if(i<0){ tip.textContent='鱼位满了，先收起一条'; return; }
+      state.layout.fish[i]=id;
+      addOp('放入鱼 '+FISH[id]);
+      tip.textContent='「'+FISH[id]+'」游进第 '+(i+1)+' 位';
+    }
+    if(el){ el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+    syncFish(); updateFishCard(id);
+  }
+
+  function buildDecorGrid(){
+    const g=document.getElementById('decorGrid'); g.innerHTML=''; decorCards.clear();
+    Object.keys(DECOR).forEach(id=>{
+      const d=DECOR[id];
+      const el=document.createElement('div');
+      el.className='item'+(d.owned?'':' locked');
+      el.innerHTML='<img src="'+ASSETS+'thumbs/decor/'+id+'.webp" alt=""><div class="nm">'+d.name+'</div><div class="st"></div>';
+      el.addEventListener('click',()=>toggleDecor(id));
+      decorCards.set(id,el); g.appendChild(el);
+    });
+    applyCat();
+  }
+  function applyCat(){
+    decorCards.forEach((el,id)=>{
+      const d=DECOR[id];
+      const show=state.cat==='all'||d.cat===state.cat;
+      el.style.display=show?'':'none';
+      if(show) updateDecorCard(id);
+    });
+  }
+  function updateDecorCard(id){
+    const el=decorCards.get(id); if(!el) return;
+    const d=DECOR[id], placed=state.layout.decor[d.layer].includes(id);
+    el.classList.toggle('placed',placed);
+    el.classList.toggle('locked',!d.owned);
+    el.querySelector('.st').textContent=placed?'已在缸里':(d.owned?'点一下摆放':'未拥有');
+  }
+  function toggleDecor(id){
+    const d=DECOR[id];
+    if(!d.owned){ tip.textContent='「'+d.name+'」还没拥有'; return; }
+    const list=state.layout.decor[d.layer];
+    if(list.includes(id)){
+      list.splice(list.indexOf(id),1);
+      addOp('收起 '+d.name);
+      if(state.picked===id) state.picked=null;
+      tip.textContent='「'+d.name+'」已收起';
+    }else{
+      if(list.length>=3){ tip.textContent=(d.layer==='back'?'后景':'前景')+'已满 3 件'; return; }
+      list.push(id); addOp('摆放 '+d.name);
+      state.picked=id;
+      tip.textContent='「'+d.name+'」摆好了，再点它可收起';
+    }
+    const el=decorCards.get(id);
+    if(el){ el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+    syncDecor(d.layer); updateDecorCard(id);
+  }
+
+  document.querySelectorAll('[data-ratio]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-ratio]').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    tank.dataset.ratio=b.dataset.ratio;
+  }));
+  document.querySelectorAll('[data-width]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-width]').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    document.body.dataset.width=b.dataset.width;
+  }));
+  document.getElementById('spanToggle').addEventListener('click',e=>{
+    state.spanWide=!state.spanWide;
+    e.currentTarget.classList.toggle('on',state.spanWide);
+    e.currentTarget.textContent=state.spanWide?'普通 1 格':'占 2 格';
+    syncDecor('back'); syncDecor('front');
+  });
+  document.getElementById('conflictBtn').addEventListener('click',()=>{
+    serverVersion=state.version+1;
+    tip.textContent='已在外部改动版本，下一次保存会触发冲突重试';
+  });
+  document.getElementById('clearBtn').addEventListener('click',()=>{
+    state.layout.fish=state.layout.fish.map(()=>null);
+    state.layout.decor.back=[]; state.layout.decor.front=[];
+    state.picked=null; addOp('清空鱼缸');
+    syncFish(); syncDecor('back'); syncDecor('front');
+    Object.keys(FISH).forEach(updateFishCard);
+    Object.keys(DECOR).forEach(updateDecorCard);
+  });
+  document.querySelectorAll('#catChips button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#catChips button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); state.cat=b.dataset.cat; applyCat();
+  }));
+
+  let cd=47;
+  setInterval(()=>{ cd=cd<=0?108:cd-1; document.getElementById('countdown').textContent='00:'+String(cd).padStart(2,'0'); },1000);
+
+  buildFishGrid(); buildDecorGrid();
+  syncFish(); syncDecor('back'); syncDecor('front');
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

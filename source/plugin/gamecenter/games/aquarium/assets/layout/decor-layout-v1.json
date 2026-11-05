@@ -1,0 +1,981 @@
+{
+  "schema": "aquarium-decor-layout-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "new-display-spec-awaiting-composite-and-integration-review",
+  "date": "2026-10-30",
+  "reference_aspect_ratio": [
+    16,
+    10
+  ],
+  "coordinates": "ratios of tank inner viewport; ground_y measured down from top",
+  "width_definition": "visible artwork bounding-box width / viewport width, already includes depth perspective",
+  "depth_bands": {
+    "far": {
+      "ground_y_range": [
+        0.76,
+        0.83
+      ]
+    },
+    "mid": {
+      "ground_y_range": [
+        0.83,
+        0.9
+      ]
+    },
+    "near": {
+      "ground_y_range": [
+        0.9,
+        0.96
+      ]
+    }
+  },
+  "server_layers": [
+    "back",
+    "front"
+  ],
+  "default_ground_movement": "display_defaults_only_no_new_persisted_coordinates",
+  "placement_preferences_are_soft": true,
+  "items": [
+    {
+      "id": "plant_meadow",
+      "name": "晴光水草",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.87,
+      "visible_width_ratio": 0.16,
+      "default_layer": "front",
+      "allowed_layers": [
+        "back",
+        "front"
+      ],
+      "preferred_x": [
+        0.2,
+        0.78
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        84,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_meadow.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "低矮叶簇作中近景过渡；不要铺满底边"
+    },
+    {
+      "id": "plant_lily",
+      "name": "睡莲小丛",
+      "depth_band": "near",
+      "ground_y_ratio": 0.94,
+      "visible_width_ratio": 0.13,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        135,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_lily.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0,
+        "desaturate": false
+      },
+      "note": "圆叶小花保留可读性，作为近景小件"
+    },
+    {
+      "id": "plant_ribbon",
+      "name": "飘带长叶",
+      "depth_band": "far",
+      "ground_y_ratio": 0.79,
+      "visible_width_ratio": 0.045,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.13,
+        0.87
+      ],
+      "placement_preference": "edge_preferred",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        183,
+        31,
+        328,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_ribbon.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.08,
+        "desaturate": false
+      },
+      "note": "细高叶按可见叶宽定尺寸，不按整张方图宽度放大"
+    },
+    {
+      "id": "plant_crimson",
+      "name": "绯叶水草",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.87,
+      "visible_width_ratio": 0.14,
+      "default_layer": "front",
+      "allowed_layers": [
+        "back",
+        "front"
+      ],
+      "preferred_x": [
+        0.28,
+        0.72
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        60,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_crimson.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "红叶为颜色点缀，保留原暖色"
+    },
+    {
+      "id": "plant_fern",
+      "name": "羽叶水蕨",
+      "depth_band": "far",
+      "ground_y_ratio": 0.8,
+      "visible_width_ratio": 0.14,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.18,
+        0.82
+      ],
+      "placement_preference": "edge_preferred",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        63,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_fern.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.08,
+        "desaturate": false
+      },
+      "note": "高叶衬景，优先两侧但不强制成对"
+    },
+    {
+      "id": "plant_tide",
+      "name": "星潮海藻",
+      "depth_band": "far",
+      "ground_y_ratio": 0.8,
+      "visible_width_ratio": 0.15,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.16,
+        0.84
+      ],
+      "placement_preference": "edge_preferred",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        55,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_tide.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.08,
+        "desaturate": false
+      },
+      "note": "枝状海藻放后方两侧，避免挡住中央观鱼区"
+    },
+    {
+      "id": "scape_pebbles",
+      "name": "圆润卵石",
+      "depth_band": "near",
+      "ground_y_ratio": 0.95,
+      "visible_width_ratio": 0.17,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.3,
+        0.72
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        290,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_pebbles.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0,
+        "desaturate": false
+      },
+      "note": "低矮接地石组，不加大成主景"
+    },
+    {
+      "id": "scape_layers",
+      "name": "晴灰层岩",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.86,
+      "visible_width_ratio": 0.23,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back",
+        "front"
+      ],
+      "preferred_x": [
+        0.3,
+        0.7
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        250,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_layers.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "横向台阶，可承担中景底座"
+    },
+    {
+      "id": "scape_moss",
+      "name": "苔绿山石",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.84,
+      "visible_width_ratio": 0.12,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.22,
+        0.78
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        74,
+        31,
+        438,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_moss.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "竖向山石控制高度，按真实可见边界计算"
+    },
+    {
+      "id": "scape_wood",
+      "name": "花枝沉木",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.84,
+      "visible_width_ratio": 0.31,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.35,
+        0.65
+      ],
+      "placement_preference": "center_or_offset",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        217,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_wood.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "低宽沉木保留横向舒展，不按高件缩放"
+    },
+    {
+      "id": "scape_cave",
+      "name": "静谧岩洞",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.84,
+      "visible_width_ratio": 0.26,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.28,
+        0.72
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        190,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_cave.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "自然洞口偏置摆放，入口留出可辨空间"
+    },
+    {
+      "id": "scape_coral",
+      "name": "绮色珊瑚",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.85,
+      "visible_width_ratio": 0.18,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back",
+        "front"
+      ],
+      "preferred_x": [
+        0.24,
+        0.76
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        35,
+        31,
+        477,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_coral.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "珊瑚完整复合景一件，不拆出草木重复计数"
+    },
+    {
+      "id": "building_bridge",
+      "name": "翼纹小桥",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.85,
+      "visible_width_ratio": 0.38,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.5,
+        0.34,
+        0.66
+      ],
+      "placement_preference": "center_or_offset",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        1024,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        136,
+        992,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_bridge.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "小桥靠中景地面；作为主景时避开同宽建筑"
+    },
+    {
+      "id": "building_pavilion",
+      "name": "潮音凉亭",
+      "depth_band": "far",
+      "ground_y_ratio": 0.78,
+      "visible_width_ratio": 0.15,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.3,
+        0.7
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        72,
+        31,
+        440,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_pavilion.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.08,
+        "desaturate": false
+      },
+      "note": "细高凉亭做远景小建筑"
+    },
+    {
+      "id": "building_moon_gate",
+      "name": "月庭圆门",
+      "depth_band": "far",
+      "ground_y_ratio": 0.79,
+      "visible_width_ratio": 0.27,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.5,
+        0.32,
+        0.68
+      ],
+      "placement_preference": "center_or_offset",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        45,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_moon_gate.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.08,
+        "desaturate": false
+      },
+      "note": "圆门可作中央主景，也允许偏置"
+    },
+    {
+      "id": "building_ruin_arch",
+      "name": "星痕拱门",
+      "depth_band": "far",
+      "ground_y_ratio": 0.79,
+      "visible_width_ratio": 0.28,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.3,
+        0.7
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        70,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_ruin_arch.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.08,
+        "desaturate": false
+      },
+      "note": "非对称遗迹保留轮廓，不镜像生成第二件"
+    },
+    {
+      "id": "building_columns",
+      "name": "沉眠列柱",
+      "depth_band": "far",
+      "ground_y_ratio": 0.77,
+      "visible_width_ratio": 0.42,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.5
+      ],
+      "placement_preference": "center_preferred",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        1024,
+        512
+      ],
+      "source_visible_bbox": [
+        109,
+        31,
+        915,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_columns.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.1,
+        "desaturate": false
+      },
+      "note": "素材已含多柱组合，不拆柱、不要求成对摆两件"
+    },
+    {
+      "id": "building_angel_gate",
+      "name": "天使庭门",
+      "depth_band": "far",
+      "ground_y_ratio": 0.78,
+      "visible_width_ratio": 0.43,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.5
+      ],
+      "placement_preference": "center_preferred",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        1024,
+        512
+      ],
+      "source_visible_bbox": [
+        118,
+        31,
+        906,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_angel_gate.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.1,
+        "desaturate": false
+      },
+      "note": "宽门是完整主景，默认居中但不是强制位置"
+    },
+    {
+      "id": "trinket_shell",
+      "name": "珍光贝壳",
+      "depth_band": "near",
+      "ground_y_ratio": 0.94,
+      "visible_width_ratio": 0.1,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.28,
+        0.72
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        39,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_shell.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0,
+        "desaturate": false
+      },
+      "note": "小型贝壳，保留低调前景尺度"
+    },
+    {
+      "id": "trinket_pearl",
+      "name": "月露珍珠台",
+      "depth_band": "near",
+      "ground_y_ratio": 0.93,
+      "visible_width_ratio": 0.11,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.33,
+        0.67
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        95,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_pearl.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0,
+        "desaturate": false
+      },
+      "note": "珍珠台作为近景焦点，不与灯底座重叠"
+    },
+    {
+      "id": "trinket_star_lamp",
+      "name": "星辉提灯",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.87,
+      "visible_width_ratio": 0.09,
+      "default_layer": "front",
+      "allowed_layers": [
+        "back",
+        "front"
+      ],
+      "preferred_x": [
+        0.24,
+        0.76
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        122,
+        31,
+        390,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_star_lamp.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "细高提灯按可见灯宽计算，保持暖金色"
+    },
+    {
+      "id": "trinket_crescent",
+      "name": "弯月小景",
+      "depth_band": "near",
+      "ground_y_ratio": 0.92,
+      "visible_width_ratio": 0.11,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.27,
+        0.73
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        71,
+        31,
+        441,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_crescent.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0,
+        "desaturate": false
+      },
+      "note": "月牙小景可独立陈列，不强制月光背景"
+    },
+    {
+      "id": "trinket_crystal",
+      "name": "星晶花簇",
+      "depth_band": "near",
+      "ground_y_ratio": 0.94,
+      "visible_width_ratio": 0.1,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.28,
+        0.72
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        74,
+        31,
+        438,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_crystal.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0,
+        "desaturate": false
+      },
+      "note": "小晶簇不放大为山石，保留原色"
+    },
+    {
+      "id": "trinket_wings",
+      "name": "羽翼纪念像",
+      "depth_band": "near",
+      "ground_y_ratio": 0.92,
+      "visible_width_ratio": 0.13,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.32,
+        0.68
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        34,
+        31,
+        478,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_wings.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0,
+        "desaturate": false
+      },
+      "note": "羽翼已在一张图内，不拆开成左右两件"
+    }
+  ]
+}
