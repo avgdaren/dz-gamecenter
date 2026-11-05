@@ -1,7 +1,10 @@
-# 水族馆 1.2.2 · 部署口径（2026-11-05 修订）
+# 水族馆 1.2.3 · 部署口径（2026-11-06 修订）
 
 > 起因：Carinoasd 在 PR #67 的审查指出「整目录覆盖会让平台退版」。
 > **旧的 `说明.md` 写「本包整目录替换 `source/plugin/gamecenter/`」，这条对 1.8.x 站点是错的，已作废。**
+>
+> 版本口径：本文档原名 `DEPLOY-1.2.2.md`，内容随 1.2.3 更新。**水族馆当前版本是 1.2.3**；
+> 1.2.2 → 1.2.3 只多了这一轮审查的修正（诊断日志改 `writelog`、CSS 脏选择器、配置入库、删未引用类、`is_writable` 假阴性），玩法无变化。
 
 ---
 
@@ -44,17 +47,31 @@ lib/aquarium*.php               ← 不能直接覆盖，见下
 
 **待定**：以哪边为准。建议以 1.8.x 的 `inspect()` 为外壳，把本分支的 `aquarium_stock` / `migrate` 判定作为内部实现——后台分页已按三态接好，改我们这边成本更低。
 
-**前置**：需要 1.8.1 的 `lib/aquarium.php`、`admincp.inc.php`、`gamecenter.inc.php` 源码。没有它，逐函数合并无从下手。
+**前置**：1.8.1 源码已由 Carinoasd 推到本仓库的 **`platform/1.8.x`** 分支（`50f24ea`，只含 `source/plugin/gamecenter/`，`main` 未动）。本分支需要 rebase 到该分支后再逐函数合并。
 
 ---
 
-## 三、本分支 1.2.2 相对 1.2.1 的内容（合并时别漏）
+## 三、本分支 1.2.3 相对 1.2.1 的内容（合并时别漏）
 
 - PR #61：服务与迁移共用校验、迁移切点固定、手机 360px 鱼缸宽度、干净检出补 v2 配置
 - PR #66：金币到期自动结算、装饰自动排开与左右换序
 - PR #63：诊断日志改用原生 `writelog`（不再写 `data/diag.log`）、建档人数页面兜底刷新
 - 自定义入池音效 `assets/audio/user/sfx_splash_user.{ogg,mp3}`
-- 2026-11-05 修正：`style.css` 脏选择器删除、`ACTIVE_CONFIG` 与 `sale-switch.json` 入库、删除未引用的 `lib/aquarium_scenery.php`
+- 2026-11-05 修正：`style.css` 脏选择器删除、`ACTIVE_CONFIG` 与 `sale-switch.json` 入库、删除未引用的 `lib/aquarium_scenery.php`、`aquarium_stats` 去掉 `is_writable` 假阴性
+
+---
+
+## 三之二、⚠️ 覆盖 `games/aquarium/` 会重置售卖开关
+
+`sale-switch.json` 现在**入库了**（`mode: "off"`）。如果正式站曾被改成 `allowlist` 并加了白名单，下次更新覆盖 `games/aquarium/` 时会**被打回 `off`、名单清空**，而且不会有任何提示。
+
+方向是安全的（回到关闭），但灰度会被打断。**更新前先备份：**
+
+```
+source/plugin/gamecenter/games/aquarium/data/sale-switch.json
+```
+
+或更新后按原样写回。1.8.x 的交付包同样适用。
 
 ---
 
@@ -70,6 +87,15 @@ lib/aquarium*.php               ← 不能直接覆盖，见下
 
 | 项 | 状态 |
 |---|---|
-| 1.4.0 站点整目录覆盖 | 可用（包：`天使水族馆_正式版_1.2.2_20261104.zip`） |
-| 1.8.x 站点合并 | **未完成**，等 1.8.1 源码 |
+| 1.4.0 站点整目录覆盖 | 可用（包：`天使水族馆_正式版_1.2.3_20261105.zip`，SHA-256 `3B7D4EBB…335F8372`） |
+| 1.8.x 站点合并 | **进行中**：源码已由 Carinoasd 推到 `platform/1.8.x`，本分支内容待 rebase 后逐函数合并 |
 | 1.8.x 站的临时处置 | 不要用本包覆盖；先维持现状 |
+
+### 存档检查的分工（2026-11-06 与 Carinoasd 对齐）
+
+以 1.8.x 的 `inspect()` 为外壳（`ok / heal / anomaly`，另加 `other` / `broken` 两种判定），把本分支的 `aquarium_stock` / `migrate` 判定放进内部。**三态语义保持不变：**
+
+- `heal` 只修可安全自动修复的：展示超量、数据列 `config_version` 不符、缺 `inventory_schema`
+- 守恒错误、未知 schema、超出终身上限、装饰容量不合法 → 一律 `anomaly`，转只读
+
+合并时不得让本分支的校验把这些情况降级成 `heal`。
