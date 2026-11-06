@@ -1,0 +1,485 @@
+{
+  "schema": "aquarium-firefly-runtime-candidate-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "status": "inactive-export-candidate-not-installed",
+  "runtime_config_changed": false,
+  "tool": "ffmpeg (Format Factory Revision)version 7.1 Copyright (c) 2000-2024 the FFmpeg developers",
+  "export_method": "FFmpeg crop/16-bit premultiplied Lanczos scale/pad/WebP; originals unchanged; Pillow inspection only",
+  "cutout_limit": "Primary alpha>=16 bbox crops canvas residue; no color decontamination or per-pixel mask retouch; subtle original fringes may remain",
+  "items": [
+    {
+      "id": "building_shell_house",
+      "name": "贝壳小屋",
+      "kind": "building",
+      "source": "docs/aquarium/art/town-v1/mothers/building_shell_house-v02.png",
+      "source_sha256": "59c24608e2df8672bed54d46b5f938c1c5640714adee57f3ae1a12d894f0c53b",
+      "source_crop_bbox": [
+        156,
+        68,
+        1473,
+        902
+      ],
+      "packed_bounds": [
+        172,
+        31,
+        851,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "preview_geometry": {
+        "id": "building_shell_house",
+        "source_size": [
+          1024,
+          512
+        ],
+        "source_visible_bbox": [
+          172,
+          31,
+          851,
+          461
+        ],
+        "anchor": [
+          0.5,
+          0.9
+        ],
+        "visible_width_ratio": 0.21,
+        "ground_y_ratio": 0.91,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "front",
+        "depth_band": "mid",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.34,
+      "review": "candidate-not-owner-approved",
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_shell_house.webp",
+          "target_asset_path": "decor/building_shell_house.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            172,
+            31,
+            851,
+            461
+          ],
+          "bytes": 70816,
+          "sha256": "78156d1db1cfe488036b3b35b0090422bc335d35e5c6bf5fc0c25852aa49d089"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_shell_house.webp",
+          "target_asset_path": "thumbs/decor/building_shell_house.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            21,
+            35,
+            107,
+            90
+          ],
+          "bytes": 8574,
+          "sha256": "d049bbea9be57eed35f56618b51a50ef068389373c76473c3743fa2e0878a082"
+        }
+      ]
+    },
+    {
+      "id": "building_tide_mill",
+      "name": "潮汐风车",
+      "kind": "building",
+      "source": "docs/aquarium/art/town-v1/mothers/building_tide_mill-v02.png",
+      "source_sha256": "8f687ef00280afe6e02f0e3c3c8641f4377b18b57d2db8a7f4f0718e050e92c9",
+      "source_crop_bbox": [
+        217,
+        24,
+        926,
+        1306
+      ],
+      "packed_bounds": [
+        137,
+        31,
+        375,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "preview_geometry": {
+        "id": "building_tide_mill",
+        "source_size": [
+          512,
+          512
+        ],
+        "source_visible_bbox": [
+          137,
+          31,
+          375,
+          461
+        ],
+        "anchor": [
+          0.5,
+          0.9
+        ],
+        "visible_width_ratio": 0.12,
+        "ground_y_ratio": 0.8,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "back",
+        "depth_band": "far",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.12,
+      "review": "candidate-not-owner-approved",
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_tide_mill.webp",
+          "target_asset_path": "decor/building_tide_mill.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            137,
+            31,
+            375,
+            461
+          ],
+          "bytes": 37726,
+          "sha256": "dd6174f50668ebb06f0cd157659112ec83187ebe1e9646d786a595000d7fd13f"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_tide_mill.webp",
+          "target_asset_path": "thumbs/decor/building_tide_mill.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            34,
+            7,
+            94,
+            116
+          ],
+          "bytes": 11330,
+          "sha256": "fce310733e375f48204fe141c17ddedc2b4a3bbf727f682453b934913ca55c56"
+        }
+      ]
+    },
+    {
+      "id": "building_star_clock",
+      "name": "星灯钟楼",
+      "kind": "building",
+      "source": "docs/aquarium/art/town-v1/mothers/building_star_clock-v02.png",
+      "source_sha256": "0985a36c25a03e77f70f06518ddad041ff3bfced299d64dc93a3536ceb7a10eb",
+      "source_crop_bbox": [
+        154,
+        31,
+        818,
+        1551
+      ],
+      "packed_bounds": [
+        162,
+        31,
+        350,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "preview_geometry": {
+        "id": "building_star_clock",
+        "source_size": [
+          512,
+          512
+        ],
+        "source_visible_bbox": [
+          162,
+          31,
+          350,
+          461
+        ],
+        "anchor": [
+          0.5,
+          0.9
+        ],
+        "visible_width_ratio": 0.095,
+        "ground_y_ratio": 0.8,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "back",
+        "depth_band": "far",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.89,
+      "review": "candidate-not-owner-approved",
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_star_clock.webp",
+          "target_asset_path": "decor/building_star_clock.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            162,
+            31,
+            350,
+            461
+          ],
+          "bytes": 31364,
+          "sha256": "7a0a381aa8157464ce78d3a553f00fd094e8e5ea714eee2041f891d55491c5d8"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_star_clock.webp",
+          "target_asset_path": "thumbs/decor/building_star_clock.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            40,
+            8,
+            88,
+            116
+          ],
+          "bytes": 9036,
+          "sha256": "8f23e75aca5cea169975a83484a4c35454c35672ccef6285b127e20bd6b8f44f"
+        }
+      ]
+    },
+    {
+      "id": "building_wreck_cafe",
+      "name": "沉船小馆",
+      "kind": "building",
+      "source": "docs/aquarium/art/town-v1/mothers/building_wreck_cafe-v01.png",
+      "source_sha256": "07b65006dd4cb08e6492cb339e81f99cab83c2f335119fd8a66afa9908a51ae0",
+      "source_crop_bbox": [
+        139,
+        12,
+        1687,
+        810
+      ],
+      "packed_bounds": [
+        95,
+        31,
+        929,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "preview_geometry": {
+        "id": "building_wreck_cafe",
+        "source_size": [
+          1024,
+          512
+        ],
+        "source_visible_bbox": [
+          95,
+          31,
+          929,
+          461
+        ],
+        "anchor": [
+          0.5,
+          0.9
+        ],
+        "visible_width_ratio": 0.27,
+        "ground_y_ratio": 0.91,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "front",
+        "depth_band": "mid",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.66,
+      "review": "candidate-not-owner-approved",
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_wreck_cafe.webp",
+          "target_asset_path": "decor/building_wreck_cafe.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            95,
+            31,
+            929,
+            461
+          ],
+          "bytes": 91384,
+          "sha256": "b45d16aa66ec51523a78a777cc091e88617a6d2a7d0fc4316f7c61d8b7acbd44"
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_wreck_cafe.webp",
+          "target_asset_path": "thumbs/decor/building_wreck_cafe.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha_range": [
+            0,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            11,
+            35,
+            117,
+            90
+          ],
+          "bytes": 10224,
+          "sha256": "68a1d8534fe49ef247184ddc192373cee76f90bfe13afc678f2cef0cb75843aa"
+        }
+      ]
+    },
+    {
+      "id": "tank_firefly_grove",
+      "name": "萤光秘境背景",
+      "kind": "background",
+      "source": "docs/aquarium/art/firefly-v1/mothers/tank_firefly_grove-v01.png",
+      "source_sha256": "3a03ea65936631d580dcbc651f1d8ca6b28a49ccf5e1d7141dc780f4cff51222",
+      "review": "source-visual-owner-approved; exports-awaiting-review",
+      "files": [
+        {
+          "role": "main",
+          "file": "background/tank_firefly_grove.webp",
+          "target_asset_path": "background/tank_firefly_grove.webp",
+          "size": [
+            1536,
+            960
+          ],
+          "mode": "RGB",
+          "alpha_range": [
+            255,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            0,
+            0,
+            1536,
+            960
+          ],
+          "bytes": 158598,
+          "sha256": "d6e6fdeda917a7dc6dc31edddba15878eb7148f3181495f08d4c8326bb440e7e"
+        },
+        {
+          "role": "mobile",
+          "file": "background/tank_firefly_grove_mobile.webp",
+          "target_asset_path": "background/tank_firefly_grove_mobile.webp",
+          "size": [
+            768,
+            480
+          ],
+          "mode": "RGB",
+          "alpha_range": [
+            255,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            0,
+            0,
+            768,
+            480
+          ],
+          "bytes": 56542,
+          "sha256": "858ef9fd5949a1eb1d6224634525571b0f9abeea71eca36790bb170c78e3dae1"
+        },
+        {
+          "role": "thumb",
+          "file": "background/tank_firefly_grove_thumb.webp",
+          "target_asset_path": "background/tank_firefly_grove_thumb.webp",
+          "size": [
+            240,
+            150
+          ],
+          "mode": "RGB",
+          "alpha_range": [
+            255,
+            255
+          ],
+          "visible_bbox_alpha16": [
+            0,
+            0,
+            240,
+            150
+          ],
+          "bytes": 8906,
+          "sha256": "3aae0fa5a19f31f0728f9a13d1bda17a77fd1864290ba629114b1bf90bb03ee0"
+        }
+      ]
+    }
+  ],
+  "files": 11,
+  "bytes": 494500
+}

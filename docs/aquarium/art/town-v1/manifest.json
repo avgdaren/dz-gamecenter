@@ -1,0 +1,312 @@
+{
+  "schema": "aquarium-town-art-candidates-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-11-04",
+  "issue": 68,
+  "baseline": "606e505778da640d82fdd8f6a23bbb5784ab8327",
+  "status": "owner-review-first-mothers-not-runtime-ready",
+  "runtime_config_changed": false,
+  "source_pixels_preserved": true,
+  "building_count": 4,
+  "background_count": 1,
+  "items": [
+    {
+      "id": "building_shell_house",
+      "name": "贝壳小屋",
+      "file": "mothers/building_shell_house-v02.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-dc3f4c4a-d759-4d26-acce-f4cf03238e41.png",
+      "sha256": "59c24608e2df8672bed54d46b5f938c1c5640714adee57f3ae1a12d894f0c53b",
+      "bytes": 1183895,
+      "size": [
+        1634,
+        962
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.559889,
+      "raw_alpha_bbox": [
+        101,
+        35,
+        1568,
+        943
+      ],
+      "primary_component_bbox_alpha16": [
+        156,
+        68,
+        1473,
+        902
+      ],
+      "other_component_pixels_alpha16": 0,
+      "cutout_qc": "first-pass-cleanup; minor alpha fringe remains; final edge cleanup/export pending",
+      "preview_geometry": {
+        "id": "building_shell_house",
+        "source_size": [
+          1634,
+          962
+        ],
+        "source_visible_bbox": [
+          156,
+          68,
+          1473,
+          902
+        ],
+        "anchor": [
+          0.49847001223990206,
+          0.9376299376299376
+        ],
+        "visible_width_ratio": 0.21,
+        "ground_y_ratio": 0.91,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "front",
+        "depth_band": "mid",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.34,
+      "cleanup_passes": 1
+    },
+    {
+      "id": "building_tide_mill",
+      "name": "潮汐风车",
+      "file": "mothers/building_tide_mill-v02.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-42d2cbd5-1643-4a9a-bec6-d25ccc059c1c.png",
+      "sha256": "8f687ef00280afe6e02f0e3c3c8641f4377b18b57d2db8a7f4f0718e050e92c9",
+      "bytes": 972889,
+      "size": [
+        1155,
+        1362
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.672792,
+      "raw_alpha_bbox": [
+        113,
+        17,
+        1100,
+        1338
+      ],
+      "primary_component_bbox_alpha16": [
+        217,
+        24,
+        926,
+        1306
+      ],
+      "other_component_pixels_alpha16": 1,
+      "cutout_qc": "first-pass-cleanup; minor alpha fringe remains; final edge cleanup/export pending",
+      "preview_geometry": {
+        "id": "building_tide_mill",
+        "source_size": [
+          1155,
+          1362
+        ],
+        "source_visible_bbox": [
+          217,
+          24,
+          926,
+          1306
+        ],
+        "anchor": [
+          0.4948051948051948,
+          0.9588839941262849
+        ],
+        "visible_width_ratio": 0.12,
+        "ground_y_ratio": 0.8,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "back",
+        "depth_band": "far",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.12,
+      "cleanup_passes": 1
+    },
+    {
+      "id": "building_star_clock",
+      "name": "星灯钟楼",
+      "file": "mothers/building_star_clock-v02.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-01b49b42-cde5-48e3-8a17-a7d85bddc466.png",
+      "sha256": "0985a36c25a03e77f70f06518ddad041ff3bfced299d64dc93a3536ceb7a10eb",
+      "bytes": 969634,
+      "size": [
+        972,
+        1619
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.66078,
+      "raw_alpha_bbox": [
+        0,
+        28,
+        966,
+        1619
+      ],
+      "primary_component_bbox_alpha16": [
+        154,
+        31,
+        818,
+        1551
+      ],
+      "other_component_pixels_alpha16": 0,
+      "cutout_qc": "first-pass-cleanup; minor alpha fringe remains; final edge cleanup/export pending",
+      "preview_geometry": {
+        "id": "building_star_clock",
+        "source_size": [
+          972,
+          1619
+        ],
+        "source_visible_bbox": [
+          154,
+          31,
+          818,
+          1551
+        ],
+        "anchor": [
+          0.5,
+          0.9579987646695491
+        ],
+        "visible_width_ratio": 0.095,
+        "ground_y_ratio": 0.8,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "back",
+        "depth_band": "far",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.89,
+      "cleanup_passes": 1
+    },
+    {
+      "id": "building_wreck_cafe",
+      "name": "沉船小馆",
+      "file": "mothers/building_wreck_cafe-v01.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-0a3b6008-add3-4bee-a6be-bc2f62eb23ea.png",
+      "sha256": "07b65006dd4cb08e6492cb339e81f99cab83c2f335119fd8a66afa9908a51ae0",
+      "bytes": 1375218,
+      "size": [
+        1859,
+        846
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.51849,
+      "raw_alpha_bbox": [
+        0,
+        1,
+        1759,
+        830
+      ],
+      "primary_component_bbox_alpha16": [
+        139,
+        12,
+        1687,
+        810
+      ],
+      "other_component_pixels_alpha16": 0,
+      "cutout_qc": "original generated alpha; final edge cleanup/export pending",
+      "preview_geometry": {
+        "id": "building_wreck_cafe",
+        "source_size": [
+          1859,
+          846
+        ],
+        "source_visible_bbox": [
+          139,
+          12,
+          1687,
+          810
+        ],
+        "anchor": [
+          0.4911242603550296,
+          0.9574468085106383
+        ],
+        "visible_width_ratio": 0.27,
+        "ground_y_ratio": 0.91,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "front",
+        "depth_band": "mid",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.66,
+      "cleanup_passes": 0
+    },
+    {
+      "id": "tank_warm_tide",
+      "name": "暖潮浅湾",
+      "file": "mothers/tank_warm_tide-v01.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-d1e6584f-a9dc-4307-8d1c-5420a2bc28a0.png",
+      "sha256": "498346d7d9792678799ebd6311e671fa3076121a0990b7e756168deefb757a9b",
+      "bytes": 1685855,
+      "size": [
+        1586,
+        992
+      ],
+      "mode": "RGB",
+      "alpha_range": [
+        255,
+        255
+      ],
+      "aspect_ratio": 1.5987903225806452,
+      "preview_fit": "16:10 object-fit cover; no source pixels changed",
+      "cutout_qc": "opaque environment; no fish, UI or purchasable buildings baked in"
+    }
+  ],
+  "references": [
+    {
+      "file": "references/building_shell_house-v01.png",
+      "source_file": "exec-cd701b76-5706-432f-9b40-125e2a8bca94.png",
+      "role": "preserved generation style or cleanup input; not selected mother",
+      "sha256": "665c8f2282a8cc91bb45cc00e11f1b91aabe792bfa3f287e82e1bd42acd9dec2"
+    },
+    {
+      "file": "references/building_tide_mill-v01.png",
+      "source_file": "exec-5dbe807e-290c-443c-b05a-5c3ffc534849.png",
+      "role": "preserved generation style or cleanup input; not selected mother",
+      "sha256": "ede5ea55715fa80ba04cbf986bc1e56b74bdb65ededaabfa042b04ee35655704"
+    },
+    {
+      "file": "references/building_star_clock-v01.png",
+      "source_file": "exec-d9b86190-c99f-47cd-acf7-5a74a408ccee.png",
+      "role": "preserved generation style or cleanup input; not selected mother",
+      "sha256": "df17e76991a61b3c8f9793101c5c96dd5392e413cb4e954ee7d5702d60f96f3f"
+    }
+  ]
+}

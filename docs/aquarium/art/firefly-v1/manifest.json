@@ -1,0 +1,377 @@
+{
+  "schema": "aquarium-firefly-theme-art-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-11-05",
+  "issue": 68,
+  "baseline": "606e505778da640d82fdd8f6a23bbb5784ab8327",
+  "status": "background-approved-exports-file-qc-passed-buildings-candidate",
+  "source_pixels_preserved": true,
+  "price_proposal": {
+    "coins": 20000,
+    "approved": false,
+    "requires_repricing": false,
+    "previous_theme_only_quote": 20000,
+    "includes": [
+      "tank_firefly_grove",
+      "building_shell_house",
+      "building_tide_mill",
+      "building_star_clock",
+      "building_wreck_cafe"
+    ],
+    "excludes": [
+      "tank_firefly_frame"
+    ],
+    "permanent": true,
+    "production_bonus": 0,
+    "individual_purchase": true,
+    "independent_ownership": true,
+    "cross_theme_mixing": true,
+    "owned_items_credited": true,
+    "discount_policy": "each owned item is credited at its discounted bundle value; no refund of earlier single-item premium",
+    "unlock_proposal": "union of missing-item conditions; full new set requires bay + 10 discoveries",
+    "requires_owner_review": true,
+    "single_total": 25000,
+    "discount_numerator": 4,
+    "discount_denominator": 5,
+    "individual_prices": {
+      "tank_firefly_grove": 12000,
+      "building_shell_house": 1600,
+      "building_tide_mill": 2400,
+      "building_star_clock": 3600,
+      "building_wreck_cafe": 5400
+    },
+    "proposal_file": "commerce-proposal.json",
+    "study_file": "pricing-study.json"
+  },
+  "items": [
+    {
+      "id": "building_shell_house",
+      "name": "贝壳小屋",
+      "file": "../town-v1/mothers/building_shell_house-v02.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-dc3f4c4a-d759-4d26-acce-f4cf03238e41.png",
+      "sha256": "59c24608e2df8672bed54d46b5f938c1c5640714adee57f3ae1a12d894f0c53b",
+      "bytes": 1183895,
+      "size": [
+        1634,
+        962
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.559889,
+      "raw_alpha_bbox": [
+        101,
+        35,
+        1568,
+        943
+      ],
+      "primary_component_bbox_alpha16": [
+        156,
+        68,
+        1473,
+        902
+      ],
+      "other_component_pixels_alpha16": 0,
+      "cutout_qc": "mechanical WebP export, alpha composites and file contracts passed; no color decontamination; owner art review pending",
+      "preview_geometry": {
+        "id": "building_shell_house",
+        "source_size": [
+          1634,
+          962
+        ],
+        "source_visible_bbox": [
+          156,
+          68,
+          1473,
+          902
+        ],
+        "anchor": [
+          0.49847001223990206,
+          0.9376299376299376
+        ],
+        "visible_width_ratio": 0.21,
+        "ground_y_ratio": 0.91,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "front",
+        "depth_band": "mid",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.34,
+      "cleanup_passes": 1,
+      "role": "independent decor; candidate bundle member; mixable across themes"
+    },
+    {
+      "id": "building_tide_mill",
+      "name": "潮汐风车",
+      "file": "../town-v1/mothers/building_tide_mill-v02.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-42d2cbd5-1643-4a9a-bec6-d25ccc059c1c.png",
+      "sha256": "8f687ef00280afe6e02f0e3c3c8641f4377b18b57d2db8a7f4f0718e050e92c9",
+      "bytes": 972889,
+      "size": [
+        1155,
+        1362
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.672792,
+      "raw_alpha_bbox": [
+        113,
+        17,
+        1100,
+        1338
+      ],
+      "primary_component_bbox_alpha16": [
+        217,
+        24,
+        926,
+        1306
+      ],
+      "other_component_pixels_alpha16": 1,
+      "cutout_qc": "mechanical WebP export, alpha composites and file contracts passed; no color decontamination; owner art review pending",
+      "preview_geometry": {
+        "id": "building_tide_mill",
+        "source_size": [
+          1155,
+          1362
+        ],
+        "source_visible_bbox": [
+          217,
+          24,
+          926,
+          1306
+        ],
+        "anchor": [
+          0.4948051948051948,
+          0.9588839941262849
+        ],
+        "visible_width_ratio": 0.12,
+        "ground_y_ratio": 0.8,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "back",
+        "depth_band": "far",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.12,
+      "cleanup_passes": 1,
+      "role": "independent decor; candidate bundle member; mixable across themes"
+    },
+    {
+      "id": "building_star_clock",
+      "name": "星灯钟楼",
+      "file": "../town-v1/mothers/building_star_clock-v02.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-01b49b42-cde5-48e3-8a17-a7d85bddc466.png",
+      "sha256": "0985a36c25a03e77f70f06518ddad041ff3bfced299d64dc93a3536ceb7a10eb",
+      "bytes": 969634,
+      "size": [
+        972,
+        1619
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.66078,
+      "raw_alpha_bbox": [
+        0,
+        28,
+        966,
+        1619
+      ],
+      "primary_component_bbox_alpha16": [
+        154,
+        31,
+        818,
+        1551
+      ],
+      "other_component_pixels_alpha16": 0,
+      "cutout_qc": "mechanical WebP export, alpha composites and file contracts passed; no color decontamination; owner art review pending",
+      "preview_geometry": {
+        "id": "building_star_clock",
+        "source_size": [
+          972,
+          1619
+        ],
+        "source_visible_bbox": [
+          154,
+          31,
+          818,
+          1551
+        ],
+        "anchor": [
+          0.5,
+          0.9579987646695491
+        ],
+        "visible_width_ratio": 0.095,
+        "ground_y_ratio": 0.8,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "back",
+        "depth_band": "far",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.89,
+      "cleanup_passes": 1,
+      "role": "independent decor; candidate bundle member; mixable across themes"
+    },
+    {
+      "id": "building_wreck_cafe",
+      "name": "沉船小馆",
+      "file": "../town-v1/mothers/building_wreck_cafe-v01.png",
+      "status": "art-candidate-awaiting-owner-review",
+      "source_tool": "image_gen.imagegen built-in",
+      "source_file": "exec-0a3b6008-add3-4bee-a6be-bc2f62eb23ea.png",
+      "sha256": "07b65006dd4cb08e6492cb339e81f99cab83c2f335119fd8a66afa9908a51ae0",
+      "bytes": 1375218,
+      "size": [
+        1859,
+        846
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.51849,
+      "raw_alpha_bbox": [
+        0,
+        1,
+        1759,
+        830
+      ],
+      "primary_component_bbox_alpha16": [
+        139,
+        12,
+        1687,
+        810
+      ],
+      "other_component_pixels_alpha16": 0,
+      "cutout_qc": "mechanical WebP export, alpha composites and file contracts passed; no color decontamination; owner art review pending",
+      "preview_geometry": {
+        "id": "building_wreck_cafe",
+        "source_size": [
+          1859,
+          846
+        ],
+        "source_visible_bbox": [
+          139,
+          12,
+          1687,
+          810
+        ],
+        "anchor": [
+          0.4911242603550296,
+          0.9574468085106383
+        ],
+        "visible_width_ratio": 0.27,
+        "ground_y_ratio": 0.91,
+        "preferred_x": [
+          0.25,
+          0.75
+        ],
+        "default_layer": "front",
+        "depth_band": "mid",
+        "atmosphere": {
+          "max_alpha": 0.08
+        }
+      },
+      "recommended_anchor_x": 0.66,
+      "cleanup_passes": 0,
+      "role": "independent decor; candidate bundle member; mixable across themes"
+    },
+    {
+      "id": "tank_firefly_grove",
+      "name": "萤光秘境背景",
+      "file": "mothers/tank_firefly_grove-v01.png",
+      "size": [
+        1586,
+        992
+      ],
+      "bytes": 1977884,
+      "sha256": "3a03ea65936631d580dcbc651f1d8ca6b28a49ccf5e1d7141dc780f4cff51222",
+      "mode": "RGB",
+      "alpha_range": [
+        255,
+        255
+      ],
+      "source_file": "exec-8d50d2b9-03e8-4ce0-aade-439ca839698d.png",
+      "source_tool": "built-in image_gen.imagegen",
+      "status": "owner-approved-source-visual-export-file-qc-passed-not-installed",
+      "visual_approved_date": "2026-11-05"
+    },
+    {
+      "id": "tank_firefly_frame",
+      "name": "藤叶纹缸框与浅金底座",
+      "file": "mothers/tank_firefly_frame-v02.png",
+      "size": [
+        1514,
+        1039
+      ],
+      "bytes": 887072,
+      "sha256": "0af52f6a986ba04af2dbee06e265d5ec640d3b44560826da5efd02850da5b480",
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "source_file": "exec-542e8f21-592f-4039-aa15-802fbd066f33.png",
+      "source_tool": "built-in image_gen.imagegen",
+      "status": "optional-art-candidate-deferred",
+      "aperture_bbox_alpha16": [
+        97,
+        91,
+        1419,
+        872
+      ],
+      "aperture_pixels": 1024461,
+      "core_aperture_alpha_range": [
+        0,
+        1
+      ],
+      "aperture_aspect": 1.6927016645326505,
+      "preview_outer_aspect": 1.3773676830537918,
+      "preview_note": "frame display scaled vertically to keep actual tank aperture 16:10; source PNG unchanged",
+      "quality_note": "first tool cleanup done; neon fringe and tight outer margin still need final export cleanup",
+      "cleanup_input": {
+        "file": "references/tank_firefly_frame-v01.png",
+        "sha256": "550cbc2d8ec456f28638e6664be62aa6d89be6fae6c6189e27504f1d53dccdac"
+      },
+      "included_in_current_bundle": false,
+      "default_visible": false
+    }
+  ],
+  "runtime_candidate": {
+    "manifest": "runtime-candidate/manifest.json",
+    "status": "inactive-export-candidate-not-installed",
+    "files": 11,
+    "bytes": 494500,
+    "file_qc": "qc/asset-check.json",
+    "visual_qc": "VALIDATION.md",
+    "owner_approval": "background source only; four buildings and pricing remain candidates"
+  }
+}

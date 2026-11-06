@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "cases": [
+    "nonempty",
+    "plugin-runtime",
+    "detached-no-fallback"
+  ],
+  "runtime_path_not_created": true,
+  "detached_output_not_created": true
+}

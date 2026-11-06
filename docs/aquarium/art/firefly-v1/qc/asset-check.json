@@ -1,0 +1,183 @@
+{
+  "status": "PASS",
+  "scope": "file contracts and opaque alpha composites; not owner approval or runtime forum testing",
+  "files": 11,
+  "bytes": 494500,
+  "source_png_hashes_unchanged": 6,
+  "approved_background_sha256": "3a03ea65936631d580dcbc651f1d8ca6b28a49ccf5e1d7141dc780f4cff51222",
+  "independent_rerun_byte_identical": true,
+  "composite_backgrounds": [
+    "#f7f5ed",
+    "#183b53"
+  ],
+  "main_anchor": [
+    0.5,
+    0.9
+  ],
+  "main_foot_tolerance_px": 1,
+  "results": [
+    {
+      "file": "decor/building_shell_house.webp",
+      "sha256": "78156d1db1cfe488036b3b35b0090422bc335d35e5c6bf5fc0c25852aa49d089",
+      "bytes": 70816,
+      "size": [
+        1024,
+        512
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 340078,
+      "transparent_pixels_with_nonzero_rgb": 17388,
+      "foot_error_px": 0.19999999999998863
+    },
+    {
+      "file": "thumbs/decor/building_shell_house.webp",
+      "sha256": "d049bbea9be57eed35f56618b51a50ef068389373c76473c3743fa2e0878a082",
+      "bytes": 8574,
+      "size": [
+        128,
+        128
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 13190,
+      "transparent_pixels_with_nonzero_rgb": 1096
+    },
+    {
+      "file": "decor/building_tide_mill.webp",
+      "sha256": "dd6174f50668ebb06f0cd157659112ec83187ebe1e9646d786a595000d7fd13f",
+      "bytes": 37726,
+      "size": [
+        512,
+        512
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 203922,
+      "transparent_pixels_with_nonzero_rgb": 20258,
+      "foot_error_px": 0.19999999999998863
+    },
+    {
+      "file": "thumbs/decor/building_tide_mill.webp",
+      "sha256": "fce310733e375f48204fe141c17ddedc2b4a3bbf727f682453b934913ca55c56",
+      "bytes": 11330,
+      "size": [
+        128,
+        128
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 12356,
+      "transparent_pixels_with_nonzero_rgb": 4722
+    },
+    {
+      "file": "decor/building_star_clock.webp",
+      "sha256": "7a0a381aa8157464ce78d3a553f00fd094e8e5ea714eee2041f891d55491c5d8",
+      "bytes": 31364,
+      "size": [
+        512,
+        512
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 218669,
+      "transparent_pixels_with_nonzero_rgb": 15842,
+      "foot_error_px": 0.19999999999998863
+    },
+    {
+      "file": "thumbs/decor/building_star_clock.webp",
+      "sha256": "8f23e75aca5cea169975a83484a4c35454c35672ccef6285b127e20bd6b8f44f",
+      "bytes": 9036,
+      "size": [
+        128,
+        128
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 13311,
+      "transparent_pixels_with_nonzero_rgb": 4719
+    },
+    {
+      "file": "decor/building_wreck_cafe.webp",
+      "sha256": "b45d16aa66ec51523a78a777cc091e88617a6d2a7d0fc4316f7c61d8b7acbd44",
+      "bytes": 91384,
+      "size": [
+        1024,
+        512
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 304263,
+      "transparent_pixels_with_nonzero_rgb": 26080,
+      "foot_error_px": 0.19999999999998863
+    },
+    {
+      "file": "thumbs/decor/building_wreck_cafe.webp",
+      "sha256": "68a1d8534fe49ef247184ddc192373cee76f90bfe13afc678f2cef0cb75843aa",
+      "bytes": 10224,
+      "size": [
+        128,
+        128
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 12566,
+      "transparent_pixels_with_nonzero_rgb": 1419
+    },
+    {
+      "file": "background/tank_firefly_grove.webp",
+      "sha256": "d6e6fdeda917a7dc6dc31edddba15878eb7148f3181495f08d4c8326bb440e7e",
+      "bytes": 158598,
+      "size": [
+        1536,
+        960
+      ],
+      "alpha_range": [
+        255,
+        255
+      ]
+    },
+    {
+      "file": "background/tank_firefly_grove_mobile.webp",
+      "sha256": "858ef9fd5949a1eb1d6224634525571b0f9abeea71eca36790bb170c78e3dae1",
+      "bytes": 56542,
+      "size": [
+        768,
+        480
+      ],
+      "alpha_range": [
+        255,
+        255
+      ]
+    },
+    {
+      "file": "background/tank_firefly_grove_thumb.webp",
+      "sha256": "3aae0fa5a19f31f0728f9a13d1bda17a77fd1864290ba629114b1bf90bb03ee0",
+      "bytes": 8906,
+      "size": [
+        240,
+        150
+      ],
+      "alpha_range": [
+        255,
+        255
+      ]
+    }
+  ]
+}

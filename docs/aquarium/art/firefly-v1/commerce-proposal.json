@@ -1,0 +1,72 @@
+{
+  "schema": "aquarium-firefly-commerce-proposal-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-11-05",
+  "status": "proposal-not-approved-not-active",
+  "items": [
+    {
+      "id": "tank_firefly_grove",
+      "name": "萤光秘境背景",
+      "coins": 12000,
+      "requires": {
+        "water": "bay",
+        "discovered": 8
+      }
+    },
+    {
+      "id": "building_shell_house",
+      "name": "贝壳小屋",
+      "coins": 1600,
+      "requires": {
+        "pond_discovered": 4
+      }
+    },
+    {
+      "id": "building_tide_mill",
+      "name": "潮汐风车",
+      "coins": 2400,
+      "requires": {
+        "water": "bay"
+      }
+    },
+    {
+      "id": "building_star_clock",
+      "name": "星灯钟楼",
+      "coins": 3600,
+      "requires": {
+        "water": "bay",
+        "discovered": 8
+      }
+    },
+    {
+      "id": "building_wreck_cafe",
+      "name": "沉船小馆",
+      "coins": 5400,
+      "requires": {
+        "water": "bay",
+        "discovered": 10
+      }
+    }
+  ],
+  "bundle": {
+    "id": "bundle_firefly_town",
+    "name": "萤光秘境主题套装",
+    "members": [
+      "tank_firefly_grove",
+      "building_shell_house",
+      "building_tide_mill",
+      "building_star_clock",
+      "building_wreck_cafe"
+    ],
+    "discount_numerator": 4,
+    "discount_denominator": 5,
+    "missing_only": true,
+    "credit_basis": "each owned item is credited at its discounted bundle value; no refund of earlier single-item premium",
+    "requires": "union of missing-item conditions; full new set requires bay + 10 discoveries",
+    "frame_included": false,
+    "independent_ownership": true,
+    "cross_theme_mixing": true,
+    "production_bonus": 0
+  },
+  "scope": "quote arithmetic and income-equivalent study only; not a purchase API or live price configuration"
+}
