@@ -12,7 +12,11 @@
     "selected_png_masters": 18,
     "presets": 4,
     "existing_background_webp_exports": 3,
-    "concept_previews": 1
+    "concept_previews": 1,
+    "swim_species": 3,
+    "swim_keyframes": 12,
+    "swim_atlases": 3,
+    "loop_previews": 6
   },
   "creatures": [
     {
@@ -22,10 +26,11 @@
       "file": "masters/creatures/qingya-turtle-v01.png",
       "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/qingya-turtle-v01.png",
       "selection": "owner-approved-static-art",
-      "animation": "not-produced",
+      "animation": "first-four-frame-motion-candidate-generated",
       "runtime_fish_id": null,
       "runtime_export": "not-produced",
-      "motion_direction": "前鳍交替划水，壳体稳定，身体缓缓滑行"
+      "motion_direction": "前鳍交替划水，壳体稳定，身体缓缓滑行",
+      "motion_manifest": "motion/v1/manifest.json"
     },
     {
       "art_id": "creature_qixia_guppy",
@@ -34,10 +39,11 @@
       "file": "masters/creatures/qixia-guppy-v01.png",
       "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/qixia-guppy-v01.png",
       "selection": "owner-approved-static-art",
-      "animation": "not-produced",
+      "animation": "first-four-frame-motion-candidate-generated",
       "runtime_fish_id": null,
       "runtime_export": "not-produced",
-      "motion_direction": "大扇尾低幅摆动，胸鳍轻划，皇冠随头部整体运动"
+      "motion_direction": "大扇尾低幅摆动，胸鳍轻划，皇冠随头部整体运动",
+      "motion_manifest": "motion/v1/manifest.json"
     },
     {
       "art_id": "creature_shanlan_butterfly",
@@ -46,10 +52,11 @@
       "file": "masters/creatures/shanlan-butterfly-v03.png",
       "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/butterfly-coralwave-v03.png",
       "selection": "owner-approved-static-art",
-      "animation": "not-produced",
+      "animation": "first-four-frame-motion-candidate-generated",
       "runtime_fish_id": null,
       "runtime_export": "not-produced",
-      "motion_direction": "胸鳍轻划、小尾摆动，背腹鳍边缘轻微起伏，平稳巡游"
+      "motion_direction": "胸鳍轻划、小尾摆动，背腹鳍边缘轻微起伏，平稳巡游",
+      "motion_manifest": "motion/v1/manifest.json"
     }
   ],
   "background": {
@@ -244,11 +251,25 @@
     "已更新的卷尾海马、铃伞水母、软糖章鱼、月汐人鱼（不是本版新增）"
   ],
   "delivery_limits": [
-    "三种生物只有已选静态母图，游动动画尚未制作",
+    "三种生物首轮四帧游动候选已生成，待观看反馈与运行接入",
     "三种生物和14件布景的正式WebP/图鉴图标/剪影与统一锚点尚未在本包生成",
     "背景附带既有WebP/手机版/缩略图，仅原样复制，未重新编码或重新核验",
     "四组预设是交接数据，尚未接入游戏菜单；每层最多3件的口径不变",
     "主题效果图是历史概念合成，不是游戏截图或运行背景",
-    "本次仅整理与复制选用稿，未重跑美术、浏览器或游戏内核验"
-  ]
+    "原静态母图未重跑核验；本次仅确认新增游动图集尺寸和帧数、查看新帧拼合图，未做浏览器或游戏内验收"
+  ],
+  "motion": {
+    "status": "first-candidate-not-installed",
+    "manifest": "motion/v1/manifest.json",
+    "preview": "motion/v1/preview.html",
+    "guide": "motion/v1/README.md",
+    "frame_size": [
+      256,
+      256
+    ],
+    "grid": [
+      4,
+      1
+    ]
+  }
 }
