@@ -1,0 +1,36 @@
+{
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "date": "2026-11-06",
+  "tool": "built-in image_gen.imagegen",
+  "intent": "14-item diverse themed aquarium concept composite; not a runtime screenshot",
+  "prompt": "Use case: compositing.\nAsset type: ONE polished landscape concept effect image of a complete Firefly Grove aquarium theme, approximately 16:10. NO text, labels, cards or interface.\nImage 1 is the owner-approved underwater forest BACKGROUND / edit target. Preserve its emerald submerged spring, soft mint upper-left light and caustics, distant green depth, dark root banks at far left/right, lavender edge flowers and mossy riverstone floor as closely as possible. Keep the same composition and underwater setting. Do not turn it into dry woodland or another background.\nImage 2 is an OPAQUE REVIEW CATALOG used as a multi-object DESIGN REFERENCE ONLY, NOT a panel to paste into the scene. Its 14 objects in reading order are:\nrow 1: Glowroot Cottage, waterwheel workshop, UNCOVERED stone bridge, OPEN root arch gateway;\nrow 2: open stone/root seedpod beacon POST, fern clump, lavender bellflower clump, ribbon aquatic plant;\nrow 3: curved five-stone path unit, three-stone mossy rock group, honey-quartz cluster, low seedpod ground lantern;\nrow 4: uncovered rootwood bench, blank two-pointer wooden signpost.\nUse each of these fourteen separate object designs ONCE. NEVER copy the catalog grid, paper backgrounds, labels, words, cell borders or typography into the finished scene.\nImages 3, 4 and 5 supply higher-detail transparent supporting inserts for the cottage, waterwheel workshop and uncovered stone bridge respectively. Preserve those exact principal subjects and use the catalog for the remaining objects' identities and silhouettes.\nAll fourteen decorations are independently owned pieces in the art plan. The gateway has no roof, wall or door; the beacon has no lantern room or shelter; the bench is uncovered. The bridge has a genuine open arch gap. The pointer boards have BLANK wood grain with no writing.\nThe user rejected a set of similar roofed buildings. In this composition there must be EXACTLY TWO roofed buildings (the cottage and waterwheel workshop). The stone bridge, root gate, beacon post and bench are all uncovered. Do NOT bring back the previous roofed lookout tower or roofed pavilion. No extra houses, mini buildings, roofs added to props, duplicate cottage, or merging all structures into one.\nCreate a coherent, natural woodland aquarium GARDEN HAMLET with a hierarchy: two modest architectural anchors, three open landscape structures, and NINE ordinary small decor accents. Common gray-green stone, old root wood, sage/olive moss, lavender flowers and tiny amber lights. Keep their painted material language, not plastic/isometric/photorealistic.\nComposition guide: cottage in the left foreground, center x about .26, feet y about .90, width about .23 of scene. Waterwheel workshop on right back edge, center x about .83, feet y about .79, width about .17. Root gateway at left back edge around x .12, feet y .77, width .12. Low stone bridge in lower middle-right around x .54, feet y .91, width .20; keep its open arch gap readable and do not invent a large river cutout under it. Slender beacon on the far right lower edge around x .94, feet y .90, width .05.\nAll NINE ordinary decorations must remain MUCH SMALLER than the buildings. Put the fern near left foreground roots; ribbon plant just behind a lower edge of the bridge; bellflowers near right foreground. Place the small rock group near the workshop and a modest honey-quartz cluster in a lower-right garden nook. A subtle chain of five small stepping stones connects gate/cottage toward the bridge approach on the existing mossy floor, no giant paved plaza. The bench sits in the lower-right clearing, away from the root gate so they do not combine into another pavilion. The ground lantern is a tiny accent by the cottage path; the blank pointer sign is a small marker near the gateway. Prop widths around .025–.08 of full scene, bench up to .10; no giant crystals, lamp or sign.\nPreserve a broad quiet CENTRAL SWIMMING AREA x=.25–.76, y=.12–.65. Keep water and depth clearly visible above and between objects; ordinary decor supplies small foreground richness, not a dense wall of vegetation or an all-over village.\nMatch green underwater bounce light, local contact shadows and perspective. Warm amber light is confined to windows, seedpods and restrained quartz, not a global glowing haze. Do not paint matte rectangles, white fog, neon edge residue, black/olive transparent RGB backgrounds or detached debris from the cutouts.\nNo fish, people, animals, captions, words, prices, signs with writing, logos, UI, tank frame, ornamental border, collage or split panels. One full opaque cohesive concept scene. This is an art proposal, not a screenshot of implemented gameplay.",
+  "transparent_background": false,
+  "inputs": [
+    {
+      "file": "../firefly-v1/mothers/tank_firefly_grove-v01.png",
+      "role": "approved background edit target; original file preserved"
+    },
+    {
+      "file": "qc/catalog-light-v01.png",
+      "role": "review-only 14-item design reference; labels and grid must not appear in scene"
+    },
+    {
+      "file": "../firefly-v2/mothers/building_glowroot_cottage-v01.png",
+      "role": "high-detail cottage insert"
+    },
+    {
+      "file": "../firefly-v2/mothers/building_mosswheel_mill-v01.png",
+      "role": "high-detail waterwheel workshop insert"
+    },
+    {
+      "file": "mothers/building_mossstone_bridge-v01.png",
+      "role": "high-detail uncovered bridge insert"
+    }
+  ],
+  "source_tool_file": "exec-8e13cfdd-7ba9-4e68-840f-b1518f6757e6.png",
+  "saved_file": "previews/firefly-complete-theme-context-v01.png",
+  "limits": [
+    "Concept composition based on a 14-item review board and three high-detail inserts",
+    "Does not prove exact per-item transforms, source pixel identity or game capacity"
+  ]
+}

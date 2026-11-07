@@ -1,0 +1,35 @@
+{
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "date": "2026-11-06",
+  "tool": "built-in image_gen.imagegen",
+  "reference": "../firefly-v2/mothers/building_glowroot_cottage-v01.png",
+  "prompts": [
+    {
+      "id": "scape_moss_step_path",
+      "name": "曲苔石径",
+      "type": "ground_decor",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: one compact GENTLY CURVING STEPPING-STONE PATH UNIT comprising five broad flat worn gray-green stones in a shallow S curve. A little olive moss clings to their edges, but the gaps between the five stones are fully transparent. Show the upper stone surfaces with only mild perspective suitable for an aquarium floor. Each stone remains part of this one grouped decor unit. No road rectangle, terrain, dirt, grass carpet, house, railing or plants around the unit.",
+      "transparent_background": true,
+      "source_tool_file": "exec-3d860724-8540-4123-8223-ea985fe69d16.png",
+      "saved_file": "mothers/scape_moss_step_path-v01.png"
+    },
+    {
+      "id": "scape_riverstone_cluster",
+      "name": "青苔叠石",
+      "type": "ground_decor",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: one small natural RIVERSTONE GROUP: three smooth irregular gray-green stones, one larger rounded upright stone and two lower leaning stones, with quiet olive moss patches in creases and one tiny attached fern sprig. A simple grounded asymmetric rock silhouette, not a building, sculpture, grotto with a doorway or huge mountain. No crystal, lamp, grass carpet or broad ground island.",
+      "transparent_background": true,
+      "source_tool_file": "exec-16b92e65-6457-48b2-a877-3b60454b057b.png",
+      "saved_file": "mothers/scape_riverstone_cluster-v01.png"
+    },
+    {
+      "id": "trinket_honeyquartz_cluster",
+      "name": "蜜晶石簇",
+      "type": "small_prop",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: a modest cluster of THREE SHORT HONEY-QUARTZ CRYSTALS emerging from a small irregular gray-green mossy rock. The crystals are translucent muted honey/champagne with broad hand-painted facets, not saturated orange or metallic gold. The center crystal is slightly taller than the two side crystals, with a very restrained warm internal light and NO glow halo or sparkles. A compact small aquarium keepsake, not a huge magical monument, arch or house.",
+      "transparent_background": true,
+      "source_tool_file": "exec-d6789c05-a46c-45a2-ad9d-4298d7f82119.png",
+      "saved_file": "mothers/trinket_honeyquartz_cluster-v01.png"
+    }
+  ]
+}
