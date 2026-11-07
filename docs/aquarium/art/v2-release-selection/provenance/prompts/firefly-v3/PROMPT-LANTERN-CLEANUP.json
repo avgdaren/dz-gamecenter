@@ -1,0 +1,12 @@
+{
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "date": "2026-11-06",
+  "tool": "built-in image_gen.imagegen",
+  "id": "trinket_glowseed_lantern",
+  "reason": "v01 contained nontransparent white fog touching canvas top and sides",
+  "input": "mothers/trinket_glowseed_lantern-v01.png",
+  "prompt": "Use case: background-extraction.\nEdit target: the one low seedpod ground lantern in the input image. Keep its exact shape, central amber seedpod, curved root cradle, leaves, two lavender bells, gray-green stone foot, materials and hand-painted style. Do NOT redesign, enlarge or duplicate it.\nRemove ONLY all surrounding white/gray/olive haze, fog, background wash, exterior glow and stray debris outside the actual physical lantern silhouette. The large WHITE AREA across the upper half is an unwanted background and must become 100% transparent (alpha=0). All four canvas edges and at least 8% margin must be completely transparent. No colored or white matte anywhere.\nThe actual physical seedpod, wood, leaves, bell flowers and stone base stay solid and intact; amber luminosity stays confined INSIDE the seedpod. No haze or glow outside the object, including above the top leaf, to the sides or under the base. Retain natural fine anti-aliased silhouette edges, not a hard clipped rectangle.\nReturn exactly ONE clean standalone RGBA cutout on actual transparency, no scene, checkerboard painted into pixels, white/black background, text or new elements. This is a precise cutout cleanup, not a new concept.",
+  "transparent_background": true,
+  "source_tool_file": "exec-4d8f4e8e-5a95-42b5-a0aa-8056605a8530.png",
+  "saved_file": "mothers/trinket_glowseed_lantern-v02.png"
+}

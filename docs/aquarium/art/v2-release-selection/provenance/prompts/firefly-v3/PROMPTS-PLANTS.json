@@ -1,0 +1,35 @@
+{
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "date": "2026-11-06",
+  "tool": "built-in image_gen.imagegen",
+  "reference": "../firefly-v2/mothers/building_glowroot_cottage-v01.png",
+  "prompts": [
+    {
+      "id": "plant_spring_fern",
+      "name": "林泉蕨丛",
+      "type": "plant",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: a small lush clump of six or seven elegant curving FERN FRONDS, with alternating readable sage/olive leaflets and brighter fresh tips, rising from one tiny connected root crown. Low fan-shaped silhouette, fuller at the sides, not a tall tree. Painterly forest-spring vegetation with a slightly submerged softness. NO pot, stone pedestal, flowers, lantern, wooden planks or house parts. Let the open gaps between fronds be transparent.",
+      "transparent_background": true,
+      "source_tool_file": "exec-3d408455-ee4d-4dfb-9f65-2e10bfa75a65.png",
+      "saved_file": "mothers/plant_spring_fern-v01.png"
+    },
+    {
+      "id": "plant_lavender_bells",
+      "name": "铃花小簇",
+      "type": "plant",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: one graceful LAVENDER BELLFLOWER CLUMP, three thin curving stems with six to nine downward-hanging pale lavender bell blossoms, a few oval sage leaves and one small connected root crown. An airy asymmetric floral silhouette. Match the small bell flowers of the reference, but this is a separate standalone plant clump. No pot, vase, tree arch, house, sign or lantern. Leave transparent space among stems.",
+      "transparent_background": true,
+      "source_tool_file": "exec-9e2c5115-d18f-4e05-b448-b74806b42b39.png",
+      "saved_file": "mothers/plant_lavender_bells-v01.png"
+    },
+    {
+      "id": "plant_fineleaf_ribbon",
+      "name": "碧带水草",
+      "type": "plant",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: one soft underwater RIBBON-LEAF AQUATIC PLANT clump, with seven or eight long narrow gently curling emerald/sage leaves rising from a compact root knot. Leaves have clear large flowing arcs and mild upper-left mint highlights; a slender swaying silhouette distinctly different from fern leaflets or bellflowers. Do not turn it into a vine arch, tree, coral, mushroom or flowering bush. No pot or enclosing rock island.",
+      "transparent_background": true,
+      "source_tool_file": "exec-ec6c5aad-bd9f-4b3b-8b3f-59468c48f49a.png",
+      "saved_file": "mothers/plant_fineleaf_ribbon-v01.png"
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "schema": "aquarium-v2-selected-art-v1",
+  "date": "2026-11-08",
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "selection_status": "next-version-art-scope-selected-by-owner",
+  "runtime_ready": false,
+  "scope_note": "本包锁定下版美术范围；不修改游戏代码、捕获/商品配置或存档，不启用售卖系统。",
+  "counts": {
+    "creatures": 3,
+    "backgrounds": 1,
+    "decor": 14,
+    "selected_png_masters": 18,
+    "presets": 4,
+    "existing_background_webp_exports": 3,
+    "concept_previews": 1,
+    "swim_species": 3,
+    "swim_keyframes": 12,
+    "swim_atlases": 3,
+    "loop_previews": 6
+  },
+  "creatures": [
+    {
+      "art_id": "creature_qingya_turtle",
+      "name": "青芽海龟",
+      "kind": "creature",
+      "file": "masters/creatures/qingya-turtle-v01.png",
+      "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/qingya-turtle-v01.png",
+      "selection": "owner-approved-static-art",
+      "animation": "first-four-frame-motion-candidate-generated",
+      "runtime_fish_id": null,
+      "runtime_export": "not-produced",
+      "motion_direction": "前鳍交替划水，壳体稳定，身体缓缓滑行",
+      "motion_manifest": "motion/v1/manifest.json"
+    },
+    {
+      "art_id": "creature_qixia_guppy",
+      "name": "绮霞古比",
+      "kind": "creature",
+      "file": "masters/creatures/qixia-guppy-v01.png",
+      "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/qixia-guppy-v01.png",
+      "selection": "owner-approved-static-art",
+      "animation": "first-four-frame-motion-candidate-generated",
+      "runtime_fish_id": null,
+      "runtime_export": "not-produced",
+      "motion_direction": "大扇尾低幅摆动，胸鳍轻划，皇冠随头部整体运动",
+      "motion_manifest": "motion/v1/manifest.json"
+    },
+    {
+      "art_id": "creature_shanlan_butterfly",
+      "name": "珊澜蝶鱼",
+      "kind": "creature",
+      "file": "masters/creatures/shanlan-butterfly-v03.png",
+      "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/butterfly-coralwave-v03.png",
+      "selection": "owner-approved-static-art",
+      "animation": "first-four-frame-motion-candidate-generated",
+      "runtime_fish_id": null,
+      "runtime_export": "not-produced",
+      "motion_direction": "胸鳍轻划、小尾摆动，背腹鳍边缘轻微起伏，平稳巡游",
+      "motion_manifest": "motion/v1/manifest.json"
+    }
+  ],
+  "background": {
+    "art_id": "tank_firefly_grove",
+    "name": "萤光秘境",
+    "kind": "background",
+    "file": "masters/backgrounds/tank_firefly_grove-v01.png",
+    "source_repository_path": "docs/aquarium/art/firefly-v1/mothers/tank_firefly_grove-v01.png",
+    "selection": "approved-background-preserved",
+    "runtime_exports": [
+      {
+        "file": "exports/background/tank_firefly_grove.webp",
+        "status": "existing-export-copied-without-reencoding-or-new-review"
+      },
+      {
+        "file": "exports/background/tank_firefly_grove_mobile.webp",
+        "status": "existing-export-copied-without-reencoding-or-new-review"
+      },
+      {
+        "file": "exports/background/tank_firefly_grove_thumb.webp",
+        "status": "existing-export-copied-without-reencoding-or-new-review"
+      }
+    ]
+  },
+  "decor": [
+    {
+      "art_id": "building_glowroot_cottage",
+      "name": "萤根小筑",
+      "kind": "building",
+      "category": "建筑",
+      "file": "masters/decor/building_glowroot_cottage-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v2/mothers/building_glowroot_cottage-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "building_mosswheel_mill",
+      "name": "苔轮水坊",
+      "kind": "building",
+      "category": "建筑",
+      "file": "masters/decor/building_mosswheel_mill-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v2/mothers/building_mosswheel_mill-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "building_mossstone_bridge",
+      "name": "苔石拱桥",
+      "kind": "landscape_structure",
+      "category": "景观",
+      "file": "masters/decor/building_mossstone_bridge-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/building_mossstone_bridge-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "building_root_archway",
+      "name": "古根门庭",
+      "kind": "landscape_structure",
+      "category": "景观",
+      "file": "masters/decor/building_root_archway-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/building_root_archway-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "building_glowseed_beacon",
+      "name": "萤籽引路柱",
+      "kind": "landmark",
+      "category": "景观",
+      "file": "masters/decor/building_glowseed_beacon-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/building_glowseed_beacon-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "plant_spring_fern",
+      "name": "林泉蕨丛",
+      "kind": "plant",
+      "category": "植物",
+      "file": "masters/decor/plant_spring_fern-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/plant_spring_fern-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "plant_lavender_bells",
+      "name": "铃花小簇",
+      "kind": "plant",
+      "category": "植物",
+      "file": "masters/decor/plant_lavender_bells-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/plant_lavender_bells-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "plant_fineleaf_ribbon",
+      "name": "碧带水草",
+      "kind": "plant",
+      "category": "植物",
+      "file": "masters/decor/plant_fineleaf_ribbon-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/plant_fineleaf_ribbon-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "scape_moss_step_path",
+      "name": "曲苔石径",
+      "kind": "ground_decor",
+      "category": "地面装饰",
+      "file": "masters/decor/scape_moss_step_path-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/scape_moss_step_path-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "scape_riverstone_cluster",
+      "name": "青苔叠石",
+      "kind": "ground_decor",
+      "category": "地面装饰",
+      "file": "masters/decor/scape_riverstone_cluster-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/scape_riverstone_cluster-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "trinket_honeyquartz_cluster",
+      "name": "蜜晶石簇",
+      "kind": "small_prop",
+      "category": "摆件",
+      "file": "masters/decor/trinket_honeyquartz_cluster-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_honeyquartz_cluster-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "trinket_glowseed_lantern",
+      "name": "萤籽地灯",
+      "kind": "small_prop",
+      "category": "摆件",
+      "file": "masters/decor/trinket_glowseed_lantern-v02.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_glowseed_lantern-v02.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "trinket_rootwood_bench",
+      "name": "根木长凳",
+      "kind": "small_prop",
+      "category": "摆件",
+      "file": "masters/decor/trinket_rootwood_bench-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_rootwood_bench-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    },
+    {
+      "art_id": "trinket_leafway_sign",
+      "name": "叶形路牌",
+      "kind": "small_prop",
+      "category": "摆件",
+      "file": "masters/decor/trinket_leafway_sign-v01.png",
+      "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_leafway_sign-v01.png",
+      "selection": "selected-for-next-version-art-update",
+      "runtime_export": "not-produced-for-this-selection"
+    }
+  ],
+  "presets": {
+    "file": "presets.json",
+    "guide": "PRESETS.md",
+    "names": [
+      "林泉小居",
+      "苔轮溪桥",
+      "林间歇脚",
+      "萤石静庭"
+    ],
+    "installed": false
+  },
+  "source_branches": {
+    "scene": "codex/issue-68-aquarium-town-art",
+    "integration": "feat/aquarium-v2"
+  },
+  "excluded_from_selection": [
+    "花鳃小龙",
+    "团团河豚（未制作备用方向）",
+    "蓝色古比各版",
+    "金黄色蝶鱼",
+    "莓紫蝶鱼",
+    "旧四栋海底小镇建筑",
+    "蕨光望楼",
+    "藤叶小亭",
+    "缸框与底座",
+    "已更新的卷尾海马、铃伞水母、软糖章鱼、月汐人鱼（不是本版新增）"
+  ],
+  "delivery_limits": [
+    "三种生物首轮四帧游动候选已生成，待观看反馈与运行接入",
+    "三种生物和14件布景的正式WebP/图鉴图标/剪影与统一锚点尚未在本包生成",
+    "背景附带既有WebP/手机版/缩略图，仅原样复制，未重新编码或重新核验",
+    "四组预设是交接数据，尚未接入游戏菜单；每层最多3件的口径不变",
+    "主题效果图是历史概念合成，不是游戏截图或运行背景",
+    "原静态母图未重跑核验；本次仅确认新增游动图集尺寸和帧数、查看新帧拼合图，未做浏览器或游戏内验收"
+  ],
+  "motion": {
+    "status": "first-candidate-not-installed",
+    "manifest": "motion/v1/manifest.json",
+    "preview": "motion/v1/preview.html",
+    "guide": "motion/v1/README.md",
+    "frame_size": [
+      256,
+      256
+    ],
+    "grid": [
+      4,
+      1
+    ]
+  }
+}

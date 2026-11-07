@@ -1,0 +1,437 @@
+{
+  "schema": "aquarium-v2-swim-art-candidate-v1",
+  "date": "2026-11-08",
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "status": "three-motion-candidates-generated-not-game-integrated",
+  "source_facing": "right",
+  "items": [
+    {
+      "art_id": "creature_qingya_turtle",
+      "runtime_fish_id": null,
+      "name": "青芽海龟",
+      "approved_static_master": "../../masters/creatures/qingya-turtle-v01.png",
+      "source_sheet": "source-sheets/qingya_turtle-poses-v01.png",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_facing": "right",
+      "file": "atlases/qingya_turtle.webp",
+      "png_atlas": "atlases/qingya_turtle.png",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1600,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "action": "前鳍交替划水，后鳍轻微配合",
+      "method": "imagegen distinct poses; FFmpeg technical slicing, common uniform scale and eye-anchor translation packing; no inverse warp or painted programmatic art",
+      "common_scale": 0.4150848040259412,
+      "source_frame_registration": [
+        {
+          "index": 0,
+          "cell_origin": [
+            0,
+            0
+          ],
+          "crop": [
+            19,
+            111,
+            583,
+            511
+          ],
+          "eye": [
+            502.63502109704643,
+            175.35021097046413
+          ],
+          "packed_eye": [
+            212.75,
+            62.711
+          ],
+          "packed_image_size": [
+            234,
+            166
+          ],
+          "frame_file": "frames/qingya_turtle/00.png"
+        },
+        {
+          "index": 1,
+          "cell_origin": [
+            627,
+            0
+          ],
+          "crop": [
+            20,
+            112,
+            583,
+            452
+          ],
+          "eye": [
+            502.04989154013015,
+            175.2299349240781
+          ],
+          "packed_eye": [
+            212.092,
+            63.246
+          ],
+          "packed_image_size": [
+            234,
+            141
+          ],
+          "frame_file": "frames/qingya_turtle/01.png"
+        },
+        {
+          "index": 2,
+          "cell_origin": [
+            0,
+            627
+          ],
+          "crop": [
+            26,
+            111,
+            583,
+            555
+          ],
+          "eye": [
+            502.59148936170214,
+            176.35531914893616
+          ],
+          "packed_eye": [
+            212.826,
+            63.128
+          ],
+          "packed_image_size": [
+            231,
+            184
+          ],
+          "frame_file": "frames/qingya_turtle/02.png"
+        },
+        {
+          "index": 3,
+          "cell_origin": [
+            627,
+            627
+          ],
+          "crop": [
+            15,
+            111,
+            583,
+            483
+          ],
+          "eye": [
+            502.60840707964604,
+            175.96902654867256
+          ],
+          "packed_eye": [
+            212.399,
+            62.968
+          ],
+          "packed_image_size": [
+            236,
+            154
+          ],
+          "frame_file": "frames/qingya_turtle/03.png"
+        }
+      ],
+      "preview_apng": "previews/qingya_turtle-loop.png",
+      "preview_gif": "previews/qingya_turtle-loop.gif",
+      "status": "first-motion-candidate-not-installed"
+    },
+    {
+      "art_id": "creature_qixia_guppy",
+      "runtime_fish_id": null,
+      "name": "绮霞古比",
+      "approved_static_master": "../../masters/creatures/qixia-guppy-v01.png",
+      "source_sheet": "source-sheets/qixia_guppy-poses-v01.png",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_facing": "right",
+      "file": "atlases/qixia_guppy.webp",
+      "png_atlas": "atlases/qixia_guppy.png",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1000,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "action": "大扇尾舒展、收折和摆动，胸鳍轻划",
+      "method": "imagegen distinct poses; FFmpeg technical slicing, common uniform scale and eye-anchor translation packing; no inverse warp or painted programmatic art",
+      "common_scale": 0.4013417243535563,
+      "source_frame_registration": [
+        {
+          "index": 0,
+          "cell_origin": [
+            0,
+            0
+          ],
+          "crop": [
+            19,
+            140,
+            607,
+            449
+          ],
+          "eye": [
+            538.9159016878887,
+            288.2730233935446
+          ],
+          "packed_eye": [
+            218.664,
+            117.508
+          ],
+          "packed_image_size": [
+            236,
+            124
+          ],
+          "frame_file": "frames/qixia_guppy/00.png"
+        },
+        {
+          "index": 1,
+          "cell_origin": [
+            627,
+            0
+          ],
+          "crop": [
+            41,
+            165,
+            607,
+            436
+          ],
+          "eye": [
+            539.1986321736545,
+            288.014272970562
+          ],
+          "packed_eye": [
+            218.948,
+            117.371
+          ],
+          "packed_image_size": [
+            227,
+            109
+          ],
+          "frame_file": "frames/qixia_guppy/01.png"
+        },
+        {
+          "index": 2,
+          "cell_origin": [
+            0,
+            627
+          ],
+          "crop": [
+            19,
+            165,
+            607,
+            489
+          ],
+          "eye": [
+            538.9434744007102,
+            288.20834566439777
+          ],
+          "packed_eye": [
+            218.675,
+            117.449
+          ],
+          "packed_image_size": [
+            236,
+            130
+          ],
+          "frame_file": "frames/qixia_guppy/02.png"
+        },
+        {
+          "index": 3,
+          "cell_origin": [
+            627,
+            627
+          ],
+          "crop": [
+            22,
+            157,
+            607,
+            434
+          ],
+          "eye": [
+            539.1996440225453,
+            287.88134084841295
+          ],
+          "packed_eye": [
+            218.574,
+            117.528
+          ],
+          "packed_image_size": [
+            235,
+            111
+          ],
+          "frame_file": "frames/qixia_guppy/03.png"
+        }
+      ],
+      "preview_apng": "previews/qixia_guppy-loop.png",
+      "preview_gif": "previews/qixia_guppy-loop.gif",
+      "status": "first-motion-candidate-not-installed"
+    },
+    {
+      "art_id": "creature_shanlan_butterfly",
+      "runtime_fish_id": null,
+      "name": "珊澜蝶鱼",
+      "approved_static_master": "../../masters/creatures/shanlan-butterfly-v03.png",
+      "source_sheet": "source-sheets/shanlan_butterfly-poses-v01.png",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_facing": "right",
+      "file": "atlases/shanlan_butterfly.webp",
+      "png_atlas": "atlases/shanlan_butterfly.png",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1200,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "action": "胸鳍轻划、小尾摆动，背腹鳍轻微起伏",
+      "method": "imagegen distinct poses; FFmpeg technical slicing, common uniform scale and eye-anchor translation packing; no inverse warp or painted programmatic art",
+      "common_scale": 0.404028057581803,
+      "source_frame_registration": [
+        {
+          "index": 0,
+          "cell_origin": [
+            0,
+            0
+          ],
+          "crop": [
+            27,
+            71,
+            607,
+            517
+          ],
+          "eye": [
+            485.7589556769885,
+            298.1548269581057
+          ],
+          "packed_eye": [
+            196.351,
+            128.777
+          ],
+          "packed_image_size": [
+            234,
+            180
+          ],
+          "frame_file": "frames/shanlan_butterfly/00.png"
+        },
+        {
+          "index": 1,
+          "cell_origin": [
+            627,
+            0
+          ],
+          "crop": [
+            27,
+            71,
+            608,
+            519
+          ],
+          "eye": [
+            485.2628361858191,
+            297.56112469437653
+          ],
+          "packed_eye": [
+            196.151,
+            129.537
+          ],
+          "packed_image_size": [
+            235,
+            181
+          ],
+          "frame_file": "frames/shanlan_butterfly/01.png"
+        },
+        {
+          "index": 2,
+          "cell_origin": [
+            0,
+            627
+          ],
+          "crop": [
+            27,
+            71,
+            607,
+            512
+          ],
+          "eye": [
+            485.42242990654205,
+            297.65981308411216
+          ],
+          "packed_eye": [
+            196.216,
+            129.577
+          ],
+          "packed_image_size": [
+            234,
+            178
+          ],
+          "frame_file": "frames/shanlan_butterfly/02.png"
+        },
+        {
+          "index": 3,
+          "cell_origin": [
+            627,
+            627
+          ],
+          "crop": [
+            24,
+            71,
+            608,
+            513
+          ],
+          "eye": [
+            485.38068535825545,
+            297.90218068535825
+          ],
+          "packed_eye": [
+            196.411,
+            128.675
+          ],
+          "packed_image_size": [
+            236,
+            179
+          ],
+          "frame_file": "frames/shanlan_butterfly/03.png"
+        }
+      ],
+      "preview_apng": "previews/shanlan_butterfly-loop.png",
+      "preview_gif": "previews/shanlan_butterfly-loop.gif",
+      "status": "first-motion-candidate-not-installed"
+    }
+  ],
+  "notes": [
+    "图像姿态由内置image_gen生成；程序只切帧、统一缩放和位置对齐、编码打包。",
+    "当前4帧、周期为美术候选参数，不自动替换运行目录或鱼种ID。",
+    "静态母图保留，动作稿尚待主人反馈；未做游戏内接入或实机验收。"
+  ]
+}

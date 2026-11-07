@@ -1,0 +1,34 @@
+{
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "date": "2026-11-06",
+  "tool": "built-in image_gen.imagegen",
+  "scope": "One new architecture style sample and its conceptual in-background mockup; not a full theme set or runtime export",
+  "prompts": [
+    {
+      "id": "building_glowroot_cottage-v01",
+      "intent": "new transparent standalone architectural style sample",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE standalone transparent architectural game asset, a style approval sample for a premium underwater forest aquarium theme.\nPrimary request: Design a small inhabitable fantasy cottage named Glowroot Cottage / 萤根小筑 that belongs naturally in an emerald underwater forest spring. This is new architecture, not the existing pink-shell / ivory-and-gold coral town aesthetic.\nSurrounding scene it must match: a painterly Japanese fantasy game background with submerged dark curved tree roots at the edges, dense moss, muted jade riverstones, delicate lavender bell flowers, emerald water, mint caustics and diffuse golden-green light from upper left. Its central water is quiet and open.\nSubject: a low, slightly asymmetric cottage built from weathered pale gray-green limestone and curved aged chestnut wood. A gently sweeping roof is formed by two broad, bent root-like wooden ribs, covered with a thin continuous carpet of olive/sage moss and a few tiny fern leaves. The architectural silhouette must be very clear: moss roof, an arched wooden front door, and two modest amber-glass windows. One very small seedpod-shaped warm lantern hangs under an eave. A few connected root feet and a short stone threshold join the base. No enormous ancient tree attached, no exposed cut log circle, no giant mushroom cap.\nStyle/medium: refined hand-painted 2D anime fantasy environment art; softly modeled stone and wood, delicate desaturated contours, selective texture, organic and elegant. Painterly enough to match a richly painted forest backdrop. Keep the door and windows readable in a 128px icon. Not a plastic 3D render, not an isometric city asset, not a heavy dark cartoon outline.\nComposition: one complete low-wide building centered on a square transparent canvas. Front-facing with only a slight view of its right wall and a very mild view onto the roof, appropriate for a 2D aquarium floor. Full silhouette uncut, transparent margin at least 7% on every side and about 10% under the feet. The entire structure is one compact connected asset, no landscape around it. Main building approximately 1.5 times as wide as tall.\nLighting: green filtered light from upper left and quiet warm window accents; gentle material contrast so gray-green walls remain visible against an emerald scene. Windows glow softly without floating sparkles or a glowing outline.\nPalette: muted gray-green stone, sage and olive moss, aged warm wood, a restrained amber interior. Avoid saturated mint candy, bright gold trim, pink roofs and white palace walls.\nConstraints: actual RGBA transparency outside the object and through open silhouette gaps; preserve fine natural edge alpha. No background, water rectangle, sky, fish, people, fairy characters, UI, words, logos, currency, frames, contact sheet, extra buildings or separate props. No large ground island/pedestal, no baked cast shadow, no loose debris or detached effects. This is a single new building sample; do not create the entire set.",
+      "transparent_background": true,
+      "source_tool_file": "exec-61504c2e-ca37-4d50-92b3-e8401f9053a7.png",
+      "saved_file": "mothers/building_glowroot_cottage-v01.png"
+    },
+    {
+      "id": "glowroot-cottage-context-v01",
+      "intent": "compositing style approval preview",
+      "prompt": "Use case: compositing.\nAsset type: one landscape aquarium theme art approval mockup, 16:10, full scene, not a UI screenshot.\nInput image 1 is the APPROVED UNDERWATER FOREST BACKGROUND and is the edit target. Preserve its composition, emerald water, quiet central swimming area, upper light, submerged root banks, lavender flowers, caustics and all scene framing. Do not redesign, repaint into another biome, crop its edges or invent scenery. It must remain recognizably this exact environment.\nInput image 2 is the supporting architectural insert, Glowroot Cottage. Use this same one cottage design, including its moss-covered bent wood roof, gray-green stone, single arched door, two amber windows, hanging seedpod lantern and delicate lavender flowers. Do not replace it with the pink shell buildings or add other structures.\nPrimary request: create a convincing in-context preview showing JUST THIS ONE cottage naturally standing on the floor of image 1. Place the cottage in the lower-left third, building center about x=0.29 and its feet at y=0.90 of the full scene. Its visible width should be about 27–29% of scene width and its height about 20–22% of scene height, not a giant foreground house. Preserve the entire cottage and leave generous empty water above it and across the center/right for fish and later independent buildings.\nMatch scale/perspective and green underwater reflected light. Use a subtle local contact shadow under its threshold/root feet so it rests on the existing mossy stones. Its warm windows are small restrained amber accents. Keep the material clear against the green background, not fully green washed out.\nRemove all residual dark/olive transparency matte or halo from the cottage insert; only the actual cottage silhouette may enter the scene. Do not create a separate ground island, hill, platform, large shadow sheet or attached huge tree.\nConstraints: opaque finished scene with no fish, people, extra buildings, bubbles added to the foreground, labels, text, logos, UI, currency, tank border or ornamental frame. This is a single-building STYLE SAMPLE; do not create the full set. Maintain the approved background as closely as possible and change only the local region needed to place and ground the cottage.",
+      "transparent_background": false,
+      "inputs": [
+        {
+          "file": "../firefly-v1/mothers/tank_firefly_grove-v01.png",
+          "role": "approved background edit target; original file preserved"
+        },
+        {
+          "file": "mothers/building_glowroot_cottage-v01.png",
+          "role": "supporting architectural insert"
+        }
+      ],
+      "source_tool_file": "exec-e4f9d7e6-714a-49d9-87c8-ff20cfa5e994.png",
+      "saved_file": "previews/glowroot-cottage-context-v01.png"
+    }
+  ]
+}
