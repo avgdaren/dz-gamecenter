@@ -297,6 +297,77 @@
         "floor_clear_from_y": 0.78,
         "geometry_source": "decor-layout-v1.json; preserve per-item anchors and widths"
       }
+    },
+    {
+      "id": "tank_firefly_grove",
+      "name": "萤光秘境",
+      "description": "林间萤光与苔藓石径，夜里会亮起来的秘境。",
+      "index": 6,
+      "cost": 10000,
+      "currency": "aquarium_coins",
+      "permanent": true,
+      "requires": {
+        "pond_discovered": 0,
+        "total_discovered": 0,
+        "water_unlocked": ""
+      },
+      "requires_previous_scenery": false,
+      "changes_fishing_water": false,
+      "production_bonus": 0,
+      "background": "background/tank_firefly_grove.webp",
+      "mobile": "background/tank_firefly_grove_mobile.webp",
+      "thumbnail": "background/tank_firefly_grove_thumb.webp",
+      "aspect_ratio": [
+        16,
+        10
+      ],
+      "music_mood": "moon",
+      "decor_tone": {
+        "color": "#7fa88a",
+        "normal_blend_alpha_by_depth": {
+          "far": 0.08,
+          "mid": 0.04,
+          "near": 0
+        },
+        "fog_color": "#cfe6d2",
+        "fog_alpha_by_depth": {
+          "far": 0.08,
+          "mid": 0.035,
+          "near": 0
+        },
+        "keep_original_alpha": true,
+        "replace_other_scene_tints": true,
+        "warm_light_items": [
+          "trinket_glowseed_lantern",
+          "trinket_honeyquartz_cluster",
+          "building_glowseed_beacon"
+        ],
+        "warm_light_tint_multiplier": 0.5
+      },
+      "placement": {
+        "ground_y_ranges": {
+          "far": [
+            0.76,
+            0.83
+          ],
+          "mid": [
+            0.83,
+            0.9
+          ],
+          "near": [
+            0.9,
+            0.96
+          ]
+        },
+        "center_swimming_rect": [
+          0.2,
+          0.18,
+          0.8,
+          0.7
+        ],
+        "floor_clear_from_y": 0.78,
+        "geometry_source": "decor-layout-v1.json; preserve per-item anchors and widths"
+      }
     }
   ]
 }

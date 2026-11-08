@@ -955,7 +955,7 @@
         host.appendChild(chips);
         var presets = el('div', 'aq-presets');
         presets.appendChild(el('span', 'aq-presets-label', '布景'));
-        [['tank_day', '日光'], ['tank_moon', '月光']].forEach(function (grp) {
+        [['tank_day', '日光'], ['tank_moon', '月光'], ['tank_firefly_grove', '萤光秘境']].forEach(function (grp) {
           var row = el('div', 'aq-preset-row');
           row.appendChild(el('span', 'aq-preset-tag', grp[1]));
           PRESETS.filter(function (pz) { return pz.background === grp[0]; }).forEach(function (pz) {
