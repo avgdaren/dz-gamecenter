@@ -1,6 +1,8 @@
 {
   "schema": "aquarium-v2-pending-decisions-v1",
   "active_game_configuration": false,
+  "decision_record": "../../../../v2.0/ECONOMY-DECISIONS.md",
+  "decision_status": "owner-confirmed-fish-revisions-with-unapproved-engineering-proposal",
   "fish": [
     {
       "art_id": "creature_qingya_turtle",
@@ -10,8 +12,10 @@
       "rod_gate": null,
       "capture_weight": null,
       "catch_coin_reward": null,
-      "lifetime_cap": null,
-      "sellable": null,
+      "lifetime_cap": 6,
+      "rarity": "珍奇",
+      "rod_gate_rule": "highest-rod-tier",
+      "sellable": true,
       "sell_price": null
     },
     {
@@ -22,8 +26,10 @@
       "rod_gate": null,
       "capture_weight": null,
       "catch_coin_reward": null,
-      "lifetime_cap": null,
-      "sellable": null,
+      "lifetime_cap": 6,
+      "rarity": "稀有",
+      "rod_gate_rule": "highest-rod-tier",
+      "sellable": true,
       "sell_price": null
     },
     {
@@ -34,8 +40,10 @@
       "rod_gate": null,
       "capture_weight": null,
       "catch_coin_reward": null,
-      "lifetime_cap": null,
-      "sellable": null,
+      "lifetime_cap": 6,
+      "rarity": "珍奇",
+      "rod_gate_rule": "highest-rod-tier",
+      "sellable": true,
       "sell_price": null
     }
   ],
@@ -49,5 +57,38 @@
     "minimum_kept": null,
     "displayed_fish_sale_rule": null
   },
-  "instruction": "这些字段未定稿，不从美术名称、文件大小、旧报价或旧限量生物规则推断；由正式配置决策后再接入。"
+  "engineering_proposal": {
+    "owner_approved": false,
+    "add_rod_level": 5,
+    "periods_ms": [120000, 108000, 96000, 84000, 72000, 60000],
+    "rod_costs": [0, 120, 260, 600, 900, 20000],
+    "new_fish_min_rod_level": 5,
+    "minimum_kept": 4,
+    "displayed_fish_sale_rule": "owned-minus-max-of-minimum-kept-and-shown",
+    "sale_decrements_lifetime_catch_count": false,
+    "sell_price_by_rarity": {"常见": 1, "少见": 2, "稀有": 5, "珍奇": 10},
+    "individual_prices": {
+      "building_glowroot_cottage": 18000,
+      "building_mosswheel_mill": 16000,
+      "building_mossstone_bridge": 12000,
+      "building_root_archway": 10000,
+      "building_glowseed_beacon": 8000,
+      "plant_spring_fern": 2000,
+      "plant_lavender_bells": 2400,
+      "plant_fineleaf_ribbon": 2800,
+      "scape_moss_step_path": 3000,
+      "scape_riverstone_cluster": 3600,
+      "trinket_honeyquartz_cluster": 4000,
+      "trinket_glowseed_lantern": 3200,
+      "trinket_rootwood_bench": 3000,
+      "trinket_leafway_sign": 2000,
+      "tank_firefly_grove": 10000
+    },
+    "decor_total": 90000,
+    "complete_theme_total": 100000,
+    "unlock_conditions": "coins-only",
+    "bundle_discount": 0,
+    "missing_item_credit_rule": "charge-sum-of-missing-item-prices-only-no-retroactive-refund"
+  },
+  "instruction": "三种新鱼终身上限6、四级品级体系内定级、可售与最高竿要求已登记。null仍为待定；engineering_proposal仅是小典建议，未获主人确认，不是运行配置。水域、ID、捕获收益等不从美术或旧规则推断；接入须使用独立版本与指纹。"
 }
