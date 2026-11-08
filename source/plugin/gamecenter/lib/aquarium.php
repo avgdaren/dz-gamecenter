@@ -202,6 +202,7 @@ final class gamecenter_aquarium {
             'book'=>['discovered'=>$discovered,'total'=>count($fish)],
             'capacities'=>$this->c['fish_capacities'],'capacity_costs'=>$this->c['fish_capacity_costs'],
             'backgrounds'=>gamecenter_aquarium_shop::backgrounds(),
+            'background_shop'=>gamecenter_aquarium_shop::backgroundShop($s,$this->c),
             'decor_slots_per_layer'=>gamecenter_aquarium_shop::decor_slots_per_layer(),
             'catalog_version'=>$meta['version'],'assets_version'=>gamecenter_aquarium_configs::assets_version()];
     }    public function request(int $uid,bool $allowed,array $data,bool $isAdmin=false): array {
@@ -210,20 +211,21 @@ final class gamecenter_aquarium {
         if(gamecenter_aquarium_configs::maintenance()) { return $this->result('maintenance'); }
         if(strlen(serialize($data))>8192 || ($data['client_version']??'')!==self::CLIENT) { return $this->result('client'); }
         $action=$data['action']??'';
-        $actions=['init','sync','upgrade','unlock','switch','catalog','buy','expand','layout','devgrant','sell'];
+        $actions=['init','sync','upgrade','unlock','switch','catalog','buy','buybg','expand','layout','devgrant','sell'];
         if(!is_string($action) || !in_array($action,$actions,true)) { return $this->result('input'); }
         // 购买/扩容/布置只存在于内容配置；foundation 阶段没有装饰与容量字段。
-        if(in_array($action,['catalog','buy','expand','layout'],true)
+        if(in_array($action,['catalog','buy','buybg','expand','layout'],true)
             && (!isset($this->c['decor']) || !isset($this->c['fish_capacities']) || !isset($this->c['initial_fish_capacity']))) {
             return $this->result('config');
         }
         if($action==='devgrant' && !$isAdmin) { return $this->result('permission'); }
         $keys=['action','client_version','formhash'];
-        $mutating=in_array($action,['upgrade','unlock','switch','buy','expand','layout','devgrant','sell'],true);
+        $mutating=in_array($action,['upgrade','unlock','switch','buy','buybg','expand','layout','devgrant','sell'],true);
         if($mutating) { $keys[]='expected_version'; }
         if($action==='upgrade') { $keys[]='target_level'; }
         if(in_array($action,['unlock','switch'],true)) { $keys[]='water_id'; }
         if($action==='buy') { $keys[]='decor_id'; }
+        if($action==='buybg') { $keys[]='background_id'; $keys[]='catalog_version'; }
         if($action==='sell') { $keys[]='fish_id'; $keys[]='qty'; }
         if($action==='layout') { $keys[]='layout'; }
         foreach($data as $k=>$v) {
@@ -319,6 +321,19 @@ final class gamecenter_aquarium {
                 $r=gamecenter_aquarium_rules::settle($s,$now,$this->c); $next=$r['save']; $code='';
                 if(in_array($action,['upgrade','unlock','switch'],true)) { $op=gamecenter_aquarium_rules::operate($next,$data,$this->c); $next=$op['save']; $code=$op['code']; }
                 elseif($action==='buy') { list($next,$code)=gamecenter_aquarium_shop::buy($next,$data['decor_id'],$this->c,$now); }
+                elseif($action==='buybg') {
+                    // 目录版本用于拒绝过期报价：与当前冻结目录不一致就不成交
+                    $cat = gamecenter_aquarium_shop::backgroundCatalog();
+                    if((string)$data['catalog_version'] !== (string)$cat['version']) { $code='conflict'; }
+                    else {
+                        $coinsBefore = (int)$next['coins'];
+                        list($next,$code)=gamecenter_aquarium_shop::buyBackground($next,(string)$data['background_id'],$this->c,$now);
+                        if($code==='') {
+                            $next['recent_bg_purchase']=['id'=>(string)$data['background_id'],
+                                'cost'=>$coinsBefore-(int)$next['coins'],'at'=>$now];
+                        }
+                    }
+                }
                 elseif($action==='expand') { list($next,$code)=gamecenter_aquarium_shop::expand($next,$this->c); }
                 elseif($action==='layout') { list($next,$code)=gamecenter_aquarium_shop::setLayout($next,$data['layout'],$this->c); }
                 elseif($action==='devgrant') { list($next,$code)=self::devgrant($next,$this->c,$now); }

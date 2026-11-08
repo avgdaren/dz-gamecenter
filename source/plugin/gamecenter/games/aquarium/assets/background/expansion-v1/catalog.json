@@ -15,10 +15,62 @@
   "fishing_pools_unchanged": true,
   "items": [
     {
+      "id": "tank_day",
+      "name": "日光",
+      "description": "明亮的海面光线，最清爽的一景。",
+      "index": 1,
+      "cost": 0,
+      "currency": "aquarium_coins",
+      "permanent": true,
+      "free_default": true,
+      "requires": {
+        "pond_discovered": 0,
+        "total_discovered": 0,
+        "water_unlocked": ""
+      },
+      "requires_previous_scenery": false,
+      "changes_fishing_water": false,
+      "production_bonus": 0,
+      "background": "background/tank_day.webp",
+      "mobile": "background/tank_day_mobile.webp",
+      "thumbnail": "background/tank_day_thumb.webp",
+      "aspect_ratio": [
+        16,
+        10
+      ],
+      "music_mood": "day"
+    },
+    {
+      "id": "tank_moon",
+      "name": "月光",
+      "description": "月色与静谧水波，适合夜里慢慢看。",
+      "index": 2,
+      "cost": 0,
+      "currency": "aquarium_coins",
+      "permanent": true,
+      "free_default": true,
+      "requires": {
+        "pond_discovered": 0,
+        "total_discovered": 0,
+        "water_unlocked": ""
+      },
+      "requires_previous_scenery": false,
+      "changes_fishing_water": false,
+      "production_bonus": 0,
+      "background": "background/tank_moon.webp",
+      "mobile": "background/tank_moon_mobile.webp",
+      "thumbnail": "background/tank_moon_thumb.webp",
+      "aspect_ratio": [
+        16,
+        10
+      ],
+      "music_mood": "moon"
+    },
+    {
       "id": "tank_sakura",
       "name": "樱溪浅梦",
       "description": "粉樱与浅青水光，给鱼缸换一个春天。",
-      "index": 2,
+      "index": 3,
       "cost": 600,
       "currency": "aquarium_coins",
       "permanent": true,
@@ -89,7 +141,7 @@
       "id": "tank_coral",
       "name": "珊瑚晴湾",
       "description": "明亮珊瑚围出宽阔浅湾，彩鱼在中央穿行。",
-      "index": 3,
+      "index": 4,
       "cost": 1200,
       "currency": "aquarium_coins",
       "permanent": true,
@@ -160,7 +212,7 @@
       "id": "tank_star_ruins",
       "name": "星眠遗庭",
       "description": "月光照进沉睡的圆拱遗迹，金色纹样悄然发亮。",
-      "index": 4,
+      "index": 5,
       "cost": 2400,
       "currency": "aquarium_coins",
       "permanent": true,
@@ -231,7 +283,7 @@
       "id": "tank_aurora",
       "name": "极光冰湖",
       "description": "冰蓝湖水映着柔和极光，留下宁静通透的空间。",
-      "index": 5,
+      "index": 6,
       "cost": 3600,
       "currency": "aquarium_coins",
       "permanent": true,
@@ -302,7 +354,7 @@
       "id": "tank_firefly_grove",
       "name": "萤光秘境",
       "description": "林间萤光与苔藓石径，夜里会亮起来的秘境。",
-      "index": 6,
+      "index": 7,
       "cost": 10000,
       "currency": "aquarium_coins",
       "permanent": true,
@@ -369,5 +421,6 @@
         "geometry_source": "decor-layout-v1.json; preserve per-item anchors and widths"
       }
     }
-  ]
+  ],
+  "version": "background-shop-v1"
 }
