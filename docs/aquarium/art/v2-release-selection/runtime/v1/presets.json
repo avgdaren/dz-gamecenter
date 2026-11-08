@@ -1,0 +1,230 @@
+{
+  "schema": "aquarium-firefly-decor-presets-proposal-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-11-08",
+  "status": "exported-layout-data-awaiting-game-menu-integration",
+  "runtime_ready": false,
+  "asset_manifest": "manifest.json",
+  "guide": "README.md",
+  "max_items_per_layer": 3,
+  "layer_assignments_status": "proposed; new assets are not registered in the runtime catalog",
+  "presets_are_free": true,
+  "preserve_fish": true,
+  "apply_scope": [
+    "layout.decor",
+    "layout.background"
+  ],
+  "placement_is_display_hint_not_save_schema": true,
+  "application_rules": {
+    "use_owned_items_only": true,
+    "auto_purchase_missing": false,
+    "grant_missing_items": false,
+    "substitute_missing_items": false,
+    "list_missing_names": true,
+    "missing_main_message": "缺少主景，应用后为简化布景",
+    "all_decor_missing": "no-op; preserve current decor and background",
+    "background_missing": "preserve current background and list its name",
+    "allow_individual_replacement_and_cross_theme_mix": true
+  },
+  "items": [
+    {
+      "id": "firefly_root_home",
+      "name": "林泉小居",
+      "background": "tank_firefly_grove",
+      "back": [
+        "building_root_archway",
+        "plant_spring_fern"
+      ],
+      "front": [
+        "building_glowroot_cottage",
+        "scape_moss_step_path",
+        "trinket_glowseed_lantern"
+      ],
+      "concept": "小筑、门庭与曲径组成温暖的林间住处，地灯点亮入口。",
+      "main": "building_glowroot_cottage",
+      "supporting": [
+        "building_root_archway",
+        "plant_spring_fern",
+        "scape_moss_step_path",
+        "trinket_glowseed_lantern"
+      ],
+      "placement_hints": {
+        "building_root_archway": {
+          "anchor_x": 0.14,
+          "soft": true
+        },
+        "plant_spring_fern": {
+          "anchor_x": 0.83,
+          "soft": true
+        },
+        "building_glowroot_cottage": {
+          "anchor_x": 0.35,
+          "soft": true
+        },
+        "scape_moss_step_path": {
+          "anchor_x": 0.6,
+          "soft": true
+        },
+        "trinket_glowseed_lantern": {
+          "anchor_x": 0.72,
+          "soft": true
+        }
+      },
+      "composition_note": "小筑偏左；门庭靠后错开屋门，石径向右延伸，地灯保持小尺度。中央上方留给鱼。",
+      "group": "firefly-grove",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "firefly_mill_bridge",
+      "name": "苔轮溪桥",
+      "background": "tank_firefly_grove",
+      "back": [
+        "building_mosswheel_mill",
+        "plant_fineleaf_ribbon",
+        "scape_riverstone_cluster"
+      ],
+      "front": [
+        "building_mossstone_bridge",
+        "plant_lavender_bells",
+        "trinket_leafway_sign"
+      ],
+      "concept": "水坊与低矮石桥构成溪边工坊，草叶、叠石和路牌补足岸边细节。",
+      "main": "building_mosswheel_mill",
+      "supporting": [
+        "plant_fineleaf_ribbon",
+        "scape_riverstone_cluster",
+        "building_mossstone_bridge",
+        "plant_lavender_bells",
+        "trinket_leafway_sign"
+      ],
+      "placement_hints": {
+        "building_mosswheel_mill": {
+          "anchor_x": 0.8,
+          "soft": true
+        },
+        "plant_fineleaf_ribbon": {
+          "anchor_x": 0.13,
+          "soft": true
+        },
+        "scape_riverstone_cluster": {
+          "anchor_x": 0.4,
+          "soft": true
+        },
+        "building_mossstone_bridge": {
+          "anchor_x": 0.5,
+          "soft": true
+        },
+        "plant_lavender_bells": {
+          "anchor_x": 0.19,
+          "soft": true
+        },
+        "trinket_leafway_sign": {
+          "anchor_x": 0.84,
+          "soft": true
+        }
+      },
+      "composition_note": "水坊在右后，桥横向舒展于中前，保留水轮和桥洞轮廓。叠石低于桥面，路牌不挡水轮；不新增溪流或动态效果。",
+      "group": "firefly-grove",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "firefly_trail_rest",
+      "name": "林间歇脚",
+      "background": "tank_firefly_grove",
+      "back": [
+        "building_root_archway",
+        "plant_lavender_bells"
+      ],
+      "front": [
+        "trinket_rootwood_bench",
+        "plant_spring_fern",
+        "trinket_leafway_sign"
+      ],
+      "concept": "开放门庭旁放一张根木长凳，配花草与路牌，形成轻巧的林间休息处。",
+      "main": "building_root_archway",
+      "supporting": [
+        "plant_lavender_bells",
+        "trinket_rootwood_bench",
+        "plant_spring_fern",
+        "trinket_leafway_sign"
+      ],
+      "placement_hints": {
+        "building_root_archway": {
+          "anchor_x": 0.22,
+          "soft": true
+        },
+        "plant_lavender_bells": {
+          "anchor_x": 0.83,
+          "soft": true
+        },
+        "trinket_rootwood_bench": {
+          "anchor_x": 0.62,
+          "soft": true
+        },
+        "plant_spring_fern": {
+          "anchor_x": 0.13,
+          "soft": true
+        },
+        "trinket_leafway_sign": {
+          "anchor_x": 0.38,
+          "soft": true
+        }
+      },
+      "composition_note": "门庭偏左后，长凳独立放在右前，避免把两者叠成带顶亭子。门洞和中央保持通透，花草只点缀两端。",
+      "group": "firefly-grove",
+      "cost": 0,
+      "auto_purchase_missing": false
+    },
+    {
+      "id": "firefly_crystal_garden",
+      "name": "萤石静庭",
+      "background": "tank_firefly_grove",
+      "back": [
+        "building_glowseed_beacon",
+        "scape_riverstone_cluster",
+        "plant_fineleaf_ribbon"
+      ],
+      "front": [
+        "trinket_honeyquartz_cluster",
+        "plant_lavender_bells"
+      ],
+      "concept": "引路柱配低矮晶石与青苔叠石，形成安静疏朗的石景小庭。",
+      "main": "building_glowseed_beacon",
+      "supporting": [
+        "scape_riverstone_cluster",
+        "plant_fineleaf_ribbon",
+        "trinket_honeyquartz_cluster",
+        "plant_lavender_bells"
+      ],
+      "placement_hints": {
+        "building_glowseed_beacon": {
+          "anchor_x": 0.82,
+          "soft": true
+        },
+        "scape_riverstone_cluster": {
+          "anchor_x": 0.26,
+          "soft": true
+        },
+        "plant_fineleaf_ribbon": {
+          "anchor_x": 0.12,
+          "soft": true
+        },
+        "trinket_honeyquartz_cluster": {
+          "anchor_x": 0.54,
+          "soft": true
+        },
+        "plant_lavender_bells": {
+          "anchor_x": 0.73,
+          "soft": true
+        }
+      },
+      "composition_note": "引路柱在右后，晶石作为低位次要焦点；叠石与水草收在左侧。保持暖光克制，不添加屋舍。",
+      "group": "firefly-grove",
+      "cost": 0,
+      "auto_purchase_missing": false
+    }
+  ],
+  "selection_note": "四组预设纳入下版美术交接，层位与位置沿用原方案；不是已安装的运行配置。"
+}

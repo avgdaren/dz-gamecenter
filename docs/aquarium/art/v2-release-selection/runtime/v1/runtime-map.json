@@ -1,0 +1,751 @@
+{
+  "schema": "aquarium-v2-art-integration-map-v1",
+  "active_game_configuration": false,
+  "note": "art_id是稳定美术索引；suggested_runtime_id与显示比例是接入建议，不自动写入鱼池、商品或存档。",
+  "items": [
+    {
+      "art_id": "creature_qingya_turtle",
+      "name": "青芽海龟",
+      "kind": "fish",
+      "files": {
+        "main": "fish/qingya_turtle.webp",
+        "mobile": "fish-mobile/qingya_turtle.webp",
+        "thumb": "thumbs/fish/qingya_turtle.webp",
+        "silhouette": "silhouettes/fish/qingya_turtle.webp",
+        "motion": "fish-motion/qingya_turtle.webp"
+      },
+      "content_bounds": {
+        "main": [
+          32,
+          110,
+          480,
+          401
+        ],
+        "mobile": [
+          16,
+          55,
+          240,
+          201
+        ],
+        "thumb": [
+          8,
+          27,
+          120,
+          100
+        ],
+        "silhouette": [
+          8,
+          27,
+          120,
+          100
+        ],
+        "motion": [
+          13,
+          37,
+          1013,
+          219
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right",
+      "suggested_runtime_id": "qingya_turtle",
+      "runtime_fish_id": null,
+      "suggested_display": {
+        "size_axis": "width",
+        "size_ratio": 0.16,
+        "status": "visual-default-to-adjust-in-game"
+      },
+      "motion": {
+        "frame_size": [
+          256,
+          256
+        ],
+        "grid": [
+          4,
+          1
+        ],
+        "frame_count": 4,
+        "cycle_ms": 1600,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "neutral_frame": 0,
+        "preview_gif": "previews/qingya_turtle-loop.gif"
+      }
+    },
+    {
+      "art_id": "creature_qixia_guppy",
+      "name": "绮霞古比",
+      "kind": "fish",
+      "files": {
+        "main": "fish/qixia_guppy.webp",
+        "mobile": "fish-mobile/qixia_guppy.webp",
+        "thumb": "thumbs/fish/qixia_guppy.webp",
+        "silhouette": "silhouettes/fish/qixia_guppy.webp",
+        "motion": "fish-motion/qixia_guppy.webp"
+      },
+      "content_bounds": {
+        "main": [
+          32,
+          159,
+          480,
+          352
+        ],
+        "mobile": [
+          16,
+          80,
+          240,
+          176
+        ],
+        "thumb": [
+          8,
+          40,
+          120,
+          88
+        ],
+        "silhouette": [
+          8,
+          40,
+          120,
+          88
+        ],
+        "motion": [
+          11,
+          59,
+          1013,
+          197
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right",
+      "suggested_runtime_id": "qixia_guppy",
+      "runtime_fish_id": null,
+      "suggested_display": {
+        "size_axis": "width",
+        "size_ratio": 0.18,
+        "status": "visual-default-to-adjust-in-game"
+      },
+      "motion": {
+        "frame_size": [
+          256,
+          256
+        ],
+        "grid": [
+          4,
+          1
+        ],
+        "frame_count": 4,
+        "cycle_ms": 1000,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "neutral_frame": 0,
+        "preview_gif": "previews/qixia_guppy-loop.gif"
+      }
+    },
+    {
+      "art_id": "creature_shanlan_butterfly",
+      "name": "珊澜蝶鱼",
+      "kind": "fish",
+      "files": {
+        "main": "fish/shanlan_butterfly.webp",
+        "mobile": "fish-mobile/shanlan_butterfly.webp",
+        "thumb": "thumbs/fish/shanlan_butterfly.webp",
+        "silhouette": "silhouettes/fish/shanlan_butterfly.webp",
+        "motion": "fish-motion/shanlan_butterfly.webp"
+      },
+      "content_bounds": {
+        "main": [
+          32,
+          93,
+          480,
+          418
+        ],
+        "mobile": [
+          16,
+          47,
+          240,
+          209
+        ],
+        "thumb": [
+          8,
+          23,
+          120,
+          104
+        ],
+        "silhouette": [
+          8,
+          23,
+          120,
+          104
+        ],
+        "motion": [
+          12,
+          38,
+          1013,
+          218
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right",
+      "suggested_runtime_id": "shanlan_butterfly",
+      "runtime_fish_id": null,
+      "suggested_display": {
+        "size_axis": "width",
+        "size_ratio": 0.15,
+        "status": "visual-default-to-adjust-in-game"
+      },
+      "motion": {
+        "frame_size": [
+          256,
+          256
+        ],
+        "grid": [
+          4,
+          1
+        ],
+        "frame_count": 4,
+        "cycle_ms": 1200,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "neutral_frame": 0,
+        "preview_gif": "previews/shanlan_butterfly-loop.gif"
+      }
+    },
+    {
+      "art_id": "building_glowroot_cottage",
+      "name": "萤根小筑",
+      "kind": "decor",
+      "files": {
+        "main": "decor/building_glowroot_cottage.webp",
+        "thumb": "thumbs/decor/building_glowroot_cottage.webp"
+      },
+      "content_bounds": {
+        "main": [
+          66,
+          31,
+          957,
+          461
+        ],
+        "thumb": [
+          8,
+          61,
+          120,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.25,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "building_mosswheel_mill",
+      "name": "苔轮水坊",
+      "kind": "decor",
+      "files": {
+        "main": "decor/building_mosswheel_mill.webp",
+        "thumb": "thumbs/decor/building_mosswheel_mill.webp"
+      },
+      "content_bounds": {
+        "main": [
+          183,
+          31,
+          841,
+          461
+        ],
+        "thumb": [
+          8,
+          42,
+          120,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.25,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "building_mossstone_bridge",
+      "name": "苔石拱桥",
+      "kind": "decor",
+      "files": {
+        "main": "decor/building_mossstone_bridge.webp",
+        "thumb": "thumbs/decor/building_mossstone_bridge.webp"
+      },
+      "content_bounds": {
+        "main": [
+          64,
+          128,
+          960,
+          461
+        ],
+        "thumb": [
+          8,
+          73,
+          120,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.27,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "building_root_archway",
+      "name": "古根门庭",
+      "kind": "decor",
+      "files": {
+        "main": "decor/building_root_archway.webp",
+        "thumb": "thumbs/decor/building_root_archway.webp"
+      },
+      "content_bounds": {
+        "main": [
+          86,
+          31,
+          426,
+          461
+        ],
+        "thumb": [
+          21,
+          7,
+          106,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.14,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "building_glowseed_beacon",
+      "name": "萤籽引路柱",
+      "kind": "decor",
+      "files": {
+        "main": "decor/building_glowseed_beacon.webp",
+        "thumb": "thumbs/decor/building_glowseed_beacon.webp"
+      },
+      "content_bounds": {
+        "main": [
+          153,
+          31,
+          358,
+          461
+        ],
+        "thumb": [
+          38,
+          7,
+          89,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.11,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "plant_spring_fern",
+      "name": "林泉蕨丛",
+      "kind": "decor",
+      "files": {
+        "main": "decor/plant_spring_fern.webp",
+        "thumb": "thumbs/decor/plant_spring_fern.webp"
+      },
+      "content_bounds": {
+        "main": [
+          32,
+          132,
+          480,
+          461
+        ],
+        "thumb": [
+          8,
+          33,
+          120,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.11,
+        "layers": [
+          "back",
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "plant_lavender_bells",
+      "name": "铃花小簇",
+      "kind": "decor",
+      "files": {
+        "main": "decor/plant_lavender_bells.webp",
+        "thumb": "thumbs/decor/plant_lavender_bells.webp"
+      },
+      "content_bounds": {
+        "main": [
+          53,
+          31,
+          459,
+          461
+        ],
+        "thumb": [
+          13,
+          7,
+          115,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.09,
+        "layers": [
+          "back",
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "plant_fineleaf_ribbon",
+      "name": "碧带水草",
+      "kind": "decor",
+      "files": {
+        "main": "decor/plant_fineleaf_ribbon.webp",
+        "thumb": "thumbs/decor/plant_fineleaf_ribbon.webp"
+      },
+      "content_bounds": {
+        "main": [
+          42,
+          31,
+          470,
+          461
+        ],
+        "thumb": [
+          10,
+          7,
+          117,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.09,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "scape_moss_step_path",
+      "name": "曲苔石径",
+      "kind": "decor",
+      "files": {
+        "main": "decor/scape_moss_step_path.webp",
+        "thumb": "thumbs/decor/scape_moss_step_path.webp"
+      },
+      "content_bounds": {
+        "main": [
+          32,
+          91,
+          480,
+          461
+        ],
+        "thumb": [
+          8,
+          22,
+          120,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.14,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "scape_riverstone_cluster",
+      "name": "青苔叠石",
+      "kind": "decor",
+      "files": {
+        "main": "decor/scape_riverstone_cluster.webp",
+        "thumb": "thumbs/decor/scape_riverstone_cluster.webp"
+      },
+      "content_bounds": {
+        "main": [
+          32,
+          83,
+          480,
+          461
+        ],
+        "thumb": [
+          8,
+          21,
+          120,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.1,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "trinket_honeyquartz_cluster",
+      "name": "蜜晶石簇",
+      "kind": "decor",
+      "files": {
+        "main": "decor/trinket_honeyquartz_cluster.webp",
+        "thumb": "thumbs/decor/trinket_honeyquartz_cluster.webp"
+      },
+      "content_bounds": {
+        "main": [
+          55,
+          31,
+          456,
+          461
+        ],
+        "thumb": [
+          14,
+          7,
+          114,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.09,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "trinket_glowseed_lantern",
+      "name": "萤籽地灯",
+      "kind": "decor",
+      "files": {
+        "main": "decor/trinket_glowseed_lantern.webp",
+        "thumb": "thumbs/decor/trinket_glowseed_lantern.webp"
+      },
+      "content_bounds": {
+        "main": [
+          79,
+          31,
+          433,
+          461
+        ],
+        "thumb": [
+          20,
+          7,
+          108,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.045,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "trinket_rootwood_bench",
+      "name": "根木长凳",
+      "kind": "decor",
+      "files": {
+        "main": "decor/trinket_rootwood_bench.webp",
+        "thumb": "thumbs/decor/trinket_rootwood_bench.webp"
+      },
+      "content_bounds": {
+        "main": [
+          32,
+          164,
+          480,
+          461
+        ],
+        "thumb": [
+          8,
+          41,
+          120,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.13,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "trinket_leafway_sign",
+      "name": "叶形路牌",
+      "kind": "decor",
+      "files": {
+        "main": "decor/trinket_leafway_sign.webp",
+        "thumb": "thumbs/decor/trinket_leafway_sign.webp"
+      },
+      "content_bounds": {
+        "main": [
+          50,
+          31,
+          461,
+          461
+        ],
+        "thumb": [
+          12,
+          7,
+          115,
+          115
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.06,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      }
+    },
+    {
+      "art_id": "tank_firefly_grove",
+      "name": "萤光秘境",
+      "kind": "background",
+      "files": {
+        "main": "background/tank_firefly_grove.webp",
+        "mobile": "background/tank_firefly_grove_mobile.webp",
+        "thumb": "background/tank_firefly_grove_thumb.webp"
+      },
+      "content_bounds": {
+        "main": [
+          0,
+          0,
+          1536,
+          960
+        ],
+        "mobile": [
+          0,
+          0,
+          768,
+          480
+        ],
+        "thumb": [
+          0,
+          0,
+          240,
+          150
+        ]
+      }
+    }
+  ]
+}

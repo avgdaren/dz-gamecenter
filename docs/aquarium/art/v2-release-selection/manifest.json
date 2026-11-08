@@ -16,7 +16,9 @@
     "swim_species": 3,
     "swim_keyframes": 12,
     "swim_atlases": 3,
-    "loop_previews": 6
+    "loop_previews": 6,
+    "runtime_webp_files": 46,
+    "runtime_webp_bytes": 2124634
   },
   "creatures": [
     {
@@ -26,9 +28,9 @@
       "file": "masters/creatures/qingya-turtle-v01.png",
       "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/qingya-turtle-v01.png",
       "selection": "owner-approved-static-art",
-      "animation": "first-four-frame-motion-candidate-generated",
+      "animation": "four-frame-motion-delivered-not-game-integrated",
       "runtime_fish_id": null,
-      "runtime_export": "not-produced",
+      "runtime_export": "complete-see-runtime/v1/manifest.json",
       "motion_direction": "前鳍交替划水，壳体稳定，身体缓缓滑行",
       "motion_manifest": "motion/v1/manifest.json"
     },
@@ -39,9 +41,9 @@
       "file": "masters/creatures/qixia-guppy-v01.png",
       "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/qixia-guppy-v01.png",
       "selection": "owner-approved-static-art",
-      "animation": "first-four-frame-motion-candidate-generated",
+      "animation": "four-frame-motion-delivered-not-game-integrated",
       "runtime_fish_id": null,
-      "runtime_export": "not-produced",
+      "runtime_export": "complete-see-runtime/v1/manifest.json",
       "motion_direction": "大扇尾低幅摆动，胸鳍轻划，皇冠随头部整体运动",
       "motion_manifest": "motion/v1/manifest.json"
     },
@@ -52,9 +54,9 @@
       "file": "masters/creatures/shanlan-butterfly-v03.png",
       "source_workspace_path": "output/aquarium-v2.0-biology-art-v04/masters/butterfly-coralwave-v03.png",
       "selection": "owner-approved-static-art",
-      "animation": "first-four-frame-motion-candidate-generated",
+      "animation": "four-frame-motion-delivered-not-game-integrated",
       "runtime_fish_id": null,
-      "runtime_export": "not-produced",
+      "runtime_export": "complete-see-runtime/v1/manifest.json",
       "motion_direction": "胸鳍轻划、小尾摆动，背腹鳍边缘轻微起伏，平稳巡游",
       "motion_manifest": "motion/v1/manifest.json"
     }
@@ -90,7 +92,7 @@
       "file": "masters/decor/building_glowroot_cottage-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v2/mothers/building_glowroot_cottage-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "building_mosswheel_mill",
@@ -100,7 +102,7 @@
       "file": "masters/decor/building_mosswheel_mill-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v2/mothers/building_mosswheel_mill-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "building_mossstone_bridge",
@@ -110,7 +112,7 @@
       "file": "masters/decor/building_mossstone_bridge-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/building_mossstone_bridge-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "building_root_archway",
@@ -120,7 +122,7 @@
       "file": "masters/decor/building_root_archway-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/building_root_archway-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "building_glowseed_beacon",
@@ -130,7 +132,7 @@
       "file": "masters/decor/building_glowseed_beacon-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/building_glowseed_beacon-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "plant_spring_fern",
@@ -140,7 +142,7 @@
       "file": "masters/decor/plant_spring_fern-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/plant_spring_fern-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "plant_lavender_bells",
@@ -150,7 +152,7 @@
       "file": "masters/decor/plant_lavender_bells-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/plant_lavender_bells-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "plant_fineleaf_ribbon",
@@ -160,7 +162,7 @@
       "file": "masters/decor/plant_fineleaf_ribbon-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/plant_fineleaf_ribbon-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "scape_moss_step_path",
@@ -170,7 +172,7 @@
       "file": "masters/decor/scape_moss_step_path-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/scape_moss_step_path-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "scape_riverstone_cluster",
@@ -180,7 +182,7 @@
       "file": "masters/decor/scape_riverstone_cluster-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/scape_riverstone_cluster-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "trinket_honeyquartz_cluster",
@@ -190,7 +192,7 @@
       "file": "masters/decor/trinket_honeyquartz_cluster-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_honeyquartz_cluster-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "trinket_glowseed_lantern",
@@ -200,7 +202,7 @@
       "file": "masters/decor/trinket_glowseed_lantern-v02.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_glowseed_lantern-v02.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "trinket_rootwood_bench",
@@ -210,7 +212,7 @@
       "file": "masters/decor/trinket_rootwood_bench-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_rootwood_bench-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     },
     {
       "art_id": "trinket_leafway_sign",
@@ -220,7 +222,7 @@
       "file": "masters/decor/trinket_leafway_sign-v01.png",
       "source_repository_path": "docs/aquarium/art/firefly-v3/mothers/trinket_leafway_sign-v01.png",
       "selection": "selected-for-next-version-art-update",
-      "runtime_export": "not-produced-for-this-selection"
+      "runtime_export": "complete-see-runtime/v1/manifest.json"
     }
   ],
   "presets": {
@@ -251,12 +253,12 @@
     "已更新的卷尾海马、铃伞水母、软糖章鱼、月汐人鱼（不是本版新增）"
   ],
   "delivery_limits": [
-    "三种生物首轮四帧游动候选已生成，待观看反馈与运行接入",
-    "三种生物和14件布景的正式WebP/图鉴图标/剪影与统一锚点尚未在本包生成",
-    "背景附带既有WebP/手机版/缩略图，仅原样复制，未重新编码或重新核验",
-    "四组预设是交接数据，尚未接入游戏菜单；每层最多3件的口径不变",
-    "主题效果图是历史概念合成，不是游戏截图或运行背景",
-    "原静态母图未重跑核验；本次仅确认新增游动图集尺寸和帧数、查看新帧拼合图，未做浏览器或游戏内验收"
+    "三种生物当前游动版本已交付，未注册运行fish_id或接入游戏。",
+    "生物与布景运行导出已齐，显示比例为接入初值，实际游戏内显示待小蓝确认。",
+    "背景三份导出原样复用，保留构图和已有尺寸。",
+    "四组预设数据已交付，尚未接入游戏菜单，不改变容量或存档协议。",
+    "概念效果图不是游戏截图或新的运行背景。",
+    "只检查新增导出文件的解码、尺寸、alpha和引用；未重跑原图选稿或整套美术评审，未做浏览器/游戏内验收。"
   ],
   "motion": {
     "status": "first-candidate-not-installed",
@@ -271,5 +273,17 @@
       4,
       1
     ]
+  },
+  "art_delivery_status": "runtime-art-export-complete-awaiting-game-integration",
+  "runtime_art_ready": true,
+  "runtime_ready_scope": "game-registration-and-integration-not-art-file-completeness",
+  "runtime_art": {
+    "status": "export-complete",
+    "manifest": "runtime/v1/manifest.json",
+    "map": "runtime/v1/runtime-map.json",
+    "guide": "runtime/v1/README.md",
+    "preview": "runtime/v1/preview.html",
+    "copy_map": "runtime/v1/COPY-MAP.md",
+    "pending_rules": "runtime/v1/pending-rules.json"
   }
 }

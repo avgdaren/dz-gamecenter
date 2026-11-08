@@ -1,0 +1,53 @@
+{
+  "schema": "aquarium-v2-pending-decisions-v1",
+  "active_game_configuration": false,
+  "fish": [
+    {
+      "art_id": "creature_qingya_turtle",
+      "suggested_runtime_id": "qingya_turtle",
+      "runtime_fish_id": null,
+      "water": null,
+      "rod_gate": null,
+      "capture_weight": null,
+      "catch_coin_reward": null,
+      "lifetime_cap": null,
+      "sellable": null,
+      "sell_price": null
+    },
+    {
+      "art_id": "creature_qixia_guppy",
+      "suggested_runtime_id": "qixia_guppy",
+      "runtime_fish_id": null,
+      "water": null,
+      "rod_gate": null,
+      "capture_weight": null,
+      "catch_coin_reward": null,
+      "lifetime_cap": null,
+      "sellable": null,
+      "sell_price": null
+    },
+    {
+      "art_id": "creature_shanlan_butterfly",
+      "suggested_runtime_id": "shanlan_butterfly",
+      "runtime_fish_id": null,
+      "water": null,
+      "rod_gate": null,
+      "capture_weight": null,
+      "catch_coin_reward": null,
+      "lifetime_cap": null,
+      "sellable": null,
+      "sell_price": null
+    }
+  ],
+  "theme_shop": {
+    "individual_prices": null,
+    "unlock_conditions": null,
+    "bundle_discount": null,
+    "missing_item_credit_rule": null
+  },
+  "fish_sale": {
+    "minimum_kept": null,
+    "displayed_fish_sale_rule": null
+  },
+  "instruction": "这些字段未定稿，不从美术名称、文件大小、旧报价或旧限量生物规则推断；由正式配置决策后再接入。"
+}

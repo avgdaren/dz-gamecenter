@@ -2,7 +2,7 @@
   "schema": "aquarium-v2-swim-art-candidate-v1",
   "date": "2026-11-08",
   "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
-  "status": "three-motion-candidates-generated-not-game-integrated",
+  "status": "motion-art-delivered-awaiting-game-integration",
   "source_facing": "right",
   "items": [
     {
@@ -144,7 +144,7 @@
       ],
       "preview_apng": "previews/qingya_turtle-loop.png",
       "preview_gif": "previews/qingya_turtle-loop.gif",
-      "status": "first-motion-candidate-not-installed"
+      "status": "delivered-current-motion-not-installed"
     },
     {
       "art_id": "creature_qixia_guppy",
@@ -285,7 +285,7 @@
       ],
       "preview_apng": "previews/qixia_guppy-loop.png",
       "preview_gif": "previews/qixia_guppy-loop.gif",
-      "status": "first-motion-candidate-not-installed"
+      "status": "delivered-current-motion-not-installed"
     },
     {
       "art_id": "creature_shanlan_butterfly",
@@ -426,7 +426,7 @@
       ],
       "preview_apng": "previews/shanlan_butterfly-loop.png",
       "preview_gif": "previews/shanlan_butterfly-loop.gif",
-      "status": "first-motion-candidate-not-installed"
+      "status": "delivered-current-motion-not-installed"
     }
   ],
   "notes": [
