@@ -932,7 +932,7 @@
           // 未发现：够门槛写"尚未发现"，不够写鱼竿条件
           if (!f.discovered) {
             var tip = el('div', 'aq-card-tip');
-            tip.textContent = f.rod_ready ? '尚未发现' : ('鱼竿 Lv.' + (f.rod_gate + 1) + ' 起可钓');
+            tip.textContent = f.rod_ready ? '尚未发现' : ('鱼竿 Lv.' + f.rod_gate + ' 起可钓');
             bodyEl.appendChild(tip);
           }
           card.appendChild(bodyEl);

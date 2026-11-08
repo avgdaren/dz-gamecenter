@@ -161,9 +161,11 @@ final class gamecenter_aquarium {
     /** 目录：名称/品级/文案来自内容模块，价格与条件来自服务端配置；客户端不提交任何价格或币值。 */
     private function catalog(array $s): array {
         require_once __DIR__.'/aquarium_content.php';
-        // 图鉴按存档实际配置版本取：v2 是 16 种，v1 保持 12 种
-        $v2 = (($this->c['version'] ?? '') === gamecenter_aquarium_configs::CONTENT_V2);
-        $meta = $v2 ? gamecenter_aquarium_content::catalog_v2() : gamecenter_aquarium_content::catalog();
+        // 图鉴按存档实际配置版本取：v3 是 19 种 / 38 装饰，v2 是 16 / 24，v1 保持 12 / 24
+        $ver = (string)($this->c['version'] ?? '');
+        if($ver === gamecenter_aquarium_configs::CONTENT_V3) { $meta = gamecenter_aquarium_content::catalog_v3(); }
+        elseif($ver === gamecenter_aquarium_configs::CONTENT_V2) { $meta = gamecenter_aquarium_content::catalog_v2(); }
+        else { $meta = gamecenter_aquarium_content::catalog(); }
 
         // 展示位里每种鱼占几格
         $shown = [];
@@ -182,8 +184,10 @@ final class gamecenter_aquarium {
             $f['lifetime_cap']=isset($f['lifetime_cap']) ? (int)$f['lifetime_cap'] : null;
             $f['rod_gate']=isset($f['min_rod_level']) ? (int)$f['min_rod_level'] : 0;
             $f['rod_ready']=$f['rod_gate'] === 0 || (int)$s['rod_level'] >= $f['rod_gate'];
-            // 限量种不可售；普通种可售 = 持有 - max(4, 展示)
-            $f['sellable'] = $f['lifetime_cap'] !== null ? 0 : max(0, $owned - max(4, $f['shown']));
+            // 可售 = 持有 − max(4, 展示)。原有终身 3 条的限量种继续禁售；
+            // v3 的三条新鱼（终身 6 条）经批准可售，走同一公式。
+            $capLocked = $f['lifetime_cap'] !== null && !gamecenter_aquarium_configs::limitedSellable((string)$f['id']);
+            $f['sellable'] = $capLocked ? 0 : max(0, $owned - max(4, $f['shown']));
             $fish[]=$f;
         }
         $discovered = 0;

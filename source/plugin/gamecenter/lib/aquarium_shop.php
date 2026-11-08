@@ -115,14 +115,16 @@ final class gamecenter_aquarium_shop {
         if(!empty($s['inventory_anomaly'])) { return [$s, 'condition']; }
         if(!isset($s['fish'][$fid])) { return [$s, 'target']; }
         if($qty < 1) { return [$s, 'input']; }
-        // 限量物种禁止售卖：上限在 waters[water].fish[fid] 上，不在顶层
+        // 限量物种默认禁售：上限在 waters[water].fish[fid] 上，不在顶层。
+        // v3 的三条新鱼（终身 6 条）经批准放行，仍受下面的「持有 − max(4, 展示)」约束。
         foreach(($c['waters'] ?? []) as $w) {
-            if(isset($w['fish'][$fid]['lifetime_cap'])) { return [$s, 'condition']; }
+            if(isset($w['fish'][$fid]['lifetime_cap']) && !gamecenter_aquarium_configs::limitedSellable($fid)) { return [$s, 'condition']; }
         }
         $max = self::sellable($s, $fid);
         if($qty > $max) { return [$s, 'condition']; }
         require_once __DIR__.'/aquarium_content.php';
-        $meta = gamecenter_aquarium_content::catalog();
+        // 品级必须按存档实际配置版本取；用 v1 目录会让 v3 的新鱼查不到品级、价格为 0
+        $meta = gamecenter_aquarium_configs::catalogFor((string)($c['version'] ?? ''));
         $rarity = '';
         foreach($meta['fish'] as $it) { if(($it['id'] ?? '') === $fid) { $rarity = (string)($it['rarity'] ?? ''); break; } }
         $price = self::sellPrice($rarity);

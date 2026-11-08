@@ -106,6 +106,93 @@ final class gamecenter_aquarium_content {
         return ['version'=>$c['version'],'status'=>'candidate-not-active','fish'=>$fish,'decor'=>$decor,'water_names'=>$d['waters'],
             'cap_ms'=>$c['cap_ms'],'fish_capacities'=>$c['fish_capacities'],'fish_capacity_costs'=>$c['fish_capacity_costs']];
     }
+    /* ---------------- v3：19 种（含 7 种终身上限 6）+ 38 装饰 + Lv.5 20000 ---------------- */
+    const V3_FILE='content-v3-candidate.json';
+    const V3_HASH='b968b1addc98c29530f62202ca8f7d7a0907770e0be71dac6990a6c9b7f28859';
+    const V3_VERSION='aquarium-content-v3-candidate-v1';
+    const V3_LIMITED=['pond_curl_seahorse','pond_bell_jelly','bay_moon_mermaid','bay_gummy_octopus',
+                      'qingya_turtle','qixia_guppy','shanlan_butterfly'];
+    private static ?array $v3=null;
+
+    private static function loadV3(): array {
+        if(self::$v3!==null) { return self::$v3; }
+        $raw=file_get_contents(__DIR__.'/../games/aquarium/data/'.self::V3_FILE);
+        if(!is_string($raw) || strlen($raw)>262144 || !hash_equals(self::V3_HASH,hash('sha256',$raw))) { throw new DomainException('content-v3'); }
+        $d=json_decode($raw,true,64,JSON_THROW_ON_ERROR);
+        if(($d['status']??null)!=='candidate-not-active') { throw new DomainException('content-v3'); }
+        $c=gamecenter_aquarium_rules::prepare($d['config']);
+        if($c['version']!==self::V3_VERSION || $c['cap_ms']!==86400000 || count($d['fish'])!==19 || count($d['decor'])!==38
+            || $c['fish_capacities']!==[4,8,12] || $c['fish_capacity_costs']!==[0,800,3000] || $c['initial_fish_capacity']!==4
+            || count($c['periods_ms'])!==6 || (int)$c['rod_costs'][5]!==20000
+            || (int)$c['periods_ms'][5]!==60000) { throw new DomainException('content-v3-shape'); }
+
+        $all=[];
+        foreach($c['waters'] as $wid=>$w) {
+            if(!isset($d['waters'][$wid])) { throw new DomainException('content-v3'); }
+            if(array_sum(array_column($w['fish'],'weight'))!==3000) { throw new DomainException('content-v3-weight'); }
+            foreach($w['fish'] as $fid=>$f) { $all[$fid]=$wid; }
+        }
+        if(count($all)!==19 || array_diff_key($all,$d['fish']) || array_diff_key($d['fish'],$all)) { throw new DomainException('content-v3'); }
+
+        // 终身上限与鱼竿门槛只允许 V3_LIMITED 这 7 种
+        $limited=[];
+        foreach($c['waters'] as $wid=>$w) {
+            foreach($w['fish'] as $fid=>$f) {
+                if(isset($f['lifetime_cap'])) { $limited[]=$fid; if(!in_array($fid,self::V3_LIMITED,true)) { throw new DomainException('content-v3-cap'); } }
+                if(isset($f['min_rod_level']) && !in_array($fid,self::V3_LIMITED,true)) { throw new DomainException('content-v3-rod'); }
+            }
+        }
+        sort($limited);
+        $expect=self::V3_LIMITED; sort($expect);
+        if($limited!==$expect) { throw new DomainException('content-v3-cap'); }
+
+        // 旧 16 种：ID / index / 水域 / 品级 不得变动
+        $v2=self::loadV2();
+        foreach($v2['fish'] as $id=>$m) {
+            if(!isset($d['fish'][$id])) { throw new DomainException('content-v3-legacy'); }
+            if((int)$d['fish'][$id]['index']!==(int)$m['index']) { throw new DomainException('content-v3-index'); }
+            if($d['fish'][$id]['water']!==$m['water'] || $d['fish'][$id]['rarity']!==$m['rarity']) { throw new DomainException('content-v3-meta'); }
+        }
+        // 旧 24 件装饰：index / 分类 不得变动
+        foreach($v2['decor'] as $id=>$m) {
+            if(!isset($d['decor'][$id]) || (int)$d['decor'][$id]['index']!==(int)$m['index']
+                || $d['decor'][$id]['category']!==$m['category']) { throw new DomainException('content-v3-decor'); }
+        }
+
+        // 图鉴与装饰索引各自连续
+        foreach(['fish','decor'] as $kind) {
+            $idx=[];
+            foreach($d[$kind] as $id=>$m) {
+                if(!gamecenter_aquarium_rules::id($id) || !is_string($m['name']??null) || $m['name']===''
+                    || !is_string($m['description']??null)
+                    || !gamecenter_aquarium_rules::number($m['index']??null,1,count($d[$kind]))) { throw new DomainException('content-v3-meta2'); }
+                if($kind==='fish') {
+                    if($m['water']!==$all[$id] || !in_array($m['rarity'],['常见','少见','稀有','珍奇'],true)) { throw new DomainException('content-v3-rarity'); }
+                } else {
+                    if(!in_array($m['category'],['plant','scape','building','trinket'],true)
+                        || !is_array($m['themes']??null) || !$m['themes']
+                        || !isset($c['decor'][$id])) { throw new DomainException('content-v3-decor2'); }
+                }
+                $idx[]=(int)$m['index'];
+            }
+            sort($idx,SORT_NUMERIC);
+            if($idx!==range(1,count($d[$kind]))) { throw new DomainException('content-v3-index2'); }
+        }
+
+        $d['config']=$c; self::$v3=$d; return $d;
+    }
+
+    public static function rules_config_v3(): array { return self::loadV3()['config']; }
+
+    public static function catalog_v3(): array {
+        $d=self::loadV3(); $c=$d['config']; $fish=[]; $decor=[];
+        foreach($d['fish'] as $id=>$m) { $fish[]=array_merge(['id'=>$id],$m,$c['waters'][$m['water']]['fish'][$id]); }
+        foreach($d['decor'] as $id=>$m) { $decor[]=array_merge(['id'=>$id],$m,$c['decor'][$id]); }
+        usort($fish,static fn($a,$b)=>$a['index']<=>$b['index']); usort($decor,static fn($a,$b)=>$a['index']<=>$b['index']);
+        return ['version'=>$c['version'],'status'=>'candidate-not-active','fish'=>$fish,'decor'=>$decor,'water_names'=>$d['waters'],
+            'cap_ms'=>$c['cap_ms'],'fish_capacities'=>$c['fish_capacities'],'fish_capacity_costs'=>$c['fish_capacity_costs']];
+    }
+
     /** 无私有随机信息；价格/权重只从同一规则配置投影，图鉴按显式index排序。 */
     public static function catalog(): array {
         $d=self::load();$c=$d['config'];$fish=[];$decor=[];

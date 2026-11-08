@@ -976,6 +976,554 @@
         "desaturate": false
       },
       "note": "羽翼已在一张图内，不拆开成左右两件"
+    },
+    {
+      "id": "building_glowroot_cottage",
+      "name": "萤根小筑",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.85,
+      "visible_width_ratio": 0.25,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        1024,
+        512
+      ],
+      "source_visible_bbox": [
+        66,
+        31,
+        957,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_glowroot_cottage.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "建筑｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "building_mosswheel_mill",
+      "name": "苔轮水坊",
+      "depth_band": "far",
+      "ground_y_ratio": 0.8,
+      "visible_width_ratio": 0.25,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        1024,
+        512
+      ],
+      "source_visible_bbox": [
+        183,
+        31,
+        841,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_mosswheel_mill.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "建筑｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "building_mossstone_bridge",
+      "name": "苔石拱桥",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.85,
+      "visible_width_ratio": 0.27,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        1024,
+        512
+      ],
+      "source_visible_bbox": [
+        64,
+        128,
+        960,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_mossstone_bridge.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "景观｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "building_root_archway",
+      "name": "古根门庭",
+      "depth_band": "far",
+      "ground_y_ratio": 0.8,
+      "visible_width_ratio": 0.14,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        86,
+        31,
+        426,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_root_archway.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "景观｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "building_glowseed_beacon",
+      "name": "萤籽引路柱",
+      "depth_band": "far",
+      "ground_y_ratio": 0.8,
+      "visible_width_ratio": 0.11,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        153,
+        31,
+        358,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/building_glowseed_beacon.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "景观｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "plant_spring_fern",
+      "name": "林泉蕨丛",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.86,
+      "visible_width_ratio": 0.11,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back",
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        132,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_spring_fern.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "植物｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "plant_lavender_bells",
+      "name": "铃花小簇",
+      "depth_band": "mid",
+      "ground_y_ratio": 0.86,
+      "visible_width_ratio": 0.09,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back",
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        53,
+        31,
+        459,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_lavender_bells.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "植物｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "plant_fineleaf_ribbon",
+      "name": "碧带水草",
+      "depth_band": "far",
+      "ground_y_ratio": 0.8,
+      "visible_width_ratio": 0.09,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        42,
+        31,
+        470,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/plant_fineleaf_ribbon.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "植物｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "scape_moss_step_path",
+      "name": "曲苔石径",
+      "depth_band": "near",
+      "ground_y_ratio": 0.93,
+      "visible_width_ratio": 0.14,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        91,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_moss_step_path.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "地面装饰｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "scape_riverstone_cluster",
+      "name": "青苔叠石",
+      "depth_band": "far",
+      "ground_y_ratio": 0.8,
+      "visible_width_ratio": 0.1,
+      "default_layer": "back",
+      "allowed_layers": [
+        "back"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        83,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/scape_riverstone_cluster.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "地面装饰｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "trinket_honeyquartz_cluster",
+      "name": "蜜晶石簇",
+      "depth_band": "near",
+      "ground_y_ratio": 0.93,
+      "visible_width_ratio": 0.09,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        55,
+        31,
+        456,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_honeyquartz_cluster.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "摆件｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "trinket_glowseed_lantern",
+      "name": "萤籽地灯",
+      "depth_band": "near",
+      "ground_y_ratio": 0.93,
+      "visible_width_ratio": 0.045,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        79,
+        31,
+        433,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_glowseed_lantern.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "摆件｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "trinket_rootwood_bench",
+      "name": "根木长凳",
+      "depth_band": "near",
+      "ground_y_ratio": 0.93,
+      "visible_width_ratio": 0.13,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        32,
+        164,
+        480,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_rootwood_bench.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "摆件｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
+    },
+    {
+      "id": "trinket_leafway_sign",
+      "name": "叶形路牌",
+      "depth_band": "near",
+      "ground_y_ratio": 0.93,
+      "visible_width_ratio": 0.06,
+      "default_layer": "front",
+      "allowed_layers": [
+        "front"
+      ],
+      "preferred_x": [
+        0.25,
+        0.75
+      ],
+      "placement_preference": "either_side",
+      "must_pair": false,
+      "position_is_hard_constraint": false,
+      "source_size": [
+        512,
+        512
+      ],
+      "source_visible_bbox": [
+        50,
+        31,
+        461,
+        461
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "source_file": "decor/trinket_leafway_sign.webp",
+      "atmosphere": {
+        "mode": "scene_tint_overlay",
+        "max_alpha": 0.025,
+        "desaturate": false
+      },
+      "note": "摆件｜v2 萤光秘境；几何来自 runtime-map，层位为美术建议"
     }
   ]
 }
