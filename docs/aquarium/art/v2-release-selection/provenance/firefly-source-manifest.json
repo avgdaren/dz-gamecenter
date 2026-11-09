@@ -1,0 +1,500 @@
+{
+  "schema": "aquarium-firefly-complete-theme-candidate-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-11-06",
+  "status": "14-item-diverse-theme-art-candidate-not-runtime",
+  "preset_proposal": {
+    "file": "presets.json",
+    "guide": "PRESETS.md",
+    "count": 4,
+    "runtime_ready": false
+  },
+  "tool": "built-in image_gen.imagegen",
+  "direction": "approved underwater forest materials; diverse functions and silhouettes; ordinary decorative plants, hardscape and small props",
+  "requested_change": "Owner found the four roofed buildings repetitive and requested more types plus ordinary decorations for a complete themed aquarium",
+  "background": {
+    "id": "tank_firefly_grove",
+    "file": "../firefly-v1/mothers/tank_firefly_grove-v01.png",
+    "sha256": "3a03ea65936631d580dcbc651f1d8ca6b28a49ccf5e1d7141dc780f4cff51222",
+    "unchanged": true
+  },
+  "counts": {
+    "decor": 14,
+    "building_and_landscape_structures": 5,
+    "ordinary_decor": 9,
+    "retained_images": 2,
+    "new_items": 12,
+    "generated_source_images": 13,
+    "cleanup_variants": 1,
+    "context_previews": 1
+  },
+  "assets": [
+    {
+      "id": "building_glowroot_cottage",
+      "name": "萤根小筑",
+      "kind": "building",
+      "retained_from_previous_round": true,
+      "file": "../firefly-v2/mothers/building_glowroot_cottage-v01.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_fraction": 0.5200322469075521,
+      "visible_bbox_alpha16": [
+        42,
+        172,
+        1490,
+        871
+      ],
+      "bytes": 2275845,
+      "sha256": "f6f42b0199d0aedd8df7c361db167cefedd517283a8026b82eeaea0767e6b6e0",
+      "source_tool_file": "exec-61504c2e-ca37-4d50-92b3-e8401f9053a7.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "building_mosswheel_mill",
+      "name": "苔轮水坊",
+      "kind": "building",
+      "retained_from_previous_round": true,
+      "file": "../firefly-v2/mothers/building_mosswheel_mill-v01.png",
+      "size": [
+        1374,
+        1145
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.5089541897878886,
+      "visible_bbox_alpha16": [
+        48,
+        157,
+        1334,
+        997
+      ],
+      "bytes": 1958177,
+      "sha256": "c1d32f32e56d169ec9b4fdef3ff5ba6525e2bf2ffccb61fa0c368eb253b532f0",
+      "source_tool_file": "exec-2e3062c2-f46a-43d8-bbe5-39097a0a013a.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "building_mossstone_bridge",
+      "name": "苔石拱桥",
+      "kind": "landscape_structure",
+      "retained_from_previous_round": false,
+      "file": "mothers/building_mossstone_bridge-v01.png",
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.6486141421433738,
+      "visible_bbox_alpha16": [
+        78,
+        158,
+        1706,
+        763
+      ],
+      "bytes": 1474774,
+      "sha256": "a63c1ca39d8bb7c2ef2460bc99409464537d3991972e7b5a79e3f35a395cf647",
+      "source_tool_file": "exec-029df1fb-9de6-4eb6-a91a-5af0e5b3e930.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "building_root_archway",
+      "name": "古根门庭",
+      "kind": "landscape_structure",
+      "retained_from_previous_round": false,
+      "file": "mothers/building_root_archway-v01.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_fraction": 0.6774578094482422,
+      "visible_bbox_alpha16": [
+        40,
+        137,
+        992,
+        1341
+      ],
+      "bytes": 2078486,
+      "sha256": "d196f9971a6c3c20f273b1969d1f795a81cefd6ee6df3dedc70d29d96731cffb",
+      "source_tool_file": "exec-387512a5-8971-40f5-bdf8-ec2fcdd48912.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "building_glowseed_beacon",
+      "name": "萤籽引路柱",
+      "kind": "landmark",
+      "retained_from_previous_round": false,
+      "file": "mothers/building_glowseed_beacon-v01.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_fraction": 0.7175197601318359,
+      "visible_bbox_alpha16": [
+        175,
+        91,
+        798,
+        1397
+      ],
+      "bytes": 1967653,
+      "sha256": "a8368c0447a4637c0b614d0dcb59729fdcd6a8910385c88dc47a2bdf76343862",
+      "source_tool_file": "exec-977f7748-b05b-42c7-9c5c-91b79d83c3c6.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "plant_spring_fern",
+      "name": "林泉蕨丛",
+      "kind": "plant",
+      "retained_from_previous_round": false,
+      "file": "mothers/plant_spring_fern-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.6458897715508141,
+      "visible_bbox_alpha16": [
+        61,
+        202,
+        1183,
+        1027
+      ],
+      "bytes": 1425600,
+      "sha256": "8385494b7d2422fe1ab5cc422a2e8fd1e111108f1ede4034d368b621a833f8c5",
+      "source_tool_file": "exec-3d408455-ee4d-4dfb-9f65-2e10bfa75a65.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "plant_lavender_bells",
+      "name": "铃花小簇",
+      "kind": "plant",
+      "retained_from_previous_round": false,
+      "file": "mothers/plant_lavender_bells-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.6086380043191929,
+      "visible_bbox_alpha16": [
+        163,
+        109,
+        1119,
+        1121
+      ],
+      "bytes": 1283259,
+      "sha256": "4bcc234e9a5b886334f7dedca6df968c65b5e3067ef39ab8533cb44b38e599fa",
+      "source_tool_file": "exec-9e2c5115-d18f-4e05-b448-b74806b42b39.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "plant_fineleaf_ribbon",
+      "name": "碧带水草",
+      "kind": "plant",
+      "retained_from_previous_round": false,
+      "file": "mothers/plant_fineleaf_ribbon-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7615909790425026,
+      "visible_bbox_alpha16": [
+        98,
+        99,
+        1169,
+        1176
+      ],
+      "bytes": 920797,
+      "sha256": "296b785c6c00fe26e096a742cfa377eabf83f19436500cf0604eaea4af4d3f50",
+      "source_tool_file": "exec-ec6c5aad-bd9f-4b3b-8b3f-59468c48f49a.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "scape_moss_step_path",
+      "name": "曲苔石径",
+      "kind": "ground_decor",
+      "retained_from_previous_round": false,
+      "file": "mothers/scape_moss_step_path-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7630650498945639,
+      "visible_bbox_alpha16": [
+        131,
+        177,
+        1117,
+        992
+      ],
+      "bytes": 944850,
+      "sha256": "4e04de1eb34c64f4f81bf62c711fd7fb0f021e9990d2d8f9e8a44eb10e6ba3e7",
+      "source_tool_file": "exec-3d860724-8540-4123-8223-ea985fe69d16.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "scape_riverstone_cluster",
+      "name": "青苔叠石",
+      "kind": "ground_decor",
+      "retained_from_previous_round": false,
+      "file": "mothers/scape_riverstone_cluster-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7150044896204554,
+      "visible_bbox_alpha16": [
+        172,
+        312,
+        1050,
+        1052
+      ],
+      "bytes": 1112354,
+      "sha256": "8cd6908064407658e967d06e2e2b523fa246af335ffd1d70907236c1136bbc25",
+      "source_tool_file": "exec-16b92e65-6457-48b2-a877-3b60454b057b.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "trinket_honeyquartz_cluster",
+      "name": "蜜晶石簇",
+      "kind": "small_prop",
+      "retained_from_previous_round": false,
+      "file": "mothers/trinket_honeyquartz_cluster-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7359785210452549,
+      "visible_bbox_alpha16": [
+        242,
+        234,
+        994,
+        1041
+      ],
+      "bytes": 1052304,
+      "sha256": "48e0644a085d7fc4650d13f1e11c4e212f3f7d19f0143e870f83d24574f74bc0",
+      "source_tool_file": "exec-d6789c05-a46c-45a2-ad9d-4298d7f82119.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "trinket_glowseed_lantern",
+      "name": "萤籽地灯",
+      "kind": "small_prop",
+      "retained_from_previous_round": false,
+      "file": "mothers/trinket_glowseed_lantern-v02.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7315022549850049,
+      "visible_bbox_alpha16": [
+        274,
+        190,
+        1009,
+        1084
+      ],
+      "bytes": 1211369,
+      "sha256": "c0508cd23fc10b0fe9f83f70b8d53381494c998f664ec2fa814bbbc14497cfc0",
+      "source_tool_file": "exec-4d8f4e8e-5a95-42b5-a0aa-8056605a8530.png",
+      "source_bytes_unchanged": true,
+      "cleanup_passes": 1
+    },
+    {
+      "id": "trinket_rootwood_bench",
+      "name": "根木长凳",
+      "kind": "small_prop",
+      "retained_from_previous_round": false,
+      "file": "mothers/trinket_rootwood_bench-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7136245354578268,
+      "visible_bbox_alpha16": [
+        99,
+        312,
+        1138,
+        1001
+      ],
+      "bytes": 1065329,
+      "sha256": "fdb78472d026e064a51579793b4e6fa7384febbd9b0310bf8c3ba67f7f01c8aa",
+      "source_tool_file": "exec-3b60d0fc-2bb2-4a63-9028-1d50dd557bb5.png",
+      "source_bytes_unchanged": true
+    },
+    {
+      "id": "trinket_leafway_sign",
+      "name": "叶形路牌",
+      "kind": "small_prop",
+      "retained_from_previous_round": false,
+      "file": "mothers/trinket_leafway_sign-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7397590867119953,
+      "visible_bbox_alpha16": [
+        138,
+        110,
+        1083,
+        1098
+      ],
+      "bytes": 1022852,
+      "sha256": "282a6bca9b1d704928349bfe15d6fcaee02ca55c7d2d687376d3c5c5c697832b",
+      "source_tool_file": "exec-8cc0b208-25f6-4597-9cd7-3e3fbd84b0c6.png",
+      "source_bytes_unchanged": true
+    }
+  ],
+  "previews": [
+    {
+      "id": "firefly_complete_theme_context",
+      "file": "previews/firefly-complete-theme-context-v01.png",
+      "role": "conceptual-context-preview",
+      "size": [
+        1585,
+        992
+      ],
+      "mode": "RGB",
+      "bytes": 2462318,
+      "sha256": "af899443c66b166966c262dceabce4e361036de1fb8497217ed3b5353b9b60e3",
+      "source_tool_file": "exec-8e13cfdd-7ba9-4e68-840f-b1518f6757e6.png",
+      "source_bytes_unchanged": true
+    }
+  ],
+  "retired_from_default": [
+    "building_fernlight_watchtower",
+    "building_vineleaf_pavilion"
+  ],
+  "retired_images_preserved": true,
+  "runtime_ready": false,
+  "commerce": {
+    "status": "not-implemented",
+    "price_approved": false,
+    "quote": null,
+    "independent_ownership": true,
+    "individual_purchase": true,
+    "cross_theme_mixing": true,
+    "bundle_missing_item_discount": "proposal retained; no active rule or price"
+  },
+  "capacity_note": {
+    "current_local_slots_per_layer": 3,
+    "current_local_total_slots": 6,
+    "this_is_art_catalog_size": 14,
+    "full_theme_layout_requires_further_design_and_runtime_changes": true
+  },
+  "limits": [
+    "Mother PNG candidates only; no normalized WebP/128px runtime export",
+    "Full-set effect will be an imagegen concept composite, not a game screenshot",
+    "No production code/configuration/player-data/deployment changes",
+    "Old bundle prices do not apply; no new price confirmed"
+  ],
+  "rejected_variants": [
+    {
+      "id": "trinket_glowseed_lantern",
+      "name": "萤籽地灯",
+      "kind": "small_prop",
+      "retained_from_previous_round": false,
+      "file": "mothers/trinket_glowseed_lantern-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.19212650300537482,
+      "visible_bbox_alpha16": [
+        0,
+        0,
+        1254,
+        1031
+      ],
+      "bytes": 2134338,
+      "sha256": "51b1487e796f258a19753501ab2b373f2d979ab81daf5df7d4da5e19e52611fc",
+      "source_tool_file": "exec-a7f9e870-e3aa-4eae-9c7f-17a353e74067.png",
+      "source_bytes_unchanged": true,
+      "rejection": "nontransparent white fog; retained for provenance, excluded from package"
+    }
+  ],
+  "prompt_files": [
+    "PROMPTS-STRUCTURES.json",
+    "PROMPTS-PLANTS.json",
+    "PROMPTS-GROUND.json",
+    "PROMPTS-PROPS.json",
+    "PROMPT-LANTERN-CLEANUP.json",
+    "PROMPT-COMPOSITE.json"
+  ],
+  "qc": {
+    "report": "qc/asset-check.json",
+    "light_catalog": "qc/catalog-light-v01.png",
+    "dark_catalog": "qc/catalog-dark-v01.png",
+    "status": "file-contracts and reduced-scale opaque-composite visual review passed",
+    "runtime_edge_acceptance": false
+  }
+}

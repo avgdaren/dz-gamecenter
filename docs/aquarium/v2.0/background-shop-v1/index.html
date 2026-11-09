@@ -1,0 +1,63 @@
+<!doctype html>
+<!-- 作者：GPT / Codex（小典）；原插件 (C) 2026 Carinoasd。背景商店交互稿，非真实游戏。 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>天使水族馆 · 背景商店交互稿</title>
+  <link rel="stylesheet" href="shop.css">
+  <script src="catalog.js" defer></script>
+  <script src="shop.js" defer></script>
+</head>
+<body>
+  <div class="review-bar">
+    <div><strong>背景商店 · 交互稿</strong><span>演示数据，不连接游戏存档</span></div>
+    <div class="review-controls">
+      <label>场景<select id="scenario" aria-label="场景"><option value="normal">常规进度</option><option value="poor">金币不足</option><option value="locked">尚未解锁</option><option value="owned">已拥有秘境</option></select></label>
+      <button id="size-toggle" type="button" aria-pressed="false">手机宽度</button>
+      <button id="reset" type="button">重置演示</button>
+    </div>
+  </div>
+  <main id="demo" class="demo">
+    <div class="aquarium">
+      <header class="game-head">
+        <div><p class="eyebrow">ANGEL AQUARIUM</p><h1>天使水族馆</h1></div>
+        <div class="balance"><span>我的金币</span><strong id="coins">12,800</strong></div>
+      </header>
+      <section class="current-scene" aria-label="当前背景">
+        <picture><source id="current-mobile" media="(max-width: 600px)"><img id="current-image" alt=""></picture>
+        <div class="current-caption"><span>当前背景</span><strong id="current-name">日光</strong><span>只换背景，鱼和装饰继续保留</span></div>
+      </section>
+      <div class="tabs" role="tablist" aria-label="鱼缸内容">
+        <button type="button" role="tab" id="tab-fish" tabindex="-1" aria-selected="false" aria-controls="fish-panel">鱼类</button>
+        <button type="button" role="tab" id="tab-decor" tabindex="-1" aria-selected="false" aria-controls="decor-panel">装饰</button>
+        <button type="button" role="tab" id="tab-background" class="selected" aria-selected="true" aria-controls="background-panel">背景</button>
+      </div>
+      <section id="fish-panel" role="tabpanel" aria-labelledby="tab-fish" hidden><p class="existing-panel">鱼类图鉴沿用现有界面。</p></section>
+      <section id="decor-panel" role="tabpanel" aria-labelledby="tab-decor" hidden>
+        <div class="pane-heading"><div><h2>布景预设</h2><p>免费摆法，使用已拥有的素材。</p></div></div>
+        <div class="preset-row"><span>萤光秘境</span><button type="button" id="preset-demo">林泉小居</button></div>
+        <div id="preset-message" class="preset-message" hidden></div>
+      </section>
+      <section id="background-panel" role="tabpanel" aria-labelledby="tab-background">
+        <div class="pane-heading"><div><h2>给鱼缸换一处风景</h2><p>买一次，永久拥有；之后切换免费。</p></div><span id="owned-count" class="owned-count">已拥有 2 / 7</span></div>
+        <div id="background-grid" class="background-grid"></div>
+      </section>
+      <p id="notice" class="notice" role="status" aria-live="polite"></p>
+    </div>
+  </main>
+  <dialog id="preview" aria-labelledby="preview-name">
+    <div class="dialog-top"><span>背景预览</span><button type="button" id="close-preview" class="quiet-button" aria-label="关闭背景预览">关闭</button></div>
+    <picture class="large-preview"><source id="preview-mobile" media="(max-width: 600px)"><img id="preview-image" alt=""></picture>
+    <div class="dialog-content">
+      <div class="preview-title"><h2 id="preview-name"></h2><span id="preview-badge" class="badge"></span></div>
+      <p id="preview-description"></p>
+      <p class="permanent-note">永久拥有 · 切换免费 · 不改变钓鱼收益</p>
+      <div id="purchase-summary" class="purchase-summary"><span>本次花费<strong id="purchase-cost"></strong></span><span>购买后余额<strong id="remaining-coins"></strong></span></div>
+      <p id="preview-condition" class="condition" role="status" aria-live="polite"></p>
+      <div class="dialog-actions"><button type="button" id="cancel-preview">暂不更换</button><button type="button" id="preview-action" class="primary"></button></div>
+      <p id="preview-hint" class="action-hint"></p>
+    </div>
+  </dialog>
+</body>
+</html>

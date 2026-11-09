@@ -1,0 +1,185 @@
+{
+  "schema": "aquarium-background-shop-art-audit-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-11-08",
+  "source_commit": "ccdc58e3106a2352c5a29e69860f69ff8de22ca0",
+  "note": "Original art preserved. Three new UI thumbnails are mechanical 320x200 center-cover exports; source images are unchanged. Existing four paid-background thumbnail files are reused.",
+  "images": [
+    {
+      "file": "docs/aquarium/art/v2-release-selection/runtime/v1/background/tank_firefly_grove.webp",
+      "width": 1536,
+      "height": 960,
+      "bytes": 158598,
+      "sha256": "d6e6fdeda917a7dc6dc31edddba15878eb7148f3181495f08d4c8326bb440e7e",
+      "decode": "pass"
+    },
+    {
+      "file": "docs/aquarium/art/v2-release-selection/runtime/v1/background/tank_firefly_grove_mobile.webp",
+      "width": 768,
+      "height": 480,
+      "bytes": 56542,
+      "sha256": "858ef9fd5949a1eb1d6224634525571b0f9abeea71eca36790bb170c78e3dae1",
+      "decode": "pass"
+    },
+    {
+      "file": "docs/aquarium/art/v2-release-selection/runtime/v1/background/tank_firefly_grove_thumb.webp",
+      "width": 240,
+      "height": 150,
+      "bytes": 8906,
+      "sha256": "3aae0fa5a19f31f0728f9a13d1bda17a77fd1864290ba629114b1bf90bb03ee0",
+      "decode": "pass"
+    },
+    {
+      "file": "docs/aquarium/v2.0/background-shop-v1/thumbs/tank_day.webp",
+      "width": 320,
+      "height": 200,
+      "bytes": 14804,
+      "sha256": "29b4dcc95563c1f5ecbb073c74cebb04d2f384c0873a21d93e147a8185f3ca60",
+      "decode": "pass"
+    },
+    {
+      "file": "docs/aquarium/v2.0/background-shop-v1/thumbs/tank_firefly_grove.webp",
+      "width": 320,
+      "height": 200,
+      "bytes": 15212,
+      "sha256": "437bdd942c0a6054e0ba5eb60ed7819cdd63e3a5b179cc7384a95e4e56cd34a9",
+      "decode": "pass"
+    },
+    {
+      "file": "docs/aquarium/v2.0/background-shop-v1/thumbs/tank_moon.webp",
+      "width": 320,
+      "height": 200,
+      "bytes": 16016,
+      "sha256": "5efbf118bd38e61f8e45e9eb557c0e35c4409946c93904fa6fa9b9548e88ba60",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_aurora.webp",
+      "width": 1536,
+      "height": 960,
+      "bytes": 198386,
+      "sha256": "10caf5bd160e9c61ce9efae514d64132c45ec86acc43de5e2fb78ebe37ad9424",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_aurora_mobile.webp",
+      "width": 768,
+      "height": 480,
+      "bytes": 61728,
+      "sha256": "1de0d6191eacd1e52100a3ea6a80459ec83e96c6dccadd220a5f61d1236e6e1f",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_aurora_thumb.webp",
+      "width": 320,
+      "height": 200,
+      "bytes": 14378,
+      "sha256": "3afe02e02f6d4f5e5d958597709211e082103c07204477e6db4693ed89250e32",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_coral.webp",
+      "width": 1536,
+      "height": 960,
+      "bytes": 220966,
+      "sha256": "5f1f149b7e098fb8e865716b4bcfd487ae6d9b2f84bebb80d0d3181a5e39d524",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_coral_mobile.webp",
+      "width": 768,
+      "height": 480,
+      "bytes": 67176,
+      "sha256": "9f0cffd9956db89c0cb9a552e2a53ab7dda2521f14e317135bba2e13e8d977f2",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_coral_thumb.webp",
+      "width": 320,
+      "height": 200,
+      "bytes": 14846,
+      "sha256": "e9569c3ea0a54384acc32c79e69ee6a6f60e676177b8562bcde1ee41201b0fc8",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_sakura.webp",
+      "width": 1536,
+      "height": 960,
+      "bytes": 272880,
+      "sha256": "844269e326b893aa49826bb00744bd95516e2bc9fdb9346777d0730ca402429b",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_sakura_mobile.webp",
+      "width": 768,
+      "height": 480,
+      "bytes": 82396,
+      "sha256": "a43e6aa78904b80c7b75793bcaad80ac6df683567c3814c8cb943de3c73d8792",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_sakura_thumb.webp",
+      "width": 320,
+      "height": 200,
+      "bytes": 17618,
+      "sha256": "2fdab0a17e3abc6360b1cbd66ce12dd9e1998a4c6c2343c8f76b63cf04a0f2df",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_star_ruins.webp",
+      "width": 1536,
+      "height": 960,
+      "bytes": 195842,
+      "sha256": "c105349b2c667b25a739680ecd02b2bc82fe819e7cbd018c1272542df7632a51",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_star_ruins_mobile.webp",
+      "width": 768,
+      "height": 480,
+      "bytes": 62052,
+      "sha256": "b7f54aea3b828a53407cbd3662774cffe3993fb5e4837a0a28121a7267b901bc",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/expansion-v1/tank_star_ruins_thumb.webp",
+      "width": 320,
+      "height": 200,
+      "bytes": 13868,
+      "sha256": "856c992a63b73ed45986a854b8675cb36ed092775e73f53edf998b6b6f9acfb9",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/tank_day.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 169012,
+      "sha256": "36072ab2d94276fc07aeebb7f579eeb935327c5a0ce0d077dd283960aa7cd968",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/tank_day_mobile.webp",
+      "width": 960,
+      "height": 720,
+      "bytes": 77984,
+      "sha256": "2d7d80a7945da5d0ebd408b5170ca6eab770d89928c2afff99cc7eec3a4eec2f",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/tank_moon.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 189900,
+      "sha256": "399eb63a2876532576fd52a4c56f4455150d788945c46dda0c6241e91cfafa4b",
+      "decode": "pass"
+    },
+    {
+      "file": "source/plugin/gamecenter/games/aquarium/assets/background/tank_moon_mobile.webp",
+      "width": 960,
+      "height": 720,
+      "bytes": 98226,
+      "sha256": "1bd137943e8a72195bdbc54e7bfac1aac5ddf71e940ec5728fc5e9143dbad279",
+      "decode": "pass"
+    }
+  ]
+}

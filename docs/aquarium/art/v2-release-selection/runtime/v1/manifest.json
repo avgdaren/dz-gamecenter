@@ -1,0 +1,2079 @@
+{
+  "schema": "aquarium-v2-runtime-art-v1",
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "date": "2026-11-08",
+  "status": "art-export-ready-awaiting-game-integration",
+  "active_game_configuration": false,
+  "economic_values_included": false,
+  "source_manifest": "../../manifest.json",
+  "runtime_fish_ids_finalized": false,
+  "counts": {
+    "fish": 3,
+    "decor": 14,
+    "background": 1,
+    "webp_files": 46,
+    "new_static_exports": 40,
+    "reused_motion_atlases": 3,
+    "reused_background_exports": 3
+  },
+  "total_bytes": 2124634,
+  "over_budget": [],
+  "items": [
+    {
+      "art_id": "creature_qingya_turtle",
+      "name": "青芽海龟",
+      "kind": "fish",
+      "source_master": "masters/creatures/qingya-turtle-v01.png",
+      "source_sha256": "80500c6d4811273c2229baf544ffe017ce912750c7478ce930e4e2c8651065ae",
+      "suggested_runtime_id": "qingya_turtle",
+      "runtime_fish_id": null,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right",
+      "suggested_display": {
+        "size_axis": "width",
+        "size_ratio": 0.16,
+        "status": "visual-default-to-adjust-in-game"
+      },
+      "motion": {
+        "frame_size": [
+          256,
+          256
+        ],
+        "grid": [
+          4,
+          1
+        ],
+        "frame_count": 4,
+        "cycle_ms": 1600,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "neutral_frame": 0,
+        "preview_gif": "previews/qingya_turtle-loop.gif"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/qingya_turtle.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            32,
+            110,
+            480,
+            401
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.214844,
+            0.9375,
+            0.783203
+          ],
+          "bytes": 35070,
+          "sha256": "10714c14a5a29e5c19747be14a0aeaa3b680c9a5b001d87c4095b4e36db3ceee",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish/qingya_turtle.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            36,
+            266,
+            1258,
+            1061
+          ],
+          "packing_scale": 0.36661211129296234,
+          "budget_kib": 60,
+          "within_budget": true
+        },
+        {
+          "role": "mobile",
+          "file": "fish-mobile/qingya_turtle.webp",
+          "size": [
+            256,
+            256
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            16,
+            55,
+            240,
+            201
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.214844,
+            0.9375,
+            0.785156
+          ],
+          "bytes": 12790,
+          "sha256": "156d289fd611657545743453cdb72ff0e3cbca958f9d168b6303b5e64554c49e",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v2/qingya_turtle_mobile.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            36,
+            266,
+            1258,
+            1061
+          ],
+          "packing_scale": 0.18330605564648117,
+          "budget_kib": 35,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/qingya_turtle.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            27,
+            120,
+            100
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.210938,
+            0.9375,
+            0.78125
+          ],
+          "bytes": 12030,
+          "sha256": "25bef889910a0711fccf78b52c7c0ba539e843502c58146f642300c4e4c9a89b",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/fish/qingya_turtle.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            36,
+            266,
+            1258,
+            1061
+          ],
+          "packing_scale": 0.09165302782324058
+        },
+        {
+          "role": "silhouette",
+          "file": "silhouettes/fish/qingya_turtle.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            27,
+            120,
+            100
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.210938,
+            0.9375,
+            0.78125
+          ],
+          "bytes": 1812,
+          "sha256": "329262c9bea15b703c266fa7fdc708913dbbfefd717acb050fdcd27c882b63a6",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v2/qingya_turtle_silhouette.webp"
+        },
+        {
+          "role": "motion",
+          "file": "fish-motion/qingya_turtle.webp",
+          "size": [
+            1024,
+            256
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            13,
+            37,
+            1013,
+            219
+          ],
+          "normalized_content_bounds": [
+            0.012695,
+            0.144531,
+            0.989258,
+            0.855469
+          ],
+          "bytes": 173098,
+          "sha256": "be88baded1c604c8b45224869ef95fee2fefaac947a7185b2282762d0979532c",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-motion/v1/qingya_turtle.webp"
+        }
+      ]
+    },
+    {
+      "art_id": "creature_qixia_guppy",
+      "name": "绮霞古比",
+      "kind": "fish",
+      "source_master": "masters/creatures/qixia-guppy-v01.png",
+      "source_sha256": "c1ad3e3df9698c6c54e0d1f35fbdef7a342616a67db20a625e6f5daa31bb741d",
+      "suggested_runtime_id": "qixia_guppy",
+      "runtime_fish_id": null,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right",
+      "suggested_display": {
+        "size_axis": "width",
+        "size_ratio": 0.18,
+        "status": "visual-default-to-adjust-in-game"
+      },
+      "motion": {
+        "frame_size": [
+          256,
+          256
+        ],
+        "grid": [
+          4,
+          1
+        ],
+        "frame_count": 4,
+        "cycle_ms": 1000,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "neutral_frame": 0,
+        "preview_gif": "previews/qixia_guppy-loop.gif"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/qixia_guppy.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            32,
+            159,
+            480,
+            352
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.310547,
+            0.9375,
+            0.6875
+          ],
+          "bytes": 24332,
+          "sha256": "6a23efb8f0128e036a1d01f3bcd930511eddb015a07fdb7bb71cc38a93984fa3",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish/qixia_guppy.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            90,
+            101,
+            1665,
+            779
+          ],
+          "packing_scale": 0.28444444444444444,
+          "budget_kib": 60,
+          "within_budget": true
+        },
+        {
+          "role": "mobile",
+          "file": "fish-mobile/qixia_guppy.webp",
+          "size": [
+            256,
+            256
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            16,
+            80,
+            240,
+            176
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.3125,
+            0.9375,
+            0.6875
+          ],
+          "bytes": 9364,
+          "sha256": "1f4ec0af26ee731537075be6b9606672a263762e33aeb6d2bfcdfec236c6053a",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v2/qixia_guppy_mobile.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            90,
+            101,
+            1665,
+            779
+          ],
+          "packing_scale": 0.14222222222222222,
+          "budget_kib": 35,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/qixia_guppy.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            40,
+            120,
+            88
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.3125,
+            0.9375,
+            0.6875
+          ],
+          "bytes": 9228,
+          "sha256": "69d2301d713325af86a343e3e6c892fdf2553ebc5aa42fa175101016cca04855",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/fish/qixia_guppy.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            90,
+            101,
+            1665,
+            779
+          ],
+          "packing_scale": 0.07111111111111111
+        },
+        {
+          "role": "silhouette",
+          "file": "silhouettes/fish/qixia_guppy.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            40,
+            120,
+            88
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.3125,
+            0.9375,
+            0.6875
+          ],
+          "bytes": 1548,
+          "sha256": "d643dec8a64f29b311afaee7d4db0189928abfbc1f6dae04b000e8ad54d56aeb",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v2/qixia_guppy_silhouette.webp"
+        },
+        {
+          "role": "motion",
+          "file": "fish-motion/qixia_guppy.webp",
+          "size": [
+            1024,
+            256
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            11,
+            59,
+            1013,
+            197
+          ],
+          "normalized_content_bounds": [
+            0.010742,
+            0.230469,
+            0.989258,
+            0.769531
+          ],
+          "bytes": 138774,
+          "sha256": "082ed7b5f716750fa285984810082ae39a3dcb5fcc695346f4be2b07838c4e0a",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-motion/v1/qixia_guppy.webp"
+        }
+      ]
+    },
+    {
+      "art_id": "creature_shanlan_butterfly",
+      "name": "珊澜蝶鱼",
+      "kind": "fish",
+      "source_master": "masters/creatures/shanlan-butterfly-v03.png",
+      "source_sha256": "389139390194fcdc4ba0aea7757960dad6d137bc298b1f157eae4d757c30174b",
+      "suggested_runtime_id": "shanlan_butterfly",
+      "runtime_fish_id": null,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "facing": "right",
+      "suggested_display": {
+        "size_axis": "width",
+        "size_ratio": 0.15,
+        "status": "visual-default-to-adjust-in-game"
+      },
+      "motion": {
+        "frame_size": [
+          256,
+          256
+        ],
+        "grid": [
+          4,
+          1
+        ],
+        "frame_count": 4,
+        "cycle_ms": 1200,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "neutral_frame": 0,
+        "preview_gif": "previews/shanlan_butterfly-loop.gif"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "fish/shanlan_butterfly.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            32,
+            93,
+            480,
+            418
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.181641,
+            0.9375,
+            0.816406
+          ],
+          "bytes": 30228,
+          "sha256": "67e7e46d205f3c9e7ec39192b5228ff6a900a65feee832178a8fa5370c4938e2",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish/shanlan_butterfly.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            170,
+            77,
+            1368,
+            945
+          ],
+          "packing_scale": 0.3739565943238731,
+          "budget_kib": 60,
+          "within_budget": true
+        },
+        {
+          "role": "mobile",
+          "file": "fish-mobile/shanlan_butterfly.webp",
+          "size": [
+            256,
+            256
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            16,
+            47,
+            240,
+            209
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.183594,
+            0.9375,
+            0.816406
+          ],
+          "bytes": 12680,
+          "sha256": "23e1c6302b5b453b708efec061416ea234e381647f91f9cc405628734b4de721",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v2/shanlan_butterfly_mobile.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            170,
+            77,
+            1368,
+            945
+          ],
+          "packing_scale": 0.18697829716193656,
+          "budget_kib": 35,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/fish/shanlan_butterfly.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            23,
+            120,
+            104
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.179688,
+            0.9375,
+            0.8125
+          ],
+          "bytes": 11956,
+          "sha256": "4c89a046898d0924a2b9f491bfe269b53a8a22f7eae56f0ff8d3b368a9c16086",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/fish/shanlan_butterfly.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            170,
+            77,
+            1368,
+            945
+          ],
+          "packing_scale": 0.09348914858096828
+        },
+        {
+          "role": "silhouette",
+          "file": "silhouettes/fish/shanlan_butterfly.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            23,
+            120,
+            104
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.179688,
+            0.9375,
+            0.8125
+          ],
+          "bytes": 1820,
+          "sha256": "52488bae3f6cb30514f5a92620a202c5f32385a485efddbd10d32d8da4f81e43",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-next/v2/shanlan_butterfly_silhouette.webp"
+        },
+        {
+          "role": "motion",
+          "file": "fish-motion/shanlan_butterfly.webp",
+          "size": [
+            1024,
+            256
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            12,
+            38,
+            1013,
+            218
+          ],
+          "normalized_content_bounds": [
+            0.011719,
+            0.148438,
+            0.989258,
+            0.851562
+          ],
+          "bytes": 181168,
+          "sha256": "6c08485200d00cecdcccfcc0d63eae6e2eec48d8f784b4d66cee3e134a966f49",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/fish-motion/v1/shanlan_butterfly.webp"
+        }
+      ]
+    },
+    {
+      "art_id": "building_glowroot_cottage",
+      "name": "萤根小筑",
+      "kind": "decor",
+      "category": "建筑",
+      "source_master": "masters/decor/building_glowroot_cottage-v01.png",
+      "source_sha256": "f6f42b0199d0aedd8df7c361db167cefedd517283a8026b82eeaea0767e6b6e0",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.25,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_glowroot_cottage.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            66,
+            31,
+            957,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.064453,
+            0.060547,
+            0.93457,
+            0.900391
+          ],
+          "bytes": 126920,
+          "sha256": "cd31075370f2e40e733c04dec9163b2fffe0ed8d10df94759ef0d8ea9aabff6c",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/building_glowroot_cottage.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            42,
+            172,
+            1490,
+            871
+          ],
+          "packing_scale": 0.6152789699570815,
+          "budget_kib": 140,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_glowroot_cottage.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            61,
+            120,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.476562,
+            0.9375,
+            0.898438
+          ],
+          "bytes": 10804,
+          "sha256": "0e5e1857685c557b5ceaeac565b242d3ed6c58d479ce636dc26578a6a4a071c5",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/building_glowroot_cottage.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            42,
+            172,
+            1490,
+            871
+          ],
+          "packing_scale": 0.07734806629834254
+        }
+      ]
+    },
+    {
+      "art_id": "building_mosswheel_mill",
+      "name": "苔轮水坊",
+      "kind": "decor",
+      "category": "建筑",
+      "source_master": "masters/decor/building_mosswheel_mill-v01.png",
+      "source_sha256": "c1d32f32e56d169ec9b4fdef3ff5ba6525e2bf2ffccb61fa0c368eb253b532f0",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.25,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_mosswheel_mill.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            183,
+            31,
+            841,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.178711,
+            0.060547,
+            0.821289,
+            0.900391
+          ],
+          "bytes": 119658,
+          "sha256": "42a88adc096f831ee53338066cfe5d8794c6b22a8257087faf7520b0a0372f5c",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/building_mosswheel_mill.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            48,
+            157,
+            1334,
+            997
+          ],
+          "packing_scale": 0.512,
+          "budget_kib": 140,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_mosswheel_mill.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            42,
+            120,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.328125,
+            0.9375,
+            0.898438
+          ],
+          "bytes": 15474,
+          "sha256": "c970627b08913e0542b7387a3d55bbb28705c7675123d1e3106366589c5abdce",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/building_mosswheel_mill.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            48,
+            157,
+            1334,
+            997
+          ],
+          "packing_scale": 0.08709175738724728
+        }
+      ]
+    },
+    {
+      "art_id": "building_mossstone_bridge",
+      "name": "苔石拱桥",
+      "kind": "decor",
+      "category": "景观",
+      "source_master": "masters/decor/building_mossstone_bridge-v01.png",
+      "source_sha256": "a63c1ca39d8bb7c2ef2460bc99409464537d3991972e7b5a79e3f35a395cf647",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.27,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_mossstone_bridge.webp",
+          "size": [
+            1024,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            64,
+            128,
+            960,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.25,
+            0.9375,
+            0.900391
+          ],
+          "bytes": 113688,
+          "sha256": "32bc42ec447a882f0afeeec20cfdc7056a60f9d558bbb0d933729e8f9e53b9e3",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/building_mossstone_bridge.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            78,
+            158,
+            1706,
+            763
+          ],
+          "packing_scale": 0.5503685503685504,
+          "budget_kib": 140,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_mossstone_bridge.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            73,
+            120,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.570312,
+            0.9375,
+            0.898438
+          ],
+          "bytes": 8610,
+          "sha256": "ea0617b9af156b117cb11bdebe84641c0a958b961340e5b6464137494ac6a341",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/building_mossstone_bridge.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            78,
+            158,
+            1706,
+            763
+          ],
+          "packing_scale": 0.0687960687960688
+        }
+      ]
+    },
+    {
+      "art_id": "building_root_archway",
+      "name": "古根门庭",
+      "kind": "decor",
+      "category": "景观",
+      "source_master": "masters/decor/building_root_archway-v01.png",
+      "source_sha256": "d196f9971a6c3c20f273b1969d1f795a81cefd6ee6df3dedc70d29d96731cffb",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.14,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_root_archway.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            86,
+            31,
+            426,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.167969,
+            0.060547,
+            0.832031,
+            0.900391
+          ],
+          "bytes": 50828,
+          "sha256": "58563583269b90c8ad6f837bb13c66297c7135e22b854e77b98cb636f0ffe8e0",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/building_root_archway.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            40,
+            137,
+            992,
+            1341
+          ],
+          "packing_scale": 0.3572093023255814,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_root_archway.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            21,
+            7,
+            106,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.164062,
+            0.054688,
+            0.828125,
+            0.898438
+          ],
+          "bytes": 12868,
+          "sha256": "3668f021f0781aa26477e6eaea1a133e954d54fa9b893968fe60c6ede539d9b5",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/building_root_archway.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            40,
+            137,
+            992,
+            1341
+          ],
+          "packing_scale": 0.08930232558139535
+        }
+      ]
+    },
+    {
+      "art_id": "building_glowseed_beacon",
+      "name": "萤籽引路柱",
+      "kind": "decor",
+      "category": "景观",
+      "source_master": "masters/decor/building_glowseed_beacon-v01.png",
+      "source_sha256": "a8368c0447a4637c0b614d0dcb59729fdcd6a8910385c88dc47a2bdf76343862",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.11,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/building_glowseed_beacon.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            153,
+            31,
+            358,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.298828,
+            0.060547,
+            0.699219,
+            0.900391
+          ],
+          "bytes": 38046,
+          "sha256": "44d43953e263fe1919f9018b05955e80f3f18a606dc40f2d3efc3483400a939a",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/building_glowseed_beacon.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            175,
+            91,
+            798,
+            1397
+          ],
+          "packing_scale": 0.3293108728943338,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/building_glowseed_beacon.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            38,
+            7,
+            89,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.296875,
+            0.054688,
+            0.695312,
+            0.898438
+          ],
+          "bytes": 9492,
+          "sha256": "43ffe643dfb5d5ee3faf677033d2099375f1d9c39444b564d900710ca9ad3d6e",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/building_glowseed_beacon.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            175,
+            91,
+            798,
+            1397
+          ],
+          "packing_scale": 0.08232771822358345
+        }
+      ]
+    },
+    {
+      "art_id": "plant_spring_fern",
+      "name": "林泉蕨丛",
+      "kind": "decor",
+      "category": "植物",
+      "source_master": "masters/decor/plant_spring_fern-v01.png",
+      "source_sha256": "8385494b7d2422fe1ab5cc422a2e8fd1e111108f1ede4034d368b621a833f8c5",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.11,
+        "layers": [
+          "back",
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_spring_fern.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            32,
+            132,
+            480,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.257812,
+            0.9375,
+            0.900391
+          ],
+          "bytes": 89546,
+          "sha256": "3f11bcc1f86236ba1982b348fc8f98c1c1bc61080944346650b15bf388c4dcb0",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/plant_spring_fern.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            61,
+            202,
+            1183,
+            1027
+          ],
+          "packing_scale": 0.39928698752228164,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_spring_fern.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            33,
+            120,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.257812,
+            0.9375,
+            0.898438
+          ],
+          "bytes": 16718,
+          "sha256": "23e49f3d5b348bd9b7a04b7e7424988d04f0f840f21dac330941f39eac4b6b00",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/plant_spring_fern.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            61,
+            202,
+            1183,
+            1027
+          ],
+          "packing_scale": 0.09982174688057041
+        }
+      ]
+    },
+    {
+      "art_id": "plant_lavender_bells",
+      "name": "铃花小簇",
+      "kind": "decor",
+      "category": "植物",
+      "source_master": "masters/decor/plant_lavender_bells-v01.png",
+      "source_sha256": "4bcc234e9a5b886334f7dedca6df968c65b5e3067ef39ab8533cb44b38e599fa",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.09,
+        "layers": [
+          "back",
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_lavender_bells.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            53,
+            31,
+            459,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.103516,
+            0.060547,
+            0.896484,
+            0.900391
+          ],
+          "bytes": 73952,
+          "sha256": "12a9adb245ff374c95a5c431fb667fd4a37a6968652773158a0780567fbdee28",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/plant_lavender_bells.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            163,
+            109,
+            1119,
+            1121
+          ],
+          "packing_scale": 0.4249802371541502,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_lavender_bells.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            13,
+            7,
+            115,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.101562,
+            0.054688,
+            0.898438,
+            0.898438
+          ],
+          "bytes": 18334,
+          "sha256": "23ce563ed0897c3bf6225bd2b9aedc7368ada48100f0711d266ce6b7f56a0cd8",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/plant_lavender_bells.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            163,
+            109,
+            1119,
+            1121
+          ],
+          "packing_scale": 0.10624505928853754
+        }
+      ]
+    },
+    {
+      "art_id": "plant_fineleaf_ribbon",
+      "name": "碧带水草",
+      "kind": "decor",
+      "category": "植物",
+      "source_master": "masters/decor/plant_fineleaf_ribbon-v01.png",
+      "source_sha256": "296b785c6c00fe26e096a742cfa377eabf83f19436500cf0604eaea4af4d3f50",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.09,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/plant_fineleaf_ribbon.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            42,
+            31,
+            470,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.082031,
+            0.060547,
+            0.917969,
+            0.900391
+          ],
+          "bytes": 65678,
+          "sha256": "cbe3c63a9100718e042f0709b67a2b41cf5b968d65eee1b0af64442b9fcd2045",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/plant_fineleaf_ribbon.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            98,
+            99,
+            1169,
+            1176
+          ],
+          "packing_scale": 0.39933147632311977,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/plant_fineleaf_ribbon.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            10,
+            7,
+            117,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.078125,
+            0.054688,
+            0.914062,
+            0.898438
+          ],
+          "bytes": 12954,
+          "sha256": "4edd5ae3321eb92d79cbf4942d678c11e906f76760a6513217d69d7696bd6e89",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/plant_fineleaf_ribbon.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            98,
+            99,
+            1169,
+            1176
+          ],
+          "packing_scale": 0.09983286908077994
+        }
+      ]
+    },
+    {
+      "art_id": "scape_moss_step_path",
+      "name": "曲苔石径",
+      "kind": "decor",
+      "category": "地面装饰",
+      "source_master": "masters/decor/scape_moss_step_path-v01.png",
+      "source_sha256": "4e04de1eb34c64f4f81bf62c711fd7fb0f021e9990d2d8f9e8a44eb10e6ba3e7",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.14,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_moss_step_path.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            32,
+            91,
+            480,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.177734,
+            0.9375,
+            0.900391
+          ],
+          "bytes": 49388,
+          "sha256": "482851b2a29dd11a984c0be8916fce3e62452a98fd0f598f71667ece1ec7615c",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/scape_moss_step_path.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            131,
+            177,
+            1117,
+            992
+          ],
+          "packing_scale": 0.4543610547667343,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_moss_step_path.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            22,
+            120,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.171875,
+            0.9375,
+            0.898438
+          ],
+          "bytes": 12214,
+          "sha256": "0daaf645c6096cd6e377484df794a074ab28f2b313436c2f7f6a00f2b5c871b5",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/scape_moss_step_path.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            131,
+            177,
+            1117,
+            992
+          ],
+          "packing_scale": 0.11359026369168357
+        }
+      ]
+    },
+    {
+      "art_id": "scape_riverstone_cluster",
+      "name": "青苔叠石",
+      "kind": "decor",
+      "category": "地面装饰",
+      "source_master": "masters/decor/scape_riverstone_cluster-v01.png",
+      "source_sha256": "8cd6908064407658e967d06e2e2b523fa246af335ffd1d70907236c1136bbc25",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.1,
+        "layers": [
+          "back"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/scape_riverstone_cluster.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            32,
+            83,
+            480,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.162109,
+            0.9375,
+            0.900391
+          ],
+          "bytes": 56282,
+          "sha256": "f2617650f920e426cd36a324bf9955d2f440f398d153c44f28700ae7fa544ad4",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/scape_riverstone_cluster.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            172,
+            312,
+            1050,
+            1052
+          ],
+          "packing_scale": 0.510250569476082,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/scape_riverstone_cluster.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            21,
+            120,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.164062,
+            0.9375,
+            0.898438
+          ],
+          "bytes": 15606,
+          "sha256": "47ce5dfee9da869129cb3471494782bd0e24ef309c0d74f51bbd4b6d9df3aa51",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/scape_riverstone_cluster.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            172,
+            312,
+            1050,
+            1052
+          ],
+          "packing_scale": 0.1275626423690205
+        }
+      ]
+    },
+    {
+      "art_id": "trinket_honeyquartz_cluster",
+      "name": "蜜晶石簇",
+      "kind": "decor",
+      "category": "摆件",
+      "source_master": "masters/decor/trinket_honeyquartz_cluster-v01.png",
+      "source_sha256": "48e0644a085d7fc4650d13f1e11c4e212f3f7d19f0143e870f83d24574f74bc0",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.09,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_honeyquartz_cluster.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            55,
+            31,
+            456,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.107422,
+            0.060547,
+            0.890625,
+            0.900391
+          ],
+          "bytes": 70898,
+          "sha256": "9e8dd487d22caa25937d13acadf31c86e92e9f42b9d13a49f13a75b1b6c7470d",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/trinket_honeyquartz_cluster.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            242,
+            234,
+            994,
+            1041
+          ],
+          "packing_scale": 0.5329368029739777,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_honeyquartz_cluster.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            14,
+            7,
+            114,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.109375,
+            0.054688,
+            0.890625,
+            0.898438
+          ],
+          "bytes": 17838,
+          "sha256": "c55f32bbb92707689da7caf4662e8de126afb5ecd2bb456666473a308a1bda32",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/trinket_honeyquartz_cluster.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            242,
+            234,
+            994,
+            1041
+          ],
+          "packing_scale": 0.13323420074349443
+        }
+      ]
+    },
+    {
+      "art_id": "trinket_glowseed_lantern",
+      "name": "萤籽地灯",
+      "kind": "decor",
+      "category": "摆件",
+      "source_master": "masters/decor/trinket_glowseed_lantern-v02.png",
+      "source_sha256": "c0508cd23fc10b0fe9f83f70b8d53381494c998f664ec2fa814bbbc14497cfc0",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.045,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_glowseed_lantern.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            79,
+            31,
+            433,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.154297,
+            0.060547,
+            0.845703,
+            0.900391
+          ],
+          "bytes": 80208,
+          "sha256": "87095520ad44a305cbb9ea714a3c4334d43f001d595d7652a55911f7344dd8a5",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/trinket_glowseed_lantern.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            274,
+            190,
+            1009,
+            1084
+          ],
+          "packing_scale": 0.4810738255033557,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_glowseed_lantern.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            20,
+            7,
+            108,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.15625,
+            0.054688,
+            0.84375,
+            0.898438
+          ],
+          "bytes": 18904,
+          "sha256": "b02ebf8764ac3470e94ef2cdb6f8205fff380527f1fd5a9fb4578b4f5b41395a",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/trinket_glowseed_lantern.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            274,
+            190,
+            1009,
+            1084
+          ],
+          "packing_scale": 0.12026845637583893
+        }
+      ]
+    },
+    {
+      "art_id": "trinket_rootwood_bench",
+      "name": "根木长凳",
+      "kind": "decor",
+      "category": "摆件",
+      "source_master": "masters/decor/trinket_rootwood_bench-v01.png",
+      "source_sha256": "fdb78472d026e064a51579793b4e6fa7384febbd9b0310bf8c3ba67f7f01c8aa",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.13,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_rootwood_bench.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            32,
+            164,
+            480,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.320312,
+            0.9375,
+            0.900391
+          ],
+          "bytes": 54064,
+          "sha256": "48ccba0c0d4b24485a8780b211557524b10e2d6e60d9e6407e65f03f5432edea",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/trinket_rootwood_bench.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            99,
+            312,
+            1138,
+            1001
+          ],
+          "packing_scale": 0.43118383060635224,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_rootwood_bench.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            8,
+            41,
+            120,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.0625,
+            0.320312,
+            0.9375,
+            0.898438
+          ],
+          "bytes": 13130,
+          "sha256": "df20cd67a2de2e76ead16dc87279aecb157cf4a257bc4b5b5f92c7f89776613a",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/trinket_rootwood_bench.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            99,
+            312,
+            1138,
+            1001
+          ],
+          "packing_scale": 0.10779595765158806
+        }
+      ]
+    },
+    {
+      "art_id": "trinket_leafway_sign",
+      "name": "叶形路牌",
+      "kind": "decor",
+      "category": "摆件",
+      "source_master": "masters/decor/trinket_leafway_sign-v01.png",
+      "source_sha256": "282a6bca9b1d704928349bfe15d6fcaee02ca55c7d2d687376d3c5c5c697832b",
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "facing": null,
+      "suggested_display": {
+        "width_ratio": 0.06,
+        "layers": [
+          "front"
+        ],
+        "status": "visual-defaults-preserving-current-preset-layers"
+      },
+      "files": [
+        {
+          "role": "main",
+          "file": "decor/trinket_leafway_sign.webp",
+          "size": [
+            512,
+            512
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            50,
+            31,
+            461,
+            461
+          ],
+          "normalized_content_bounds": [
+            0.097656,
+            0.060547,
+            0.900391,
+            0.900391
+          ],
+          "bytes": 59184,
+          "sha256": "6c53d65063c0ab77265b7547b26f5456e6457cb082b95644dec8e715c24e3345",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/decor/trinket_leafway_sign.webp",
+          "quality": 90,
+          "source_visible_bbox": [
+            138,
+            110,
+            1083,
+            1098
+          ],
+          "packing_scale": 0.4353036437246963,
+          "budget_kib": 90,
+          "within_budget": true
+        },
+        {
+          "role": "thumb",
+          "file": "thumbs/decor/trinket_leafway_sign.webp",
+          "size": [
+            128,
+            128
+          ],
+          "mode": "RGBA",
+          "alpha": [
+            0,
+            255
+          ],
+          "content_bounds": [
+            12,
+            7,
+            115,
+            115
+          ],
+          "normalized_content_bounds": [
+            0.09375,
+            0.054688,
+            0.898438,
+            0.898438
+          ],
+          "bytes": 13404,
+          "sha256": "2c56cd4198b43ae5acd8ba3e653fcebf337a431b9fc06fb5e5f40031370d9f26",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/thumbs/decor/trinket_leafway_sign.webp",
+          "quality": 100,
+          "source_visible_bbox": [
+            138,
+            110,
+            1083,
+            1098
+          ],
+          "packing_scale": 0.10882591093117408
+        }
+      ]
+    },
+    {
+      "art_id": "tank_firefly_grove",
+      "name": "萤光秘境",
+      "kind": "background",
+      "source_master": "masters/backgrounds/tank_firefly_grove-v01.png",
+      "status": "existing-approved-background-export-reused",
+      "files": [
+        {
+          "role": "main",
+          "file": "background/tank_firefly_grove.webp",
+          "size": [
+            1536,
+            960
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "content_bounds": [
+            0,
+            0,
+            1536,
+            960
+          ],
+          "normalized_content_bounds": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "bytes": 158598,
+          "sha256": "d6e6fdeda917a7dc6dc31edddba15878eb7148f3181495f08d4c8326bb440e7e",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/background/tank_firefly_grove.webp"
+        },
+        {
+          "role": "mobile",
+          "file": "background/tank_firefly_grove_mobile.webp",
+          "size": [
+            768,
+            480
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "content_bounds": [
+            0,
+            0,
+            768,
+            480
+          ],
+          "normalized_content_bounds": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "bytes": 56542,
+          "sha256": "858ef9fd5949a1eb1d6224634525571b0f9abeea71eca36790bb170c78e3dae1",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/background/tank_firefly_grove_mobile.webp"
+        },
+        {
+          "role": "thumb",
+          "file": "background/tank_firefly_grove_thumb.webp",
+          "size": [
+            240,
+            150
+          ],
+          "mode": "RGB",
+          "alpha": null,
+          "content_bounds": [
+            0,
+            0,
+            240,
+            150
+          ],
+          "normalized_content_bounds": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "bytes": 8906,
+          "sha256": "3aae0fa5a19f31f0728f9a13d1bda17a77fd1864290ba629114b1bf90bb03ee0",
+          "recommended_target": "source/plugin/gamecenter/games/aquarium/assets/background/tank_firefly_grove_thumb.webp"
+        }
+      ]
+    }
+  ],
+  "preview_files": [
+    "previews/qingya_turtle-loop.gif",
+    "previews/qixia_guppy-loop.gif",
+    "previews/shanlan_butterfly-loop.gif"
+  ]
+}

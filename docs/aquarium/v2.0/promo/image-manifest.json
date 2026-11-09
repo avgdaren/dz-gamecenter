@@ -1,0 +1,57 @@
+{
+  "schema": "aquarium-v20-promo-delivery-v1",
+  "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
+  "date": "2026-11-09",
+  "generator": "built-in image_gen",
+  "postprocess": "mechanical center-fit and Lanczos resize only; originals preserved",
+  "images": [
+    {
+      "file": "v20-announce-800x450.png",
+      "size": [
+        800,
+        450
+      ],
+      "source_size": [
+        1672,
+        941
+      ],
+      "bytes": 640166,
+      "sha256": "de6255b2b1d58d7e7ef9dca2fe5fab54bc6dd4039eab840a82acc1768b5749ae",
+      "mode": "RGB",
+      "format": "PNG",
+      "variant": "wide"
+    },
+    {
+      "file": "v20-announce-750x750.png",
+      "size": [
+        750,
+        750
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "bytes": 948497,
+      "sha256": "151c3607da74cb8b8e0491629d67569364a97ff67a6a99e2c7c47785936ee73c",
+      "mode": "RGB",
+      "format": "PNG",
+      "variant": "mobile"
+    },
+    {
+      "file": "v20-hall-640x360.png",
+      "size": [
+        640,
+        360
+      ],
+      "source_size": [
+        1672,
+        941
+      ],
+      "bytes": 411898,
+      "sha256": "92931b2e46a0caf7f04b1f7b2dd412fb843c733b5878824a335f78cec8dacc39",
+      "mode": "RGB",
+      "format": "PNG",
+      "variant": "hall"
+    }
+  ]
+}

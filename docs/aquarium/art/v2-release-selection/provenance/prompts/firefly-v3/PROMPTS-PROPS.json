@@ -1,0 +1,35 @@
+{
+  "author": "GPT / Codex（小典）；原插件 (C) 2026 Carinoasd",
+  "date": "2026-11-06",
+  "tool": "built-in image_gen.imagegen",
+  "reference": "../firefly-v2/mothers/building_glowroot_cottage-v01.png",
+  "prompts": [
+    {
+      "id": "trinket_glowseed_lantern",
+      "name": "萤籽地灯",
+      "type": "small_prop",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: ONE LOW GROUND LANTERN, a softly glowing amber seedpod enclosed by a delicate root-wood woven cradle on a small round worn gray-green stone foot. The seedpod is the main object, no tall post. Warm interior light is contained in the object with no external rectangular glow or huge halo. Very low compact silhouette, distinct from the tall beacon. No roof, miniature house, windows, door, flower pot or extra props.",
+      "transparent_background": true,
+      "source_tool_file": "exec-a7f9e870-e3aa-4eae-9c7f-17a353e74067.png",
+      "saved_file": "mothers/trinket_glowseed_lantern-v01.png"
+    },
+    {
+      "id": "trinket_rootwood_bench",
+      "name": "根木长凳",
+      "type": "small_prop",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: one simple UNCOVERED ROOTWOOD BENCH, with one gently curved thick aged-wood seat, one modest curved back slat and two short natural root feet. A touch of moss at one foot only. A low horizontal resting prop, no roof, canopy, arch above the seat, stone dais, hanging lantern, table, books or people. The air/water under and above the seat is transparent.",
+      "transparent_background": true,
+      "source_tool_file": "exec-3b60d0fc-2bb2-4a63-9028-1d50dd557bb5.png",
+      "saved_file": "mothers/trinket_rootwood_bench-v01.png"
+    },
+    {
+      "id": "trinket_leafway_sign",
+      "name": "叶形路牌",
+      "type": "small_prop",
+      "prompt": "Use case: style-transfer.\nAsset type: ONE ordinary independent small aquarium decoration, on a square transparent canvas.\nInput image 1 is the approved root-cottage edit target / paint reference. Replace the ENTIRE architecture with the requested ordinary decoration below. Reuse its refined hand-painted Japanese fantasy environment-art finish, subtle desaturated contours, organic textures, emerald/sage/olive green family, weathered gray-green stone or aged chestnut wood ONLY where the requested subject needs that material, and soft green-filtered upper-left lighting.\nThis is a SMALL prop or plant, not a landmark building. No cottage parts, roofs, doors, windows, room, pavilion, tower or little house attached. Do not turn everything into an architectural arch. Keep a clean, legible silhouette and a modest amount of detail that survives thumbnail viewing.\nOne compact decor unit, complete and uncut, on a square canvas with at least 8% transparent margin on every side and 10% below its feet/root. Real RGBA transparency outside and in natural gaps. No black/olive background haze, vignette, rectangular water, ground island, soil terrain sheet, painted cast shadow, floating sparkle halo, text, symbols, UI, fish, people or animals. No plastic 3D, photorealistic rendering, candy colors or bright gold trim. Do not include any second unrelated prop.\n\nSubject: one small woodland WAYFINDING SIGNPOST: a single curved old root-wood upright on a modest gray-green stone foot, carrying two leaf-shaped wooden pointer boards, one pointing left and a shorter one pointing right. The boards are completely BLANK WOOD GRAIN: NO letters, numbers, runes, symbols or icons. A small moss patch and one attached leaf soften the joint. No roof, lantern, arch, house or extra freestanding prop.",
+      "transparent_background": true,
+      "source_tool_file": "exec-8cc0b208-25f6-4597-9cd7-3e3fbd84b0c6.png",
+      "saved_file": "mothers/trinket_leafway_sign-v01.png"
+    }
+  ]
+}
