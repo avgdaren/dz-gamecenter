@@ -1115,22 +1115,31 @@
         card.appendChild(thumb);
 
         var bodyEl = el('div', 'aq-bgbody');
-        bodyEl.appendChild(el('strong', null, item.name));
-        bodyEl.appendChild(el('p', 'aq-bgdesc', item.description || ''));
+        // 紧凑版：名称与价格同一行，条件与按钮同一行，描述收进 title 提示
+        var titleRow = el('div', 'aq-bgtitle');
+        titleRow.appendChild(el('strong', null, item.name));
+        // 已拥有就不再标价，避免看着像还要再买一次
+        var priceText = owned ? '已拥有' : (item.cost ? fmt(item.cost) : '免费');
+        titleRow.appendChild(el('span', 'aq-bgprice' + (owned || !item.cost ? ' is-free' : ''), priceText));
+        bodyEl.appendChild(titleRow);
+
         var miss = owned ? [] : bgMissingText(item);
-        bodyEl.appendChild(el('p', 'aq-bgcond', owned ? '拥有后免费切换' : (miss.length ? miss.slice(0, 2).join('；') : '条件已满足')));
-        var bottom = el('div', 'aq-bgbottom');
-        bottom.appendChild(el('span', 'aq-bgprice' + (item.cost ? '' : ' is-free'), item.cost ? fmt(item.cost) + ' 金币' : '初始赠送'));
+        var foot = el('div', 'aq-bgfoot');
+        var condText = owned ? (active ? '使用中' : '免费切换') : (miss.length ? miss[0] : '可购买');
+        var condEl = el('span', 'aq-bgcond' + (owned ? ' is-ok' : (miss.length ? ' is-lack' : '')), condText);
+        if (miss.length > 1) { condEl.title = miss.join('；'); }
+        if (item.description) { condEl.title = (condEl.title ? condEl.title + '；' : '') + item.description; }
+        foot.appendChild(condEl);
         var act = el('button', 'aq-btn aq-btn-sm' + (owned && !active ? ' aq-btn-primary' : ''),
-          active ? '使用中' : (owned ? '使用' : '查看购买'));
+          active ? '使用中' : (owned ? '使用' : '购买'));
         act.type = 'button';
         act.disabled = active;
         act.addEventListener('click', function (ev) {
           ev.stopPropagation();
           if (owned) { useBackground(item); } else { openBackgroundBg(item.id); }
         });
-        bottom.appendChild(act);
-        bodyEl.appendChild(bottom);
+        foot.appendChild(act);
+        bodyEl.appendChild(foot);
         card.appendChild(bodyEl);
         grid.appendChild(card);
       });
@@ -1200,11 +1209,20 @@
         if (busy || uncertain) { return; }
         if (owned) { mask.remove(); useBackground(item); return; }
         if (miss.length) { return; }
-        mask.remove();
+        // 购买后不关弹层：等响应回来重开成「已拥有」，让玩家直接点使用
+        ok.disabled = true;
+        cancel.disabled = true;
+        ok.textContent = '购买中…';
         call('buybg', {
           expected_version: snap.version,
           background_id: item.id,
           catalog_version: shop.version
+        }).then(function () {
+          var stillThere = document.querySelector('.aq-modal') === mask;
+          if (!stillThere) { return; }
+          mask.remove();
+          // 成功与否都以服务端最新目录为准；成功后弹层转为已拥有
+          openBackgroundBg(item.id);
         });
       });
       acts.appendChild(cancel); acts.appendChild(ok);

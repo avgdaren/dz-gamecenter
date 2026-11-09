@@ -148,6 +148,11 @@
 .aq-note p { margin: 6px 0 0; line-height: 1.7; }
 .aq-note strong { color: var(--aq-ink); }
 /* 售卖面板 */
+/* 弹层不在 .aq-wrap 内，var(--aq-*) 取不到值，这里补一份，否则主按钮会变透明白字 */
+.aq-modal {
+  --aq-line: #cfe2ee; --aq-ink: #14394f; --aq-muted: #6e8a9b;
+  --aq-accent: #2f86bd; --aq-accent-2: #6fc3e8;
+}
 .aq-modal { position: fixed; inset: 0; background: rgba(10,30,45,.42); display: flex; align-items: center; justify-content: center; z-index: 60; }
 .aq-modal-box { background: #fff; border-radius: 14px; padding: 18px 20px 16px; width: min(360px, 88vw); box-shadow: 0 18px 50px rgba(10,40,60,.28); }
 .aq-modal-box h4 { margin: 0 0 6px; font-size: 16px; }
@@ -181,39 +186,50 @@
 /* GPT / Codex（小典）：装饰位置调整；按钮不触发卡片收起。 */
 .aq-decor-moves { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
 
-/* 小蓝（DSH）：背景商店。规格见 docs/aquarium/v2.0/BACKGROUND-SHOP.md */
-.aq-bggrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+/* 小蓝（DSH）：背景商店。规格见 docs/aquarium/v2.0/BACKGROUND-SHOP.md
+   紧凑版：卡片只留 名称+价格 / 条件+按钮 两行，描述收进 title；弹层大图限高、按钮吸底。 */
+.aq-bggrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 9px; }
 .aq-bgcard { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--aq-line);
-  border-radius: 11px; background: #fff; overflow: hidden; }
+  border-radius: 10px; background: #fff; overflow: hidden; }
 .aq-bgcard.is-active { border-color: var(--aq-accent); box-shadow: 0 0 0 1px var(--aq-accent); }
 .aq-bgthumb { position: relative; display: block; padding: 0; border: 0; background: #eaf3f7;
-  aspect-ratio: 16 / 10; width: 100%; overflow: hidden; cursor: pointer; }
+  aspect-ratio: 16 / 9; width: 100%; overflow: hidden; cursor: pointer; }
 .aq-bgthumb img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .2s ease; }
-.aq-bgthumb:hover img { transform: scale(1.025); }
-.aq-bgbadge { position: absolute; top: 8px; left: 8px; padding: 2px 7px; font-size: 11px; border-radius: 5px;
+.aq-bgthumb:hover img { transform: scale(1.03); }
+.aq-bgbadge { position: absolute; top: 6px; left: 6px; padding: 1px 6px; font-size: 10px; border-radius: 4px;
   background: rgba(255,255,255,.94); color: #123f54; border: 1px solid rgba(255,255,255,.6); }
 .aq-bgbadge.is-current { background: rgba(27,99,142,.92); color: #fff; border-color: transparent; }
 .aq-bgbadge.is-theme { background: rgba(25,76,55,.93); color: #f1ffe4; border-color: rgba(188,217,180,.27); }
-.aq-bgbody { display: flex; flex: 1; flex-direction: column; gap: 5px; padding: 10px 11px 11px; }
-.aq-bgbody strong { font-size: 14px; }
-.aq-bgdesc { margin: 0; font-size: 12px; line-height: 1.45; color: var(--aq-muted); }
-.aq-bgcond { margin: 0; min-height: 16px; font-size: 12px; color: #7a5f2c; }
-.aq-bgbottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 4px; }
-.aq-bgprice { font-size: 13px; font-weight: 600; color: #6f5420; font-variant-numeric: tabular-nums; }
-.aq-bgprice.is-free { font-size: 12px; font-weight: 400; color: var(--aq-muted); }
-/* 预览弹层：比售卖面板宽，大图等比不裁边 */
-.aq-bgbox { width: min(560px, 92vw); max-height: 92vh; overflow: auto; padding: 14px 16px 14px; }
-.aq-bgbig { border-radius: 10px; overflow: hidden; background: #dbeaf0; margin-bottom: 10px; }
+.aq-bgbody { display: flex; flex: 1; flex-direction: column; gap: 3px; padding: 6px 8px 7px; }
+.aq-bgtitle { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.aq-bgtitle strong { font-size: 13px; }
+.aq-bgprice { font-size: 12px; font-weight: 600; color: #6f5420; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.aq-bgprice.is-free { font-weight: 400; color: var(--aq-muted); }
+.aq-bgfoot { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; }
+.aq-bgcond { font-size: 11px; line-height: 1.3; color: var(--aq-muted); overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+.aq-bgcond.is-lack { color: #8a6420; }
+.aq-bgcond.is-ok { color: var(--aq-muted); }
+.aq-bgfoot .aq-btn { padding: 2px 8px; min-height: 24px; font-size: 12px; white-space: nowrap; }
+/* 预览弹层：宽度收窄、大图限高、操作区吸底，避免按钮被挤出视口 */
+.aq-bgbox { width: min(480px, 94vw); max-height: 90vh; overflow: auto; padding: 10px 12px 10px; }
+.aq-bgbig { border-radius: 8px; overflow: hidden; background: #dbeaf0; margin-bottom: 8px; }
 .aq-bgbig picture, .aq-bgbig img { display: block; width: 100%; height: auto; }
-.aq-bghead { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.aq-bghead h4 { margin: 0; font-size: 16px; }
+.aq-bgbig img { max-height: 34vh; object-fit: contain; }
+.aq-bghead { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.aq-bghead h4 { margin: 0; font-size: 15px; }
 .aq-bghead .aq-bgbadge { position: static; }
-.aq-bgsum { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 8px 0 2px; font-size: 13px; color: var(--aq-muted); }
+.aq-bgbox .aq-bgdesc { margin: 0 0 2px; font-size: 12px; line-height: 1.4; }
+.aq-bgsum { display: flex; flex-wrap: wrap; gap: 2px 14px; margin: 5px 0 2px; font-size: 13px; color: var(--aq-muted); }
 .aq-bgsum b { color: var(--aq-ink); font-variant-numeric: tabular-nums; }
+.aq-bgbox .aq-modal-acts { position: sticky; bottom: -10px; background: #fff; padding: 8px 0 4px;
+  margin-top: 8px; border-top: 1px solid var(--aq-line); }
+.aq-bgbox .aq-modal-acts .aq-btn { min-height: 34px; }
 @media (max-width: 760px) {
   .aq-bggrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .aq-bgbody .aq-btn { min-height: 44px; }
-  .aq-bgbox { width: min(520px, 94vw); }
+  .aq-bgfoot .aq-btn { min-height: 34px; }
+  .aq-bgbox .aq-modal-acts .aq-btn { min-height: 44px; }
+  .aq-bgbig img { max-height: 28vh; }
 }
 @media (max-width: 305px) {
   .aq-bggrid { grid-template-columns: 1fr; }
