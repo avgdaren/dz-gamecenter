@@ -4,7 +4,7 @@
   "help": "完整的放鱼、装饰、布景预设和喂鱼操作，见本页下方折叠的「玩法说明」。",
   "standalone": "aquarium",
   "wide": true,
-  "version": "2.0.9",
+  "version": "2.0.11",
   "author": "小蓝（DSH）；原插件 Carinoasd",
   "script": "game.js",
   "style": "style.css",

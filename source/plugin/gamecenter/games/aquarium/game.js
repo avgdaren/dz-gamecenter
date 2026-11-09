@@ -52,7 +52,12 @@
       pond_curl_seahorse: { axis: 'width', ratio: 0.12 },
       pond_bell_jelly:    { axis: 'width', ratio: 0.12 },
       bay_gummy_octopus:  { axis: 'width', ratio: 0.12 },
-      bay_moon_mermaid:   { axis: 'width', ratio: 0.26 }
+      bay_moon_mermaid:   { axis: 'width', ratio: 0.26 },
+      // v2.0 三条新鱼：比例取自 docs/aquarium/art/v2-release-selection/runtime/v1/runtime-map.json
+      // 主人实机核验：海龟保持 0.16，古比/蝶鱼各下调一档（原建议 0.18 / 0.15）
+      qingya_turtle:      { axis: 'width', ratio: 0.16 },
+      qixia_guppy:        { axis: 'width', ratio: 0.15 },
+      shanlan_butterfly:  { axis: 'width', ratio: 0.12 }
     };
     // 人形生物不吃饲料：不参与投喂认领，饲料照常沉底
     var AQ_NO_FEED = { bay_moon_mermaid: true };
