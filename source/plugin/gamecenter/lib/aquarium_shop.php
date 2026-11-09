@@ -12,6 +12,12 @@ final class gamecenter_aquarium_shop {
     public static function defaults(array $s, array $c): array {
         if(!isset($s['fish_capacity'])) { $s['fish_capacity'] = $c['initial_fish_capacity']; }
         if(!isset($s['decor_owned']) || !is_array($s['decor_owned'])) { $s['decor_owned'] = []; }
+        // 背景拥有状态：两个字段都缺 = 可迁移旧档，补两个免费景；
+        // 只有其一 = 异常档，不补、不猜，交给 validateState 拒绝。
+        if(!array_key_exists('background_schema', $s) && !array_key_exists('background_owned', $s)) {
+            $s['background_schema'] = 1;
+            $s['background_owned'] = self::defaultBackgroundOwned();
+        }
         if(!isset($s['layout']) || !is_array($s['layout'])) {
             $s['layout'] = ['fish'=>[], 'decor'=>['back'=>[], 'front'=>[]], 'background'=>self::backgrounds()[0]];
         }
@@ -27,7 +33,9 @@ final class gamecenter_aquarium_shop {
             if(!isset($s['layout']['decor'][$layer]) || !is_array($s['layout']['decor'][$layer])) { $s['layout']['decor'][$layer] = []; }
             $s['layout']['decor'][$layer] = array_values(array_filter($s['layout']['decor'][$layer], 'is_string'));
         }
-        if(!is_string($s['layout']['background'] ?? null) || !in_array($s['layout']['background'], self::backgrounds(), true)) {
+        // 背景非法时不再静默改回日光：非字符串才兜底成默认景，
+        // 字符串但不在合法列表（或未拥有）留给 validateState 判异常档。
+        if(!is_string($s['layout']['background'] ?? null)) {
             $s['layout']['background'] = self::backgrounds()[0];
         }
         // 库存模式判定与迁移统一走 gamecenter_aquarium_stock（运行时与 CLI 同一套规则）
@@ -39,7 +47,95 @@ final class gamecenter_aquarium_shop {
         return $s;
     }
 
-    public static function backgrounds(): array { return ['tank_day','tank_moon']; }
+    /**
+     * 全部合法背景 ID（商品存在，不等于已拥有）。
+     * 免费两景 + 四个旧付费景 + 萤光秘境。是否可用另看 background_owned。
+     */
+    public static function backgrounds(): array {
+        return ['tank_day','tank_moon','tank_sakura','tank_coral','tank_star_ruins','tank_aurora','tank_firefly_grove'];
+    }
+
+    /** 背景商品目录（静态文件，含价格与解锁条件）；读不到返回空目录，前端按「无商品」处理。 */
+    public static function backgroundCatalog(): array {
+        static $cache = null;
+        if($cache !== null) { return $cache; }
+        $path = __DIR__.'/../games/aquarium/assets/background/expansion-v1/catalog.json';
+        $raw = @file_get_contents($path);
+        if(!is_string($raw) || strlen($raw) > 262144) { return $cache = ['version'=>'','items'=>[]]; }
+        $j = json_decode($raw, true, 64);
+        if(!is_array($j) || !is_array($j['items'] ?? null)) { return $cache = ['version'=>'','items'=>[]]; }
+        // 只认合法 ID，防止目录文件写错把非法背景带进玩家界面
+        $ok = self::backgrounds();
+        $items = [];
+        foreach($j['items'] as $it) {
+            if(!is_array($it) || !is_string($it['id'] ?? null) || !in_array($it['id'], $ok, true)) { continue; }
+            if(!is_int($it['cost'] ?? null) || $it['cost'] < 0) { continue; }
+            $items[] = $it;
+        }
+        return $cache = ['version'=>(string)($j['version'] ?? ''), 'items'=>$items];
+    }
+
+    /** 某背景还差什么才能买：金币 / 池塘发现数 / 总发现数 / 水域。0 表示已满足。 */
+    public static function backgroundMissing(array $s, array $c, array $it): array {
+        $g = $it['requires'] ?? [];
+        $pondDiscovered = count(array_intersect_key($s['fish'] ?? [], $c['waters']['pond']['fish'] ?? []));
+        $totalDiscovered = count($s['fish'] ?? []);
+        $needWater = (string)($g['water_unlocked'] ?? '');
+        $unlocked = in_array($needWater, $s['unlocked_waters'] ?? [], true);
+        return [
+            'coins'      => max(0, (int)($it['cost'] ?? 0) - (int)($s['coins'] ?? 0)),
+            'pond_fish'  => max(0, (int)($g['pond_discovered'] ?? 0) - $pondDiscovered),
+            'total_fish' => max(0, (int)($g['total_discovered'] ?? 0) - $totalDiscovered),
+            'water'      => ($needWater !== '' && !$unlocked) ? $needWater : '',
+        ];
+    }
+
+    /** 给前端的背景商店投影：owned / active / missing 都由服务端算，前端不猜价格与条件。 */
+    public static function backgroundShop(array $s, array $c): array {
+        $cat = self::backgroundCatalog();
+        $owned = is_array($s['background_owned'] ?? null) ? $s['background_owned'] : [];
+        $active = (string)($s['layout']['background'] ?? '');
+        $items = [];
+        foreach($cat['items'] as $it) {
+            $it['owned'] = array_key_exists($it['id'], $owned);
+            $it['active'] = ($it['id'] === $active);
+            $it['missing'] = self::backgroundMissing($s, $c, $it);
+            // 兼容关闭版（BG_SHOP_OFF）：已拥有的照常显示与切换，只是不能新买
+            $it['purchasable'] = !gamecenter_aquarium_configs::bgShopOff();
+            $items[] = $it;
+        }
+        return ['version'=>$cat['version'], 'items'=>$items];
+    }
+
+    /**
+     * 购买背景：只扣币 + 写拥有时间，不自动切换当前背景。
+     * 已拥有不重复扣款；条件不满足整笔拒绝（不半改）。
+     */
+    public static function buyBackground(array $s, string $id, array $c, int $now): array {
+        if(!empty($s['inventory_anomaly'])) { return [$s, 'condition']; }
+        if(!is_array($s['background_owned'] ?? null)) { return [$s, 'condition']; }
+        if(!in_array($id, self::backgrounds(), true)) { return [$s, 'target']; }
+        // 幂等在关闭检查之前：已拥有的重复请求返回 owned，不被关闭态改写成 closed
+        if(array_key_exists($id, $s['background_owned'])) { return [$s, 'owned']; }
+        if(gamecenter_aquarium_configs::sellHardOff()) { return [$s, 'closed']; }   // 兼容关闭版：停售新购买
+        if(gamecenter_aquarium_configs::bgShopOff()) { return [$s, 'closed']; }     // 背景商店关闭：已拥有的仍可切换
+
+        $cat = self::backgroundCatalog();
+        $item = null;
+        foreach($cat['items'] as $it) { if($it['id'] === $id) { $item = $it; break; } }
+        if($item === null) { return [$s, 'target']; }
+
+        $missing = self::backgroundMissing($s, $c, $item);
+        if($missing['coins'] > 0) { return [$s, 'coins']; }
+        if($missing['pond_fish'] > 0 || $missing['total_fish'] > 0 || $missing['water'] !== '') { return [$s, 'condition']; }
+
+        $s['coins'] = (int)$s['coins'] - (int)$item['cost'];
+        $s['background_owned'][$id] = $now;
+        return [$s, ''];
+    }
+
+    /** 新建档与旧档迁移时的初始拥有：只有两个免费景。 */
+    public static function defaultBackgroundOwned(): array { return ['tank_day'=>0,'tank_moon'=>0]; }
 
     /** 暂定每层装饰位；6/8/10 未定案，这里只做单点常量，换方案改这一处。 */
     public static function decor_slots_per_layer(): int { return 3; }
@@ -47,6 +143,16 @@ final class gamecenter_aquarium_shop {
     public static function validateState(array $s, array $c): void {
         if(!in_array((int)($s['fish_capacity'] ?? 0), $c['fish_capacities'], true)) { throw new DomainException('state-capacity'); }
         if(!is_array($s['decor_owned'] ?? null) || !is_array($s['layout'] ?? null)) { throw new DomainException('state-layout'); }
+        // 背景拥有状态：必须成对存在、ID 合法、时间为非负整数、当前背景必须在已拥有里
+        if(($s['background_schema'] ?? null) !== 1) { throw new DomainException('state-bg-schema'); }
+        if(!is_array($s['background_owned'] ?? null)) { throw new DomainException('state-bg-owned'); }
+        foreach($s['background_owned'] as $bid=>$at) {
+            if(!is_string($bid) || !in_array($bid, self::backgrounds(), true)) { throw new DomainException('state-bg-id'); }
+            if(!is_int($at) || $at < 0) { throw new DomainException('state-bg-time'); }
+        }
+        $bgNow = $s['layout']['background'] ?? null;
+        if(!is_string($bgNow) || !in_array($bgNow, self::backgrounds(), true)
+            || !array_key_exists($bgNow, $s['background_owned'])) { throw new DomainException('state-bg-active'); }
         $owned = [];
         foreach($s['decor_owned'] as $id=>$at) {
             if(!isset($c['decor'][$id]) || !gamecenter_aquarium_rules::number($at)) { throw new DomainException('state-decor'); }
@@ -115,14 +221,16 @@ final class gamecenter_aquarium_shop {
         if(!empty($s['inventory_anomaly'])) { return [$s, 'condition']; }
         if(!isset($s['fish'][$fid])) { return [$s, 'target']; }
         if($qty < 1) { return [$s, 'input']; }
-        // 限量物种禁止售卖：上限在 waters[water].fish[fid] 上，不在顶层
+        // 限量物种默认禁售：上限在 waters[water].fish[fid] 上，不在顶层。
+        // v3 的三条新鱼（终身 6 条）经批准放行，仍受下面的「持有 − max(4, 展示)」约束。
         foreach(($c['waters'] ?? []) as $w) {
-            if(isset($w['fish'][$fid]['lifetime_cap'])) { return [$s, 'condition']; }
+            if(isset($w['fish'][$fid]['lifetime_cap']) && !gamecenter_aquarium_configs::limitedSellable($fid)) { return [$s, 'condition']; }
         }
         $max = self::sellable($s, $fid);
         if($qty > $max) { return [$s, 'condition']; }
         require_once __DIR__.'/aquarium_content.php';
-        $meta = gamecenter_aquarium_content::catalog();
+        // 品级必须按存档实际配置版本取；用 v1 目录会让 v3 的新鱼查不到品级、价格为 0
+        $meta = gamecenter_aquarium_configs::catalogFor((string)($c['version'] ?? ''));
         $rarity = '';
         foreach($meta['fish'] as $it) { if(($it['id'] ?? '') === $fid) { $rarity = (string)($it['rarity'] ?? ''); break; } }
         $price = self::sellPrice($rarity);
@@ -213,6 +321,8 @@ final class gamecenter_aquarium_shop {
         if(array_key_exists('background', $payload)) {
             $bg = $payload['background'];
             if(!is_string($bg) || !in_array($bg, self::backgrounds(), true)) { return [$s, 'target']; }
+            // 只有已拥有的背景可切换（免费两景在新建档时即记为已拥有）
+            if(!array_key_exists($bg, $s['background_owned'] ?? [])) { return [$s, 'target']; }
             $next['layout']['background'] = $bg;
         }
 

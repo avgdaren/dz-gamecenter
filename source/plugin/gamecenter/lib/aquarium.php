@@ -161,9 +161,11 @@ final class gamecenter_aquarium {
     /** 目录：名称/品级/文案来自内容模块，价格与条件来自服务端配置；客户端不提交任何价格或币值。 */
     private function catalog(array $s): array {
         require_once __DIR__.'/aquarium_content.php';
-        // 图鉴按存档实际配置版本取：v2 是 16 种，v1 保持 12 种
-        $v2 = (($this->c['version'] ?? '') === gamecenter_aquarium_configs::CONTENT_V2);
-        $meta = $v2 ? gamecenter_aquarium_content::catalog_v2() : gamecenter_aquarium_content::catalog();
+        // 图鉴按存档实际配置版本取：v3 是 19 种 / 38 装饰，v2 是 16 / 24，v1 保持 12 / 24
+        $ver = (string)($this->c['version'] ?? '');
+        if($ver === gamecenter_aquarium_configs::CONTENT_V3) { $meta = gamecenter_aquarium_content::catalog_v3(); }
+        elseif($ver === gamecenter_aquarium_configs::CONTENT_V2) { $meta = gamecenter_aquarium_content::catalog_v2(); }
+        else { $meta = gamecenter_aquarium_content::catalog(); }
 
         // 展示位里每种鱼占几格
         $shown = [];
@@ -182,8 +184,10 @@ final class gamecenter_aquarium {
             $f['lifetime_cap']=isset($f['lifetime_cap']) ? (int)$f['lifetime_cap'] : null;
             $f['rod_gate']=isset($f['min_rod_level']) ? (int)$f['min_rod_level'] : 0;
             $f['rod_ready']=$f['rod_gate'] === 0 || (int)$s['rod_level'] >= $f['rod_gate'];
-            // 限量种不可售；普通种可售 = 持有 - max(4, 展示)
-            $f['sellable'] = $f['lifetime_cap'] !== null ? 0 : max(0, $owned - max(4, $f['shown']));
+            // 可售 = 持有 − max(4, 展示)。原有终身 3 条的限量种继续禁售；
+            // v3 的三条新鱼（终身 6 条）经批准可售，走同一公式。
+            $capLocked = $f['lifetime_cap'] !== null && !gamecenter_aquarium_configs::limitedSellable((string)$f['id']);
+            $f['sellable'] = $capLocked ? 0 : max(0, $owned - max(4, $f['shown']));
             $fish[]=$f;
         }
         $discovered = 0;
@@ -198,6 +202,7 @@ final class gamecenter_aquarium {
             'book'=>['discovered'=>$discovered,'total'=>count($fish)],
             'capacities'=>$this->c['fish_capacities'],'capacity_costs'=>$this->c['fish_capacity_costs'],
             'backgrounds'=>gamecenter_aquarium_shop::backgrounds(),
+            'background_shop'=>gamecenter_aquarium_shop::backgroundShop($s,$this->c),
             'decor_slots_per_layer'=>gamecenter_aquarium_shop::decor_slots_per_layer(),
             'catalog_version'=>$meta['version'],'assets_version'=>gamecenter_aquarium_configs::assets_version()];
     }    public function request(int $uid,bool $allowed,array $data,bool $isAdmin=false): array {
@@ -206,20 +211,21 @@ final class gamecenter_aquarium {
         if(gamecenter_aquarium_configs::maintenance()) { return $this->result('maintenance'); }
         if(strlen(serialize($data))>8192 || ($data['client_version']??'')!==self::CLIENT) { return $this->result('client'); }
         $action=$data['action']??'';
-        $actions=['init','sync','upgrade','unlock','switch','catalog','buy','expand','layout','devgrant','sell'];
+        $actions=['init','sync','upgrade','unlock','switch','catalog','buy','buybg','expand','layout','devgrant','sell'];
         if(!is_string($action) || !in_array($action,$actions,true)) { return $this->result('input'); }
         // 购买/扩容/布置只存在于内容配置；foundation 阶段没有装饰与容量字段。
-        if(in_array($action,['catalog','buy','expand','layout'],true)
+        if(in_array($action,['catalog','buy','buybg','expand','layout'],true)
             && (!isset($this->c['decor']) || !isset($this->c['fish_capacities']) || !isset($this->c['initial_fish_capacity']))) {
             return $this->result('config');
         }
         if($action==='devgrant' && !$isAdmin) { return $this->result('permission'); }
         $keys=['action','client_version','formhash'];
-        $mutating=in_array($action,['upgrade','unlock','switch','buy','expand','layout','devgrant','sell'],true);
+        $mutating=in_array($action,['upgrade','unlock','switch','buy','buybg','expand','layout','devgrant','sell'],true);
         if($mutating) { $keys[]='expected_version'; }
         if($action==='upgrade') { $keys[]='target_level'; }
         if(in_array($action,['unlock','switch'],true)) { $keys[]='water_id'; }
         if($action==='buy') { $keys[]='decor_id'; }
+        if($action==='buybg') { $keys[]='background_id'; $keys[]='catalog_version'; }
         if($action==='sell') { $keys[]='fish_id'; $keys[]='qty'; }
         if($action==='layout') { $keys[]='layout'; }
         foreach($data as $k=>$v) {
@@ -315,6 +321,19 @@ final class gamecenter_aquarium {
                 $r=gamecenter_aquarium_rules::settle($s,$now,$this->c); $next=$r['save']; $code='';
                 if(in_array($action,['upgrade','unlock','switch'],true)) { $op=gamecenter_aquarium_rules::operate($next,$data,$this->c); $next=$op['save']; $code=$op['code']; }
                 elseif($action==='buy') { list($next,$code)=gamecenter_aquarium_shop::buy($next,$data['decor_id'],$this->c,$now); }
+                elseif($action==='buybg') {
+                    // 目录版本用于拒绝过期报价：与当前冻结目录不一致就不成交
+                    $cat = gamecenter_aquarium_shop::backgroundCatalog();
+                    if((string)$data['catalog_version'] !== (string)$cat['version']) { $code='conflict'; }
+                    else {
+                        $coinsBefore = (int)$next['coins'];
+                        list($next,$code)=gamecenter_aquarium_shop::buyBackground($next,(string)$data['background_id'],$this->c,$now);
+                        if($code==='') {
+                            $next['recent_bg_purchase']=['id'=>(string)$data['background_id'],
+                                'cost'=>$coinsBefore-(int)$next['coins'],'at'=>$now];
+                        }
+                    }
+                }
                 elseif($action==='expand') { list($next,$code)=gamecenter_aquarium_shop::expand($next,$this->c); }
                 elseif($action==='layout') { list($next,$code)=gamecenter_aquarium_shop::setLayout($next,$data['layout'],$this->c); }
                 elseif($action==='devgrant') { list($next,$code)=self::devgrant($next,$this->c,$now); }

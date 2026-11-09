@@ -8,6 +8,7 @@ final class gamecenter_aquarium_configs {
     const FOUNDATION='aquarium-foundation-v1';
     const CONTENT='aquarium-content-candidate-v1';
     const CONTENT_V2='aquarium-content-v2-candidate-v1';
+    const CONTENT_V3='aquarium-content-v3-candidate-v1';
 
     /**
      * 当前对外服务的配置版本。
@@ -26,17 +27,47 @@ final class gamecenter_aquarium_configs {
         if($v===self::FOUNDATION) { return gamecenter_aquarium_config::load(); }
         if($v===self::CONTENT) { return gamecenter_aquarium_content::rules_config(); }
         if($v===self::CONTENT_V2) { return gamecenter_aquarium_content::rules_config_v2(); }
+        if($v===self::CONTENT_V3) { return gamecenter_aquarium_content::rules_config_v3(); }
         throw new DomainException('config');
     }
 
     public static function active(): array { return self::for_version(self::active_version()); }
 
-    public static function versions(): array { return [self::FOUNDATION, self::CONTENT, self::CONTENT_V2]; }
+    public static function versions(): array { return [self::FOUNDATION, self::CONTENT, self::CONTENT_V2, self::CONTENT_V3]; }
+
+    /**
+     * v3 起可售的限量物种（终身 6 条）。
+     * 原有四种终身 3 条的限量生物继续禁售——这里只放行明确批准的三条新鱼，
+     * 不能因为放行它们就整体取消限量鱼的禁售保护。
+     */
+    const LIMITED_SELLABLE = ['qingya_turtle','qixia_guppy','shanlan_butterfly'];
+
+    public static function limitedSellable(string $fid): bool {
+        return in_array($fid, self::LIMITED_SELLABLE, true);
+    }
+
+    /** 按存档实际配置版本取图鉴投影；售卖取品级也必须走这里，否则新鱼查不到品级。 */
+    public static function catalogFor(string $version): array {
+        if($version === self::CONTENT_V3) { return gamecenter_aquarium_content::catalog_v3(); }
+        if($version === self::CONTENT_V2) { return gamecenter_aquarium_content::catalog_v2(); }
+        return gamecenter_aquarium_content::catalog();
+    }
 
     /** 硬关闭：兼容关闭版在插件目录放 SELL_HARD_OFF，此时无论 sale-switch.json 写什么都不可售。 */
     public static function sellHardOff(): bool {
         static $v = null;
         if($v === null) { $v = is_file(__DIR__.'/../games/aquarium/data/SELL_HARD_OFF'); }
+        return $v;
+    }
+
+    /**
+     * 背景商店硬关闭：放 games/aquarium/data/BG_SHOP_OFF 即生效。
+     * 兼容关闭版用它——七景解析、拥有记录、切换与已购背景显示全部保留，
+     * 只关掉「新购买」这一件事，回滚时不是把整套背景功能删掉。
+     */
+    public static function bgShopOff(): bool {
+        static $v = null;
+        if($v === null) { $v = is_file(__DIR__.'/../games/aquarium/data/BG_SHOP_OFF'); }
         return $v;
     }
 

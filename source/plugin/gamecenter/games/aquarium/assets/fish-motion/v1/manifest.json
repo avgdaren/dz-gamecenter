@@ -513,6 +513,78 @@
       "sha256": "c1510ad73e08387f6e7add926e59b2e2fdaf6e74061e8d9b32303c3c8a72e4f7",
       "git_blob_sha": "69ee47dff6f99962cf6ab69b8b788197f16e6d03",
       "decoded_rgba_bytes": 2097152
+    },
+    {
+      "id": "qingya_turtle",
+      "name": "青芽海龟",
+      "source_sha256": "10714c14a5a29e5c19747be14a0aeaa3b680c9a5b001d87c4095b4e36db3ceee",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1600,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "file": "qingya_turtle.webp",
+      "bytes": 173098,
+      "sha256": "be88baded1c604c8b45224869ef95fee2fefaac947a7185b2282762d0979532c"
+    },
+    {
+      "id": "qixia_guppy",
+      "name": "绮霞古比",
+      "source_sha256": "6a23efb8f0128e036a1d01f3bcd930511eddb015a07fdb7bb71cc38a93984fa3",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1000,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "file": "qixia_guppy.webp",
+      "bytes": 138774,
+      "sha256": "082ed7b5f716750fa285984810082ae39a3dcb5fcc695346f4be2b07838c4e0a"
+    },
+    {
+      "id": "shanlan_butterfly",
+      "name": "珊澜蝶鱼",
+      "source_sha256": "67e7e46d205f3c9e7ec39192b5228ff6a900a65feee832178a8fa5370c4938e2",
+      "source_facing": "right",
+      "frame_size": [
+        256,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "cycle_ms": 1200,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "neutral_frame": 0,
+      "file": "shanlan_butterfly.webp",
+      "bytes": 181168,
+      "sha256": "6c08485200d00cecdcccfcc0d63eae6e2eec48d8f784b4d66cee3e134a966f49"
     }
   ],
   "all_sheets_decoded_rgba_bytes": 42991616,

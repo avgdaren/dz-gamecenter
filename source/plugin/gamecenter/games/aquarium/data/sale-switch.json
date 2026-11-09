@@ -1,1 +1,5 @@
-{"mode":"off","uids":[]}
+{
+  "_comment": "off / allowlist / all；文件缺失或读取失败一律按 off",
+  "mode": "off",
+  "uids": []
+}

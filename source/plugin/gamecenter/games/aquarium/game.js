@@ -1,4 +1,4 @@
-/** 作者：小蓝（DSH）；原插件 (C) 2026 Carinoasd。天使水族馆玩家界面 V2。 */
+/** 作者：小蓝（DSH）；原插件 (C) 2026 Carinoasd。天使水族馆玩家界面 V2。金币同步/装饰排布修复：GPT / Codex（小典）。 */
 (function () {
   'use strict';
 
@@ -9,7 +9,7 @@
     var formhash = stage.dataset.formhash;
     var url = stage.dataset.url;
 
-    var snap = null, catalog = null, busy = false, note = '';
+    var snap = null, catalog = null, busy = false, uncertain = false, note = '';
     var tab = 'book', cat = 'all', background = 'tank_day';
 
     // 布景预设：读 assets/layout/decor-presets-v1.json，读不到就用内置三套
@@ -21,8 +21,6 @@
       { id: 'moon_garden', name: '月光庭院', background: 'tank_moon',
         back: ['building_angel_gate'], front: ['scape_pebbles', 'plant_lily', 'trinket_star_lamp'] }
     ];
-    var PRESET_HINTS = {};
-    var activeHints = null;   // 当前布景给的横向锚点（软提示，玩家手动改动后失效）
     var MOTION = {}, SPEC = {}, SCENE = null;
     var timer = null, stopped = false, syncAt = 0;
 
@@ -54,7 +52,12 @@
       pond_curl_seahorse: { axis: 'width', ratio: 0.12 },
       pond_bell_jelly:    { axis: 'width', ratio: 0.12 },
       bay_gummy_octopus:  { axis: 'width', ratio: 0.12 },
-      bay_moon_mermaid:   { axis: 'width', ratio: 0.26 }
+      bay_moon_mermaid:   { axis: 'width', ratio: 0.26 },
+      // v2.0 三条新鱼：比例取自 docs/aquarium/art/v2-release-selection/runtime/v1/runtime-map.json
+      // 主人实机核验：海龟保持 0.16，古比/蝶鱼各下调一档（原建议 0.18 / 0.15）
+      qingya_turtle:      { axis: 'width', ratio: 0.16 },
+      qixia_guppy:        { axis: 'width', ratio: 0.15 },
+      shanlan_butterfly:  { axis: 'width', ratio: 0.12 }
     };
     // 人形生物不吃饲料：不参与投喂认领，饲料照常沉底
     var AQ_NO_FEED = { bay_moon_mermaid: true };
@@ -152,15 +155,26 @@
       }).then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); });
     }
 
+    // catalog 只读，不能把同一结算快照的倒计时重新从响应时刻计起。
+    function acceptSnapshot(next) {
+      if (!next || (snap && next.version < snap.version)) { return; }
+      var sameClock = snap && typeof next.last_settled_ms === 'number'
+        && next.last_settled_ms === snap.last_settled_ms && next.progress_ms === snap.progress_ms;
+      if (!sameClock) { syncAt = Date.now(); }
+      if (dom && snap && next.coins !== snap.coins) { dom.panelMode = ''; }
+      snap = next; background = snap.layout.background;
+    }
+
     var lastCallOk = false;
     function call(action, extra) {
-      if (busy) { return Promise.resolve(); }
+      if (stopped || busy || (uncertain && action !== 'sync' && action !== 'catalog')) { return Promise.resolve(); }
       lastCallOk = false;
       busy = true; note = '正在同步…'; paint();
       return post(action, extra).then(function (r) {
-        if (r.snapshot) { snap = r.snapshot; syncAt = Date.now(); background = snap.layout.background; }
-        if (r.catalog) { catalog = r.catalog; }
+        if (r.snapshot) { acceptSnapshot(r.snapshot); }
+        if (r.catalog) { catalog = r.catalog; if (dom) { dom.panelMode = ''; } }
         lastCallOk = !!r.ok;
+        if (r.ok && r.snapshot && (action === 'sync' || action === 'catalog')) { uncertain = false; }
         if (r.ok) {
           note = '';
         } else if (!r.code && r.msg) {
@@ -169,10 +183,10 @@
         } else {
           note = r.msg || '暂时无法同步';
         }
-        if (r.ok && action !== 'sync' && action !== 'catalog' && action !== 'init') {
+        if (r.ok && action !== 'sync' && action !== 'catalog') {
           return post('catalog', {}).then(function (x) {
-            if (x.snapshot) { snap = x.snapshot; syncAt = Date.now(); background = snap.layout.background; }
-            if (x.catalog) { catalog = x.catalog; }
+            if (x.snapshot) { acceptSnapshot(x.snapshot); }
+            if (x.catalog) { catalog = x.catalog; if (dom) { dom.panelMode = ''; } }
             if (x.ok) { note = ''; }
           });
         }
@@ -191,6 +205,7 @@
           if (discovered !== known) { needCatalog = true; }
         }
       }).catch(function () {
+        if (action !== 'sync' && action !== 'catalog') { uncertain = true; }
         note = '连接中断，操作结果尚未确认。点「同步」再看一眼。';
       }).then(function () {
         busy = false;
@@ -208,8 +223,8 @@
     function fetchCatalogQuiet() {
       needCatalog = false;
       return post('catalog', {}).then(function (x) {
-        if (x.snapshot) { snap = x.snapshot; syncAt = Date.now(); background = snap.layout.background; }
-        if (x.catalog) { catalog = x.catalog; }
+        if (x.snapshot) { acceptSnapshot(x.snapshot); }
+        if (x.catalog) { catalog = x.catalog; if (dom) { dom.panelMode = ''; } }
         if (dom) { dom.panelMode = ''; paint(); }
       }).catch(function () {});
     }
@@ -581,33 +596,25 @@
     function placeDecor() {
       if (!snap || !dom || !window.AquariumDecorLayout) { return; }
       var r = dom.tank.getBoundingClientRect();
-      if (!r.width) { return; }
+      if (!r.width || !r.height) { return; }
       var scene = (SCENE && SCENE.scenes && SCENE.scenes[background]) || null;
       var override = (SCENE && SCENE.item_overrides) || {};
       var shadow = (SCENE && SCENE.contact_shadow) || {};
       ['back', 'front'].forEach(function (layer) {
         var host = layer === 'back' ? dom.back : dom.front;
-        var placed = [];
-        snap.layout.decor[layer].forEach(function (id) {
-          var box = decorEls[id];
-          var spec = specOf(id);
-          if (!box || !spec) { return; }
-          var probe;
-          try { probe = window.AquariumDecorLayout.rect(spec, r.width, r.height, 0.5); } catch (e) { return; }
-          var w = probe.sprite.width;
-          var hint = activeHints && activeHints[id] && typeof activeHints[id].anchor_x === 'number'
-            ? activeHints[id].anchor_x : null;
-          var prefs = hint !== null ? [Math.min(0.9, Math.max(0.1, hint))]
-            : ((spec.preferred_x && spec.preferred_x.length) ? spec.preferred_x : [0.5]);
-          var bestX = prefs[0], bestClear = -Infinity;
-          prefs.forEach(function (px) {
-            var clear = r.width;
-            placed.forEach(function (q) { clear = Math.min(clear, Math.abs(px - q.x) * r.width - (w + q.w) / 2); });
-            if (clear > bestClear) { bestClear = clear; bestX = px; }
-          });
-          placed.push({ x: bestX, w: w });
-          var g;
-          try { g = window.AquariumDecorLayout.rect(spec, r.width, r.height, bestX); } catch (e) { return; }
+        var items = snap.layout.decor[layer].map(specOf).filter(function (spec) {
+          if (!spec) { return false; }
+          try { window.AquariumDecorLayout.rect(spec, r.width, r.height, 0.5); return true; }
+          catch (e) { return false; }
+        });
+        var arrangement = window.AquariumDecorLayout.arrange(items, r.width, r.height);
+        arrangement.forEach(function (entry, index) {
+          var spec = items[index], id = spec.id, box = decorEls[id], g = entry.rect;
+          if (!box) { return; }
+          var position = items.length === 1 ? (entry.x < 0.4 ? '左侧' : entry.x > 0.6 ? '右侧' : '中间')
+            : index === 0 ? '左侧' : index === items.length - 1 ? '右侧' : '中间';
+          box.dataset.position = position;
+          box.title = ((findDecor(id) || {}).name || id) + ' · ' + (layer === 'back' ? '后景' : '前景') + ' · ' + position + '（点一下收起）';
           if (box.parentNode !== host) { host.appendChild(box); }
           box.style.left = g.sprite.left + 'px';
           box.style.top = g.sprite.top + 'px';
@@ -692,8 +699,63 @@
         paint();
         return;
       }
-      var next = { fish: fishLayout(), decor: out, background: pz.background };
-      activeHints = pz.hints || null;
+      // 背景是否已拥有：未拥有时不能把非法背景传给服务端
+      var bgOwned = (pz.background === 'tank_day' || pz.background === 'tank_moon');
+      var shopNow = catalog && catalog.background_shop;
+      if (shopNow && shopNow.items) {
+        shopNow.items.forEach(function (x) { if (x.id === pz.background) { bgOwned = !!x.owned; } });
+      }
+      if (!bgOwned) { askPresetWithoutBg(pz, out); return; }
+      commitPreset(pz, out, pz.background, missing);
+    }
+
+    /** 缺目标背景：只套装饰继续用当前背景，或去看这个背景；都不偷偷改背景。 */
+    function askPresetWithoutBg(pz, decor) {
+      var old = document.querySelector('.aq-modal'); if (old) { old.remove(); }
+      var shopBg = catalog && catalog.background_shop;
+      var bgName = '萤光秘境';
+      if (shopBg && shopBg.items) {
+        shopBg.items.forEach(function (x) { if (x.id === pz.background) { bgName = x.name; } });
+      }
+      var mask = el('div', 'aq-modal');
+      var box = el('div', 'aq-modal-box');
+      box.appendChild(el('h4', null, '缺少「' + bgName + '」背景'));
+      box.appendChild(el('p', 'aq-muted', '这套布景是为「' + bgName + '」配的。可以先只应用你已经拥有的装饰，继续用当前的背景。'));
+      var acts = el('div', 'aq-modal-acts');
+      var cancel = el('button', 'aq-btn', '取消');
+      cancel.addEventListener('click', function () { mask.remove(); });
+      var see = el('button', 'aq-btn', '查看背景');
+      see.addEventListener('click', function () {
+        mask.remove();
+        tab = 'bg'; buildTabs(); buildPanel();
+        openBackgroundBg(pz.background);
+      });
+      var keep = el('button', 'aq-btn aq-btn-primary', '保留当前背景应用');
+      keep.addEventListener('click', function () {
+        mask.remove();
+        commitPreset(pz, decor, snap.layout.background, 0);
+      });
+      acts.appendChild(cancel); acts.appendChild(see); acts.appendChild(keep);
+      box.appendChild(acts);
+      mask.appendChild(box);
+      mask.addEventListener('click', function (ev) { if (ev.target === mask) { mask.remove(); } });
+      stage.appendChild(mask);
+    }
+
+    function commitPreset(pz, out, bg, missing) {
+      // 用现有数组顺序保存左右关系；刷新后不依赖丢失的内存提示。
+      ['back', 'front'].forEach(function (layer) {
+        out[layer].sort(function (a, b) {
+          function preferred(id) {
+            var hint = pz.hints && pz.hints[id], spec = specOf(id);
+            return hint && typeof hint.anchor_x === 'number' ? hint.anchor_x
+              : spec && spec.preferred_x ? spec.preferred_x[0] : 0.5;
+          }
+          return preferred(a) - preferred(b);
+        });
+      });
+      var next = { fish: fishLayout(), decor: out, background: bg };
+
       // 先把缸里现有的装饰全部收掉，再按预设摆——避免"点完还要手动取消"
       clearDecorVisual();
       clearFeed(false);
@@ -704,7 +766,7 @@
         // 版本冲突（比如连点两套）：拉一次最新状态，再套一次
         if (/状态已更新|conflict/.test(note || '')) {
           return post('sync', {}).then(function (r) {
-            if (r.snapshot) { snap = r.snapshot; background = snap.layout.background; }
+            if (r.snapshot) { acceptSnapshot(r.snapshot); }
             return call('layout', { expected_version: snap.version, layout: next });
           });
         }
@@ -764,8 +826,16 @@
       playSfx('select');
       call('layout', { expected_version: snap.version, layout: { fish: fishLayout(), decor: next, background: snap.layout.background } });
     }
+    function moveDecor(id, direction) {
+      if (!snap || busy || uncertain) { return; }
+      var next = { back: snap.layout.decor.back.slice(), front: snap.layout.decor.front.slice() };
+      var layer = next.back.indexOf(id) >= 0 ? 'back' : 'front';
+      var index = next[layer].indexOf(id), target = index + direction;
+      if (index < 0 || target < 0 || target >= next[layer].length) { return; }
+      next[layer][index] = next[layer][target]; next[layer][target] = id;
+      call('layout', { expected_version: snap.version, layout: { fish: fishLayout(), decor: next, background: snap.layout.background } });
+    }
     function addDecor(id) {
-      activeHints = null;
       var meta = findDecor(id);
       if (!meta) { return; }
       if (!meta.owned) { note = '「' + meta.name + '」还没拥有'; paint(); return; }
@@ -787,6 +857,9 @@
       head.appendChild(el('h3', null, '我的鱼缸'));
       var headNote = el('p', 'aq-muted', '');
       head.appendChild(headNote);
+      var syncButton = el('button', 'aq-btn aq-btn-sm', '同步');
+      syncButton.addEventListener('click', function () { call('sync'); });
+      head.appendChild(syncButton);
       wrap.appendChild(head);
 
       var body = el('div', 'aq-body');
@@ -826,14 +899,14 @@
       var info = el('details', 'aq-note');
       info.appendChild(el('summary', null, '玩法说明 · 怎么放鱼和装饰'));
       var tips = [
-        ['自动钓鱼', '鱼竿自己下钩，到点自动收。在线离线同速，单次最多累计 24 小时，超出部分不计入；金币只在本游戏使用。'],
-        ['怎么赚金币', '每钓到一条鱼都给金币，重复鱼按同规则给，不会因为鱼种重复而变少。升鱼竿能缩短下一条的等待，也能提高每条鱼的收益。'],
-        ['怎么放鱼', '在图鉴里点一条鱼，它就直接进缸、占一个鱼位。点缸里的鱼，是把那一条收起来。同一个鱼种只要钓到过就能重复放，但**最多放你钓到的条数**——钓到 5 条彩鳞鱼，才能同时摆 5 条。鱼缸初始可放 4 条，可花费金币扩容升级。'],
-        ['怎么放装饰', '切到「装饰」页，点一件装饰就直接摆进缸里；再点一次、或者点缸里那件装饰，就是收起来。每层（后景/前景）最多 3 件。装饰按透视自动定位，前景挡住鱼时会自动变淡，鱼不会凭空消失。'],
-        ['布景预设', '「装饰」页最下面的「布景」是整套方案：点一下就把缸里的装饰换成这一套、顺带换背景，不用一件件摆；缺的装饰会被跳过并提示。旁边还有「清空装饰」。'],
-        ['钓点与扩容', '在池塘发现足够多种鱼后可以解锁浅湾，那里的鱼更值钱。右侧状态栏能看到下一个钓点的解锁条件和花费。'],
-        ['喂鱼', '点一下鱼缸里的空白水面＝撒一粒饲料，想多喂就多点几下；一次最多放 8 粒，吃完再喂。哪条鱼离得近，哪条就来吃，吃完会散开。点鱼身上还是「收起这条鱼」，两种操作分开。喂鱼不花金币、不产生金币，纯看着玩。'],
-        ['声音', '音效默认开、音乐默认关；两个按钮在右侧，随时可以关。']
+        ['自动钓鱼', '全自动抛竿收竿。在线与离线同速，离线收益最多累计 24 小时。'],
+        ['赚取金币', '钓起任何鱼均可获得金币（重复鱼收益不减）。升级鱼竿可缩短钓鱼等待时间。'],
+        ['放鱼与扩容', '点击「图鉴」中的鱼放入鱼缸，点击缸内的鱼即可收起。同种鱼可放入数量取决于已钓获条数；初始 4 个鱼位，可用金币扩容。'],
+        ['摆放装饰', '在「装饰」页点击物品即可摆入或收回，支持点击缸内装饰直接收起。前/后景各限 3 件，可通过卡片「左移/右移」调整位置。'],
+        ['布景预设', '「装饰」页底部提供整套布景，点击即可一键替换装饰与背景（未拥有的装饰会自动跳过），也可一键「清空装饰」。'],
+        ['解锁钓点', '收集足够鱼种即可解锁高收益新钓点（如浅湾）。右侧状态栏可查看解锁条件与花费。'],
+        ['互动喂鱼', '点击鱼缸空白水面即可撒饲料（同屏上限 8 粒，注意勿点到鱼身以免误收）。喂鱼完全免费，供观赏互动。'],
+        ['声音设置', '音效默认开启、音乐默认关闭，可在右侧随时切换。']
       ];
       tips.forEach(function (row) {
         var p2 = el('p', null, '');
@@ -852,7 +925,7 @@
     function buildTabs() {
       var bar = dom.tabBar;
       while (bar.firstChild) { bar.removeChild(bar.firstChild); }
-      [['book', '图鉴'], ['decor', '装饰']].forEach(function (t) {
+      [['book', '图鉴'], ['decor', '装饰'], ['bg', '背景']].forEach(function (t) {
         var b = el('button', 'aq-tab' + (tab === t[0] ? ' is-on' : ''), t[1]);
         b.addEventListener('click', function () { tab = t[0]; buildTabs(); buildPanel(); });
         bar.appendChild(b);
@@ -908,7 +981,7 @@
           // 未发现：够门槛写"尚未发现"，不够写鱼竿条件
           if (!f.discovered) {
             var tip = el('div', 'aq-card-tip');
-            tip.textContent = f.rod_ready ? '尚未发现' : ('鱼竿 Lv.' + (f.rod_gate + 1) + ' 起可钓');
+            tip.textContent = f.rod_ready ? '尚未发现' : ('鱼竿 Lv.' + f.rod_gate + ' 起可钓');
             bodyEl.appendChild(tip);
           }
           card.appendChild(bodyEl);
@@ -921,7 +994,8 @@
           grid.appendChild(card);
         });
         host.appendChild(grid);
-      } else {
+      } else if (tab === 'decor') {
+        buildThemePack(host);
         var chips = el('div', 'aq-filters');
         [['all', '全部'], ['plant', '水草'], ['scape', '石景'], ['building', '建筑'], ['trinket', '摆件']].forEach(function (c) {
           var b = el('button', 'aq-chip' + (cat === c[0] ? ' is-on' : ''), c[1]);
@@ -931,7 +1005,7 @@
         host.appendChild(chips);
         var presets = el('div', 'aq-presets');
         presets.appendChild(el('span', 'aq-presets-label', '布景'));
-        [['tank_day', '日光'], ['tank_moon', '月光']].forEach(function (grp) {
+        [['tank_day', '日光'], ['tank_moon', '月光'], ['tank_firefly_grove', '萤光秘境']].forEach(function (grp) {
           var row = el('div', 'aq-preset-row');
           row.appendChild(el('span', 'aq-preset-tag', grp[1]));
           PRESETS.filter(function (pz) { return pz.background === grp[0]; }).forEach(function (pz) {
@@ -971,13 +1045,13 @@
           bodyEl.appendChild(el('span', 'aq-tag', ''));
           if (!d.owned) {
             var miss = [];
-            if (d.missing.coins > 0) { miss.push('还差 ' + fmt(d.missing.coins) + ' 金币'); }
+            if (d.cost > snap.coins) { miss.push('还差 ' + fmt(d.cost - snap.coins) + ' 金币'); }
             if (d.missing.pond_fish > 0) { miss.push('池塘还差 ' + d.missing.pond_fish + ' 种鱼'); }
             if (d.missing.total_fish > 0) { miss.push('图鉴还差 ' + d.missing.total_fish + ' 种'); }
             if (d.missing.water) { miss.push('需先解锁' + waterName(d.missing.water)); }
             if (miss.length) { bodyEl.appendChild(el('span', 'aq-muted', miss.slice(0, 2).join('；'))); }
             var buy = el('button', 'aq-btn', '购买');
-            buy.disabled = miss.length > 0 || busy;
+            buy.disabled = miss.length > 0 || busy || uncertain;
             buy.addEventListener('click', function (ev) {
               ev.stopPropagation();
               call('buy', { decor_id: d.id, expected_version: snap.version });
@@ -985,14 +1059,294 @@
             bodyEl.appendChild(buy);
           } else {
             card.addEventListener('click', function () { addDecor(d.id); });
+            var moves = el('div', 'aq-decor-moves');
+            [-1, 1].forEach(function (direction) {
+              var move = el('button', 'aq-btn aq-btn-sm', direction < 0 ? '← 左移' : '右移 →');
+              move.setAttribute('aria-label', d.name + (direction < 0 ? '左移' : '右移'));
+              move.addEventListener('click', function (ev) { ev.stopPropagation(); moveDecor(d.id, direction); });
+              moves.appendChild(move);
+            });
+            bodyEl.appendChild(moves);
           }
           card.appendChild(bodyEl);
           decorCards[d.id] = card;
           grid2.appendChild(card);
         });
         host.appendChild(grid2);
+      } else if (tab === 'bg') {
+        buildBackgroundPanel(host);
       }
       refreshCards();
+    }
+
+    /* ---------------- 主题包：一键补齐（单件照卖，买齐只汇总缺的单价） ---------------- */
+    function themePackItems() {
+      var out = { decor: [], bg: null };
+      if (!catalog) { return out; }
+      (catalog.decor || []).forEach(function (d) {
+        if (d.themes && d.themes.indexOf('firefly') >= 0) { out.decor.push(d); }
+      });
+      var shop = catalog.background_shop;
+      if (shop && shop.items) {
+        shop.items.forEach(function (x) { if (x.id === 'tank_firefly_grove') { out.bg = x; } });
+      }
+      return out;
+    }
+
+    function buildThemePack(host) {
+      var pack = themePackItems();
+      if (!pack.decor.length) { return; }
+      var needDecor = pack.decor.filter(function (d) { return !d.owned; });
+      var needBg = !!(pack.bg && !pack.bg.owned && pack.bg.purchasable !== false);
+      var ownCount = pack.decor.filter(function (d) { return d.owned; }).length + (pack.bg && pack.bg.owned ? 1 : 0);
+      var totalCount = pack.decor.length + (pack.bg ? 1 : 0);
+      var total = 0;
+      needDecor.forEach(function (d) { total += d.cost; });
+      if (needBg) { total += pack.bg.cost; }
+      var missing = needDecor.length + (needBg ? 1 : 0);
+
+      var box = el('div', 'aq-pack');
+      var head = el('div', 'aq-pack-head');
+      head.appendChild(el('strong', null, '萤光秘境主题'));
+      head.appendChild(el('span', 'aq-muted', '已拥有 ' + ownCount + ' / ' + totalCount));
+      box.appendChild(head);
+      if (missing === 0) {
+        box.appendChild(el('p', 'aq-pack-ok', '整套已收齐，可以直接点「布景」里的「林泉小居」等预设。'));
+      } else {
+        box.appendChild(el('p', 'aq-muted', '十四件布景加背景，可单件买，也可一次补齐；已拥有的不会重复扣款。'));
+        var row = el('div', 'aq-pack-row');
+        row.appendChild(el('span', 'aq-bgprice', fmt(total) + ' 金币'));
+        var btn = el('button', 'aq-btn aq-btn-primary aq-btn-sm', '一键补齐 ' + missing + ' 件');
+        btn.disabled = busy || uncertain;
+        btn.addEventListener('click', function () { confirmThemePack(pack, needDecor, needBg, total); });
+        row.appendChild(btn);
+        box.appendChild(row);
+      }
+      host.appendChild(box);
+    }
+
+    function confirmThemePack(pack, needDecor, needBg, total) {
+      var old = document.querySelector('.aq-modal'); if (old) { old.remove(); }
+      if ((snap.coins || 0) < total) {
+        note = '金币不足，还差 ' + fmt(total - (snap.coins || 0)) + ' 金币';
+        paint();
+        return;
+      }
+      var mask = el('div', 'aq-modal');
+      var box = el('div', 'aq-modal-box');
+      box.appendChild(el('h4', null, '补齐萤光秘境主题'));
+      var lines = [];
+      if (needBg) { lines.push('背景　' + pack.bg.name + '（' + fmt(pack.bg.cost) + '）'); }
+      needDecor.forEach(function (d) { lines.push(d.name + '（' + fmt(d.cost) + '）'); });
+      box.appendChild(el('p', 'aq-muted', '一次买下 ' + lines.length + ' 件，合计 ' + fmt(total) + ' 金币。'));
+      var list = el('div', 'aq-packlist');
+      lines.forEach(function (t) { list.appendChild(el('p', null, t)); });
+      box.appendChild(list);
+      var acts = el('div', 'aq-modal-acts');
+      var cancel = el('button', 'aq-btn', '取消');
+      cancel.addEventListener('click', function () { mask.remove(); });
+      var ok = el('button', 'aq-btn aq-btn-primary', '确认买齐');
+      ok.addEventListener('click', function () { mask.remove(); runThemePurchase(needBg, needDecor); });
+      acts.appendChild(cancel); acts.appendChild(ok);
+      box.appendChild(acts);
+      box.appendChild(el('p', 'aq-muted', '买完不会自动更换布景；要摆放请点「布景」里的预设。'));
+      mask.appendChild(box);
+      mask.addEventListener('click', function (ev) { if (ev.target === mask) { mask.remove(); } });
+      stage.appendChild(mask);
+    }
+
+    /** 串行买：每件独立事务，已拥有的服务端会返回 owned 不重复扣款；中途失败只统计不中断。 */
+    function runThemePurchase(needBg, needDecor) {
+      var jobs = [];
+      if (needBg) { jobs.push('__bg__'); }
+      needDecor.forEach(function (d) { jobs.push(d.id); });
+      var total = jobs.length, done = 0, failed = 0;
+      function step() {
+        if (!jobs.length) {
+          note = failed
+            ? ('补齐完成：成功 ' + done + ' 件，' + failed + ' 件失败（可再点一次继续）')
+            : ('已买齐 ' + done + ' 件');
+          paint();
+          return;
+        }
+        var job = jobs.shift();
+        note = '正在购买…还剩 ' + (jobs.length + 1) + ' / ' + total + ' 件';
+        paint();
+        var p = (job === '__bg__')
+          ? call('buybg', { expected_version: snap.version, background_id: 'tank_firefly_grove',
+              catalog_version: (catalog.background_shop || {}).version || '' })
+          : call('buy', { expected_version: snap.version, decor_id: job });
+        p.then(function () {
+          if (lastCallOk) { done++; } else { failed++; }
+          step();
+        });
+      }
+      step();
+    }
+
+    /* ---------------- 背景商店 ---------------- */
+    function bgMissingText(item) {
+      var m = item.missing || {};
+      var out = [];
+      if ((m.pond_fish || 0) > 0) { out.push('池塘还差 ' + m.pond_fish + ' 种鱼'); }
+      if ((m.total_fish || 0) > 0) { out.push('图鉴还差 ' + m.total_fish + ' 种鱼'); }
+      if (m.water) { out.push('需先解锁' + waterName(m.water)); }
+      if ((m.coins || 0) > 0) { out.push('还差 ' + fmt(m.coins) + ' 金币'); }
+      return out;
+    }
+
+    function buildBackgroundPanel(host) {
+      var shop = catalog && catalog.background_shop;
+      if (!shop || !shop.items || !shop.items.length) {
+        host.appendChild(el('p', 'aq-muted', '背景商店暂不可用'));
+        return;
+      }
+      var ownedCount = 0;
+      shop.items.forEach(function (x) { if (x.owned) { ownedCount++; } });
+      host.appendChild(el('p', 'aq-book-head', '已拥有 ' + ownedCount + ' / ' + shop.items.length));
+
+      var grid = el('div', 'aq-bggrid');
+      shop.items.forEach(function (item) {
+        var active = !!item.active;
+        var owned = !!item.owned;
+        var card = el('article', 'aq-bgcard' + (active ? ' is-active' : ''));
+        card.setAttribute('data-background-id', item.id);
+
+        var thumb = el('button', 'aq-bgthumb');
+        thumb.type = 'button';
+        thumb.setAttribute('aria-label', '预览' + item.name);
+        var img = el('img');
+        img.src = ASSETS + item.thumbnail + '?v=' + version();
+        img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+        thumb.appendChild(img);
+        if (active) { thumb.appendChild(el('span', 'aq-bgbadge is-current', '使用中')); }
+        else if (owned) { thumb.appendChild(el('span', 'aq-bgbadge', '已拥有')); }
+        else if (item.id === 'tank_firefly_grove') { thumb.appendChild(el('span', 'aq-bgbadge is-theme', '萤光主题')); }
+        thumb.addEventListener('click', function () { openBackgroundBg(item.id); });
+        card.appendChild(thumb);
+
+        var bodyEl = el('div', 'aq-bgbody');
+        // 紧凑版：名称与价格同一行，条件与按钮同一行，描述收进 title 提示
+        var titleRow = el('div', 'aq-bgtitle');
+        titleRow.appendChild(el('strong', null, item.name));
+        // 已拥有就不再标价，避免看着像还要再买一次
+        var priceText = owned ? '已拥有' : (item.cost ? fmt(item.cost) : '免费');
+        titleRow.appendChild(el('span', 'aq-bgprice' + (owned || !item.cost ? ' is-free' : ''), priceText));
+        bodyEl.appendChild(titleRow);
+
+        var miss = owned ? [] : bgMissingText(item);
+        var canBuy = item.purchasable !== false;
+        var foot = el('div', 'aq-bgfoot');
+        var condText = owned ? (active ? '使用中' : '免费切换')
+          : (!canBuy ? '暂停购买' : (miss.length ? miss[0] : '可购买'));
+        var condEl = el('span', 'aq-bgcond' + (owned ? ' is-ok' : (miss.length || !canBuy ? ' is-lack' : '')), condText);
+        if (miss.length > 1) { condEl.title = miss.join('；'); }
+        if (item.description) { condEl.title = (condEl.title ? condEl.title + '；' : '') + item.description; }
+        foot.appendChild(condEl);
+        var act = el('button', 'aq-btn aq-btn-sm' + (owned && !active ? ' aq-btn-primary' : ''),
+          active ? '使用中' : (owned ? '使用' : (canBuy ? '购买' : '暂不可购买')));
+        act.type = 'button';
+        act.disabled = active || (!owned && !canBuy);
+        act.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          if (owned) { useBackground(item); } else { openBackgroundBg(item.id); }
+        });
+        foot.appendChild(act);
+        bodyEl.appendChild(foot);
+        card.appendChild(bodyEl);
+        grid.appendChild(card);
+      });
+      host.appendChild(grid);
+    }
+
+    function useBackground(item) {
+      if (busy || uncertain) { return; }
+      if (!item.owned) { note = '请先拥有这个背景'; paint(); return; }
+      playSfx('select');
+      call('layout', { expected_version: snap.version, layout: { background: item.id } });
+    }
+
+    function openBackgroundBg(id) {
+      var shop = catalog && catalog.background_shop;
+      if (!shop) { return; }
+      var item = null;
+      shop.items.forEach(function (x) { if (x.id === id) { item = x; } });
+      if (!item) { return; }
+      var exists = document.querySelector('.aq-modal'); if (exists) { exists.remove(); }
+
+      var active = !!item.active, owned = !!item.owned;
+      var mask = el('div', 'aq-modal');
+      var box = el('div', 'aq-modal-box aq-bgbox');
+
+      var big = el('div', 'aq-bgbig');
+      var pic = el('picture');
+      var srcM = el('source');
+      srcM.media = '(max-width: 600px)';
+      srcM.srcset = ASSETS + item.mobile + '?v=' + version();
+      var bigImg = el('img');
+      bigImg.src = ASSETS + item.background + '?v=' + version();
+      bigImg.alt = item.name + ' 完整背景';
+      pic.appendChild(srcM); pic.appendChild(bigImg);
+      big.appendChild(pic);
+      box.appendChild(big);
+
+      var head = el('div', 'aq-bghead');
+      head.appendChild(el('h4', null, item.name));
+      head.appendChild(el('span', 'aq-bgbadge' + (active ? ' is-current' : ''), active ? '使用中' : (owned ? '已拥有' : '未拥有')));
+      box.appendChild(head);
+
+      box.appendChild(el('p', 'aq-bgdesc', item.description || ''));
+      box.appendChild(el('p', 'aq-muted', '永久拥有 · 切换免费 · 不改变钓鱼收益'));
+
+      if (!owned) {
+        var sum = el('div', 'aq-bgsum');
+        var line1 = el('span', null, '本次花费 ');
+        line1.appendChild(el('b', null, fmt(item.cost) + ' 金币'));
+        var rem = Math.max(0, (snap.coins || 0) - item.cost);
+        var line2 = el('span', null, '购买后余额 ');
+        line2.appendChild(el('b', null, (snap.coins || 0) < item.cost ? '金币不足' : fmt(rem) + ' 金币'));
+        sum.appendChild(line1); sum.appendChild(line2);
+        box.appendChild(sum);
+      }
+
+      var miss = owned ? [] : bgMissingText(item);
+      if (miss.length) { box.appendChild(el('p', 'aq-bgcond', miss.join('；'))); }
+
+      var acts = el('div', 'aq-modal-acts');
+      var cancel = el('button', 'aq-btn', owned ? '暂不更换' : '取消');
+      cancel.addEventListener('click', function () { mask.remove(); });
+      var canBuy2 = item.purchasable !== false;
+      var ok = el('button', 'aq-btn aq-btn-primary',
+        active ? '正在使用' : (owned ? '使用此背景' : (canBuy2 ? '确认购买' : '暂停购买')));
+      ok.disabled = active || (!owned && (!canBuy2 || miss.length > 0)) || busy || uncertain;
+      ok.addEventListener('click', function () {
+        if (busy || uncertain) { return; }
+        if (owned) { mask.remove(); useBackground(item); return; }
+        if (miss.length) { return; }
+        // 购买后不关弹层：等响应回来重开成「已拥有」，让玩家直接点使用
+        ok.disabled = true;
+        cancel.disabled = true;
+        ok.textContent = '购买中…';
+        call('buybg', {
+          expected_version: snap.version,
+          background_id: item.id,
+          catalog_version: shop.version
+        }).then(function () {
+          var stillThere = document.querySelector('.aq-modal') === mask;
+          if (!stillThere) { return; }
+          mask.remove();
+          // 成功与否都以服务端最新目录为准；成功后弹层转为已拥有
+          openBackgroundBg(item.id);
+        });
+      });
+      acts.appendChild(cancel); acts.appendChild(ok);
+      box.appendChild(acts);
+      box.appendChild(el('p', 'aq-muted',
+        owned ? '更换背景不会改变鱼、装饰或钓点。' : '购买只加入收藏，不会自动更换当前背景。'));
+
+      mask.appendChild(box);
+      mask.addEventListener('click', function (ev) { if (ev.target === mask) { mask.remove(); } });
+      stage.appendChild(mask);
     }
 
     function refreshCards() {
@@ -1028,10 +1382,20 @@
         var card = decorCards[id];
         var d = findDecor(id);
         if (!d || !d.owned) { return; }
-        var placed = snap.layout.decor.back.indexOf(id) >= 0 || snap.layout.decor.front.indexOf(id) >= 0;
+        var layer = snap.layout.decor.back.indexOf(id) >= 0 ? 'back' : 'front';
+        var index = snap.layout.decor[layer].indexOf(id), placed = index >= 0;
         card.classList.toggle('is-on', placed);
         var tags = card.querySelectorAll('.aq-tag');
-        if (tags.length > 1) { tags[1].textContent = placed ? '已在缸里' : '点一下摆放'; }
+        var position = decorEls[id] && decorEls[id].dataset.position;
+        if (tags.length > 1) { tags[1].textContent = placed
+          ? (layer === 'back' ? '后景' : '前景') + ' · ' + (position || '已摆放') + ' · 点卡片收起' : '点一下自动摆放'; }
+        var moves = card.querySelector('.aq-decor-moves');
+        if (moves) {
+          moves.style.display = placed ? '' : 'none';
+          var buttons = moves.querySelectorAll('button');
+          buttons[0].disabled = !placed || index === 0 || busy || uncertain;
+          buttons[1].disabled = !placed || index === snap.layout.decor[layer].length - 1 || busy || uncertain;
+        }
       });
     }
 
@@ -1061,7 +1425,7 @@
         var rShort = rCost - snap.coins;
         var rb = el('button', 'aq-btn' + (rShort <= 0 ? ' aq-btn-primary' : ''),
           '升级鱼竿 Lv.' + nextLv + (rShort > 0 ? (' · 还差 ' + fmt(rShort)) : ('（' + fmt(rCost) + ' 金币）')));
-        rb.disabled = rShort > 0 || busy;
+        rb.disabled = rShort > 0 || busy || uncertain;
         rb.addEventListener('click', function () { call('upgrade', { expected_version: snap.version, target_level: nextLv }); });
         host.appendChild(rb);
       }
@@ -1082,7 +1446,7 @@
         } else {
           var short = wcost - snap.coins;
           btn.textContent = '解锁' + waterName(wid) + (short > 0 ? (' · 还差 ' + fmt(short)) : ('（' + fmt(wcost) + '）'));
-          btn.disabled = short > 0 || busy;
+          btn.disabled = short > 0 || busy || uncertain;
           if (need > 0) {
             waterBox.appendChild(el('span', 'aq-muted',
               waterName(wid) + '：需在' + waterName(snap.current_water) + '发现 ' + need + ' 种鱼'));
@@ -1100,7 +1464,7 @@
         var cost = snap.rules.fish_capacity_costs[idx + 1];
         var shortfall = cost - snap.coins;
         var eb = el('button', 'aq-btn', '扩容到 ' + caps[idx + 1] + ' 位' + (shortfall > 0 ? (' · 还差 ' + fmt(shortfall)) : ('（' + fmt(cost) + '）')));
-        eb.disabled = shortfall > 0 || busy;
+        eb.disabled = shortfall > 0 || busy || uncertain;
         eb.addEventListener('click', function () { call('expand', { expected_version: snap.version }); });
         host.appendChild(eb);
       }
@@ -1144,16 +1508,30 @@
       if (dom.bgSel) { dom.bgSel.value = background; }
     }
 
+    /** 背景主图/手机版路径：优先用服务端目录给的（旧四景在 expansion-v1/ 下），否则按 id 兜底。 */
+    function bgPaths(id) {
+      var shop = catalog && catalog.background_shop;
+      if (shop && shop.items) {
+        for (var i = 0; i < shop.items.length; i++) {
+          if (shop.items[i].id === id) {
+            return { main: shop.items[i].background, mobile: shop.items[i].mobile };
+          }
+        }
+      }
+      return { main: 'background/' + id + '.webp', mobile: 'background/' + id + '_mobile.webp' };
+    }
+
     function updateBackground() {
       if (!dom) { return; }
       while (dom.bg.firstChild) { dom.bg.removeChild(dom.bg.firstChild); }
+      var paths = bgPaths(background);
       var pic = el('picture');
       var src = el('source');
       src.media = '(max-width: 760px)';
-      src.srcset = ASSETS + 'background/' + background + '_mobile.webp?v=' + version();
+      src.srcset = ASSETS + paths.mobile + '?v=' + version();
       pic.appendChild(src);
       var img = el('img');
-      img.src = ASSETS + 'background/' + background + '.webp?v=' + version();
+      img.src = ASSETS + paths.main + '?v=' + version();
       img.alt = '';
       pic.appendChild(img);
       dom.bg.appendChild(pic);
@@ -1171,7 +1549,7 @@
           empty.appendChild(el('p', null, note || '还没有你的水族馆。'));
           if (!serverErr) {
             var b = el('button', 'aq-btn aq-btn-primary', '建立我的水族馆');
-            b.disabled = busy;
+            b.disabled = busy || uncertain;
             b.addEventListener('click', function () { call('init'); });
             empty.appendChild(b);
           }
@@ -1198,29 +1576,28 @@
       if (dom.panelMode !== 'grid') { dom.panelMode = 'grid'; buildPanel(); } else { refreshCards(); }
       syncFish();
       syncDecor();
+      refreshCards();
     }
 
     function countdown() {
       if (!snap) { return '00:00'; }
       var period = snap.rules.periods_ms[snap.rod_level];
       var elapsed = (Date.now() - syncAt) + snap.progress_ms;
-      var left = Math.max(0, period - (elapsed % period));
+      var left = Math.max(0, period - elapsed);
       var s = Math.ceil(left / 1000);
       return ('0' + Math.floor(s / 60)).slice(-2) + ':' + ('0' + (s % 60)).slice(-2);
     }
-    var settledPending = false;
+    var settleRetryAt = 0;
     function tickCountdown() {
-      var n = document.getElementById('aq-countdown');
-      if (!n || !snap) { return; }
+      if (!snap || stopped || document.hidden) { return; }
+      var n = stage.querySelector('#aq-countdown');
+      if (n) { n.textContent = '下一条 ' + countdown(); }
       var period = snap.rules.periods_ms[snap.rod_level];
       var elapsed = (Date.now() - syncAt) + snap.progress_ms;
-      var left = period - (elapsed % period);
-      n.textContent = '下一条 ' + countdown();
-      // 到点就直接拉一次，别让玩家自己刷新
-      if (left <= 900 && !settledPending && !busy) {
-        settledPending = true;
+      // 必须越过到期点再结算；定时器迟到/跨周期也不会漏掉。
+      if (elapsed >= period && !busy && Date.now() >= settleRetryAt) {
+        settleRetryAt = Date.now() + 4000;
         call('sync');
-        setTimeout(function () { settledPending = false; }, 4000);
       }
     }
 
@@ -1435,7 +1812,6 @@
               return { id: it.id, name: it.name, background: it.background,
                 back: it.back || [], front: it.front || [], hints: it.placement_hints || null };
             });
-            PRESETS.forEach(function (pz) { PRESET_HINTS[pz.id] = pz.hints; });
             if (dom) { dom.panelMode = ''; }
           }
         }).catch(function () {})
@@ -1446,7 +1822,7 @@
       paint();
       setInterval(tickCountdown, 1000);
       requestAnimationFrame(frame);
-      if (api.uid) { call('catalog'); }
+      if (api.uid) { call('catalog').then(function () { if (snap) { return call('sync'); } }); }
     });
   });
 }());

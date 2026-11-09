@@ -1,7 +1,7 @@
 {
   "schema": "aquarium-assets-v1",
   "author": "GPT / Codex; original plugin (C) 2026 Carinoasd",
-  "version": "art-candidate-v1",
+  "version": "art-candidate-v2",
   "status": "content-art-complete-awaiting-integration",
   "export": "ImageMagick geometric packing; Pillow WebP encoding; originals unchanged; alpha>=16 used only for bbox",
   "decor_slot_count": null,
