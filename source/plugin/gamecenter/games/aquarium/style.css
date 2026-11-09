@@ -234,3 +234,15 @@
 @media (max-width: 305px) {
   .aq-bggrid { grid-template-columns: 1fr; }
 }
+
+/* 小蓝（DSH）：主题包一键补齐 */
+.aq-pack { border: 1px solid #cfe3d6; background: linear-gradient(180deg, #f2fbf5, #fff); border-radius: 10px;
+  padding: 9px 11px 10px; margin-bottom: 9px; }
+.aq-pack-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 3px; }
+.aq-pack-head strong { font-size: 13px; color: #245b43; }
+.aq-pack .aq-muted { margin: 0 0 4px; font-size: 11px; }
+.aq-pack-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 5px; }
+.aq-pack-ok { margin: 2px 0 0; font-size: 12px; color: #245b43; }
+.aq-packlist { max-height: 32vh; overflow: auto; margin: 6px 0; padding: 6px 8px; border: 1px solid var(--aq-line);
+  border-radius: 8px; background: #fbfdfe; }
+.aq-packlist p { margin: 0 0 2px; font-size: 12px; color: var(--aq-ink); }

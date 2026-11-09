@@ -894,14 +894,14 @@
       var info = el('details', 'aq-note');
       info.appendChild(el('summary', null, '玩法说明 · 怎么放鱼和装饰'));
       var tips = [
-        ['自动钓鱼', '鱼竿自己下钩，到点自动收。在线离线同速，单次最多累计 24 小时，超出部分不计入；金币只在本游戏使用。'],
-        ['怎么赚金币', '每钓到一条鱼都给金币，重复鱼按同规则给，不会因为鱼种重复而变少。升鱼竿能缩短下一条的等待时间。'],
-        ['怎么放鱼', '在图鉴里点一条鱼，它就直接进缸、占一个鱼位。点缸里的鱼，是把那一条收起来。同一个鱼种只要钓到过就能重复放，但**最多放你钓到的条数**——钓到 5 条彩鳞鱼，才能同时摆 5 条。鱼缸初始可放 4 条，可花费金币扩容升级。'],
-        ['怎么放装饰', '切到「装饰」页，点一件装饰就直接摆进缸里；再点一次、或者点缸里那件装饰，就是收起来。每层（后景/前景）最多 3 件。同层装饰会自动排开；卡片会标出左侧、中间或右侧，用「左移/右移」交换顺序，刷新后保留。宽件放满时会等比缩小以免叠放。前景挡住鱼时会自动变淡。'],
-        ['布景预设', '「装饰」页最下面的「布景」是整套方案：点一下就把缸里的装饰换成这一套、顺带换背景，不用一件件摆；缺的装饰会被跳过并提示。旁边还有「清空装饰」。'],
-        ['钓点与扩容', '在池塘发现足够多种鱼后可以解锁浅湾，那里的鱼更值钱。右侧状态栏能看到下一个钓点的解锁条件和花费。'],
-        ['喂鱼', '点一下鱼缸里的空白水面＝撒一粒饲料，想多喂就多点几下；一次最多放 8 粒，吃完再喂。哪条鱼离得近，哪条就来吃，吃完会散开。点鱼身上还是「收起这条鱼」，两种操作分开。喂鱼不花金币、不产生金币，纯看着玩。'],
-        ['声音', '音效默认开、音乐默认关；两个按钮在右侧，随时可以关。']
+        ['自动钓鱼', '全自动抛竿收竿。在线与离线同速，离线收益最多累计 24 小时。'],
+        ['赚取金币', '钓起任何鱼均可获得金币（重复鱼收益不减）。升级鱼竿可缩短钓鱼等待时间。'],
+        ['放鱼与扩容', '点击「图鉴」中的鱼放入鱼缸，点击缸内的鱼即可收起。同种鱼可放入数量取决于已钓获条数；初始 4 个鱼位，可用金币扩容。'],
+        ['摆放装饰', '在「装饰」页点击物品即可摆入或收回，支持点击缸内装饰直接收起。前/后景各限 3 件，可通过卡片「左移/右移」调整位置。'],
+        ['布景预设', '「装饰」页底部提供整套布景，点击即可一键替换装饰与背景（未拥有的装饰会自动跳过），也可一键「清空装饰」。'],
+        ['解锁钓点', '收集足够鱼种即可解锁高收益新钓点（如浅湾）。右侧状态栏可查看解锁条件与花费。'],
+        ['互动喂鱼', '点击鱼缸空白水面即可撒饲料（同屏上限 8 粒，注意勿点到鱼身以免误收）。喂鱼完全免费，供观赏互动。'],
+        ['声音设置', '音效默认开启、音乐默认关闭，可在右侧随时切换。']
       ];
       tips.forEach(function (row) {
         var p2 = el('p', null, '');
@@ -990,6 +990,7 @@
         });
         host.appendChild(grid);
       } else if (tab === 'decor') {
+        buildThemePack(host);
         var chips = el('div', 'aq-filters');
         [['all', '全部'], ['plant', '水草'], ['scape', '石景'], ['building', '建筑'], ['trinket', '摆件']].forEach(function (c) {
           var b = el('button', 'aq-chip' + (cat === c[0] ? ' is-on' : ''), c[1]);
@@ -1071,6 +1072,111 @@
         buildBackgroundPanel(host);
       }
       refreshCards();
+    }
+
+    /* ---------------- 主题包：一键补齐（单件照卖，买齐只汇总缺的单价） ---------------- */
+    function themePackItems() {
+      var out = { decor: [], bg: null };
+      if (!catalog) { return out; }
+      (catalog.decor || []).forEach(function (d) {
+        if (d.themes && d.themes.indexOf('firefly') >= 0) { out.decor.push(d); }
+      });
+      var shop = catalog.background_shop;
+      if (shop && shop.items) {
+        shop.items.forEach(function (x) { if (x.id === 'tank_firefly_grove') { out.bg = x; } });
+      }
+      return out;
+    }
+
+    function buildThemePack(host) {
+      var pack = themePackItems();
+      if (!pack.decor.length) { return; }
+      var needDecor = pack.decor.filter(function (d) { return !d.owned; });
+      var needBg = !!(pack.bg && !pack.bg.owned && pack.bg.purchasable !== false);
+      var ownCount = pack.decor.filter(function (d) { return d.owned; }).length + (pack.bg && pack.bg.owned ? 1 : 0);
+      var totalCount = pack.decor.length + (pack.bg ? 1 : 0);
+      var total = 0;
+      needDecor.forEach(function (d) { total += d.cost; });
+      if (needBg) { total += pack.bg.cost; }
+      var missing = needDecor.length + (needBg ? 1 : 0);
+
+      var box = el('div', 'aq-pack');
+      var head = el('div', 'aq-pack-head');
+      head.appendChild(el('strong', null, '萤光秘境主题'));
+      head.appendChild(el('span', 'aq-muted', '已拥有 ' + ownCount + ' / ' + totalCount));
+      box.appendChild(head);
+      if (missing === 0) {
+        box.appendChild(el('p', 'aq-pack-ok', '整套已收齐，可以直接点「布景」里的「林泉小居」等预设。'));
+      } else {
+        box.appendChild(el('p', 'aq-muted', '十四件布景加背景，可单件买，也可一次补齐；已拥有的不会重复扣款。'));
+        var row = el('div', 'aq-pack-row');
+        row.appendChild(el('span', 'aq-bgprice', fmt(total) + ' 金币'));
+        var btn = el('button', 'aq-btn aq-btn-primary aq-btn-sm', '一键补齐 ' + missing + ' 件');
+        btn.disabled = busy || uncertain;
+        btn.addEventListener('click', function () { confirmThemePack(pack, needDecor, needBg, total); });
+        row.appendChild(btn);
+        box.appendChild(row);
+      }
+      host.appendChild(box);
+    }
+
+    function confirmThemePack(pack, needDecor, needBg, total) {
+      var old = document.querySelector('.aq-modal'); if (old) { old.remove(); }
+      if ((snap.coins || 0) < total) {
+        note = '金币不足，还差 ' + fmt(total - (snap.coins || 0)) + ' 金币';
+        paint();
+        return;
+      }
+      var mask = el('div', 'aq-modal');
+      var box = el('div', 'aq-modal-box');
+      box.appendChild(el('h4', null, '补齐萤光秘境主题'));
+      var lines = [];
+      if (needBg) { lines.push('背景　' + pack.bg.name + '（' + fmt(pack.bg.cost) + '）'); }
+      needDecor.forEach(function (d) { lines.push(d.name + '（' + fmt(d.cost) + '）'); });
+      box.appendChild(el('p', 'aq-muted', '一次买下 ' + lines.length + ' 件，合计 ' + fmt(total) + ' 金币。'));
+      var list = el('div', 'aq-packlist');
+      lines.forEach(function (t) { list.appendChild(el('p', null, t)); });
+      box.appendChild(list);
+      var acts = el('div', 'aq-modal-acts');
+      var cancel = el('button', 'aq-btn', '取消');
+      cancel.addEventListener('click', function () { mask.remove(); });
+      var ok = el('button', 'aq-btn aq-btn-primary', '确认买齐');
+      ok.addEventListener('click', function () { mask.remove(); runThemePurchase(needBg, needDecor); });
+      acts.appendChild(cancel); acts.appendChild(ok);
+      box.appendChild(acts);
+      box.appendChild(el('p', 'aq-muted', '买完不会自动更换布景；要摆放请点「布景」里的预设。'));
+      mask.appendChild(box);
+      mask.addEventListener('click', function (ev) { if (ev.target === mask) { mask.remove(); } });
+      stage.appendChild(mask);
+    }
+
+    /** 串行买：每件独立事务，已拥有的服务端会返回 owned 不重复扣款；中途失败只统计不中断。 */
+    function runThemePurchase(needBg, needDecor) {
+      var jobs = [];
+      if (needBg) { jobs.push('__bg__'); }
+      needDecor.forEach(function (d) { jobs.push(d.id); });
+      var total = jobs.length, done = 0, failed = 0;
+      function step() {
+        if (!jobs.length) {
+          note = failed
+            ? ('补齐完成：成功 ' + done + ' 件，' + failed + ' 件失败（可再点一次继续）')
+            : ('已买齐 ' + done + ' 件');
+          paint();
+          return;
+        }
+        var job = jobs.shift();
+        note = '正在购买…还剩 ' + (jobs.length + 1) + ' / ' + total + ' 件';
+        paint();
+        var p = (job === '__bg__')
+          ? call('buybg', { expected_version: snap.version, background_id: 'tank_firefly_grove',
+              catalog_version: (catalog.background_shop || {}).version || '' })
+          : call('buy', { expected_version: snap.version, decor_id: job });
+        p.then(function () {
+          if (lastCallOk) { done++; } else { failed++; }
+          step();
+        });
+      }
+      step();
     }
 
     /* ---------------- 背景商店 ---------------- */
