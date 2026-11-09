@@ -180,3 +180,41 @@
 
 /* GPT / Codex（小典）：装饰位置调整；按钮不触发卡片收起。 */
 .aq-decor-moves { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+
+/* 小蓝（DSH）：背景商店。规格见 docs/aquarium/v2.0/BACKGROUND-SHOP.md */
+.aq-bggrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.aq-bgcard { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--aq-line);
+  border-radius: 11px; background: #fff; overflow: hidden; }
+.aq-bgcard.is-active { border-color: var(--aq-accent); box-shadow: 0 0 0 1px var(--aq-accent); }
+.aq-bgthumb { position: relative; display: block; padding: 0; border: 0; background: #eaf3f7;
+  aspect-ratio: 16 / 10; width: 100%; overflow: hidden; cursor: pointer; }
+.aq-bgthumb img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .2s ease; }
+.aq-bgthumb:hover img { transform: scale(1.025); }
+.aq-bgbadge { position: absolute; top: 8px; left: 8px; padding: 2px 7px; font-size: 11px; border-radius: 5px;
+  background: rgba(255,255,255,.94); color: #123f54; border: 1px solid rgba(255,255,255,.6); }
+.aq-bgbadge.is-current { background: rgba(27,99,142,.92); color: #fff; border-color: transparent; }
+.aq-bgbadge.is-theme { background: rgba(25,76,55,.93); color: #f1ffe4; border-color: rgba(188,217,180,.27); }
+.aq-bgbody { display: flex; flex: 1; flex-direction: column; gap: 5px; padding: 10px 11px 11px; }
+.aq-bgbody strong { font-size: 14px; }
+.aq-bgdesc { margin: 0; font-size: 12px; line-height: 1.45; color: var(--aq-muted); }
+.aq-bgcond { margin: 0; min-height: 16px; font-size: 12px; color: #7a5f2c; }
+.aq-bgbottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 4px; }
+.aq-bgprice { font-size: 13px; font-weight: 600; color: #6f5420; font-variant-numeric: tabular-nums; }
+.aq-bgprice.is-free { font-size: 12px; font-weight: 400; color: var(--aq-muted); }
+/* 预览弹层：比售卖面板宽，大图等比不裁边 */
+.aq-bgbox { width: min(560px, 92vw); max-height: 92vh; overflow: auto; padding: 14px 16px 14px; }
+.aq-bgbig { border-radius: 10px; overflow: hidden; background: #dbeaf0; margin-bottom: 10px; }
+.aq-bgbig picture, .aq-bgbig img { display: block; width: 100%; height: auto; }
+.aq-bghead { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.aq-bghead h4 { margin: 0; font-size: 16px; }
+.aq-bghead .aq-bgbadge { position: static; }
+.aq-bgsum { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 8px 0 2px; font-size: 13px; color: var(--aq-muted); }
+.aq-bgsum b { color: var(--aq-ink); font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .aq-bggrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aq-bgbody .aq-btn { min-height: 44px; }
+  .aq-bgbox { width: min(520px, 94vw); }
+}
+@media (max-width: 305px) {
+  .aq-bggrid { grid-template-columns: 1fr; }
+}

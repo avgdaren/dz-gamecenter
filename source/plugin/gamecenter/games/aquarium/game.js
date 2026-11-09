@@ -167,7 +167,7 @@
       busy = true; note = '正在同步…'; paint();
       return post(action, extra).then(function (r) {
         if (r.snapshot) { acceptSnapshot(r.snapshot); }
-        if (r.catalog) { catalog = r.catalog; }
+        if (r.catalog) { catalog = r.catalog; if (dom) { dom.panelMode = ''; } }
         lastCallOk = !!r.ok;
         if (r.ok && r.snapshot && (action === 'sync' || action === 'catalog')) { uncertain = false; }
         if (r.ok) {
@@ -181,7 +181,7 @@
         if (r.ok && action !== 'sync' && action !== 'catalog') {
           return post('catalog', {}).then(function (x) {
             if (x.snapshot) { acceptSnapshot(x.snapshot); }
-            if (x.catalog) { catalog = x.catalog; }
+            if (x.catalog) { catalog = x.catalog; if (dom) { dom.panelMode = ''; } }
             if (x.ok) { note = ''; }
           });
         }
@@ -219,7 +219,7 @@
       needCatalog = false;
       return post('catalog', {}).then(function (x) {
         if (x.snapshot) { acceptSnapshot(x.snapshot); }
-        if (x.catalog) { catalog = x.catalog; }
+        if (x.catalog) { catalog = x.catalog; if (dom) { dom.panelMode = ''; } }
         if (dom) { dom.panelMode = ''; paint(); }
       }).catch(function () {});
     }
@@ -694,6 +694,50 @@
         paint();
         return;
       }
+      // 背景是否已拥有：未拥有时不能把非法背景传给服务端
+      var bgOwned = (pz.background === 'tank_day' || pz.background === 'tank_moon');
+      var shopNow = catalog && catalog.background_shop;
+      if (shopNow && shopNow.items) {
+        shopNow.items.forEach(function (x) { if (x.id === pz.background) { bgOwned = !!x.owned; } });
+      }
+      if (!bgOwned) { askPresetWithoutBg(pz, out); return; }
+      commitPreset(pz, out, pz.background, missing);
+    }
+
+    /** 缺目标背景：只套装饰继续用当前背景，或去看这个背景；都不偷偷改背景。 */
+    function askPresetWithoutBg(pz, decor) {
+      var old = document.querySelector('.aq-modal'); if (old) { old.remove(); }
+      var shopBg = catalog && catalog.background_shop;
+      var bgName = '萤光秘境';
+      if (shopBg && shopBg.items) {
+        shopBg.items.forEach(function (x) { if (x.id === pz.background) { bgName = x.name; } });
+      }
+      var mask = el('div', 'aq-modal');
+      var box = el('div', 'aq-modal-box');
+      box.appendChild(el('h4', null, '缺少「' + bgName + '」背景'));
+      box.appendChild(el('p', 'aq-muted', '这套布景是为「' + bgName + '」配的。可以先只应用你已经拥有的装饰，继续用当前的背景。'));
+      var acts = el('div', 'aq-modal-acts');
+      var cancel = el('button', 'aq-btn', '取消');
+      cancel.addEventListener('click', function () { mask.remove(); });
+      var see = el('button', 'aq-btn', '查看背景');
+      see.addEventListener('click', function () {
+        mask.remove();
+        tab = 'bg'; buildTabs(); buildPanel();
+        openBackgroundBg(pz.background);
+      });
+      var keep = el('button', 'aq-btn aq-btn-primary', '保留当前背景应用');
+      keep.addEventListener('click', function () {
+        mask.remove();
+        commitPreset(pz, decor, snap.layout.background, 0);
+      });
+      acts.appendChild(cancel); acts.appendChild(see); acts.appendChild(keep);
+      box.appendChild(acts);
+      mask.appendChild(box);
+      mask.addEventListener('click', function (ev) { if (ev.target === mask) { mask.remove(); } });
+      stage.appendChild(mask);
+    }
+
+    function commitPreset(pz, out, bg, missing) {
       // 用现有数组顺序保存左右关系；刷新后不依赖丢失的内存提示。
       ['back', 'front'].forEach(function (layer) {
         out[layer].sort(function (a, b) {
@@ -705,7 +749,7 @@
           return preferred(a) - preferred(b);
         });
       });
-      var next = { fish: fishLayout(), decor: out, background: pz.background };
+      var next = { fish: fishLayout(), decor: out, background: bg };
 
       // 先把缸里现有的装饰全部收掉，再按预设摆——避免"点完还要手动取消"
       clearDecorVisual();
@@ -876,7 +920,7 @@
     function buildTabs() {
       var bar = dom.tabBar;
       while (bar.firstChild) { bar.removeChild(bar.firstChild); }
-      [['book', '图鉴'], ['decor', '装饰']].forEach(function (t) {
+      [['book', '图鉴'], ['decor', '装饰'], ['bg', '背景']].forEach(function (t) {
         var b = el('button', 'aq-tab' + (tab === t[0] ? ' is-on' : ''), t[1]);
         b.addEventListener('click', function () { tab = t[0]; buildTabs(); buildPanel(); });
         bar.appendChild(b);
@@ -945,7 +989,7 @@
           grid.appendChild(card);
         });
         host.appendChild(grid);
-      } else {
+      } else if (tab === 'decor') {
         var chips = el('div', 'aq-filters');
         [['all', '全部'], ['plant', '水草'], ['scape', '石景'], ['building', '建筑'], ['trinket', '摆件']].forEach(function (c) {
           var b = el('button', 'aq-chip' + (cat === c[0] ? ' is-on' : ''), c[1]);
@@ -1023,8 +1067,154 @@
           grid2.appendChild(card);
         });
         host.appendChild(grid2);
+      } else if (tab === 'bg') {
+        buildBackgroundPanel(host);
       }
       refreshCards();
+    }
+
+    /* ---------------- 背景商店 ---------------- */
+    function bgMissingText(item) {
+      var m = item.missing || {};
+      var out = [];
+      if ((m.pond_fish || 0) > 0) { out.push('池塘还差 ' + m.pond_fish + ' 种鱼'); }
+      if ((m.total_fish || 0) > 0) { out.push('图鉴还差 ' + m.total_fish + ' 种鱼'); }
+      if (m.water) { out.push('需先解锁' + waterName(m.water)); }
+      if ((m.coins || 0) > 0) { out.push('还差 ' + fmt(m.coins) + ' 金币'); }
+      return out;
+    }
+
+    function buildBackgroundPanel(host) {
+      var shop = catalog && catalog.background_shop;
+      if (!shop || !shop.items || !shop.items.length) {
+        host.appendChild(el('p', 'aq-muted', '背景商店暂不可用'));
+        return;
+      }
+      var ownedCount = 0;
+      shop.items.forEach(function (x) { if (x.owned) { ownedCount++; } });
+      host.appendChild(el('p', 'aq-book-head', '已拥有 ' + ownedCount + ' / ' + shop.items.length));
+
+      var grid = el('div', 'aq-bggrid');
+      shop.items.forEach(function (item) {
+        var active = !!item.active;
+        var owned = !!item.owned;
+        var card = el('article', 'aq-bgcard' + (active ? ' is-active' : ''));
+        card.setAttribute('data-background-id', item.id);
+
+        var thumb = el('button', 'aq-bgthumb');
+        thumb.type = 'button';
+        thumb.setAttribute('aria-label', '预览' + item.name);
+        var img = el('img');
+        img.src = ASSETS + item.thumbnail + '?v=' + version();
+        img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+        thumb.appendChild(img);
+        if (active) { thumb.appendChild(el('span', 'aq-bgbadge is-current', '使用中')); }
+        else if (owned) { thumb.appendChild(el('span', 'aq-bgbadge', '已拥有')); }
+        else if (item.id === 'tank_firefly_grove') { thumb.appendChild(el('span', 'aq-bgbadge is-theme', '萤光主题')); }
+        thumb.addEventListener('click', function () { openBackgroundBg(item.id); });
+        card.appendChild(thumb);
+
+        var bodyEl = el('div', 'aq-bgbody');
+        bodyEl.appendChild(el('strong', null, item.name));
+        bodyEl.appendChild(el('p', 'aq-bgdesc', item.description || ''));
+        var miss = owned ? [] : bgMissingText(item);
+        bodyEl.appendChild(el('p', 'aq-bgcond', owned ? '拥有后免费切换' : (miss.length ? miss.slice(0, 2).join('；') : '条件已满足')));
+        var bottom = el('div', 'aq-bgbottom');
+        bottom.appendChild(el('span', 'aq-bgprice' + (item.cost ? '' : ' is-free'), item.cost ? fmt(item.cost) + ' 金币' : '初始赠送'));
+        var act = el('button', 'aq-btn aq-btn-sm' + (owned && !active ? ' aq-btn-primary' : ''),
+          active ? '使用中' : (owned ? '使用' : '查看购买'));
+        act.type = 'button';
+        act.disabled = active;
+        act.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          if (owned) { useBackground(item); } else { openBackgroundBg(item.id); }
+        });
+        bottom.appendChild(act);
+        bodyEl.appendChild(bottom);
+        card.appendChild(bodyEl);
+        grid.appendChild(card);
+      });
+      host.appendChild(grid);
+    }
+
+    function useBackground(item) {
+      if (busy || uncertain) { return; }
+      if (!item.owned) { note = '请先拥有这个背景'; paint(); return; }
+      playSfx('select');
+      call('layout', { expected_version: snap.version, layout: { background: item.id } });
+    }
+
+    function openBackgroundBg(id) {
+      var shop = catalog && catalog.background_shop;
+      if (!shop) { return; }
+      var item = null;
+      shop.items.forEach(function (x) { if (x.id === id) { item = x; } });
+      if (!item) { return; }
+      var exists = document.querySelector('.aq-modal'); if (exists) { exists.remove(); }
+
+      var active = !!item.active, owned = !!item.owned;
+      var mask = el('div', 'aq-modal');
+      var box = el('div', 'aq-modal-box aq-bgbox');
+
+      var big = el('div', 'aq-bgbig');
+      var pic = el('picture');
+      var srcM = el('source');
+      srcM.media = '(max-width: 600px)';
+      srcM.srcset = ASSETS + item.mobile + '?v=' + version();
+      var bigImg = el('img');
+      bigImg.src = ASSETS + item.background + '?v=' + version();
+      bigImg.alt = item.name + ' 完整背景';
+      pic.appendChild(srcM); pic.appendChild(bigImg);
+      big.appendChild(pic);
+      box.appendChild(big);
+
+      var head = el('div', 'aq-bghead');
+      head.appendChild(el('h4', null, item.name));
+      head.appendChild(el('span', 'aq-bgbadge' + (active ? ' is-current' : ''), active ? '使用中' : (owned ? '已拥有' : '未拥有')));
+      box.appendChild(head);
+
+      box.appendChild(el('p', 'aq-bgdesc', item.description || ''));
+      box.appendChild(el('p', 'aq-muted', '永久拥有 · 切换免费 · 不改变钓鱼收益'));
+
+      if (!owned) {
+        var sum = el('div', 'aq-bgsum');
+        var line1 = el('span', null, '本次花费 ');
+        line1.appendChild(el('b', null, fmt(item.cost) + ' 金币'));
+        var rem = Math.max(0, (snap.coins || 0) - item.cost);
+        var line2 = el('span', null, '购买后余额 ');
+        line2.appendChild(el('b', null, (snap.coins || 0) < item.cost ? '金币不足' : fmt(rem) + ' 金币'));
+        sum.appendChild(line1); sum.appendChild(line2);
+        box.appendChild(sum);
+      }
+
+      var miss = owned ? [] : bgMissingText(item);
+      if (miss.length) { box.appendChild(el('p', 'aq-bgcond', miss.join('；'))); }
+
+      var acts = el('div', 'aq-modal-acts');
+      var cancel = el('button', 'aq-btn', owned ? '暂不更换' : '取消');
+      cancel.addEventListener('click', function () { mask.remove(); });
+      var ok = el('button', 'aq-btn aq-btn-primary',
+        active ? '正在使用' : (owned ? '使用此背景' : '确认购买'));
+      ok.disabled = active || (!owned && miss.length > 0) || busy || uncertain;
+      ok.addEventListener('click', function () {
+        if (busy || uncertain) { return; }
+        if (owned) { mask.remove(); useBackground(item); return; }
+        if (miss.length) { return; }
+        mask.remove();
+        call('buybg', {
+          expected_version: snap.version,
+          background_id: item.id,
+          catalog_version: shop.version
+        });
+      });
+      acts.appendChild(cancel); acts.appendChild(ok);
+      box.appendChild(acts);
+      box.appendChild(el('p', 'aq-muted',
+        owned ? '更换背景不会改变鱼、装饰或钓点。' : '购买只加入收藏，不会自动更换当前背景。'));
+
+      mask.appendChild(box);
+      mask.addEventListener('click', function (ev) { if (ev.target === mask) { mask.remove(); } });
+      stage.appendChild(mask);
     }
 
     function refreshCards() {
@@ -1186,16 +1376,30 @@
       if (dom.bgSel) { dom.bgSel.value = background; }
     }
 
+    /** 背景主图/手机版路径：优先用服务端目录给的（旧四景在 expansion-v1/ 下），否则按 id 兜底。 */
+    function bgPaths(id) {
+      var shop = catalog && catalog.background_shop;
+      if (shop && shop.items) {
+        for (var i = 0; i < shop.items.length; i++) {
+          if (shop.items[i].id === id) {
+            return { main: shop.items[i].background, mobile: shop.items[i].mobile };
+          }
+        }
+      }
+      return { main: 'background/' + id + '.webp', mobile: 'background/' + id + '_mobile.webp' };
+    }
+
     function updateBackground() {
       if (!dom) { return; }
       while (dom.bg.firstChild) { dom.bg.removeChild(dom.bg.firstChild); }
+      var paths = bgPaths(background);
       var pic = el('picture');
       var src = el('source');
       src.media = '(max-width: 760px)';
-      src.srcset = ASSETS + 'background/' + background + '_mobile.webp?v=' + version();
+      src.srcset = ASSETS + paths.mobile + '?v=' + version();
       pic.appendChild(src);
       var img = el('img');
-      img.src = ASSETS + 'background/' + background + '.webp?v=' + version();
+      img.src = ASSETS + paths.main + '?v=' + version();
       img.alt = '';
       pic.appendChild(img);
       dom.bg.appendChild(pic);
