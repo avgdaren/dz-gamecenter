@@ -55,6 +55,12 @@
 
 ## 首批推进顺序
 
+### v2.0 美宣与公告交付（2026-11-09）
+
+按 [#72 美宣交接](https://github.com/avgdaren/dz-gamecenter/issues/72#issuecomment-6742330382)已完成 [promo/](promo/README.md)：800×450 公告头图、750×750 手机图、640×360 大厅图，均为 PNG；附 Markdown/Discuz BBCode 公告、图片清单与内置 image_gen 完整提示词。三种生物及布景沿用已选美术作合成参考，原母图和运行资源保留。
+
+只读核对本机 2.0.9 静态配置后，公告统一写三种新生物门槛 Lv.5、终身各 6、海龟与蝶鱼在浅湾、古比在池塘。限量可售白名单仍含三种新生物；交接中“限量鱼仍禁售”改为原四种限量生物继续禁售。公告没有宣称已正式上线，没有承诺可随时退回旧版。本轮不代发、不部署、不改存档或游戏版本，也未重跑本地功能验收。
+
 ### 背景商店后续交接（2026-11-08）
 
 小蓝已在 [#72 新评论](https://github.com/avgdaren/dz-gamecenter/issues/72#issuecomment-6722819026)交出背景商店的 UI、美术与实现规格。小典交付 [背景商店接入规格](BACKGROUND-SHOP.md)、[可操作界面稿](background-shop-v1/index.html)、三张统一缩略图与 [核验记录](background-shop-v1/VALIDATION.md)。入口定为第三个“背景”页签，永久拥有后免费切换；沿用 background_owned，使用 buybg 购买与现有 layout 局部切换。四组新预设缺背景时明确提示并保留当前背景。
