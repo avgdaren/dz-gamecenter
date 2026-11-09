@@ -100,6 +100,8 @@ final class gamecenter_aquarium_shop {
             $it['owned'] = array_key_exists($it['id'], $owned);
             $it['active'] = ($it['id'] === $active);
             $it['missing'] = self::backgroundMissing($s, $c, $it);
+            // 兼容关闭版（BG_SHOP_OFF）：已拥有的照常显示与切换，只是不能新买
+            $it['purchasable'] = !gamecenter_aquarium_configs::bgShopOff();
             $items[] = $it;
         }
         return ['version'=>$cat['version'], 'items'=>$items];
@@ -110,11 +112,13 @@ final class gamecenter_aquarium_shop {
      * 已拥有不重复扣款；条件不满足整笔拒绝（不半改）。
      */
     public static function buyBackground(array $s, string $id, array $c, int $now): array {
-        if(gamecenter_aquarium_configs::sellHardOff()) { return [$s, 'closed']; }   // 兼容关闭版：停售新购买
         if(!empty($s['inventory_anomaly'])) { return [$s, 'condition']; }
         if(!is_array($s['background_owned'] ?? null)) { return [$s, 'condition']; }
         if(!in_array($id, self::backgrounds(), true)) { return [$s, 'target']; }
-        if(array_key_exists($id, $s['background_owned'])) { return [$s, 'owned']; }  // 幂等：不重复扣币
+        // 幂等在关闭检查之前：已拥有的重复请求返回 owned，不被关闭态改写成 closed
+        if(array_key_exists($id, $s['background_owned'])) { return [$s, 'owned']; }
+        if(gamecenter_aquarium_configs::sellHardOff()) { return [$s, 'closed']; }   // 兼容关闭版：停售新购买
+        if(gamecenter_aquarium_configs::bgShopOff()) { return [$s, 'closed']; }     // 背景商店关闭：已拥有的仍可切换
 
         $cat = self::backgroundCatalog();
         $item = null;

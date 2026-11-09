@@ -60,6 +60,17 @@ final class gamecenter_aquarium_configs {
         return $v;
     }
 
+    /**
+     * 背景商店硬关闭：放 games/aquarium/data/BG_SHOP_OFF 即生效。
+     * 兼容关闭版用它——七景解析、拥有记录、切换与已购背景显示全部保留，
+     * 只关掉「新购买」这一件事，回滚时不是把整套背景功能删掉。
+     */
+    public static function bgShopOff(): bool {
+        static $v = null;
+        if($v === null) { $v = is_file(__DIR__.'/../games/aquarium/data/BG_SHOP_OFF'); }
+        return $v;
+    }
+
     /** 售卖开关：off / allowlist / all。缺失或读取失败一律按 off（关闭）。 */
     public static function saleSwitch(): array {
         static $cache=null;

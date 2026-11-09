@@ -1124,16 +1124,18 @@
         bodyEl.appendChild(titleRow);
 
         var miss = owned ? [] : bgMissingText(item);
+        var canBuy = item.purchasable !== false;
         var foot = el('div', 'aq-bgfoot');
-        var condText = owned ? (active ? '使用中' : '免费切换') : (miss.length ? miss[0] : '可购买');
-        var condEl = el('span', 'aq-bgcond' + (owned ? ' is-ok' : (miss.length ? ' is-lack' : '')), condText);
+        var condText = owned ? (active ? '使用中' : '免费切换')
+          : (!canBuy ? '暂停购买' : (miss.length ? miss[0] : '可购买'));
+        var condEl = el('span', 'aq-bgcond' + (owned ? ' is-ok' : (miss.length || !canBuy ? ' is-lack' : '')), condText);
         if (miss.length > 1) { condEl.title = miss.join('；'); }
         if (item.description) { condEl.title = (condEl.title ? condEl.title + '；' : '') + item.description; }
         foot.appendChild(condEl);
         var act = el('button', 'aq-btn aq-btn-sm' + (owned && !active ? ' aq-btn-primary' : ''),
-          active ? '使用中' : (owned ? '使用' : '购买'));
+          active ? '使用中' : (owned ? '使用' : (canBuy ? '购买' : '暂不可购买')));
         act.type = 'button';
-        act.disabled = active;
+        act.disabled = active || (!owned && !canBuy);
         act.addEventListener('click', function (ev) {
           ev.stopPropagation();
           if (owned) { useBackground(item); } else { openBackgroundBg(item.id); }
@@ -1202,9 +1204,10 @@
       var acts = el('div', 'aq-modal-acts');
       var cancel = el('button', 'aq-btn', owned ? '暂不更换' : '取消');
       cancel.addEventListener('click', function () { mask.remove(); });
+      var canBuy2 = item.purchasable !== false;
       var ok = el('button', 'aq-btn aq-btn-primary',
-        active ? '正在使用' : (owned ? '使用此背景' : '确认购买'));
-      ok.disabled = active || (!owned && miss.length > 0) || busy || uncertain;
+        active ? '正在使用' : (owned ? '使用此背景' : (canBuy2 ? '确认购买' : '暂停购买')));
+      ok.disabled = active || (!owned && (!canBuy2 || miss.length > 0)) || busy || uncertain;
       ok.addEventListener('click', function () {
         if (busy || uncertain) { return; }
         if (owned) { mask.remove(); useBackground(item); return; }
