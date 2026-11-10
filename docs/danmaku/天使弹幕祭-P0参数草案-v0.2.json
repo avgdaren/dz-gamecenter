@@ -1,0 +1,245 @@
+{
+  "meta": {
+    "name": "天使弹幕祭",
+    "version": "0.2",
+    "rulesId": "danmaku-p0-r1",
+    "date": "2026-11-10",
+    "status": "planning_only_unimplemented",
+    "purpose": "P0 implementation specification; not a deployable game manifest"
+  },
+  "clock": {
+    "hz": 60,
+    "fixedPointScale": 64,
+    "standardMaxTicks": 13200,
+    "introTicks": 180,
+    "transitionTicks": 120,
+    "phaseMaxTicks": 4200,
+    "singlePatternTicks": 2700,
+    "stressTicks": 13200
+  },
+  "field": {
+    "width": 480,
+    "height": 640,
+    "playerBounds": {
+      "minX": 12,
+      "maxX": 468,
+      "minY": 144,
+      "maxY": 624
+    },
+    "enemyCullMargin": 32
+  },
+  "player": {
+    "startX": 240,
+    "startY": 552,
+    "hitRadius": 3,
+    "grazeCenterRadius": 18,
+    "normalStepQ": 256,
+    "slowStepQ": 96,
+    "normalDiagonalStepQ": 181,
+    "slowDiagonalStepQ": 67,
+    "standardLives": 3,
+    "standardBombs": 2,
+    "hitInvulnerabilityTicks": 120,
+    "bombInvulnerabilityTicks": 90,
+    "hitClearRadius": 48
+  },
+  "boss": {
+    "centerX": 240,
+    "centerY": 88,
+    "hitRadius": 28,
+    "horizontalAmplitude": 64,
+    "movementPeriodTicks": 480,
+    "phaseHP": [
+      4500,
+      4800,
+      5100
+    ]
+  },
+  "playerShot": {
+    "intervalTicks": 6,
+    "firstPhaseTick": 1,
+    "speedStepQ": 768,
+    "radius": 3,
+    "damage": 10,
+    "ttlTicks": 90,
+    "liveCap": 32
+  },
+  "directions": {
+    "count": 512,
+    "vectorScale": 1024,
+    "zero": "right",
+    "positiveRotation": "clockwise",
+    "rounding": "toward_zero",
+    "tableStatus": "to_generate_and_version_during_implementation"
+  },
+  "patterns": {
+    "flower": {
+      "firstTick": 60,
+      "intervalTicks": 90,
+      "ringSlots": 32,
+      "slotAngleUnits": 16,
+      "omittedIndices": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rotationSequence": [
+        -16,
+        -8,
+        0,
+        8,
+        16,
+        8,
+        0,
+        -8
+      ],
+      "speedStepQ": 96,
+      "radius": 5,
+      "ttlTicks": 480
+    },
+    "aim": {
+      "cycleTicks": 720,
+      "captureCycleTick": 60,
+      "fireCycleTicks": [
+        90,
+        108,
+        126
+      ],
+      "angleOffsets": [
+        -16,
+        -8,
+        0,
+        8,
+        16
+      ],
+      "speedStepQ": 160,
+      "radius": 4,
+      "ttlTicks": 480
+    },
+    "wave": {
+      "cycleTicks": 720,
+      "batchCycleTicks": [
+        360,
+        450
+      ],
+      "rowOffsets": [
+        0,
+        18,
+        36
+      ],
+      "columnsX": [
+        24,
+        78,
+        132,
+        186,
+        240,
+        294,
+        348,
+        402,
+        456
+      ],
+      "rowShiftSequence": [
+        -12,
+        0,
+        12
+      ],
+      "gapStartSequence": [
+        2,
+        3,
+        4,
+        3
+      ],
+      "omitColumns": 2,
+      "speedStepQ": 128,
+      "radius": 6,
+      "ttlTicks": 480
+    },
+    "phase3": {
+      "cycleTicks": 720,
+      "flowerCycleTicks": [
+        60,
+        180,
+        300
+      ],
+      "flowerOmittedIndices": [
+        7,
+        8,
+        9
+      ],
+      "flowerSpeedStepQ": 128,
+      "waveBatchCycleTicks": [
+        360,
+        450
+      ],
+      "waveOmitColumns": 1,
+      "waveSpeedStepQ": 160,
+      "aimCaptureCycleTick": 540,
+      "aimFireCycleTicks": [
+        570,
+        588,
+        606
+      ],
+      "aimAngleOffsets": [
+        -24,
+        -16,
+        -8,
+        0,
+        8,
+        16,
+        24
+      ],
+      "aimSpeedStepQ": 192
+    }
+  },
+  "assist": {
+    "lives": 5,
+    "bombs": 3,
+    "enemySpeedNumerator": 3,
+    "enemySpeedDenominator": 4,
+    "ranked": false
+  },
+  "limits": {
+    "enemyLiveCap": 360,
+    "enemySpawnCap": 4096,
+    "playerShotLiveCap": 32,
+    "payloadMaxBytes": 262144,
+    "maxInputBytes": 66000,
+    "maxBase64InputBytes": 88000
+  },
+  "replay": {
+    "encoding": "base64",
+    "recordBytes": 5,
+    "recordFields": [
+      "dx:int16_le",
+      "dy:int16_le",
+      "flags:uint8"
+    ],
+    "slowFlag": 1,
+    "bombEdgeFlag": 2,
+    "reservedFlagMask": 252,
+    "oneRecordPerLogicTick": true
+  },
+  "score": {
+    "clear": 200000,
+    "phaseBreak": 20000,
+    "totalDamageBudget": 20000,
+    "standardTotalHP": 14400,
+    "grazePerBullet": 10,
+    "grazeBulletCap": 1000,
+    "remainingLifeOnClear": 2000,
+    "remainingBombOnClear": 1000,
+    "timePointsPerSavedSecond": 100,
+    "timeBonusCap": 10000,
+    "totalPhaseBudgetTicks": 12600,
+    "upperBound": 308000
+  },
+  "budgets": {
+    "phpSamples": 50,
+    "phpWarmupSamples": 5,
+    "phpP95TargetMs": 500,
+    "integratedForumP95IncreaseTargetMs": 300,
+    "targetsUnverified": true
+  }
+}

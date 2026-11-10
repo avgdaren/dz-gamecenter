@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- (C) 2026 Carinoasd. P0 preview: 小典 / Codex. -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>天使弹幕祭 · 练习场</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="engine.js"></script>
+  <script defer src="replay.js"></script>
+  <script defer src="ui.js"></script>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="天使弹幕祭练习场首页"><span class="brand-mark">✧</span><span>天使弹幕祭<small>星幕练习场</small></span></a>
+    <span class="edition">玩法原型 <b>P0</b></span>
+  </header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">穿过星光之间的空隙</p><h1>先找到节奏，再穿过星幕。</h1></div><p>三个弹型，逐个练习。<br>不用急着追分，先看清下一步。</p></section>
+    <div class="practice-layout">
+      <aside class="scene-panel">
+        <p class="section-label">选择练习</p>
+        <div class="scene-list" role="group" aria-label="选择弹型">
+          <button id="scene-flower" class="scene selected" data-scene="flower" aria-pressed="true"><span class="scene-number">01</span><span><strong>花瓣星环</strong><small>观察缺口 · 慢速微调</small></span><span class="scene-symbol">✺</span></button>
+          <button id="scene-aim" class="scene" data-scene="aim" aria-pressed="false"><span class="scene-number">02</span><span><strong>星雨连射</strong><small>诱导瞄准 · 离开原位</small></span><span class="scene-symbol">⌁</span></button>
+          <button id="scene-wave" class="scene" data-scene="wave" aria-pressed="false"><span class="scene-number">03</span><span><strong>交错星幕</strong><small>看清缺口 · 提前换位</small></span><span class="scene-symbol">≋</span></button>
+        </div>
+        <div class="mode-setting"><label><input id="assist" type="checkbox"> 辅助练习</label><p>5 条命、3 次清屏，敌弹减速。<br>本练习场不记录排行榜成绩。</p></div>
+        <div class="lesson"><span class="section-label">这一场怎么躲</span><h2 id="lesson-title">跟随缺口，小步调整。</h2><p id="lesson-text">花瓣会向四周展开。先看朝下的宽缺口，再按住慢速轻轻调整位置。</p><div class="lesson-note"><span>✦</span> 角色中心的小点才是命中判定。</div></div>
+      </aside>
+      <section class="arena-panel" aria-label="弹幕练习场">
+        <div class="arena-heading"><span><i></i><b id="arena-name">花瓣星环</b></span><output id="clock">45.0<small> 秒</small></output></div>
+        <div class="canvas-wrap" id="canvas-wrap">
+          <canvas id="arena" width="480" height="640" tabindex="0" aria-label="弹幕战场，方向键或 WASD 移动，Shift 慢速，X 或空格清屏"></canvas>
+          <div id="overlay" class="overlay"><div class="overlay-card"><span id="overlay-kicker" class="eyebrow">01 / 花瓣星环</span><h2 id="overlay-title">留意星环中的缺口</h2><p id="overlay-text">自动射击已经就绪。<br>移动躲弹，试着坚持 45 秒。</p><button id="start" class="primary" disabled>正在准备…</button><span id="overlay-footnote">方向键 / WASD 移动 · Shift 慢速</span></div></div>
+        </div>
+        <div class="arena-controls"><button id="slow" aria-pressed="false">慢速 <kbd>Shift</kbd></button><button id="bomb">清屏 <kbd>X</kbd></button><button id="pause" disabled>暂停 <kbd>Esc</kbd></button><button id="restart" disabled>重来</button></div>
+        <p class="touch-hint">触屏：在战场内拖动，手指可放在角色旁边。</p>
+      </section>
+      <aside class="record-panel">
+        <div class="record-heading"><span class="section-label">本场状态</span><span id="mode-label">标准练习</span></div>
+        <div class="resources"><div><span>剩余生命</span><output id="lives">◆ ◆ ◆</output></div><div><span>清屏次数</span><output id="bombs">✦ ✦</output></div></div>
+        <div class="metric"><span>命中目标</span><output id="shot-hits">0</output><small>自动射击，试着跟随目标</small></div>
+        <div class="metric"><span>擦过敌弹</span><output id="graze">0</output><small>贴近有风险，稳稳躲开也很好</small></div>
+        <div class="rule-note"><span>清屏是一次喘息。</span><p>清除当前敌弹，并短暂无敌。<br>没有清屏时，先找宽一点的路线。</p></div>
+        <button id="export" class="export" disabled>导出本场回放 <span>↗</span></button>
+        <p id="status" role="status" class="status">每场最多 45 秒，结束后可导出回放。</p>
+      </aside>
+    </div>
+    <details class="diagnostics"><summary>原型诊断与本机回放复验</summary><p>几何占位画面，无论坛积分；这里的复验只在浏览器运行，不代表 PHP 校验已通过。</p><pre id="diagnostic-text">尚未开局</pre><label class="file-label">选择本地回放 JSON <input id="import" type="file" accept="application/json,.json"></label><output id="import-result"></output></details>
+  </main>
+  <footer><span>✧ 天使弹幕祭</span><span>玩法验证 · 几何占位 · 本地练习</span></footer>
+</div>
+</body>
+</html>
