@@ -1,0 +1,14 @@
+{
+  "file": "art-direction-v1.png",
+  "purpose": "art_direction_candidate_not_runtime_asset",
+  "size": [
+    1448,
+    1086
+  ],
+  "pngColorType": 2,
+  "sha256": "e4ebfa112cd0876bfc478ac5d96f29e92ba07f12bcbecb18e4a88830d8e5487f",
+  "generator": "built-in image_gen.imagegen",
+  "styleApproved": true,
+  "characterDirectionApproved": true,
+  "finalCharacterArtApproved": false
+}

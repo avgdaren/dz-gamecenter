@@ -116,6 +116,13 @@
       }
     }
   };
+  Sim.prototype.damageBoss = function (damage) {
+    this.stats.damage += damage;
+    this.stats.shotHits++;
+  };
+  Sim.prototype.resolveEnd = function () {
+    if (this.tick >= this.rules.clock.singlePatternTicks) this.status = 'complete';
+  };
   Sim.prototype.step = function (input) {
     if (this.status !== 'playing') throw new Error('终局后不能追加输入');
     validateInput(input, this.rules);
@@ -157,11 +164,11 @@
       var sim = this;
       this.shots = this.shots.filter(function (s) {
         if (!touches(s, b, (r.playerShot.radius + r.boss.hitRadius) * Q)) return true;
-        sim.stats.damage += r.playerShot.damage; sim.stats.shotHits++;
+        sim.damageBoss(r.playerShot.damage);
         return false;
       });
-      if (t >= r.clock.singlePatternTicks) this.status = 'complete';
-      else if (t >= p.invulUntil) this.enemies.forEach(function (e) {
+      this.resolveEnd();
+      if (this.status === 'playing' && t >= p.invulUntil) this.enemies.forEach(function (e) {
         if (!e.grazed && touches(e, p, (r.player.grazeCenterRadius + e.radius) * Q)) {
           e.grazed = true; sim.stats.graze++;
         }

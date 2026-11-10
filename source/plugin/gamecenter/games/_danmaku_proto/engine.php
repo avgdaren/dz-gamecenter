@@ -116,6 +116,13 @@ class DanmakuP0Sim {
             }
         }
     }
+    public function damageBoss(int $damage): void {
+        $this->stats['damage']+=$damage;
+        $this->stats['shotHits']++;
+    }
+    public function resolveEnd(): void {
+        if ($this->tick >= $this->rules['clock']['singlePatternTicks']) $this->status='complete';
+    }
     public function step(array $input): string {
         if ($this->status !== 'playing') throw new RuntimeException('终局后不能追加输入');
         self::validateInput($input,$this->rules);
@@ -160,12 +167,12 @@ class DanmakuP0Sim {
             $keep=[];
             foreach ($this->shots as $s) {
                 if (self::touches($s,$b,($r['playerShot']['radius']+$r['boss']['hitRadius'])*64)) {
-                    $this->stats['damage']+=$r['playerShot']['damage']; $this->stats['shotHits']++;
+                    $this->damageBoss($r['playerShot']['damage']);
                 } else $keep[]=$s;
             }
             $this->shots=$keep;
-            if ($t >= $r['clock']['singlePatternTicks']) $this->status='complete';
-            elseif ($t >= $p['invulUntil']) {
+            $this->resolveEnd();
+            if ($this->status==='playing' && $t >= $p['invulUntil']) {
                 foreach ($this->enemies as &$e) {
                     if (!$e['grazed'] && self::touches($e,$p,($r['player']['grazeCenterRadius']+$e['radius'])*64)) {
                         $e['grazed']=true; $this->stats['graze']++;
@@ -203,16 +210,18 @@ class DanmakuP0Sim {
 function danmaku_p0_decode(array $payload, array $rules): array {
     if (array_diff(array_keys($payload),['prototype','rule','scene','assist','ticks','input']) ||
         ($payload['prototype']??null)!==true || ($payload['rule']??null)!==$rules['meta']['rulesId'] ||
-        !in_array($payload['scene']??null,['flower','aim','wave'],true) || !isset($payload['assist']) || !is_bool($payload['assist']) ||
-        !isset($payload['ticks']) || !is_int($payload['ticks']) || $payload['ticks']<1 || $payload['ticks']>$rules['clock']['singlePatternTicks'] ||
-        !isset($payload['input']) || !is_string($payload['input']) || strlen($payload['input'])>4*(int)ceil($payload['ticks']*5/3) ||
-        strlen($payload['input'])%4!==0 || !preg_match('/\A[A-Za-z0-9+\/]*={0,2}\z/D',$payload['input'])) {
+        !in_array($payload['scene']??null,['flower','aim','wave'],true) || !isset($payload['assist']) || !is_bool($payload['assist'])) {
         throw new RuntimeException('回放格式、版本或步数无效');
     }
-    $raw=base64_decode($payload['input'],true);
-    if ($raw===false || strlen($raw)!==$payload['ticks']*5 || base64_encode($raw)!==$payload['input']) throw new RuntimeException('回放字节长度或编码无效');
+    return danmaku_decode_stream($payload['ticks']??null,$payload['input']??null,$rules,$rules['clock']['singlePatternTicks']);
+}
+function danmaku_decode_stream($ticks,$input,array $rules,int $maxTicks): array {
+    if(!is_int($ticks)||$ticks<1||$ticks>$maxTicks||!is_string($input)||strlen($input)>4*(int)ceil($ticks*5/3)||
+        strlen($input)%4!==0||!preg_match('/\A[A-Za-z0-9+\/]*={0,2}\z/D',$input))throw new RuntimeException('回放格式、版本或步数无效');
+    $raw=base64_decode($input,true);
+    if ($raw===false || strlen($raw)!==$ticks*5 || base64_encode($raw)!==$input) throw new RuntimeException('回放字节长度或编码无效');
     $records=[];
-    for ($i=0;$i<$payload['ticks'];$i++) {
+    for ($i=0;$i<$ticks;$i++) {
         $at=$i*5; $dx=ord($raw[$at])+(ord($raw[$at+1])<<8); $dy=ord($raw[$at+2])+(ord($raw[$at+3])<<8);
         $input=['dx'=>$dx>=32768?$dx-65536:$dx,'dy'=>$dy>=32768?$dy-65536:$dy,'flags'=>ord($raw[$at+4])];
         DanmakuP0Sim::validateInput($input,$rules); $records[]=$input;

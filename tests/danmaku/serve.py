@@ -6,7 +6,7 @@ import argparse
 import mimetypes
 
 ROOT = Path(__file__).resolve().parents[2] / "source/plugin/gamecenter/games/_danmaku_proto"
-ALLOWED = {"index.html", "engine.js", "replay.js", "ui.js", "style.css", "rules.json"}
+ALLOWED = {"index.html", "engine.js", "replay.js", "battle.js", "battle-replay.js", "ui.js", "style.css", "rules.json"}
 
 
 class Handler(BaseHTTPRequestHandler):
