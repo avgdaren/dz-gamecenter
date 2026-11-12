@@ -4,6 +4,8 @@
 
 用户将 r3 交给小蓝接入本地论坛后，要求制作高于当前 Easy 的进阶难度。本候选从交接提交 `50b6d41` 派生独立分支 `feat/danmaku-normal-v1`，对应 [Issue #76](https://github.com/avgdaren/dz-gamecenter/issues/76)。不追加到部署用 PR #75，不替换已确认的 r3 HTML／ZIP，不改论坛。第一版继续只有一关。
 
+GitHub 保存为 [Draft PR #77](https://github.com/avgdaren/dz-gamecenter/pull/77)，基底为 `feat/danmaku-p1`，Normal 运行提交 `9b69987`；未合并，等待用户试玩反馈。
+
 ## 试玩
 
 双击 `E:\GPT工作区\output\danmaku-stage01-normal-v1-offline.html`。顶部默认 **Normal · 进阶**，开局前可切回 **Easy · 初阶**，同一页面直接比较。开始／暂停／继续期间难度锁定，重新开局再切换；辅助练习独立保留。三种基础弹型练习沿用原规则，不假装已经升级为 Normal。

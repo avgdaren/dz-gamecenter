@@ -4,6 +4,8 @@
 
 ## 最新用户要求优先
 
+Normal 已单独提交至 [Draft PR #77](https://github.com/avgdaren/dz-gamecenter/pull/77)，运行提交`9b69987`，基底为`feat/danmaku-p1`，当前工作分支`feat/danmaku-normal-v1`。PR #75 的部署代码未追加本次改动。后续先收用户对 Normal 候选的试玩反馈，不擅自合并或让小蓝替换现有版本。
+
 **新增工作：Normal 进阶候选（2026-11-12）。** 用户已把 PR #75 交给小蓝部署本地论坛，现要求提高当前 Easy 的难度。小典从交接提交`50b6d41`派生独立分支`feat/danmaku-normal-v1`，对应[Issue #76](https://github.com/avgdaren/dz-gamecenter/issues/76)；不追加到小蓝部署分支。已制作 Normal 道中交叉射击、移动花环缺口、三轮锁定针雨与紧凑星门，新规则`danmaku-stage01-normal-r1`／`danmaku-p1-normal-r1`。顶部可切回原 Easy，仍一关，生命／判定／火力／音乐美术保持原值。试玩`E:\GPT工作区\output\danmaku-stage01-normal-v1-offline.html`，详见[NORMAL-v1.md](NORMAL-v1.md)。技术检查和短入口通过，真人难度待用户试玩；没有自动整关通关，没有接榜单、安装论坛或改 PR #75。
 
 **GitHub交接已完成：** 公开仓库已推送`feat/danmaku-p1`，建立[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)和[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)。运行内容提交`24b41f3`，后续交接文档沿同一PR补充。小蓝从`handoff-v1/XIAOLAN-HANDOFF.md`接手当前平台适配、本地论坛验证和线上包；本轮没有合并、接入站点或部署。不要恢复下方历史记录中“小典先本地论坛”的旧顺序。
