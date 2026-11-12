@@ -14,8 +14,8 @@ def sha(data):return hashlib.sha256(data).hexdigest()
 def fixed_write(path,data):
     if path.exists():assert path.read_bytes()==data,'Refusing changed candidate overwrite: '+path.name
     else:path.write_bytes(data)
-def review_html():
-    html=(ROOT/'docs/danmaku/review/WEAPONS-v1.html').read_text(encoding='utf-8')
+def review_html(review_path=None):
+    html=(review_path or ROOT/'docs/danmaku/review/WEAPONS-v1.html').read_text(encoding='utf-8')
     html=re.sub(r'<base href="[^"]+">','',html)
     names=re.findall(r'<script defer src="([^"]+)"></script>',html)
     html=re.sub(r'<script defer src="[^"]+"></script>','',html)

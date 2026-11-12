@@ -9899,5 +9899,21 @@
         ]
       }
     }
+  },
+  "weapons07": {
+    "easyRule": "danmaku-stage01-r7",
+    "normalRule": "danmaku-stage01-normal-r5",
+    "sideShots": {
+      "minimumLevel": 4,
+      "offsets": [
+        -36,
+        -18,
+        18,
+        36
+      ],
+      "interval": 6,
+      "speedQ": 576,
+      "damage": 1
+    }
   }
 }

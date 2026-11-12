@@ -7,7 +7,7 @@ import mimetypes
 
 ROOT = Path(__file__).resolve().parents[2] / "source/plugin/gamecenter/games/_danmaku_proto"
 ALLOWED = {"index.html", "weapons.js", "controls.js", "engine.js", "replay.js", "battle.js", "battle-replay.js", "stage.js", "stage-replay.js", "stage-view.js", "player-view.js", "ui.js", "style.css", "rules.json", "rules-data.js",
-           "assets/player-motion-v1.png", "assets/player-front-display-v1.png", "stage-art-view.js", "audio.js", "audio-bank.js", "bgm-bank.js", "midi.js", "midi-bank.js",
+           "assets/player-title-portrait-v1.png", "assets/player-motion-v1.png", "assets/player-front-display-v1.png", "stage-art-view.js", "audio.js", "audio-bank.js", "bgm-bank.js", "midi.js", "midi-bank.js",
            "assets/stage01-corridor-v1.png", "assets/stage01-fairy-v1.png", "assets/stage01-attendant-v1.png", "assets/stage01-guardian-v1.png",
            "boss-view.js", "boss-patterns.js", "stage-show.js", "assets/boss-body-atlas-v1.png", "assets/boss-ring-back-v1.png", "assets/boss-ring-front-v1.png", "assets/boss-face-v1.png", "assets/boss-portrait-v1.png"}
 
@@ -19,8 +19,9 @@ class Handler(BaseHTTPRequestHandler):
         prefix = "source/plugin/gamecenter/games/_danmaku_proto/"
         if name.startswith(prefix):
             name = name[len(prefix):]
-        if name == "weapons-review.html":
-            data = (ROOT.parents[4] / "docs/danmaku/review/WEAPONS-v1.html").read_bytes()
+        if name in {"weapons-review.html", "weapons-review-v2.html"}:
+            review_name = "WEAPONS-v2.html" if name == "weapons-review-v2.html" else "WEAPONS-v1.html"
+            data = (ROOT.parents[4] / "docs/danmaku/review" / review_name).read_bytes()
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(data)))

@@ -75,7 +75,7 @@
   function bossPose(){return sim&&!isPrelude()?DanmakuBossView.frame(sim,battle?battle.tick:sim.tick,$('low-effects').checked,battle?battle.stage:null):null;}
   function isFocused() { return slowToggle || Array.from(keys).some(function(code){return DanmakuControls.matches(code,focusBinding);}); }
   function isStage() { return !!(battle && DanmakuStage01.supportedRules.indexOf(battle.rule)>=0); }
-  function isNormal() { return !!(battle&&(battle.rule===DanmakuStage01.normalWeaponRule||battle.rule===DanmakuStage01.normalPowerRule||battle.rule===DanmakuStage01.normalV2Rule||battle.rule===DanmakuBattle.normalV2Rule||battle.rule===DanmakuStage01.normalRule||battle.rule===DanmakuBattle.normalRule)); }
+  function isNormal() { return !!(battle&&(battle.rule===DanmakuStage01.normalWideWeaponRule||battle.rule===DanmakuStage01.normalWeaponRule||battle.rule===DanmakuStage01.normalPowerRule||battle.rule===DanmakuStage01.normalV2Rule||battle.rule===DanmakuBattle.normalV2Rule||battle.rule===DanmakuStage01.normalRule||battle.rule===DanmakuBattle.normalRule)); }
   function difficultyName() { return battle?(isNormal()?'Normal':'Easy'):'弹型练习'; }
   function isBombStage() { return isStage() && sim.bombMode; }
   function isPrelude() { return isStage() && battle.phaseIndex<0; }
@@ -125,7 +125,7 @@
     prepareTicket++;cancelBinding();$('bind-focus').textContent='更改按键';
     clearInput();records=[];frameTimes=[];accumulator=0;slowToggle=false;
     stageArtState=DanmakuStageArt.createEffects();showState=DanmakuStageShow.create();delete $('overlay').dataset.result;
-    battle=new DanmakuStage01.Stage(rules,false,selectedDifficulty==='normal'?DanmakuStage01.normalWeaponRule:DanmakuStage01.weaponRule);sim=battle.sim;
+    battle=new DanmakuStage01.Stage(rules,false,selectedDifficulty==='normal'?DanmakuStage01.normalWideWeaponRule:DanmakuStage01.wideWeaponRule);sim=battle.sim;
     phaseNames=isNormal()?['星环 · 双旋交织','星雨 · 引光夹击','星幕 · 迁移星廊']:DanmakuStageShow.phases;
     document.querySelector('.boss-intro-copy span').textContent=isNormal()?'第一式 · 双旋交织':'第一式 · 周天轨迹';
     mode='ready';sound.reset(audioState());
@@ -247,7 +247,7 @@
       var power=sim.player.power,g=sim.rules.stage01.growth,lv=DanmakuStage01.level(power,sim.rules),next=g.thresholds[lv],max=lv===g.levels.length;
       $('power-value').textContent=lv+' / '+g.levels.length+(max?' MAX':'');
       $('power-pips').querySelectorAll('i').forEach(function(pip,i){pip.classList.toggle('on',i<lv);});
-      $('power-note').textContent=(max?'最高火力；额外P转分，捡回的强化不重复计分。':'P '+power+' / '+next+' 可升至'+(lv+1)+'级；集中也可吸取附近道具。')+(lv===5?' 高速追踪／低速高速弹束。':lv===4?' 低速收束弹束。':'');
+      $('power-note').textContent=(max?'最高火力；额外P转分，捡回的强化不重复计分。':'P '+power+' / '+next+' 可升至'+(lv+1)+'级；集中也可吸取附近道具。')+(lv===5?' 高速追踪／低速弹束＋绿色直射。':lv===4?' 低速收束弹束＋绿色直射。':'');
       $('power-progress').max=max?Math.max(1,power):next;$('power-progress').value=power;
       $('power-progress').textContent=max?'最高火力':power+' / '+next;
       $('power-progress').setAttribute('aria-valuetext',max?'5级最高火力':'火力'+lv+'级，P '+power+' / '+next);
@@ -306,7 +306,7 @@
     DanmakuStageShow.effects(ctx,show,$('low-effects').checked);
     if(isStage()){DanmakuStageArt.effects(ctx,sim,stageArtState,$('low-effects').checked);DanmakuStageView.field(ctx,sim,stageImages,$('low-effects').checked);}
     sim.shots.forEach(function(s) {
-      if(s.kind===1||s.kind===2){DanmakuWeapons.drawShot(ctx,s,$('low-effects').checked);return;}
+      if(s.kind===1||s.kind===2||s.kind===3){DanmakuWeapons.drawShot(ctx,s,$('low-effects').checked);return;}
       ctx.save(); ctx.translate(s.x/64,s.y/64);
       if (s.vx) ctx.rotate(Math.atan2(s.vx, -s.vy));
       ctx.fillStyle=s.focused?'#d9f8ff':'#8ec6e8'; ctx.fillRect(-1.5,-6,3,12);

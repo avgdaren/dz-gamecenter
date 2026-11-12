@@ -1,5 +1,7 @@
 # 横版标题、收束弹束与爆散转场
 
+后续更新：[低速补射与主角标题](FOCUS-WIDTH-TITLE-v3.md)。用户认可收束样式，进一步要求4／5级低速补绿色直射扩大宽度、标题换主角；当前入口以新页为准，本文与旧试玩保留。
+
 2026-11-12，小典 / Codex；原型 `(C) 2026 Carinoasd`。沿用 [Issue #78](https://github.com/avgdaren/dz-gamecenter/issues/78)／[Draft PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)，分支 `feat/danmaku-title-power-v1`，基底 `feat/danmaku-normal-v1`。本页优先于上一版 [TITLE-POWER-v1.md](TITLE-POWER-v1.md) 的对应画面与武器说明。
 
 用户本轮要求横版标题、直接选择难度、删除标题里的招式提示与“第一关”，加强大招，4级起低速激光、5级高速追踪，并把Boss阶段文字演出替换为爆炸。制作中用户进一步指定：两次转场都用1号效果，加震屏闪光；“激光”应是收束成竖向形状的高速子弹。最终按后者实现，未采用连续光束／瞬时射线命中。

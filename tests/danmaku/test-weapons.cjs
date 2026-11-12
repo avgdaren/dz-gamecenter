@@ -6,7 +6,7 @@ const S=require(path.join(base,'stage.js')),W=require(path.join(base,'weapons.js
 const checks=[];function test(name,f){f();checks.push(name);console.log('PASS '+name);}function php(file,p){const x=spawnSync(process.env.DANMAKU_PHP||'php',[path.join(__dirname,file)],{input:JSON.stringify(p),encoding:'utf8',maxBuffer:64*1024*1024});assert.equal(x.status,0,x.error?.message||x.stderr);return JSON.parse(x.stdout);}
 const plain=x=>JSON.parse(JSON.stringify(x)),git=['-c','http.proxy=http://127.0.0.1:7897','-c','https.proxy=http://127.0.0.1:7897'];
 test('new rules change only weapons, retain Normal v2 enemies, five thresholds and respawn stocks',()=>{
- const old=JSON.parse(execFileSync('git',[...git,'show','b887178:source/plugin/gamecenter/games/_danmaku_proto/rules.json'],{cwd:root,encoding:'utf8'}));const {weapons06,...rest}=r;assert.deepEqual(rest,old);
+ const old=JSON.parse(execFileSync('git',[...git,'show','b887178:source/plugin/gamecenter/games/_danmaku_proto/rules.json'],{cwd:root,encoding:'utf8'}));const {weapons06,weapons07,...rest}=r;assert.deepEqual(rest,old);
  for(const rule of [S.weaponRule,S.normalWeaponRule]){const b=new S.Stage(r,false,rule);assert.equal(b.sim.respawnBombs,true);assert.deepEqual(b.rules.stage01.growth.thresholds,[0,3,8,12,16]);b.replace(2);assert.equal(b.sim.normalRevision,rule===S.normalWeaponRule?2:0);}
 });
 test('levels 1–3 retain pellets; level 4 focuses into packets; level 5 fast has exactly four tracking lanes',()=>{

@@ -8,11 +8,12 @@
   var RULE='danmaku-stage01-r1',BOMB_RULE='danmaku-stage01-r2',PATTERN_RULE='danmaku-stage01-r3',NORMAL_RULE='danmaku-stage01-normal-r1',RESPAWN_RULE='danmaku-stage01-r4',NORMAL_V2_RULE='danmaku-stage01-normal-r2',Q=64;
   var POWER_RULE='danmaku-stage01-r5',NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
   var WEAPON_RULE='danmaku-stage01-r6',NORMAL_WEAPON_RULE='danmaku-stage01-normal-r4';
-  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE];
+  var WIDE_WEAPON_RULE='danmaku-stage01-r7',NORMAL_WIDE_WEAPON_RULE='danmaku-stage01-normal-r5';
+  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE];
   function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
   function level(power,rules){var a=rules.stage01.growth.thresholds;for(var i=a.length-1;i>0;i--)if(power>=a[i])return i+1;return 1;}
   function effectiveRules(rules,rule){
-    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE].indexOf(rule)<0)return rules;
+    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE].indexOf(rule)<0)return rules;
     var p=rules.power05;
     return Object.assign({},rules,{stage01:Object.assign({},rules.stage01,{shotCap:p.shotCap,
       growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})})});
@@ -30,10 +31,11 @@
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
     rules=effectiveRules(rules,rule);
-    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE].indexOf(rule)>=0,
-      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
+    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE].indexOf(rule)>=0,
+      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
     this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
-    this.weaponMode=rule===WEAPON_RULE||rule===NORMAL_WEAPON_RULE;
+    this.wideWeaponMode=rule===WIDE_WEAPON_RULE||rule===NORMAL_WIDE_WEAPON_RULE;
+    this.weaponMode=rule===WEAPON_RULE||rule===NORMAL_WEAPON_RULE||this.wideWeaponMode;
     this.hp=index<0?0:rules.boss.phaseHP[index];
     this.player.power=0;this.mobs=[];this.drops=[];this.cursor=0;this.nextDrop=1;
     this.lastUpgrade=-999;this.lastDowngrade=-999;
@@ -160,12 +162,19 @@
     var r=this.rules,p=this.player,t=this.tick;
     var powerLevel=level(p.power,r),focused=!!(input.flags&1);
     var packet=this.weaponMode&&focused&&powerLevel>=4?r.weapons06.focused[powerLevel]:null;
-    if((t-r.playerShot.firstPhaseTick)%(packet?packet.interval:r.playerShot.intervalTicks)!==0)return;
+    var fireMain=(t-r.playerShot.firstPhaseTick)%(packet?packet.interval:r.playerShot.intervalTicks)===0;
     var lanes=packet?packet.lanes:r.stage01.growth.levels[powerLevel-1][focused?'focused':'normal'];
-    for(var i=0;i<lanes.length;i++){
+    if(fireMain)for(var i=0;i<lanes.length;i++){
       var spec=lanes[i],x=p.x+spec.offsetX*Q,y=p.y-16*Q;
       this.shots.push({id:this.nextShot++,x:x,y:y,px:x,py:y,born:t,vx:packet?0:spec.vxQ,vy:-(packet?packet.speedQ:r.playerShot.speedStepQ),damage:spec.damage,focused:focused,level:powerLevel});
       if(this.weaponMode){var shot=this.shots[this.shots.length-1];shot.kind=packet?2:!focused&&powerLevel===5&&r.weapons06.tracking.lanes.indexOf(i)>=0?1:0;shot.target=-1;}
+    }
+    if(this.wideWeaponMode&&focused&&powerLevel>=r.weapons07.sideShots.minimumLevel){
+      var side=r.weapons07.sideShots;
+      if((t-r.playerShot.firstPhaseTick)%side.interval===0)for(var j=0;j<side.offsets.length;j++){
+        var sx=p.x+side.offsets[j]*Q,sy=p.y-16*Q;
+        this.shots.push({id:this.nextShot++,x:sx,y:sy,px:sx,py:sy,born:t,vx:0,vy:-side.speedQ,damage:side.damage,focused:true,level:powerLevel,kind:3,target:-1});
+      }
     }
     if(this.shots.length>r.stage01.shotCap)throw new Error('自机子弹超过关卡上限');
   };
@@ -318,5 +327,5 @@
   };
   function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
   function scoreLimit(rules,rule){return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
-  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
 }));

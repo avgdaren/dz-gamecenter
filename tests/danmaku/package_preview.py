@@ -43,7 +43,7 @@ def standalone_html(rule_script):
     html = html.replace("</body>", "\n".join(script_tags) + "\n</body>")
     for name in ("player-motion-v1.png", "player-front-display-v1.png", "stage01-corridor-v1.png",
                  "stage01-fairy-v1.png", "stage01-attendant-v1.png", "stage01-guardian-v1.png",
-                 "boss-body-atlas-v1.png", "boss-ring-back-v1.png", "boss-ring-front-v1.png", "boss-face-v1.png", "boss-portrait-v1.png"):
+                 "boss-body-atlas-v1.png", "boss-ring-back-v1.png", "boss-ring-front-v1.png", "boss-face-v1.png", "boss-portrait-v1.png", "player-title-portrait-v1.png"):
         asset = "assets/" + name
         assert asset in html, "Missing image reference: " + asset
         data = base64.b64encode((SOURCE / asset).read_bytes()).decode("ascii")

@@ -1,0 +1,28 @@
+{
+  "author": "小典 / Codex",
+  "copyright": "(C) 2026 Carinoasd (game prototype)",
+  "generator": "built-in image_gen",
+  "size": [
+    1024,
+    1536
+  ],
+  "rgba": true,
+  "cornerAlpha": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "transparentPixels": 1079612,
+  "opaquePixels": 0,
+  "partialAlphaPixels": 493252,
+  "bytes": 1694077,
+  "sha256": "7e6ae5d65150fa1e35473bea5cafc72c20ac85dafc6d4f8cf0a60caa8c1559cc",
+  "imageEditingAfterGeneration": false,
+  "runtimeAsset": "source/plugin/gamecenter/games/_danmaku_proto/assets/player-title-portrait-v1.png",
+  "prompt": "PROMPT.md",
+  "referenceAssets": [
+    "docs/danmaku/art/player-production-v1/player-front-display-source-v1.png",
+    "docs/danmaku/art/game-icon-v1/icon-source-v1.png"
+  ]
+}
