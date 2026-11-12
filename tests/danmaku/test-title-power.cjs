@@ -12,7 +12,7 @@ test('focus binding supports both default Shifts, ordinary remaps, rejects confl
  assert.equal(K.fromStored('{"focus":"KeyZ"}'),'KeyZ');assert.equal(K.fromStored('{"focus":"ShiftRight"}'),'Shift');assert.equal(K.normalize('Digit2'),'Digit2');
 });
 test('new growth adds levels 4 and 5 without modifying earlier rules or Normal attacks',()=>{
- const {power05,...rest}=r;const old=JSON.parse(require('node:child_process').execFileSync('git',['-c','http.proxy=http://127.0.0.1:7897','-c','https.proxy=http://127.0.0.1:7897','show','1d1bbb88600ff956314ba04245220eabe529438a:source/plugin/gamecenter/games/_danmaku_proto/rules.json'],{cwd:root,encoding:'utf8'}));assert.deepEqual(rest,old);
+ const {power05,weapons06,...rest}=r;const old=JSON.parse(require('node:child_process').execFileSync('git',['-c','http.proxy=http://127.0.0.1:7897','-c','https.proxy=http://127.0.0.1:7897','show','1d1bbb88600ff956314ba04245220eabe529438a:source/plugin/gamecenter/games/_danmaku_proto/rules.json'],{cwd:root,encoding:'utf8'}));assert.deepEqual(rest,old);
  assert.deepEqual(power05.levels.slice(0,3),r.stage01.growth.levels);assert.deepEqual(power05.thresholds,[0,3,8,12,16]);
  for(const rule of [S.powerRule,S.normalPowerRule]){const b=new S.Stage(r,false,rule);assert.equal(b.rules.stage01.growth.levels.length,5);assert.equal(b.sim.respawnBombs,true);for(const i of [0,1,2]){b.replace(i);assert.equal(b.sim.rules.stage01.growth.maxPower,16);assert.equal(b.sim.normalRevision,rule===S.normalPowerRule?2:0);}}
  assert.equal(new S.Stage(r,false,S.normalV2Rule).rules.stage01.growth.maxPower,8);

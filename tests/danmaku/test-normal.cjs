@@ -12,7 +12,7 @@ const zero={dx:0,dy:0,flags:1};
 // Move a little, release focus, and use a bomb; never run a whole natural-clear route.
 const inputs=Array.from({length:960},(_,i)=>({dx:i%240<80?64:i%240<160?-64:0,dy:0,flags:i===240?3:i%180<120?1:0}));
 test('Normal is versioned separately and leaves every old rule value/resource unchanged',()=>{
- const {normal01,normal02,power05,...rest}=rules;assert.deepEqual(rest,oldRules);
+ const {normal01,normal02,power05,weapons06,...rest}=rules;assert.deepEqual(rest,oldRules);
  assert.equal(S.normalRule,normal01.stageRule);assert.equal(B.normalRule,normal01.practiceRule);
  for(const rule of [S.patternRule,S.normalRule]){const b=new S.Stage(rules,false,rule);assert.equal(b.sim.player.lives,3);assert.equal(b.sim.player.bombs,2);for(const i of [0,1,2]){b.replace(i);assert.equal(b.sim.normalMode,rule===S.normalRule);}}
  const original=JSON.stringify(rules);new S.Stage(rules,true,S.normalRule);new B.Battle(rules,false,B.normalRule);assert.equal(JSON.stringify(rules),original);

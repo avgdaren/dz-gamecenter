@@ -4,6 +4,8 @@
 
 ## 最新用户要求优先
 
+**横版标题／武器／大招／转场续作（2026-11-12）：** 用户要求标题横版、Easy／Normal直接按钮、移除招式提示与“第一关”；强化大招，4级起低速激光、5级高速追踪，Boss阶段改爆炸。制作中进一步指定“两次转场用1号＋震屏闪光；激光是竖向收束的高速子弹”。已按最终要求实现[收束弹束与爆散转场](WEAPONS-TITLE-v2.md)，沿同一分支与PR #79。新入口`E:\GPT工作区\output\danmaku-stage01-weapons-v1-offline.html`，快速定点看效果`E:\GPT工作区\output\danmaku-weapons-v1-review.html`。4级低速三路收束18px/帧，5级低速24px/帧、更密；实际飞行命中，全命中输出300／420每秒。5级高速7路直射＋4路追踪；新规则Easy r6／Normal normal-r4，旧回放保留。两次转场统一1号冷青爆散＋24帧震屏＋10帧单次闪光，简化模式关闭震屏／闪光，仍原120帧；取消阶段中央文字卡。32组新定点JS/PHP、非法与旧版兼容及短浏览器预览通过；游戏流程仅26步短入口，没有自动整关通关。Normal敌方参数和全局掉命补B保持用户确认值；新火力手感待用户试玩，不回退成“Normal难度待确认”。未合并、部署或改小蓝站点。
+
 标题／HUD／改键／五级火力已单独推送为[Draft PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)，运行提交`dd13549`，当前分支`feat/danmaku-title-power-v1`，基底`feat/danmaku-normal-v1`。Normal难度已获确认；本轮新火力和布局等待用户试玩。未自动合并或更新小蓝站点，后续不要回退为“Normal Boss仍待难度确认”。
 
 **Normal v2获用户难度验收，进入标题／HUD／改键／5级火力（2026-11-12）。** 用户确认“这就是经典N的难度”，朋友试玩提出Shift可改键、5级火力、资源进战场、移除右侧关卡练习、提示移下方、标题选难度。已在独立`feat/danmaku-title-power-v1`（[Issue #78](https://github.com/avgdaren/dz-gamecenter/issues/78)，基底`1d1bbb8`）实现，详见[TITLE-POWER-v1.md](TITLE-POWER-v1.md)。新试玩`E:\GPT工作区\output\danmaku-stage01-title-power-v1-offline.html`；当前只提供完整标准一关，旧练习／辅助回放仍可复验。新规则Easy r5／Normal normal-r3，前3级原值保留，4／5级P12／16；敌方Normal弹幕与掉命补B保留。标题开局选难度，HUD上沿生命／5格火力／B库存，下面简短操作与设置改键；默认左右Shift，可改普通键、保存、恢复和取消。满级定点差分与边界、旧规则兼容、320窄屏和约4.6秒短入口通过，没有自动整关通关，新火力待真人试玩；没有改小蓝论坛或部署分支。
