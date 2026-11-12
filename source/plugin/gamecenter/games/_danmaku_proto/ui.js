@@ -75,7 +75,7 @@
   function bossPose(){return sim&&!isPrelude()?DanmakuBossView.frame(sim,battle?battle.tick:sim.tick,$('low-effects').checked,battle?battle.stage:null):null;}
   function isFocused() { return slowToggle || Array.from(keys).some(function(code){return DanmakuControls.matches(code,focusBinding);}); }
   function isStage() { return !!(battle && DanmakuStage01.supportedRules.indexOf(battle.rule)>=0); }
-  function isNormal() { return !!(battle&&(battle.rule===DanmakuStage01.normalCollectRule||battle.rule===DanmakuStage01.normalWideWeaponRule||battle.rule===DanmakuStage01.normalWeaponRule||battle.rule===DanmakuStage01.normalPowerRule||battle.rule===DanmakuStage01.normalV2Rule||battle.rule===DanmakuBattle.normalV2Rule||battle.rule===DanmakuStage01.normalRule||battle.rule===DanmakuBattle.normalRule)); }
+  function isNormal() { return !!(battle&&(battle.rule===DanmakuStage01.normalCornerRule||battle.rule===DanmakuStage01.normalCollectRule||battle.rule===DanmakuStage01.normalWideWeaponRule||battle.rule===DanmakuStage01.normalWeaponRule||battle.rule===DanmakuStage01.normalPowerRule||battle.rule===DanmakuStage01.normalV2Rule||battle.rule===DanmakuBattle.normalV2Rule||battle.rule===DanmakuStage01.normalRule||battle.rule===DanmakuBattle.normalRule)); }
   function difficultyName() { return battle?(isNormal()?'Normal':'Easy'):'弹型练习'; }
   function isBombStage() { return isStage() && sim.bombMode; }
   function isPrelude() { return isStage() && battle.phaseIndex<0; }
@@ -125,7 +125,7 @@
     prepareTicket++;cancelBinding();$('bind-focus').textContent='更改按键';
     clearInput();records=[];frameTimes=[];accumulator=0;slowToggle=false;
     stageArtState=DanmakuStageArt.createEffects();showState=DanmakuStageShow.create();delete $('overlay').dataset.result;
-    battle=new DanmakuStage01.Stage(rules,false,selectedDifficulty==='normal'?DanmakuStage01.normalCollectRule:DanmakuStage01.collectRule);sim=battle.sim;
+    battle=new DanmakuStage01.Stage(rules,false,selectedDifficulty==='normal'?DanmakuStage01.normalCornerRule:DanmakuStage01.cornerRule);sim=battle.sim;
     phaseNames=isNormal()?['星环 · 双旋交织','星雨 · 引光夹击','星幕 · 迁移星廊']:DanmakuStageShow.phases;
     document.querySelector('.boss-intro-copy span').textContent=isNormal()?'第一式 · 双旋交织':'第一式 · 周天轨迹';
     mode='ready';sound.reset(audioState());

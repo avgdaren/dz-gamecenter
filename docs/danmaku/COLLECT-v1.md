@@ -1,5 +1,7 @@
 # 道中强化与积分晶体
 
+最终收尾：新增左右顶角全屏吸附，当前Easy r9／Normal normal-r7及给小蓝的入口见[最新GitHub交接](handoff-v2/XIAOLAN-HANDOFF.md)。本页P／晶体计分继续采用，旧r8试玩保留。
+
 2026-11-12，小典 / Codex；原型 `(C) 2026 Carinoasd`。沿用 [Issue #78](https://github.com/avgdaren/dz-gamecenter/issues/78)／[Draft PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)，分支 `feat/danmaku-title-power-v1`。
 
 用户已确认“标题界面没问题”，要求低速弹样式恢复前版，并新增道中火力收集、让不掉火力的敌人掉增加积分的收集物。标题立绘／星杖／布局继续采用，不再记为待标题验收；此反馈不扩展为所有设备或新掉落平衡已验收。

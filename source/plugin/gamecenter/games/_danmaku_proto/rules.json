@@ -9935,5 +9935,12 @@
     "powerTotal": 26,
     "pointItems": 20,
     "scoreUpperBound": 331700
+  },
+  "corner09": {
+    "easyRule": "danmaku-stage01-r9",
+    "normalRule": "danmaku-stage01-normal-r7",
+    "topY": 192,
+    "leftX": 96,
+    "rightX": 384
   }
 }

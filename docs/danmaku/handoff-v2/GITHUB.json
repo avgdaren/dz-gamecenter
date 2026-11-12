@@ -1,0 +1,17 @@
+{
+  "repository": "avgdaren/dz-gamecenter",
+  "repositoryVisibilityAuthorization": "User explicitly authorized this game's source, artwork and music in the existing public repository",
+  "issue": "https://github.com/avgdaren/dz-gamecenter/issues/78",
+  "pullRequest": "https://github.com/avgdaren/dz-gamecenter/pull/79",
+  "headRef": "feat/danmaku-title-power-v1",
+  "baseRef": "feat/danmaku-normal-v1",
+  "runtimeManifest": "RUNTIME-MANIFEST.json",
+  "handoffGuide": "XIAOLAN-HANDOFF.md",
+  "easyRule": "danmaku-stage01-r9",
+  "normalRule": "danmaku-stage01-normal-r7",
+  "scoreUpperBound": 331700,
+  "handoffPrepared": true,
+  "mergePerformed": false,
+  "siteDeploymentPerformed": false,
+  "databaseUpgrade": false
+}

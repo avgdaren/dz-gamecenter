@@ -10,12 +10,13 @@
   var WEAPON_RULE='danmaku-stage01-r6',NORMAL_WEAPON_RULE='danmaku-stage01-normal-r4';
   var WIDE_WEAPON_RULE='danmaku-stage01-r7',NORMAL_WIDE_WEAPON_RULE='danmaku-stage01-normal-r5';
   var COLLECT_RULE='danmaku-stage01-r8',NORMAL_COLLECT_RULE='danmaku-stage01-normal-r6';
-  function isCollect(rule){return rule===COLLECT_RULE||rule===NORMAL_COLLECT_RULE;}
-  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE];
+  var CORNER_RULE='danmaku-stage01-r9',NORMAL_CORNER_RULE='danmaku-stage01-normal-r7';
+  function isCollect(rule){return rule===COLLECT_RULE||rule===NORMAL_COLLECT_RULE||rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;}
+  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE];
   function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
   function level(power,rules){var a=rules.stage01.growth.thresholds;for(var i=a.length-1;i>0;i--)if(power>=a[i])return i+1;return 1;}
   function effectiveRules(rules,rule){
-    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE].indexOf(rule)<0)return rules;
+    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)<0)return rules;
     var p=rules.power05;
     var config=Object.assign({},rules.stage01,{shotCap:p.shotCap,growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})});
     if(isCollect(rule)){
@@ -37,9 +38,10 @@
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
     rules=effectiveRules(rules,rule);
-    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE,COLLECT_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,NORMAL_COLLECT_RULE].indexOf(rule)>=0,
-      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
+    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE,COLLECT_RULE,CORNER_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,NORMAL_COLLECT_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,
+      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
     this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
+    this.cornerMode=rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;
     this.collectMode=isCollect(rule);this.lastPointPickup=-999;this.lastPointValue=0;
     this.wideWeaponMode=rule===WIDE_WEAPON_RULE||rule===NORMAL_WIDE_WEAPON_RULE||this.collectMode;
     this.weaponMode=rule===WEAPON_RULE||rule===NORMAL_WEAPON_RULE||this.wideWeaponMode;
@@ -156,10 +158,12 @@
   Sim.prototype.items=function(input){
     var p=this.player,g=this.rules.stage01.growth,t=this.tick,sim=this;
     var radius=(input.flags&1?g.focusMagnetRadius:g.magnetRadius)*Q;
+    var c=this.rules.corner09,corner=this.cornerMode&&p.y<=c.topY*Q&&(p.x<=c.leftX*Q||p.x>=c.rightX*Q);
     this.drops=this.drops.filter(function(item){
       if(t-item.born>=g.dropTtl)return false;
       item.px=item.x;item.py=item.y;
       var dx=p.x-item.x,dy=p.y-item.y;
+      if(corner){item.attracted=true;item.unlock=Math.min(item.unlock,t);}
       if(t>=item.unlock){
         if(sim.index<0&&t>=sim.rules.stage01.gatherTick||dx*dx+dy*dy<=radius*radius)item.attracted=true;
       }
@@ -343,5 +347,5 @@
   };
   function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
   function scoreLimit(rules,rule){if(isCollect(rule))return rules.collect08.scoreUpperBound;return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
-  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,collectRule:COLLECT_RULE,normalCollectRule:NORMAL_COLLECT_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,collectRule:COLLECT_RULE,normalCollectRule:NORMAL_COLLECT_RULE,cornerRule:CORNER_RULE,normalCornerRule:NORMAL_CORNER_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
 }));

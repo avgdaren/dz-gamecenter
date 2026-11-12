@@ -4,6 +4,8 @@
 
 ## 最新用户要求优先
 
+**收尾交接：顶角全收与GitHub给小蓝（2026-11-12）。** 用户要求加“到左上／右上可收全掉落”，随后通过GitHub交给小蓝。已完成并整理[小蓝最新交接入口](handoff-v2/XIAOLAN-HANDOFF.md)／[运行清单](handoff-v2/RUNTIME-MANIFEST.json)，同PR #79、分支`feat/danmaku-title-power-v1`。新规则Easy r9／Normal normal-r7：y≤192且x≤96或x≥384触发P／B／积分／恢复P全屏吸附，跳过新生／恢复包解锁等待，离开角落后仍继续，保持原吸附移动和碰撞拾取；中央上沿不触发、过期道具不复活。仅追加corner09，P26／晶体500／上限331700及已确认标题、低速前版外观／高速短追踪保持。80组JS/PHP精确边界、旧14种28组兼容、合法顶角移动与8类非法载荷通过；独立预览左右顶角各实际全收P／B／晶体（火力2／大招3／+500），无报错，未自动整关通关。新试玩`E:\GPT工作区\output\danmaku-stage01-corner-v1-offline.html`，快速预览`E:\GPT工作区\output\danmaku-corner-v1-review.html`。按用户要求收尾交接，不再默认追加制作；小蓝负责现行论坛适配、HTTP／榜单／幂等和线上包。旧handoff-v1／r3桥接只作历史，不得套到当前成绩。未合并、部署或代发消息，PR当前可审阅状态以GitHub为准。
+
 **最新：道中P与积分晶体（2026-11-12）。** 用户已确认“标题界面没问题”，标题／星杖构图继续采用；要求低速弹样式恢复前版并加道中P、不掉P的敌人掉积分收集物。已做[道中强化与积分晶体](COLLECT-v1.md)：低速绿色直射恢复weapons-v2弹体与长尾，高速追踪保持短弹，中央弹束和72px宽度不改。P18→26，八组小怪各多1P；新奖励中不掉P的20只敌人各掉蓝色晶体，拾取+500、满收额外10,000分，掉命保留。新规则Easy r8／Normal normal-r6，仅追加collect08，旧十二种回放保留。新试玩`E:\GPT工作区\output\danmaku-stage01-collect-v1-offline.html`，快速预览`E:\GPT工作区\output\danmaku-collect-v1-review.html`。32组阶段＋12组掉落／拾取／换阶段／掉命JS/PHP一致，合法前缀实际拾取晶体、12类非法载荷及旧24组兼容通过；源码入口与独立道具／弹形短查无报错，没有自动整关通关。Normal敌方配置、全部图片、标题和音乐保持；新P成长／收集平衡待用户试玩。同PR #79，不改小蓝站点或部署，后续不要把已确认标题退回待验收。
 
 **最新：短追踪弹与星杖立绘（2026-11-12）。** 用户要求追踪弹改短弹，认可主角立绘但需要武器体现发射来源。已完成[短弹与星杖](WEAPON-VISUAL-v4.md)：绿色追踪／低速直射统一9px短菱形，删速度长尾，仅小光晕；中央收束弹保留。内置image_gen局部编辑已认可主角，右手持蓝金星杖、杖顶星晶配两枚短绿色示意弹，新图片`assets/player-title-portrait-v2.png`用于标题；旧v1与战斗像素图保留，未重画像素持杖动作。新试玩`E:\GPT工作区\output\danmaku-stage01-weapons-v3-offline.html`，快速预览`E:\GPT工作区\output\danmaku-weapons-v3-review.html`。本轮仅表现，规则仍Easy r7／Normal normal-r5，40份原运行／素材保护一致，追踪逻辑／伤害／PHP／JSON无改动，不重复32组或自动整关通关。标题与独立短弹／简化显示浏览器短查通过，外观待用户确认；同PR #79，不改小蓝站点或部署。

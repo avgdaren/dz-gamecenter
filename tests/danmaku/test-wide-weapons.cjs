@@ -6,7 +6,7 @@ const S=require(path.join(base,'stage.js')),W=require(path.join(base,'weapons.js
 const git=['-c','http.proxy=http://127.0.0.1:7897','-c','https.proxy=http://127.0.0.1:7897'],plain=x=>JSON.parse(JSON.stringify(x));
 function test(name,f){f();checks.push(name);console.log('PASS '+name);}function php(file,p){const x=spawnSync(process.env.DANMAKU_PHP||'php',[path.join(__dirname,file)],{input:JSON.stringify(p),encoding:'utf8',maxBuffer:32*1024*1024});assert.equal(x.status,0,x.error?.message||x.stderr);return JSON.parse(x.stdout);}
 test('only the new weapons07 config is appended, retaining enemy and narrow-focus rules',()=>{
- const old=JSON.parse(execFileSync('git',[...git,'show','8888e43:source/plugin/gamecenter/games/_danmaku_proto/rules.json'],{cwd:root,encoding:'utf8'}));const {weapons07,collect08,...rest}=r;assert.deepEqual(rest,old);
+ const old=JSON.parse(execFileSync('git',[...git,'show','8888e43:source/plugin/gamecenter/games/_danmaku_proto/rules.json'],{cwd:root,encoding:'utf8'}));const {weapons07,collect08,corner09,...rest}=r;assert.deepEqual(rest,old);
  for(const rule of [S.wideWeaponRule,S.normalWideWeaponRule]){const b=new S.Stage(r,false,rule);assert.equal(b.sim.wideWeaponMode,true);assert.equal(b.sim.respawnBombs,true);b.replace(1);assert.equal(b.sim.normalRevision,rule===S.normalWideWeaponRule?2:0);}
 });
 test('levels 4/5 focus retain the exact three center projectiles and add four non-tracking green lanes',()=>{
