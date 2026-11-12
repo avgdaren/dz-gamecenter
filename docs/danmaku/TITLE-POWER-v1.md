@@ -4,6 +4,8 @@
 
 用户已实际试玩确认 Normal Boss v2“就是经典N的难度”，本轮按朋友试玩反馈改操作、成长与界面，不再加强或削弱敌方弹幕。工作分支`feat/danmaku-title-power-v1`，从已确认内容提交`1d1bbb8`派生，关联[Issue #78](https://github.com/avgdaren/dz-gamecenter/issues/78)，不追加到小蓝当前部署分支。
 
+GitHub接手：[Draft PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)，基底`feat/danmaku-normal-v1`，运行内容提交`dd13549`；后续文档沿同一PR补充。尚未合并或部署。
+
 新试玩：`E:\GPT工作区\output\danmaku-stage01-title-power-v1-offline.html`，双击即可；旧 Normal v2 文件与SHA保留。
 
 ## 当前操作流程
