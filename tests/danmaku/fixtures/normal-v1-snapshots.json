@@ -1,0 +1,90 @@
+{
+  "sourceCommit": "2b61ba83e4c27472f46e0314e1ef926fdebb05a3",
+  "inputFixture": "test-normal.cjs / 960 bounded inputs",
+  "rows": [
+    {
+      "assist": false,
+      "kind": "stage",
+      "index": -1,
+      "sha256": "9d4900e39a4498b02264efb3cd7d36841922bf50f8401dca04fe2af07185bbcf"
+    },
+    {
+      "assist": false,
+      "kind": "stage",
+      "index": 0,
+      "sha256": "d0dc82f374bf5e51ebbb6dc2982bf0405f2a2947721c9379be2397557a494daa"
+    },
+    {
+      "assist": false,
+      "kind": "stage",
+      "index": 1,
+      "sha256": "3813ca017292024ee7bc2c93e81e8b9990f71635786110cfdf3dfbf7ea2088ad"
+    },
+    {
+      "assist": false,
+      "kind": "stage",
+      "index": 2,
+      "sha256": "d0de926707bf30eea3e0955c41b31e4b4b340bc42c4bc533e58bec8d42aea183"
+    },
+    {
+      "assist": false,
+      "kind": "practice",
+      "index": 0,
+      "sha256": "712239f5ecc01c058d16f3d1e9afc832a6bc9f82b2b32737782dab7104318bf2"
+    },
+    {
+      "assist": false,
+      "kind": "practice",
+      "index": 1,
+      "sha256": "8e4a82af4d2b8d7f932eeddb52369eaee5d4b6e66f06ffc3c5f7dbb726a0c1cf"
+    },
+    {
+      "assist": false,
+      "kind": "practice",
+      "index": 2,
+      "sha256": "e2108b786d377303059994f82c82678d0e647063d7481cd6dc0fdabe8594f749"
+    },
+    {
+      "assist": true,
+      "kind": "stage",
+      "index": -1,
+      "sha256": "603216b4be5985071da14e49eb20bae47d84f6579904fd14c20f9fdf4a6f2b73"
+    },
+    {
+      "assist": true,
+      "kind": "stage",
+      "index": 0,
+      "sha256": "7bcb351ba9cd7f2e1cd99a9d588aea47f3c9b685d712c9c969b77ebcd2c62c93"
+    },
+    {
+      "assist": true,
+      "kind": "stage",
+      "index": 1,
+      "sha256": "100b2c4990c4f6c25835f2a0bc0613b5e19b27a77f6e38ceeec777c03cbb509a"
+    },
+    {
+      "assist": true,
+      "kind": "stage",
+      "index": 2,
+      "sha256": "5e660b6e030f098e4722adbc8d19b2f052ce0d347bc784b6084d29660ec58493"
+    },
+    {
+      "assist": true,
+      "kind": "practice",
+      "index": 0,
+      "sha256": "ec38133926a5b929c36ce2b93f125213318d0b91777adc1ea6c86024c217657d"
+    },
+    {
+      "assist": true,
+      "kind": "practice",
+      "index": 1,
+      "sha256": "0ddf643f9f2ec64d1ab7f178bbc15aca2eace060fa31caba05fd868885d75445"
+    },
+    {
+      "assist": true,
+      "kind": "practice",
+      "index": 2,
+      "sha256": "215103a295582df7af4f0d0f3d2d4049381c66565916e4bc65197a278a7dde8d"
+    }
+  ]
+}

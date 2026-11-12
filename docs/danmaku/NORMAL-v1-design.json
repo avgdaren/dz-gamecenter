@@ -1,0 +1,38 @@
+{
+  "stageRule": "danmaku-stage01-normal-r1",
+  "practiceRule": "danmaku-p1-normal-r1",
+  "enemySpawnCap": 8192,
+  "preludeEnemyCap": 192,
+  "types": [
+    {"speedQ": 144, "attacks": [
+      {"at": 81, "warning": 54, "aimed": false, "capture": false, "offsets": [-36,-18,0,18,36]},
+      {"at": 117, "warning": 90, "aimed": true, "capture": true, "offsets": [-18,0,18]}
+    ]},
+    {"speedQ": 160, "attacks": [
+      {"at": 96, "warning": 60, "aimed": true, "capture": true, "offsets": [-24,-12,0,12,24]},
+      {"at": 114, "warning": 60, "aimed": true, "capture": false, "offsets": [-24,-12,0,12,24]},
+      {"at": 132, "warning": 60, "aimed": true, "capture": false, "offsets": [-24,-12,0,12,24]},
+      {"at": 210, "warning": 180, "aimed": false, "capture": false, "offsets": [-56,-40,-24,-8,8,24,40,56]}
+    ]},
+    {"speedQ": 144, "attacks": [
+      {"at": 144, "warning": 108, "aimed": true, "capture": true, "offsets": [-24,-12,0,12,24]},
+      {"at": 168, "warning": 108, "aimed": true, "capture": false, "offsets": [-24,-12,0,12,24]},
+      {"at": 264, "warning": 228, "aimed": false, "capture": false, "offsets": [-80,-64,-48,-32,-16,0,16,32,48,64,80]},
+      {"at": 288, "warning": 228, "aimed": false, "capture": false, "offsets": [-72,-56,-40,-24,-8,8,24,40,56,72]},
+      {"at": 432, "warning": 396, "aimed": true, "capture": true, "offsets": [-24,-12,0,12,24]},
+      {"at": 456, "warning": 396, "aimed": true, "capture": false, "offsets": [-24,-12,0,12,24]},
+      {"at": 576, "warning": 540, "aimed": false, "capture": false, "offsets": [-80,-64,-48,-32,-16,0,16,32,48,64,80]},
+      {"at": 600, "warning": 540, "aimed": false, "capture": false, "offsets": [-72,-56,-40,-24,-8,8,24,40,56,72]}
+    ]}
+  ],
+  "boss": [
+    {"name":"travelling-rosette","cycleTicks":360,"fireTicks":[36,156,276],"echoDelay":18,"slots":36,
+     "rotations":[-7,0,7],"gapAngles":[112,128,144,128],"gapHalfAngle":14,"speed":144,"echoSpeed":116,"radius":4},
+    {"name":"triple-locked-needle","cycleTicks":300,"captureTicks":[24,124,224],"warningTicks":30,
+     "fireTicks":[54,66,78,154,166,178,254,266,278],"angles":[-18,-12,-6,0,6,12,18],"speed":224,"radius":3},
+    {"name":"close-golden-gate","cycleTicks":300,"wallTicks":[24,44,64,84],
+     "columns":[16,32,48,64,80,96,112,128,144,160,176,192,208,224,240,256,272,288,304,320,336,352,368,384,400,416,432,448,464],
+     "gapCenters":[144,240,336,240],"gapHalfWidth":32,"wallY":48,"wallSpeed":160,"wallRadius":6,
+     "fanTicks":[148,172,196],"leftAngles":[56,72,88,104],"rightAngles":[152,168,184,200],"fanSpeed":184,"fanRadius":4}
+  ]
+}

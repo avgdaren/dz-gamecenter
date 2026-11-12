@@ -5,7 +5,7 @@
   var names = { stage: '星穹回廊', battle: '首领练习', flower: '花瓣星环', aim: '星雨连射', wave: '交错星幕' };
   var phaseNames = DanmakuStageShow.phases;
   var showState=DanmakuStageShow.create();
-  function showModel(){return DanmakuStageShow.model(showState,battle,$('low-effects').checked);}
+  function showModel(){var m=DanmakuStageShow.model(showState,battle,$('low-effects').checked);if(isNormal()&&m.kind!=='clear')m.title=phaseNames[m.phase];return m;}
   var lessons = {
     stage: ['收集星光，再迎接观测者。', 'P强化在3点、8点升级火力。两名星仪守卫还会掉B补充大招；最多携带3枚，满库存拾取B转500分。'],
     battle: ['跟随首领，逐阶段突破。', '自动向上射击，跟随首领保持火力。三阶段共享生命和清屏；击破后清场转场，每阶段最多 70 秒。'],
@@ -81,6 +81,8 @@
   function bossPose(){return sim&&!isPrelude()?DanmakuBossView.frame(sim,battle?battle.tick:sim.tick,$('low-effects').checked,battle?battle.stage:null):null;}
   function isFocused() { return slowToggle || keys.has('ShiftLeft') || keys.has('ShiftRight'); }
   function isStage() { return !!(battle && DanmakuStage01.supportedRules.indexOf(battle.rule)>=0); }
+  function isNormal() { return !!(battle&&(battle.rule===DanmakuStage01.normalV2Rule||battle.rule===DanmakuBattle.normalV2Rule||battle.rule===DanmakuStage01.normalRule||battle.rule===DanmakuBattle.normalRule)); }
+  function difficultyName() { return battle?(isNormal()?'Normal':'Easy'):'弹型练习'; }
   function isBombStage() { return isStage() && sim.bombMode; }
   function isPrelude() { return isStage() && battle.phaseIndex<0; }
   function canAct() { return !battle || battle.stage==='active' || battle.stage==='prelude'; }
@@ -105,6 +107,8 @@
     var active = mode === 'running' || mode === 'paused' || mode === 'countdown';
     buttons.forEach(function (b) { b.disabled = !loaded; });
     $('assist').disabled = active || mode === 'preparing';
+    $('difficulty').disabled = active || mode === 'preparing' || !battle;
+    $('difficulty-hint').textContent = !battle?'弹型练习；掉命复活后清屏库存重置。':isNormal()?'双旋交织、针雨夹击、逐层移动的星门。':'较宽缺口，适合熟悉路线。';
     $('pause').disabled = !active;
     $('restart').disabled = !loaded || mode === 'ready';
     $('export').disabled = mode !== 'over';
@@ -128,24 +132,28 @@
     clearInput(); records = []; frameTimes = []; accumulator = 0; slowToggle = false;
     stageArtState=DanmakuStageArt.createEffects();
     showState=DanmakuStageShow.create();delete $('overlay').dataset.result;
-    battle = scene === 'stage' ? new DanmakuStage01.Stage(rules,$('assist').checked,DanmakuStage01.patternRule) : scene === 'battle' ? new DanmakuBattle.Battle(rules, $('assist').checked, DanmakuBattle.patternRule) : null;
-    sim = battle ? battle.sim : new DanmakuP0.Sim(rules, scene, $('assist').checked, DanmakuP0.focusRule);
+    var normal=$('difficulty').value==='normal';
+    battle = scene === 'stage' ? new DanmakuStage01.Stage(rules,$('assist').checked,normal?DanmakuStage01.normalV2Rule:DanmakuStage01.respawnRule) : scene === 'battle' ? new DanmakuBattle.Battle(rules, $('assist').checked,normal?DanmakuBattle.normalV2Rule:DanmakuBattle.respawnRule) : null;
+    sim = battle ? battle.sim : new DanmakuP0.Sim(rules, scene, $('assist').checked, DanmakuP0.respawnRule);
+    phaseNames=isNormal()?['星环 · 双旋交织','星雨 · 引光夹击','星幕 · 迁移星廊']:DanmakuStageShow.phases;
+    document.querySelector('.boss-intro-copy span').textContent=isNormal()?'第一式 · 双旋交织':'第一式 · 周天轨迹';
     mode = 'ready';
     sound.reset(audioState());
-    overlay((isStage()?'第一关 / ':battle ? '三阶段 / ' : '弹型练习 / ') + names[scene],
+    overlay((battle?difficultyName()+' / ':'')+(isStage()?'第一关 / ':battle ? '三阶段 / ' : '弹型练习 / ') + names[scene],
       names[scene], isStage()?'穿过72秒回廊，迎接星环观测者。\n拾取P强化，B补充大招。':battle ? '星环 → 星雨 → 星幕\n跟随首领输出，善用清屏。' : '自动射击已经就绪。\n移动躲弹，试着坚持45秒。', isStage()?'开始第一关':battle?'开始首领练习':'开始弹型练习');
-    $('selected-mode').textContent=names[scene];$('result-breakdown').open=false;
+    $('selected-mode').textContent=(battle?difficultyName()+' · ':'')+names[scene];$('result-breakdown').open=false;
     document.querySelector('.intro .eyebrow').textContent=isStage()?'第一关 · 星穹回廊':'专项练习 · '+names[scene];
     document.querySelector('.intro h1').textContent=isStage()?'循着星光，抵达观测台。':lessons[scene][0];
     document.querySelector('.route-note').textContent=isStage()?'72秒道中 → 三阶段Boss':battle?'三阶段首领 · 固定火力':'45秒弹型练习';
     $('arena-name').textContent = names[scene];
     $('lesson-title').textContent = lessons[scene][0]; $('lesson-text').textContent = lessons[scene][1];
-    $('mode-label').textContent = sim.assist ? (isStage()?'辅助挑战':'辅助练习') : (battle ? '标准挑战' : '标准练习');
+    if(isNormal())$('lesson-text').textContent+=' Normal首领：留意双发射点交织弹、两侧针雨夹击；星门会逐层横移，跟随空隙移动。';
+    $('mode-label').textContent = difficultyName()+' · '+(sim.assist?'辅助练习':'标准');
     $('boss-health').hidden = !battle; $('score-metric').hidden = !battle; $('score-details').hidden = true;
     $('power-metric').hidden=!isStage();
     $('low-effects-row').hidden=!isStage()&&!battle;$('bomb-resource-title').textContent=isBombStage()?'大招库存':'清屏次数';
     $('bomb-rule-title').textContent=isBombStage()?'星翼绽放':'清屏是一次喘息。';
-    $('bomb-rule-text').innerHTML=isBombStage()?'X / 空格：全屏伤害，持续清弹1.5秒，护身2秒。<br>最多携带3枚；击破星仪守卫获得B，满库存转500分。':'清除当前敌弹，并短暂无敌。<br>没有清屏时，先找宽一点的路线。';
+    $('bomb-rule-text').innerHTML=(isBombStage()?'X / 空格：全屏伤害，持续清弹1.5秒，护身2秒。<br>最多携带3枚；击破星仪守卫获得B，满库存转500分。':'清除当前敌弹，并短暂无敌。')+'<br>掉命复活后库存重置为'+(sim.assist?3:2)+'枚，多余库存不会保留。';
     setStatus(isStage()?'72秒回廊后迎战观测者；收集P提升火力。':battle ? '每阶段最多 70 秒；结束后可导出本局回放。' : '每场最多 45 秒，结束后可导出回放。'); controls(); updateHud();
   }
   function start() {
@@ -305,6 +313,7 @@
     if (!sim) return;
     var show=showModel();showCue(show);
     var b=sim.boss, p=sim.player;
+    if(battle&&battle.stage==='active')DanmakuBossPatterns.emitters(ctx,sim);
     if (sim.tick < sim.warningUntil && (!battle || battle.stage === 'active')) {
       var v=rules.directionVectors[sim.aimAngle]; ctx.strokeStyle='#efbf83'; ctx.setLineDash([6,8]);
       ctx.beginPath(); ctx.moveTo(b.x/64,b.y/64); ctx.lineTo(b.x/64+v[0],b.y/64+v[1]); ctx.stroke(); ctx.setLineDash([]);
@@ -381,7 +390,7 @@
   buttons.forEach(function(button) { button.addEventListener('click',function() {
     scene=button.dataset.scene; buttons.forEach(function(b) { var yes=b===button; b.classList.toggle('selected',yes); b.setAttribute('aria-pressed',String(yes)); }); reset();
   }); });
-  $('assist').addEventListener('change',reset); $('start').addEventListener('click',start);
+  $('assist').addEventListener('change',reset); $('difficulty').addEventListener('change',reset); $('start').addEventListener('click',start);
   $('low-effects').addEventListener('change',function(){canvas.focus({preventScroll:true});});
   function pauseForAudio(){if(mode==='running'||mode==='countdown')pause('调整声音，游戏已暂停。');}
   $('audio-settings').addEventListener('pointerdown',pauseForAudio);$('audio-settings').addEventListener('focusin',pauseForAudio);
@@ -422,7 +431,7 @@
     if(mode!=='over')return;
     var payload=encodeReplay();
     var blob=new Blob([JSON.stringify(payload)],{type:'application/json'}), url=URL.createObjectURL(blob), a=document.createElement('a');
-    a.href=url;a.download='danmaku-'+scene+'-'+(battle?battle.tick:sim.tick)+(isStage()?'-stage01.json':battle?'-p1.json':'-p0.json');a.click();setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    a.href=url;a.download='danmaku-'+(battle?difficultyName().toLowerCase()+'-':'')+scene+'-'+(battle?battle.tick:sim.tick)+(isStage()?'-stage01.json':battle?'-p1.json':'-p0.json');a.click();setTimeout(function(){URL.revokeObjectURL(url);},1000);
     setStatus('已导出本场回放，可在下方复验或用 PHP 本机重算。');
   });
   $('import').addEventListener('change',async function(){

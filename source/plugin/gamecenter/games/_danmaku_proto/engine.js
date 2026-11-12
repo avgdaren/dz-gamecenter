@@ -6,7 +6,7 @@
 }(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   var SCENES = ['flower', 'aim', 'wave'];
-  var RULE = 'danmaku-p0-r1', FOCUS_RULE = 'danmaku-p0-r2';
+  var RULE = 'danmaku-p0-r1', FOCUS_RULE = 'danmaku-p0-r2', RESPAWN_RULE='danmaku-p0-r3';
   var Q = 64;
   function trunc(n) { return Math.trunc(n); }
   function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
@@ -48,9 +48,9 @@
   function Sim(rules, scene, assist, rule) {
     if (SCENES.indexOf(scene) < 0 || typeof assist !== 'boolean') throw new Error('未知的原型场景');
     if (rule === undefined) rule = RULE;
-    if (rule !== RULE && rule !== FOCUS_RULE) throw new Error('未知的自机规则版本');
+    if (rule !== RULE && rule !== FOCUS_RULE && rule !== RESPAWN_RULE) throw new Error('未知的自机规则版本');
     this.rule = rule;
-    this.focusFire = rule === FOCUS_RULE;
+    this.focusFire = rule !== RULE;this.respawnBombs=rule===RESPAWN_RULE;
     this.rules = rules;
     this.scene = scene;
     this.assist = assist;
@@ -71,6 +71,11 @@
     this.stats = { damage: 0, shotHits: 0, hitsTaken: 0, graze: 0, bombsUsed: 0,
       enemySpawned: 0, enemyPeak: 0 };
   }
+  Sim.prototype.replenishOnRespawn = function () {
+    if(!this.respawnBombs||this.player.lives<=0)return;
+    this.player.bombs=this.initialBombStock();
+  };
+  Sim.prototype.initialBombStock = function () {return this.assist?this.rules.assist.bombs:this.rules.player.standardBombs;};
   Sim.prototype.spawn = function (x, y, angle, speed, radius) {
     var r = this.rules, vector = r.directionVectors[(angle % 512 + 512) % 512];
     if (this.assist) speed = trunc(speed * r.assist.enemySpeedNumerator / r.assist.enemySpeedDenominator);
@@ -170,6 +175,7 @@
       });
       if (collided.size) {
         p.lives--; this.stats.hitsTaken++; this.lastHit = t;
+        this.replenishOnRespawn();
         p.invulUntil = Math.max(p.invulUntil, t + r.player.hitInvulnerabilityTicks);
         var clearRadius = r.player.hitClearRadius * Q;
         this.enemies = this.enemies.filter(function (e) {
@@ -212,5 +218,5 @@
         [shot.id, shot.x, shot.y, shot.born]; }) };
   };
   return { Sim: Sim, validateInput: validateInput, sweptHit: sweptHit, bossX: bossX, scenes: SCENES,
-    rule: RULE, focusRule: FOCUS_RULE, supportedRules: [RULE, FOCUS_RULE] };
+    rule: RULE, focusRule: FOCUS_RULE, respawnRule:RESPAWN_RULE, supportedRules: [RULE, FOCUS_RULE,RESPAWN_RULE] };
 }));

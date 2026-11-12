@@ -5,10 +5,14 @@
   else root.DanmakuBattle = factory(root.DanmakuP0,root.DanmakuBossPatterns);
 }(typeof globalThis !== 'undefined' ? globalThis : this, function (engine,patterns) {
   'use strict';
-  var RULE = 'danmaku-p1-r1', FOCUS_RULE = 'danmaku-p1-r2', PATTERN_RULE='danmaku-p1-r3';
-  function Phase(rules, index, assist, focusFire, patternV3) {
+  var RULE = 'danmaku-p1-r1', FOCUS_RULE = 'danmaku-p1-r2', PATTERN_RULE='danmaku-p1-r3', NORMAL_RULE='danmaku-p1-normal-r1',RESPAWN_RULE='danmaku-p1-r4',NORMAL_V2_RULE='danmaku-p1-normal-r2';
+  function phaseOptions(rule){return{respawnBombs:rule===RESPAWN_RULE||rule===NORMAL_V2_RULE,normalRevision:rule===NORMAL_V2_RULE?2:1};}
+  function Phase(rules, index, assist, focusFire, patternV3, normalMode, options) {
+    options=options||{};
+    if(normalMode)rules=patterns.normalRules(rules,options.normalRevision||1);
     engine.Sim.call(this, rules, index === 1 ? 'aim' : 'flower', assist, focusFire ? engine.focusRule : engine.rule);
-    this.patternV3=!!patternV3;
+    this.patternV3=!!patternV3||!!normalMode;this.normalMode=!!normalMode;
+    this.normalRevision=normalMode?(options.normalRevision||1):0;this.respawnBombs=!!options.respawnBombs;
     this.index = index;
     this.hp = rules.boss.phaseHP[index];
   }
@@ -64,7 +68,7 @@
   function Battle(rules, assist, rule) {
     if (typeof assist !== 'boolean') throw new Error('辅助模式参数无效');
     if (rule === undefined) rule = RULE;
-    if (rule !== RULE && rule !== FOCUS_RULE && rule !== PATTERN_RULE) throw new Error('未知的战斗规则版本');
+    if ([RULE,FOCUS_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE].indexOf(rule)<0) throw new Error('未知的战斗规则版本');
     this.rule = rule;
     this.rules = rules;
     this.assist = assist;
@@ -75,7 +79,7 @@
     this.status = 'playing';
     this.stage = 'opening';
     this.remaining = rules.clock.introTicks;
-    this.sim = new Phase(rules, 0, assist, rule !== RULE, rule === PATTERN_RULE);
+    this.sim = new Phase(rules, 0, assist, rule !== RULE, rule === PATTERN_RULE||rule===RESPAWN_RULE,rule===NORMAL_RULE||rule===NORMAL_V2_RULE,phaseOptions(rule));
     this.stats = this.sim.stats;
     this.events = [];
     this.remainingInvulnerability = 0;
@@ -87,7 +91,7 @@
     p.y = Math.max(bounds.minY * 64, Math.min(bounds.maxY * 64, p.y + input.dy));
   };
   Battle.prototype.nextPhase = function () {
-    var old = this.sim, next = new Phase(this.rules, ++this.phaseIndex, this.assist, this.rule !== RULE, this.rule === PATTERN_RULE);
+    var rule=this.rule,old = this.sim, next = new Phase(this.rules, ++this.phaseIndex, this.assist, rule !== RULE, rule === PATTERN_RULE||rule===RESPAWN_RULE,rule===NORMAL_RULE||rule===NORMAL_V2_RULE,phaseOptions(rule));
     next.player.x = next.player.px = old.player.x;
     next.player.y = next.player.py = old.player.y;
     next.player.lives = old.player.lives; next.player.bombs = old.player.bombs;
@@ -144,5 +148,5 @@
       status: this.status, hp: this.sim.hp, score: this.score(), events: this.events.map(function(e) { return Object.assign({}, e); }),
       sim: this.sim.snapshot() };
   };
-  return { Battle: Battle, Phase: Phase, rule: RULE, focusRule: FOCUS_RULE, patternRule: PATTERN_RULE, supportedRules: [RULE, FOCUS_RULE, PATTERN_RULE] };
+  return { Battle: Battle, Phase: Phase, rule: RULE, focusRule: FOCUS_RULE, patternRule: PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE, supportedRules: [RULE, FOCUS_RULE, PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE] };
 }));

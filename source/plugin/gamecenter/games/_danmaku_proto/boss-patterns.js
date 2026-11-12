@@ -8,23 +8,45 @@
     var dx=sim.player.x-sim.boss.x,dy=sim.player.y-sim.boss.y,best=-Infinity;
     sim.rules.directionVectors.forEach(function(v,i){var dot=dx*v[0]+dy*v[1];if(dot>best){best=dot;sim.aimAngle=i;}});
   }
+  function normalRules(rules,revision){
+    var n=revision===2?rules.normal02:rules.normal01;
+    return Object.assign({},rules,{limits:Object.assign({},rules.limits,{enemySpawnCap:n.enemySpawnCap}),
+      stage01:Object.assign({},rules.stage01,{enemyCap:n.preludeEnemyCap,
+        types:rules.stage01.types.map(function(type,i){return Object.assign({},type,n.types[i]);})})});
+  }
   function pattern(sim){
-    var config=sim.rules.bossPatternsR3,p=config[sim.index],q=1+(sim.tick-1)%p.cycleTicks,c=Math.floor((sim.tick-1)/p.cycleTicks),i;
+    var config=sim.normalMode?(sim.normalRevision===2?sim.rules.normal02:sim.rules.normal01).boss:sim.rules.bossPatternsR3,p=config[sim.index],q=1+(sim.tick-1)%p.cycleTicks,c=Math.floor((sim.tick-1)/p.cycleTicks),i;
     if(sim.index===0){
+      if(p.weaveTicks){
+        var j=p.weaveTicks.indexOf(q);
+        if(j>=0){
+          var sweep=p.weaveRotations[(c*p.weaveTicks.length+j)%p.weaveRotations.length];
+          p.weaveAngles.forEach(function(a){
+            sim.spawn(sim.boss.x-p.weaveOffsetX*64,sim.boss.y+p.weaveOffsetY*64,a+sweep,p.weaveSpeed,p.radius);
+            sim.spawn(sim.boss.x+p.weaveOffsetX*64,sim.boss.y+p.weaveOffsetY*64,256-a-sweep,p.weaveSpeed,p.radius);
+          });
+        }
+      }
       var echo=p.fireTicks.indexOf(q-p.echoDelay)>=0,main=p.fireTicks.indexOf(q)>=0;
       if(!main&&!echo)return;
-      var rotation=p.rotations[c%p.rotations.length];
+      var burst=p.fireTicks.indexOf(q-(echo?p.echoDelay:0)),ordinal=c*p.fireTicks.length+burst;
+      var rotation=p.rotations[(sim.normalMode?ordinal:c)%p.rotations.length],gap=sim.normalMode?p.gapAngles[ordinal%p.gapAngles.length]:128;
       for(i=0;i<p.slots;i++){
-        var angle=Math.floor(i*512/p.slots)+rotation,d=(angle-128+768)%512-256;
+        var angle=Math.floor(i*512/p.slots)+rotation,d=(angle-gap+768)%512-256;
         if(Math.abs(d)<=p.gapHalfAngle)continue;
         sim.spawn(sim.boss.x,sim.boss.y,angle,echo?p.echoSpeed:p.speed,p.radius);
       }
     }else if(sim.index===1){
       if(p.captureTicks.indexOf(q)>=0){capture(sim);sim.warningUntil=sim.tick+p.warningTicks;}
       if(p.fireTicks.indexOf(q)>=0)p.angles.forEach(function(a){sim.spawn(sim.boss.x,sim.boss.y,sim.aimAngle+a,p.speed,p.radius);});
+      if(p.crossTicks&&p.crossTicks.indexOf(q)>=0){
+        p.crossLeftAngles.forEach(function(a){sim.spawn(24*64,p.crossY*64,a,p.crossSpeed,p.radius);});
+        p.crossRightAngles.forEach(function(a){sim.spawn(456*64,p.crossY*64,a,p.crossSpeed,p.radius);});
+      }
     }else{
       if(p.wallTicks.indexOf(q)>=0){
         var gap=p.gapCenters[c%p.gapCenters.length];
+        if(p.rowGapOffsets)gap+=p.rowGapOffsets[p.wallTicks.indexOf(q)]*(p.alternateRows&&c%2?-1:1);
         p.columns.forEach(function(x){if(Math.abs(x-gap)>p.gapHalfWidth)sim.spawn(x*64,p.wallY*64,128,p.wallSpeed,p.wallRadius);});
       }
       if(p.fanTicks.indexOf(q)>=0){
@@ -32,6 +54,16 @@
         p.rightAngles.forEach(function(a){sim.spawn(456*64,80*64,a,p.fanSpeed,p.fanRadius);});
       }
     }
+  }
+  function emitters(ctx,sim){
+    if(sim.normalRevision!==2||sim.index<0)return;
+    var p=sim.rules.normal02.boss[sim.index],ticks=sim.index===0?p.weaveTicks:sim.index===1?p.crossTicks:null;
+    if(!ticks)return;
+    var q=1+(sim.tick-1)%p.cycleTicks,near=ticks.some(function(t){var d=(t-q+p.cycleTicks)%p.cycleTicks;return d>0&&d<=18;});
+    if(!near)return;
+    var y=sim.index===0?sim.boss.y/64+p.weaveOffsetY:p.crossY,xs=sim.index===0?[sim.boss.x/64-p.weaveOffsetX,sim.boss.x/64+p.weaveOffsetX]:[24,456];
+    ctx.save();ctx.strokeStyle=sim.index===0?'#a5f2ef':'#d4b7ff';ctx.lineWidth=1.5;
+    xs.forEach(function(x){ctx.beginPath();ctx.arc(x,y,9+2*Math.sin(sim.tick/4),0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(x-4,y);ctx.lineTo(x+4,y);ctx.moveTo(x,y-4);ctx.lineTo(x,y+4);ctx.stroke();});ctx.restore();
   }
   function bullet(ctx,e,index){
     var x=e.x/64,y=e.y/64,r=e.radius;
@@ -50,5 +82,5 @@
     }
     ctx.restore();
   }
-  return{pattern:pattern,bullet:bullet};
+  return{pattern:pattern,bullet:bullet,normalRules:normalRules,emitters:emitters};
 }));

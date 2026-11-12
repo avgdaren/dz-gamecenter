@@ -10,9 +10,10 @@ const zero={dx:0,dy:0,flags:1},checks=[];
 function test(name,fn){fn();checks.push(name);console.log('PASS '+name);}
 function php(file,packet){const r=spawnSync(process.env.DANMAKU_PHP||'php',[path.join(__dirname,file)],{input:JSON.stringify(packet),encoding:'utf8',maxBuffer:64*1024*1024});assert.equal(r.status,0,r.error?.message||r.stderr||r.stdout);return JSON.parse(r.stdout);}
 test('r3 is separate from the two old rules, and every phase replacement retains the revision',()=>{
- assert.deepEqual(S.supportedRules,['danmaku-stage01-r1','danmaku-stage01-r2','danmaku-stage01-r3']);
- for(const rule of S.supportedRules){const b=new S.Stage(rules,false,rule);for(const i of [0,1,2]){b.replace(i);assert.equal(b.sim.patternV3,rule===S.patternRule);assert.equal(b.sim.bombMode,rule!==S.rule);}}
- for(const rule of B.supportedRules){const b=new B.Battle(rules,false,rule);for(let i=0;i<3;i++){assert.equal(b.sim.patternV3,rule===B.patternRule);if(i<2)b.nextPhase();}}
+ const oldStageRules=['danmaku-stage01-r1','danmaku-stage01-r2','danmaku-stage01-r3'];
+ assert.ok(oldStageRules.every(rule=>S.supportedRules.includes(rule)));
+ for(const rule of oldStageRules){const b=new S.Stage(rules,false,rule);for(const i of [0,1,2]){b.replace(i);assert.equal(b.sim.patternV3,rule===S.patternRule);assert.equal(b.sim.bombMode,rule!==S.rule);}}
+ for(const rule of [B.rule,B.focusRule,B.patternRule]){const b=new B.Battle(rules,false,rule);for(let i=0;i<3;i++){assert.equal(b.sim.patternV3,rule===B.patternRule);if(i<2)b.nextPhase();}}
 });
 test('three attack signatures use separate geometries and genuine warning/gap windows',()=>{
  const a=new S.Sim(rules,0,false,S.patternRule);a.tick=45;a.pattern();assert.ok(a.enemies.length>=20);assert.ok(a.enemies.every(e=>e.radius===4));

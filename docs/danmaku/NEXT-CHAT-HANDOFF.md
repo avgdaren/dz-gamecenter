@@ -4,6 +4,12 @@
 
 ## 最新用户要求优先
 
+**最新试玩反馈与全局规则（2026-11-12）：** 用户确认Normal v1道中差距明显且没问题，Boss与Easy拉不开；补充“死后大招重置”为游戏全局设定。已做[Normal Boss v2＋全局掉命重置](NORMAL-v2.md)：道中攻击／编队保留，Boss改双源交织、针雨侧夹与逐层移门。所有当前Easy／Normal／首领／弹型练习掉命复活后库存标准2／辅助3，最后一命不补；新Easy关卡r4、Normal关卡normal-r2、首领r4／normal-r2、p0-r3，旧回放语义保留。新试玩`E:\GPT工作区\output\danmaku-stage01-normal-v2-offline.html`，旧r3／v1文件不变。34组阶段差分、140组碰撞边界、旧版兼容与非法载荷检查通过，新Boss待用户试玩；没有自动整关通关或改站点。继续同一独立PR #77；[给小蓝的全局规则说明](RESPAWN-BOMBS-HANDOFF.md)，当前部署PR #75未自动更新。
+
+Normal 已单独提交至 [Draft PR #77](https://github.com/avgdaren/dz-gamecenter/pull/77)，运行提交`9b69987`，基底为`feat/danmaku-p1`，当前工作分支`feat/danmaku-normal-v1`。PR #75 的部署代码未追加本次改动。后续先收用户对 Normal 候选的试玩反馈，不擅自合并或让小蓝替换现有版本。
+
+**新增工作：Normal 进阶候选（2026-11-12）。** 用户已把 PR #75 交给小蓝部署本地论坛，现要求提高当前 Easy 的难度。小典从交接提交`50b6d41`派生独立分支`feat/danmaku-normal-v1`，对应[Issue #76](https://github.com/avgdaren/dz-gamecenter/issues/76)；不追加到小蓝部署分支。已制作 Normal 道中交叉射击、移动花环缺口、三轮锁定针雨与紧凑星门，新规则`danmaku-stage01-normal-r1`／`danmaku-p1-normal-r1`。顶部可切回原 Easy，仍一关，生命／判定／火力／音乐美术保持原值。试玩`E:\GPT工作区\output\danmaku-stage01-normal-v1-offline.html`，详见[NORMAL-v1.md](NORMAL-v1.md)。技术检查和短入口通过，真人难度待用户试玩；没有自动整关通关，没有接榜单、安装论坛或改 PR #75。
+
 **GitHub交接已完成：** 公开仓库已推送`feat/danmaku-p1`，建立[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)和[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)。运行内容提交`24b41f3`，后续交接文档沿同一PR补充。小蓝从`handoff-v1/XIAOLAN-HANDOFF.md`接手当前平台适配、本地论坛验证和线上包；本轮没有合并、接入站点或部署。不要恢复下方历史记录中“小典先本地论坛”的旧顺序。
 
 **GitHub目标已明确（2026-11-12）：已告知现有仓库为公开及AGENTS的原限制，主人明确选择“允许提交到现有公开仓库”，授权本次天使弹幕祭源码、图像、音乐公开GitHub交接。** AGENTS已记录本次例外，不要重复询问；按现有仓库整理分支／Draft PR，不合并、不部署。实际链接见`handoff-v1/GITHUB.json`，本地论坛与线上包由小蓝接手。
