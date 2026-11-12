@@ -5,8 +5,8 @@
   else root.DanmakuStage01=factory(root.DanmakuP0,root.DanmakuBattle);
 }(typeof globalThis!=='undefined'?globalThis:this,function(engine,battle){
   'use strict';
-  var RULE='danmaku-stage01-r1',BOMB_RULE='danmaku-stage01-r2',PATTERN_RULE='danmaku-stage01-r3',NORMAL_RULE='danmaku-stage01-normal-r1',Q=64;
-  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE];
+  var RULE='danmaku-stage01-r1',BOMB_RULE='danmaku-stage01-r2',PATTERN_RULE='danmaku-stage01-r3',NORMAL_RULE='danmaku-stage01-normal-r1',RESPAWN_RULE='danmaku-stage01-r4',NORMAL_V2_RULE='danmaku-stage01-normal-r2',Q=64;
+  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE];
   function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
   function level(power,rules){var thresholds=rules.stage01.growth.thresholds;return power>=thresholds[2]?3:power>=thresholds[1]?2:1;}
   function position(rules,mob,age){
@@ -21,7 +21,8 @@
   function Sim(rules,index,assist,rule){
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
-    battle.Phase.call(this,rules,Math.max(0,index),assist,true,rule===PATTERN_RULE,rule===NORMAL_RULE);
+    battle.Phase.call(this,rules,Math.max(0,index),assist,true,rule===PATTERN_RULE||rule===RESPAWN_RULE,rule===NORMAL_RULE||rule===NORMAL_V2_RULE,
+      {respawnBombs:rule===RESPAWN_RULE||rule===NORMAL_V2_RULE,normalRevision:rule===NORMAL_V2_RULE?2:1});
     this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
     this.hp=index<0?0:rules.boss.phaseHP[index];
     this.player.power=0;this.mobs=[];this.drops=[];this.cursor=0;this.nextDrop=1;
@@ -37,6 +38,7 @@
     }
   }
   Sim.prototype=Object.create(battle.Phase.prototype);Sim.prototype.constructor=Sim;
+  Sim.prototype.initialBombStock=function(){var b=this.rules.stage01.bomb;return this.bombMode?(this.assist?b.assistStart:b.standardStart):battle.Phase.prototype.initialBombStock.call(this);};
   Sim.prototype.spawn=function(x,y,angle,speed,radius,ttl,kind){
     var r=this.rules,v=r.directionVectors[(angle%512+512)%512];
     if(this.assist)speed=Math.trunc(speed*r.assist.enemySpeedNumerator/r.assist.enemySpeedDenominator);
@@ -183,6 +185,7 @@
       bodyHit=this.mobs.some(function(m){return touches(m,p,(r.player.hitRadius+r.stage01.types[m.type].radius)*Q);});
       if(collided.size||bodyHit){
         p.lives--;this.stats.hitsTaken++;this.lastHit=t;p.invulUntil=Math.max(p.invulUntil,t+r.player.hitInvulnerabilityTicks);
+        this.replenishOnRespawn();
         var clear=r.player.hitClearRadius*Q;
         this.enemies=this.enemies.filter(function(e){return!collided.has(e.id)&&(e.x-p.x)**2+(e.y-p.y)**2>clear*clear;});
         this.losePower();
@@ -299,5 +302,5 @@
   };
   function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
   function scoreLimit(rules,rule){return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
-  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
 }));

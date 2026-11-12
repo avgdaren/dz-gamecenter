@@ -8,8 +8,10 @@ if (PHP_SAPI !== 'cli' || !defined('DANMAKU_P0_LOCAL')) {
 class DanmakuP0Sim {
     public const RULE = 'danmaku-p0-r1';
     public const FOCUS_RULE = 'danmaku-p0-r2';
+    public const RESPAWN_RULE = 'danmaku-p0-r3';
     public string $rule;
     public bool $focusFire;
+    public bool $respawnBombs=false;
     public array $rules;
     public string $scene;
     public bool $assist;
@@ -28,9 +30,9 @@ class DanmakuP0Sim {
 
     public function __construct(array $rules, string $scene, bool $assist, string $rule=self::RULE) {
         if (!in_array($scene, ['flower','aim','wave'], true)) throw new RuntimeException('未知的原型场景');
-        if (!in_array($rule,[self::RULE,self::FOCUS_RULE],true)) throw new RuntimeException('未知的自机规则版本');
+        if (!in_array($rule,[self::RULE,self::FOCUS_RULE,self::RESPAWN_RULE],true)) throw new RuntimeException('未知的自机规则版本');
         $this->rule=$rule;
-        $this->focusFire=$rule===self::FOCUS_RULE;
+        $this->focusFire=$rule!==self::RULE;$this->respawnBombs=$rule===self::RESPAWN_RULE;
         $this->rules = $rules;
         $this->scene = $scene;
         $this->assist = $assist;
@@ -73,6 +75,11 @@ class DanmakuP0Sim {
         else $offset = -4096+intdiv(4096*($u-360),120);
         return 15360+$offset;
     }
+    public function replenishOnRespawn(): void {
+        if(!$this->respawnBombs||$this->player['lives']<=0)return;
+        $this->player['bombs']=$this->initialBombStock();
+    }
+    public function initialBombStock(): int {return $this->assist?$this->rules['assist']['bombs']:$this->rules['player']['standardBombs'];}
     public function spawn(int $x, int $y, int $angle, int $speed, int $radius): void {
         $r = $this->rules;
         $vector = $r['directionVectors'][($angle%512+512)%512];
@@ -173,6 +180,7 @@ class DanmakuP0Sim {
             foreach ($this->enemies as $e) if (self::touches($e,$p,($r['player']['hitRadius']+$e['radius'])*64)) $collided[$e['id']]=true;
             if ($collided) {
                 $p['lives']--; $this->stats['hitsTaken']++;
+                $this->replenishOnRespawn();
                 $p['invulUntil']=max($p['invulUntil'],$t+$r['player']['hitInvulnerabilityTicks']);
                 $clearRadius=$r['player']['hitClearRadius']*64; $keep=[];
                 foreach ($this->enemies as $e) {
@@ -231,7 +239,7 @@ class DanmakuP0Sim {
 
 function danmaku_p0_decode(array $payload, array $rules): array {
     if (array_diff(array_keys($payload),['prototype','rule','scene','assist','ticks','input']) ||
-        ($payload['prototype']??null)!==true || !in_array($payload['rule']??null,[DanmakuP0Sim::RULE,DanmakuP0Sim::FOCUS_RULE],true) ||
+        ($payload['prototype']??null)!==true || !in_array($payload['rule']??null,[DanmakuP0Sim::RULE,DanmakuP0Sim::FOCUS_RULE,DanmakuP0Sim::RESPAWN_RULE],true) ||
         !in_array($payload['scene']??null,['flower','aim','wave'],true) || !isset($payload['assist']) || !is_bool($payload['assist'])) {
         throw new RuntimeException('回放格式、版本或步数无效');
     }

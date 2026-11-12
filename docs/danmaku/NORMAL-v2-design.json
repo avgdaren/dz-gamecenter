@@ -1,0 +1,21 @@
+{
+  "stageRule": "danmaku-stage01-normal-r2",
+  "practiceRule": "danmaku-p1-normal-r2",
+  "typesFrom": "normal01",
+  "enemySpawnCap": 8192,
+  "preludeEnemyCap": 192,
+  "boss": [
+    {"name":"woven-double-orbit","cycleTicks":360,"fireTicks":[36,156,276],"echoDelay":18,"slots":40,
+     "rotations":[-7,0,7],"gapAngles":[96,128,160,128],"gapHalfAngle":10,"speed":160,"echoSpeed":136,"radius":4,
+     "weaveTicks":[72,96,120,192,216,240,312,336,360],"weaveAngles":[72,104,136,168],
+     "weaveRotations":[-16,0,16,0],"weaveOffsetX":56,"weaveOffsetY":16,"weaveSpeed":176},
+    {"name":"needle-pincer","cycleTicks":300,"captureTicks":[20,120,220],"warningTicks":30,
+     "fireTicks":[50,62,74,150,162,174,250,262,274],"angles":[-20,-15,-10,-5,0,5,10,15,20],"speed":256,"radius":3,
+     "crossTicks":[88,188,288],"crossLeftAngles":[48,72,96],"crossRightAngles":[160,184,208],"crossY":156,"crossSpeed":176},
+    {"name":"travelling-gate-corridor","cycleTicks":300,"wallTicks":[24,44,64,84,104,124],
+     "columns":[16,32,48,64,80,96,112,128,144,160,176,192,208,224,240,256,272,288,304,320,336,352,368,384,400,416,432,448,464],
+     "gapCenters":[128,240,352,240],"gapHalfWidth":24,"rowGapOffsets":[0,24,48,24,0,-24],"alternateRows":true,
+     "wallY":48,"wallSpeed":192,"wallRadius":6,"fanTicks":[156,180,204],
+     "leftAngles":[48,64,80,96],"rightAngles":[160,176,192,208],"fanSpeed":208,"fanRadius":4}
+  ]
+}

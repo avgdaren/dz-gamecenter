@@ -1,5 +1,7 @@
 # Normal 进阶难度候选 v1
 
+后续反馈：用户已试玩，认可道中，认为Boss与Easy差距不足；最新改为[Normal Boss v2与全局掉命重置](NORMAL-v2.md)。本页与v1离线文件保留作历史对照，不覆盖新版规则。
+
 2026-11-12，小典 / Codex；原型 `(C) 2026 Carinoasd`。
 
 用户将 r3 交给小蓝接入本地论坛后，要求制作高于当前 Easy 的进阶难度。本候选从交接提交 `50b6d41` 派生独立分支 `feat/danmaku-normal-v1`，对应 [Issue #76](https://github.com/avgdaren/dz-gamecenter/issues/76)。不追加到部署用 PR #75，不替换已确认的 r3 HTML／ZIP，不改论坛。第一版继续只有一关。
