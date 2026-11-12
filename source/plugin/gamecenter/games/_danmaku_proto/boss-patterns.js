@@ -8,14 +8,21 @@
     var dx=sim.player.x-sim.boss.x,dy=sim.player.y-sim.boss.y,best=-Infinity;
     sim.rules.directionVectors.forEach(function(v,i){var dot=dx*v[0]+dy*v[1];if(dot>best){best=dot;sim.aimAngle=i;}});
   }
+  function normalRules(rules){
+    var n=rules.normal01;
+    return Object.assign({},rules,{limits:Object.assign({},rules.limits,{enemySpawnCap:n.enemySpawnCap}),
+      stage01:Object.assign({},rules.stage01,{enemyCap:n.preludeEnemyCap,
+        types:rules.stage01.types.map(function(type,i){return Object.assign({},type,n.types[i]);})})});
+  }
   function pattern(sim){
-    var config=sim.rules.bossPatternsR3,p=config[sim.index],q=1+(sim.tick-1)%p.cycleTicks,c=Math.floor((sim.tick-1)/p.cycleTicks),i;
+    var config=sim.normalMode?sim.rules.normal01.boss:sim.rules.bossPatternsR3,p=config[sim.index],q=1+(sim.tick-1)%p.cycleTicks,c=Math.floor((sim.tick-1)/p.cycleTicks),i;
     if(sim.index===0){
       var echo=p.fireTicks.indexOf(q-p.echoDelay)>=0,main=p.fireTicks.indexOf(q)>=0;
       if(!main&&!echo)return;
-      var rotation=p.rotations[c%p.rotations.length];
+      var burst=p.fireTicks.indexOf(q-(echo?p.echoDelay:0)),ordinal=c*p.fireTicks.length+burst;
+      var rotation=p.rotations[(sim.normalMode?ordinal:c)%p.rotations.length],gap=sim.normalMode?p.gapAngles[ordinal%p.gapAngles.length]:128;
       for(i=0;i<p.slots;i++){
-        var angle=Math.floor(i*512/p.slots)+rotation,d=(angle-128+768)%512-256;
+        var angle=Math.floor(i*512/p.slots)+rotation,d=(angle-gap+768)%512-256;
         if(Math.abs(d)<=p.gapHalfAngle)continue;
         sim.spawn(sim.boss.x,sim.boss.y,angle,echo?p.echoSpeed:p.speed,p.radius);
       }
@@ -50,5 +57,5 @@
     }
     ctx.restore();
   }
-  return{pattern:pattern,bullet:bullet};
+  return{pattern:pattern,bullet:bullet,normalRules:normalRules};
 }));

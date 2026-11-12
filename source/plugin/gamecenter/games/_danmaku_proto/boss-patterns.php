@@ -1,15 +1,22 @@
 <?php
 /* (C) 2026 Carinoasd. Deterministic Boss r3 patterns: 小典 / Codex. */
 if(PHP_SAPI!=='cli'||!defined('DANMAKU_P0_LOCAL')){http_response_code(404);exit;}
+function danmaku_normal_rules(array $rules): array {
+    $n=$rules['normal01'];$rules['limits']['enemySpawnCap']=$n['enemySpawnCap'];
+    $rules['stage01']['enemyCap']=$n['preludeEnemyCap'];
+    foreach($rules['stage01']['types'] as $i=>$type)$rules['stage01']['types'][$i]=array_replace($type,$n['types'][$i]);
+    return $rules;
+}
 function danmaku_boss_pattern_r3(object $sim): void {
-    $p=$sim->rules['bossPatternsR3'][$sim->index];
+    $p=($sim->normalMode?$sim->rules['normal01']['boss']:$sim->rules['bossPatternsR3'])[$sim->index];
     $q=1+($sim->tick-1)%$p['cycleTicks'];$c=intdiv($sim->tick-1,$p['cycleTicks']);
     if($sim->index===0){
         $echo=in_array($q-$p['echoDelay'],$p['fireTicks'],true);$main=in_array($q,$p['fireTicks'],true);
         if(!$main&&!$echo)return;
-        $rotation=$p['rotations'][$c%count($p['rotations'])];
+        $burst=array_search($q-($echo?$p['echoDelay']:0),$p['fireTicks'],true);$ordinal=$c*count($p['fireTicks'])+$burst;
+        $rotation=$p['rotations'][($sim->normalMode?$ordinal:$c)%count($p['rotations'])];$gap=$sim->normalMode?$p['gapAngles'][$ordinal%count($p['gapAngles'])]:128;
         for($i=0;$i<$p['slots'];$i++){
-            $angle=intdiv($i*512,$p['slots'])+$rotation;$d=($angle-128+768)%512-256;
+            $angle=intdiv($i*512,$p['slots'])+$rotation;$d=($angle-$gap+768)%512-256;
             if(abs($d)<=$p['gapHalfAngle'])continue;
             $sim->spawn($sim->boss['x'],$sim->boss['y'],$angle,$echo?$p['echoSpeed']:$p['speed'],$p['radius']);
         }
