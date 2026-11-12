@@ -1,0 +1,11 @@
+<!doctype html>
+<!-- (C) 2026 Carinoasd. Supplied HappyShrimp BGM audition: 小典 / Codex. -->
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天使弹幕祭 · HappyShrimp BGM</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#0b1322;color:#eef2ff;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:800px;margin:40px auto;padding:0 24px}article{background:#14213a;border:1px solid #304666;border-radius:14px;padding:24px;margin:20px 0}h1{font-size:28px}h2{font-size:21px;margin:0}p{color:#b7c8df}audio{width:100%;margin:12px 0}a{color:#f2cd77}footer{color:#9fb2cd}</style>
+<main><h1>天使弹幕祭 · 两首 BGM</h1><p>由 avg达人提供，使用 HappyShrimp 配合提示词工程制作。此页为游戏使用的音频，不自动播放。</p>
+<article><h2>道中 · ヘクサフュージョン</h2><p>开头72秒，最后0.8秒淡出，随后衔接Boss登场。</p><audio controls preload="none" src="stage.mp3"></audio><a href="stage.mp3" download>下载道中剪辑</a></article>
+<article><h2>Boss · 残响</h2><p>保留约204.71秒完整编排，从登场开始播放。三阶段共用一条音乐，曲尾1.5秒接回开头；循环后从1.5秒继续。</p><audio controls preload="none" src="bossCore.mp3"></audio><a href="bossCore.mp3" download>下载Boss剪辑</a></article>
+<article><h2>接缝检查 · Boss循环与道中转场</h2><p>浏览器解码和混音后的短片段，便于检查衔接；播放器本身不循环整首。</p><audio controls preload="none" src="previews/boss-loop-check.wav"></audio><audio controls preload="none" src="previews/stage-outro.wav"></audio></article>
+<p>原始两首MP3保留在工作区根目录，未覆盖；具体生成提示词尚未提供。游戏使用静态音频，离线运行不依赖音乐生成服务。</p><footer>音乐制作：avg达人 / HappyShrimp；剪辑与接入：小典 / Codex。原型 (C) 2026 Carinoasd。本地私用。</footer></main>
+<script>document.querySelectorAll('audio').forEach(function(p){p.addEventListener('play',function(){document.querySelectorAll('audio').forEach(function(q){if(q!==p)q.pause();});});});</script></html>

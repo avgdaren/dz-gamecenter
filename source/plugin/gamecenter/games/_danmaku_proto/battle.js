@@ -1,13 +1,14 @@
 /* (C) 2026 Carinoasd. Three-phase P1 battle: 小典 / Codex. */
 (function (root, factory) {
   'use strict';
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('./engine.js'));
-  else root.DanmakuBattle = factory(root.DanmakuP0);
-}(typeof globalThis !== 'undefined' ? globalThis : this, function (engine) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./engine.js'),require('./boss-patterns.js'));
+  else root.DanmakuBattle = factory(root.DanmakuP0,root.DanmakuBossPatterns);
+}(typeof globalThis !== 'undefined' ? globalThis : this, function (engine,patterns) {
   'use strict';
-  var RULE = 'danmaku-p1-r1';
-  function Phase(rules, index, assist) {
-    engine.Sim.call(this, rules, index === 1 ? 'aim' : 'flower', assist);
+  var RULE = 'danmaku-p1-r1', FOCUS_RULE = 'danmaku-p1-r2', PATTERN_RULE='danmaku-p1-r3';
+  function Phase(rules, index, assist, focusFire, patternV3) {
+    engine.Sim.call(this, rules, index === 1 ? 'aim' : 'flower', assist, focusFire ? engine.focusRule : engine.rule);
+    this.patternV3=!!patternV3;
     this.index = index;
     this.hp = rules.boss.phaseHP[index];
   }
@@ -24,6 +25,7 @@
     else if (this.tick >= this.rules.clock.phaseMaxTicks) this.status = 'timeout';
   };
   Phase.prototype.pattern = function () {
+    if(this.patternV3){patterns.pattern(this);return;}
     if (this.index === 0) return engine.Sim.prototype.pattern.call(this);
     if (this.index === 1) {
       this.scene = 'aim'; engine.Sim.prototype.pattern.call(this);
@@ -59,8 +61,11 @@
       this.spawn(this.boss.x, this.boss.y, this.aimAngle + p.aimAngleOffsets[i], p.aimSpeedStepQ, 4);
     }
   };
-  function Battle(rules, assist) {
+  function Battle(rules, assist, rule) {
     if (typeof assist !== 'boolean') throw new Error('辅助模式参数无效');
+    if (rule === undefined) rule = RULE;
+    if (rule !== RULE && rule !== FOCUS_RULE && rule !== PATTERN_RULE) throw new Error('未知的战斗规则版本');
+    this.rule = rule;
     this.rules = rules;
     this.assist = assist;
     this.tick = 0;
@@ -70,7 +75,7 @@
     this.status = 'playing';
     this.stage = 'opening';
     this.remaining = rules.clock.introTicks;
-    this.sim = new Phase(rules, 0, assist);
+    this.sim = new Phase(rules, 0, assist, rule !== RULE, rule === PATTERN_RULE);
     this.stats = this.sim.stats;
     this.events = [];
     this.remainingInvulnerability = 0;
@@ -82,7 +87,7 @@
     p.y = Math.max(bounds.minY * 64, Math.min(bounds.maxY * 64, p.y + input.dy));
   };
   Battle.prototype.nextPhase = function () {
-    var old = this.sim, next = new Phase(this.rules, ++this.phaseIndex, this.assist);
+    var old = this.sim, next = new Phase(this.rules, ++this.phaseIndex, this.assist, this.rule !== RULE, this.rule === PATTERN_RULE);
     next.player.x = next.player.px = old.player.x;
     next.player.y = next.player.py = old.player.y;
     next.player.lives = old.player.lives; next.player.bombs = old.player.bombs;
@@ -134,10 +139,10 @@
     return parts;
   };
   Battle.prototype.snapshot = function () {
-    return { rule: RULE, tick: this.tick, activeTicks: this.activeTicks, assist: this.assist,
+    return { rule: this.rule, tick: this.tick, activeTicks: this.activeTicks, assist: this.assist,
       phase: this.phaseIndex, phaseBreaks: this.phaseBreaks, stage: this.stage, remaining: this.remaining,
       status: this.status, hp: this.sim.hp, score: this.score(), events: this.events.map(function(e) { return Object.assign({}, e); }),
       sim: this.sim.snapshot() };
   };
-  return { Battle: Battle, Phase: Phase, rule: RULE };
+  return { Battle: Battle, Phase: Phase, rule: RULE, focusRule: FOCUS_RULE, patternRule: PATTERN_RULE, supportedRules: [RULE, FOCUS_RULE, PATTERN_RULE] };
 }));

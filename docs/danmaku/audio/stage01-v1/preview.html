@@ -1,0 +1,12 @@
+<!doctype html>
+<!-- Original composition and preview: 小典 / Codex. Prototype (C) 2026 Carinoasd. -->
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>星穹回廊 · 原创音频试听</title><style>
+:root{color-scheme:dark;font:15px/1.7 system-ui,"Microsoft YaHei",sans-serif;background:#0b1424;color:#e8edf6}body{max-width:900px;margin:0 auto;padding:30px 20px}h1{font-size:25px;font-weight:500}h2{font-size:18px;color:#e8c888}p{color:#a8b8cb}a{color:#9ac8ff}.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}article{padding:14px;border:1px solid #34415a;border-radius:8px;background:#111d30}article strong{font-size:14px;font-weight:500;display:block;margin-bottom:8px}audio{width:100%;height:34px}footer{font-size:12px;color:#91a2b9;margin-top:30px}</style></head><body>
+<h1>星穹回廊 · 原创合成音频试听</h1><p>两组音乐主题及配器／收尾，16种音效。Boss主题层与节奏层在游戏中随阶段混合。点击播放，不会自动发声；播放一项时会暂停其他项。</p><p><a href="../../STAGE-01-AUDIO-v1.md">制作与验证记录</a> · <a href="score.json">原始乐谱</a> · <a href="render-v1/manifest.json">音频清单</a></p>
+<h2>音乐</h2><div id="music" class="items"></div><h2>音效</h2><div id="effects" class="items"></div><footer>作曲／合成：小典 / Codex。原型版权 (C) 2026 Carinoasd。仅供本工程本地私用。</footer>
+<script>
+'use strict';
+const music=[['stage','回廊微光 · 72秒'],['bossCore','星仪的回声 · 主题层'],['bossDrive','星仪的回声 · 节奏层'],['intro','抵达观测台'],['clear','星幕初晴'],['defeat','再起的星光']];
+const effects=[['shot','自机射击'],['hit','命中目标'],['enemy','敌人发射'],['graze','擦弹'],['pickup','强化拾取'],['upgrade','火力提升'],['hurt','自机受击'],['bomb','星翼绽放'],['kill','小怪击破'],['elite','守卫击破'],['charge','蓄力锁定'],['supply','大招补给'],['phase','阶段突破'],['menu','菜单确认'],['win','胜利提示'],['lose','终局提示']];
+for(const [section,entries]of [['music',music],['effects',effects]])for(const [key,title]of entries){const card=document.createElement('article'),label=document.createElement('strong'),player=document.createElement('audio');label.textContent=title;player.controls=true;player.preload='none';player.src='render-v1/'+key+'.wav';player.addEventListener('play',()=>{document.querySelectorAll('audio').forEach(other=>{if(other!==player)other.pause();});});card.append(label,player);document.getElementById(section).append(card);}
+</script></body></html>

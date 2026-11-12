@@ -1,0 +1,373 @@
+{
+  "author": "小典 / Codex",
+  "date": "2026-11-11",
+  "source_files": [
+    {
+      "path": "player-back-idle-source-v1.png",
+      "size": [
+        1234,
+        1274
+      ],
+      "color_type": 6,
+      "alpha_zero": 1167510,
+      "alpha_255": 1966,
+      "alpha_partial": 402640,
+      "alpha_max": 255,
+      "bbox_by_alpha": {
+        "1": [
+          65,
+          36,
+          1185,
+          1249
+        ],
+        "128": [
+          294,
+          81,
+          915,
+          1186
+        ],
+        "250": [
+          295,
+          81,
+          915,
+          1185
+        ]
+      },
+      "samples": {
+        "(0, 0)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "(1233, 1273)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "(617, 637)": [
+          63,
+          73,
+          130,
+          253
+        ],
+        "(617, 318)": [
+          252,
+          208,
+          149,
+          254
+        ],
+        "(617, 955)": [
+          206,
+          193,
+          207,
+          253
+        ]
+      },
+      "sha256": "8c0dbf052aaff062dd6298422b9bf59df2cb861c5e2c19b4b22a42b1ed92811b"
+    },
+    {
+      "path": "player-front-display-source-v1.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "color_type": 6,
+      "alpha_zero": 1057129,
+      "alpha_255": 0,
+      "alpha_partial": 515735,
+      "alpha_max": 254,
+      "bbox_by_alpha": {
+        "1": [
+          0,
+          0,
+          971,
+          1511
+        ],
+        "128": [
+          155,
+          132,
+          867,
+          1386
+        ],
+        "250": [
+          156,
+          132,
+          865,
+          1385
+        ]
+      },
+      "samples": {
+        "(0, 0)": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "(1023, 1535)": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "(512, 768)": [
+          238,
+          228,
+          229,
+          253
+        ],
+        "(512, 384)": [
+          253,
+          216,
+          161,
+          254
+        ],
+        "(512, 1152)": [
+          98,
+          96,
+          114,
+          0
+        ]
+      },
+      "sha256": "29a66fff0ef2536b812095bed8f3f47fae38bbed567bfefc200dd78f61a29d8b"
+    },
+    {
+      "path": "player-motion-atlas-source-v1.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "color_type": 6,
+      "alpha_zero": 882108,
+      "alpha_255": 299,
+      "alpha_partial": 690121,
+      "alpha_max": 255,
+      "bbox_by_alpha": {
+        "1": [
+          0,
+          0,
+          1446,
+          1085
+        ],
+        "128": [
+          83,
+          16,
+          1365,
+          1051
+        ],
+        "250": [
+          84,
+          17,
+          1364,
+          1050
+        ]
+      },
+      "samples": {
+        "(0, 0)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "(1447, 1085)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "(724, 543)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "(724, 271)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "(724, 814)": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sha256": "bba105e500253c11905b2c78d60eab3b0f113a13ad4316c0576eaa2e36ef4b4f"
+    }
+  ],
+  "source_frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "cell_size": 362,
+      "solid_pixels": 31666,
+      "solid_bbox_local": [
+        89,
+        16,
+        274,
+        331
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "49a9058439f6d3e39325dedf51dc9060934e45645e6d5ebc25ff2f7e61bab23b"
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "cell_size": 362,
+      "solid_pixels": 31205,
+      "solid_bbox_local": [
+        89,
+        16,
+        276,
+        331
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "cc61935b3a1b2c7d02df601078718f2cacbf5cfbb580a9a10718517e109c264d"
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "cell_size": 362,
+      "solid_pixels": 31461,
+      "solid_bbox_local": [
+        88,
+        16,
+        277,
+        331
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "46a05759a8cd97fe0f9732ecf9dce8d8bf87561dab5906bf1d14d811d992e8b6"
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "cell_size": 362,
+      "solid_pixels": 30933,
+      "solid_bbox_local": [
+        89,
+        16,
+        274,
+        331
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "ec92956736b4ef20aa824342de1c9558feba9dd62dda6eac83698f4255b76187"
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "cell_size": 362,
+      "solid_pixels": 30930,
+      "solid_bbox_local": [
+        84,
+        17,
+        264,
+        326
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "0f21f185839aa0044dcb69e1d01a8a00d7dda723857fde4d1f081041b109347f"
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "cell_size": 362,
+      "solid_pixels": 30366,
+      "solid_bbox_local": [
+        82,
+        17,
+        268,
+        323
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "085507d87db7cbf24074c3275ae043c0bc7f46df61fd0d220a84f3672209a885"
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "cell_size": 362,
+      "solid_pixels": 30258,
+      "solid_bbox_local": [
+        80,
+        18,
+        264,
+        326
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "3ae3d46d192362c8dbb047e3d97ecfe7cdb1d64ca791d319f5945e75e45bdfa5"
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "cell_size": 362,
+      "solid_pixels": 29417,
+      "solid_bbox_local": [
+        83,
+        19,
+        257,
+        326
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "e595a40a2b094c6504ee9a43deff7ed60a532216d4f4ed816c2a59c1656d1e52"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "cell_size": 362,
+      "solid_pixels": 30852,
+      "solid_bbox_local": [
+        103,
+        17,
+        280,
+        326
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "47ca8c42b46c25ea873af78d7ecbf3fc2a43333b4ec6a31a7b2749142c20802e"
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "cell_size": 362,
+      "solid_pixels": 30576,
+      "solid_bbox_local": [
+        100,
+        17,
+        285,
+        324
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "8b6fbc026f687965bf4555ed16d0a3699cf410d5b5a381ad6d5895aa43b309d2"
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "cell_size": 362,
+      "solid_pixels": 30835,
+      "solid_bbox_local": [
+        96,
+        18,
+        283,
+        325
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "aba0f6735bdb1e616ad9e9372387be0ff348dc4cc5ca18ad502e6f4911e97c59"
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "cell_size": 362,
+      "solid_pixels": 29845,
+      "solid_bbox_local": [
+        104,
+        18,
+        279,
+        326
+      ],
+      "solid_edge_pixels": 0,
+      "source_sha256": "5651d47a1725f21dc25a001cc3c307bc45e26a0545a302b94ed21630179c2da3"
+    }
+  ],
+  "native_48px_exported": false,
+  "python_image_editing_performed": false
+}

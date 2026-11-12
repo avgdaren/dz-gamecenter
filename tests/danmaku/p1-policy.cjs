@@ -9,16 +9,18 @@ const engine=require(path.join(root,'engine.js'));
 const {Battle}=require(path.join(root,'battle.js'));
 function choose(b,options={}){
   const s=b.sim,p=s.player,h=options.horizon||30;
+  const focused=typeof options.focus==='function'?options.focus(b):options.focus===true;
+  const limit=focused?96:256,diagonal=focused?67:181,flags=focused?1:0;
   const gy=(options.y||500)*64;
   const lead=Math.max(0,Math.round((p.y/64-135)/12));
   let gx=b.stage==='active'?engine.bossX(Math.max(1,s.tick+1+lead)):240*64;
   if(b.stage==='active'&&options.delays&&s.tick<options.delays[b.phaseIndex])gx+=96*64;
-  function toward(x,y,limit){const len=Math.hypot(x,y);if(len>limit){x*=limit/len;y*=limit/len;}return{dx:Math.trunc(x),dy:Math.trunc(y),flags:0};}
-  const direct=toward(gx-p.x,gy-p.y,256);
+  function toward(x,y,limit){const len=Math.hypot(x,y);if(len>limit){x*=limit/len;y*=limit/len;}return{dx:Math.trunc(x),dy:Math.trunc(y),flags};}
+  const direct=toward(gx-p.x,gy-p.y,limit);
   if(b.stage!=='active')return direct;
   const candidates=[direct];
   for(const [dx,dy]of [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
-    const speed=dx&&dy?181:256;candidates.push({dx:dx*speed,dy:dy*speed,flags:0});
+    const speed=dx&&dy?diagonal:limit;candidates.push({dx:dx*speed,dy:dy*speed,flags});
   }
   let best=null;
   for(const input of candidates){
@@ -43,7 +45,7 @@ function choose(b,options={}){
   return{dx:best.dx,dy:best.dy,flags:best.flags};
 }
 function drive(rules,assist,options={}){
-  const b=new Battle(rules,assist),records=[];
+  const b=new Battle(rules,assist,options.rule),records=[];
   while(b.status==='playing'){
     const input=choose(b,options);records.push(input);b.step(input);
   }

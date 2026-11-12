@@ -1,0 +1,160 @@
+{
+  "author": "小典 / Codex",
+  "source": "Independent original melodies; two user-specified mood and arrangement references; no borrowed MIDI or samples",
+  "references": {
+    "boss": "亡き王女の為のセプテット",
+    "stage": "幻視の夜 ～ Ghostly Eyes",
+    "method": "Independent new melodies, reference mood, phrasing and instrumentation; no imported score, MIDI or samples"
+  },
+  "files": {
+    "stage": {
+      "title": "星穹夜航",
+      "bpm": 150,
+      "seconds": 72.0,
+      "bytes": 17049,
+      "notes": 1890,
+      "programsZeroBased": {
+        "lead": 73,
+        "bass": 39,
+        "piano": 0,
+        "pad": 90,
+        "counter": 81
+      },
+      "channels": {
+        "2": 270,
+        "4": 135,
+        "3": 376,
+        "10": 750,
+        "5": 164,
+        "1": 195
+      },
+      "sha256": "f79893d6818caec2420c84bec73ea38555989fe64f00481fb5407a78f0fed643"
+    },
+    "bossCore": {
+      "title": "星冠终奏 · 核心层",
+      "bpm": 168,
+      "seconds": 40.000016,
+      "bytes": 9480,
+      "notes": 1045,
+      "programsZeroBased": {
+        "lead": 56,
+        "bass": 39,
+        "piano": 0,
+        "pad": 48,
+        "counter": 81
+      },
+      "channels": {
+        "2": 196,
+        "4": 84,
+        "3": 256,
+        "10": 396,
+        "1": 113
+      },
+      "sha256": "91b3e1d27dd650efd3fae2f93eeb6eb3775b8d298e308a1f8b47693b88f9b3b9"
+    },
+    "bossDrive": {
+      "title": "星冠终奏 · 推进层",
+      "bpm": 168,
+      "seconds": 40.000016,
+      "bytes": 3847,
+      "notes": 416,
+      "programsZeroBased": {
+        "lead": 56,
+        "bass": 39,
+        "piano": 0,
+        "pad": 48,
+        "counter": 81
+      },
+      "channels": {
+        "5": 272,
+        "10": 144
+      },
+      "sha256": "5cb8678f80ee52fbf6cb9e381a07668fca8baafa121c8fbe5731926bf9952f90"
+    },
+    "boss": {
+      "title": "星冠终奏 · 完整曲",
+      "bpm": 168,
+      "seconds": 40.000016,
+      "bytes": 13002,
+      "notes": 1461,
+      "programsZeroBased": {
+        "lead": 56,
+        "bass": 39,
+        "piano": 0,
+        "pad": 48,
+        "counter": 81
+      },
+      "channels": {
+        "2": 196,
+        "4": 84,
+        "3": 256,
+        "10": 540,
+        "5": 272,
+        "1": 113
+      },
+      "sha256": "a470d2329725681ec86bdc45fe43a037bdbc727b81e1c0037ad463d9a22461b3"
+    },
+    "intro": {
+      "title": "星门启封",
+      "bpm": 160,
+      "seconds": 3.0,
+      "bytes": 643,
+      "notes": 39,
+      "programsZeroBased": {
+        "lead": 56,
+        "bass": 39,
+        "piano": 0,
+        "pad": 48,
+        "counter": 81
+      },
+      "channels": {
+        "1": 8,
+        "3": 16,
+        "4": 3,
+        "10": 12
+      },
+      "sha256": "045851e418ee96f809872a5b3062631bf9944dcc0332de2cb7e996176f1dbed2"
+    },
+    "clear": {
+      "title": "破晓星冠",
+      "bpm": 180,
+      "seconds": 3.999996,
+      "bytes": 765,
+      "notes": 53,
+      "programsZeroBased": {
+        "lead": 56,
+        "bass": 39,
+        "piano": 0,
+        "pad": 48,
+        "counter": 81
+      },
+      "channels": {
+        "1": 8,
+        "3": 24,
+        "4": 3,
+        "10": 18
+      },
+      "sha256": "686dc8a6d41b00018289c879cf3702c39a95baff9423c62318959cccc7b92422"
+    },
+    "defeat": {
+      "title": "夜航再启",
+      "bpm": 150,
+      "seconds": 2.4,
+      "bytes": 454,
+      "notes": 21,
+      "programsZeroBased": {
+        "lead": 56,
+        "bass": 39,
+        "piano": 0,
+        "pad": 48,
+        "counter": 81
+      },
+      "channels": {
+        "1": 6,
+        "3": 12,
+        "4": 3
+      },
+      "sha256": "af9930dbab1a61fcf54de3503d69ecb934a95f0b4bfd8f4392aeee379d960ff8"
+    }
+  }
+}

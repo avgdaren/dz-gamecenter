@@ -1,0 +1,46 @@
+{
+  "format": "recorded-happyshrimp",
+  "production": "User supplied; composed with HappyShrimp using prompt engineering (user report).",
+  "promptsProvided": false,
+  "ffmpegVersion": "ffmpeg version 2024-07-22-git-172da370e7-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+  "originalsUnmodified": true,
+  "gainDb": -4,
+  "entries": {
+    "stage": {
+      "kind": "music",
+      "mime": "audio/mpeg",
+      "seconds": 72.0,
+      "loop": false,
+      "loopStart": 0,
+      "loopEnd": 0,
+      "title": "ヘクサフュージョン",
+      "sourceSha256": "05eb569f2e256ede30f7042d041899d0b805f868316d5ff031776baa9a85648c",
+      "sourceSeconds": 200.47,
+      "sha256": "165620ac6391eb21c281fe96739439087bc803615ff6b194eff3b41b8bd47dd0",
+      "bytes": 1729849,
+      "peak": 0.5877106,
+      "rms": 0.0806488,
+      "channels": 2,
+      "sampleRate": 44100,
+      "filter": "atrim=start=0:end=72,asetpts=PTS-STARTPTS,volume=-4dB,afade=t=in:d=0.02,afade=t=out:st=71.2:d=0.8"
+    },
+    "bossCore": {
+      "kind": "music",
+      "mime": "audio/mpeg",
+      "seconds": 204.71002267573695,
+      "loop": true,
+      "loopStart": 1.5,
+      "loopEnd": 204.71,
+      "title": "残响",
+      "sourceSha256": "e3a7c2e99811dfe4df16c8b61f7ce62ef386e29ab24d4caeb9601a3a4e810bf2",
+      "sourceSeconds": 204.71,
+      "sha256": "a52518bd64fb5177c08cb0d96bbcfd9f519690ece3624f89055ee61d65ec6b43",
+      "bytes": 4914698,
+      "peak": 0.6311743,
+      "rms": 0.0812658,
+      "channels": 2,
+      "sampleRate": 44100,
+      "filter": "[0:a:0]atrim=end=204.710000,asetpts=PTS-STARTPTS,volume=-4dB[main];[1:a:0]atrim=end=1.5,asetpts=PTS-STARTPTS,volume=-4dB[h];[main][h]acrossfade=d=1.5:c1=tri:c2=tri[out]"
+    }
+  }
+}

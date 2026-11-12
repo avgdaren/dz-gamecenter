@@ -1,0 +1,185 @@
+{
+  "author": "小典 / Codex",
+  "source": "score.json and mathematical synthesis",
+  "sampleRate": 22050,
+  "channels": 1,
+  "bits": 16,
+  "entries": {
+    "stage": {
+      "seconds": 72.0,
+      "samples": 1587600,
+      "peak": 0.62,
+      "rms": 0.10453,
+      "loopJump": 0.0,
+      "sha256": "90c2507570870ab33590b53621448347afcb50c0d5c706821bfc0cb8c6c21114"
+    },
+    "bossCore": {
+      "seconds": 30.0,
+      "samples": 661500,
+      "peak": 0.62,
+      "rms": 0.12213,
+      "loopJump": 0.004977,
+      "sha256": "2bf96f354faa3317fa3e207696a6934d75153188ad4835661c622c572ba6877f"
+    },
+    "bossDrive": {
+      "seconds": 30.0,
+      "samples": 661500,
+      "peak": 0.45,
+      "rms": 0.06366,
+      "loopJump": 0.004484,
+      "sha256": "6c181004b1274720d208651a2b6a6e48067a284cd1c89d1fc91618f7fe88e2c2"
+    },
+    "intro": {
+      "seconds": 3.0,
+      "samples": 66150,
+      "peak": 0.62,
+      "rms": 0.15673,
+      "loopJump": 0.0,
+      "sha256": "180de72366201fe34eb537dfcaa3f61a9408661e6503ccd99b05c9be4157d208"
+    },
+    "clear": {
+      "seconds": 4.0,
+      "samples": 88200,
+      "peak": 0.62,
+      "rms": 0.12925,
+      "loopJump": 0.0,
+      "sha256": "a112f9d4e60a9bc283905adc1ae5d63cd4337fafdfc74a533e412c16eea21b3a"
+    },
+    "defeat": {
+      "seconds": 2.4,
+      "samples": 52920,
+      "peak": 0.62,
+      "rms": 0.19733,
+      "loopJump": 0.0,
+      "sha256": "442432e1f50ec85b04ab3e7ad45296e71a74f0fa85d3630742a9d0c26c5e738b"
+    },
+    "shot": {
+      "seconds": 0.055011337868480725,
+      "samples": 1213,
+      "peak": 0.65,
+      "rms": 0.19238,
+      "loopJump": 0.0,
+      "sha256": "9c80a4cfa90bbc2cb65987f8b966b0a38faf94a2e9c97a387d5caeff0abb4686"
+    },
+    "hit": {
+      "seconds": 0.07501133786848073,
+      "samples": 1654,
+      "peak": 0.65,
+      "rms": 0.15215,
+      "loopJump": 0.0,
+      "sha256": "95c459625715fb738524a90c6356176f1c8dad586403ecf749f1568b351f0f33"
+    },
+    "enemy": {
+      "seconds": 0.08997732426303855,
+      "samples": 1984,
+      "peak": 0.65,
+      "rms": 0.1974,
+      "loopJump": 0.0,
+      "sha256": "ad0efe350f4c1c64fd467995fc136ada4155c293a5054d1f8ab5b8ff1d84c272"
+    },
+    "graze": {
+      "seconds": 0.12,
+      "samples": 2646,
+      "peak": 0.65,
+      "rms": 0.14775,
+      "loopJump": 0.0,
+      "sha256": "637d4bf4000ea6265c7353bf51ae173cceac319838d42adb3114096b1d80c399"
+    },
+    "pickup": {
+      "seconds": 0.23002267573696145,
+      "samples": 5072,
+      "peak": 0.65,
+      "rms": 0.13491,
+      "loopJump": 0.0,
+      "sha256": "c2d2d64389e19af362c40b0c580c0a020681459a31f791890bccf9f9747bf663"
+    },
+    "upgrade": {
+      "seconds": 0.6499773242630386,
+      "samples": 14332,
+      "peak": 0.65,
+      "rms": 0.15245,
+      "loopJump": 0.0,
+      "sha256": "d31b79390fb736f26c962e9be0dfae87f02ad42b2b974b28fde5e34e00c50aa5"
+    },
+    "hurt": {
+      "seconds": 0.38,
+      "samples": 8379,
+      "peak": 0.65,
+      "rms": 0.13729,
+      "loopJump": 0.0,
+      "sha256": "59fa0c342850615ee8dc8e5855ba83b17cf760dbde691cda2b4d71db2d833ed6"
+    },
+    "bomb": {
+      "seconds": 1.0,
+      "samples": 22050,
+      "peak": 0.65,
+      "rms": 0.13357,
+      "loopJump": 0.0,
+      "sha256": "b7716c9f156ca6aff8161d6f877cfccb2a1fbbc33b25dfa10bbbacd6fa614a86"
+    },
+    "kill": {
+      "seconds": 0.18,
+      "samples": 3969,
+      "peak": 0.65,
+      "rms": 0.14909,
+      "loopJump": 0.0,
+      "sha256": "4973564c14321c0f4c55926bbf390e0894c82285ed6cd8e2ec892a2cf4a250d5"
+    },
+    "elite": {
+      "seconds": 0.6,
+      "samples": 13230,
+      "peak": 0.65,
+      "rms": 0.15793,
+      "loopJump": 0.0,
+      "sha256": "3b5bd5591f16d70c76ad6ce84cecc19b49b78e1f12772a834b619cb26aae0070"
+    },
+    "charge": {
+      "seconds": 0.4,
+      "samples": 8820,
+      "peak": 0.65,
+      "rms": 0.20198,
+      "loopJump": 0.0,
+      "sha256": "69efa601128cb477c25f8dd9a6a96719102ba8235a6ce173e5bcc0897fb279e7"
+    },
+    "supply": {
+      "seconds": 0.4,
+      "samples": 8820,
+      "peak": 0.65,
+      "rms": 0.15613,
+      "loopJump": 0.0,
+      "sha256": "b3d7ee9e47fef9014f956c0548f68ef017e265e3571660debb9c9f8921427cec"
+    },
+    "phase": {
+      "seconds": 0.8,
+      "samples": 17640,
+      "peak": 0.65,
+      "rms": 0.15629,
+      "loopJump": 0.0,
+      "sha256": "a38a1940ea20b8d1c0ba3e921de51c4b9b6512520b7b1f079382f5379329d3e1"
+    },
+    "menu": {
+      "seconds": 0.12,
+      "samples": 2646,
+      "peak": 0.65,
+      "rms": 0.1434,
+      "loopJump": 0.0,
+      "sha256": "0170cee29ce2551d6f60aa3b794d1cef14e5031f85c65bb0e918189309ebd1c9"
+    },
+    "win": {
+      "seconds": 0.8499773242630385,
+      "samples": 18742,
+      "peak": 0.65,
+      "rms": 0.15821,
+      "loopJump": 0.0,
+      "sha256": "89e915fa1052a061761b55466de17e674416106d99b31a10735bffac247da5ab"
+    },
+    "lose": {
+      "seconds": 0.6499773242630386,
+      "samples": 14332,
+      "peak": 0.65,
+      "rms": 0.16302,
+      "loopJump": 0.0,
+      "sha256": "fd20a769b9c3dbb0ab896f3c4b7c73896cb801e1c37808e7310492007f850482"
+    }
+  }
+}

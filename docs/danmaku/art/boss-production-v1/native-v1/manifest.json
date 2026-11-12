@@ -1,0 +1,601 @@
+{
+  "version": 1,
+  "author": "小典 / Codex",
+  "sourceSha256": {
+    "boss-body-atlas-source-v1.png": "4f5b21f91e7b5523a37718007d95b3523f80315f0ffb24a4479d8953ad0862b1",
+    "boss-face-source-v1.png": "9c16d607d2abae45ae977c4d4e84dc7cb3edbfb6b4964493a9c71a10dc735d3c",
+    "boss-ring-back-source-v1.png": "93cbcff077af4d797ac0d2236dcffb48285be06f2ed6d479fd34cc2a59efcf5b",
+    "boss-ring-front-source-v1.png": "f1c643fcc2379b118318bc7030469550b143ac545646cfaa873d5df16b9256b6"
+  },
+  "palette": [
+    "#1A2440",
+    "#28345D",
+    "#3D497B",
+    "#53639D",
+    "#6476AF",
+    "#F9E0AB",
+    "#ECC38A",
+    "#C99864",
+    "#966A48",
+    "#6B4937",
+    "#F4F0E8",
+    "#DCD9E7",
+    "#B9B8D2",
+    "#8E96BA",
+    "#E5B94F",
+    "#B98632",
+    "#FAD2BA",
+    "#ECAE96",
+    "#477ED0",
+    "#76B2E3",
+    "#284F9F",
+    "#1C1F32",
+    "#FFF2D1",
+    "#737A98",
+    "#C9C0F1",
+    "#A99CD5",
+    "#897CB6",
+    "#6D6099",
+    "#514771",
+    "#E2DBF8",
+    "#B1ADCF",
+    "#DBB5BD"
+  ],
+  "alpha": [
+    0,
+    255
+  ],
+  "alphaCutoff": 192,
+  "frameSize": [
+    96,
+    128
+  ],
+  "anchor": [
+    48,
+    48
+  ],
+  "atlasSize": [
+    384,
+    512
+  ],
+  "commonBodyScale": 0.3180428134556575,
+  "frames": [
+    {
+      "row": 0,
+      "col": 0,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        0,
+        0,
+        222,
+        444
+      ],
+      "bbox": [
+        15,
+        13,
+        79,
+        114
+      ],
+      "sourceAnchor": [
+        114,
+        176
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 29,
+      "opaquePixels": 4244,
+      "rgbaSha256": "8e4499c28e4697d26cbd49ecf7d2d3ec6f6fa4b08b61b15dd183ab01f43d71c3",
+      "file": "frames/idle-0.png"
+    },
+    {
+      "row": 0,
+      "col": 1,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        222,
+        0,
+        222,
+        444
+      ],
+      "bbox": [
+        16,
+        14,
+        78,
+        114
+      ],
+      "sourceAnchor": [
+        113.0,
+        171.0
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 31,
+      "opaquePixels": 4221,
+      "rgbaSha256": "b85499c2eef0fcad902d1ad38f8125ae8a80cf95ebf246c262939c9d9dae74d3",
+      "file": "frames/idle-1.png"
+    },
+    {
+      "row": 0,
+      "col": 2,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        444,
+        0,
+        221,
+        444
+      ],
+      "bbox": [
+        14,
+        13,
+        80,
+        114
+      ],
+      "sourceAnchor": [
+        112.5,
+        168.0
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4271,
+      "rgbaSha256": "ef44b71dc4e070fa05428aaff30db624965051cd3006d1571a4910f86086fef8",
+      "file": "frames/idle-2.png"
+    },
+    {
+      "row": 0,
+      "col": 3,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        665,
+        0,
+        222,
+        444
+      ],
+      "bbox": [
+        16,
+        13,
+        79,
+        113
+      ],
+      "sourceAnchor": [
+        113.0,
+        176.0
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4255,
+      "rgbaSha256": "eb372a0d202afcbfedb10924b0d492a2e568b88a812d490ebf1c40c0d886cb14",
+      "file": "frames/idle-3.png"
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        0,
+        444,
+        222,
+        443
+      ],
+      "bbox": [
+        16,
+        13,
+        80,
+        114
+      ],
+      "sourceAnchor": [
+        112.0,
+        175.0
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 29,
+      "opaquePixels": 4251,
+      "rgbaSha256": "85e546343cdf74dda7ebd3b48ebab577237ec04f9c720e560fd48042a68b5790",
+      "file": "frames/left-0.png"
+    },
+    {
+      "row": 1,
+      "col": 1,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        222,
+        444,
+        222,
+        443
+      ],
+      "bbox": [
+        16,
+        17,
+        84,
+        116
+      ],
+      "sourceAnchor": [
+        105.5,
+        164.0
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4351,
+      "rgbaSha256": "07bc5704322bc76121181ecc8e391db7c75254f479c7f8e6ba454de47fd619f8",
+      "file": "frames/left-1.png"
+    },
+    {
+      "row": 1,
+      "col": 2,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        444,
+        444,
+        221,
+        443
+      ],
+      "bbox": [
+        13,
+        16,
+        81,
+        115
+      ],
+      "sourceAnchor": [
+        109,
+        166
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 29,
+      "opaquePixels": 4292,
+      "rgbaSha256": "7eb185c2a9a0b80293ce1a022dd81203390dd82f7073e3d1713e6066deb0eb4b",
+      "file": "frames/left-2.png"
+    },
+    {
+      "row": 1,
+      "col": 3,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        665,
+        444,
+        222,
+        443
+      ],
+      "bbox": [
+        17,
+        16,
+        82,
+        116
+      ],
+      "sourceAnchor": [
+        105.5,
+        164.5
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4309,
+      "rgbaSha256": "806ee51eb016017b8ce4b79825ace1084663e1b26c902ab799514a13c105a46c",
+      "file": "frames/left-3.png"
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        0,
+        887,
+        222,
+        443
+      ],
+      "bbox": [
+        15,
+        13,
+        79,
+        114
+      ],
+      "sourceAnchor": [
+        114.0,
+        175.0
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 29,
+      "opaquePixels": 4243,
+      "rgbaSha256": "fcc5833a7f546562f9dd1fdf9d77b22be1ee082cc2a9d5c054e784f9c82e2e26",
+      "file": "frames/right-0.png"
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        222,
+        887,
+        222,
+        443
+      ],
+      "bbox": [
+        13,
+        15,
+        77,
+        114
+      ],
+      "sourceAnchor": [
+        117.5,
+        171.5
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4196,
+      "rgbaSha256": "77bea8980ddca93b94cf130a7a590a60a9659b33fe691e1fe559a47c303a9c20",
+      "file": "frames/right-1.png"
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        444,
+        887,
+        221,
+        443
+      ],
+      "bbox": [
+        15,
+        16,
+        82,
+        115
+      ],
+      "sourceAnchor": [
+        111,
+        166
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4281,
+      "rgbaSha256": "4b5023ea5d6cbef2a257e45b2eec618cf142bb26a93193a2a1c5a9188efa96ed",
+      "file": "frames/right-2.png"
+    },
+    {
+      "row": 2,
+      "col": 3,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        665,
+        887,
+        222,
+        443
+      ],
+      "bbox": [
+        14,
+        14,
+        78,
+        113
+      ],
+      "sourceAnchor": [
+        118,
+        173
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4186,
+      "rgbaSha256": "c272ab9e7dc03a4c03ae9d5a63271e444aa7b2f21171ed4e31e9c0db0033c5b3",
+      "file": "frames/right-3.png"
+    },
+    {
+      "row": 3,
+      "col": 0,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        0,
+        1330,
+        222,
+        444
+      ],
+      "bbox": [
+        16,
+        13,
+        79,
+        114
+      ],
+      "sourceAnchor": [
+        112,
+        176
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 29,
+      "opaquePixels": 4253,
+      "rgbaSha256": "10c6feeb37b0c473fe0814b72810ca79b52ef22dff11556f206411f75ad57a8a",
+      "file": "frames/charge-0.png"
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        222,
+        1330,
+        222,
+        444
+      ],
+      "bbox": [
+        17,
+        13,
+        79,
+        114
+      ],
+      "sourceAnchor": [
+        111,
+        174
+      ],
+      "removedSpecks": 1,
+      "opaqueColors": 29,
+      "opaquePixels": 4187,
+      "rgbaSha256": "826445777708f8a31d7937f2006d86c61d5fc8e5ae0d3e875d32d04620aece68",
+      "file": "frames/charge-1.png"
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        444,
+        1330,
+        221,
+        444
+      ],
+      "bbox": [
+        17,
+        13,
+        78,
+        115
+      ],
+      "sourceAnchor": [
+        111.0,
+        169.0
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 30,
+      "opaquePixels": 4237,
+      "rgbaSha256": "5f7e7dd9733a4764e8cecd1e293329a17b45bbc42bd518cbebe86ead72bff2f0",
+      "file": "frames/charge-2.png"
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "size": [
+        96,
+        128
+      ],
+      "crop": [
+        665,
+        1330,
+        222,
+        444
+      ],
+      "bbox": [
+        17,
+        15,
+        78,
+        116
+      ],
+      "sourceAnchor": [
+        112,
+        168
+      ],
+      "removedSpecks": 0,
+      "opaqueColors": 29,
+      "opaquePixels": 4117,
+      "rgbaSha256": "c308592abde1023596ac67476f2c1b7be07b28d7e253992fe6672a09953d937c",
+      "file": "frames/charge-3.png"
+    }
+  ],
+  "rings": {
+    "back": {
+      "size": [
+        128,
+        128
+      ],
+      "bbox": [
+        9,
+        9,
+        118,
+        118
+      ],
+      "opaqueColors": 28,
+      "opaquePixels": 2181,
+      "rgbaSha256": "64b45348bf9da04ffab04aab3a7ed69cff38ec56df69f603a2f1dccb838e5507",
+      "file": "boss-ring-back-v1.png",
+      "visibleRadius": 54.502293529722216,
+      "removedSourceSpecks": 0,
+      "scale": 0.10174783680039247
+    },
+    "front": {
+      "size": [
+        64,
+        64
+      ],
+      "bbox": [
+        10,
+        35,
+        53,
+        49
+      ],
+      "opaqueColors": 11,
+      "opaquePixels": 61,
+      "rgbaSha256": "caad6bab28a4a05fbd012af35d619f729f0bdf584c92c1c9889a955eb0eb0b22",
+      "file": "boss-ring-front-v1.png",
+      "visibleRadius": 21.965882636488796,
+      "removedSourceSpecks": 0,
+      "scale": 0.047867194146547686
+    }
+  },
+  "files": {
+    "boss-body-atlas-v1.png": {
+      "bytes": 59860,
+      "sha256": "d445ca43990e075c6b3253a324737d11d8b659e22c7fd88d20dc3b16bb995a63"
+    },
+    "boss-face-v1.png": {
+      "bytes": 443122,
+      "sha256": "d48bef817c9976446597321d8c67eb66e4545c9c791b99cb56b52a017452faf4"
+    },
+    "boss-ring-back-v1.png": {
+      "bytes": 3145,
+      "sha256": "6a02d02f6cfcacb71f3ad1f4b81021a3229ec8a44d7702942d3ae5cdafa1bed7"
+    },
+    "boss-ring-front-v1.png": {
+      "bytes": 291,
+      "sha256": "952582341dee1639fd2e5e24e0498e675fab349b4677e73dfdf86ef8168ff698"
+    }
+  },
+  "bodyAndRingsBytes": 63296,
+  "face": {
+    "size": [
+      512,
+      512
+    ],
+    "hudDisplay": [
+      32,
+      32
+    ],
+    "alpha": "8-bit"
+  },
+  "generatedPoses": 16,
+  "independentRightDrawings": true,
+  "rulesChanged": false
+}

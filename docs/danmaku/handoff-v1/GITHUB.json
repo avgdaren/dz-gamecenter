@@ -1,0 +1,16 @@
+{
+  "repository": "avgdaren/dz-gamecenter",
+  "visibility": "public",
+  "publicHandoffAuthorizedByOwner": true,
+  "authorizationDate": "2026-11-12",
+  "issue": "https://github.com/avgdaren/dz-gamecenter/issues/74",
+  "branch": "feat/danmaku-p1",
+  "base": "main",
+  "pullRequest": null,
+  "status": "preparing-push",
+  "merged": false,
+  "forumInstalled": false,
+  "onlineDeployed": false,
+  "nextOwner": "小蓝：当前平台适配、本地论坛验证、线上包与部署",
+  "acceptedDemoSha256": "b2b4dbbbdab14d19895083338634f28ea476735f3692b8ffc3e0e80df4296664"
+}

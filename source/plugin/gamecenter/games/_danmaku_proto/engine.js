@@ -6,6 +6,7 @@
 }(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   var SCENES = ['flower', 'aim', 'wave'];
+  var RULE = 'danmaku-p0-r1', FOCUS_RULE = 'danmaku-p0-r2';
   var Q = 64;
   function trunc(n) { return Math.trunc(n); }
   function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
@@ -44,8 +45,12 @@
     else offset = -4096 + trunc(4096 * (u - 360) / 120);
     return 240 * Q + offset;
   }
-  function Sim(rules, scene, assist) {
+  function Sim(rules, scene, assist, rule) {
     if (SCENES.indexOf(scene) < 0 || typeof assist !== 'boolean') throw new Error('未知的原型场景');
+    if (rule === undefined) rule = RULE;
+    if (rule !== RULE && rule !== FOCUS_RULE) throw new Error('未知的自机规则版本');
+    this.rule = rule;
+    this.focusFire = rule === FOCUS_RULE;
     this.rules = rules;
     this.scene = scene;
     this.assist = assist;
@@ -133,13 +138,26 @@
     p.y = clamp(p.y + input.dy, r.field.playerBounds.minY * Q, r.field.playerBounds.maxY * Q);
     b.x = bossX(t);
     if ((t - r.playerShot.firstPhaseTick) % r.playerShot.intervalTicks === 0) {
-      this.shots.push({ id: this.nextShot++, x: p.x, y: p.y - 16 * Q,
-        px: p.x, py: p.y - 16 * Q, born: t });
-      if (this.shots.length > r.limits.playerShotLiveCap) throw new Error('自机子弹超出设计上限');
+      if (this.focusFire) {
+        var focused = !!(input.flags & 1), lanes = r.playerShot.styles[focused ? 'focused' : 'normal'];
+        for (var lane = 0; lane < lanes.length; lane++) {
+          var spec = lanes[lane], x = p.x + spec.offsetX * Q, y = p.y - 16 * Q;
+          this.shots.push({ id: this.nextShot++, x: x, y: y, px: x, py: y, born: t,
+            vx: spec.vxQ, vy: -r.playerShot.speedStepQ, damage: spec.damage, focused: focused });
+        }
+      } else {
+        this.shots.push({ id: this.nextShot++, x: p.x, y: p.y - 16 * Q,
+          px: p.x, py: p.y - 16 * Q, born: t });
+      }
+      if (this.shots.length > (this.focusFire ? r.playerShot.styles.liveCap : r.limits.playerShotLiveCap)) throw new Error('自机子弹超出设计上限');
     }
     this.pattern();
     this.enemies.forEach(function (e) { e.px = e.x; e.py = e.y; e.x += e.vx; e.y += e.vy; });
-    this.shots.forEach(function (s) { s.px = s.x; s.py = s.y; s.y -= r.playerShot.speedStepQ; });
+    this.shots.forEach(function (s) {
+      s.px = s.x; s.py = s.y;
+      if (s.vx !== undefined) { s.x += s.vx; s.y += s.vy; }
+      else s.y -= r.playerShot.speedStepQ;
+    });
     if ((input.flags & 2) && p.bombs > 0) {
       p.bombs--; this.stats.bombsUsed++; this.lastBomb = t;
       this.enemies = [];
@@ -164,7 +182,7 @@
       var sim = this;
       this.shots = this.shots.filter(function (s) {
         if (!touches(s, b, (r.playerShot.radius + r.boss.hitRadius) * Q)) return true;
-        sim.damageBoss(r.playerShot.damage);
+        sim.damageBoss(s.damage === undefined ? r.playerShot.damage : s.damage);
         return false;
       });
       this.resolveEnd();
@@ -182,14 +200,17 @@
     return this.status;
   };
   Sim.prototype.snapshot = function () {
-    var p = this.player, s = this.stats;
+    var p = this.player, s = this.stats, focusFire = this.focusFire;
     return { tick: this.tick, scene: this.scene, assist: this.assist, status: this.status,
       player: [p.x, p.y, p.lives, p.bombs, p.invulUntil], boss: [this.boss.x, this.boss.y],
       aim: [this.aimAngle, this.warningUntil],
       stats: [s.damage, s.shotHits, s.hitsTaken, s.graze, s.bombsUsed, s.enemySpawned, s.enemyPeak],
       nextIds: [this.nextEnemy, this.nextShot],
       enemies: this.enemies.map(function (e) { return [e.id, e.x, e.y, e.vx, e.vy, e.radius, e.born, e.grazed ? 1 : 0]; }),
-      shots: this.shots.map(function (shot) { return [shot.id, shot.x, shot.y, shot.born]; }) };
+      shots: this.shots.map(function (shot) { return focusFire ?
+        [shot.id, shot.x, shot.y, shot.born, shot.vx, shot.vy, shot.damage, shot.focused ? 1 : 0] :
+        [shot.id, shot.x, shot.y, shot.born]; }) };
   };
-  return { Sim: Sim, validateInput: validateInput, sweptHit: sweptHit, bossX: bossX, scenes: SCENES };
+  return { Sim: Sim, validateInput: validateInput, sweptHit: sweptHit, bossX: bossX, scenes: SCENES,
+    rule: RULE, focusRule: FOCUS_RULE, supportedRules: [RULE, FOCUS_RULE] };
 }));

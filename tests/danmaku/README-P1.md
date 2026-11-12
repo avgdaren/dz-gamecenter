@@ -2,20 +2,39 @@
 
 作者：小典 / Codex · `(C) 2026 Carinoasd`。
 
+当前修正版为[Boss动态与阶段r3](../../docs/danmaku/BOSS-FIX-r3.md)，完整一关／首领练习分别为`danmaku-stage01-r3`／`danmaku-p1-r3`，旧规则与回放保留。用户负责真人试玩，默认不跑整关自动通关。相关定点检查：`node tests/danmaku/test-boss-r3.cjs`、`node tests/danmaku/test-boss-view.cjs`；需要看画面时用约5秒实际入口加独立预览的`node tests/danmaku/browser-boss-r3.cjs`。以下旧命令与结果保留为历史，不作为每轮必跑流程。
+
+当前界面候选为[UI v1](../../docs/danmaku/STAGE-01-UI-v1.md)。新版单文件`danmaku-stage01-ui-v1-offline.html`；测试用`node tests/danmaku/browser-stage01.cjs --bgm --ui-v1 --out=tmp/danmaku/stage01-ui-v1/browser <新版file:///URL>`，加`--layout-only`仅检查七种尺寸／入口／辅助，加`--cold-audio`检查开局前声音准备。`browser-focus.cjs`已支持折叠练习区里的入口。旧HappyShrimp版保留；当前源码默认使用新UI，音频来源和实现沿用下一段。
+
+当前音频版为[HappyShrimp成品音频v1](../../docs/danmaku/STAGE-01-HAPPYSHRIMP-v1.md)：用户提供两首完成的MP3，使用HappyShrimp配合提示词工程制作。道中72秒、Boss从登场连续播放并处理循环；通关／失败短曲仍使用MIDI v3，16种音效不变。运行`node tests/danmaku/browser-stage01.cjs --bgm`，冷启动加`--cold-audio --out=tmp/danmaku/stage01-happyshrimp-v1/cold-browser`；`node tests/danmaku/test-audio.cjs`、`node tests/danmaku/test-midi.cjs`和`python tests/danmaku/check_stage01_audio.py`核对生命周期、保留MIDI及音频完整性。单文件`danmaku-stage01-happyshrimp-v1-offline.html`，规则仍为`danmaku-stage01-r2`。音乐默认55%，音效默认关闭；首次开始会先准备声音再推进关卡。旧MIDI v3／v2／音频v1及原曲保留，旧包可单独复验；当前源码默认使用新BGM，使用`--bgm`验证。
+
+当前美术首版：`node tests/danmaku/browser-stage01.cjs --art`检查新场景与三类小怪；`python tests/danmaku/check_stage01_art.py`和`node tests/danmaku/test-stage01-art.cjs`核对资源与表现不改模拟。单文件名`danmaku-stage01-art-v1-offline.html`，运行规则仍为`danmaku-stage01-r2`。见[美术接入记录](../../docs/danmaku/STAGE-01-ART-PRODUCTION-v1.md)。
+
+2026-11-11最新：默认入口为单关《星穹回廊》，含72秒小怪、拾取强化、三档散射／集中、星翼绽放大招与三阶段Boss。当前新开局规则`danmaku-stage01-r2`，大招上限3枚，两名守卫各提供1个B，集中判定点更醒目且实际半径3不变。运行`node tests/danmaku/test-bomb.cjs`与`node tests/danmaku/browser-stage01.cjs --bomb`验证新版；`node tests/danmaku/test-stage01.cjs`保留成长r1回归，旧首领／弹型练习仍独立。导出复验用`node tests/danmaku/check-export-stage01.cjs <回放文件>`。当前行为、命令和未验项见[大招接入记录](../../docs/danmaku/STAGE-01-BOMB-r2.md)。
+
 ## 试玩
 
-仓库根目录运行 `python tests/danmaku/serve.py --port 8876`，打开 <http://127.0.0.1:8876/>。默认是三阶段完整挑战，原花瓣／瞄准／波浪练习场仍可切换。
+现在可以直接双击`source/plugin/gamecenter/games/_danmaku_proto/index.html`，无需启动服务。完整交付包根目录另有`START.html`单文件试玩版，可单独复制后打开；规则、脚本和图片均已嵌入。默认是《星穹回廊》单关完整流程，原首领及花瓣／瞄准／波浪练习仍可切换。
+
+HTTP预览仍可使用：仓库根目录运行 `python tests/danmaku/serve.py --port 8876`，打开 <http://127.0.0.1:8876/>。
+
+`rules.json`仍是JS/PHP共用的规则源；`rules-data.js`是供浏览器直接打开的同内容副本。改动规则后执行`python tests/danmaku/package_preview.py`同步，执行`python tests/danmaku/package_preview.py --check`检查是否过期。可选单文件打包命令为`python tests/danmaku/package_preview.py --output tmp/danmaku/START.html`；仅用Python标准库，试玩不需要打包工具或Python。
 
 开场 3 秒、每阶段最多 70 秒、阶段间转场 2 秒。三阶段血量 4500／4800／5100；生命和清屏贯穿整局。标准 3 命／2 清屏，辅助 5 命／3 清屏与减速弹幕。两种模式目前都只在本机显示结果，没有接论坛排行榜或积分。
 
-方向键／WASD 移动，Shift 慢速，X／空格清屏，Esc 暂停；开场和转场不射击、不消耗清屏。切换场景会重置当前局。按住清屏键不连续消耗，终局才能导出完整回放。
+方向键／WASD 移动，按住Shift低速集中射击并显示判定点，松开恢复普通散射并隐藏判定点；窄屏点击“集中”按钮提供等价切换。X／空格清屏，Esc暂停；开场和转场不射击、不消耗清屏。切换场景会重置当前局。按住清屏键不连续消耗，终局才能导出完整回放。
+
+2026-11-11运行接入已完成：像素自机与右下角正面图已上屏，当前新开局使用r2射击规则，旧r1回放仍可重算。新增验证运行`node tests/danmaku/test-focus.cjs`，真实浏览器交互运行`node tests/danmaku/browser-focus.cjs`。旧预览服务需要重启以载入新增图片与JS白名单。最新事实和**PHP长局超预算**记录见[接入交接](../../docs/danmaku/PLAYER-INTEGRATION-r2.md)，下文性能数据保留为2026-11-10的r1历史结果。
 
 ## 自动验证
 
 ```powershell
 node tests/danmaku/test-core.cjs
 node tests/danmaku/test-battle.cjs
+python tests/danmaku/package_preview.py --check
 ```
+
+离线入口浏览器复验：`node tests/danmaku/browser-focus.cjs --ui-only --offline --out=tmp/danmaku/startup/source-file <index.html的file:///绝对URL>`。省略`--ui-only`会再跑45秒自然练习终局并核对JS/PHP全部快照。省略URL时会自行启动HTTP预览服务。`--out`用于将各入口的检查记录分开保存；独立Chrome临时配置均位于忽略目录。
 
 第一条是原 P0 的 35 项检查、6 个固定终局、200 组随机终局差分和 13 类非法拒绝。P1 通过最小输出／终点钩子复用原物理规则，输入字节格式不变，旧 P0 回放继续使用原规则 ID。
 

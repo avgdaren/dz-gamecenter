@@ -1,0 +1,22 @@
+{
+  "gkey": "angel_danmaku",
+  "name": "天使弹幕祭",
+  "appVersion": "0.1.0",
+  "rule": "danmaku-stage01-r3",
+  "order": "desc",
+  "unit": "分",
+  "periods": ["day", "week", "all"],
+  "reusePlatformBoards": true,
+  "perMemberBestPerPeriod": true,
+  "tieBreak": "first-achieved-by-platform",
+  "eligible": {"stage": true, "assist": false, "statuses": ["clear", "dead", "timeout"]},
+  "excludeModes": ["assist", "battle", "flower", "aim", "wave", "replay-validation"],
+  "parserScoreCeiling": 321300,
+  "maxTicks": 17340,
+  "serverReplayRequired": true,
+  "serverReplayTrace": false,
+  "rewards": {"perGame": 0, "weekly": []},
+  "dailyChallenge": false,
+  "ghostChallenge": false,
+  "forumIntegrationStatus": "prepared-for-xiaolan-not-installed"
+}

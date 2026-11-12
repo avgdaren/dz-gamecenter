@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- (C) 2026 Carinoasd. Original MIDI audition: 小典 / Codex. -->
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天使弹幕祭 · 电子乐 MIDI 试听</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1322;color:#eef2ff;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:840px;margin:56px auto;padding:0 24px}h1{font-size:30px;line-height:1.4}h2{font-size:22px;margin-top:0}p{color:#b7c8df}article{background:#14213a;border:1px solid #304666;border-radius:14px;padding:24px;margin:20px 0}audio{width:100%;margin:8px 0}a{color:#f2cd77;text-underline-offset:4px}small{color:#b7c8df}footer{margin:28px 0;color:#91a4bf}nav{display:flex;flex-wrap:wrap;gap:14px}
+</style>
+<main>
+<small>天使弹幕祭 / ELECTRONIC MIDI v2</small>
+<h1>更快的节奏，更强的推进</h1>
+<p>两段试听均由游戏同款MIDI电子合成器渲染。强底鼓、切分贝斯、锯齿主奏与军鼓推进；试听不会自动播放。</p>
+<article>
+<h2>霓光回廊 · 小怪段</h2>
+<p>150 BPM / 原曲72秒 / 试听16秒</p>
+<audio controls preload="none" src="previews/stage-preview.wav">浏览器不支持音频播放。</audio>
+<nav><a href="previews/stage-preview.wav">打开试听WAV</a><a href="midi-v2/stage.mid" download>下载原曲 MIDI</a></nav>
+</article>
+<article>
+<h2>星仪超频 · Boss段</h2>
+<p>168 BPM / 约40秒循环 / 试听16秒，含核心层与第三阶段推进层</p>
+<audio controls preload="none" src="previews/boss-preview.wav">浏览器不支持音频播放。</audio>
+<nav><a href="previews/boss-preview.wav">打开试听WAV</a><a href="midi-v2/boss.mid" download>下载完整 MIDI</a></nav>
+</article>
+<p>游戏BGM直接演奏MIDI事件。此页的WAV用于便捷试听；外部MIDI播放器使用自己的音源，听感可能与游戏不同。</p>
+<nav><a href="MIDI-README.md">7份MIDI与音色说明</a><a href="../../STAGE-01-MIDI-v2.md">制作与验证记录</a><a href="midi-v2/intro.mid" download>登场</a><a href="midi-v2/clear.mid" download>通关</a><a href="midi-v2/defeat.mid" download>失败</a></nav>
+<footer>原创作曲／合成／接入：小典 / Codex · (C) 2026 Carinoasd · 本地私用候选</footer>
+</main>
+<script>document.querySelectorAll('audio').forEach(function(player){player.addEventListener('play',function(){document.querySelectorAll('audio').forEach(function(other){if(other!==player)other.pause();});});});</script>
+</html>

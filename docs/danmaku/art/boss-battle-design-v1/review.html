@@ -1,0 +1,53 @@
+<!doctype html>
+<!-- (C) 2026 Carinoasd. Boss art/spec review only: 小典 / Codex. -->
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>星环观测者 · 旧稿与战斗规格</title><link rel="icon" href="data:,"><style>
+:root{font-family:"Microsoft YaHei",system-ui,sans-serif;color-scheme:dark;background:#0b1220;color:#e9edf6}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:32px 24px}h1{font-size:27px;font-weight:500;line-height:1.5;margin:0 0 9px}h2{font-size:18px;font-weight:500;margin:0 0 12px}p{font-size:13px;line-height:1.9;color:#b8c7db;margin:8px 0 20px}a{color:#e5ca93}header{padding-bottom:16px;border-bottom:1px solid #31415a}.compare{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:28px 0}figure{margin:0;min-width:0}.art{height:390px;display:flex;align-items:center;justify-content:center;background:repeating-conic-gradient(#172235 0 25%,#111b2d 0 50%) 50%/24px 24px}.art img{max-width:100%;height:100%;object-fit:contain}.concept img{image-rendering:pixelated}figcaption{font-size:12px;line-height:1.9;color:#b8c7db;margin-top:10px}figcaption strong{color:#e9edf6;font-weight:500}.geometry{display:grid;grid-template-columns:minmax(280px,480px) minmax(220px,1fr);gap:28px;padding:26px 0;border-top:1px solid #31415a;align-items:start}canvas{display:block;width:100%;max-width:480px;height:auto;aspect-ratio:3/4;background:#101a2b;border:1px solid #40516a}.controls{display:grid;gap:15px}label{display:block;font-size:13px;line-height:1.8}label input[type=range]{width:100%;margin:10px 0 0;accent-color:#e5ca93}label input[type=checkbox]{margin:0 7px 0 0;accent-color:#e5ca93}.controls output{color:#e5ca93;font-variant-numeric:tabular-nums}.controls p{margin:0;font-size:12px}.legend{display:grid;gap:8px;font-size:12px;color:#bdcce0}.legend span{display:flex;gap:9px;align-items:center}.swatch{display:inline-block;width:21px;height:0;border-top:2px solid #9ddccc}.swatch.circle{width:14px;height:14px;border:2px solid #f4b6ca;border-radius:50%}.swatch.ring{border-color:#dfbf7d;border-top-style:dashed}.notice{color:#e5ca93;font-size:12px;line-height:1.9}.specs{width:100%;border-collapse:collapse;font-size:12px;line-height:1.8;margin:12px 0 0}th,td{text-align:left;padding:10px 6px;border-bottom:1px solid #2c3d54}th{font-weight:500;color:#b8c7db}button{background:#1b2940;border:1px solid #506383;color:#e9edf6;padding:9px 14px;border-radius:4px;font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #e5ca93;outline-offset:3px}.footer{border-top:1px solid #31415a;padding-top:18px;font-size:12px;color:#a8bad1}@media(max-width:680px){main{padding:22px 16px}.compare,.geometry{grid-template-columns:1fr;gap:22px}.art{height:330px}h1{font-size:22px}.geometry{padding-top:22px}th,td{padding:9px 4px;font-size:11px}}
+</style></head><body><main id="boss-review">
+<header><h1>星环观测者 · 旧稿沿用，战斗形象适配</h1><p>已找到旧版主体立绘。本页对照同一人物的战斗首稿，并核对尺寸与分层；当前游戏尚未替换几何Boss。</p><a href="../../BOSS-BATTLE-DESIGN-v1.md">素材规格与制作记录</a></header>
+<section class="compare" aria-label="旧稿和新战斗形象对照">
+ <figure><h2>之前的主体立绘</h2><div class="art"><img id="old-body" src="../production-candidates/boss-body-v1.png" width="1134" height="1387" alt="原有银蓝长发、深蓝白金礼服的星环观测者立绘"></div><figcaption><strong>1134×1387 · 原件保留</strong><br>人物、服装、颜色和登场主体层依据；大型星仪当时未单独制作。</figcaption></figure>
+ <figure><h2>这次的战斗形象首稿</h2><div class="art concept"><img id="concept" src="boss-battle-body-concept-v1.png" width="1060" height="1484" alt="同一Boss正面迎战的像素风格设计首稿，双手自然展开"></div><figcaption><strong>1060×1484 · 高分辨率设计首稿</strong><br>保留成年人物气质，简化长发和裙饰。原生96×128像素帧及16帧图集尚未制作。</figcaption></figure>
+</section>
+<section class="geometry" aria-labelledby="geometry-title"><div><h2 id="geometry-title">尺寸与分层示意</h2><canvas id="stage" width="480" height="640" role="img" aria-label="480乘640战场中的Boss主体框、星仪导线、28像素命中圆和自机位置">尺寸预览需要支持Canvas的浏览器。</canvas></div><div class="controls">
+ <p class="notice">位置与轮廓示意，非实机截图。身体为高分辨率首稿的缩放显示；金色星仪仅为尺寸导线，未生成正式图。</p>
+ <label for="boss-x">Boss逻辑位置 X：<output id="x-value">240</output> ／ Y：88<input id="boss-x" type="range" min="176" max="304" value="240" step="1"></label>
+ <label><input id="show-bounds" type="checkbox" checked>标出主体框、锚点与命中圆</label>
+ <label><input id="show-ring" type="checkbox" checked>查看星仪分层导线</label>
+ <label><input id="show-bullets" type="checkbox" checked>叠加弹幕示意，检查遮挡</label>
+ <div class="legend" aria-label="图例"><span><i class="swatch" aria-hidden="true"></i>青色框：96×128主体，锚点(48,48)</span><span><i class="swatch circle" aria-hidden="true"></i>粉色圆：既有Boss命中半径28</span><span><i class="swatch ring" aria-hidden="true"></i>金色导线：星仪后层128×128／前层64×64</span></div>
+ <table class="specs"><thead><tr><th>待制素材</th><th>提议规格</th></tr></thead><tbody><tr><td>主体动画图集</td><td>384×512，16帧</td></tr><tr><td>待机／左移／右移／蓄力</td><td>各4帧，6／8／8／10fps</td></tr><tr><td>主体与星仪</td><td>共用32色＋透明</td></tr><tr><td>头像</td><td>512×512，显示约64×64</td></tr></tbody></table>
+ <p>所有导线都跟随现有逻辑中心。命中圆只说明自机子弹击中Boss的判定，星仪装饰不扩大判定。</p>
+</div></section>
+<p class="footer">旧稿、新首稿与实际提示词均保留。当前完成形象设计与规格，尚未导出原生动画、制作星仪／头像或接入游戏。</p>
+</main><script>
+(function(){'use strict';
+ const root=document.getElementById('boss-review'),canvas=root.querySelector('#stage'),ctx=canvas.getContext('2d'),concept=root.querySelector('#concept');
+ const background=new Image(),player=new Image();let errors=[];
+ function imageReady(image){image.onload=draw;image.onerror=()=>{errors.push(image.src.split('/').pop());draw();};}
+ imageReady(background);imageReady(player);concept.addEventListener('load',draw);concept.addEventListener('error',()=>{errors.push('concept');draw();});
+ background.src='../stage01-production-v1/native-v1/corridor-v1.png';player.src='../player-production-v1/native-v1/player-motion-v1.png';
+ function strokeRect(x,y,w,h,color,dashed){ctx.strokeStyle=color;ctx.lineWidth=1;ctx.setLineDash(dashed?[4,4]:[]);ctx.strokeRect(x,y,w,h);ctx.setLineDash([]);}
+ function draw(){
+  const x=Number(root.querySelector('#boss-x').value),y=88,bounds=root.querySelector('#show-bounds').checked,ring=root.querySelector('#show-ring').checked,bullets=root.querySelector('#show-bullets').checked;
+  root.querySelector('#x-value').textContent=x;ctx.clearRect(0,0,480,640);ctx.fillStyle='#101a2b';ctx.fillRect(0,0,480,640);ctx.imageSmoothingEnabled=false;
+  if(background.complete&&background.naturalWidth===480)ctx.drawImage(background,0,0,480,640,0,0,480,640);
+  ctx.fillStyle='#101a2b88';ctx.fillRect(0,0,480,640);ctx.font='12px "Microsoft YaHei",sans-serif';ctx.fillStyle='#c7d5e9';ctx.fillText('尺寸／分层示意 · 非实机截图',18,22);
+  if(ring){
+   ctx.save();ctx.translate(x,y);ctx.strokeStyle='#dfbf7d';ctx.globalAlpha=.75;ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(0,0,56,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+   for(const angle of [-.5,.5]){ctx.beginPath();ctx.ellipse(0,0,56,22,angle,0,Math.PI*2);ctx.stroke();}ctx.restore();if(bounds)strokeRect(x-64,y-64,128,128,'#dfbf7d88',true);
+  }
+  if(concept.complete&&concept.naturalWidth===1060){const scale=104/1376;ctx.drawImage(concept,x-530*scale,y-480*scale,1060*scale,1484*scale);}
+  if(ring){ctx.strokeStyle='#dfbf7d';ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(x,y+6,24,10,.25,0,Math.PI);ctx.stroke();if(bounds)strokeRect(x-32,y-32,64,64,'#dfbf7d88',true);}
+  if(bounds){
+   strokeRect(x-48,y-48,96,128,'#9ddccc',false);ctx.strokeStyle='#f4b6ca';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.arc(x,y,28,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+   ctx.strokeStyle='#ffffff';ctx.beginPath();ctx.moveTo(x-5,y);ctx.lineTo(x+5,y);ctx.moveTo(x,y-5);ctx.lineTo(x,y+5);ctx.stroke();
+   ctx.fillStyle='#c5d8e5';ctx.fillText('主体96×128',x-48,y+99);ctx.fillText('R28',x+32,y+3);
+  }
+  if(player.complete&&player.naturalWidth===192)ctx.drawImage(player,0,0,48,48,216,524,48,48);
+  if(bullets){for(let row=0;row<4;row++)for(let i=0;i<11;i++){const a=(i-5)*.15+Math.PI/2,r=62+row*47,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;ctx.fillStyle=row%2?'#c1b5f1':'#efb6cf';ctx.strokeStyle='#fff2f6';ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(px,py,4,6,a-Math.PI/2,0,Math.PI*2);ctx.fill();ctx.stroke();}}
+  ctx.fillStyle='#b8c7db';ctx.font='11px "Microsoft YaHei",sans-serif';ctx.fillText('自机48×48 · 原素材',172,595);ctx.fillText('导线不属于正式美术',18,622);
+ }
+ for(const input of root.querySelectorAll('input'))input.addEventListener('input',draw);
+ window.BossDesignReview={inspect:()=>({x:Number(root.querySelector('#boss-x').value),y:88,logicalFrame:[480,640],bodyFrame:[96,128],bodyAnchor:[48,48],hitRadius:28,ready:concept.complete&&concept.naturalWidth===1060&&background.complete&&background.naturalWidth===480&&player.complete&&player.naturalWidth===192,errors:errors.slice(),runtimeIntegrated:false,nativeFramesProduced:0})};draw();
+}());
+</script></body></html>

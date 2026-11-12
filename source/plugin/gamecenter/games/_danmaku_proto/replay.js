@@ -21,15 +21,17 @@
     });
     return base64(bytes);
   }
-  function encode(records, rules, scene, assist) {
-    return { prototype: true, rule: rules.meta.rulesId, scene: scene, assist: assist,
+  function encode(records, rules, scene, assist, rule) {
+    if (rule === undefined) rule = rules.meta.rulesId;
+    if (engine.supportedRules.indexOf(rule) < 0) throw new Error('未知的自机规则版本');
+    return { prototype: true, rule: rule, scene: scene, assist: assist,
       ticks: records.length, input: encodeInputs(records, rules, rules.clock.singlePatternTicks) };
   }
   function decode(payload, rules) {
     var allowed = ['prototype', 'rule', 'scene', 'assist', 'ticks', 'input'];
     if (!payload || typeof payload !== 'object' || Array.isArray(payload) ||
         Object.keys(payload).some(function (key) { return allowed.indexOf(key) < 0; }) ||
-        payload.prototype !== true || payload.rule !== rules.meta.rulesId ||
+        payload.prototype !== true || engine.supportedRules.indexOf(payload.rule) < 0 ||
         engine.scenes.indexOf(payload.scene) < 0 || typeof payload.assist !== 'boolean') {
       throw new Error('回放格式、版本或步数无效');
     }
@@ -52,7 +54,7 @@
     return records;
   }
   function run(payload, rules, partial) {
-    var records = decode(payload, rules), sim = new engine.Sim(rules, payload.scene, payload.assist), trace = [];
+    var records = decode(payload, rules), sim = new engine.Sim(rules, payload.scene, payload.assist, payload.rule), trace = [];
     records.forEach(function (input) {
       sim.step(input);
       if (sim.tick % 60 === 0 || sim.status !== 'playing') trace.push(sim.snapshot());

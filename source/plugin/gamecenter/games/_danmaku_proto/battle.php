@@ -2,13 +2,15 @@
 /* (C) 2026 Carinoasd. Local P1 battle rules: 小典 / Codex. */
 if(PHP_SAPI!=='cli'||!defined('DANMAKU_P0_LOCAL')){http_response_code(404);exit;}
 require_once __DIR__.'/engine.php';
+require_once __DIR__.'/boss-patterns.php';
 
 class DanmakuP1Phase extends DanmakuP0Sim {
     public int $index;
+    public bool $patternV3=false;
     public int $hp;
-    public function __construct(array $rules,int $index,bool $assist){
-        parent::__construct($rules,$index===1?'aim':'flower',$assist);
-        $this->index=$index;
+    public function __construct(array $rules,int $index,bool $assist,bool $focusFire=false,bool $patternV3=false){
+        parent::__construct($rules,$index===1?'aim':'flower',$assist,$focusFire?parent::FOCUS_RULE:parent::RULE);
+        $this->patternV3=$patternV3;$this->index=$index;
         $this->hp=$rules['boss']['phaseHP'][$index];
     }
     public function damageBoss(int $damage): void {
@@ -21,6 +23,7 @@ class DanmakuP1Phase extends DanmakuP0Sim {
         elseif($this->tick>=$this->rules['clock']['phaseMaxTicks'])$this->status='timeout';
     }
     public function pattern(): void {
+        if($this->patternV3){danmaku_boss_pattern_r3($this);return;}
         if($this->index===0){parent::pattern();return;}
         if($this->index===1){
             $this->scene='aim';parent::pattern();
@@ -58,6 +61,9 @@ class DanmakuP1Phase extends DanmakuP0Sim {
 
 class DanmakuP1Battle {
     public const RULE='danmaku-p1-r1';
+    public const FOCUS_RULE='danmaku-p1-r2';
+    public const PATTERN_RULE='danmaku-p1-r3';
+    public string $rule;
     public array $rules;
     public bool $assist;
     public int $tick=0;
@@ -71,9 +77,11 @@ class DanmakuP1Battle {
     public array $stats;
     public array $events=[];
     public int $remainingInvulnerability=0;
-    public function __construct(array $rules,bool $assist){
+    public function __construct(array $rules,bool $assist,string $rule=self::RULE){
+        if(!in_array($rule,[self::RULE,self::FOCUS_RULE,self::PATTERN_RULE],true))throw new RuntimeException('未知的战斗规则版本');
+        $this->rule=$rule;
         $this->rules=$rules;$this->assist=$assist;$this->remaining=$rules['clock']['introTicks'];
-        $this->sim=new DanmakuP1Phase($rules,0,$assist);$this->stats=&$this->sim->stats;
+        $this->sim=new DanmakuP1Phase($rules,0,$assist,$rule!==self::RULE,$rule===self::PATTERN_RULE);$this->stats=&$this->sim->stats;
     }
     public function idleMove(array $input): void {
         $p=&$this->sim->player;$bounds=$this->rules['field']['playerBounds'];
@@ -82,7 +90,7 @@ class DanmakuP1Battle {
         $p['y']=max($bounds['minY']*64,min($bounds['maxY']*64,$p['y']+$input['dy']));
     }
     public function nextPhase(): void {
-        $old=$this->sim;$next=new DanmakuP1Phase($this->rules,++$this->phaseIndex,$this->assist);
+        $old=$this->sim;$next=new DanmakuP1Phase($this->rules,++$this->phaseIndex,$this->assist,$this->rule!==self::RULE,$this->rule===self::PATTERN_RULE);
         $next->player['x']=$next->player['px']=$old->player['x'];
         $next->player['y']=$next->player['py']=$old->player['y'];
         $next->player['lives']=$old->player['lives'];$next->player['bombs']=$old->player['bombs'];
@@ -126,7 +134,7 @@ class DanmakuP1Battle {
         $parts['total']=array_sum($parts);return $parts;
     }
     public function snapshot(): array {
-        return ['rule'=>self::RULE,'tick'=>$this->tick,'activeTicks'=>$this->activeTicks,'assist'=>$this->assist,
+        return ['rule'=>$this->rule,'tick'=>$this->tick,'activeTicks'=>$this->activeTicks,'assist'=>$this->assist,
             'phase'=>$this->phaseIndex,'phaseBreaks'=>$this->phaseBreaks,'stage'=>$this->stage,'remaining'=>$this->remaining,
             'status'=>$this->status,'hp'=>$this->sim->hp,'score'=>$this->score(),'events'=>$this->events,'sim'=>$this->sim->snapshot()];
     }
@@ -134,13 +142,13 @@ class DanmakuP1Battle {
 
 function danmaku_p1_decode(array $payload,array $rules): array {
     if(array_diff(array_keys($payload),['battle','v','rule','assist','ticks','input','score'])||
-        ($payload['battle']??null)!==true||($payload['v']??null)!==1||($payload['rule']??null)!==DanmakuP1Battle::RULE||
+        ($payload['battle']??null)!==true||($payload['v']??null)!==1||!in_array($payload['rule']??null,[DanmakuP1Battle::RULE,DanmakuP1Battle::FOCUS_RULE,DanmakuP1Battle::PATTERN_RULE],true)||
         !isset($payload['assist'])||!is_bool($payload['assist'])||!isset($payload['score'])||!is_int($payload['score'])||
         $payload['score']<0||$payload['score']>$rules['score']['upperBound'])throw new RuntimeException('完整挑战回放格式、版本或分数无效');
     return danmaku_decode_stream($payload['ticks']??null,$payload['input']??null,$rules,$rules['clock']['standardMaxTicks']);
 }
 function danmaku_p1_replay(array $payload,array $rules,bool $partial=false,bool $traceEnabled=true): array {
-    $records=danmaku_p1_decode($payload,$rules);$sim=new DanmakuP1Battle($rules,$payload['assist']);$trace=[];
+    $records=danmaku_p1_decode($payload,$rules);$sim=new DanmakuP1Battle($rules,$payload['assist'],$payload['rule']);$trace=[];
     foreach($records as $input){
         $stage=$sim->stage;$phase=$sim->phaseIndex;
         $sim->step($input);

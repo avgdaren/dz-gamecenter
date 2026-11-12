@@ -6,6 +6,10 @@ if (PHP_SAPI !== 'cli' || !defined('DANMAKU_P0_LOCAL')) {
 }
 
 class DanmakuP0Sim {
+    public const RULE = 'danmaku-p0-r1';
+    public const FOCUS_RULE = 'danmaku-p0-r2';
+    public string $rule;
+    public bool $focusFire;
     public array $rules;
     public string $scene;
     public bool $assist;
@@ -22,8 +26,11 @@ class DanmakuP0Sim {
     public array $stats = ['damage'=>0, 'shotHits'=>0, 'hitsTaken'=>0, 'graze'=>0,
         'bombsUsed'=>0, 'enemySpawned'=>0, 'enemyPeak'=>0];
 
-    public function __construct(array $rules, string $scene, bool $assist) {
+    public function __construct(array $rules, string $scene, bool $assist, string $rule=self::RULE) {
         if (!in_array($scene, ['flower','aim','wave'], true)) throw new RuntimeException('未知的原型场景');
+        if (!in_array($rule,[self::RULE,self::FOCUS_RULE],true)) throw new RuntimeException('未知的自机规则版本');
+        $this->rule=$rule;
+        $this->focusFire=$rule===self::FOCUS_RULE;
         $this->rules = $rules;
         $this->scene = $scene;
         $this->assist = $assist;
@@ -135,14 +142,27 @@ class DanmakuP0Sim {
         $p['y']=max($bounds['minY']*64,min($bounds['maxY']*64,$p['y']+$input['dy']));
         $b['x']=self::bossX($t);
         if (($t-$r['playerShot']['firstPhaseTick'])%$r['playerShot']['intervalTicks'] === 0) {
-            $this->shots[]=['id'=>$this->nextShot++, 'x'=>$p['x'], 'y'=>$p['y']-1024,
-                'px'=>$p['x'], 'py'=>$p['y']-1024, 'born'=>$t];
-            if (count($this->shots)>$r['limits']['playerShotLiveCap']) throw new RuntimeException('自机子弹超出设计上限');
+            if($this->focusFire){
+                $focused=($input['flags']&1)!==0;
+                foreach($r['playerShot']['styles'][$focused?'focused':'normal'] as $spec){
+                    $x=$p['x']+$spec['offsetX']*64;$y=$p['y']-1024;
+                    $this->shots[]=['id'=>$this->nextShot++,'x'=>$x,'y'=>$y,'px'=>$x,'py'=>$y,'born'=>$t,
+                        'vx'=>$spec['vxQ'],'vy'=>-$r['playerShot']['speedStepQ'],'damage'=>$spec['damage'],'focused'=>$focused];
+                }
+            }else{
+                $this->shots[]=['id'=>$this->nextShot++, 'x'=>$p['x'], 'y'=>$p['y']-1024,
+                    'px'=>$p['x'], 'py'=>$p['y']-1024, 'born'=>$t];
+            }
+            if(count($this->shots)>($this->focusFire?$r['playerShot']['styles']['liveCap']:$r['limits']['playerShotLiveCap']))throw new RuntimeException('自机子弹超出设计上限');
         }
         $this->pattern();
         foreach ($this->enemies as &$e) { $e['px']=$e['x']; $e['py']=$e['y']; $e['x']+=$e['vx']; $e['y']+=$e['vy']; }
         unset($e);
-        foreach ($this->shots as &$s) { $s['px']=$s['x']; $s['py']=$s['y']; $s['y']-=$r['playerShot']['speedStepQ']; }
+        foreach ($this->shots as &$s) {
+            $s['px']=$s['x'];$s['py']=$s['y'];
+            if(isset($s['vx'])){$s['x']+=$s['vx'];$s['y']+=$s['vy'];}
+            else $s['y']-=$r['playerShot']['speedStepQ'];
+        }
         unset($s);
         if (($input['flags']&2) && $p['bombs']>0) {
             $p['bombs']--; $this->stats['bombsUsed']++; $this->enemies=[];
@@ -167,7 +187,7 @@ class DanmakuP0Sim {
             $keep=[];
             foreach ($this->shots as $s) {
                 if (self::touches($s,$b,($r['playerShot']['radius']+$r['boss']['hitRadius'])*64)) {
-                    $this->damageBoss($r['playerShot']['damage']);
+                    $this->damageBoss($s['damage']??$r['playerShot']['damage']);
                 } else $keep[]=$s;
             }
             $this->shots=$keep;
@@ -196,20 +216,22 @@ class DanmakuP0Sim {
         return $this->status;
     }
     public function snapshot(): array {
-        $p=$this->player; $s=$this->stats;
+        $p=$this->player; $s=$this->stats;$focusFire=$this->focusFire;
         return ['tick'=>$this->tick, 'scene'=>$this->scene, 'assist'=>$this->assist, 'status'=>$this->status,
             'player'=>[$p['x'],$p['y'],$p['lives'],$p['bombs'],$p['invulUntil']], 'boss'=>[$this->boss['x'],$this->boss['y']],
             'aim'=>[$this->aimAngle,$this->warningUntil],
             'stats'=>[$s['damage'],$s['shotHits'],$s['hitsTaken'],$s['graze'],$s['bombsUsed'],$s['enemySpawned'],$s['enemyPeak']],
             'nextIds'=>[$this->nextEnemy,$this->nextShot],
             'enemies'=>array_map(static fn($e)=>[$e['id'],$e['x'],$e['y'],$e['vx'],$e['vy'],$e['radius'],$e['born'],$e['grazed']?1:0],$this->enemies),
-            'shots'=>array_map(static fn($shot)=>[$shot['id'],$shot['x'],$shot['y'],$shot['born']],$this->shots)];
+            'shots'=>array_map(static fn($shot)=>$focusFire?
+                [$shot['id'],$shot['x'],$shot['y'],$shot['born'],$shot['vx'],$shot['vy'],$shot['damage'],$shot['focused']?1:0]:
+                [$shot['id'],$shot['x'],$shot['y'],$shot['born']],$this->shots)];
     }
 }
 
 function danmaku_p0_decode(array $payload, array $rules): array {
     if (array_diff(array_keys($payload),['prototype','rule','scene','assist','ticks','input']) ||
-        ($payload['prototype']??null)!==true || ($payload['rule']??null)!==$rules['meta']['rulesId'] ||
+        ($payload['prototype']??null)!==true || !in_array($payload['rule']??null,[DanmakuP0Sim::RULE,DanmakuP0Sim::FOCUS_RULE],true) ||
         !in_array($payload['scene']??null,['flower','aim','wave'],true) || !isset($payload['assist']) || !is_bool($payload['assist'])) {
         throw new RuntimeException('回放格式、版本或步数无效');
     }
@@ -230,7 +252,7 @@ function danmaku_decode_stream($ticks,$input,array $rules,int $maxTicks): array 
 }
 function danmaku_p0_replay(array $payload, array $rules, bool $partial=false): array {
     $records=danmaku_p0_decode($payload,$rules);
-    $sim=new DanmakuP0Sim($rules,$payload['scene'],$payload['assist']); $trace=[];
+    $sim=new DanmakuP0Sim($rules,$payload['scene'],$payload['assist'],$payload['rule']); $trace=[];
     foreach ($records as $input) {
         $sim->step($input);
         if ($sim->tick%60===0 || $sim->status!=='playing') $trace[]=$sim->snapshot();

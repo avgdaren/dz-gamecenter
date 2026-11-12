@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "name": "星穹回廊",
+    "author": "小典 / Codex",
+    "copyright": "(C) 2026 Carinoasd",
+    "date": "2026-11-11",
+    "status": "design_proposal_not_game_rules",
+    "purpose": "出场与轨迹示意；不模拟击杀、碰撞、伤害、拾取或难度"
+  },
+  "field": { "width": 480, "height": 640, "playerReference": [240, 552] },
+  "timing": { "hz": 60, "preludeSeconds": 72, "bossIntroSeconds": 3, "bossActiveSeconds": 75 },
+  "budgets": { "mobLiveCeiling": 10, "preludeBulletLiveCeiling": 96, "firstWarningSeconds": 0.45 },
+  "types": {
+    "fairy": {
+      "name": "巡星妖精",
+      "role": "基础编队",
+      "silhouette": "横向小羽翼、浅蓝短发、深蓝短裙",
+      "frame": [48, 48],
+      "visible": [28, 32],
+      "hitRadiusProposal": 8,
+      "lifeSeconds": 5,
+      "warningSeconds": 0.45,
+      "fireAt": [1.35],
+      "attack": "downFan",
+      "offsetsDegrees": [-16, 0, 16],
+      "bulletSpeedPerSecond": 108,
+      "bulletTtlSeconds": 5
+    },
+    "attendant": {
+      "name": "引光侍从",
+      "role": "锁定瞄准后连射",
+      "silhouette": "竖向束翼、淡紫短发、长窄衣摆、短星杖",
+      "frame": [48, 64],
+      "visible": [28, 46],
+      "hitRadiusProposal": 10,
+      "lifeSeconds": 6,
+      "warningSeconds": 0.6,
+      "captureAt": 1,
+      "fireAt": [1.6, 2],
+      "attack": "lockedAim",
+      "offsetsDegrees": [-10, 0, 10],
+      "bulletSpeedPerSecond": 114,
+      "bulletTtlSeconds": 5
+    },
+    "guardian": {
+      "name": "星仪守卫",
+      "role": "短时精英压制",
+      "silhouette": "宽圆星仪、四块金属护片、深蓝菱形核心",
+      "frame": [80, 80],
+      "visible": [60, 60],
+      "hitRadiusProposal": 22,
+      "lifeSeconds": 12,
+      "warningSeconds": 0.6,
+      "fireAt": [2.4, 5, 7.6, 10],
+      "attack": "alternateAimFan",
+      "aimOffsetsDegrees": [-12, 0, 12],
+      "fanOffsetsDegrees": [-48, -36, -24, -12, 0, 12, 24, 36, 48],
+      "bulletSpeedPerSecond": 102,
+      "bulletTtlSeconds": 5.5
+    }
+  },
+  "segments": [
+    { "id": "arrival", "start": 0, "end": 4, "name": "穿过云门", "cue": "入场准备", "theme": "远处出现观测台轮廓" },
+    { "id": "formation", "start": 4, "end": 16, "name": "巡星编队", "cue": "基础编队与首次强化掉落", "theme": "回廊边缘的星灯亮起" },
+    { "id": "recovery-1", "start": 16, "end": 20, "name": "第一次喘息", "cue": "停止新出怪；注意残弹并拾取", "theme": "背景继续缓慢下移" },
+    { "id": "aim", "start": 20, "end": 32, "name": "引光连射", "cue": "看清锁定，再离开原位", "theme": "两侧掠过星灯与断柱" },
+    { "id": "recovery-2", "start": 32, "end": 36, "name": "第二次喘息", "cue": "停止新出怪；调整路线与拾取", "theme": "前方星仪浮现" },
+    { "id": "elite", "start": 36, "end": 50, "name": "星仪试炼", "cue": "集中输出精英；保留横向通路", "theme": "第一座守卫星仪启动" },
+    { "id": "mixed", "start": 50, "end": 62, "name": "回廊合流", "cue": "复用三类敌人；提供大招使用窗口", "theme": "进入观测台外缘" },
+    { "id": "cleanup", "start": 62, "end": 68, "name": "收束与拾取", "cue": "不再出怪或开火；已有敌人撤离、残弹自然离场", "theme": "场景滚动减速" },
+    { "id": "gather", "start": 68, "end": 72, "name": "汇聚星光", "cue": "奖励回收窗口；自动吸取为第二步候选", "theme": "观测台定位，准备Boss登场" },
+    { "id": "boss-intro", "start": 72, "end": 75, "name": "观测者降临", "cue": "沿用3秒Boss准备段", "theme": "背景停稳，星环观测者登场" }
+  ],
+  "formations": [
+    { "id": "F1", "start": 4, "side": "left", "count": 4, "spacing": 0.55, "rewardIndex": 3 },
+    { "id": "F2", "start": 10, "side": "right", "count": 4, "spacing": 0.55, "rewardIndex": 3 },
+    { "id": "F3", "start": 22, "side": "left", "count": 4, "spacing": 0.55, "rewardIndex": 3 },
+    { "id": "F4", "start": 28, "side": "right", "count": 4, "spacing": 0.55, "rewardIndex": 3 },
+    { "id": "F5", "start": 40, "side": "left", "count": 4, "spacing": 0.55, "rewardIndex": 3 },
+    { "id": "F6", "start": 44, "side": "right", "count": 4, "spacing": 0.55, "rewardIndex": 3 },
+    { "id": "F7", "start": 54, "side": "left", "count": 4, "spacing": 0.55, "rewardIndex": 3 },
+    { "id": "F8", "start": 58, "side": "right", "count": 4, "spacing": 0.55, "rewardIndex": 3 }
+  ],
+  "attendants": [
+    { "id": "A1", "start": 20, "x": 116, "reward": true },
+    { "id": "A2", "start": 20, "x": 364, "reward": false },
+    { "id": "A3", "start": 26, "x": 160, "reward": false },
+    { "id": "A4", "start": 26, "x": 320, "reward": true },
+    { "id": "A5", "start": 52, "x": 128, "reward": false },
+    { "id": "A6", "start": 56, "x": 352, "reward": false }
+  ],
+  "guardians": [
+    { "id": "G1", "start": 36, "x": 240, "reward": true },
+    { "id": "G2", "start": 50, "x": 240, "reward": true }
+  ],
+  "rewards": {
+    "status": "locations_only_values_require_step_2_balance",
+    "normalHintUnits": 1,
+    "guardianHintUnits": 3,
+    "noKillNoDrop": true,
+    "noRewardFromClearedBullets": true,
+    "noGuaranteedCollection": true
+  }
+}

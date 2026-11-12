@@ -1,6 +1,12 @@
 # 天使弹幕祭 P1 完整战斗候选交接
 
-> 最新接续：用户要求先停止推进，下一对话先讨论“像素风的二次元自机人物”。请先读 [下一对话交接](NEXT-CHAT-HANDOFF.md)；下文保留P1已交付状态。
+> 最新接续（2026-11-12）：已按第六步实现[第一关UI v1](STAGE-01-UI-v1.md)候选，最新试玩`danmaku-stage01-ui-v1-offline.html`。规则、音乐、美术和一关范围保持不变；当前状态与验证以[下一对话交接](NEXT-CHAT-HANDOFF.md)顶部为准。
+
+> 最新接续（2026-11-12）：用户提供的HappyShrimp两首BGM已按[成品音频v1](STAGE-01-HAPPYSHRIMP-v1.md)接入单关。最新试玩`danmaku-stage01-happyshrimp-v1-offline.html`，规则仍`danmaku-stage01-r2`。当前事实以[下一对话交接](NEXT-CHAT-HANDOFF.md)顶部为准；下文保留旧玩法阶段记录。
+
+> 最新接续（2026-11-11）：用户确认第一版只做一关；《星穹回廊》小怪、掉落、三档火力和三阶段Boss已接入，独立规则`danmaku-stage01-r1`。实际自动浏览器通关与回放差分通过，所测263秒合法长局PHP p95=476.82ms。当前事实见[单关接入记录](STAGE-01-GROWTH-r1.md)；下文保留旧Boss/r2历史，不替代新版验证。
+
+> 最新接续（2026-11-11）：像素自机与正面展示已接入本地战斗；Shift切换低速集中射击并显示判定点，松开恢复。r2回放与旧r1兼容，功能检查通过；新规则PHP长局p95约1344ms，超500ms目标，P2未开始。请先读[下一对话交接](NEXT-CHAT-HANDOFF.md)与[r2接入记录](PLAYER-INTEGRATION-r2.md)；下文保留历史P1交付状态。
 
 日期：2026-11-10（北京时间） · 小典 / Codex。
 
