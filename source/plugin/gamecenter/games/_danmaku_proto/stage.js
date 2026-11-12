@@ -9,14 +9,20 @@
   var POWER_RULE='danmaku-stage01-r5',NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
   var WEAPON_RULE='danmaku-stage01-r6',NORMAL_WEAPON_RULE='danmaku-stage01-normal-r4';
   var WIDE_WEAPON_RULE='danmaku-stage01-r7',NORMAL_WIDE_WEAPON_RULE='danmaku-stage01-normal-r5';
-  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE];
+  var COLLECT_RULE='danmaku-stage01-r8',NORMAL_COLLECT_RULE='danmaku-stage01-normal-r6';
+  function isCollect(rule){return rule===COLLECT_RULE||rule===NORMAL_COLLECT_RULE;}
+  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE];
   function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
   function level(power,rules){var a=rules.stage01.growth.thresholds;for(var i=a.length-1;i>0;i--)if(power>=a[i])return i+1;return 1;}
   function effectiveRules(rules,rule){
-    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE].indexOf(rule)<0)return rules;
+    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE].indexOf(rule)<0)return rules;
     var p=rules.power05;
-    return Object.assign({},rules,{stage01:Object.assign({},rules.stage01,{shotCap:p.shotCap,
-      growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})})});
+    var config=Object.assign({},rules.stage01,{shotCap:p.shotCap,growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})});
+    if(isCollect(rule)){
+      var c=rules.collect08;config.dropCap=c.dropCap;
+      config.schedule=rules.stage01.schedule.map(function(m){return Object.assign({},m,{reward:c.extraPowerIds.indexOf(m.id)>=0?c.extraPowerValue:m.reward});});
+    }
+    return Object.assign({},rules,{stage01:config});
   }
   function position(rules,mob,age){
     var spec=rules.stage01.types[mob.type],v=rules.stage01.paths[mob.type][clamp(age,0,spec.life)];
@@ -31,16 +37,18 @@
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
     rules=effectiveRules(rules,rule);
-    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE].indexOf(rule)>=0,
-      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
+    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE,COLLECT_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,NORMAL_COLLECT_RULE].indexOf(rule)>=0,
+      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
     this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
-    this.wideWeaponMode=rule===WIDE_WEAPON_RULE||rule===NORMAL_WIDE_WEAPON_RULE;
+    this.collectMode=isCollect(rule);this.lastPointPickup=-999;this.lastPointValue=0;
+    this.wideWeaponMode=rule===WIDE_WEAPON_RULE||rule===NORMAL_WIDE_WEAPON_RULE||this.collectMode;
     this.weaponMode=rule===WEAPON_RULE||rule===NORMAL_WEAPON_RULE||this.wideWeaponMode;
     this.hp=index<0?0:rules.boss.phaseHP[index];
     this.player.power=0;this.mobs=[];this.drops=[];this.cursor=0;this.nextDrop=1;
     this.lastUpgrade=-999;this.lastDowngrade=-999;
     Object.assign(this.stats,{mobDamage:0,mobKills:0,mobScore:0,powerCollected:0,powerRecovered:0,powerLost:0,
       powerOverflow:0,overflowScoreUnits:0,mobSpawned:0,mobPeak:0,dropSpawned:0,dropPeak:0,upgrades:0});
+    if(this.collectMode)Object.assign(this.stats,{pointItemsSpawned:0,pointCollected:0,pointScore:0});
     if(this.bombMode){
       var config=rules.stage01.bomb;
       this.player.bombs=assist?config.assistStart:config.standardStart;
@@ -95,7 +103,8 @@
     this.drops.push({id:this.nextDrop++,x:clamp(x,12*Q,468*Q),y:Math.max(0,y),px:x,py:y,born:this.tick,value:value,
       recovery:recovery,unlock:this.tick+(recovery?g.recoveryUnlockTicks:g.rewardUnlockTicks),attracted:false});
     if(this.bombMode){
-      this.drops[this.drops.length-1].kind=kind===1?1:0;
+      this.drops[this.drops.length-1].kind=kind===1?1:this.collectMode&&kind===2?2:0;
+      if(this.collectMode&&kind===2)this.stats.pointItemsSpawned++;
       if(kind===1)this.stats.bombItemsSpawned++;
     }
     this.stats.dropSpawned++;this.stats.dropPeak=Math.max(this.stats.dropPeak,this.drops.length);
@@ -108,6 +117,10 @@
     if(p.lives>0)this.drop(p.x,p.y-48*Q,lost,true);
   };
   Sim.prototype.collect=function(item){
+    if(this.collectMode&&item.kind===2){
+      var value=item.value*this.rules.collect08.pointValue;this.stats.pointCollected+=item.value;this.stats.pointScore+=value;
+      this.lastPointValue=this.lastPointPickup===this.tick?this.lastPointValue+value:value;this.lastPointPickup=this.tick;return;
+    }
     if(this.bombMode&&item.kind===1){
       var config=this.rules.stage01.bomb;this.stats.bombCollected++;this.lastBombPickup=this.tick;
       if(this.player.bombs<config.stockCap)this.player.bombs++;
@@ -126,7 +139,8 @@
     var applied=Math.min(m.hp,damage),type=this.rules.stage01.types[m.type];m.hp-=applied;this.stats.mobDamage+=applied;
     if(fromBomb)this.stats.bombDamage+=applied;else this.stats.shotHits++;
     if(m.hp===0){
-      this.stats.mobKills++;this.stats.mobScore+=type.killScore;this.drop(m.x,m.y,m.reward,false);
+      this.stats.mobKills++;this.stats.mobScore+=type.killScore;
+      if(this.collectMode&&m.reward===0)this.drop(m.x,m.y,1,false,2);else this.drop(m.x,m.y,m.reward,false);
       if(fromBomb)this.stats.bombKills++;
       if(this.bombMode&&m.type===this.rules.stage01.bomb.rewardType)this.drop(m.x,m.y,this.rules.stage01.bomb.rewardValue,false,1);
     }
@@ -259,6 +273,7 @@
       result.bomb=[this.bombActiveUntil,this.bombCooldownUntil,this.lastBomb,this.bombX,this.bombY,
         s.bombDamage,s.bombKills,s.bombCleared,s.bombCollected,s.bombOverflowTokens,s.bombItemsSpawned,this.lastBombPickup,this.lastBombOverflow];
     }
+    if(this.collectMode)result.collect=[s.pointItemsSpawned,s.pointCollected,s.pointScore,this.lastPointPickup,this.lastPointValue];
     return result;
   };
   function Stage(rules,assist,rule){
@@ -319,6 +334,7 @@
     parts.mobs=this.stats.mobScore;parts.overflow=this.stats.overflowScoreUnits*this.rules.stage01.growth.overflowPerUnit;
     parts.total+=parts.mobs+parts.overflow;
     if(this.sim.bombMode){parts.bombOverflow=this.stats.bombOverflowTokens*this.rules.stage01.bomb.overflowScore;parts.total+=parts.bombOverflow;}
+    if(this.sim.collectMode){parts.points=this.stats.pointScore;parts.total+=parts.points;}
     return parts;
   };
   Stage.prototype.snapshot=function(){
@@ -326,6 +342,6 @@
       stage:this.stage,remaining:this.remaining,status:this.status,hp:this.sim.hp,score:this.score(),events:this.events.map(function(e){return Object.assign({},e);}),sim:this.sim.snapshot()};
   };
   function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
-  function scoreLimit(rules,rule){return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
-  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+  function scoreLimit(rules,rule){if(isCollect(rule))return rules.collect08.scoreUpperBound;return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
+  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,collectRule:COLLECT_RULE,normalCollectRule:NORMAL_COLLECT_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
 }));

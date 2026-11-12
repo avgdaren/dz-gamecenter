@@ -37,6 +37,11 @@
       if(m.reward){ctx.font='10px "Microsoft YaHei",sans-serif';ctx.fillStyle='#efcf85';ctx.textAlign='center';ctx.fillText('✦',x,y-label-7);ctx.textAlign='start';}
     });
     sim.drops.forEach(function(d){
+      if(d.kind===2){
+        var xx=Math.round(d.x/64),yy=Math.round(d.y/64);ctx.fillStyle='#286bba';ctx.strokeStyle='#b2e5ff';ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(xx,yy-8);ctx.lineTo(xx+8,yy);ctx.lineTo(xx,yy+8);ctx.lineTo(xx-8,yy);ctx.closePath();ctx.fill();ctx.stroke();
+        ctx.fillStyle='#effbff';ctx.font='9px monospace';ctx.textAlign='center';ctx.fillText('S',xx,yy+3);ctx.textAlign='start';return;
+      }
       var isBomb=d.kind===1,x=Math.round(d.x/64),y=Math.round(d.y/64);ctx.fillStyle=isBomb?'#57452b':d.recovery?'#6f552f':'#294b62';ctx.fillRect(x-7,y-7,14,14);
       ctx.strokeStyle=isBomb||d.recovery?'#efcf85':'#9cdef0';ctx.strokeRect(x-7,y-7,14,14);
       ctx.fillStyle='#f1f4ec';ctx.font='10px monospace';ctx.textAlign='center';ctx.fillText(isBomb?'B':'P',x,y+3);ctx.textAlign='start';
@@ -47,6 +52,10 @@
     var text=sim.tick-sim.lastUpgrade<75?'火力提升 '+['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][root.DanmakuStage01.level(sim.player.power,sim.rules)-1]:sim.tick-sim.lastDowngrade<60?'强化可捡回':'';
     if(text){ctx.font='12px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillStyle='#e9d49e';ctx.fillText(text,sim.player.x/64,sim.player.y/64-38);ctx.textAlign='start';}
     if(sim.bombMode&&sim.tick-sim.lastBombPickup<60){ctx.font='11px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillStyle='#f4dc9e';ctx.fillText(sim.lastBombOverflow===sim.lastBombPickup?'大招已满 +500':'大招 +1',sim.player.x/64,sim.player.y/64-(text?54:38));ctx.textAlign='start';}
+    if(sim.collectMode&&sim.tick-sim.lastPointPickup<45){
+      var rows=(text?1:0)+(sim.bombMode&&sim.tick-sim.lastBombPickup<60?1:0);ctx.font='12px monospace';ctx.textAlign='center';ctx.fillStyle='#b4e7ff';
+      ctx.fillText('+'+sim.lastPointValue,sim.player.x/64,sim.player.y/64-38-rows*16);ctx.textAlign='start';
+    }
   }
   function bomb(ctx,sim,reduced){
     if(!sim.bombMode)return false;

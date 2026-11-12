@@ -19,8 +19,8 @@ class Handler(BaseHTTPRequestHandler):
         prefix = "source/plugin/gamecenter/games/_danmaku_proto/"
         if name.startswith(prefix):
             name = name[len(prefix):]
-        if name in {"weapons-review.html", "weapons-review-v2.html"}:
-            review_name = "WEAPONS-v2.html" if name == "weapons-review-v2.html" else "WEAPONS-v1.html"
+        if name in {"weapons-review.html", "weapons-review-v2.html", "collect-review.html"}:
+            review_name = {"weapons-review-v2.html":"WEAPONS-v2.html", "collect-review.html":"COLLECT-v1.html"}.get(name,"WEAPONS-v1.html")
             data = (ROOT.parents[4] / "docs/danmaku/review" / review_name).read_bytes()
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")

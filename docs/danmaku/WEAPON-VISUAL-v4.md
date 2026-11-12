@@ -1,5 +1,7 @@
 # 短追踪弹与星杖立绘
 
+后续反馈：用户已确认标题，要求低速绿色弹恢复前版样式、增加P与积分掉落；当前行为和入口见[道中强化与积分晶体](COLLECT-v1.md)。本页“低速也缩短”属于被纠正的历史版本，高速短追踪仍保留。
+
 2026-11-12，小典 / Codex；原型 `(C) 2026 Carinoasd`。沿用 [Issue #78](https://github.com/avgdaren/dz-gamecenter/issues/78)／[Draft PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)。
 
 用户要求追踪弹使用短弹形，认可主角立绘但需要武器体现弹幕来源。本轮只修改绘制和标题图片，规则仍Easy r7／Normal normal-r5。

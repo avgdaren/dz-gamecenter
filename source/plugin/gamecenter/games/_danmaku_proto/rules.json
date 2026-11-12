@@ -9915,5 +9915,25 @@
       "speedQ": 576,
       "damage": 1
     }
+  },
+  "collect08": {
+    "easyRule": "danmaku-stage01-r8",
+    "normalRule": "danmaku-stage01-normal-r6",
+    "extraPowerIds": [
+      2,
+      6,
+      12,
+      18,
+      23,
+      27,
+      33,
+      38
+    ],
+    "extraPowerValue": 1,
+    "pointValue": 500,
+    "dropCap": 48,
+    "powerTotal": 26,
+    "pointItems": 20,
+    "scoreUpperBound": 331700
   }
 }
