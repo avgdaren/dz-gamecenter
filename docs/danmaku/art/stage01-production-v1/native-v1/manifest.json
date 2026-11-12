@@ -1,0 +1,683 @@
+{
+  "author": "小典 / Codex",
+  "copyright": "(C) 2026 Carinoasd",
+  "sourceHashes": {
+    "attendant-source-v1.png": "99e323f7eb33d3fca49ee23db3f978a47f8fc2df0877bde2f963f585373c587f",
+    "corridor-source-v1.png": "c879680b4db81271041255770e783f729786b7e7f45bd2e780ed2d7730b622e7",
+    "fairy-source-v1.png": "592db26332d1b103515038efea53445655ca53413025d1fd7576f2507d633be3",
+    "guardian-source-v1.png": "cf8fa1469882aca53e789a62609a9e1186e04f4cdae38be1150c6b8b027bf63a"
+  },
+  "palette": [
+    "#1A2440",
+    "#28345D",
+    "#3D497B",
+    "#53639D",
+    "#6476AF",
+    "#F9E0AB",
+    "#ECC38A",
+    "#C99864",
+    "#966A48",
+    "#6B4937",
+    "#F4F0E8",
+    "#DCD9E7",
+    "#B9B8D2",
+    "#8E96BA",
+    "#E5B94F",
+    "#B98632",
+    "#FAD2BA",
+    "#ECAE96",
+    "#477ED0",
+    "#76B2E3",
+    "#284F9F",
+    "#1C1F32",
+    "#FFF2D1",
+    "#737A98",
+    "#8FBDE5",
+    "#A8D2EE",
+    "#A49BC4",
+    "#6D648E",
+    "#D9C191",
+    "#8CAACB",
+    "#32485E",
+    "#C3AC7F"
+  ],
+  "alpha": [
+    0,
+    255
+  ],
+  "sprites": {
+    "fairy": {
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        24
+      ],
+      "box": [
+        42,
+        40
+      ],
+      "radius": 8,
+      "rows": [
+        "hover",
+        "left",
+        "right"
+      ],
+      "scale": 0.14108603769905645,
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "sourceBounds": [
+            42,
+            56,
+            321,
+            310
+          ],
+          "sourceAnchor": [
+            184.03473462100308,
+            208.4
+          ],
+          "opaque": 723,
+          "coreCoverage": 0.9952
+        },
+        {
+          "frame": 1,
+          "sourceBounds": [
+            405,
+            51,
+            683,
+            307
+          ],
+          "sourceAnchor": [
+            546.1608845445077,
+            204.6
+          ],
+          "opaque": 728,
+          "coreCoverage": 0.9904
+        },
+        {
+          "frame": 2,
+          "sourceBounds": [
+            763,
+            59,
+            1048,
+            310
+          ],
+          "sourceAnchor": [
+            908.5995886466475,
+            209.6
+          ],
+          "opaque": 720,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 3,
+          "sourceBounds": [
+            1126,
+            56,
+            1411,
+            310
+          ],
+          "sourceAnchor": [
+            1270.7677602268125,
+            208.4
+          ],
+          "opaque": 730,
+          "coreCoverage": 0.9904
+        },
+        {
+          "frame": 4,
+          "sourceBounds": [
+            42,
+            419,
+            311,
+            670
+          ],
+          "sourceAnchor": [
+            165.38187702265373,
+            569.6
+          ],
+          "opaque": 690,
+          "coreCoverage": 0.9615
+        },
+        {
+          "frame": 5,
+          "sourceBounds": [
+            399,
+            417,
+            671,
+            666
+          ],
+          "sourceAnchor": [
+            530.3268296632124,
+            566.4
+          ],
+          "opaque": 685,
+          "coreCoverage": 0.976
+        },
+        {
+          "frame": 6,
+          "sourceBounds": [
+            770,
+            423,
+            1037,
+            670
+          ],
+          "sourceAnchor": [
+            888.7896318557475,
+            571.2
+          ],
+          "opaque": 684,
+          "coreCoverage": 0.9663
+        },
+        {
+          "frame": 7,
+          "sourceBounds": [
+            1125,
+            419,
+            1402,
+            665
+          ],
+          "sourceAnchor": [
+            1251.1785865067973,
+            566.6
+          ],
+          "opaque": 690,
+          "coreCoverage": 0.9615
+        },
+        {
+          "frame": 8,
+          "sourceBounds": [
+            48,
+            782,
+            321,
+            1031
+          ],
+          "sourceAnchor": [
+            200.0629297096174,
+            931.4
+          ],
+          "opaque": 699,
+          "coreCoverage": 0.9808
+        },
+        {
+          "frame": 9,
+          "sourceBounds": [
+            416,
+            778,
+            681,
+            1027
+          ],
+          "sourceAnchor": [
+            561.447925619189,
+            927.4
+          ],
+          "opaque": 710,
+          "coreCoverage": 0.9712
+        },
+        {
+          "frame": 10,
+          "sourceBounds": [
+            774,
+            785,
+            1044,
+            1032
+          ],
+          "sourceAnchor": [
+            924.2752240769673,
+            933.2
+          ],
+          "opaque": 696,
+          "coreCoverage": 0.9856
+        },
+        {
+          "frame": 11,
+          "sourceBounds": [
+            1132,
+            781,
+            1408,
+            1027
+          ],
+          "sourceAnchor": [
+            1287.9332188981527,
+            928.6
+          ],
+          "opaque": 694,
+          "coreCoverage": 0.9615
+        }
+      ]
+    },
+    "attendant": {
+      "size": [
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        32
+      ],
+      "box": [
+        38,
+        54
+      ],
+      "radius": 10,
+      "rows": [
+        "hover",
+        "charge",
+        "fire"
+      ],
+      "scale": 0.17064846416382257,
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "sourceBounds": [
+            93,
+            42,
+            268,
+            329
+          ],
+          "sourceAnchor": [
+            180.76353481668318,
+            214.2
+          ],
+          "opaque": 963,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 1,
+          "sourceBounds": [
+            455,
+            42,
+            630,
+            329
+          ],
+          "sourceAnchor": [
+            542.5824964131995,
+            214.2
+          ],
+          "opaque": 973,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 2,
+          "sourceBounds": [
+            818,
+            42,
+            992,
+            329
+          ],
+          "sourceAnchor": [
+            904.917927927928,
+            214.2
+          ],
+          "opaque": 967,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 3,
+          "sourceBounds": [
+            1180,
+            42,
+            1354,
+            329
+          ],
+          "sourceAnchor": [
+            1266.7815141161661,
+            214.2
+          ],
+          "opaque": 979,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 4,
+          "sourceBounds": [
+            91,
+            404,
+            268,
+            691
+          ],
+          "sourceAnchor": [
+            180.0526174014546,
+            576.2
+          ],
+          "opaque": 950,
+          "coreCoverage": 0.9937
+        },
+        {
+          "frame": 5,
+          "sourceBounds": [
+            452,
+            404,
+            630,
+            692
+          ],
+          "sourceAnchor": [
+            539.804131731351,
+            576.8
+          ],
+          "opaque": 952,
+          "coreCoverage": 0.9937
+        },
+        {
+          "frame": 6,
+          "sourceBounds": [
+            818,
+            404,
+            993,
+            691
+          ],
+          "sourceAnchor": [
+            900.8415991902834,
+            576.2
+          ],
+          "opaque": 984,
+          "coreCoverage": 0.981
+        },
+        {
+          "frame": 7,
+          "sourceBounds": [
+            1176,
+            399,
+            1355,
+            692
+          ],
+          "sourceAnchor": [
+            1261.5672971836907,
+            574.8
+          ],
+          "opaque": 985,
+          "coreCoverage": 0.9652
+        },
+        {
+          "frame": 8,
+          "sourceBounds": [
+            88,
+            766,
+            268,
+            1053
+          ],
+          "sourceAnchor": [
+            174.71242205447982,
+            938.2
+          ],
+          "opaque": 997,
+          "coreCoverage": 0.9747
+        },
+        {
+          "frame": 9,
+          "sourceBounds": [
+            451,
+            766,
+            630,
+            1054
+          ],
+          "sourceAnchor": [
+            538.3382015793496,
+            938.8
+          ],
+          "opaque": 991,
+          "coreCoverage": 0.9937
+        },
+        {
+          "frame": 10,
+          "sourceBounds": [
+            812,
+            766,
+            992,
+            1054
+          ],
+          "sourceAnchor": [
+            903.3338361877718,
+            938.8
+          ],
+          "opaque": 961,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 11,
+          "sourceBounds": [
+            1176,
+            766,
+            1354,
+            1054
+          ],
+          "sourceAnchor": [
+            1266.3604787186177,
+            938.8
+          ],
+          "opaque": 956,
+          "coreCoverage": 1.0
+        }
+      ]
+    },
+    "guardian": {
+      "size": [
+        80,
+        80
+      ],
+      "anchor": [
+        40,
+        40
+      ],
+      "box": [
+        74,
+        74
+      ],
+      "radius": 22,
+      "rows": [
+        "idle",
+        "charge",
+        "fire"
+      ],
+      "scale": 0.23125,
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "sourceBounds": [
+            22,
+            20,
+            340,
+            339
+          ],
+          "sourceAnchor": [
+            181.0,
+            179.5
+          ],
+          "opaque": 3340,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 1,
+          "sourceBounds": [
+            384,
+            21,
+            703,
+            339
+          ],
+          "sourceAnchor": [
+            543.5,
+            180.0
+          ],
+          "opaque": 3333,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 2,
+          "sourceBounds": [
+            746,
+            20,
+            1065,
+            339
+          ],
+          "sourceAnchor": [
+            905.5,
+            179.5
+          ],
+          "opaque": 3333,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 3,
+          "sourceBounds": [
+            1108,
+            20,
+            1427,
+            339
+          ],
+          "sourceAnchor": [
+            1267.5,
+            179.5
+          ],
+          "opaque": 3331,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 4,
+          "sourceBounds": [
+            21,
+            383,
+            341,
+            700
+          ],
+          "sourceAnchor": [
+            181.0,
+            541.5
+          ],
+          "opaque": 3336,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 5,
+          "sourceBounds": [
+            384,
+            383,
+            703,
+            700
+          ],
+          "sourceAnchor": [
+            543.5,
+            541.5
+          ],
+          "opaque": 3335,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 6,
+          "sourceBounds": [
+            745,
+            383,
+            1065,
+            700
+          ],
+          "sourceAnchor": [
+            905.0,
+            541.5
+          ],
+          "opaque": 3339,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 7,
+          "sourceBounds": [
+            1108,
+            383,
+            1427,
+            700
+          ],
+          "sourceAnchor": [
+            1267.5,
+            541.5
+          ],
+          "opaque": 3336,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 8,
+          "sourceBounds": [
+            21,
+            745,
+            341,
+            1063
+          ],
+          "sourceAnchor": [
+            181.0,
+            904.0
+          ],
+          "opaque": 3338,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 9,
+          "sourceBounds": [
+            384,
+            745,
+            703,
+            1063
+          ],
+          "sourceAnchor": [
+            543.5,
+            904.0
+          ],
+          "opaque": 3332,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 10,
+          "sourceBounds": [
+            745,
+            745,
+            1065,
+            1063
+          ],
+          "sourceAnchor": [
+            905.0,
+            904.0
+          ],
+          "opaque": 3339,
+          "coreCoverage": 1.0
+        },
+        {
+          "frame": 11,
+          "sourceBounds": [
+            1108,
+            745,
+            1427,
+            1063
+          ],
+          "sourceAnchor": [
+            1267.5,
+            904.0
+          ],
+          "opaque": 3331,
+          "coreCoverage": 1.0
+        }
+      ]
+    }
+  },
+  "background": {
+    "size": [
+      480,
+      1440
+    ],
+    "sourceSize": [
+      724,
+      2172
+    ],
+    "travelPixels": 800,
+    "repeat": false
+  }
+}

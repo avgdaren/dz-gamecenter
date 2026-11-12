@@ -1,0 +1,44 @@
+{
+  "status": "source-inspected-not-runtime-ready",
+  "images": {
+    "oldBody": {
+      "file": "docs/danmaku/art/production-candidates/boss-body-v1.png",
+      "size": [
+        1134,
+        1387
+      ],
+      "sha256": "79fbf9c029691bfa41e9745e2dabd21add27d93e184fe3a8f4c25f98a0862cce",
+      "alphaLevels": 256,
+      "alpha192Bounds": [
+        19,
+        41,
+        1125,
+        1344
+      ],
+      "edgeAlphaMax": 2,
+      "nonzeroAlphaPixels": 914715,
+      "opaqueColors": 222556
+    },
+    "battleConcept": {
+      "file": "docs/danmaku/art/boss-battle-design-v1/boss-battle-body-concept-v1.png",
+      "size": [
+        1060,
+        1484
+      ],
+      "sha256": "9ac60c4cf8fa27c421266d20f4aa1a2dae5278365639a38b8dedcaf22c8aa78d",
+      "alphaLevels": 256,
+      "alpha192Bounds": [
+        23,
+        62,
+        1038,
+        1438
+      ],
+      "edgeAlphaMax": 0,
+      "nonzeroAlphaPixels": 905457,
+      "opaqueColors": 166634
+    }
+  },
+  "originalUnchanged": true,
+  "nativeFramesProduced": 0,
+  "runtimeIntegrated": false
+}

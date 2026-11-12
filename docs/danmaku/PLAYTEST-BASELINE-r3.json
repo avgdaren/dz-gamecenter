@@ -1,0 +1,175 @@
+{
+  "label": "Boss修正版 r3候选基线",
+  "recordedDate": "2026-11-12",
+  "author": "小典 / Codex",
+  "runtimeVersion": "stage01-boss-r3",
+  "rule": "danmaku-stage01-r3",
+  "scope": "private-offline-single-stage",
+  "playtestOwner": "avg达人",
+  "fullAutoplayByDefault": false,
+  "userFeedback": "用户提出身体静止与三阶段相似；r3针对修正，待用户试玩",
+  "standalone": {
+    "file": "danmaku-stage01-boss-r3-offline.html",
+    "bytes": 14817797,
+    "sha256": "b2b4dbbbdab14d19895083338634f28ea476735f3692b8ffc3e0e80df4296664"
+  },
+  "archive": {
+    "file": "danmaku-stage01-boss-r3.zip",
+    "bytes": 21613258,
+    "sha256": "0f8e0cb7af1b35083b3e944914c9bc2667151bf2cf769825909bf035d012fe42"
+  },
+  "runtimeFiles": {
+    "assets/README.md": {
+      "bytes": 553,
+      "sha256": "4a6765f1e12fee9858a407cf96def534a7f0f4d80486f29469f387a581b0a802"
+    },
+    "assets/boss-body-atlas-v1.png": {
+      "bytes": 59860,
+      "sha256": "d445ca43990e075c6b3253a324737d11d8b659e22c7fd88d20dc3b16bb995a63"
+    },
+    "assets/boss-face-v1.png": {
+      "bytes": 443122,
+      "sha256": "d48bef817c9976446597321d8c67eb66e4545c9c791b99cb56b52a017452faf4"
+    },
+    "assets/boss-portrait-v1.png": {
+      "bytes": 2026937,
+      "sha256": "79fbf9c029691bfa41e9745e2dabd21add27d93e184fe3a8f4c25f98a0862cce"
+    },
+    "assets/boss-ring-back-v1.png": {
+      "bytes": 3145,
+      "sha256": "6a02d02f6cfcacb71f3ad1f4b81021a3229ec8a44d7702942d3ae5cdafa1bed7"
+    },
+    "assets/boss-ring-front-v1.png": {
+      "bytes": 291,
+      "sha256": "952582341dee1639fd2e5e24e0498e675fab349b4677e73dfdf86ef8168ff698"
+    },
+    "assets/player-front-display-v1.png": {
+      "bytes": 4342,
+      "sha256": "fbdc7656d190c94cfff97bd77b26756e0546285da7fa67bf15abf365450a4d19"
+    },
+    "assets/player-motion-v1.png": {
+      "bytes": 5690,
+      "sha256": "43cb2706d05644e8c073666eb1dd951abe320cf302d6a93c4ba7fbb4c7853321"
+    },
+    "assets/stage01-attendant-v1.png": {
+      "bytes": 8848,
+      "sha256": "9ddda72d0e33064c4821df1de12fb1a70ebb5143b1574f0498d933df8379b140"
+    },
+    "assets/stage01-corridor-v1.png": {
+      "bytes": 966300,
+      "sha256": "dabe543d146bd4b781d78bfd41118819051d9812b1fcc01791cc274e41230a0b"
+    },
+    "assets/stage01-fairy-v1.png": {
+      "bytes": 6386,
+      "sha256": "da250c6cd15f83442af704ebe24569c43e7dc631d447b0ac1854e85ca8bba627"
+    },
+    "assets/stage01-guardian-v1.png": {
+      "bytes": 20882,
+      "sha256": "f6e6bd7b183a5943b1e85453134ea01b7c4070de9d0bd73c2125e2c1c2b29989"
+    },
+    "audio-bank.js": {
+      "bytes": 390620,
+      "sha256": "661ef8b957536db6da1c9c63df47ab08e06ca843f14b997d9bf53db6dded808b"
+    },
+    "audio.js": {
+      "bytes": 19180,
+      "sha256": "8590d40eee1cddac9da633a812436b4b3d12c6f5c1bc9c8bd9e012a68f9ce8a5"
+    },
+    "battle-replay.js": {
+      "bytes": 2144,
+      "sha256": "7619579555eedaf9e6100482ea1f149834649058350f823808a4b24163add195"
+    },
+    "battle.js": {
+      "bytes": 7706,
+      "sha256": "dc3b23fa90bcf20837497e09c9a54dde1396833b84d8d5c2eff758885ba1284c"
+    },
+    "battle.php": {
+      "bytes": 9558,
+      "sha256": "62d09a87038ba4ca937fdee2f0bc8e2e87afa38c6b95d3aa618829a4d10b8e34"
+    },
+    "bgm-bank.js": {
+      "bytes": 8859807,
+      "sha256": "b7edccc8460ab419573c6f77645b1acd8529db4a8acccc5e219a6adda388940a"
+    },
+    "boss-patterns.js": {
+      "bytes": 2966,
+      "sha256": "b350aad6e18428e7e35abac14bc690562efb0a720cb19ee5743d0f43cd733427"
+    },
+    "boss-patterns.php": {
+      "bytes": 1980,
+      "sha256": "6147e1d01830b0e2baead874f3174e850df5e0bca1d48728aaa68631b75f7a9a"
+    },
+    "boss-view.js": {
+      "bytes": 4535,
+      "sha256": "7df1ca45105c27582c2d5b5c150a2f88fb8e962601a6ebf9934d7096ad8b0210"
+    },
+    "engine.js": {
+      "bytes": 10774,
+      "sha256": "a8ef1a3af4c701a7c1674020c6ff4468d2c79b624bdaa2771c83d41bdd815a1f"
+    },
+    "engine.php": {
+      "bytes": 14703,
+      "sha256": "2ccb3e37b735b00a551c6ad98c0f089ea72f420beb24765266f8681ae6082f44"
+    },
+    "index.html": {
+      "bytes": 11647,
+      "sha256": "a783d10445ba06541536bdae8ecf3266cede8b2c34e2d29b00f4ad8e384ec4fd"
+    },
+    "midi-bank.js": {
+      "bytes": 43711,
+      "sha256": "b588a0936c58ee79370d657f461d7d8cd43811d5172f6a7070e88d02c7f60812"
+    },
+    "midi.js": {
+      "bytes": 17359,
+      "sha256": "baa8912efc8ae2b7f47679f5d741ecc5614aa7e6ef5885206117447c915a27fa"
+    },
+    "player-view.js": {
+      "bytes": 1877,
+      "sha256": "969dd246bce76e50fb74e0059e7df7a02189073152cf5a75bbc9cb234ddcb47b"
+    },
+    "replay.js": {
+      "bytes": 3770,
+      "sha256": "55ea3062bf2f64f94dd272204bc97b6560860f56c6476791cd402504ee357851"
+    },
+    "rules-data.js": {
+      "bytes": 30761,
+      "sha256": "6fa2fac1091b00775946581b1f2a2bd5f8f96043b5e8a738c933dee9bf85ec1b"
+    },
+    "rules.json": {
+      "bytes": 117463,
+      "sha256": "3e8934f104daebd92f93512875e29d26ce6d8dec3a0ba1b797f60d5fae62575f"
+    },
+    "stage-art-view.js": {
+      "bytes": 4237,
+      "sha256": "0698354d61eb08b5a66df2401686e985628f7525afe2fe4635e86ebc78849c88"
+    },
+    "stage-replay.js": {
+      "bytes": 2213,
+      "sha256": "02a4ee5634943620098cc2543ec9b9a594395d4ae890f34713a21dc6680608c7"
+    },
+    "stage-show.js": {
+      "bytes": 3720,
+      "sha256": "77f54fc1c1dff2b266cfba2a626bde35b501395abdd94b2e23cc1fadf060d018"
+    },
+    "stage-view.js": {
+      "bytes": 5559,
+      "sha256": "2d3a7b9f4471b5ba0af8d19e5cea3c131bba732f6d4f5c7f33f4d8409e7895d5"
+    },
+    "stage.js": {
+      "bytes": 19112,
+      "sha256": "6ea74a40cc8b0eae7704a860c86fb6385f98d05dedc607f1f6d566b13a71a601"
+    },
+    "stage.php": {
+      "bytes": 27886,
+      "sha256": "ce892a6e3388070c4f4ff75815dccd442f954c612f3b71b6311af42e1043e486"
+    },
+    "style.css": {
+      "bytes": 21510,
+      "sha256": "701b16b27e8d33ad410577ecd80d72e005ade46948e45e80a7303a9e5cb0bae0"
+    },
+    "ui.js": {
+      "bytes": 37550,
+      "sha256": "7cd5596eb59a6d0d02bf6fa09e3406d5c7881819f8486e4e795e28b1e1e916ea"
+    }
+  }
+}

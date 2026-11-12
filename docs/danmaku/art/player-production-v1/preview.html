@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- (C) 2026 Carinoasd. Art preview: 小典 / Codex. -->
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天使弹幕祭 · 自机素材预览</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:24px;background:#090e1b;color:#e8edf6;font:14px/1.6 "Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto}h1{font-size:21px;font-weight:500;margin:0 0 4px}p{color:#a7bedf;margin:0 0 16px}.layout{display:grid;grid-template-columns:minmax(0,480px) minmax(240px,1fr);gap:20px;align-items:stretch}.arena{display:block;width:100%;height:auto;border:1px solid #34435d;background:#111e35}.side{display:flex;flex-direction:column;gap:16px}.card{border:1px solid #34435d;background:#111a2b;padding:16px}h2{font-size:14px;font-weight:500;color:#e8c888;margin:0 0 10px}.samples{display:flex;flex-wrap:wrap;gap:12px}.sample{width:144px;height:144px;display:flex;align-items:center;justify-content:center}.dark{background:#111e35}.light{background:#e5e8ed}.sample img{width:144px;height:144px;image-rendering:pixelated}.portrait{margin-top:auto;text-align:center}.portrait img{height:240px;max-width:100%;object-fit:contain;image-rendering:pixelated}button{background:#1c304c;border:1px solid #6b83a3;color:#e8edf6;padding:7px 16px;cursor:pointer}#status{font-size:12px;color:#a7bedf;margin:12px 0 0}.note{font-size:12px;color:#a7bedf;margin-top:14px}@media(max-width:650px){body{padding:14px}.layout{grid-template-columns:1fr}.samples{justify-content:center}.portrait img{height:200px}}
+button[aria-pressed="true"]{background:#e8c888;color:#111e35}.actions{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.frame-label{font-size:12px;color:#a7bedf}
+main,.layout>*{min-width:0}.arena{max-width:100%}@media(max-width:650px){.layout{grid-template-columns:minmax(0,1fr)}}
+</style>
+<main>
+<h1>天使弹幕祭 · 自机素材预览</h1>
+<p>背面战斗自机与右下角正面展示的组合效果。素材评审场景，尚未接入游戏。</p>
+<div class="layout">
+<canvas id="arena" class="arena" width="480" height="640" aria-label="480乘640场地中的48像素自机显示预览"></canvas>
+<aside class="side">
+<section class="card"><h2>背面动作 · 3倍显示</h2><div class="samples"><canvas id="detail-dark" width="144" height="144" aria-label="深底动作放大预览"></canvas><canvas id="detail-light" width="144" height="144" aria-label="浅底动作放大预览"></canvas></div><div class="actions" role="group" aria-label="动作选择"><button type="button" data-row="0" aria-pressed="true">悬浮</button><button type="button" data-row="1" aria-pressed="false">左移</button><button type="button" data-row="2" aria-pressed="false">右移</button><button type="button" id="pause">暂停动画</button></div><output id="frame-label" class="frame-label"></output><div class="note">左侧场地按48像素画布显示；腰腹标出半径3的独立判定点。</div><div id="status" role="status">正在加载素材…</div></section>
+<section class="card portrait"><h2>右下角 · 正面角色展示</h2><img id="portrait" src="native-v1/player-front-display-v1.png" alt="同一少女的正面形象"></section>
+</aside>
+</div>
+<p id="production-note" class="note">当前为生成源图缩放显示，像素网格与帧尺寸尚待正式整理。此预览用于检查帧循环、透明边缘和判定点对齐。</p>
+</main>
+<script src="player-motion-v1.js"></script>
+<script src="preview.js"></script>
+</html>

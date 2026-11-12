@@ -1,0 +1,33 @@
+/* (C) 2026 Carinoasd. Presentation boundaries: 小典 / Codex. */
+'use strict';
+const assert=require('node:assert/strict');
+const show=require('../../source/plugin/gamecenter/games/_danmaku_proto/stage-show.js');
+const rules=require('../../source/plugin/gamecenter/games/_danmaku_proto/rules.json');
+const state=show.create(),battle={stage:'prelude',tick:0,phaseIndex:-1,phaseBreaks:0,remaining:4320,rules,sim:{boss:{x:240*64,y:88*64}}};
+assert.equal(show.model(state,battle,false).kind,'none');
+battle.stage='opening';battle.phaseIndex=0;battle.remaining=180;
+assert.equal(show.model(state,battle,false).opacity,0);
+battle.remaining=120;assert.equal(show.model(state,battle,false).opacity,1);
+assert.equal(show.model(state,battle,false).kind,'intro');
+const frozen=JSON.stringify(show.model(state,battle,false));assert.equal(JSON.stringify(show.model(state,battle,false)),frozen);
+battle.remaining=1;assert.equal(show.model(state,battle,false).opacity,0,'Cut-in must end before live bullets');
+battle.stage='active';assert.equal(show.model(state,battle,false).kind,'none');
+battle.stage='transition';battle.phaseIndex=1;battle.phaseBreaks=1;battle.remaining=120;battle.tick=500;
+const snapshot=JSON.stringify(battle);show.observe(state,battle,{stage:'active',x:304*64,y:88*64});assert.equal(JSON.stringify(battle),snapshot);
+assert.deepEqual(state.breakOrigin,[304,88]);
+let m=show.model(state,battle,false);assert.equal(m.phase,1);assert.equal(m.bossAlpha,0);assert.deepEqual(m.origin,[304,88]);
+battle.remaining=60;m=show.model(state,battle,false);assert.ok(m.origin[0]>240&&m.origin[0]<304);assert.ok(m.opacity>0);
+battle.remaining=1;m=show.model(state,battle,false);assert.deepEqual(m.origin,[240,88]);assert.equal(m.opacity,0);
+// Legacy Battle keeps the old phase until the transition ends.
+battle.phaseIndex=0;assert.equal(show.model(state,battle,false).phase,1);
+m=show.model(state,battle,true);assert.equal(m.bossAlpha,1);assert.equal(m.burst,null);
+battle.stage='active';assert.equal(show.model(state,battle,false).opacity,0);
+battle.stage='over';battle.status='clear';show.observe(state,battle);assert.equal(state.endingAge,0);
+show.ending(state,1000,false,false);assert.equal(state.endingAge,0,'Background must freeze ending');
+show.ending(state,1000,true,false);assert.equal(state.endingAge,3,'A stalled render must not jump through ending');
+for(let i=0;i<60;i++)show.ending(state,50,true,false);
+assert.equal(state.endingAge,180);m=show.model(state,battle,false);assert.equal(m.burst,null);assert.equal(m.bossAlpha,0);
+const reduced=show.create();show.observe(reduced,battle);show.ending(reduced,1,true,true);assert.equal(reduced.endingAge,180);
+let draws=0;assert.equal(show.effects({},m,true),false);assert.equal(draws,0);
+const fresh=show.create();assert.equal(fresh.terminal,null);assert.equal(fresh.endingAge,0);
+console.log(JSON.stringify({status:'PASS',checks:16,original180And120Ticks:true,noActiveCombatCutIn:true,stageAndLegacyPhaseNames:true,registeredTransition:true,noSimulationMutation:true,endingDoesNotDelayResult:true,reducedAndBackground:true}));

@@ -1,0 +1,46 @@
+{
+  "author": "小典 / Codex",
+  "frames_checked": 12,
+  "all_native_frames_distinct": true,
+  "atlas_matches_individual_frames": true,
+  "alpha_binary": true,
+  "frame_edges_clear": true,
+  "source_hashes_unchanged": true,
+  "shared_palette_opaque_colors": 24,
+  "portrait_size": [
+    160,
+    224
+  ],
+  "animation_checks": [
+    {
+      "mode": "idle",
+      "frames": 4,
+      "size": [
+        96,
+        96
+      ],
+      "fps": 8,
+      "pixel_match": true
+    },
+    {
+      "mode": "left",
+      "frames": 4,
+      "size": [
+        96,
+        96
+      ],
+      "fps": 8,
+      "pixel_match": true
+    },
+    {
+      "mode": "right",
+      "frames": 4,
+      "size": [
+        96,
+        96
+      ],
+      "fps": 8,
+      "pixel_match": true
+    }
+  ]
+}

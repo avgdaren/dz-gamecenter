@@ -1,0 +1,49 @@
+{
+  "tool": "built-in imagegen",
+  "exporter": "小典 / Codex",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "sourceSha256": "430e871b4d2decb5ff75b0711c8408d6e9f30cb824882ba15118297fbddd1b12",
+  "files": {
+    "icon-512.png": {
+      "size": [
+        512,
+        512
+      ],
+      "bytes": 482474,
+      "sha256": "f54a152621007569f79098c972f2ebc2c1c56f0f0554df42afe506efce3eaaf0"
+    },
+    "icon-128.png": {
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 36695,
+      "sha256": "669aabccb210e455aaf582706e3171516885ee82f91c829fe82650411e6de45b"
+    },
+    "icon-64.png": {
+      "size": [
+        64,
+        64
+      ],
+      "bytes": 10916,
+      "sha256": "49f0f50044bcbbe368544c87d5824cdf0ae621b1e7ac923e2008e305b8d33266"
+    },
+    "icon-32.png": {
+      "size": [
+        32,
+        32
+      ],
+      "bytes": 3320,
+      "sha256": "87209f21e7d7953a472b8e9b8f667f6b6d52b726eb637d7746d4ca0610581e03"
+    }
+  },
+  "suggestedForumIcon": "../../handoff-v1/forum/icon.png",
+  "runtimeIconSize": [
+    128,
+    128
+  ],
+  "sourceUnchanged": true
+}

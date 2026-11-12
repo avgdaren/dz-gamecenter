@@ -1,0 +1,167 @@
+{
+  "label": "第一关试玩基线 v1",
+  "recordedDate": "2026-11-12",
+  "author": "小典 / Codex",
+  "runtimeVersion": "stage01-show-v1",
+  "rule": "danmaku-stage01-r2",
+  "scope": "private-offline-single-stage",
+  "playtestOwner": "avg达人",
+  "fullAutoplayByDefault": false,
+  "userFeedback": "演出版本反馈没问题，继续制作；后续真人试玩由用户负责",
+  "standalone": {
+    "file": "danmaku-stage01-show-v1-offline.html",
+    "bytes": 14811491,
+    "sha256": "9af0b5dd8a995cf42fcb9a4f405d59e1c19f62b52bf0501a0df10d4bfd6ea63b"
+  },
+  "archive": {
+    "file": "danmaku-stage01-show-v1.zip",
+    "bytes": 21601743,
+    "sha256": "f844da5e09841437ff065b1104f7692ae693a2b12974de5ce2b0dd37cc5014e5"
+  },
+  "runtimeFiles": {
+    "assets/README.md": {
+      "bytes": 553,
+      "sha256": "4a6765f1e12fee9858a407cf96def534a7f0f4d80486f29469f387a581b0a802"
+    },
+    "assets/boss-body-atlas-v1.png": {
+      "bytes": 59860,
+      "sha256": "d445ca43990e075c6b3253a324737d11d8b659e22c7fd88d20dc3b16bb995a63"
+    },
+    "assets/boss-face-v1.png": {
+      "bytes": 443122,
+      "sha256": "d48bef817c9976446597321d8c67eb66e4545c9c791b99cb56b52a017452faf4"
+    },
+    "assets/boss-portrait-v1.png": {
+      "bytes": 2026937,
+      "sha256": "79fbf9c029691bfa41e9745e2dabd21add27d93e184fe3a8f4c25f98a0862cce"
+    },
+    "assets/boss-ring-back-v1.png": {
+      "bytes": 3145,
+      "sha256": "6a02d02f6cfcacb71f3ad1f4b81021a3229ec8a44d7702942d3ae5cdafa1bed7"
+    },
+    "assets/boss-ring-front-v1.png": {
+      "bytes": 291,
+      "sha256": "952582341dee1639fd2e5e24e0498e675fab349b4677e73dfdf86ef8168ff698"
+    },
+    "assets/player-front-display-v1.png": {
+      "bytes": 4342,
+      "sha256": "fbdc7656d190c94cfff97bd77b26756e0546285da7fa67bf15abf365450a4d19"
+    },
+    "assets/player-motion-v1.png": {
+      "bytes": 5690,
+      "sha256": "43cb2706d05644e8c073666eb1dd951abe320cf302d6a93c4ba7fbb4c7853321"
+    },
+    "assets/stage01-attendant-v1.png": {
+      "bytes": 8848,
+      "sha256": "9ddda72d0e33064c4821df1de12fb1a70ebb5143b1574f0498d933df8379b140"
+    },
+    "assets/stage01-corridor-v1.png": {
+      "bytes": 966300,
+      "sha256": "dabe543d146bd4b781d78bfd41118819051d9812b1fcc01791cc274e41230a0b"
+    },
+    "assets/stage01-fairy-v1.png": {
+      "bytes": 6386,
+      "sha256": "da250c6cd15f83442af704ebe24569c43e7dc631d447b0ac1854e85ca8bba627"
+    },
+    "assets/stage01-guardian-v1.png": {
+      "bytes": 20882,
+      "sha256": "f6e6bd7b183a5943b1e85453134ea01b7c4070de9d0bd73c2125e2c1c2b29989"
+    },
+    "audio-bank.js": {
+      "bytes": 390620,
+      "sha256": "661ef8b957536db6da1c9c63df47ab08e06ca843f14b997d9bf53db6dded808b"
+    },
+    "audio.js": {
+      "bytes": 19180,
+      "sha256": "8590d40eee1cddac9da633a812436b4b3d12c6f5c1bc9c8bd9e012a68f9ce8a5"
+    },
+    "battle-replay.js": {
+      "bytes": 2144,
+      "sha256": "7619579555eedaf9e6100482ea1f149834649058350f823808a4b24163add195"
+    },
+    "battle.js": {
+      "bytes": 7261,
+      "sha256": "878c24a44e2baee5ee0ae6bce7c24c4294afa46cd0ec0aa267e744b4a8eb09e9"
+    },
+    "battle.php": {
+      "bytes": 9058,
+      "sha256": "3ede196ccf64090a157707daef57aef601b3489f4ca81ed6dccaf293495eb1cd"
+    },
+    "bgm-bank.js": {
+      "bytes": 8859807,
+      "sha256": "b7edccc8460ab419573c6f77645b1acd8529db4a8acccc5e219a6adda388940a"
+    },
+    "boss-view.js": {
+      "bytes": 2393,
+      "sha256": "ab5d2643cc5a2ed6d099e80f4600b1652845904fedccf9d477658b05708e40b7"
+    },
+    "engine.js": {
+      "bytes": 10774,
+      "sha256": "a8ef1a3af4c701a7c1674020c6ff4468d2c79b624bdaa2771c83d41bdd815a1f"
+    },
+    "engine.php": {
+      "bytes": 14703,
+      "sha256": "2ccb3e37b735b00a551c6ad98c0f089ea72f420beb24765266f8681ae6082f44"
+    },
+    "index.html": {
+      "bytes": 11508,
+      "sha256": "9310b96b0f30ae734f46555187097b4199c3758e4cf02b62840087cdce2e5d9f"
+    },
+    "midi-bank.js": {
+      "bytes": 43711,
+      "sha256": "b588a0936c58ee79370d657f461d7d8cd43811d5172f6a7070e88d02c7f60812"
+    },
+    "midi.js": {
+      "bytes": 17359,
+      "sha256": "baa8912efc8ae2b7f47679f5d741ecc5614aa7e6ef5885206117447c915a27fa"
+    },
+    "player-view.js": {
+      "bytes": 1877,
+      "sha256": "969dd246bce76e50fb74e0059e7df7a02189073152cf5a75bbc9cb234ddcb47b"
+    },
+    "replay.js": {
+      "bytes": 3770,
+      "sha256": "55ea3062bf2f64f94dd272204bc97b6560860f56c6476791cd402504ee357851"
+    },
+    "rules-data.js": {
+      "bytes": 30058,
+      "sha256": "1575f240b01cf2d34074175019e3431e12bf6afa9472804c91cce16df5725af3"
+    },
+    "rules.json": {
+      "bytes": 107224,
+      "sha256": "7cce786ef973dac60e37dc8131e91bddc3274bfc7e2c26dd3d4544884213a569"
+    },
+    "stage-art-view.js": {
+      "bytes": 4237,
+      "sha256": "0698354d61eb08b5a66df2401686e985628f7525afe2fe4635e86ebc78849c88"
+    },
+    "stage-replay.js": {
+      "bytes": 2213,
+      "sha256": "02a4ee5634943620098cc2543ec9b9a594395d4ae890f34713a21dc6680608c7"
+    },
+    "stage-show.js": {
+      "bytes": 3720,
+      "sha256": "77f54fc1c1dff2b266cfba2a626bde35b501395abdd94b2e23cc1fadf060d018"
+    },
+    "stage-view.js": {
+      "bytes": 5559,
+      "sha256": "2d3a7b9f4471b5ba0af8d19e5cea3c131bba732f6d4f5c7f33f4d8409e7895d5"
+    },
+    "stage.js": {
+      "bytes": 18727,
+      "sha256": "35ca1c9b276986d2f4ca36bfb1917613426208dc477b2e80eb42dfaa63a3da6a"
+    },
+    "stage.php": {
+      "bytes": 27353,
+      "sha256": "e21984a03e6cded25205a7b564d7aa00cec594afea57c56ad90e27adceda3f7c"
+    },
+    "style.css": {
+      "bytes": 21510,
+      "sha256": "701b16b27e8d33ad410577ecd80d72e005ade46948e45e80a7303a9e5cb0bae0"
+    },
+    "ui.js": {
+      "bytes": 37014,
+      "sha256": "d9c1044b9442a3c2a1473f59638f37dc25cc960314e623aebd80ae6e7981b0c0"
+    }
+  }
+}

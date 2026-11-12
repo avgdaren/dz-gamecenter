@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "status": "concept-approved-production-v1-integrated-awaiting-visual-feedback",
+  "runtimeIntegrated": true,
+  "nativeFramesProduced": 16,
+  "character": {
+    "title": "星环观测者",
+    "properNameConfirmed": false,
+    "identityReference": "../production-candidates/boss-body-v1.png",
+    "conceptImage": "boss-battle-body-concept-v1.png",
+    "conceptImageSize": [
+      1060,
+      1484
+    ],
+    "sourceBoundsAlpha192": [
+      23,
+      62,
+      1038,
+      1438
+    ],
+    "conceptReferenceAnchor": [
+      530,
+      480
+    ],
+    "appearance": [
+      "成年女性、沉静庄严",
+      "银蓝长发与金色星饰",
+      "深蓝白金长礼服",
+      "腰间保留小型星仪挂饰"
+    ],
+    "battleStyle": "与现有像素战场协调；约五至六头身，保留成年Boss的比例"
+  },
+  "gameplay": {
+    "rule": "danmaku-stage01-r2",
+    "canvas": [
+      480,
+      640
+    ],
+    "bossOrigin": [
+      240,
+      88
+    ],
+    "bossXRange": [
+      176,
+      304
+    ],
+    "bossShotTargetRadius": 28,
+    "movementPeriodTicks": 480,
+    "rulesChange": false
+  },
+  "body": {
+    "proposedFile": "boss-body-atlas-v1.png",
+    "frame": [
+      96,
+      128
+    ],
+    "runtimeLogicalSize": [
+      96,
+      128
+    ],
+    "anchor": [
+      48,
+      48
+    ],
+    "anchorMeaning": "腰腹中心；与既有Boss发弹／受击中心重合",
+    "visibleBoundsTarget": [
+      8,
+      12,
+      88,
+      122
+    ],
+    "transparentMarginMin": 6,
+    "atlas": [
+      384,
+      512
+    ],
+    "columns": 4,
+    "rows": [
+      {
+        "name": "idle",
+        "row": 0,
+        "frames": 4,
+        "fps": 6
+      },
+      {
+        "name": "left",
+        "row": 1,
+        "frames": 4,
+        "fps": 8
+      },
+      {
+        "name": "right",
+        "row": 2,
+        "frames": 4,
+        "fps": 8
+      },
+      {
+        "name": "charge",
+        "row": 3,
+        "frames": 4,
+        "fps": 10
+      }
+    ],
+    "opaqueColorLimit": 32,
+    "alpha": [
+      0,
+      255
+    ],
+    "imageSmoothing": false,
+    "timing": "逻辑tick选帧；暂停／后台／倒计时不推进动画"
+  },
+  "instrument": {
+    "back": {
+      "proposedFile": "boss-ring-back-v1.png",
+      "frame": [
+        128,
+        128
+      ],
+      "anchor": [
+        64,
+        64
+      ],
+      "visibleRadiusMax": 56
+    },
+    "front": {
+      "proposedFile": "boss-ring-front-v1.png",
+      "frame": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        32
+      ],
+      "visibleRadiusMax": 24
+    },
+    "alpha": [
+      0,
+      255
+    ],
+    "samePaletteAsBody": true,
+    "collision": false,
+    "reducedMotion": "静止，使用默认朝向",
+    "productionStatus": "produced-and-integrated"
+  },
+  "portrait": {
+    "proposedFile": "boss-face-v1.png",
+    "size": [
+      512,
+      512
+    ],
+    "runtimeLogicalSize": [
+      32,
+      32
+    ],
+    "alpha": "8-bit RGBA",
+    "productionStatus": "produced-and-integrated",
+    "designReferenceLogicalSize": [
+      64,
+      64
+    ]
+  },
+  "fullPortrait": {
+    "reuse": "../production-candidates/boss-body-v1.png",
+    "sourceSize": [
+      1134,
+      1387
+    ],
+    "usage": "登场或介绍的主体层，独立于战斗图集",
+    "runtimeFile": "assets/boss-portrait-v1.png",
+    "integrated": true
+  },
+  "drawOrder": [
+    "stage-background",
+    "boss-ring-back",
+    "boss-body",
+    "boss-ring-front",
+    "player-shots-and-effects",
+    "player",
+    "enemy-bullets",
+    "focused-player-hitpoint-and-HUD"
+  ],
+  "proposedRuntimeBodyAndRingBudgetBytes": 131072,
+  "budgetStatus": "measured-63296-bytes-body-and-rings",
+  "review": {
+    "file": "review.html",
+    "referenceScale": "高分辨率首稿按104px可见高度等比显示；仅用于尺寸示意",
+    "nativeSpriteClaim": false,
+    "instrumentArtworkClaim": false,
+    "actualGameplayScreenshotClaim": false
+  },
+  "productionManifest": "../boss-production-v1/native-v1/manifest.json",
+  "runtimePlayback": {
+    "version": "show-v1",
+    "stableSourceFrame": [
+      0,
+      0
+    ],
+    "maxLeanRadians": 0.012,
+    "originalCyclesRetained": true,
+    "originalMovementCyclesPlayed": false,
+    "reason": "用户反馈移动抽动；演出v1改为稳定站姿与连续轻倾"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "author": "小典 / Codex",
+  "copyright": "Original composition for avg达人; prototype (C) 2026 Carinoasd",
+  "request": "动感、激烈的电子乐；MIDI；偏西洋风格",
+  "style": "Western melodic electro / hard trance, four-on-the-floor and breakbeat accents",
+  "ppq": 480,
+  "key": "E minor, B7 dominant",
+  "stageBpm": 150,
+  "stageBars": 45,
+  "bossBpm": 168,
+  "bossBars": 28,
+  "chords": [[52,55,59,62],[48,52,55,59],[55,59,62,66],[50,54,57,64],[52,55,59,66],[48,52,55,62],[45,52,57,60],[47,54,57,63]],
+  "hooks": [[76,83,86,83,81,79,83,78],[76,79,84,83,79,76,74,79],[79,83,86,83,81,78,74,78],[78,81,86,84,81,78,76,74],[76,83,88,86,83,81,79,78],[79,84,88,86,84,83,79,76],[81,84,88,86,84,81,79,76],[75,78,83,87,86,83,78,75]],
+  "hookSteps": [0,3,4,7,8,11,12,15],
+  "hookLengths": [2,1,2,1,2,1,2,1],
+  "programsZeroBased": {"lead":81,"bass":39,"arp":80,"pad":90,"counter":81},
+  "stageSections": [{"bars":[0,2],"name":"起跑与节拍"},{"bars":[2,10],"name":"主钩子A"},{"bars":[10,20],"name":"旋律展开"},{"bars":[20,24],"name":"精英前推进"},{"bars":[24,38],"name":"主降落与混合压力"},{"bars":[38,42],"name":"短呼吸，保留舞曲脉冲"},{"bars":[42,45],"name":"终段推进至Boss"}]
+}

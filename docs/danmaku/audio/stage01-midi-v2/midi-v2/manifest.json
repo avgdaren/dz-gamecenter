@@ -1,0 +1,102 @@
+{
+  "author": "小典 / Codex",
+  "source": "Original SMF composition, no borrowed MIDI or audio",
+  "files": {
+    "stage": {
+      "title": "霓光回廊",
+      "bpm": 150,
+      "seconds": 72.0,
+      "bytes": 17560,
+      "notes": 1971,
+      "channels": {
+        "2": 270,
+        "4": 135,
+        "1": 326,
+        "10": 912,
+        "3": 328
+      },
+      "sha256": "b3bd3ef36aa43b2856af7670589c52d2dda2ed5fecf78a4ab74a65ed107db684"
+    },
+    "bossCore": {
+      "title": "星仪超频 · 核心层",
+      "bpm": 168,
+      "seconds": 40.000016,
+      "bytes": 8009,
+      "notes": 872,
+      "channels": {
+        "2": 168,
+        "4": 84,
+        "1": 224,
+        "10": 396
+      },
+      "sha256": "b79191581d9d1f74a32a4ff79f83ff008753c3ec2da1d645d348df2c6680bc28"
+    },
+    "bossDrive": {
+      "title": "星仪超频 · 推进层",
+      "bpm": 168,
+      "seconds": 40.000016,
+      "bytes": 4716,
+      "notes": 500,
+      "channels": {
+        "3": 224,
+        "5": 112,
+        "10": 164
+      },
+      "sha256": "937026963993ca7d8637c0ec305e07247c9809ca98b36d8afd1021e22177ec86"
+    },
+    "boss": {
+      "title": "星仪超频 · 完整曲",
+      "bpm": 168,
+      "seconds": 40.000016,
+      "bytes": 12410,
+      "notes": 1372,
+      "channels": {
+        "2": 168,
+        "4": 84,
+        "1": 224,
+        "10": 560,
+        "3": 224,
+        "5": 112
+      },
+      "sha256": "d1795693e5f25f19700a73fcc4d244697758d369e62bc5057a15535a12127795"
+    },
+    "intro": {
+      "title": "引燃",
+      "bpm": 160,
+      "seconds": 3.0,
+      "bytes": 452,
+      "notes": 23,
+      "channels": {
+        "1": 8,
+        "10": 12,
+        "4": 3
+      },
+      "sha256": "91305cacfe1bf56555fe2935667834ad4d9f1ecda7cd57f4fa59578ee50f8a3b"
+    },
+    "clear": {
+      "title": "冲破天际",
+      "bpm": 180,
+      "seconds": 3.999996,
+      "bytes": 509,
+      "notes": 29,
+      "channels": {
+        "1": 8,
+        "10": 18,
+        "4": 3
+      },
+      "sha256": "a6b0bc85e402502e49d0394d1f374c30b44f13f41530bfa1e6448f65ce9f220a"
+    },
+    "defeat": {
+      "title": "重启",
+      "bpm": 150,
+      "seconds": 2.4,
+      "bytes": 291,
+      "notes": 9,
+      "channels": {
+        "1": 6,
+        "4": 3
+      },
+      "sha256": "9161c025f8fa334f04779c1ec98f103f77cfb7c4f8e67ee92f8106dad5f06f90"
+    }
+  }
+}

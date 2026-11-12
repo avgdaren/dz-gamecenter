@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "author": "小典 / Codex",
+  "copyright": "Original composition for avg达人; prototype (C) 2026 Carinoasd",
+  "source": "Original note sequences and mathematical synthesis; no external recording or borrowed melody",
+  "sampleRate": 22050,
+  "stageBpm": 120,
+  "bossBpm": 128,
+  "stageBars": 36,
+  "bossBars": 16,
+  "key": "D minor, with A7 dominant and F-major resolution",
+  "chords": [[50,57,60,64], [46,53,57,62], [53,60,64,69], [48,55,62,64], [43,50,57,58], [50,57,62,65], [52,58,62,67], [45,52,55,61]],
+  "phrases": [
+    [74,77,81,79,77,76,74,69],
+    [74,77,79,81,84,81,79,77],
+    [72,76,79,77,76,74,72,67],
+    [74,72,69,67,69,72,76,74],
+    [70,74,77,76,74,72,70,65],
+    [69,74,77,81,79,77,76,74],
+    [76,79,82,81,79,76,74,70],
+    [73,76,79,81,79,76,73,69]
+  ],
+  "stageSections": [{"bars":[0,2],"name":"云门引子"},{"bars":[2,10],"name":"巡星主题"},{"bars":[10,18],"name":"回廊应答"},{"bars":[18,26],"name":"星仪推进"},{"bars":[26,31],"name":"合流"},{"bars":[31,36],"name":"抵达与收束"}],
+  "tracks": {
+    "stage": {"title":"回廊微光","seconds":72,"loop":false},
+    "bossCore": {"title":"星仪的回声 · 主题层","seconds":30,"loop":true},
+    "bossDrive": {"title":"星仪的回声 · 节奏层","seconds":30,"loop":true},
+    "intro": {"title":"抵达观测台","seconds":3,"loop":false},
+    "clear": {"title":"星幕初晴","seconds":4,"loop":false},
+    "defeat": {"title":"再起的星光","seconds":2.4,"loop":false}
+  }
+}

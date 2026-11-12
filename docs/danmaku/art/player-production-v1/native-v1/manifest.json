@@ -1,0 +1,252 @@
+{
+  "author": "小典 / Codex",
+  "source_generator": "built-in image_gen",
+  "version": 1,
+  "image": "player-motion-v1.png",
+  "sourceWidth": 192,
+  "sourceHeight": 144,
+  "frameWidth": 48,
+  "frameHeight": 48,
+  "columns": 4,
+  "rows": [
+    {
+      "id": "idle",
+      "name": "悬浮"
+    },
+    {
+      "id": "left",
+      "name": "左移"
+    },
+    {
+      "id": "right",
+      "name": "右移"
+    }
+  ],
+  "logicalSize": 48,
+  "anchor": [
+    24,
+    28
+  ],
+  "fps": 8,
+  "nativePixelFrames": true,
+  "portrait": "player-front-display-v1.png",
+  "palette": [
+    "#1A2440",
+    "#28345D",
+    "#3D497B",
+    "#53639D",
+    "#6476AF",
+    "#F9E0AB",
+    "#ECC38A",
+    "#C99864",
+    "#966A48",
+    "#6B4937",
+    "#F4F0E8",
+    "#DCD9E7",
+    "#B9B8D2",
+    "#8E96BA",
+    "#E5B94F",
+    "#B98632",
+    "#FAD2BA",
+    "#ECAE96",
+    "#477ED0",
+    "#76B2E3",
+    "#284F9F",
+    "#1C1F32",
+    "#FFF2D1",
+    "#737A98"
+  ],
+  "sourceFilesSha256": {
+    "player-back-idle-source-v1.png": "8c0dbf052aaff062dd6298422b9bf59df2cb861c5e2c19b4b22a42b1ed92811b",
+    "player-front-display-source-v1.png": "29a66fff0ef2536b812095bed8f3f47fae38bbed567bfefc200dd78f61a29d8b",
+    "player-front-source-v1-raw.png": "7aab6886d3e98dbdda63f43ce970153a0ee3eca2ee5c5f2366d66cfeebdcd86d",
+    "player-motion-atlas-source-v1.png": "bba105e500253c11905b2c78d60eab3b0f113a13ad4316c0576eaa2e36ef4b4f"
+  },
+  "frames": [
+    {
+      "mode": "idle",
+      "index": 0,
+      "rect": [
+        0,
+        0,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "idle",
+      "index": 1,
+      "rect": [
+        48,
+        0,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "idle",
+      "index": 2,
+      "rect": [
+        96,
+        0,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "idle",
+      "index": 3,
+      "rect": [
+        144,
+        0,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "left",
+      "index": 0,
+      "rect": [
+        0,
+        48,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "left",
+      "index": 1,
+      "rect": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "left",
+      "index": 2,
+      "rect": [
+        96,
+        48,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "left",
+      "index": 3,
+      "rect": [
+        144,
+        48,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "right",
+      "index": 0,
+      "rect": [
+        0,
+        96,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "right",
+      "index": 1,
+      "rect": [
+        48,
+        96,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "right",
+      "index": 2,
+      "rect": [
+        96,
+        96,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    },
+    {
+      "mode": "right",
+      "index": 3,
+      "rect": [
+        144,
+        96,
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        28
+      ],
+      "durationMs": 125
+    }
+  ],
+  "animationPreviews": {
+    "idle": "idle-preview-2x.png",
+    "left": "left-preview-2x.png",
+    "right": "right-preview-2x.png"
+  }
+}

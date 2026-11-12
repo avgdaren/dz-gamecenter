@@ -1,0 +1,22 @@
+{
+  "file": "boss-body-v1.png",
+  "purpose": "transparent_character_body_layer_production_candidate",
+  "size": [
+    1134,
+    1387
+  ],
+  "pngColorType": 6,
+  "sha256": "79fbf9c029691bfa41e9745e2dabd21add27d93e184fe3a8f4c25f98a0862cce",
+  "generator": "built-in image_gen.imagegen",
+  "reference": "../art-direction-v1.png",
+  "styleApproved": true,
+  "characterDirectionApproved": true,
+  "finalCharacterArtApproved": false,
+  "runtimeIntegrated": false,
+  "alphaSample": {
+    "corner1": 0,
+    "corner2": 0,
+    "bodyCentre": 253,
+    "fullEdgeQA": false
+  }
+}
