@@ -9449,5 +9449,498 @@
         ]
       }
     ]
+  },
+  "power05": {
+    "easyRule": "danmaku-stage01-r5",
+    "normalRule": "danmaku-stage01-normal-r3",
+    "thresholds": [
+      0,
+      3,
+      8,
+      12,
+      16
+    ],
+    "maxPower": 16,
+    "shotCap": 192,
+    "levels": [
+      {
+        "normal": [
+          {
+            "offsetX": -8,
+            "vxQ": -64,
+            "damage": 1
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 64,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 1
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -18,
+            "vxQ": -96,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 2
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 2
+          },
+          {
+            "offsetX": 18,
+            "vxQ": 96,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -12,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -24,
+            "vxQ": -128,
+            "damage": 1
+          },
+          {
+            "offsetX": -18,
+            "vxQ": -96,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 2
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 2
+          },
+          {
+            "offsetX": 18,
+            "vxQ": 96,
+            "damage": 1
+          },
+          {
+            "offsetX": 24,
+            "vxQ": 128,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -16,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": 16,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -30,
+            "vxQ": -160,
+            "damage": 1
+          },
+          {
+            "offsetX": -24,
+            "vxQ": -128,
+            "damage": 1
+          },
+          {
+            "offsetX": -18,
+            "vxQ": -96,
+            "damage": 2
+          },
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 2
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 2
+          },
+          {
+            "offsetX": 18,
+            "vxQ": 96,
+            "damage": 2
+          },
+          {
+            "offsetX": 24,
+            "vxQ": 128,
+            "damage": 1
+          },
+          {
+            "offsetX": 30,
+            "vxQ": 160,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -20,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -16,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 16,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": 20,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      }
+    ]
+  },
+  "weapons06": {
+    "easyRule": "danmaku-stage01-r6",
+    "normalRule": "danmaku-stage01-normal-r4",
+    "tracking": {
+      "level": 5,
+      "lanes": [
+        0,
+        1,
+        9,
+        10
+      ],
+      "speedQ": 576,
+      "turnStepQ": 64
+    },
+    "focused": {
+      "4": {
+        "interval": 4,
+        "speedQ": 1152,
+        "length": 28,
+        "lanes": [
+          {
+            "offsetX": -3,
+            "damage": 3
+          },
+          {
+            "offsetX": 0,
+            "damage": 14
+          },
+          {
+            "offsetX": 3,
+            "damage": 3
+          }
+        ]
+      },
+      "5": {
+        "interval": 2,
+        "speedQ": 1536,
+        "length": 36,
+        "lanes": [
+          {
+            "offsetX": -3,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 3,
+            "damage": 2
+          }
+        ]
+      }
+    }
+  },
+  "weapons07": {
+    "easyRule": "danmaku-stage01-r7",
+    "normalRule": "danmaku-stage01-normal-r5",
+    "sideShots": {
+      "minimumLevel": 4,
+      "offsets": [
+        -36,
+        -18,
+        18,
+        36
+      ],
+      "interval": 6,
+      "speedQ": 576,
+      "damage": 1
+    }
+  },
+  "collect08": {
+    "easyRule": "danmaku-stage01-r8",
+    "normalRule": "danmaku-stage01-normal-r6",
+    "extraPowerIds": [
+      2,
+      6,
+      12,
+      18,
+      23,
+      27,
+      33,
+      38
+    ],
+    "extraPowerValue": 1,
+    "pointValue": 500,
+    "dropCap": 48,
+    "powerTotal": 26,
+    "pointItems": 20,
+    "scoreUpperBound": 331700
+  },
+  "corner09": {
+    "easyRule": "danmaku-stage01-r9",
+    "normalRule": "danmaku-stage01-normal-r7",
+    "topY": 192,
+    "leftX": 96,
+    "rightX": 384
   }
 }

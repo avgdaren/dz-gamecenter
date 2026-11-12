@@ -6,18 +6,12 @@
   var phaseNames = DanmakuStageShow.phases;
   var showState=DanmakuStageShow.create();
   function showModel(){var m=DanmakuStageShow.model(showState,battle,$('low-effects').checked);if(isNormal()&&m.kind!=='clear')m.title=phaseNames[m.phase];return m;}
-  var lessons = {
-    stage: ['收集星光，再迎接观测者。', 'P强化在3点、8点升级火力。两名星仪守卫还会掉B补充大招；最多携带3枚，满库存拾取B转500分。'],
-    battle: ['跟随首领，逐阶段突破。', '自动向上射击，跟随首领保持火力。三阶段共享生命和清屏；击破后清场转场，每阶段最多 70 秒。'],
-    flower: ['跟随缺口，小步调整。', '花瓣会向四周展开。先看朝下的宽缺口，再按住慢速轻轻调整位置。'],
-    aim: ['先让它瞄准，再换位置。', '出现瞄准提示后，连射方向就锁定了。离开原位，给自己留一点移动空间。'],
-    wave: ['先看缺口，再穿过波浪。', '敌弹会分成三排依次落下。提前看清空位，避免临近时才横穿整片弹幕。']
-  };
   var canvas = $('arena'), ctx = canvas.getContext('2d'), rules, sim, battle = null, scene = 'stage';
   var mode = 'ready', keys = new Set(), records = [], slowToggle = false, bombEdge = false;
   var pointer = null, target = null, last = 0, accumulator = 0, countdownUntil = 0;
   var frameTimes = [], lastHud = 0, pauseReason = '', loaded = false, prepareTicket = 0;
-  var buttons = Array.from(document.querySelectorAll('[data-scene]'));
+  var focusBinding='Shift',bindingArmed=false,selectedDifficulty='normal';
+  try{focusBinding=DanmakuControls.fromStored(localStorage.getItem('danmaku.controls.v1'));}catch(error){}
   var savedAudio={};try{savedAudio=JSON.parse(localStorage.getItem('danmaku.audio.v1')||'{}');}catch(error){}
   var soundBank={entries:Object.assign({},(window.DanmakuAudioBank||{entries:{}}).entries,(window.DanmakuBgmBank||{entries:{}}).entries)};
   var sound=new DanmakuAudio.Manager(soundBank,{settings:savedAudio,recordedMusic:!!window.DanmakuBgmBank,musicPlayer:new DanmakuMidi.Player(window.DanmakuMidiBank)});
@@ -29,7 +23,7 @@
     return{scene:scene,mode:mode,foreground:!document.hidden&&document.hasFocus(),tick:battle?battle.tick:sim.tick,stage:battle?battle.stage:'active',phase:battle?battle.phaseIndex:DanmakuP0.scenes.indexOf(scene),
       battle:!!battle,status:battle?battle.status:sim.status,preludeTicks:rules.stage01.preludeTicks,introTicks:rules.clock.introTicks,
       shots:sim.nextShot,hits:s.shotHits,taken:s.hitsTaken,enemy:s.enemySpawned,graze:s.graze,bombs:s.bombsUsed,kills:s.mobKills||0,
-      supply:s.bombCollected||0,elites:s.bombItemsSpawned||0,power:(s.powerCollected||0)+(s.powerRecovered||0),level:isStage()?DanmakuStage01.level(sim.player.power,rules):1,breaks:battle?battle.phaseBreaks:0,charges:charges};
+      supply:s.bombCollected||0,elites:s.bombItemsSpawned||0,power:(s.powerCollected||0)+(s.powerRecovered||0),level:isStage()?DanmakuStage01.level(sim.player.power,sim.rules):1,breaks:battle?battle.phaseBreaks:0,charges:charges};
   }
   function audioControls(){
     var a=sound.inspect(),s=a.settings;
@@ -79,86 +73,72 @@
   });
   function bossArtReady(){return DanmakuBossView.ready(bossImages);}
   function bossPose(){return sim&&!isPrelude()?DanmakuBossView.frame(sim,battle?battle.tick:sim.tick,$('low-effects').checked,battle?battle.stage:null):null;}
-  function isFocused() { return slowToggle || keys.has('ShiftLeft') || keys.has('ShiftRight'); }
+  function isFocused() { return slowToggle || Array.from(keys).some(function(code){return DanmakuControls.matches(code,focusBinding);}); }
   function isStage() { return !!(battle && DanmakuStage01.supportedRules.indexOf(battle.rule)>=0); }
-  function isNormal() { return !!(battle&&(battle.rule===DanmakuStage01.normalV2Rule||battle.rule===DanmakuBattle.normalV2Rule||battle.rule===DanmakuStage01.normalRule||battle.rule===DanmakuBattle.normalRule)); }
+  function isNormal() { return !!(battle&&(battle.rule===DanmakuStage01.normalCornerRule||battle.rule===DanmakuStage01.normalCollectRule||battle.rule===DanmakuStage01.normalWideWeaponRule||battle.rule===DanmakuStage01.normalWeaponRule||battle.rule===DanmakuStage01.normalPowerRule||battle.rule===DanmakuStage01.normalV2Rule||battle.rule===DanmakuBattle.normalV2Rule||battle.rule===DanmakuStage01.normalRule||battle.rule===DanmakuBattle.normalRule)); }
   function difficultyName() { return battle?(isNormal()?'Normal':'Easy'):'弹型练习'; }
   function isBombStage() { return isStage() && sim.bombMode; }
   function isPrelude() { return isStage() && battle.phaseIndex<0; }
   function canAct() { return !battle || battle.stage==='active' || battle.stage==='prelude'; }
   function encodeReplay() { return isStage()?DanmakuStageReplay.encode(records,rules,battle):battle?DanmakuBattleReplay.encode(records,rules,battle):DanmakuReplay.encode(records,rules,scene,sim.assist,sim.rule); }
   function focusControls() {
-    var focused = isFocused();
-    $('slow').setAttribute('aria-pressed', String(focused));
-    $('fire-mode').textContent = (focused ? '低速 · 集中射击' : '普通散射') + (isStage()?' · 火力'+['Ⅰ','Ⅱ','Ⅲ'][DanmakuStage01.level(sim.player.power,rules)-1]:'');
+    var focused=isFocused(),key=DanmakuControls.label(focusBinding);
+    $('slow').setAttribute('aria-pressed',String(focused));
+    $('slow').innerHTML='集中 <kbd>'+key+'</kbd>';
+    $('guide-focus-key').textContent=key;$('current-focus-key').textContent=key;
+    canvas.setAttribute('aria-label','弹幕战场；方向键或WASD移动，'+key+'低速集中射击并显示判定点，X或空格大招');
+    $('fire-mode').textContent=(focused?'低速 · 集中射击':'普通散射')+' · 火力'+(sim?DanmakuStage01.level(sim.player.power,sim.rules):1);
   }
   function setStatus(text, error) { $('status').textContent = text; $('status').classList.toggle('error', !!error); }
   function isEditing(el) { return el && ((typeof el.matches==='function' && el.matches('input,select,textarea')) || el.isContentEditable); }
-  function focused() { return document.activeElement === canvas || document.activeElement.closest('.arena-controls'); }
+  function focused() { var a=document.activeElement;return a===canvas||!!(a&&a.closest&&a.closest('.arena-controls')); }
   function clearInput() { keys.clear(); pointer = null; target = null; bombEdge = false; }
   function bombControls() {
     var cooldown=isBombStage()?Math.max(0,sim.bombCooldownUntil-sim.tick):0;
     $('bomb').disabled=mode!=='running'||!sim||sim.player.bombs<=0||!canAct()||cooldown>0;
     $('bomb').innerHTML=isBombStage()?(cooldown>0?'冷却 '+(cooldown/60).toFixed(1)+'s':'大招 <kbd>X</kbd>'):'清屏 <kbd>X</kbd>';
     $('bomb-stock-note').hidden=!isBombStage();
-    if(isBombStage())$('bomb-stock-note').textContent='库存 '+sim.player.bombs+' / '+rules.stage01.bomb.stockCap+(mode==='over'?' · 本局结束':sim.player.bombs===0?' · 等待B补给':cooldown>0?' · 冷却中':!canAct()?' · 准备中':' · 已就绪');
+    if(isBombStage())$('bomb-stock-note').textContent=sim.player.bombs+' / '+rules.stage01.bomb.stockCap+(cooldown>0?' · 冷却':sim.player.bombs===0?' · 空':'');
   }
   function controls() {
-    var active = mode === 'running' || mode === 'paused' || mode === 'countdown';
-    buttons.forEach(function (b) { b.disabled = !loaded; });
-    $('assist').disabled = active || mode === 'preparing';
-    $('difficulty').disabled = active || mode === 'preparing' || !battle;
-    $('difficulty-hint').textContent = !battle?'弹型练习；掉命复活后清屏库存重置。':isNormal()?'双旋交织、针雨夹击、逐层移动的星门。':'较宽缺口，适合熟悉路线。';
-    $('pause').disabled = !active;
-    $('restart').disabled = !loaded || mode === 'ready';
-    $('export').disabled = mode !== 'over';
-    $('export').hidden = mode !== 'over';
-    $('result-summary').hidden = mode !== 'over' || !battle;
+    var active=mode==='running'||mode==='paused'||mode==='countdown';
+    document.querySelectorAll('[data-difficulty]').forEach(function(button){button.disabled=mode!=='ready';button.setAttribute('aria-pressed',String(button.dataset.difficulty===selectedDifficulty));});
+    $('title-options').hidden=mode!=='ready';
+    $('field-hud').hidden=mode==='ready'||mode==='preparing';
+    $('pause').disabled=!active;$('slow').disabled=mode!=='running';
+    $('restart').disabled=!loaded||mode==='ready';
+    $('export').disabled=mode!=='over';$('export').hidden=mode!=='over';
+    $('result-summary').hidden=mode!=='over';
     document.body.dataset.mode=mode;$('overlay').dataset.mode=mode;
-    $('run-state').textContent={ready:'准备出发',preparing:'准备声音',running:'飞行中',paused:'已暂停',countdown:'准备继续',over:'本局结束'}[mode]||'';
-    bombControls();
-    $('pause').innerHTML = mode === 'paused' ? '继续 <kbd>Esc</kbd>' : '暂停 <kbd>Esc</kbd>';
+    $('run-state').textContent={ready:'标题',preparing:'准备声音',running:'飞行中',paused:'已暂停',countdown:'准备继续',over:'本局结束'}[mode]||'';
+    bombControls();$('pause').innerHTML=mode==='paused'?'继续 <kbd>Esc</kbd>':'暂停 <kbd>Esc</kbd>';
     focusControls();audioControls();
   }
   function overlay(kicker, title, text, button, foot) {
     $('overlay').classList.remove('hidden');
     $('overlay-kicker').textContent = kicker; $('overlay-title').textContent = title;
     $('overlay-text').textContent = text; $('start').textContent = button;
-    $('overlay-footnote').textContent = foot || '方向键 / WASD 移动 · Shift 低速集中射击';
+    $('overlay-footnote').textContent = foot || '方向键 / WASD 移动 · '+DanmakuControls.label(focusBinding)+' 低速集中射击';
     $('start').disabled = false;
   }
   function reset() {
-    prepareTicket++;
-    clearInput(); records = []; frameTimes = []; accumulator = 0; slowToggle = false;
-    stageArtState=DanmakuStageArt.createEffects();
-    showState=DanmakuStageShow.create();delete $('overlay').dataset.result;
-    var normal=$('difficulty').value==='normal';
-    battle = scene === 'stage' ? new DanmakuStage01.Stage(rules,$('assist').checked,normal?DanmakuStage01.normalV2Rule:DanmakuStage01.respawnRule) : scene === 'battle' ? new DanmakuBattle.Battle(rules, $('assist').checked,normal?DanmakuBattle.normalV2Rule:DanmakuBattle.respawnRule) : null;
-    sim = battle ? battle.sim : new DanmakuP0.Sim(rules, scene, $('assist').checked, DanmakuP0.respawnRule);
+    prepareTicket++;cancelBinding();$('bind-focus').textContent='更改按键';
+    clearInput();records=[];frameTimes=[];accumulator=0;slowToggle=false;
+    stageArtState=DanmakuStageArt.createEffects();showState=DanmakuStageShow.create();delete $('overlay').dataset.result;
+    battle=new DanmakuStage01.Stage(rules,false,selectedDifficulty==='normal'?DanmakuStage01.normalCornerRule:DanmakuStage01.cornerRule);sim=battle.sim;
     phaseNames=isNormal()?['星环 · 双旋交织','星雨 · 引光夹击','星幕 · 迁移星廊']:DanmakuStageShow.phases;
     document.querySelector('.boss-intro-copy span').textContent=isNormal()?'第一式 · 双旋交织':'第一式 · 周天轨迹';
-    mode = 'ready';
-    sound.reset(audioState());
-    overlay((battle?difficultyName()+' / ':'')+(isStage()?'第一关 / ':battle ? '三阶段 / ' : '弹型练习 / ') + names[scene],
-      names[scene], isStage()?'穿过72秒回廊，迎接星环观测者。\n拾取P强化，B补充大招。':battle ? '星环 → 星雨 → 星幕\n跟随首领输出，善用清屏。' : '自动射击已经就绪。\n移动躲弹，试着坚持45秒。', isStage()?'开始第一关':battle?'开始首领练习':'开始弹型练习');
-    $('selected-mode').textContent=(battle?difficultyName()+' · ':'')+names[scene];$('result-breakdown').open=false;
-    document.querySelector('.intro .eyebrow').textContent=isStage()?'第一关 · 星穹回廊':'专项练习 · '+names[scene];
-    document.querySelector('.intro h1').textContent=isStage()?'循着星光，抵达观测台。':lessons[scene][0];
-    document.querySelector('.route-note').textContent=isStage()?'72秒道中 → 三阶段Boss':battle?'三阶段首领 · 固定火力':'45秒弹型练习';
-    $('arena-name').textContent = names[scene];
-    $('lesson-title').textContent = lessons[scene][0]; $('lesson-text').textContent = lessons[scene][1];
-    if(isNormal())$('lesson-text').textContent+=' Normal首领：留意双发射点交织弹、两侧针雨夹击；星门会逐层横移，跟随空隙移动。';
-    $('mode-label').textContent = difficultyName()+' · '+(sim.assist?'辅助练习':'标准');
-    $('boss-health').hidden = !battle; $('score-metric').hidden = !battle; $('score-details').hidden = true;
-    $('power-metric').hidden=!isStage();
-    $('low-effects-row').hidden=!isStage()&&!battle;$('bomb-resource-title').textContent=isBombStage()?'大招库存':'清屏次数';
-    $('bomb-rule-title').textContent=isBombStage()?'星翼绽放':'清屏是一次喘息。';
-    $('bomb-rule-text').innerHTML=(isBombStage()?'X / 空格：全屏伤害，持续清弹1.5秒，护身2秒。<br>最多携带3枚；击破星仪守卫获得B，满库存转500分。':'清除当前敌弹，并短暂无敌。')+'<br>掉命复活后库存重置为'+(sim.assist?3:2)+'枚，多余库存不会保留。';
-    setStatus(isStage()?'72秒回廊后迎战观测者；收集P提升火力。':battle ? '每阶段最多 70 秒；结束后可导出本局回放。' : '每场最多 45 秒，结束后可导出回放。'); controls(); updateHud();
+    mode='ready';sound.reset(audioState());
+    overlay('ANGEL DANMAKU FESTIVAL','天使弹幕祭','星穹回廊','开始游戏','自动射击 · 移动躲弹');
+    $('result-breakdown').open=false;$('score-details').hidden=true;
+    $('arena-name').textContent=names.stage;$('mode-label').textContent=difficultyName();
+    $('boss-health').hidden=false;$('power-metric').hidden=false;$('score-metric').hidden=false;
+    $('bomb-resource-title').textContent='大招';
+    setStatus('选择难度，启程。');controls();updateHud();
   }
   function start() {
     if(!loaded||mode==='countdown'||mode==='preparing'||mode==='running')return;
-    if(mode==='over')reset();
+    if(mode==='over'){reset();return;}
     var s=sound.settings;
     if(window.DanmakuBgmBank&&!sound.ready&&!s.muted&&(s.music||s.sfx)){
       var ticket=++prepareTicket,prior=mode;mode='preparing';clearInput();accumulator=0;sound.reset(audioState());
@@ -205,12 +185,12 @@
       overlay('挑战结束 / ' + (sim.assist ? '辅助练习' : '标准挑战'),
         clear ? '星穹已明，回廊贯通。' : (battle.status === 'timeout' ? '阶段时间已到。' : '调整路线，再试一次。'),
         clear ? (isStage()?'回廊与三重星幕，已全部突破。':'三阶段首领已突破。') : '保留这次经验，下一局重新出发。',
-        '再挑战一次', '保存回放后，可在下方重新核对');
+        '返回标题', '保存回放后，可在下方重新核对');
       $('result-score').textContent=parts.total.toLocaleString('zh-CN');
       $('result-time').textContent=(battle.tick/60).toFixed(1)+' 秒';$('result-phases').textContent=battle.phaseBreaks+' / 3';$('result-graze').textContent=sim.stats.graze;
       $('score-details').hidden = false;
-      $('score-details').textContent = '通关 ' + parts.clear + ' · 阶段击破 ' + parts.phase + '\n伤害 ' + parts.damage + ' · 擦弹 ' + parts.graze + '\n资源 ' + parts.resources + ' · 时间 ' + parts.time + (isStage()?'\n小怪得分 '+parts.mobs+' · 满级强化 '+parts.overflow+'\n击破小怪 '+sim.stats.mobKills+' / 40':'')+(isBombStage()?'\n大招补给溢出 '+parts.bombOverflow:'');
-      setStatus(clear ? '本局已通关，可导出回放复验。' : '本局已结束，可导出回放或回练习场熟悉路线。');
+      $('score-details').textContent = '通关 ' + parts.clear + ' · 阶段击破 ' + parts.phase + '\n伤害 ' + parts.damage + ' · 擦弹 ' + parts.graze + '\n资源 ' + parts.resources + ' · 时间 ' + parts.time + (isStage()?'\n小怪得分 '+parts.mobs+' · 满级强化 '+parts.overflow+(sim.collectMode?'\n积分晶体 '+parts.points+' · 拾取 '+sim.stats.pointCollected:'')+'\n击破小怪 '+sim.stats.mobKills+' / 40':'')+(isBombStage()?'\n大招补给溢出 '+parts.bombOverflow:'');
+      setStatus(clear ? '本局已通关，可导出回放复验。' : '本局已结束，可保存回放或返回标题。');
       controls(); updateHud(); return;
     }
     var completed = sim.status === 'complete';
@@ -247,7 +227,7 @@
     $('clock').innerHTML = ((ended?(battle?battle.tick:sim.tick):remainingTicks) / 60).toFixed(1) + '<small> 秒</small>';
     $('clock-label').textContent=ended?'本局用时':isPrelude()?'道中剩余':battle&&battle.stage==='opening'?'登场':battle&&battle.stage==='transition'?'转场':'阶段剩余';
     if (battle) {
-      $('phase-progress').textContent = isPrelude()?'第一关 · '+DanmakuStage01.segment(rules,sim.tick):battle.stage === 'opening' ? '观测台 · 准备迎战' : (battle.stage === 'transition' ? '阶段突破 → ' + phaseNames[isStage()?battle.phaseIndex:battle.phaseIndex+1] : phaseNames[battle.phaseIndex] + ' · 第 ' + (battle.phaseIndex + 1) + ' / 3 阶段');
+      $('phase-progress').textContent = isPrelude()?DanmakuStage01.segment(rules,sim.tick):battle.stage === 'opening' ? '观测台 · 准备迎战' : phaseNames[battle.phaseIndex] + ' · ' + (battle.phaseIndex + 1) + ' / 3';
       var hpMax = isPrelude()?rules.stage01.preludeTicks:rules.boss.phaseHP[battle.phaseIndex];
       $('hp-value').textContent = isPrelude()?Math.round(sim.tick / hpMax * 100)+'%':sim.hp + ' / ' + hpMax;
       $('hp-fill').style.width = Math.max(0,(isPrelude()?sim.tick:sim.hp) / hpMax * 100) + '%';
@@ -264,11 +244,13 @@
     audioControls();
     bombControls();
     if(isStage()){
-      var power=sim.player.power,lv=DanmakuStage01.level(power,rules),next=rules.stage01.growth.thresholds[lv];
-      $('power-value').textContent=['Ⅰ','Ⅱ','Ⅲ'][lv-1]+' · '+(lv===3?'MAX':power+' / '+next);
-      $('power-note').textContent=lv===3?'额外强化转分；捡回的强化不额外计分':'收集P强化；Shift也可吸取附近道具';
-      $('power-progress').max=lv===3?Math.max(1,power):next;$('power-progress').value=power;
-      $('power-progress').textContent=lv===3?'最高火力':power+' / '+next;
+      var power=sim.player.power,g=sim.rules.stage01.growth,lv=DanmakuStage01.level(power,sim.rules),next=g.thresholds[lv],max=lv===g.levels.length;
+      $('power-value').textContent=lv+' / '+g.levels.length+(max?' MAX':'');
+      $('power-pips').querySelectorAll('i').forEach(function(pip,i){pip.classList.toggle('on',i<lv);});
+      $('power-note').textContent=(max?'最高火力；额外P转分，捡回的强化不重复计分。':'P '+power+' / '+next+' 可升至'+(lv+1)+'级；集中也可吸取附近道具。')+(lv===5?' 高速追踪／低速弹束＋绿色直射。':lv===4?' 低速收束弹束＋绿色直射。':'');
+      $('power-progress').max=max?Math.max(1,power):next;$('power-progress').value=power;
+      $('power-progress').textContent=max?'最高火力':power+' / '+next;
+      $('power-progress').setAttribute('aria-valuetext',max?'5级最高火力':'火力'+lv+'级，P '+power+' / '+next);
       focusControls();
     }
     var sorted = frameTimes.slice().sort(function (a,b) { return a-b; });
@@ -286,20 +268,17 @@
   }
   function showCue(m){
     var active=mode==='running'||mode==='paused'||mode==='countdown';
-    var intro=$('boss-intro'),cue=$('phase-cue'),reduced=$('low-effects').checked;
-    intro.hidden=!active||m.kind!=='intro';cue.hidden=!active||m.kind!=='phase';
+    var intro=$('boss-intro'),reduced=$('low-effects').checked;
+    intro.hidden=!active||m.kind!=='intro';
     if(!intro.hidden){
       intro.style.opacity=m.opacity;
       $('boss-portrait').style.transform='translateX('+(reduced?0:18*(1-Math.min(1,m.progress*4)))+'px)';
       intro.querySelector('.boss-intro-copy').style.transform='translateX('+(reduced?0:-12*(1-Math.min(1,m.progress*4)))+'px)';
     }
-    if(!cue.hidden){
-      cue.style.opacity=m.opacity;cue.style.transform='translateY('+(reduced?0:6*(1-Math.min(1,m.progress*4)))+'px)';
-      $('phase-cue-title').textContent=m.title;$('phase-cue-count').textContent=['Ⅰ','Ⅱ','Ⅲ'][m.phase]+' / Ⅲ';
-    }
   }
   function draw() {
     ctx.clearRect(0,0,480,640);
+    var show=showModel();showCue(show);DanmakuStageShow.begin(ctx,show);
     var gradient=ctx.createLinearGradient(0,0,0,640); gradient.addColorStop(0,'#111e35'); gradient.addColorStop(1,'#091321');
     ctx.fillStyle=gradient; ctx.fillRect(0,0,480,640);
     var painted=isStage()&&DanmakuStageArt.background(ctx,stageImages.corridor,battle.tick,$('low-effects').checked);
@@ -310,8 +289,7 @@
     ctx.strokeStyle='#223149'; ctx.beginPath(); ctx.moveTo(22,144); ctx.lineTo(458,144); ctx.stroke();
     }
     ctx.font='9px "Microsoft YaHei",sans-serif'; ctx.fillStyle='#7185a0'; ctx.fillText((isPrelude()?'星穹回廊 / '+DanmakuStage01.segment(rules,sim?sim.tick:0):battle ? '首领 / ' + phaseNames[battle.phaseIndex] : '星幕练习 / ' + names[scene]),22,26);
-    if (!sim) return;
-    var show=showModel();showCue(show);
+    if (!sim){DanmakuStageShow.end(ctx,show);return;}
     var b=sim.boss, p=sim.player;
     if(battle&&battle.stage==='active')DanmakuBossPatterns.emitters(ctx,sim);
     if (sim.tick < sim.warningUntil && (!battle || battle.stage === 'active')) {
@@ -328,6 +306,7 @@
     DanmakuStageShow.effects(ctx,show,$('low-effects').checked);
     if(isStage()){DanmakuStageArt.effects(ctx,sim,stageArtState,$('low-effects').checked);DanmakuStageView.field(ctx,sim,stageImages,$('low-effects').checked);}
     sim.shots.forEach(function(s) {
+      if(s.kind===1||s.kind===2||s.kind===3){DanmakuWeapons.drawShot(ctx,s,$('low-effects').checked);return;}
       ctx.save(); ctx.translate(s.x/64,s.y/64);
       if (s.vx) ctx.rotate(Math.atan2(s.vx, -s.vy));
       ctx.fillStyle=s.focused?'#d9f8ff':'#8ec6e8'; ctx.fillRect(-1.5,-6,3,12);
@@ -361,11 +340,12 @@
     if(isBombStage())DanmakuStageView.bomb(ctx,sim,$('low-effects').checked);
     // Focus marker is independent of sprite blinking and remains above all effects.
     DanmakuPlayerView.hitpoint(ctx,p,isFocused());
+    DanmakuStageShow.end(ctx,show);
   }
   function frame(now) {
     var started=performance.now();
     if(mode==='over')DanmakuStageShow.ending(showState,now-last,!document.hidden&&document.hasFocus(),$('low-effects').checked);
-    if (mode === 'countdown' && now>=countdownUntil) { mode='running'; accumulator=0; last=now; pauseReason=''; $('overlay').classList.add('hidden'); setStatus('已继续；按住 Shift 可低速集中射击。'); controls(); }
+    if (mode === 'countdown' && now>=countdownUntil) { mode='running'; accumulator=0; last=now; pauseReason=''; $('overlay').classList.add('hidden'); setStatus('已继续；按住 '+DanmakuControls.label(focusBinding)+' 可低速集中射击。'); controls(); }
     if (mode === 'running') {
       accumulator += Math.max(0,now-last); var count=0;
       try {
@@ -387,14 +367,30 @@
     if(sim)sound.update(audioState());
     requestAnimationFrame(frame);
   }
-  buttons.forEach(function(button) { button.addEventListener('click',function() {
-    scene=button.dataset.scene; buttons.forEach(function(b) { var yes=b===button; b.classList.toggle('selected',yes); b.setAttribute('aria-pressed',String(yes)); }); reset();
-  }); });
-  $('assist').addEventListener('change',reset); $('difficulty').addEventListener('change',reset); $('start').addEventListener('click',start);
+  function cancelBinding(){if(!bindingArmed)return;bindingArmed=false;$('bind-focus').textContent='更改按键';$('binding-status').textContent='已取消改键。';}
+  function applyBinding(value){
+    focusBinding=value;bindingArmed=false;clearInput();slowToggle=false;$('bind-focus').textContent='更改按键';
+    var saved=true;try{localStorage.setItem('danmaku.controls.v1',JSON.stringify({focus:value}));}catch(error){saved=false;}
+    $('binding-status').textContent='集中键：'+DanmakuControls.label(value)+(saved?'，已保存。':'，本次生效；此浏览器无法保存。');focusControls();
+  }
+  $('bind-focus').addEventListener('click',function(){
+    if(bindingArmed){cancelBinding();return;}pause('设置按键，游戏已暂停。');clearInput();slowToggle=false;bindingArmed=true;
+    this.textContent='取消改键';$('binding-status').textContent='按一个新键，Esc取消；移动、大招和浏览器快捷键不可用。';focusControls();
+  });
+  $('restore-focus').addEventListener('click',function(){pause('设置按键，游戏已暂停。');applyBinding('Shift');});
+  $('title-settings').addEventListener('click',function(){$('settings').open=true;$('bind-focus').focus({preventScroll:true});$('settings').scrollIntoView({block:'center'});});
+  document.addEventListener('keydown',function(e){
+    if(!bindingArmed)return;e.preventDefault();e.stopImmediatePropagation();if(e.repeat)return;
+    if(e.code==='Escape'){cancelBinding();return;}
+    var value=e.ctrlKey||e.altKey||e.metaKey?null:DanmakuControls.normalize(e.code);
+    if(!value){$('binding-status').textContent='这个键与移动、大招或浏览器操作冲突；请用Z、C等普通键，或Esc取消。';return;}
+    applyBinding(value);
+  },true);
+  document.querySelectorAll('[data-difficulty]').forEach(function(button){button.addEventListener('click',function(){if(mode!=='ready')return;selectedDifficulty=button.dataset.difficulty;reset();});});$('start').addEventListener('click',start);
   $('low-effects').addEventListener('change',function(){canvas.focus({preventScroll:true});});
   function pauseForAudio(){if(mode==='running'||mode==='countdown')pause('调整声音，游戏已暂停。');}
   $('audio-settings').addEventListener('pointerdown',pauseForAudio);$('audio-settings').addEventListener('focusin',pauseForAudio);
-  ['practice-settings','help-settings','replay-tools'].forEach(function(id){
+  ['settings','replay-tools'].forEach(function(id){
     function pauseForPanel(){if(mode==='running'||mode==='countdown')pause('查看设置与提示，游戏已暂停。');}
     $(id).addEventListener('pointerdown',pauseForPanel);$(id).addEventListener('focusin',pauseForPanel);
   });
@@ -405,22 +401,22 @@
   $('audio-mute').addEventListener('click',function(){saveAudio({muted:!sound.settings.muted});if(!sound.settings.muted)unlockAudio();});
   $('audio-preview').addEventListener('click',function(){sound.preview().then(audioControls);audioControls();});
   $('pause').addEventListener('click',function(){if(mode==='paused')start();else pause('手动暂停，确认路线后再继续。');});
-  $('restart').addEventListener('click',function(){reset();start();});
+  $('restart').addEventListener('click',function(){reset();canvas.focus({preventScroll:true});});
   $('slow').addEventListener('click',function(){slowToggle=!slowToggle;controls();sound.menu();canvas.focus({preventScroll:true});});
   $('bomb').addEventListener('pointerdown',function(e){if(mode==='running'){e.preventDefault();bombEdge=true;}});
   $('bomb').addEventListener('click',function(e){if(e.detail===0&&mode==='running')bombEdge=true;});
   document.addEventListener('keydown',function(e){
     if(isEditing(e.target)||!focused()||e.ctrlKey||e.altKey||e.metaKey)return;
     if(e.code==='Escape'){e.preventDefault();if(!e.repeat){if(mode==='paused')start();else pause('手动暂停，确认路线后再继续。');}return;}
-    if(!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD','ShiftLeft','ShiftRight','KeyX','Space'].includes(e.code))return;
+    if(!DanmakuControls.matches(e.code,focusBinding)&&!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD','KeyX','Space'].includes(e.code))return;
     e.preventDefault(); if(mode!=='running')return;
     if((e.code==='KeyX'||e.code==='Space')&&!e.repeat)bombEdge=true;
     keys.add(e.code);
-    if(e.code==='ShiftLeft'||e.code==='ShiftRight')focusControls();
+    if(DanmakuControls.matches(e.code,focusBinding))focusControls();
   });
-  document.addEventListener('keyup',function(e){keys.delete(e.code);if(e.code==='ShiftLeft'||e.code==='ShiftRight')focusControls();});
-  document.addEventListener('visibilitychange',function(){if(document.hidden){sound.pause();pause('切到后台，游戏已自动暂停。');}});
-  window.addEventListener('blur',function(){sound.pause();pause('窗口失去焦点，游戏已自动暂停。');});
+  document.addEventListener('keyup',function(e){keys.delete(e.code);if(DanmakuControls.matches(e.code,focusBinding))focusControls();});
+  document.addEventListener('visibilitychange',function(){if(document.hidden){cancelBinding();clearInput();sound.pause();pause('切到后台，游戏已自动暂停。');}});
+  window.addEventListener('blur',function(){cancelBinding();clearInput();sound.pause();pause('窗口失去焦点，游戏已自动暂停。');});
   canvas.addEventListener('blur',function(){keys.clear();focusControls();});
   canvas.addEventListener('pointerdown',function(e){if(mode!=='running'||pointer!==null)return;e.preventDefault();canvas.focus({preventScroll:true});pointer={id:e.pointerId,x:e.clientX,y:e.clientY};target={x:sim.player.x,y:sim.player.y};canvas.setPointerCapture(e.pointerId);});
   canvas.addEventListener('pointermove',function(e){if(!pointer||pointer.id!==e.pointerId)return;var rect=canvas.getBoundingClientRect();target.x+=Math.trunc((e.clientX-pointer.x)*480/rect.width*64);target.y+=Math.trunc((e.clientY-pointer.y)*640/rect.height*64);target.x=Math.max(12*64,Math.min(468*64,target.x));target.y=Math.max(144*64,Math.min(624*64,target.y));pointer.x=e.clientX;pointer.y=e.clientY;});
@@ -445,5 +441,5 @@
   // Classic-script rules also work under file://; PHP still reads canonical rules.json.
   var rulesReady = window.DanmakuRules ? Promise.resolve(window.DanmakuRules) :
     fetch('rules.json',{cache:'no-cache'}).then(function(response){if(!response.ok)throw new Error('规则加载失败');return response.json();});
-  rulesReady.then(function(data){rules=data;loaded=true;reset();last=performance.now();requestAnimationFrame(frame);}).catch(function(error){setStatus('启动失败：'+error.message,true);$('overlay-title').textContent='练习场尚未就绪';$('overlay-text').textContent='预览文件可能不完整。请打开单文件试玩版，或重新解压完整交付包。';$('start').textContent='暂时无法开始';});
+  rulesReady.then(function(data){rules=data;loaded=true;reset();last=performance.now();requestAnimationFrame(frame);}).catch(function(error){setStatus('启动失败：'+error.message,true);$('overlay-title').textContent='游戏尚未就绪';$('overlay-text').textContent='预览文件可能不完整。请打开单文件试玩版，或重新解压完整交付包。';$('start').textContent='暂时无法开始';});
 }());

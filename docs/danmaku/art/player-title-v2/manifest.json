@@ -1,0 +1,26 @@
+{
+  "author": "小典 / Codex",
+  "copyright": "(C) 2026 Carinoasd (game prototype)",
+  "generator": "built-in image_gen",
+  "operation": "precise-object-edit",
+  "size": [
+    1024,
+    1536
+  ],
+  "rgba": true,
+  "cornerAlpha": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "transparentPixels": 962525,
+  "partialAlphaPixels": 610339,
+  "bytes": 1774010,
+  "sha256": "0e2a4471e24163c6d114114ac8199dc5889b056c3ee01a2a91d221759e84a367",
+  "imageEditingAfterGeneration": false,
+  "runtimeAsset": "source/plugin/gamecenter/games/_danmaku_proto/assets/player-title-portrait-v2.png",
+  "prompt": "PROMPT.md",
+  "editTarget": "source/plugin/gamecenter/games/_danmaku_proto/assets/player-title-portrait-v1.png",
+  "weapon": "blue-gold star wand with cyan crystal emitter"
+}

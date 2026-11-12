@@ -1,0 +1,40 @@
+/* (C) 2026 Carinoasd. Collectible scoring, power supply and replay checks: 小典 / Codex. */
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),{spawnSync,execFileSync}=require('node:child_process');
+const root=path.resolve(__dirname,'../..'),base=path.join(root,'source/plugin/gamecenter/games/_danmaku_proto'),r=require(path.join(base,'rules.json')),S=require(path.join(base,'stage.js')),R=require(path.join(base,'stage-replay.js')),C=require(path.join(base,'replay.js'));
+const checks=[],plain=x=>JSON.parse(JSON.stringify(x)),git=['-c','http.proxy=http://127.0.0.1:7897','-c','https.proxy=http://127.0.0.1:7897'];function test(name,f){f();checks.push(name);console.log('PASS '+name);}function php(file,p){const x=spawnSync(process.env.DANMAKU_PHP||'php',[path.join(__dirname,file)],{input:JSON.stringify(p),encoding:'utf8',maxBuffer:32*1024*1024});assert.equal(x.status,0,x.error?.message||x.stderr);return JSON.parse(x.stdout);}
+const cases=[];for(const rule of [S.collectRule,S.normalCollectRule])for(const assist of [false,true])cases.push({rule,assist});
+test('26 power units / 20 score crystals are versioned without changing old schedules or attack tables',()=>{
+ const old=JSON.parse(execFileSync('git',[...git,'show','7e578ed:source/plugin/gamecenter/games/_danmaku_proto/rules.json'],{cwd:root,encoding:'utf8'}));const {collect08,corner09,...rest}=r;assert.deepEqual(rest,old);
+ const saved=JSON.stringify(r);for(const c of cases){const b=new S.Stage(r,c.assist,c.rule),schedule=b.sim.rules.stage01.schedule;assert.equal(schedule.reduce((n,m)=>n+m.reward,0),26);assert.equal(schedule.filter(m=>!m.reward).length,20);assert.equal(b.rules.stage01.dropCap,48);for(const i of [0,1,2]){b.replace(i);assert.equal(b.sim.rules.stage01.schedule.reduce((n,m)=>n+m.reward,0),26);assert.equal(b.sim.normalRevision,c.rule===S.normalCollectRule?2:0);}assert.equal(b.sim.respawnBombs,true);}assert.equal(JSON.stringify(r),saved);
+ assert.equal(S.scoreLimit(r,S.collectRule),331700);assert.equal(S.scoreLimit(r,S.wideWeaponRule),321300);
+});
+function scenario(c,action){const b=new S.Stage(r,c.assist,c.rule),s=b.sim;
+ if(action==='all'){
+  for(const m of s.rules.stage01.schedule){s.mobs=[{id:m.id,type:m.type,born:0,baseX:m.x,mirror:m.mirror,reward:m.reward,hp:s.rules.stage01.types[m.type].hp,aim:128,warningUntil:0,warningKind:0,x:240*64,y:100*64,px:240*64,py:100*64}];s.damageMob(s.mobs[0],10000,false);s.damageMob(s.mobs[0],10000,true);}
+  for(let i=0;i<4;i++)s.drop(12*64,0,4,true);const before=plain(b.snapshot());assert.equal(s.drops.length,46);assert.equal(s.drops.filter(d=>d.kind===0&&!d.recovery).reduce((n,d)=>n+d.value,0),26);assert.equal(s.stats.pointItemsSpawned,20);assert.equal(s.stats.pointScore,0);assert.equal(s.stats.bombItemsSpawned,2);
+  for(const d of s.drops)if(d.kind===2){d.x=d.px=s.player.x;d.y=d.py=s.player.y;}s.tick=12;s.items({flags:1});const after=plain(b.snapshot());assert.equal(s.stats.pointScore,10000);assert.equal(s.player.power,0);assert.equal(s.stats.pointCollected,20);assert.equal(b.score().points,10000);assert.equal(s.drops.filter(d=>d.kind===2).length,0);s.items({flags:1});assert.equal(s.stats.pointScore,10000);return[before,after,plain(b.snapshot())];
+ }
+ if(action==='mixed'){
+  s.player.bombs=3;for(const [kind,value] of [[0,3],[1,1],[2,1]])s.drop(s.player.x,s.player.y,value,false,kind);s.tick=12;s.items({flags:1});assert.equal(s.player.power,3);assert.equal(s.player.bombs,3);assert.equal(b.score().total,1000);const before=plain(b.snapshot());s.drop(12*64,0,1,false,2);b.replace(0);assert.equal(b.score().points,1000);assert.equal(b.score().total,1500);assert.equal(b.sim.player.bombs,3);const after=plain(b.snapshot());b.replace(1);assert.equal(b.score().total,1500);return[before,after,plain(b.snapshot())];
+ }
+ s.player.power=16;s.player.bombs=0;s.drop(s.player.x,s.player.y,1,false,2);s.tick=12;s.items({flags:1});s.spawn(s.player.x,s.player.y,0,0,4);s.step({dx:0,dy:0,flags:1});assert.equal(s.player.power,12);assert.equal(s.player.bombs,c.assist?3:2);assert.equal(b.score().points,500);return plain(b.snapshot());
+}
+for(const action of ['all','mixed','death'])test('JS/PHP '+action+' boundaries: pickup-only points, no duplicate kill reward, stocks and phase carry',()=>{assert.deepEqual(php('collect-fixtures.php',{action,cases}),cases.map(c=>scenario(c,action)));});
+test('crystals respect unlock, normal/focus magnet, expiry, off-field loss and do not grant power or bombs',()=>{
+ for(const flags of [0,1]){const s=new S.Sim(r,-1,false,S.collectRule);s.player.x=240*64;s.player.y=500*64;s.drop(320*64,500*64,1,false,2);s.tick=11;s.items({flags});assert.equal(s.drops[0].attracted,false);s.tick=12;s.items({flags});assert.equal(s.drops[0].attracted,flags===1);}
+ for(const action of ['expire','miss']){const s=new S.Sim(r,-1,false,S.collectRule);s.drop(12*64,0,1,false,2);if(action==='expire')s.tick=900;else{s.tick=40;s.drops[0].y=673*64;}s.items({flags:0});assert.equal(s.drops.length,0);assert.equal(s.stats.pointScore,0);}
+});
+const phases=[];for(const c of cases)for(const index of [-1,0,1,2])for(const power of [0,16])phases.push({...c,index,power,inputs:Array.from({length:360},(_,i)=>({dx:i%180<90?64:-64,dy:0,flags:i===180?3:i%120<60?1:0}))});
+test('32 isolated stage/Boss traces match PHP with focus, movement and bombs',()=>{
+ const expected=phases.map(c=>{const s=new S.Sim(r,c.index,c.assist,c.rule);s.player.power=c.power;s.player.invulUntil=1000000;const trace=[];for(const input of c.inputs){s.step(input);if(s.tick%60===0)trace.push(s.snapshot());}return trace;});assert.deepEqual(php('weapon-fixtures.php',{action:'phases',cases:phases}),plain(expected));
+});
+test('all twelve older rules retain snapshots including older no-score-item drops',()=>{
+ const source=execFileSync('git',[...git,'show','7e578ed:source/plugin/gamecenter/games/_danmaku_proto/stage.js'],{cwd:root,encoding:'utf8'}),sandbox={module:{exports:{}},require:name=>require(path.join(base,name))};vm.runInNewContext(source,sandbox);const O=sandbox.module.exports;
+ for(const rule of O.supportedRules)for(const index of [-1,1]){const a=new O.Sim(r,index,false,rule),b=new S.Sim(r,index,false,rule);for(const s of [a,b]){s.player.power=16;s.player.invulUntil=100000;}for(let i=0;i<360;i++){const input={dx:i%60<30?64:-64,dy:0,flags:i%90<45?1:0};a.step(input);b.step(input);}assert.deepEqual(plain(a.snapshot()),plain(b.snapshot()));}
+});
+let rejected=0,collected=[];test('legal prefixes with actually collected crystals pass; score and pickup tampering fails',()=>{
+ const old=require('./fixtures/r2-automated-input.json'),inputs=C.decodeInputs(old.ticks,old.input,r,r.stage01.maxTicks);
+ for(const rule of [S.collectRule,S.normalCollectRule]){const s=new S.Stage(r,false,rule),used=[];for(const input of inputs.slice(0,2300)){if(s.status!=='playing')break;s.step(input);used.push(input);}assert.ok(s.stats.pointCollected>0);collected.push(s.stats.pointCollected);const p=R.encode(used,r,s),partial=s.status==='playing';const got=php('cli-stage01.php',{action:'batch',trace:true,cases:[{payload:p,partial}]}).results[0];assert.equal(got.ok,1);assert.deepEqual(got.data,R.run(p,r,partial,true));const bad=[{...p,score:p.score+500},{...p,points:10000},{...p,pointCollected:20},{...p,power:16},{...p,score:r.collect08.scoreUpperBound+1},{...p,rule:'danmaku-stage01-r999'}];const rows=php('cli-stage01.php',{action:'batch',trace:false,cases:bad.map(payload=>({payload,partial:true}))}).results;bad.forEach((v,i)=>{assert.throws(()=>R.run(v,r,true,false));assert.equal(rows[i].ok,0);rejected++;});}
+});
+const out=path.join(root,'tmp/danmaku/collect-v1');fs.mkdirSync(out,{recursive:true});const report={status:'PASS',checks,phaseFixtures:32,boundaryFixtures:12,legacyFixtures:24,invalidRejected:rejected,crystalsInLegalPrefixes:collected,absoluteDropBound:46,dropCap:48,naturalClearRun:false};fs.writeFileSync(path.join(out,'rule-checks.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

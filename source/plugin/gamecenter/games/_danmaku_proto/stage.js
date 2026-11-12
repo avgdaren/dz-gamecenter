@@ -1,14 +1,30 @@
 /* (C) 2026 Carinoasd. One-stage growth simulation: 小典 / Codex. */
 (function(root,factory){
   'use strict';
-  if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine.js'),require('./battle.js'));
-  else root.DanmakuStage01=factory(root.DanmakuP0,root.DanmakuBattle);
-}(typeof globalThis!=='undefined'?globalThis:this,function(engine,battle){
+  if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine.js'),require('./battle.js'),require('./weapons.js'));
+  else root.DanmakuStage01=factory(root.DanmakuP0,root.DanmakuBattle,root.DanmakuWeapons);
+}(typeof globalThis!=='undefined'?globalThis:this,function(engine,battle,weapons){
   'use strict';
   var RULE='danmaku-stage01-r1',BOMB_RULE='danmaku-stage01-r2',PATTERN_RULE='danmaku-stage01-r3',NORMAL_RULE='danmaku-stage01-normal-r1',RESPAWN_RULE='danmaku-stage01-r4',NORMAL_V2_RULE='danmaku-stage01-normal-r2',Q=64;
-  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE];
+  var POWER_RULE='danmaku-stage01-r5',NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
+  var WEAPON_RULE='danmaku-stage01-r6',NORMAL_WEAPON_RULE='danmaku-stage01-normal-r4';
+  var WIDE_WEAPON_RULE='danmaku-stage01-r7',NORMAL_WIDE_WEAPON_RULE='danmaku-stage01-normal-r5';
+  var COLLECT_RULE='danmaku-stage01-r8',NORMAL_COLLECT_RULE='danmaku-stage01-normal-r6';
+  var CORNER_RULE='danmaku-stage01-r9',NORMAL_CORNER_RULE='danmaku-stage01-normal-r7';
+  function isCollect(rule){return rule===COLLECT_RULE||rule===NORMAL_COLLECT_RULE||rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;}
+  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE];
   function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
-  function level(power,rules){var thresholds=rules.stage01.growth.thresholds;return power>=thresholds[2]?3:power>=thresholds[1]?2:1;}
+  function level(power,rules){var a=rules.stage01.growth.thresholds;for(var i=a.length-1;i>0;i--)if(power>=a[i])return i+1;return 1;}
+  function effectiveRules(rules,rule){
+    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)<0)return rules;
+    var p=rules.power05;
+    var config=Object.assign({},rules.stage01,{shotCap:p.shotCap,growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})});
+    if(isCollect(rule)){
+      var c=rules.collect08;config.dropCap=c.dropCap;
+      config.schedule=rules.stage01.schedule.map(function(m){return Object.assign({},m,{reward:c.extraPowerIds.indexOf(m.id)>=0?c.extraPowerValue:m.reward});});
+    }
+    return Object.assign({},rules,{stage01:config});
+  }
   function position(rules,mob,age){
     var spec=rules.stage01.types[mob.type],v=rules.stage01.paths[mob.type][clamp(age,0,spec.life)];
     return mob.type===0?{x:mob.mirror?480*Q-v[0]:v[0],y:v[1]}:{x:mob.baseX+v[0],y:v[1]};
@@ -21,14 +37,20 @@
   function Sim(rules,index,assist,rule){
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
-    battle.Phase.call(this,rules,Math.max(0,index),assist,true,rule===PATTERN_RULE||rule===RESPAWN_RULE,rule===NORMAL_RULE||rule===NORMAL_V2_RULE,
-      {respawnBombs:rule===RESPAWN_RULE||rule===NORMAL_V2_RULE,normalRevision:rule===NORMAL_V2_RULE?2:1});
+    rules=effectiveRules(rules,rule);
+    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE,COLLECT_RULE,CORNER_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,NORMAL_COLLECT_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,
+      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
     this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
+    this.cornerMode=rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;
+    this.collectMode=isCollect(rule);this.lastPointPickup=-999;this.lastPointValue=0;
+    this.wideWeaponMode=rule===WIDE_WEAPON_RULE||rule===NORMAL_WIDE_WEAPON_RULE||this.collectMode;
+    this.weaponMode=rule===WEAPON_RULE||rule===NORMAL_WEAPON_RULE||this.wideWeaponMode;
     this.hp=index<0?0:rules.boss.phaseHP[index];
     this.player.power=0;this.mobs=[];this.drops=[];this.cursor=0;this.nextDrop=1;
     this.lastUpgrade=-999;this.lastDowngrade=-999;
     Object.assign(this.stats,{mobDamage:0,mobKills:0,mobScore:0,powerCollected:0,powerRecovered:0,powerLost:0,
       powerOverflow:0,overflowScoreUnits:0,mobSpawned:0,mobPeak:0,dropSpawned:0,dropPeak:0,upgrades:0});
+    if(this.collectMode)Object.assign(this.stats,{pointItemsSpawned:0,pointCollected:0,pointScore:0});
     if(this.bombMode){
       var config=rules.stage01.bomb;
       this.player.bombs=assist?config.assistStart:config.standardStart;
@@ -83,7 +105,8 @@
     this.drops.push({id:this.nextDrop++,x:clamp(x,12*Q,468*Q),y:Math.max(0,y),px:x,py:y,born:this.tick,value:value,
       recovery:recovery,unlock:this.tick+(recovery?g.recoveryUnlockTicks:g.rewardUnlockTicks),attracted:false});
     if(this.bombMode){
-      this.drops[this.drops.length-1].kind=kind===1?1:0;
+      this.drops[this.drops.length-1].kind=kind===1?1:this.collectMode&&kind===2?2:0;
+      if(this.collectMode&&kind===2)this.stats.pointItemsSpawned++;
       if(kind===1)this.stats.bombItemsSpawned++;
     }
     this.stats.dropSpawned++;this.stats.dropPeak=Math.max(this.stats.dropPeak,this.drops.length);
@@ -96,6 +119,10 @@
     if(p.lives>0)this.drop(p.x,p.y-48*Q,lost,true);
   };
   Sim.prototype.collect=function(item){
+    if(this.collectMode&&item.kind===2){
+      var value=item.value*this.rules.collect08.pointValue;this.stats.pointCollected+=item.value;this.stats.pointScore+=value;
+      this.lastPointValue=this.lastPointPickup===this.tick?this.lastPointValue+value:value;this.lastPointPickup=this.tick;return;
+    }
     if(this.bombMode&&item.kind===1){
       var config=this.rules.stage01.bomb;this.stats.bombCollected++;this.lastBombPickup=this.tick;
       if(this.player.bombs<config.stockCap)this.player.bombs++;
@@ -114,7 +141,8 @@
     var applied=Math.min(m.hp,damage),type=this.rules.stage01.types[m.type];m.hp-=applied;this.stats.mobDamage+=applied;
     if(fromBomb)this.stats.bombDamage+=applied;else this.stats.shotHits++;
     if(m.hp===0){
-      this.stats.mobKills++;this.stats.mobScore+=type.killScore;this.drop(m.x,m.y,m.reward,false);
+      this.stats.mobKills++;this.stats.mobScore+=type.killScore;
+      if(this.collectMode&&m.reward===0)this.drop(m.x,m.y,1,false,2);else this.drop(m.x,m.y,m.reward,false);
       if(fromBomb)this.stats.bombKills++;
       if(this.bombMode&&m.type===this.rules.stage01.bomb.rewardType)this.drop(m.x,m.y,this.rules.stage01.bomb.rewardValue,false,1);
     }
@@ -130,10 +158,12 @@
   Sim.prototype.items=function(input){
     var p=this.player,g=this.rules.stage01.growth,t=this.tick,sim=this;
     var radius=(input.flags&1?g.focusMagnetRadius:g.magnetRadius)*Q;
+    var c=this.rules.corner09,corner=this.cornerMode&&p.y<=c.topY*Q&&(p.x<=c.leftX*Q||p.x>=c.rightX*Q);
     this.drops=this.drops.filter(function(item){
       if(t-item.born>=g.dropTtl)return false;
       item.px=item.x;item.py=item.y;
       var dx=p.x-item.x,dy=p.y-item.y;
+      if(corner){item.attracted=true;item.unlock=Math.min(item.unlock,t);}
       if(t>=item.unlock){
         if(sim.index<0&&t>=sim.rules.stage01.gatherTick||dx*dx+dy*dy<=radius*radius)item.attracted=true;
       }
@@ -148,11 +178,21 @@
   };
   Sim.prototype.fire=function(input){
     var r=this.rules,p=this.player,t=this.tick;
-    if((t-r.playerShot.firstPhaseTick)%r.playerShot.intervalTicks!==0)return;
-    var powerLevel=level(p.power,r),focused=!!(input.flags&1),lanes=r.stage01.growth.levels[powerLevel-1][focused?'focused':'normal'];
-    for(var i=0;i<lanes.length;i++){
+    var powerLevel=level(p.power,r),focused=!!(input.flags&1);
+    var packet=this.weaponMode&&focused&&powerLevel>=4?r.weapons06.focused[powerLevel]:null;
+    var fireMain=(t-r.playerShot.firstPhaseTick)%(packet?packet.interval:r.playerShot.intervalTicks)===0;
+    var lanes=packet?packet.lanes:r.stage01.growth.levels[powerLevel-1][focused?'focused':'normal'];
+    if(fireMain)for(var i=0;i<lanes.length;i++){
       var spec=lanes[i],x=p.x+spec.offsetX*Q,y=p.y-16*Q;
-      this.shots.push({id:this.nextShot++,x:x,y:y,px:x,py:y,born:t,vx:spec.vxQ,vy:-r.playerShot.speedStepQ,damage:spec.damage,focused:focused,level:powerLevel});
+      this.shots.push({id:this.nextShot++,x:x,y:y,px:x,py:y,born:t,vx:packet?0:spec.vxQ,vy:-(packet?packet.speedQ:r.playerShot.speedStepQ),damage:spec.damage,focused:focused,level:powerLevel});
+      if(this.weaponMode){var shot=this.shots[this.shots.length-1];shot.kind=packet?2:!focused&&powerLevel===5&&r.weapons06.tracking.lanes.indexOf(i)>=0?1:0;shot.target=-1;}
+    }
+    if(this.wideWeaponMode&&focused&&powerLevel>=r.weapons07.sideShots.minimumLevel){
+      var side=r.weapons07.sideShots;
+      if((t-r.playerShot.firstPhaseTick)%side.interval===0)for(var j=0;j<side.offsets.length;j++){
+        var sx=p.x+side.offsets[j]*Q,sy=p.y-16*Q;
+        this.shots.push({id:this.nextShot++,x:sx,y:sy,px:sx,py:sy,born:t,vx:0,vy:-side.speedQ,damage:side.damage,focused:true,level:powerLevel,kind:3,target:-1});
+      }
     }
     if(this.shots.length>r.stage01.shotCap)throw new Error('自机子弹超过关卡上限');
   };
@@ -164,6 +204,7 @@
     p.x=clamp(p.x+input.dx,bounds.minX*Q,bounds.maxX*Q);p.y=clamp(p.y+input.dy,bounds.minY*Q,bounds.maxY*Q);
     if(this.index>=0)b.x=engine.bossX(t);
     this.fire(input);this.pattern();
+    if(this.weaponMode)weapons.tracking(this);
     this.enemies.forEach(function(e){e.px=e.x;e.py=e.y;e.x+=e.vx;e.y+=e.vy;});
     this.shots.forEach(function(s){s.px=s.x;s.py=s.y;s.x+=s.vx;s.y+=s.vy;});
     var activated=false;
@@ -228,6 +269,7 @@
     result.nextIds=[this.nextEnemy,this.nextShot,this.nextDrop,this.cursor];
     result.enemies=this.enemies.map(function(e){return[e.id,e.x,e.y,e.vx,e.vy,e.radius,e.born,e.grazed?1:0,e.ttl,e.kind];});
     result.shots=this.shots.map(function(s){return[s.id,s.x,s.y,s.born,s.vx,s.vy,s.damage,s.focused?1:0,s.level];});
+    if(this.weaponMode)result.shots.forEach(function(row,i){row.push(this.shots[i].kind,this.shots[i].target);},this);
     result.mobs=this.mobs.map(function(m){return[m.id,m.type,m.born,m.baseX,m.mirror?1:0,m.reward,m.x,m.y,m.hp,m.aim,m.warningUntil,m.warningKind];});
     result.drops=this.drops.map(function(d){return[d.id,d.x,d.y,d.born,d.value,d.recovery?1:0,d.unlock,d.attracted?1:0];});
     if(this.bombMode){
@@ -235,12 +277,14 @@
       result.bomb=[this.bombActiveUntil,this.bombCooldownUntil,this.lastBomb,this.bombX,this.bombY,
         s.bombDamage,s.bombKills,s.bombCleared,s.bombCollected,s.bombOverflowTokens,s.bombItemsSpawned,this.lastBombPickup,this.lastBombOverflow];
     }
+    if(this.collectMode)result.collect=[s.pointItemsSpawned,s.pointCollected,s.pointScore,this.lastPointPickup,this.lastPointValue];
     return result;
   };
   function Stage(rules,assist,rule){
     if(typeof assist!=='boolean')throw new Error('辅助模式参数无效');
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
+    rules=effectiveRules(rules,rule);
     this.rule=rule;this.rules=rules;this.assist=assist;this.tick=0;this.activeTicks=0;this.phaseIndex=-1;this.phaseBreaks=0;
     this.status='playing';this.stage='prelude';this.remaining=rules.stage01.preludeTicks;this.events=[];
     this.sim=new Sim(rules,-1,assist,rule);this.stats=this.sim.stats;
@@ -294,6 +338,7 @@
     parts.mobs=this.stats.mobScore;parts.overflow=this.stats.overflowScoreUnits*this.rules.stage01.growth.overflowPerUnit;
     parts.total+=parts.mobs+parts.overflow;
     if(this.sim.bombMode){parts.bombOverflow=this.stats.bombOverflowTokens*this.rules.stage01.bomb.overflowScore;parts.total+=parts.bombOverflow;}
+    if(this.sim.collectMode){parts.points=this.stats.pointScore;parts.total+=parts.points;}
     return parts;
   };
   Stage.prototype.snapshot=function(){
@@ -301,6 +346,6 @@
       stage:this.stage,remaining:this.remaining,status:this.status,hp:this.sim.hp,score:this.score(),events:this.events.map(function(e){return Object.assign({},e);}),sim:this.sim.snapshot()};
   };
   function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
-  function scoreLimit(rules,rule){return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
-  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+  function scoreLimit(rules,rule){if(isCollect(rule))return rules.collect08.scoreUpperBound;return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
+  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,collectRule:COLLECT_RULE,normalCollectRule:NORMAL_COLLECT_RULE,cornerRule:CORNER_RULE,normalCornerRule:NORMAL_CORNER_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
 }));

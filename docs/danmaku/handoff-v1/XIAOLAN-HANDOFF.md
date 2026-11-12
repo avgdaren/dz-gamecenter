@@ -1,5 +1,7 @@
 # 小蓝接手：天使弹幕祭 r3
 
+此页为旧r3部署交接历史。当前完整单关、Normal、标题／HUD、五级火力、积分掉落与顶角全收请从[最新GitHub交接入口](../handoff-v2/XIAOLAN-HANDOFF.md)接手，勿沿用本页旧r3规则白名单。
+
 2026-11-12，交付整理：小典 / Codex；原型 `(C) 2026 Carinoasd`。
 
 GitHub接手：[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)，对应[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)，分支`feat/danmaku-p1`。运行内容提交`24b41f3`；后续文档补充沿同一PR。PR未合并，站点未部署。

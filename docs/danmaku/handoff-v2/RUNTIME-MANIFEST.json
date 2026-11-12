@@ -1,0 +1,214 @@
+{
+  "candidate": "corner-v1-handoff",
+  "baseCommit": "75502033f77e0d16a89dd8c49391b8731d4914b9",
+  "sourceRef": "feat/danmaku-title-power-v1",
+  "pullRequest": "https://github.com/avgdaren/dz-gamecenter/pull/79",
+  "runtimeRoot": "source/plugin/gamecenter/games/_danmaku_proto",
+  "rules": {
+    "easy": "danmaku-stage01-r9",
+    "normal": "danmaku-stage01-normal-r7"
+  },
+  "corner": {
+    "easyRule": "danmaku-stage01-r9",
+    "normalRule": "danmaku-stage01-normal-r7",
+    "topY": 192,
+    "leftX": 96,
+    "rightX": 384
+  },
+  "allDropKinds": true,
+  "bypassPickupLock": true,
+  "attractionPersistsAfterLeaving": true,
+  "preludePower": 26,
+  "pointCrystalValue": 500,
+  "scoreUpperBound": 331700,
+  "runtimeFiles": {
+    "audio-bank.js": {
+      "bytes": 390620,
+      "sha256": "661ef8b957536db6da1c9c63df47ab08e06ca843f14b997d9bf53db6dded808b"
+    },
+    "audio.js": {
+      "bytes": 19180,
+      "sha256": "8590d40eee1cddac9da633a812436b4b3d12c6f5c1bc9c8bd9e012a68f9ce8a5"
+    },
+    "battle-replay.js": {
+      "bytes": 2144,
+      "sha256": "7619579555eedaf9e6100482ea1f149834649058350f823808a4b24163add195"
+    },
+    "battle.js": {
+      "bytes": 8383,
+      "sha256": "aa3ac2cad0680e68bc826f267131e25e91de6c077595a3846149bc31bbbdf890"
+    },
+    "battle.php": {
+      "bytes": 10498,
+      "sha256": "d8a0f3fe10093a0e9be848709ee756dd2ef0b2b8fd5d47d2a1e135764227abb9"
+    },
+    "bgm-bank.js": {
+      "bytes": 8859807,
+      "sha256": "b7edccc8460ab419573c6f77645b1acd8529db4a8acccc5e219a6adda388940a"
+    },
+    "boss-patterns.js": {
+      "bytes": 5324,
+      "sha256": "dc265795b13abcd95dd2820b5fd0c5cd75a2a97a324130793511b9c7e2abaed2"
+    },
+    "boss-patterns.php": {
+      "bytes": 3780,
+      "sha256": "e74ddfef8c8e7e0a767ef6c8ed7c8487de519f55b04c8849b87b68c1de4a3713"
+    },
+    "boss-view.js": {
+      "bytes": 4535,
+      "sha256": "7df1ca45105c27582c2d5b5c150a2f88fb8e962601a6ebf9934d7096ad8b0210"
+    },
+    "controls.js": {
+      "bytes": 1098,
+      "sha256": "8a56193cff1ce6a4211aebaad89eaeafa545e711ccfa6832f90e45c6a3206589"
+    },
+    "engine.js": {
+      "bytes": 11220,
+      "sha256": "3d937a697ecdd87f0ce65815629ab0b380c3863f694b2b962162e4f3d52fc118"
+    },
+    "engine.php": {
+      "bytes": 15241,
+      "sha256": "438ebbe9c64910c6c41e273caa48d1b469f308cf67d7f8ec18fc5930789e7a21"
+    },
+    "index.html": {
+      "bytes": 8710,
+      "sha256": "75067fc17a0cfc60e9ade11199febf06a2654ee21dac623e9e7da2de93fd5428"
+    },
+    "midi-bank.js": {
+      "bytes": 43711,
+      "sha256": "b588a0936c58ee79370d657f461d7d8cd43811d5172f6a7070e88d02c7f60812"
+    },
+    "midi.js": {
+      "bytes": 17359,
+      "sha256": "baa8912efc8ae2b7f47679f5d741ecc5614aa7e6ef5885206117447c915a27fa"
+    },
+    "player-view.js": {
+      "bytes": 1877,
+      "sha256": "969dd246bce76e50fb74e0059e7df7a02189073152cf5a75bbc9cb234ddcb47b"
+    },
+    "replay.js": {
+      "bytes": 3770,
+      "sha256": "55ea3062bf2f64f94dd272204bc97b6560860f56c6476791cd402504ee357851"
+    },
+    "rules-data.js": {
+      "bytes": 39322,
+      "sha256": "a61783300f8b5f6d0a64a96992fb98a46883e14f03013be11d5fff4364dac276"
+    },
+    "rules.json": {
+      "bytes": 132331,
+      "sha256": "8b378717c26ce9eddacced6cd97cbd86123d19da24b8150bf81cb89f44397746"
+    },
+    "stage-art-view.js": {
+      "bytes": 4237,
+      "sha256": "0698354d61eb08b5a66df2401686e985628f7525afe2fe4635e86ebc78849c88"
+    },
+    "stage-replay.js": {
+      "bytes": 2213,
+      "sha256": "02a4ee5634943620098cc2543ec9b9a594395d4ae890f34713a21dc6680608c7"
+    },
+    "stage-show.js": {
+      "bytes": 4619,
+      "sha256": "9e7e60933ce398dca1a3009a749fd9c564f2375edd175bc04ec41b08ae18315b"
+    },
+    "stage-view.js": {
+      "bytes": 6708,
+      "sha256": "df8655cbf30772b8bb424cbc1b512ea3b752fd2265e95c1c4bbd84e8b9dd418f"
+    },
+    "stage.js": {
+      "bytes": 24072,
+      "sha256": "4d1e2f9fea3db0b3f17e59785c9bddc2e14f7e90c81f3335abc8a5db9e25c7ff"
+    },
+    "stage.php": {
+      "bytes": 34313,
+      "sha256": "88c20980d4c58b3a88aa146af0fbdaee40d55f73431f1922f39bd03fbb601f56"
+    },
+    "style.css": {
+      "bytes": 18518,
+      "sha256": "cae174a950438de2fa070120066877575c00a0233ea422bdb578eb24a8256fb7"
+    },
+    "ui.js": {
+      "bytes": 38038,
+      "sha256": "698f04d85d58dde769e55610269030e4626adbf81a9195a02f9ebdee73d1528b"
+    },
+    "weapons.js": {
+      "bytes": 2739,
+      "sha256": "4866ce0c6e7d67a051f3d736fa5318694f6b937bcea1e5ff00b7ab229f746dda"
+    },
+    "weapons.php": {
+      "bytes": 1371,
+      "sha256": "711c725fbccd9e666e572705b2d7648069b4ffd76b147419ab517f736fe262f1"
+    },
+    "assets/boss-body-atlas-v1.png": {
+      "bytes": 59860,
+      "sha256": "d445ca43990e075c6b3253a324737d11d8b659e22c7fd88d20dc3b16bb995a63"
+    },
+    "assets/boss-face-v1.png": {
+      "bytes": 443122,
+      "sha256": "d48bef817c9976446597321d8c67eb66e4545c9c791b99cb56b52a017452faf4"
+    },
+    "assets/boss-portrait-v1.png": {
+      "bytes": 2026937,
+      "sha256": "79fbf9c029691bfa41e9745e2dabd21add27d93e184fe3a8f4c25f98a0862cce"
+    },
+    "assets/boss-ring-back-v1.png": {
+      "bytes": 3145,
+      "sha256": "6a02d02f6cfcacb71f3ad1f4b81021a3229ec8a44d7702942d3ae5cdafa1bed7"
+    },
+    "assets/boss-ring-front-v1.png": {
+      "bytes": 291,
+      "sha256": "952582341dee1639fd2e5e24e0498e675fab349b4677e73dfdf86ef8168ff698"
+    },
+    "assets/player-front-display-v1.png": {
+      "bytes": 4342,
+      "sha256": "fbdc7656d190c94cfff97bd77b26756e0546285da7fa67bf15abf365450a4d19"
+    },
+    "assets/player-motion-v1.png": {
+      "bytes": 5690,
+      "sha256": "43cb2706d05644e8c073666eb1dd951abe320cf302d6a93c4ba7fbb4c7853321"
+    },
+    "assets/player-title-portrait-v1.png": {
+      "bytes": 1694077,
+      "sha256": "7e6ae5d65150fa1e35473bea5cafc72c20ac85dafc6d4f8cf0a60caa8c1559cc"
+    },
+    "assets/player-title-portrait-v2.png": {
+      "bytes": 1774010,
+      "sha256": "0e2a4471e24163c6d114114ac8199dc5889b056c3ee01a2a91d221759e84a367"
+    },
+    "assets/README.md": {
+      "bytes": 553,
+      "sha256": "4a6765f1e12fee9858a407cf96def534a7f0f4d80486f29469f387a581b0a802"
+    },
+    "assets/stage01-attendant-v1.png": {
+      "bytes": 8848,
+      "sha256": "9ddda72d0e33064c4821df1de12fb1a70ebb5143b1574f0498d933df8379b140"
+    },
+    "assets/stage01-corridor-v1.png": {
+      "bytes": 966300,
+      "sha256": "dabe543d146bd4b781d78bfd41118819051d9812b1fcc01791cc274e41230a0b"
+    },
+    "assets/stage01-fairy-v1.png": {
+      "bytes": 6386,
+      "sha256": "da250c6cd15f83442af704ebe24569c43e7dc631d447b0ac1854e85ca8bba627"
+    },
+    "assets/stage01-guardian-v1.png": {
+      "bytes": 20882,
+      "sha256": "f6e6bd7b183a5943b1e85453134ea01b7c4070de9d0bd73c2125e2c1c2b29989"
+    }
+  },
+  "outputs": [
+    {
+      "file": "danmaku-stage01-corner-v1-offline.html",
+      "bytes": 17201577,
+      "sha256": "5df44e7c898ac53b0473809c16311f080157b81d1949d153bc4f1c3f424eea9b"
+    },
+    {
+      "file": "danmaku-corner-v1-review.html",
+      "bytes": 118271,
+      "sha256": "80d95a1f520130d718dcef9edf1537d108d6e084406cf37793a2bd2c33ed6916"
+    }
+  ],
+  "naturalClearRun": false,
+  "forumInstalledByThisTask": false,
+  "databaseUpgrade": false,
+  "runtimeHashConvention": "LF-normalized UTF-8 text; exact PNG bytes"
+}

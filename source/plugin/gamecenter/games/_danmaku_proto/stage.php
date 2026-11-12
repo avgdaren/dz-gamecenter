@@ -3,8 +3,15 @@
 declare(strict_types=1);
 if(PHP_SAPI!=='cli'||!defined('DANMAKU_P0_LOCAL')){http_response_code(404);exit;}
 require_once __DIR__.'/battle.php';
+require_once __DIR__.'/weapons.php';
 
 class DanmakuStage01Sim extends DanmakuP1Phase {
+    public bool $weaponMode=false;
+    public bool $wideWeaponMode=false;
+    public bool $collectMode=false;
+    public bool $cornerMode=false;
+    public int $lastPointPickup=-999;
+    public int $lastPointValue=0;
     public array $mobs=[];
     public array $drops=[];
     public int $cursor=0;
@@ -21,13 +28,19 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
     public int $lastBombPickup=-999;
     public int $lastBombOverflow=-999;
     public function __construct(array $rules,int $index,bool $assist,string $rule=DanmakuStage01::RULE){
-        if(!in_array($rule,[DanmakuStage01::RULE,DanmakuStage01::BOMB_RULE,DanmakuStage01::PATTERN_RULE,DanmakuStage01::NORMAL_RULE,DanmakuStage01::RESPAWN_RULE,DanmakuStage01::NORMAL_V2_RULE],true))throw new RuntimeException('未知的关卡规则版本');
-        parent::__construct($rules,max(0,$index),$assist,true,$rule===DanmakuStage01::PATTERN_RULE||$rule===DanmakuStage01::RESPAWN_RULE,$rule===DanmakuStage01::NORMAL_RULE||$rule===DanmakuStage01::NORMAL_V2_RULE,
-            ['respawnBombs'=>$rule===DanmakuStage01::RESPAWN_RULE||$rule===DanmakuStage01::NORMAL_V2_RULE,'normalRevision'=>$rule===DanmakuStage01::NORMAL_V2_RULE?2:1]);
+        if(!in_array($rule,DanmakuStage01::SUPPORTED,true))throw new RuntimeException('未知的关卡规则版本');
+        $rules=self::effectiveRules($rules,$rule);
+        parent::__construct($rules,max(0,$index),$assist,true,in_array($rule,[DanmakuStage01::PATTERN_RULE,DanmakuStage01::RESPAWN_RULE,DanmakuStage01::POWER_RULE,DanmakuStage01::WEAPON_RULE,DanmakuStage01::WIDE_WEAPON_RULE,DanmakuStage01::COLLECT_RULE,DanmakuStage01::CORNER_RULE],true),in_array($rule,[DanmakuStage01::NORMAL_RULE,DanmakuStage01::NORMAL_V2_RULE,DanmakuStage01::NORMAL_POWER_RULE,DanmakuStage01::NORMAL_WEAPON_RULE,DanmakuStage01::NORMAL_WIDE_WEAPON_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true),
+            ['respawnBombs'=>in_array($rule,[DanmakuStage01::RESPAWN_RULE,DanmakuStage01::NORMAL_V2_RULE,DanmakuStage01::POWER_RULE,DanmakuStage01::NORMAL_POWER_RULE,DanmakuStage01::WEAPON_RULE,DanmakuStage01::NORMAL_WEAPON_RULE,DanmakuStage01::WIDE_WEAPON_RULE,DanmakuStage01::NORMAL_WIDE_WEAPON_RULE,DanmakuStage01::COLLECT_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true),'normalRevision'=>$rule===DanmakuStage01::NORMAL_RULE?1:2]);
         $this->index=$index;$this->rule=$rule;$this->bombMode=$rule!==DanmakuStage01::RULE;$this->scene=$index<0?'corridor':($index===1?'aim':'flower');
+        $this->cornerMode=in_array($rule,[DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true);
+        $this->collectMode=in_array($rule,[DanmakuStage01::COLLECT_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true);
+        $this->wideWeaponMode=in_array($rule,[DanmakuStage01::WIDE_WEAPON_RULE,DanmakuStage01::NORMAL_WIDE_WEAPON_RULE,DanmakuStage01::COLLECT_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true);
+        $this->weaponMode=in_array($rule,[DanmakuStage01::WEAPON_RULE,DanmakuStage01::NORMAL_WEAPON_RULE,DanmakuStage01::WIDE_WEAPON_RULE,DanmakuStage01::NORMAL_WIDE_WEAPON_RULE,DanmakuStage01::COLLECT_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true);
         $this->hp=$index<0?0:$rules['boss']['phaseHP'][$index];$this->player['power']=0;
         $this->stats+=['mobDamage'=>0,'mobKills'=>0,'mobScore'=>0,'powerCollected'=>0,'powerRecovered'=>0,'powerLost'=>0,
             'powerOverflow'=>0,'overflowScoreUnits'=>0,'mobSpawned'=>0,'mobPeak'=>0,'dropSpawned'=>0,'dropPeak'=>0,'upgrades'=>0];
+        if($this->collectMode)$this->stats+=['pointItemsSpawned'=>0,'pointCollected'=>0,'pointScore'=>0];
         if($this->bombMode){
             $config=$rules['stage01']['bomb'];$this->player['bombs']=$assist?$config['assistStart']:$config['standardStart'];
             $this->bombX=$this->player['x'];$this->bombY=$this->player['y'];
@@ -35,8 +48,18 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
         }
     }
     public function initialBombStock(): int {$b=$this->rules['stage01']['bomb'];return $this->bombMode?($this->assist?$b['assistStart']:$b['standardStart']):parent::initialBombStock();}
+    public static function effectiveRules(array $rules,string $rule): array {
+        if(!in_array($rule,[DanmakuStage01::POWER_RULE,DanmakuStage01::NORMAL_POWER_RULE,DanmakuStage01::WEAPON_RULE,DanmakuStage01::NORMAL_WEAPON_RULE,DanmakuStage01::WIDE_WEAPON_RULE,DanmakuStage01::NORMAL_WIDE_WEAPON_RULE,DanmakuStage01::COLLECT_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true))return $rules;
+        $p=$rules['power05'];$rules['stage01']['shotCap']=$p['shotCap'];
+        foreach(['thresholds','maxPower','levels'] as $key)$rules['stage01']['growth'][$key]=$p[$key];
+        if(in_array($rule,[DanmakuStage01::COLLECT_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true)){
+            $c=$rules['collect08'];$rules['stage01']['dropCap']=$c['dropCap'];
+            foreach($rules['stage01']['schedule'] as &$m)if(in_array($m['id'],$c['extraPowerIds'],true))$m['reward']=$c['extraPowerValue'];unset($m);
+        }
+        return $rules;
+    }
     public static function level(int $power,array $rules): int {
-        $a=$rules['stage01']['growth']['thresholds'];return $power>=$a[2]?3:($power>=$a[1]?2:1);
+        $a=$rules['stage01']['growth']['thresholds'];for($i=count($a)-1;$i>0;$i--)if($power>=$a[$i])return $i+1;return 1;
     }
     public static function position(array $rules,array $mob,int $age): array {
         $v=$rules['stage01']['paths'][$mob['type']][max(0,min($rules['stage01']['types'][$mob['type']]['life'],$age))];
@@ -92,7 +115,7 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
         if($value<=0)return;$g=$this->rules['stage01']['growth'];
         $this->drops[]=['id'=>$this->nextDrop++,'x'=>max(768,min(29952,$x)),'y'=>max(0,$y),'px'=>$x,'py'=>$y,'born'=>$this->tick,
             'value'=>$value,'recovery'=>$recovery,'unlock'=>$this->tick+($recovery?$g['recoveryUnlockTicks']:$g['rewardUnlockTicks']),'attracted'=>false];
-        if($this->bombMode){$this->drops[count($this->drops)-1]['kind']=$kind===1?1:0;if($kind===1)$this->stats['bombItemsSpawned']++;}
+        if($this->bombMode){$this->drops[count($this->drops)-1]['kind']=$kind===1?1:($this->collectMode&&$kind===2?2:0);if($this->collectMode&&$kind===2)$this->stats['pointItemsSpawned']++;if($kind===1)$this->stats['bombItemsSpawned']++;}
         $this->stats['dropSpawned']++;$this->stats['dropPeak']=max($this->stats['dropPeak'],count($this->drops));
         if(count($this->drops)>$this->rules['stage01']['dropCap'])throw new RuntimeException('掉落超过关卡上限');
     }
@@ -103,6 +126,10 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
         if($p['lives']>0)$this->drop($p['x'],$p['y']-3072,$lost,true);
     }
     public function collect(array $item): void {
+        if($this->collectMode&&($item['kind']??0)===2){
+            $value=$item['value']*$this->rules['collect08']['pointValue'];$this->stats['pointCollected']+=$item['value'];$this->stats['pointScore']+=$value;
+            $this->lastPointValue=$this->lastPointPickup===$this->tick?$this->lastPointValue+$value:$value;$this->lastPointPickup=$this->tick;return;
+        }
         if($this->bombMode&&($item['kind']??0)===1){
             $config=$this->rules['stage01']['bomb'];$this->stats['bombCollected']++;$this->lastBombPickup=$this->tick;
             if($this->player['bombs']<$config['stockCap'])$this->player['bombs']++;
@@ -120,7 +147,8 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
         $applied=min($m['hp'],$damage);$this->mobs[$index]['hp']-=$applied;$this->stats['mobDamage']+=$applied;
         if($fromBomb)$this->stats['bombDamage']+=$applied;else $this->stats['shotHits']++;
         if($this->mobs[$index]['hp']===0){
-            $this->stats['mobKills']++;$this->stats['mobScore']+=$type['killScore'];$this->drop($m['x'],$m['y'],$m['reward'],false);
+            $this->stats['mobKills']++;$this->stats['mobScore']+=$type['killScore'];
+            if($this->collectMode&&$m['reward']===0)$this->drop($m['x'],$m['y'],1,false,2);else $this->drop($m['x'],$m['y'],$m['reward'],false);
             if($fromBomb)$this->stats['bombKills']++;
             if($this->bombMode&&$m['type']===$this->rules['stage01']['bomb']['rewardType'])$this->drop($m['x'],$m['y'],$this->rules['stage01']['bomb']['rewardValue'],false,1);
         }
@@ -136,9 +164,11 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
     public function items(array $input): void {
         $p=$this->player;$g=$this->rules['stage01']['growth'];$t=$this->tick;$keep=[];
         $radius=(($input['flags']&1)?$g['focusMagnetRadius']:$g['magnetRadius'])*64;
+        $c=$this->rules['corner09']??null;$corner=$this->cornerMode&&$p['y']<=$c['topY']*64&&($p['x']<=$c['leftX']*64||$p['x']>=$c['rightX']*64);
         foreach($this->drops as $item){
             if($t-$item['born']>=$g['dropTtl'])continue;
             $item['px']=$item['x'];$item['py']=$item['y'];$dx=$p['x']-$item['x'];$dy=$p['y']-$item['y'];
+            if($corner){$item['attracted']=true;$item['unlock']=min($item['unlock'],$t);}
             if($t>=$item['unlock']&&(($this->index<0&&$t>=$this->rules['stage01']['gatherTick'])||$dx*$dx+$dy*$dy<=$radius*$radius))$item['attracted']=true;
             if($item['attracted']){
                 $distance=max(abs($dx),abs($dy));
@@ -152,10 +182,18 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
     }
     public function fire(array $input): void {
         $r=$this->rules;$p=$this->player;$t=$this->tick;
-        if(($t-$r['playerShot']['firstPhaseTick'])%$r['playerShot']['intervalTicks']!==0)return;
         $level=self::level($p['power'],$r);$focused=($input['flags']&1)!==0;
-        foreach($r['stage01']['growth']['levels'][$level-1][$focused?'focused':'normal'] as $spec){
-            $this->shots[]=[$this->nextShot++,$p['x']+$spec['offsetX']*64,$p['y']-1024,$t,$spec['vxQ'],-$r['playerShot']['speedStepQ'],$spec['damage'],$focused?1:0,$level];
+        $packet=$this->weaponMode&&$focused&&$level>=4?$r['weapons06']['focused'][$level]:null;
+        $fireMain=($t-$r['playerShot']['firstPhaseTick'])%($packet!==null?$packet['interval']:$r['playerShot']['intervalTicks'])===0;
+        if($fireMain)foreach($packet!==null?$packet['lanes']:$r['stage01']['growth']['levels'][$level-1][$focused?'focused':'normal'] as $i=>$spec){
+            $this->shots[]=[$this->nextShot++,$p['x']+$spec['offsetX']*64,$p['y']-1024,$t,$packet!==null?0:$spec['vxQ'],-($packet!==null?$packet['speedQ']:$r['playerShot']['speedStepQ']),$spec['damage'],$focused?1:0,$level];
+            if($this->weaponMode){$last=count($this->shots)-1;$this->shots[$last][]=$packet!==null?2:(int)(!$focused&&$level===5&&in_array($i,$r['weapons06']['tracking']['lanes'],true));$this->shots[$last][]=-1;}
+        }
+        if($this->wideWeaponMode&&$focused&&$level>=$r['weapons07']['sideShots']['minimumLevel']){
+            $side=$r['weapons07']['sideShots'];
+            if(($t-$r['playerShot']['firstPhaseTick'])%$side['interval']===0)foreach($side['offsets'] as $offset){
+                $this->shots[]=[$this->nextShot++,$p['x']+$offset*64,$p['y']-1024,$t,0,-$side['speedQ'],$side['damage'],1,$level,3,-1];
+            }
         }
         if(count($this->shots)>$r['stage01']['shotCap'])throw new RuntimeException('自机子弹超过关卡上限');
     }
@@ -168,6 +206,7 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
         $p['y']=max($bounds['minY']*64,min($bounds['maxY']*64,$p['y']+$input['dy']));
         if($this->index>=0)$b['x']=parent::bossX($t);
         $this->fire($input);$this->pattern();
+        if($this->weaponMode)danmaku_weapon_tracking($this);
         $activated=false;
         if($this->bombMode){
             $config=$r['stage01']['bomb'];
@@ -262,6 +301,7 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
             $result['bomb']=[$this->bombActiveUntil,$this->bombCooldownUntil,$this->lastBomb,$this->bombX,$this->bombY,
                 $s['bombDamage'],$s['bombKills'],$s['bombCleared'],$s['bombCollected'],$s['bombOverflowTokens'],$s['bombItemsSpawned'],$this->lastBombPickup,$this->lastBombOverflow];
         }
+        if($this->collectMode)$result['collect']=[$s['pointItemsSpawned'],$s['pointCollected'],$s['pointScore'],$this->lastPointPickup,$this->lastPointValue];
         return $result;
     }
 }
@@ -273,6 +313,17 @@ class DanmakuStage01 {
     public const NORMAL_RULE='danmaku-stage01-normal-r1';
     public const RESPAWN_RULE='danmaku-stage01-r4';
     public const NORMAL_V2_RULE='danmaku-stage01-normal-r2';
+    public const POWER_RULE='danmaku-stage01-r5';
+    public const NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
+    public const WEAPON_RULE='danmaku-stage01-r6';
+    public const NORMAL_WEAPON_RULE='danmaku-stage01-normal-r4';
+    public const WIDE_WEAPON_RULE='danmaku-stage01-r7';
+    public const NORMAL_WIDE_WEAPON_RULE='danmaku-stage01-normal-r5';
+    public const COLLECT_RULE='danmaku-stage01-r8';
+    public const NORMAL_COLLECT_RULE='danmaku-stage01-normal-r6';
+    public const CORNER_RULE='danmaku-stage01-r9';
+    public const NORMAL_CORNER_RULE='danmaku-stage01-normal-r7';
+    public const SUPPORTED=[self::RULE,self::BOMB_RULE,self::PATTERN_RULE,self::NORMAL_RULE,self::RESPAWN_RULE,self::NORMAL_V2_RULE,self::POWER_RULE,self::NORMAL_POWER_RULE,self::WEAPON_RULE,self::NORMAL_WEAPON_RULE,self::WIDE_WEAPON_RULE,self::NORMAL_WIDE_WEAPON_RULE,self::COLLECT_RULE,self::NORMAL_COLLECT_RULE,self::CORNER_RULE,self::NORMAL_CORNER_RULE];
     public string $rule=self::RULE;
     public array $rules;
     public bool $assist;
@@ -287,7 +338,8 @@ class DanmakuStage01 {
     public array $stats;
     public DanmakuStage01Sim $sim;
     public function __construct(array $rules,bool $assist,string $rule=self::RULE){
-        if(!in_array($rule,[self::RULE,self::BOMB_RULE,self::PATTERN_RULE,self::NORMAL_RULE,self::RESPAWN_RULE,self::NORMAL_V2_RULE],true))throw new RuntimeException('未知的关卡规则版本');
+        if(!in_array($rule,self::SUPPORTED,true))throw new RuntimeException('未知的关卡规则版本');
+        $rules=DanmakuStage01Sim::effectiveRules($rules,$rule);
         $this->rule=$rule;
         $this->rules=$rules;$this->assist=$assist;$this->remaining=$rules['stage01']['preludeTicks'];
         $this->sim=new DanmakuStage01Sim($rules,-1,$assist,$rule);$this->stats=&$this->sim->stats;
@@ -345,6 +397,7 @@ class DanmakuStage01 {
         $parts['overflow']=$this->stats['overflowScoreUnits']*$this->rules['stage01']['growth']['overflowPerUnit'];
         $parts['total']+=$parts['mobs']+$parts['overflow'];
         if($this->sim->bombMode){$parts['bombOverflow']=$this->stats['bombOverflowTokens']*$this->rules['stage01']['bomb']['overflowScore'];$parts['total']+=$parts['bombOverflow'];}
+        if($this->sim->collectMode){$parts['points']=$this->stats['pointScore'];$parts['total']+=$parts['points'];}
         return $parts;
     }
     public function snapshot(): array {
@@ -354,11 +407,12 @@ class DanmakuStage01 {
     }
 }
 function danmaku_stage01_score_limit(array $rules,string $rule): int {
+    if(in_array($rule,[DanmakuStage01::COLLECT_RULE,DanmakuStage01::NORMAL_COLLECT_RULE,DanmakuStage01::CORNER_RULE,DanmakuStage01::NORMAL_CORNER_RULE],true))return $rules['collect08']['scoreUpperBound'];
     return $rule!==DanmakuStage01::RULE?$rules['stage01']['bombScoreUpperBound']:$rules['stage01']['scoreUpperBound'];
 }
 function danmaku_stage01_decode(array $payload,array $rules): string {
     if(array_diff(array_keys($payload),['stage','v','rule','assist','ticks','input','score'])||($payload['stage']??null)!==true||
-        ($payload['v']??null)!==1||!in_array($payload['rule']??null,[DanmakuStage01::RULE,DanmakuStage01::BOMB_RULE,DanmakuStage01::PATTERN_RULE,DanmakuStage01::NORMAL_RULE,DanmakuStage01::RESPAWN_RULE,DanmakuStage01::NORMAL_V2_RULE],true)||!isset($payload['assist'])||!is_bool($payload['assist'])||
+        ($payload['v']??null)!==1||!in_array($payload['rule']??null,DanmakuStage01::SUPPORTED,true)||!isset($payload['assist'])||!is_bool($payload['assist'])||
         !isset($payload['score'])||!is_int($payload['score'])||$payload['score']<0||$payload['score']>danmaku_stage01_score_limit($rules,$payload['rule']))throw new RuntimeException('第一关回放格式、版本或分数无效');
     $ticks=$payload['ticks']??null;$input=$payload['input']??null;
     if(!is_int($ticks)||$ticks<1||$ticks>$rules['stage01']['maxTicks']||!is_string($input)||strlen($input)>4*(int)ceil($ticks*5/3)||
