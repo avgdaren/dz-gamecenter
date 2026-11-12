@@ -6,9 +6,16 @@
 }(typeof globalThis!=='undefined'?globalThis:this,function(engine,battle){
   'use strict';
   var RULE='danmaku-stage01-r1',BOMB_RULE='danmaku-stage01-r2',PATTERN_RULE='danmaku-stage01-r3',NORMAL_RULE='danmaku-stage01-normal-r1',RESPAWN_RULE='danmaku-stage01-r4',NORMAL_V2_RULE='danmaku-stage01-normal-r2',Q=64;
-  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE];
+  var POWER_RULE='danmaku-stage01-r5',NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
+  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE];
   function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
-  function level(power,rules){var thresholds=rules.stage01.growth.thresholds;return power>=thresholds[2]?3:power>=thresholds[1]?2:1;}
+  function level(power,rules){var a=rules.stage01.growth.thresholds;for(var i=a.length-1;i>0;i--)if(power>=a[i])return i+1;return 1;}
+  function effectiveRules(rules,rule){
+    if(rule!==POWER_RULE&&rule!==NORMAL_POWER_RULE)return rules;
+    var p=rules.power05;
+    return Object.assign({},rules,{stage01:Object.assign({},rules.stage01,{shotCap:p.shotCap,
+      growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})})});
+  }
   function position(rules,mob,age){
     var spec=rules.stage01.types[mob.type],v=rules.stage01.paths[mob.type][clamp(age,0,spec.life)];
     return mob.type===0?{x:mob.mirror?480*Q-v[0]:v[0],y:v[1]}:{x:mob.baseX+v[0],y:v[1]};
@@ -21,8 +28,9 @@
   function Sim(rules,index,assist,rule){
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
-    battle.Phase.call(this,rules,Math.max(0,index),assist,true,rule===PATTERN_RULE||rule===RESPAWN_RULE,rule===NORMAL_RULE||rule===NORMAL_V2_RULE,
-      {respawnBombs:rule===RESPAWN_RULE||rule===NORMAL_V2_RULE,normalRevision:rule===NORMAL_V2_RULE?2:1});
+    rules=effectiveRules(rules,rule);
+    battle.Phase.call(this,rules,Math.max(0,index),assist,true,rule===PATTERN_RULE||rule===RESPAWN_RULE||rule===POWER_RULE,rule===NORMAL_RULE||rule===NORMAL_V2_RULE||rule===NORMAL_POWER_RULE,
+      {respawnBombs:rule===RESPAWN_RULE||rule===NORMAL_V2_RULE||rule===POWER_RULE||rule===NORMAL_POWER_RULE,normalRevision:rule===NORMAL_V2_RULE||rule===NORMAL_POWER_RULE?2:1});
     this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
     this.hp=index<0?0:rules.boss.phaseHP[index];
     this.player.power=0;this.mobs=[];this.drops=[];this.cursor=0;this.nextDrop=1;
@@ -241,6 +249,7 @@
     if(typeof assist!=='boolean')throw new Error('辅助模式参数无效');
     if(rule===undefined)rule=RULE;
     if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
+    rules=effectiveRules(rules,rule);
     this.rule=rule;this.rules=rules;this.assist=assist;this.tick=0;this.activeTicks=0;this.phaseIndex=-1;this.phaseBreaks=0;
     this.status='playing';this.stage='prelude';this.remaining=rules.stage01.preludeTicks;this.events=[];
     this.sim=new Sim(rules,-1,assist,rule);this.stats=this.sim.stats;
@@ -302,5 +311,5 @@
   };
   function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
   function scoreLimit(rules,rule){return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
-  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
 }));

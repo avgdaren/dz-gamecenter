@@ -9449,5 +9449,400 @@
         ]
       }
     ]
+  },
+  "power05": {
+    "easyRule": "danmaku-stage01-r5",
+    "normalRule": "danmaku-stage01-normal-r3",
+    "thresholds": [
+      0,
+      3,
+      8,
+      12,
+      16
+    ],
+    "maxPower": 16,
+    "shotCap": 192,
+    "levels": [
+      {
+        "normal": [
+          {
+            "offsetX": -8,
+            "vxQ": -64,
+            "damage": 1
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 64,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 1
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -18,
+            "vxQ": -96,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 2
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 2
+          },
+          {
+            "offsetX": 18,
+            "vxQ": 96,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -12,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 8
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -24,
+            "vxQ": -128,
+            "damage": 1
+          },
+          {
+            "offsetX": -18,
+            "vxQ": -96,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 2
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 2
+          },
+          {
+            "offsetX": 18,
+            "vxQ": 96,
+            "damage": 1
+          },
+          {
+            "offsetX": 24,
+            "vxQ": 128,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -16,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": 16,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      },
+      {
+        "normal": [
+          {
+            "offsetX": -30,
+            "vxQ": -160,
+            "damage": 1
+          },
+          {
+            "offsetX": -24,
+            "vxQ": -128,
+            "damage": 1
+          },
+          {
+            "offsetX": -18,
+            "vxQ": -96,
+            "damage": 2
+          },
+          {
+            "offsetX": -12,
+            "vxQ": -64,
+            "damage": 2
+          },
+          {
+            "offsetX": -6,
+            "vxQ": -32,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 6,
+            "vxQ": 32,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 64,
+            "damage": 2
+          },
+          {
+            "offsetX": 18,
+            "vxQ": 96,
+            "damage": 2
+          },
+          {
+            "offsetX": 24,
+            "vxQ": 128,
+            "damage": 1
+          },
+          {
+            "offsetX": 30,
+            "vxQ": 160,
+            "damage": 1
+          }
+        ],
+        "focused": [
+          {
+            "offsetX": -20,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -16,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": -12,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": -4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 0,
+            "vxQ": 0,
+            "damage": 10
+          },
+          {
+            "offsetX": 4,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 8,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 12,
+            "vxQ": 0,
+            "damage": 2
+          },
+          {
+            "offsetX": 16,
+            "vxQ": 0,
+            "damage": 1
+          },
+          {
+            "offsetX": 20,
+            "vxQ": 0,
+            "damage": 1
+          }
+        ]
+      }
+    ]
   }
 }

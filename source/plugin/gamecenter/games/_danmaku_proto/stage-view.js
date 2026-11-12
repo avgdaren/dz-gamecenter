@@ -44,7 +44,7 @@
     });
   }
   function feedback(ctx,sim){
-    var text=sim.tick-sim.lastUpgrade<75?'火力提升 '+['Ⅰ','Ⅱ','Ⅲ'][root.DanmakuStage01.level(sim.player.power,sim.rules)-1]:sim.tick-sim.lastDowngrade<60?'强化可捡回':'';
+    var text=sim.tick-sim.lastUpgrade<75?'火力提升 '+['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][root.DanmakuStage01.level(sim.player.power,sim.rules)-1]:sim.tick-sim.lastDowngrade<60?'强化可捡回':'';
     if(text){ctx.font='12px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillStyle='#e9d49e';ctx.fillText(text,sim.player.x/64,sim.player.y/64-38);ctx.textAlign='start';}
     if(sim.bombMode&&sim.tick-sim.lastBombPickup<60){ctx.font='11px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillStyle='#f4dc9e';ctx.fillText(sim.lastBombOverflow===sim.lastBombPickup?'大招已满 +500':'大招 +1',sim.player.x/64,sim.player.y/64-(text?54:38));ctx.textAlign='start';}
   }

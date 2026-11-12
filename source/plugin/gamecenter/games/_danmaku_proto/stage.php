@@ -21,9 +21,10 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
     public int $lastBombPickup=-999;
     public int $lastBombOverflow=-999;
     public function __construct(array $rules,int $index,bool $assist,string $rule=DanmakuStage01::RULE){
-        if(!in_array($rule,[DanmakuStage01::RULE,DanmakuStage01::BOMB_RULE,DanmakuStage01::PATTERN_RULE,DanmakuStage01::NORMAL_RULE,DanmakuStage01::RESPAWN_RULE,DanmakuStage01::NORMAL_V2_RULE],true))throw new RuntimeException('未知的关卡规则版本');
-        parent::__construct($rules,max(0,$index),$assist,true,$rule===DanmakuStage01::PATTERN_RULE||$rule===DanmakuStage01::RESPAWN_RULE,$rule===DanmakuStage01::NORMAL_RULE||$rule===DanmakuStage01::NORMAL_V2_RULE,
-            ['respawnBombs'=>$rule===DanmakuStage01::RESPAWN_RULE||$rule===DanmakuStage01::NORMAL_V2_RULE,'normalRevision'=>$rule===DanmakuStage01::NORMAL_V2_RULE?2:1]);
+        if(!in_array($rule,DanmakuStage01::SUPPORTED,true))throw new RuntimeException('未知的关卡规则版本');
+        $rules=self::effectiveRules($rules,$rule);
+        parent::__construct($rules,max(0,$index),$assist,true,in_array($rule,[DanmakuStage01::PATTERN_RULE,DanmakuStage01::RESPAWN_RULE,DanmakuStage01::POWER_RULE],true),in_array($rule,[DanmakuStage01::NORMAL_RULE,DanmakuStage01::NORMAL_V2_RULE,DanmakuStage01::NORMAL_POWER_RULE],true),
+            ['respawnBombs'=>in_array($rule,[DanmakuStage01::RESPAWN_RULE,DanmakuStage01::NORMAL_V2_RULE,DanmakuStage01::POWER_RULE,DanmakuStage01::NORMAL_POWER_RULE],true),'normalRevision'=>$rule===DanmakuStage01::NORMAL_RULE?1:2]);
         $this->index=$index;$this->rule=$rule;$this->bombMode=$rule!==DanmakuStage01::RULE;$this->scene=$index<0?'corridor':($index===1?'aim':'flower');
         $this->hp=$index<0?0:$rules['boss']['phaseHP'][$index];$this->player['power']=0;
         $this->stats+=['mobDamage'=>0,'mobKills'=>0,'mobScore'=>0,'powerCollected'=>0,'powerRecovered'=>0,'powerLost'=>0,
@@ -35,8 +36,14 @@ class DanmakuStage01Sim extends DanmakuP1Phase {
         }
     }
     public function initialBombStock(): int {$b=$this->rules['stage01']['bomb'];return $this->bombMode?($this->assist?$b['assistStart']:$b['standardStart']):parent::initialBombStock();}
+    public static function effectiveRules(array $rules,string $rule): array {
+        if(!in_array($rule,[DanmakuStage01::POWER_RULE,DanmakuStage01::NORMAL_POWER_RULE],true))return $rules;
+        $p=$rules['power05'];$rules['stage01']['shotCap']=$p['shotCap'];
+        foreach(['thresholds','maxPower','levels'] as $key)$rules['stage01']['growth'][$key]=$p[$key];
+        return $rules;
+    }
     public static function level(int $power,array $rules): int {
-        $a=$rules['stage01']['growth']['thresholds'];return $power>=$a[2]?3:($power>=$a[1]?2:1);
+        $a=$rules['stage01']['growth']['thresholds'];for($i=count($a)-1;$i>0;$i--)if($power>=$a[$i])return $i+1;return 1;
     }
     public static function position(array $rules,array $mob,int $age): array {
         $v=$rules['stage01']['paths'][$mob['type']][max(0,min($rules['stage01']['types'][$mob['type']]['life'],$age))];
@@ -273,6 +280,9 @@ class DanmakuStage01 {
     public const NORMAL_RULE='danmaku-stage01-normal-r1';
     public const RESPAWN_RULE='danmaku-stage01-r4';
     public const NORMAL_V2_RULE='danmaku-stage01-normal-r2';
+    public const POWER_RULE='danmaku-stage01-r5';
+    public const NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
+    public const SUPPORTED=[self::RULE,self::BOMB_RULE,self::PATTERN_RULE,self::NORMAL_RULE,self::RESPAWN_RULE,self::NORMAL_V2_RULE,self::POWER_RULE,self::NORMAL_POWER_RULE];
     public string $rule=self::RULE;
     public array $rules;
     public bool $assist;
@@ -287,7 +297,8 @@ class DanmakuStage01 {
     public array $stats;
     public DanmakuStage01Sim $sim;
     public function __construct(array $rules,bool $assist,string $rule=self::RULE){
-        if(!in_array($rule,[self::RULE,self::BOMB_RULE,self::PATTERN_RULE,self::NORMAL_RULE,self::RESPAWN_RULE,self::NORMAL_V2_RULE],true))throw new RuntimeException('未知的关卡规则版本');
+        if(!in_array($rule,self::SUPPORTED,true))throw new RuntimeException('未知的关卡规则版本');
+        $rules=DanmakuStage01Sim::effectiveRules($rules,$rule);
         $this->rule=$rule;
         $this->rules=$rules;$this->assist=$assist;$this->remaining=$rules['stage01']['preludeTicks'];
         $this->sim=new DanmakuStage01Sim($rules,-1,$assist,$rule);$this->stats=&$this->sim->stats;
@@ -358,7 +369,7 @@ function danmaku_stage01_score_limit(array $rules,string $rule): int {
 }
 function danmaku_stage01_decode(array $payload,array $rules): string {
     if(array_diff(array_keys($payload),['stage','v','rule','assist','ticks','input','score'])||($payload['stage']??null)!==true||
-        ($payload['v']??null)!==1||!in_array($payload['rule']??null,[DanmakuStage01::RULE,DanmakuStage01::BOMB_RULE,DanmakuStage01::PATTERN_RULE,DanmakuStage01::NORMAL_RULE,DanmakuStage01::RESPAWN_RULE,DanmakuStage01::NORMAL_V2_RULE],true)||!isset($payload['assist'])||!is_bool($payload['assist'])||
+        ($payload['v']??null)!==1||!in_array($payload['rule']??null,DanmakuStage01::SUPPORTED,true)||!isset($payload['assist'])||!is_bool($payload['assist'])||
         !isset($payload['score'])||!is_int($payload['score'])||$payload['score']<0||$payload['score']>danmaku_stage01_score_limit($rules,$payload['rule']))throw new RuntimeException('第一关回放格式、版本或分数无效');
     $ticks=$payload['ticks']??null;$input=$payload['input']??null;
     if(!is_int($ticks)||$ticks<1||$ticks>$rules['stage01']['maxTicks']||!is_string($input)||strlen($input)>4*(int)ceil($ticks*5/3)||

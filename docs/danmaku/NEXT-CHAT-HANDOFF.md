@@ -4,6 +4,8 @@
 
 ## 最新用户要求优先
 
+**Normal v2获用户难度验收，进入标题／HUD／改键／5级火力（2026-11-12）。** 用户确认“这就是经典N的难度”，朋友试玩提出Shift可改键、5级火力、资源进战场、移除右侧关卡练习、提示移下方、标题选难度。已在独立`feat/danmaku-title-power-v1`（[Issue #78](https://github.com/avgdaren/dz-gamecenter/issues/78)，基底`1d1bbb8`）实现，详见[TITLE-POWER-v1.md](TITLE-POWER-v1.md)。新试玩`E:\GPT工作区\output\danmaku-stage01-title-power-v1-offline.html`；当前只提供完整标准一关，旧练习／辅助回放仍可复验。新规则Easy r5／Normal normal-r3，前3级原值保留，4／5级P12／16；敌方Normal弹幕与掉命补B保留。标题开局选难度，HUD上沿生命／5格火力／B库存，下面简短操作与设置改键；默认左右Shift，可改普通键、保存、恢复和取消。满级定点差分与边界、旧规则兼容、320窄屏和约4.6秒短入口通过，没有自动整关通关，新火力待真人试玩；没有改小蓝论坛或部署分支。
+
 **最新试玩反馈与全局规则（2026-11-12）：** 用户确认Normal v1道中差距明显且没问题，Boss与Easy拉不开；补充“死后大招重置”为游戏全局设定。已做[Normal Boss v2＋全局掉命重置](NORMAL-v2.md)：道中攻击／编队保留，Boss改双源交织、针雨侧夹与逐层移门。所有当前Easy／Normal／首领／弹型练习掉命复活后库存标准2／辅助3，最后一命不补；新Easy关卡r4、Normal关卡normal-r2、首领r4／normal-r2、p0-r3，旧回放语义保留。新试玩`E:\GPT工作区\output\danmaku-stage01-normal-v2-offline.html`，旧r3／v1文件不变。34组阶段差分、140组碰撞边界、旧版兼容与非法载荷检查通过，新Boss待用户试玩；没有自动整关通关或改站点。继续同一独立PR #77；[给小蓝的全局规则说明](RESPAWN-BOMBS-HANDOFF.md)，当前部署PR #75未自动更新。
 
 Normal 已单独提交至 [Draft PR #77](https://github.com/avgdaren/dz-gamecenter/pull/77)，运行提交`9b69987`，基底为`feat/danmaku-p1`，当前工作分支`feat/danmaku-normal-v1`。PR #75 的部署代码未追加本次改动。后续先收用户对 Normal 候选的试玩反馈，不擅自合并或让小蓝替换现有版本。

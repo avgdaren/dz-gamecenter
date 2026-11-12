@@ -6,7 +6,7 @@ import argparse
 import mimetypes
 
 ROOT = Path(__file__).resolve().parents[2] / "source/plugin/gamecenter/games/_danmaku_proto"
-ALLOWED = {"index.html", "engine.js", "replay.js", "battle.js", "battle-replay.js", "stage.js", "stage-replay.js", "stage-view.js", "player-view.js", "ui.js", "style.css", "rules.json", "rules-data.js",
+ALLOWED = {"index.html", "controls.js", "engine.js", "replay.js", "battle.js", "battle-replay.js", "stage.js", "stage-replay.js", "stage-view.js", "player-view.js", "ui.js", "style.css", "rules.json", "rules-data.js",
            "assets/player-motion-v1.png", "assets/player-front-display-v1.png", "stage-art-view.js", "audio.js", "audio-bank.js", "bgm-bank.js", "midi.js", "midi-bank.js",
            "assets/stage01-corridor-v1.png", "assets/stage01-fairy-v1.png", "assets/stage01-attendant-v1.png", "assets/stage01-guardian-v1.png",
            "boss-view.js", "boss-patterns.js", "stage-show.js", "assets/boss-body-atlas-v1.png", "assets/boss-ring-back-v1.png", "assets/boss-ring-front-v1.png", "assets/boss-face-v1.png", "assets/boss-portrait-v1.png"}
