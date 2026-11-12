@@ -1,5 +1,7 @@
 # 低速补射与主角标题
 
+后续表现更新：[短追踪弹与星杖立绘](WEAPON-VISUAL-v4.md)。本页武器规则继续采用，当前短弹外观、持杖标题与试玩入口见新页；旧v2文件保留。
+
 2026-11-12，小典 / Codex；原型 `(C) 2026 Carinoasd`。沿用 [Issue #78](https://github.com/avgdaren/dz-gamecenter/issues/78)／[Draft PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)，分支 `feat/danmaku-title-power-v1`，不合并或部署。
 
 用户认可收束样式，反馈4／5级低速太窄难命中，要求保留绿色弹但取消其追踪；同时要求标题使用主角，有高清立绘则复用，没有则补做。本次保留已认可的中央弹束，加两侧直射补覆盖，并换主角标题。

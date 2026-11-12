@@ -41,9 +41,11 @@ def standalone_html(rule_script):
     # Inline scripts execute after the DOM exists, preserving defer's runtime order.
     assert html.count("</body>") == 1
     html = html.replace("</body>", "\n".join(script_tags) + "\n</body>")
-    for name in ("player-motion-v1.png", "player-front-display-v1.png", "stage01-corridor-v1.png",
+    required_images = ("player-motion-v1.png", "player-front-display-v1.png", "stage01-corridor-v1.png",
                  "stage01-fairy-v1.png", "stage01-attendant-v1.png", "stage01-guardian-v1.png",
-                 "boss-body-atlas-v1.png", "boss-ring-back-v1.png", "boss-ring-front-v1.png", "boss-face-v1.png", "boss-portrait-v1.png", "player-title-portrait-v1.png"):
+                 "boss-body-atlas-v1.png", "boss-ring-back-v1.png", "boss-ring-front-v1.png", "boss-face-v1.png", "boss-portrait-v1.png")
+    extra_images = sorted(set(re.findall(r'assets/([\w-]+\.png)', html)) - set(required_images))
+    for name in required_images + tuple(extra_images):
         asset = "assets/" + name
         assert asset in html, "Missing image reference: " + asset
         data = base64.b64encode((SOURCE / asset).read_bytes()).decode("ascii")
