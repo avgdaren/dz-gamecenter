@@ -1,5 +1,7 @@
 # GitHub交小蓝，再由小蓝接论坛
 
+GitHub已交付：[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)，对应[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)；分支`feat/danmaku-p1`，运行内容提交`24b41f3`。当前未合并／部署。以下最新顺序继续有效，之后由小蓝接本地论坛。
+
 **用户最新纠正优先：小典备齐资料→通过GitHub交给小蓝→小蓝负责本地论坛和线上包。** 不是小典先跑论坛。已备[图标／榜单预览](handoff-v1/review.html)、[小蓝接手说明](handoff-v1/XIAOLAN-HANDOFF.md)、登记候选、榜单口径与提交字段桥接；本地审阅包为`E:\GPT工作区\output\danmaku-xiaolan-handoff-r3.zip`，不是论坛安装包。
 
 现有仓库经GitHub接口核对为**public**。主人得知后已明确选择“允许提交到现有公开仓库”，授权本次源码、图像和音乐交接，AGENTS已记录这次例外。按现有仓库整理分支／Draft PR，链接以`handoff-v1/GITHUB.json`为准；不自动合并或部署。当前原型和旧游戏保留，小蓝按她维护的平台线适配。

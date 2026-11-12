@@ -2,6 +2,8 @@
 
 2026-11-12，交付整理：小典 / Codex；原型 `(C) 2026 Carinoasd`。
 
+GitHub接手：[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)，对应[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)，分支`feat/danmaku-p1`。运行内容提交`24b41f3`；后续文档补充沿同一PR。PR未合并，站点未部署。
+
 ## 分工与当前完成度
 
 主人的最新顺序是：**小典备齐资料→通过GitHub交给小蓝→小蓝接本地论坛并验证→小蓝准备线上部署**。不是小典先替你跑论坛。用户已实际试玩r3，反馈“没问题，已经很完善了”；离线第一关内容完成，继续按实际反馈修问题，不再逐轮自动自然通关。

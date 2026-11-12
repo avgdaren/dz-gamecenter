@@ -4,6 +4,8 @@
 
 ## 最新用户要求优先
 
+**GitHub交接已完成：** 公开仓库已推送`feat/danmaku-p1`，建立[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)和[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)。运行内容提交`24b41f3`，后续交接文档沿同一PR补充。小蓝从`handoff-v1/XIAOLAN-HANDOFF.md`接手当前平台适配、本地论坛验证和线上包；本轮没有合并、接入站点或部署。不要恢复下方历史记录中“小典先本地论坛”的旧顺序。
+
 **GitHub目标已明确（2026-11-12）：已告知现有仓库为公开及AGENTS的原限制，主人明确选择“允许提交到现有公开仓库”，授权本次天使弹幕祭源码、图像、音乐公开GitHub交接。** AGENTS已记录本次例外，不要重复询问；按现有仓库整理分支／Draft PR，不合并、不部署。实际链接见`handoff-v1/GITHUB.json`，本地论坛与线上包由小蓝接手。
 
 **最新纠正（2026-11-12）：用户明确“走GitHub交接给小蓝，再让小蓝走本地论坛……交给她吧”，让小典先准备游戏icon、排名榜单等。** 顺序已改为小典备资料→GitHub给小蓝→小蓝接本地论坛与准备线上包；之前“小典先本地跑通”不再有效。
