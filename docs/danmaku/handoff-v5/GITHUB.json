@@ -1,0 +1,18 @@
+{
+  "repository": "avgdaren/dz-gamecenter",
+  "branch": "feat/issue-82-danmaku-feedback-v13",
+  "issue": "https://github.com/avgdaren/dz-gamecenter/issues/82",
+  "pullRequest": "https://github.com/avgdaren/dz-gamecenter/pull/83",
+  "base": "feat/issue-80-danmaku-campaign-v11",
+  "runtimeCommit": null,
+  "previousRuntimeCommit": "c50d9e380c5c79b1caa557c3633f586388908865",
+  "handoffVersion": 14,
+  "handoffHtmlSha256": "a0046f2340c6dfc00d15538520fd494bd38bc65f5d915f948a621f7cb6c4bfe5",
+  "userRequestedTitleAndEndingRevision": true,
+  "previousHandoffAuthorizationContinues": true,
+  "v14HumanPlaytestReported": false,
+  "published": false,
+  "forumInstalled": false,
+  "onlineDeployed": false,
+  "databaseUpgrade": false
+}

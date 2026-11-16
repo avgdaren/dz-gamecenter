@@ -90,3 +90,5 @@ v9素材优化后，v8原样保留为唯一回退；v7完整HTML退役。维护�
 2026-11-16后续v12反馈候选：原样v11移入唯一回退，v10完整HTML与预览退役，逐文件SHA及元数据在`.workspace-maintenance/2026-11-16-campaign-v12/`。小蓝PR #81仍绑定v11，未同步本地候选；网友v9 RAR与展开目录保持。
 
 2026-11-16后续v13正式封面：原样v12移入唯一回退，v11完整HTML与预览退役，逐文件SHA及元数据在`.workspace-maintenance/2026-11-16-campaign-v13/`。原v11可从handoff-v3精确重建。当前小蓝入口改为handoff-v4／Issue #82，网友v9 RAR与展开目录保持。
+
+2026-11-16后续v14结算／标题：原样v13移入唯一回退，v12完整HTML与预览退役，SHA与元数据在`.workspace-maintenance/2026-11-16-campaign-v14/`。当前v14可从handoff-v5精确重建，旧v13清单保留。网友v9 RAR、原始素材与独立难度内容保持。

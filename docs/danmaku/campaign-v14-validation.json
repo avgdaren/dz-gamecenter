@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "sha256": "a0046f2340c6dfc00d15538520fd494bd38bc65f5d915f948a621f7cb6c4bfe5",
+  "file": "output/天使弹幕祭/当前试玩/danmaku-campaign-v14-offline.html",
+  "endings": [
+    {
+      "difficulty": "easy",
+      "path": "read",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "easy",
+      "path": "skip",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "easy",
+      "path": "disabled",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "normal",
+      "path": "read",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "normal",
+      "path": "skip",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "normal",
+      "path": "disabled",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "hard",
+      "path": "read",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "hard",
+      "path": "skip",
+      "score": 335002,
+      "stages": 2
+    },
+    {
+      "difficulty": "hard",
+      "path": "disabled",
+      "score": 335002,
+      "stages": 2
+    }
+  ],
+  "independentEndcardSurvivesForumCoverSuppression": true,
+  "detailAndRestartAndTitle": true,
+  "practiceAndDeathClassifiedCorrectly": true,
+  "checkpointRetry": true,
+  "singlePortraitNoPixelCompanion": true,
+  "threeNativeDifficultyButtons": true,
+  "nativeAudio": true,
+  "mobileWidths": [
+    390,
+    320
+  ],
+  "combatSnapshotsAndCanvasMatchV13": 6,
+  "externalRequests": 0,
+  "scriptErrors": 0,
+  "screenshots": [
+    "title-desktop.png",
+    "ending-desktop.png",
+    "failure-desktop.png",
+    "title-mobile-390.png",
+    "ending-mobile-390.png",
+    "title-mobile-320.png",
+    "ending-mobile-320.png"
+  ],
+  "naturalFullClearTested": false,
+  "realDeviceTested": false,
+  "forumInstalled": false,
+  "screenshotsVisuallyReviewed": true
+}
