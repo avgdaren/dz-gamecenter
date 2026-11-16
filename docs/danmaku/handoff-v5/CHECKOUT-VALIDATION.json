@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "dependencies": 105,
+  "portableCheckout": true,
+  "rebuiltBytes": 49835255,
+  "rebuiltSha256": "a0046f2340c6dfc00d15538520fd494bd38bc65f5d915f948a621f7cb6c4bfe5",
+  "requiresHistoricalOutput": false,
+  "requiresForum": false,
+  "requiresNetwork": false,
+  "requiresNpm": false,
+  "syntax": {
+    "js": 62,
+    "json": 6,
+    "python": 3,
+    "php": 0
+  },
+  "combatRulesChanged": false,
+  "naturalFullClearTested": false,
+  "newForumInstalled": false
+}

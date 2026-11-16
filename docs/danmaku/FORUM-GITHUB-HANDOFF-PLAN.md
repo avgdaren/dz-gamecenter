@@ -1,5 +1,7 @@
 # GitHub交小蓝，再由小蓝接论坛
 
+**v12反馈交接（2026-11-16）：** 用户要求继续把死亡复归与精英驻留修订交给小蓝。当前以[handoff-v4](handoff-v4/XIAOLAN-HANDOFF.md)及其GITHUB.json为准，Issue #82独立分支接续旧PR #81；98份依赖可独立重建当前v12。论坛／两关PHP／榜单及线上包仍由小蓝负责，本次不自动合并或部署。
+
 **2026-11-16最新交接：** 用户已试玩两关三难度v11并确认“没什么问题”，要求按原流程交给小蓝。当前以[handoff-v3/XIAOLAN-HANDOFF.md](handoff-v3/XIAOLAN-HANDOFF.md)及[GITHUB.json](handoff-v3/GITHUB.json)为准，对应Issue #80；包含源码、素材、94文件清单与可独立重建确认版的脚本。下文PR #75／旧r3与单关资料是历史，不代替新两关接入说明。小蓝继续负责论坛本地验证和线上包，小典不自动合并或部署。
 
 GitHub已交付：[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)，对应[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)；分支`feat/danmaku-p1`，运行内容提交`24b41f3`。当前未合并／部署。以下最新顺序继续有效，之后由小蓝接本地论坛。
@@ -29,3 +31,5 @@ GitHub已交付：[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/
 本地阶段小典负责必要的接入检查，包括正常提交不误判、非法改分／回放拒绝和重复提交幂等。用户继续负责整关难度与手感试玩，不恢复“每轮自动自然通关”的旧流程。没有接入改动的表现素材不重复跑长局。
 
 这轮仅核对Git／本地目录状态并记录用户顺序，没有改游戏、覆盖旧条目或启动论坛集成。后续授权与范围以上述新安排为准，早期文档的“平台暂不接入”是历史阶段边界。
+
+2026-11-16追加：用户要求恢复原上线版正式封面，已在[CAMPAIGN-v13](CAMPAIGN-v13.md)接入v12整局。新的小蓝入口为[handoff-v4](handoff-v4/XIAOLAN-HANDOFF.md)，100份依赖重建v13；正式入口含三档难度／开始游戏，开发练习和回看折叠。GitHub状态以v4的GITHUB.json为准；论坛接入仍由小蓝处理。

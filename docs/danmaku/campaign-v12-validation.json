@@ -1,0 +1,298 @@
+{
+  "status": "PASS",
+  "version": 12,
+  "artifact": "E:\\GPT工作区\\output\\天使弹幕祭\\当前试玩\\danmaku-campaign-v12-offline.html",
+  "bytes": 49819967,
+  "sha256": "6a8220cc13b106eed2bd89d0e4cf90b4ec12bce1bde4efaf0e25e6f2e47cd3fe",
+  "previousSha256": "b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee",
+  "rules": {
+    "easy": "danmaku-campaign-easy-v6",
+    "normal": "danmaku-campaign-normal-v3",
+    "hard": "danmaku-campaign-hard-v3"
+  },
+  "deathDelayTicks": 36,
+  "returnProtectionTicks": 240,
+  "eliteExtraTicks": 180,
+  "logic": {
+    "naturalFullClearTested": false,
+    "recovery": [
+      {
+        "d": "easy",
+        "e": "boss1",
+        "delay": 36,
+        "protectionAfterReturn": 240,
+        "damageAtExactExpiry": true
+      },
+      {
+        "d": "easy",
+        "e": "boss2",
+        "delay": 36,
+        "protectionAfterReturn": 240,
+        "damageAtExactExpiry": true
+      },
+      {
+        "d": "normal",
+        "e": "boss1",
+        "delay": 36,
+        "protectionAfterReturn": 240,
+        "damageAtExactExpiry": true
+      },
+      {
+        "d": "normal",
+        "e": "boss2",
+        "delay": 36,
+        "protectionAfterReturn": 240,
+        "damageAtExactExpiry": true
+      },
+      {
+        "d": "hard",
+        "e": "boss1",
+        "delay": 36,
+        "protectionAfterReturn": 240,
+        "damageAtExactExpiry": true
+      },
+      {
+        "d": "hard",
+        "e": "boss2",
+        "delay": 36,
+        "protectionAfterReturn": 240,
+        "damageAtExactExpiry": true
+      }
+    ],
+    "elites": [
+      {
+        "d": "easy",
+        "firstStageLife": 900,
+        "secondStageLife": 780,
+        "extraHoldTicks": 180
+      },
+      {
+        "d": "normal",
+        "firstStageLife": 900,
+        "secondStageLife": 780,
+        "extraHoldTicks": 180
+      },
+      {
+        "d": "hard",
+        "firstStageLife": 900,
+        "secondStageLife": 780,
+        "extraHoldTicks": 180
+      }
+    ],
+    "windows": [
+      {
+        "d": "easy",
+        "e": "stage1",
+        "mobPeak": 7,
+        "bulletPeak": 35,
+        "guardLife": 900
+      },
+      {
+        "d": "easy",
+        "e": "stage2",
+        "mobPeak": 22,
+        "bulletPeak": 66,
+        "guardLife": 780
+      },
+      {
+        "d": "normal",
+        "e": "stage1",
+        "mobPeak": 7,
+        "bulletPeak": 65,
+        "guardLife": 900
+      },
+      {
+        "d": "normal",
+        "e": "stage2",
+        "mobPeak": 22,
+        "bulletPeak": 133,
+        "guardLife": 780
+      },
+      {
+        "d": "hard",
+        "e": "stage1",
+        "mobPeak": 7,
+        "bulletPeak": 80,
+        "guardLife": 900
+      },
+      {
+        "d": "hard",
+        "e": "stage2",
+        "mobPeak": 22,
+        "bulletPeak": 153,
+        "guardLife": 780
+      }
+    ],
+    "status": "PASS",
+    "checks": [
+      "all three difficulties and both stages use independent feedback rules without mutating v11",
+      "death hides shooting and movement, returns after 36 steps, then protects exactly 240 steps",
+      "final-life death plays the same 36-step burst and never creates a phantom return",
+      "pause/story drawing is read-only; phase replacement and retry preserve or clear recovery correctly",
+      "first-stage guard path inserts 180 hold samples and resumes the exact previous exit",
+      "handoff consumes recovery once, moves the return point, and freezes while reading",
+      "Boss attacks and movement remain identical before any player death",
+      "second-stage non-elite routes stay identical, guards hold three more seconds, and no volleys are added",
+      "elite-specific windows preserve finite caps in both stages and all difficulties"
+    ]
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "6a8220cc13b106eed2bd89d0e4cf90b4ec12bce1bde4efaf0e25e6f2e47cd3fe",
+    "file": "E:\\GPT工作区\\dz-gamecenter-handoff\\tmp\\danmaku\\campaign-v12\\candidate\\danmaku-campaign-v12-offline.html",
+    "cases": [
+      {
+        "id": "easy",
+        "stage": 1,
+        "deathAnimation": true,
+        "returnAt36": true,
+        "protection240": true,
+        "warningAt60": true,
+        "pauseFrozen": true
+      },
+      {
+        "id": "easy",
+        "stage": 2,
+        "deathAnimation": true,
+        "returnAt36": true,
+        "protection240": true,
+        "warningAt60": true,
+        "pauseFrozen": true
+      },
+      {
+        "id": "normal",
+        "stage": 1,
+        "deathAnimation": true,
+        "returnAt36": true,
+        "protection240": true,
+        "warningAt60": true,
+        "pauseFrozen": true
+      },
+      {
+        "id": "normal",
+        "stage": 2,
+        "deathAnimation": true,
+        "returnAt36": true,
+        "protection240": true,
+        "warningAt60": true,
+        "pauseFrozen": true
+      },
+      {
+        "id": "hard",
+        "stage": 1,
+        "deathAnimation": true,
+        "returnAt36": true,
+        "protection240": true,
+        "warningAt60": true,
+        "pauseFrozen": true
+      },
+      {
+        "id": "hard",
+        "stage": 2,
+        "deathAnimation": true,
+        "returnAt36": true,
+        "protection240": true,
+        "warningAt60": true,
+        "pauseFrozen": true
+      }
+    ],
+    "elites": [
+      {
+        "id": "easy",
+        "stage": 1,
+        "visibleGuard": true
+      },
+      {
+        "id": "easy",
+        "stage": 2,
+        "visibleGuard": true
+      },
+      {
+        "id": "normal",
+        "stage": 1,
+        "visibleGuard": true
+      },
+      {
+        "id": "normal",
+        "stage": 2,
+        "visibleGuard": true
+      },
+      {
+        "id": "hard",
+        "stage": 1,
+        "visibleGuard": true
+      },
+      {
+        "id": "hard",
+        "stage": 2,
+        "visibleGuard": true
+      }
+    ],
+    "lastLifeAnimationBeforeResult": true,
+    "lastLifeNeverReturns": true,
+    "blurAndPauseFreeze": true,
+    "returnClearAndProtectionBoundaryCoveredByNode": true,
+    "mobileWidths": [
+      390,
+      320
+    ],
+    "reducedMotion": true,
+    "scriptErrors": 0,
+    "externalRequests": 0,
+    "screenshots": [
+      "easy-stage1-death.png",
+      "easy-stage1-return.png",
+      "easy-stage1-protection-warning.png",
+      "easy-stage2-death.png",
+      "easy-stage2-return.png",
+      "easy-stage2-protection-warning.png",
+      "normal-stage1-death.png",
+      "normal-stage1-return.png",
+      "normal-stage1-protection-warning.png",
+      "normal-stage2-death.png",
+      "normal-stage2-return.png",
+      "normal-stage2-protection-warning.png",
+      "hard-stage1-death.png",
+      "hard-stage1-return.png",
+      "hard-stage1-protection-warning.png",
+      "hard-stage2-death.png",
+      "hard-stage2-return.png",
+      "hard-stage2-protection-warning.png",
+      "easy-stage1-elite-extra-stay.png",
+      "easy-stage2-elite-extra-stay.png",
+      "normal-stage1-elite-extra-stay.png",
+      "normal-stage2-elite-extra-stay.png",
+      "hard-stage1-elite-extra-stay.png",
+      "hard-stage2-elite-extra-stay.png",
+      "recovery-mobile-390.png",
+      "recovery-mobile-320.png",
+      "reduced-death.png"
+    ],
+    "naturalFullClearTested": false,
+    "realDeviceTested": false,
+    "maximumFixtureSteps": 600
+  },
+  "static": {
+    "embeddedCampaignDataIdentical": true,
+    "fontIdentical": true,
+    "scriptCompilation": true,
+    "sourceHashesMatchManifest": true
+  },
+  "screenshotsInspected": [
+    "normal-stage1-death.png",
+    "normal-stage1-return.png",
+    "normal-stage2-death.png",
+    "normal-stage2-protection-warning.png",
+    "normal-stage1-elite-extra-stay.png",
+    "normal-stage2-elite-extra-stay.png",
+    "recovery-mobile-320.png",
+    "reduced-death.png"
+  ],
+  "humanNewFeedbackAccepted": false,
+  "naturalFullClearTested": false,
+  "realDeviceTested": false,
+  "onlineDeployed": false,
+  "gitPushed": false,
+  "handoffPullRequestUpdated": false,
+  "friendPackageCreated": false
+}

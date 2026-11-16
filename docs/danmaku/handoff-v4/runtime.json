@@ -1,0 +1,357 @@
+{
+  "runtime": [
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/engine.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/boss-patterns.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/battle.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/weapons.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/hard-patterns.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/hard-rich-patterns.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/hard-choreography.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/stage.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/audio.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/controls.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/player-view.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/boss-view.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/stage-view.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/stage-art-view.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/stage-show.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/audio-bank.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/bgm-bank.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-garden-v2.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/garden-materials-v3.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/unity-sprites-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/unity-show-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-combat-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-combat-v2.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-intro-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/garden-original-patterns-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-formation-v4.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-easy-v5.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-easy-entry-v6.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-sprites-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/flow-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "literal": "window.DanmakuCampaignBase=window.DanmakuCampaign;"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/mob-feedback-v2.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/story-data-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/story-flow-v5.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/dialogue-layout-v5.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/dialogue-view-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/journey-view-v5.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/notice-frames-v8.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/bomb-view-v6.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-change-v2.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-change-v4.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-preview-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-canvas-v10.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-show-v8.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/boss-gesture-v4.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/star-corridor-v2.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/difficulty-normal-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/difficulty-hard-v1.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_stage02_draft/difficulties-v10.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/difficulty-flow-v10.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-show-v10.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_proto/bullet-materials.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/stage02-view-v12.js"
+    },
+    {
+      "literal": "\n"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/stage01-view-v12.js"
+    }
+  ],
+  "tailModules": [
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_assets_v1/audio-lazy-v1.js",
+      "marker": "/* __TAIL_0__ */"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/difficulty-flow-v11.js",
+      "marker": "/* __TAIL_1__ */"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/player-recovery-v12.js",
+      "marker": "/* __TAIL_2__ */"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/elite-stay-v12.js",
+      "marker": "/* __TAIL_3__ */"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/feedback-flow-v12.js",
+      "marker": "/* __TAIL_4__ */"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/recovery-view-v12.js",
+      "marker": "/* __TAIL_5__ */"
+    },
+    {
+      "path": "source/plugin/gamecenter/games/_danmaku_campaign_draft/app-v13.js",
+      "marker": "/* __TAIL_6__ */"
+    }
+  ],
+  "font": "docs/danmaku/fonts/spell-serif-v10/danmaku-spell-serif-500.woff2",
+  "titleStyle": "source/plugin/gamecenter/games/_danmaku_campaign_draft/title-shell-v13.css"
+}

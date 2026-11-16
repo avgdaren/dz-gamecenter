@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "sha256": "3a182c47920d418bbf6e118f39e8afef6626a5afb74a73d8fd861790a87f47e6",
+  "file": "output/天使弹幕祭/当前试玩/danmaku-campaign-v13-offline.html",
+  "title": {
+    "width": 1040,
+    "height": 585,
+    "artWidth": 1024,
+    "artOpacity": 0.88,
+    "cardX": 583.953125,
+    "companionWidth": 160,
+    "settingsClosed": true,
+    "sidePanelVisible": false
+  },
+  "threeNativeDifficultyButtons": true,
+  "settingsBindingAndVolume": true,
+  "oneNativeStartWithSelectedRule": true,
+  "storyGateAndNativeAudio": true,
+  "titleReturn": true,
+  "practiceAvailableBehindFold": true,
+  "mobileWidths": [
+    390,
+    320
+  ],
+  "combatSnapshotsAndCanvasMatchV12": 6,
+  "recoveryModelUnchanged": true,
+  "externalRequests": 0,
+  "scriptErrors": 0,
+  "screenshots": [
+    "title-desktop.png",
+    "game-after-start.png",
+    "title-mobile-390.png",
+    "title-mobile-320.png"
+  ],
+  "naturalFullClearTested": false,
+  "realDeviceTested": false,
+  "screenshotsVisuallyReviewed": true,
+  "forumInstalled": false,
+  "onlineDeployed": false,
+  "databaseMigration": false
+}
