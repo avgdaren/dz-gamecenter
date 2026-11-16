@@ -4,7 +4,7 @@
 
 主人在收到自机连死／死亡无特效、精英停留过短的反馈后要求调整。v12完成并通过局部验证后，主人明确“交接给小蓝吧”。这是v12的交接授权，不把它写成已逐档、逐路线或真实手机验收。
 
-本次是[Issue #82](https://github.com/avgdaren/dz-gamecenter/issues/82)的独立补丁，分支`feat/issue-82-danmaku-feedback-v13`，基底为PR #81的`feat/issue-80-danmaku-campaign-v11`／`f478bb849312f29373f9c03f0967e56351df61c1`。PR和运行提交见[GITHUB.json](GITHUB.json)。原v11说明与清单留在[handoff-v3](../handoff-v3/XIAOLAN-HANDOFF.md)，本页为新的接手入口。移植时取完整新分支，保留旧基线，不把整分支覆盖到你的当前平台。
+本次是[Issue #82](https://github.com/avgdaren/dz-gamecenter/issues/82)的独立补丁，分支`feat/issue-82-danmaku-feedback-v13`，基底为PR #81的`feat/issue-80-danmaku-campaign-v11`／`f478bb849312f29373f9c03f0967e56351df61c1`。已发布[Draft PR #83](https://github.com/avgdaren/dz-gamecenter/pull/83)，运行提交`c50d9e380c5c79b1caa557c3633f586388908865`，细节见[GITHUB.json](GITHUB.json)。原v11说明与清单留在[handoff-v3](../handoff-v3/XIAOLAN-HANDOFF.md)，本页为新的接手入口。移植时取完整新分支，保留旧基线，不把整分支覆盖到你的当前平台。
 
 主人随后要求“继续”，并指出封面应恢复之前上线的版本。本次交付更新为v13：保留v12战斗，恢复正式封面。没有再次声称真人试玩通过。
 
@@ -15,6 +15,8 @@
 这是同一个整局Session的标题状态；不要在现行论坛中另套旧游戏或叠加两套开始入口。`titleCompanion`复用原始PNG，线上按共用资源清单提供URL。模板中的CSS依赖也已列入runtime清单。正式按钮仍由既有SDK生命周期接入，不能直接覆盖你当前平台。封面与两关逻辑应一起移植。
 
 v13断网浏览器原生三档点击／Hard开局／返回／设置／练习通过；390／320无溢出，四张截图已查看。6个两关三档定点状态和Canvas与v12完全相同。未在论坛HTTP中验收。
+
+最终封面：[桌面](previews/title-desktop.png)／[390px](previews/title-mobile-390.png)／[320px](previews/title-mobile-320.png)；[开局后](previews/game-after-start.png)。这些是同SHA浏览器截图，论坛接入后请对照。
 
 ## 核对交付
 

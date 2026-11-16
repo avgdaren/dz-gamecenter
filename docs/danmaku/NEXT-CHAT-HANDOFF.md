@@ -4,7 +4,7 @@
 
 用户要求继续交小蓝，并恢复之前上线版封面。已完成[CAMPAIGN-v13](CAMPAIGN-v13.md)：星杖立绘／像素角色／星环、三档直选和开始游戏，设置、练习与回看折叠；保留v12死亡复归和大型守卫驻留。当前v13、回退v12。SHA256 `3a182c47920d418bbf6e118f39e8afef6626a5afb74a73d8fd861790a87f47e6`。100份依赖独立checkout重建，15组逻辑／60命中夹具通过，断网浏览器三档入口与6份v12战斗状态／画布对照通过；真机、论坛、整关自然通关未测。
 
-接手入口[handoff-v4](handoff-v4/XIAOLAN-HANDOFF.md)，Issue #82／`feat/issue-82-danmaku-feedback-v13`，PR与运行提交以[GITHUB.json](handoff-v4/GITHUB.json)为准。不要把旧审阅页直接嵌入论坛。下面保留制作阶段记录，“未推送／当前v12”不是当前交付状态。
+接手入口[handoff-v4](handoff-v4/XIAOLAN-HANDOFF.md)，Issue #82／`feat/issue-82-danmaku-feedback-v13`，已发布[Draft PR #83](https://github.com/avgdaren/dz-gamecenter/pull/83)，运行提交`c50d9e3`；元数据见[GITHUB.json](handoff-v4/GITHUB.json)。不要把旧审阅页直接嵌入论坛。下面保留制作阶段记录，“未推送／当前v12”不是当前交付状态。
 
 ## v12交接授权（2026-11-16）
 
