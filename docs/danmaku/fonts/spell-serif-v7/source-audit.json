@@ -1,0 +1,29 @@
+{
+  "source": "C:\\Windows\\Fonts\\NotoSerifSC-VF.ttf",
+  "sourceSha256": "a4aed9985a5916fbf6690456f8732a9fccd517938e353165d4142b4f11a39280",
+  "sourceMetadata": {
+    "0": "© 2017-2023 Adobe (http://www.adobe.com/).",
+    "1": "Noto Serif SC",
+    "2": "Regular",
+    "13": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software.",
+    "14": "http://scripts.sil.org/OFL"
+  },
+  "upstream": "https://github.com/notofonts/noto-cjk",
+  "licenseUrl": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Serif/LICENSE",
+  "licenseFile": "OFL.txt",
+  "licenseSha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+  "derivativeFamily": "Danmaku Spell Serif",
+  "weight": 500,
+  "characters": " 0123456789·一三二使光司告周响回声天宣展幕庭廊式引星测环瓣祷穹章第终羽者舒花观轨连迹铃雨顶风",
+  "titleData": [
+    "星环 · 周天轨迹",
+    "星雨 · 引光连祷",
+    "星幕 · 穹顶终章",
+    "风廊",
+    "花瓣舒展",
+    "铃声回响"
+  ],
+  "file": "danmaku-spell-serif-500.woff2",
+  "bytes": 11012,
+  "sha256": "f6bb5771bfd227abfe23adfddcb1bf1a57b6adf1e24c0645cf690749d770ac0c"
+}

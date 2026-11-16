@@ -1,0 +1,20 @@
+{
+  "repository": "avgdaren/dz-gamecenter",
+  "repositoryVisibility": "public",
+  "existingPublicHandoffAuthorized": true,
+  "issue": "https://github.com/avgdaren/dz-gamecenter/issues/80",
+  "branch": "feat/issue-80-danmaku-campaign-v11",
+  "base": "feat/danmaku-title-power-v1",
+  "baseCommit": "27b6500baf4071e2c4de72093d369efaf2006655",
+  "pullRequest": null,
+  "runtimeCommit": null,
+  "acceptedHtmlSha256": "b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee",
+  "runtimeManifest": "RUNTIME-MANIFEST.json",
+  "handoffGuide": "XIAOLAN-HANDOFF.md",
+  "userPlaytestAccepted": true,
+  "handoffPrepared": true,
+  "merged": false,
+  "forumInstalled": false,
+  "onlineDeployed": false,
+  "databaseUpgrade": false
+}

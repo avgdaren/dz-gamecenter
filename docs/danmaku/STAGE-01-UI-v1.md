@@ -19,8 +19,8 @@
 
 ## 交付
 
-- 单文件：`E:\GPT工作区\output\danmaku-stage01-ui-v1-offline.html`，双击即可离线玩。
-- 离线包：`E:\GPT工作区\output\danmaku-stage01-ui-v1.zip`，含 `START.html`、当前运行源码／素材和本轮记录。
+- 单文件：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-ui-v1-offline.html`，双击即可离线玩。
+- 离线包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-ui-v1.zip`，含 `START.html`、当前运行源码／素材和本轮记录。
 - 旧HappyShrimp版单文件、完整制作包、原始音乐及历史交付继续保留。本轮ZIP不重复打入全部历史制作文档、音频源包和素材草稿，避免再次堆积同一份大文件；完整制作史仍在仓库和上一版完整包中。
 
 ## 验证
@@ -33,8 +33,8 @@ node tests/danmaku/test-midi.cjs
 node tests/danmaku/test-stage01-art.cjs
 python tests/danmaku/check_stage01_audio.py
 python tests/danmaku/package_preview.py --check
-node tests/danmaku/browser-stage01.cjs --bgm --ui-v1 --out=tmp/danmaku/stage01-ui-v1/final-browser file:///E:/GPT工作区/output/danmaku-stage01-ui-v1-offline.html
-node tests/danmaku/browser-stage01.cjs --bgm --ui-v1 --cold-audio --out=tmp/danmaku/stage01-ui-v1/cold-browser file:///E:/GPT工作区/output/danmaku-stage01-ui-v1-offline.html
+node tests/danmaku/browser-stage01.cjs --bgm --ui-v1 --out=tmp/danmaku/stage01-ui-v1/final-browser file:///E:/GPT工作区/output/天使弹幕祭/历史版本/danmaku-stage01-ui-v1-offline.html
+node tests/danmaku/browser-stage01.cjs --bgm --ui-v1 --cold-audio --out=tmp/danmaku/stage01-ui-v1/cold-browser file:///E:/GPT工作区/output/天使弹幕祭/历史版本/danmaku-stage01-ui-v1-offline.html
 ```
 
 17项声音生命周期、9项旧MIDI、7项场景表现检查及音频完整性通过。与已确认HappyShrimp版相比，10份规则／JS-PHP模拟／回放文件、全部美术、音库、MIDI播放器和声音管理器逐字节一致；没有把展示层改动混入游戏规则。

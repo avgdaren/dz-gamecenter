@@ -1,8 +1,10 @@
 # GitHub交小蓝，再由小蓝接论坛
 
+**2026-11-16最新交接：** 用户已试玩两关三难度v11并确认“没什么问题”，要求按原流程交给小蓝。当前以[handoff-v3/XIAOLAN-HANDOFF.md](handoff-v3/XIAOLAN-HANDOFF.md)及[GITHUB.json](handoff-v3/GITHUB.json)为准，对应Issue #80；包含源码、素材、94文件清单与可独立重建确认版的脚本。下文PR #75／旧r3与单关资料是历史，不代替新两关接入说明。小蓝继续负责论坛本地验证和线上包，小典不自动合并或部署。
+
 GitHub已交付：[Draft PR #75](https://github.com/avgdaren/dz-gamecenter/pull/75)，对应[Issue #74](https://github.com/avgdaren/dz-gamecenter/issues/74)；分支`feat/danmaku-p1`，运行内容提交`24b41f3`。当前未合并／部署。以下最新顺序继续有效，之后由小蓝接本地论坛。
 
-**用户最新纠正优先：小典备齐资料→通过GitHub交给小蓝→小蓝负责本地论坛和线上包。** 不是小典先跑论坛。已备[图标／榜单预览](handoff-v1/review.html)、[小蓝接手说明](handoff-v1/XIAOLAN-HANDOFF.md)、登记候选、榜单口径与提交字段桥接；本地审阅包为`E:\GPT工作区\output\danmaku-xiaolan-handoff-r3.zip`，不是论坛安装包。
+**用户最新纠正优先：小典备齐资料→通过GitHub交给小蓝→小蓝负责本地论坛和线上包。** 不是小典先跑论坛。已备[图标／榜单预览](handoff-v1/review.html)、[小蓝接手说明](handoff-v1/XIAOLAN-HANDOFF.md)、登记候选、榜单口径与提交字段桥接；本地审阅包为`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-xiaolan-handoff-r3.zip`，不是论坛安装包。
 
 现有仓库经GitHub接口核对为**public**。主人得知后已明确选择“允许提交到现有公开仓库”，授权本次源码、图像和音乐交接，AGENTS已记录这次例外。按现有仓库整理分支／Draft PR，链接以`handoff-v1/GITHUB.json`为准；不自动合并或部署。当前原型和旧游戏保留，小蓝按她维护的平台线适配。
 

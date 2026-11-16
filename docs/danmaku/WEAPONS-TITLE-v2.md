@@ -6,7 +6,7 @@
 
 用户本轮要求横版标题、直接选择难度、删除标题里的招式提示与“第一关”，加强大招，4级起低速激光、5级高速追踪，并把Boss阶段文字演出替换为爆炸。制作中用户进一步指定：两次转场都用1号效果，加震屏闪光；“激光”应是收束成竖向形状的高速子弹。最终按后者实现，未采用连续光束／瞬时射线命中。
 
-试玩：`E:\GPT工作区\output\danmaku-stage01-weapons-v1-offline.html`，双击即可。快速查看武器／大招／两次爆散用 `E:\GPT工作区\output\danmaku-weapons-v1-review.html`；这是独立固定靶展示，不计成绩、不需要打到满级或通关。原标题版与Normal v2的离线文件及SHA均保留。
+试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-weapons-v1-offline.html`，双击即可。快速查看武器／大招／两次爆散用 `E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-weapons-v1-review.html`；这是独立固定靶展示，不计成绩、不需要打到满级或通关。原标题版与Normal v2的离线文件及SHA均保留。
 
 ## 画面与演出
 

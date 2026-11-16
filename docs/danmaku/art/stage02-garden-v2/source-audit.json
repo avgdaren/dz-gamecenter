@@ -1,0 +1,110 @@
+{
+  "sky": {
+    "file": "garden-sky-v2.png",
+    "dimensions": [
+      1086,
+      1448
+    ],
+    "bytes": 1799604,
+    "sha256": "113fc16f8aa81b700312a6d95d467efe6ff1a2860040ffe4415ac6400c8f182f",
+    "colorType": 2,
+    "transparentPixels": 0,
+    "partialAlphaPixels": 0,
+    "alphaMin": 255,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "visibleBoundsAlpha128": [
+      0,
+      0,
+      1085,
+      1447
+    ],
+    "generatedPixelsPreserved": true
+  },
+  "paving": {
+    "file": "garden-paving-v2.png",
+    "dimensions": [
+      724,
+      2172
+    ],
+    "bytes": 2080519,
+    "sha256": "1290ff29570363b71341c2affce7d3aca4e7f2350276e2341441e7318ec6de96",
+    "colorType": 2,
+    "transparentPixels": 0,
+    "partialAlphaPixels": 0,
+    "alphaMin": 255,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "visibleBoundsAlpha128": [
+      0,
+      0,
+      723,
+      2171
+    ],
+    "generatedPixelsPreserved": true
+  },
+  "rail": {
+    "file": "garden-rail-v2.png",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "bytes": 1866597,
+    "sha256": "de8e0cc16c523131a3223023f0a29f8dad620f6bec81636310038b18e9e15b75",
+    "colorType": 6,
+    "transparentPixels": 985628,
+    "partialAlphaPixels": 587236,
+    "alphaMin": 0,
+    "alphaMax": 254,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      50,
+      205,
+      1486,
+      767
+    ],
+    "generatedPixelsPreserved": true
+  },
+  "arch": {
+    "file": "garden-arch-v2.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 1076880,
+    "sha256": "d0bc133747f55974c7c38fd4dfd56176922f8a3db28826b44718e7996f296785",
+    "colorType": 6,
+    "transparentPixels": 1148195,
+    "partialAlphaPixels": 424073,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      83,
+      38,
+      1169,
+      1216
+    ],
+    "generatedPixelsPreserved": true
+  }
+}

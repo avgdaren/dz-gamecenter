@@ -2,11 +2,11 @@
 
 2026-11-12，小典 / Codex。用户对演出版反馈“没问题”，要求继续推进，并明确后续真人试玩由用户负责，小典不再每轮自动自然通关。
 
-最新接续：用户又发现身体静止和三阶段相似，已针对修为[Boss r3](BOSS-FIX-r3.md)，待本轮试玩。现在打开[新版单文件](<E:/GPT工作区/output/danmaku-stage01-boss-r3-offline.html>)或[新版ZIP](<E:/GPT工作区/output/danmaku-stage01-boss-r3.zip>)；[放大／三阶段预览](review/BOSS-r3.html)可快速比较，文件见[r3候选清单](PLAYTEST-BASELINE-r3.json)。下文演出v1入口和“运行内容未改”是前一轮记录，旧文件保留供回退。
+最新接续：用户又发现身体静止和三阶段相似，已针对修为[Boss r3](BOSS-FIX-r3.md)，待本轮试玩。现在打开[新版单文件（已清理）](<E:/GPT工作区/dz-gamecenter-handoff/docs/danmaku/RETIRED-BUILDS-20261116.md>)或[新版ZIP（已清理）](<E:/GPT工作区/dz-gamecenter-handoff/docs/danmaku/RETIRED-BUILDS-20261116.md>)；[放大／三阶段预览](review/BOSS-r3.html)可快速比较，文件见[r3候选清单](PLAYTEST-BASELINE-r3.json)。下文演出v1入口和“运行内容未改”是前一轮记录，旧文件保留供回退。
 
-最新真人反馈：用户已试玩r3并表示“没问题，已经很完善了”。给一位QQ好友体验时，发送[好友试玩ZIP](<E:/GPT工作区/output/天使弹幕祭-demo-好友试玩-r3.zip>)即可：在电脑上下载、解压、双击“开始游戏.html”。包内游戏与r3相同，可独立离线运行，无需安装环境。问题反馈仍按下述方式进行；没有公开托管或论坛接入。
+最新真人反馈：用户已试玩r3并表示“没问题，已经很完善了”。给一位QQ好友体验时，发送[好友试玩ZIP（已清理）](<E:/GPT工作区/dz-gamecenter-handoff/docs/danmaku/RETIRED-BUILDS-20261116.md>)即可：在电脑上下载、解压、双击“开始游戏.html”。包内游戏与r3相同，可独立离线运行，无需安装环境。问题反馈仍按下述方式进行；没有公开托管或论坛接入。
 
-当前固定试玩入口：[演出v1单文件](<E:/GPT工作区/output/danmaku-stage01-show-v1-offline.html>)；需要转存时使用[现有离线包](<E:/GPT工作区/output/danmaku-stage01-show-v1.zip>)，解压后双击START.html。两份文件保持本轮开始前的字节，不额外复制相同大包。[版本清单](PLAYTEST-BASELINE-v1.json)记录完整运行文件与交付SHA256。
+当前固定试玩入口：[演出v1单文件（已清理）](<E:/GPT工作区/dz-gamecenter-handoff/docs/danmaku/RETIRED-BUILDS-20261116.md>)；需要转存时使用[现有离线包（已清理）](<E:/GPT工作区/dz-gamecenter-handoff/docs/danmaku/RETIRED-BUILDS-20261116.md>)，解压后双击START.html。两份文件保持本轮开始前的字节，不额外复制相同大包。[版本清单](PLAYTEST-BASELINE-v1.json)记录完整运行文件与交付SHA256。
 
 ## 玩法说明
 

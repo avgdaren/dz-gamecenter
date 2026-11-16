@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-stage02-refined-v5-offline.html",
+    "bytes": 36119287,
+    "sha256": "d36061e6d3e49edd3d25e81ec2232e49f6a139a6f4d618cc9cecc9940cefba8a"
+  },
+  "logic": {
+    "authoredBulletBudget": {
+      "before": 594,
+      "after": 412,
+      "reductionPercent": 30.63973063973064,
+      "noKillTimingAnalysis": true
+    },
+    "local18s": {
+      "power": 16,
+      "normalShooting": true,
+      "before": {
+        "fired": 97,
+        "peak": 57,
+        "kills": 18,
+        "visiblePeak": 11
+      },
+      "after": {
+        "fired": 66,
+        "peak": 38,
+        "kills": 18,
+        "visiblePeak": 11
+      }
+    },
+    "status": "PASS",
+    "checks": [
+      "formations and all nonattack role properties remain identical",
+      "normal level-five fixture keeps every mob state while reducing projectiles",
+      "all three accepted Boss snapshots including shots remain identical",
+      "music starts at zero; only enemies wait eight seconds",
+      "stage ending, Boss recovery rewards and retry remain unchanged"
+    ],
+    "bossEasyPatternsAccepted": true,
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "d36061e6d3e49edd3d25e81ec2232e49f6a139a6f4d618cc9cecc9940cefba8a",
+    "musicStartsAtBeginningBeforeAnyEnemy": true,
+    "firstMusicOffsetSeconds": 0.016666666666666666,
+    "noInsertedAudioSilence": true,
+    "firstEnemiesAt8Seconds": true,
+    "formationsKept": true,
+    "stageScreenshotInspected": true,
+    "bossCanvasMatchesAcceptedV4": true,
+    "pauseFrozen": true,
+    "boss96SecondBoundary": true,
+    "bossMusicSwitch": true,
+    "blurPaused": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "bossEasyPatternsAccepted": true,
+  "bossAcceptedBaseline": "refined-v4",
+  "bossBaselineUnchanged": true,
+  "protectedOldFiles": {
+    "count": 234,
+    "unchanged": true
+  },
+  "artOrMusicChanged": false,
+  "naturalFullClearTested": false,
+  "easyCalibrationComplete": false,
+  "stage01Connected": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

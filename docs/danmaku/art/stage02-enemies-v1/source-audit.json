@@ -1,0 +1,27 @@
+{
+  "file": "garden-enemies-source-v1.png",
+  "dimensions": [
+    2172,
+    724
+  ],
+  "bytes": 1329858,
+  "sha256": "a5228cb5e3894dcff8da5daecd0fd2b84ff4980b594fab86faa754b6d1f3ef6e",
+  "colorType": 6,
+  "transparentPixels": 1057560,
+  "partialAlphaPixels": 514775,
+  "alphaMin": 0,
+  "alphaMax": 255,
+  "cornerAlpha": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "visibleBoundsAlpha128": [
+    176,
+    13,
+    2108,
+    710
+  ],
+  "generatedPixelsPreserved": true
+}

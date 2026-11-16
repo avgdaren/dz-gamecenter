@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "providedBy": "avg达人",
+  "production": "User-supplied completed music; generation tool and prompts not specified for this pair.",
+  "entries": {
+    "stage": {
+      "file": "stage.mp3",
+      "sourceFile": "（第二关道中）用户7876 - Majestic Bullet Storm.mp3",
+      "sourceSha256": "877604b70e2b1c1fe1132bb03c66e6f3292660bc9aa4e139c92158f27cf4320e",
+      "title": "Majestic Bullet Storm",
+      "sha256": "7c4fa19b3420cd27383dbc2d97738ffe10b00fbe67ffc7ef6e395b49df1b0c52",
+      "bytes": 5013628,
+      "codec": "mp3",
+      "sampleRate": 44100,
+      "channels": 2,
+      "decodedPcm": {
+        "sha256": "21afc295762b4ce197e83fac8aa694dcb67fd767e051fea22e4b494b89b6052b",
+        "frames": 9209844,
+        "seconds": 208.84,
+        "format": "s16le/44100Hz/stereo"
+      },
+      "audioContentUnchanged": true,
+      "metadataAndCoverRemoved": true
+    },
+    "boss": {
+      "file": "boss.mp3",
+      "sourceFile": "（第二关boss）用户7876 - Majestic Bullet Storm.mp3",
+      "sourceSha256": "744ee78e590738d091a3703b0bab6256b32acd17f441dfbf4f7e496d9e22adec",
+      "title": "Symphonic Storm",
+      "sha256": "7a696c0ffb11aa38d1984bf0b8eb8e138371718d6781acc31b7052cda23af3ca",
+      "bytes": 5362206,
+      "codec": "mp3",
+      "sampleRate": 44100,
+      "channels": 2,
+      "decodedPcm": {
+        "sha256": "22525231a2988fb557a0461142dfa457bc3e0b473ad3ed5570c9ced0ab83421a",
+        "frames": 9849735,
+        "seconds": 223.35,
+        "format": "s16le/44100Hz/stereo"
+      },
+      "audioContentUnchanged": true,
+      "metadataAndCoverRemoved": true
+    }
+  },
+  "processing": "MP3 stream copy only, full duration, metadata/artwork removed",
+  "signalAnalysis": "signal-analysis.json",
+  "tempoConfirmed": false,
+  "listeningReviewPerformed": false,
+  "loopPointsChosen": false,
+  "stageDurationChosen": false,
+  "runtimeIntegrated": false,
+  "originalsUnchanged": true,
+  "gameRuntimeFilesUnchanged": 52
+}

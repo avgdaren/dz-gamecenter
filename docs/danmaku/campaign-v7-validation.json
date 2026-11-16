@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-16",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-campaign-easy-v7-offline.html",
+    "bytes": 53949225,
+    "sha256": "9ec0d3a08535be7387d363611a2739baa68aa83afa44cc5be137cb4ebc801758"
+  },
+  "rule": "danmaku-campaign-easy-v5",
+  "presentationRevision": 7,
+  "browser": {
+    "status": "PASS",
+    "sha256": "9ec0d3a08535be7387d363611a2739baa68aa83afa44cc5be137cb4ebc801758",
+    "fourBossPlaquesAndTwoBombRibbonsRendered": true,
+    "actualBombNameAndUsageRetained": true,
+    "allBossTitlesMeasuredAndFit": true,
+    "realBombKillsTriggerFourNonOverlappingTransitions": true,
+    "bombEffectsNeverPaintOverBossTitlePixels": true,
+    "contextResetAfterTransition": true,
+    "reducedMotionAnd320And390pxChecked": true,
+    "bothReplayButtonsStopCorrectly": true,
+    "pausedFramesFrozen": true,
+    "offlineTitleFontLoaded": true,
+    "acceptedPlayerBombCanvasMatchesV6Exactly": true,
+    "normalBattleCanvasMatchesV6": true,
+    "transitionModelsMatchV6": true,
+    "lowerPlayerAreaPixelsMatchV6": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "acceptedPlayerRibbonUnchanged": true,
+  "sourceHashesMatched": 53,
+  "protectedRuntimeAndMedia": 250,
+  "retainedFixtureCheck": {
+    "status": "PASS",
+    "retainedSimulationModules": 2,
+    "boundedPhaseComparisons": 8,
+    "naturalFullClearTested": false
+  },
+  "fontSubset": {
+    "bytes": 11012,
+    "characters": 52,
+    "weight": 500,
+    "sha256": "f6bb5771bfd227abfe23adfddcb1bf1a57b6adf1e24c0645cf690749d770ac0c",
+    "embeddedAndLoadedOffline": true,
+    "sourceAudit": "fonts/spell-serif-v7/source-audit.json"
+  },
+  "screenshotsInspected": [
+    "boss-stage1-phase1.png",
+    "boss-stage2-phase2.png",
+    "overlap-stage2.png",
+    "overlap-320px.png"
+  ],
+  "retentionRecord": "E:\\GPT工作区\\.workspace-maintenance\\2026-11-16-version-trim\\result.json",
+  "newPeerZipCreated": false,
+  "naturalFullClearTested": false,
+  "humanBossPolishAccepted": false,
+  "realMobileOrLongRunPerformanceTested": false,
+  "uploadedOrDeployed": false,
+  "ownGeneratedBuildAndToolsRemovedBytes": 81343270
+}

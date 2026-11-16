@@ -34,9 +34,9 @@ MIDI最多32个音符声部，提前80ms调度，每层每次最多处理64个�
 ## 试听与交付
 
 - [独立试听页](audio/stage01-midi-v2/preview.html)：小怪段16秒、Boss段16秒，两段均由游戏同款MIDI合成器经浏览器OfflineAudioContext渲染；旁边提供原始MIDI下载。试听WAV用于方便播放，游戏BGM仍直接演奏MIDI。
-- 单文件试玩：`E:\GPT工作区\output\danmaku-stage01-midi-v2-offline.html`。
-- 完整包：`E:\GPT工作区\output\danmaku-stage01-midi-v2.zip`，根目录`START.html`可直接双击。
-- 单独MIDI包：`E:\GPT工作区\output\danmaku-stage01-midi-v2-midi.zip`，含7份MIDI、乐谱、清单及音色说明。
+- 单文件试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-midi-v2-offline.html`。
+- 完整包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-midi-v2.zip`，根目录`START.html`可直接双击。
+- 单独MIDI包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-midi-v2-midi.zip`，含7份MIDI、乐谱、清单及音色说明。
 
 原`stage01-v1/`的乐谱、22份WAV、原音库，以及`danmaku-stage01-audio-v1`交付均保留。新脚本拒绝覆盖已有生成目录；需要复现时指定新的`--output`目录，确认后才用`--install`更新运行音库。运行游戏不需要Python。
 

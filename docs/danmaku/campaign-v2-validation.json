@@ -1,0 +1,188 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-campaign-easy-v2-offline.html",
+    "bytes": 53878156,
+    "sha256": "4d85cb8aa5cc2c85a2cc07b8e3cca8d4cf6019e0b0079d2e34c7f415c54b75e8"
+  },
+  "logic": {
+    "mobHP": {
+      "before": [
+        [
+          32,
+          90,
+          360
+        ],
+        [
+          32,
+          128,
+          420
+        ]
+      ],
+      "after": [
+        [
+          1,
+          128,
+          450
+        ],
+        [
+          1,
+          176,
+          540
+        ]
+      ]
+    },
+    "stationaryFocusedSamples": [
+      {
+        "entry": "stage1",
+        "type": 1,
+        "beforeLowTicks": 79,
+        "lowTicks": 103,
+        "highTicks": 34,
+        "controlledStationaryTarget": true
+      },
+      {
+        "entry": "stage1",
+        "type": 2,
+        "beforeLowTicks": 240,
+        "lowTicks": 294,
+        "highTicks": 77,
+        "controlledStationaryTarget": true
+      },
+      {
+        "entry": "stage2",
+        "type": 1,
+        "beforeLowTicks": 103,
+        "lowTicks": 133,
+        "highTicks": 40,
+        "controlledStationaryTarget": true
+      },
+      {
+        "entry": "stage2",
+        "type": 2,
+        "beforeLowTicks": 276,
+        "lowTicks": 348,
+        "highTicks": 89,
+        "controlledStationaryTarget": true
+      }
+    ],
+    "status": "PASS",
+    "checks": [
+      "only mob HP changes across both stage configurations",
+      "one weakest normal projectile kills a fairy in either stage",
+      "large enemy HP still has finite low-power response and growth benefits",
+      "three Boss phases in each stage remain snapshot-identical",
+      "every phase-transition frame keeps the Boss visible and replaces the burst cue",
+      "intro and final-clear models retain the existing shared presentation",
+      "handoff, retries and terminal accounting retain the adjusted profile"
+    ],
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "4d85cb8aa5cc2c85a2cc07b8e3cca8d4cf6019e0b0079d2e34c7f415c54b75e8",
+    "easyUnifiedEntry": true,
+    "firstStageStartsAtPowerZero": true,
+    "bothMusicBanksPreparedByInitialGesture": true,
+    "firstToSecondAutomatic": true,
+    "actualArrival": {
+      "lives": 2,
+      "bombs": 1,
+      "power": 11
+    },
+    "gardenMusicStartsAtBeginning": true,
+    "oldStageMusicStops": true,
+    "focusAndVolumePreserved": true,
+    "stageRetryUsesActualArrival": true,
+    "bossRetryUsesActualArrival": true,
+    "stageOneAwardNotDuplicated": true,
+    "oneFinalResultWithTwoRows": true,
+    "returnTitleResetsWholeRun": true,
+    "fourPracticeEntries": true,
+    "bossCanvasMatchesAcceptedV4": true,
+    "phaseFixturesRendered": 4,
+    "starroadSamplesRendered": 3,
+    "bossIntroCanvasMatchesAcceptedV6": true,
+    "pauseFrozen": true,
+    "blurPaused": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "peerPackage": {
+    "status": "PASS",
+    "file": "天使弹幕祭-demo-两关Easy-网友试玩-v2.zip",
+    "zipBytes": 39877940,
+    "zipSha256": "e27525d808a528c9f832e87125cc57cc2903bc890ca09b93cea7fd1ce652c3e3",
+    "files": [
+      "开始游戏.html",
+      "试玩说明.txt",
+      "试玩反馈模板.txt",
+      "版本说明.txt",
+      "FRIEND-DEMO-MANIFEST.json"
+    ],
+    "gameBytes": 53878156,
+    "gameSha256": "4d85cb8aa5cc2c85a2cc07b8e3cca8d4cf6019e0b0079d2e34c7f415c54b75e8",
+    "gameMatchesDeliveredCampaignV2": true,
+    "sourceHashesMatched": 38,
+    "zipCrcVerified": true,
+    "utf8FilenamesVerified": true,
+    "textEncoding": "UTF-8 BOM / CRLF",
+    "extractedHtmlByteIdentical": true,
+    "externalResources": 0,
+    "naturalFullClearTested": false
+  },
+  "unpackedSmoke": {
+    "status": "PASS",
+    "sha256": "4d85cb8aa5cc2c85a2cc07b8e3cca8d4cf6019e0b0079d2e34c7f415c54b75e8",
+    "extractedGameStartsOffline": true,
+    "chineseFilenameOpened": true,
+    "defaultEasyAndTestInvincibleOff": true,
+    "firstStageResources": {
+      "lives": 3,
+      "bombs": 2,
+      "power": 0
+    },
+    "musicStartsAtBeginning": true,
+    "bothSoundBanksDecoded": true,
+    "pauseFrozen": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "screenshotsInspected": [
+    "spell-change-stage1-phase1.png",
+    "spell-change-stage1-phase2.png",
+    "spell-change-stage2-phase1.png",
+    "spell-change-stage2-phase2.png",
+    "spell-change-mobile.png",
+    "starroad-entry.png",
+    "starroad-middle.png",
+    "starroad-observatory.png"
+  ],
+  "background": {
+    "file": "stage01-starroad-source-v2.png",
+    "width": 724,
+    "height": 2172,
+    "mode": "RGB",
+    "sha256": "b947e39bbb9cb5b1de07658fcd4fa2d50d0c57dd9f88a2cf7b66b36727673992",
+    "generator": "image_gen.imagegen",
+    "operation": "edit",
+    "reference": "source/plugin/gamecenter/games/_danmaku_proto/assets/stage01-corridor-v1.png",
+    "originalBytesPreserved": true,
+    "runtimeResizeOnly": true
+  },
+  "protectedOldFiles": {
+    "count": 287,
+    "unchanged": true
+  },
+  "bossAttackAndPlayerRulesChanged": false,
+  "mobHPChanged": true,
+  "phasePresentationChanged": true,
+  "naturalFullClearTested": false,
+  "humanNewDifficultyAccepted": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "package": {
+    "status": "PASS",
+    "file": "天使弹幕祭-demo-两关Easy-网友试玩-v9.zip",
+    "zipBytes": 35570576,
+    "zipSha256": "bb8d7936e0f27548e27ad28a8edbc35585c934c6bc564acb31d1bedf0ed10039",
+    "files": [
+      "开始游戏.html",
+      "试玩说明.txt",
+      "试玩反馈模板.txt",
+      "版本说明.txt",
+      "FRIEND-DEMO-MANIFEST.json"
+    ],
+    "gameBytes": 47666849,
+    "gameSha256": "082205fae9f90313a2f6dfea667adbc5498da73bd82725b8dc152a2d45c6e93c",
+    "gameMatchesCurrentV9": true,
+    "sourceHashesMatched": 5,
+    "zipCrcVerified": true,
+    "utf8FilenamesVerified": true,
+    "textEncoding": "UTF-8 BOM / CRLF",
+    "extractedHtmlByteIdentical": true,
+    "externalResources": 0,
+    "naturalFullClearTested": false
+  },
+  "extractedBrowser": {
+    "status": "PASS",
+    "sha256": "082205fae9f90313a2f6dfea667adbc5498da73bd82725b8dc152a2d45c6e93c",
+    "extractedGameStartsOffline": true,
+    "openingStoryAndSkipVerified": true,
+    "chineseFilenameOpened": true,
+    "defaultEasyAndTestInvincibleOff": true,
+    "firstStageResources": {
+      "lives": 3,
+      "bombs": 2,
+      "power": 0
+    },
+    "musicStartsAtBeginning": true,
+    "currentSongPreparedAndUnusedStageNotDecoded": true,
+    "pauseFrozen": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "naturalFullClearTested": false,
+  "uploaded": false
+}

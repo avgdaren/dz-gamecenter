@@ -75,6 +75,6 @@ node tests/danmaku/check-export-stage01.cjs '回放绝对路径.json'
 
 ## 交付和后续
 
-直接双击`E:\GPT工作区\output\danmaku-stage01-bomb-r2-offline.html`；完整包`danmaku-stage01-bomb-r2.zip`解压后打开根目录`START.html`。旧成长r1与人物素材、原图包保留。运行只需浏览器，PHP和Python用于本地验证／可选打包。
+直接双击`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-bomb-r2-offline.html`；完整包`danmaku-stage01-bomb-r2.zip`解压后打开根目录`START.html`。旧成长r1与人物素材、原图包保留。运行只需浏览器，PHP和Python用于本地验证／可选打包。
 
 下一步是第一关正式场景与小怪素材：先固定回廊→观测台的分层、滚动和衔接，再制作并在真实弹幕叠加下检查；少女自机继续沿用。BGM／音效与整体UI优化按既定顺序随后推进。本轮未生成正式场景、小怪图片或音频。真人完整难度、真实手机硬件、线上worker负载和原生下载保存界面未验。

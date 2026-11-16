@@ -6,7 +6,7 @@
 
 后续反馈：用户认为本版移动动作不自然，同意在演出步骤一起修整。现已完成[演出v1](STAGE-01-SHOW-v1.md)，战斗统一为稳定站姿＋连续轻倾，原16帧保留作源素材，不再快速轮播原大幅位移动作。以下为素材v1交付时的原记录。
 
-试玩：`E:\GPT工作区\output\danmaku-stage01-boss-art-v1-offline.html`；精简包：`E:\GPT工作区\output\danmaku-stage01-boss-art-v1.zip`，根目录`START.html`。设置中“首领练习”可直接查看三阶段Boss。已确认的UI版与旧完整制作包继续保留。
+试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-boss-art-v1-offline.html`；精简包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-boss-art-v1.zip`，根目录`START.html`。设置中“首领练习”可直接查看三阶段Boss。已确认的UI版与旧完整制作包继续保留。
 
 ## 素材与来源
 

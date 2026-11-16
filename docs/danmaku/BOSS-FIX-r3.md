@@ -6,7 +6,7 @@
 
 后续：用户已实际试玩并反馈“没问题，已经很完善了”，当前r3继续采用。另制作约11MB的`output/天使弹幕祭-demo-好友试玩-r3.zip`供一位QQ好友在电脑上私下体验；游戏HTML未改，未上传公开网站。以下为r3修正时的实现与技术验证记录。
 
-试玩：`E:\GPT工作区\output\danmaku-stage01-boss-r3-offline.html`；离线包：`E:\GPT工作区\output\danmaku-stage01-boss-r3.zip`。设置中的“首领练习”可直接看Boss。[身体放大与三阶段形态预览](review/BOSS-r3.html)可快速切换三种弹幕；它是不计分的定点预览，不代替实际难度试玩。旧演出版和试玩基线完整保留。
+试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-boss-r3-offline.html`；离线包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-boss-r3.zip`。设置中的“首领练习”可直接看Boss。[身体放大与三阶段形态预览](review/BOSS-r3.html)可快速切换三种弹幕；它是不计分的定点预览，不代替实际难度试玩。旧演出版和试玩基线完整保留。
 
 ## 人物动态
 

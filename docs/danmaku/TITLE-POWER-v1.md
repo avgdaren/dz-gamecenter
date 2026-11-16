@@ -8,7 +8,7 @@
 
 GitHub接手：[Draft PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)，基底`feat/danmaku-normal-v1`，运行内容提交`dd13549`；后续文档沿同一PR补充。尚未合并或部署。
 
-新试玩：`E:\GPT工作区\output\danmaku-stage01-title-power-v1-offline.html`，双击即可；旧 Normal v2 文件与SHA保留。
+新试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-title-power-v1-offline.html`，双击即可；旧 Normal v2 文件与SHA保留。
 
 ## 当前操作流程
 

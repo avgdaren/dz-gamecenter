@@ -6,7 +6,7 @@
 
 用户实际试玩 Normal v1，确认道中差距明显且没问题，反馈 Boss 与 Easy 拉不开差距，同时补充“死后大招应重置”为游戏全局规则。本次保留 Normal v1 的道中攻击、编队与补给，仅重做 Normal Boss 的压力结构，并在所有当前模式接入掉命重置。
 
-试玩：`E:\GPT工作区\output\danmaku-stage01-normal-v2-offline.html`；顶部可选 Normal／Easy，“关卡与练习”可直接进首领。仍一关，命数、判定、移动、HP、火力、音乐、美术和演出时长不改。Normal v1 和已确认 r3 的旧单文件／清单保持原样。
+试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-normal-v2-offline.html`；顶部可选 Normal／Easy，“关卡与练习”可直接进首领。仍一关，命数、判定、移动、HP、火力、音乐、美术和演出时长不改。Normal v1 和已确认 r3 的旧单文件／清单保持原样。
 
 ## Boss 从参数加量改为叠加换位压力
 

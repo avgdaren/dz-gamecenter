@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "version": 11,
+  "artifact": "E:\\GPT工作区\\output\\天使弹幕祭\\当前试玩\\danmaku-campaign-v11-offline.html",
+  "bytes": 49809476,
+  "sha256": "b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee",
+  "baselineSha256": "8ee02c8220c9daa4c6f61c98dd947d660801ad0b7d7faf411b17185947076bf4",
+  "onlyArtifactChanges": "new Stage 1 durability adapter, entry title v11; all other embedded bytes identical",
+  "sourceHashesMatch": true,
+  "logic": {
+    "naturalFullClearTested": false,
+    "before": [
+      32,
+      90,
+      360
+    ],
+    "after": [
+      1,
+      128,
+      450
+    ],
+    "projectileCases": 60,
+    "status": "PASS",
+    "checks": [
+      "all three Stage 1 difficulties use the shared durability and source rules are not mutated",
+      "one weakest projectile collision defeats a light enemy at every power level and weapon kind",
+      "same-frame multiple projectiles award one defeat and one drop; medium and large keep durability",
+      "first-stage attacks and timings match the old implementation with only the approved HP profile applied",
+      "Boss entry, all phase replacements and checkpoint retry retain HP without changing Boss combat",
+      "Easy and every second-stage difficulty keep their previous local snapshots"
+    ]
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee",
+    "file": "E:\\GPT工作区\\dz-gamecenter-handoff\\tmp\\danmaku\\campaign-v11\\candidate\\danmaku-campaign-v11-offline.html",
+    "referenceSha256": "8ee02c8220c9daa4c6f61c98dd947d660801ad0b7d7faf411b17185947076bf4",
+    "nativeFirstStageEntries": true,
+    "projectileCollision": [
+      {
+        "difficulty": "easy",
+        "before": 1,
+        "after": 0,
+        "kills": 1,
+        "drops": 1,
+        "profile": [
+          1,
+          128,
+          450
+        ]
+      },
+      {
+        "difficulty": "normal",
+        "before": 1,
+        "after": 0,
+        "kills": 1,
+        "drops": 1,
+        "profile": [
+          1,
+          128,
+          450
+        ]
+      },
+      {
+        "difficulty": "hard",
+        "before": 1,
+        "after": 0,
+        "kills": 1,
+        "drops": 1,
+        "profile": [
+          1,
+          128,
+          450
+        ]
+      }
+    ],
+    "easyFirstStageSnapshotAndCanvasUnchanged": true,
+    "secondStageSnapshotAndCanvasUnchanged": [
+      "easy",
+      "normal",
+      "hard"
+    ],
+    "externalRequests": 0,
+    "scriptErrors": 0,
+    "maximumFixtureSteps": 300,
+    "naturalFullClearTested": false,
+    "realDeviceTested": false,
+    "screenshots": [
+      "easy-first-stage-mob-fix.png",
+      "normal-first-stage-mob-fix.png",
+      "hard-first-stage-mob-fix.png"
+    ]
+  },
+  "screenshotsInspected": [
+    "normal-first-stage-mob-fix.png",
+    "hard-first-stage-mob-fix.png"
+  ],
+  "naturalFullClearTested": false,
+  "realDeviceTested": false,
+  "humanDifficultyAccepted": false,
+  "onlineDeploymentTested": false,
+  "friendPackageCreated": false
+}

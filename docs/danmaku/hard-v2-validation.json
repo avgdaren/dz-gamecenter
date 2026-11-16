@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "checks": [
+    "eight distinct palettes render all seven silhouettes; every style has an outlined core",
+    "32 phase/assist/music slices with actual weapons, movement and bombs match PHP exactly",
+    "all music sections retain the 360 live limit and every phase uses both variants and multiple kinds",
+    "Hard v1 delivered rules and snapshots are preserved",
+    "test switch protects bullets in all current difficulties and phases, then immediately restores collision",
+    "test switch also prevents enemy body hits; turning it off preserves genuine bomb protection",
+    "ordinary v2 replays work; test flags, altered scores and unknown rule versions fail"
+  ],
+  "caps": [
+    {
+      "index": 0,
+      "assist": false,
+      "peak": 167,
+      "spawned": 12757,
+      "variants": [
+        308,
+        323
+      ]
+    },
+    {
+      "index": 0,
+      "assist": true,
+      "peak": 215,
+      "spawned": 12757,
+      "variants": [
+        308,
+        323
+      ]
+    },
+    {
+      "index": 1,
+      "assist": false,
+      "peak": 116,
+      "spawned": 4661,
+      "variants": [
+        216,
+        227
+      ]
+    },
+    {
+      "index": 1,
+      "assist": true,
+      "peak": 132,
+      "spawned": 4661,
+      "variants": [
+        216,
+        227
+      ]
+    },
+    {
+      "index": 2,
+      "assist": false,
+      "peak": 162,
+      "spawned": 7604,
+      "variants": [
+        206,
+        220
+      ]
+    },
+    {
+      "index": 2,
+      "assist": true,
+      "peak": 204,
+      "spawned": 7604,
+      "variants": [
+        206,
+        220
+      ]
+    }
+  ],
+  "kinds": {
+    "0": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "1": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "2": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ]
+  },
+  "naturalClearRun": false,
+  "browserVerified": false,
+  "uiHarness": "PASS: actual handlers; title, run, pause/resume, test-off, results and fresh run; browserless only"
+}

@@ -17,3 +17,8 @@
 生成源图、实际图像提示词、原生整理脚本与生产清单留在工作区。原始两首MP3保留在`E:\GPT工作区`根目录；运行音频是独立整理副本。旧MIDI／音频版本和历史交付保留，不把已替换的旧BGM列为当前主BGM。
 
 Boss原16帧图集保留，旧主立绘原样用于登场。演出v1使用稳定第0帧与轻倾；[r3修正版](BOSS-FIX-r3.md)进一步将同一原图作为网格纹理，增加发梢、袖口和裙摆局部动态，原大幅移动循环不再播放。图片和音乐文件没有重新生成或改写。
+
+
+## v7 Boss招名字体
+
+标题字体子集Danmaku Spell Serif源自本机Noto Serif SC（© 2017–2023 Adobe），OFL 1.1；静态500字重、52字符。保留版权／完整许可：[OFL](fonts/spell-serif-v7/OFL.txt)，来源和SHA256：[字体审计](fonts/spell-serif-v7/source-audit.json)。官方项目：https://github.com/notofonts/noto-cjk 。改名与裁剪：小典 / Codex；仅Boss标题使用，自机已确认字体保持。

@@ -1,0 +1,205 @@
+{
+  "data": {
+    "garden": {
+      "assets": {
+        "sky": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-8007d4566229fba93841.webp",
+          "$mime": "image/webp"
+        },
+        "paving": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-2e3a7c58034a85bd537c.webp",
+          "$mime": "image/webp"
+        },
+        "rail": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-bb91567c4b9576e08e27.webp",
+          "$mime": "image/webp"
+        },
+        "arch": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-15e681ea8f56c470b4c4.webp",
+          "$mime": "image/webp"
+        },
+        "petal": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-764754e5f7e234176639.png",
+          "$mime": "image/png"
+        },
+        "leaf": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-587449ca0657cb954762.png",
+          "$mime": "image/png"
+        },
+        "bud": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-e4c3563bffe7a427001c.png",
+          "$mime": "image/png"
+        },
+        "fairySource": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-82648bddd2867e9d1d30.png",
+          "$mime": "image/png"
+        },
+        "attendantSource": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-7ffdd206e13011e8acac.png",
+          "$mime": "image/png"
+        },
+        "lingyuSource": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-42585477c5fd418fcfbf.png",
+          "$mime": "image/png"
+        },
+        "fairyActions": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-4e87e063c23c644ce4c9.png",
+          "$mime": "image/png"
+        },
+        "attendantActions": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-0b7a81eb027f4a075eb9.png",
+          "$mime": "image/png"
+        },
+        "lingyuActions": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-7e82c63fd1b2bf42a466.png",
+          "$mime": "image/png"
+        },
+        "player": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-43cb2706d05644e8c073.png",
+          "$mime": "image/png"
+        },
+        "portrait": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-7c554c13a234e8370e76.webp",
+          "$mime": "image/webp"
+        },
+        "enemies": {
+          "$uri": "docs/danmaku/assets-lossless-v1/image-a5228cb5e3894dcff8da.png",
+          "$mime": "image/png"
+        }
+      },
+      "bank": {
+        "v": 1,
+        "entries": {
+          "stage": {
+            "kind": "music",
+            "mime": "audio/mpeg",
+            "loop": false,
+            "seconds": 208.84,
+            "data": {
+              "$base64": "docs/danmaku/audio/stage02-user-v1/stage.mp3"
+            }
+          },
+          "bossCore": {
+            "kind": "music",
+            "mime": "audio/mpeg",
+            "loop": false,
+            "seconds": 223.35,
+            "data": {
+              "$base64": "docs/danmaku/audio/stage02-user-v1/boss.mp3"
+            }
+          }
+        }
+      },
+      "rules": {
+        "$json": "source/plugin/gamecenter/games/_danmaku_proto/rules.json"
+      },
+      "chart": {
+        "$json": "source/plugin/gamecenter/games/_danmaku_stage02_draft/chart.json"
+      },
+      "gardenLayout": {
+        "rail": [
+          50,
+          205,
+          1486,
+          767
+        ],
+        "arch": [
+          83,
+          38,
+          1169,
+          1216
+        ]
+      },
+      "spriteLayout": {
+        "fairySource": [
+          326,
+          208,
+          924,
+          968
+        ],
+        "attendantSource": [
+          245,
+          232,
+          754,
+          1202
+        ],
+        "lingyuSource": [
+          178,
+          195,
+          791,
+          1230
+        ]
+      },
+      "materialLayout": {
+        "petal": [
+          202,
+          178,
+          1037,
+          1079
+        ],
+        "leaf": [
+          384,
+          135,
+          845,
+          1119
+        ],
+        "bud": [
+          181,
+          144,
+          1068,
+          1068
+        ]
+      }
+    },
+    "firstAssets": {
+      "player": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-43cb2706d05644e8c073.png",
+        "$mime": "image/png"
+      },
+      "title": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-a51ac554f8f9841f783c.webp",
+        "$mime": "image/webp"
+      },
+      "portrait": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-1f90f60c204a06915d23.webp",
+        "$mime": "image/webp"
+      },
+      "corridor": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-86bc5cbd040b29d0b547.webp",
+        "$mime": "image/webp"
+      },
+      "fairy": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-da250c6cd15f83442af7.png",
+        "$mime": "image/png"
+      },
+      "attendant": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-9ddda72d0e33064c4821.png",
+        "$mime": "image/png"
+      },
+      "guardian": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-f6e6bd7b183a5943b1e8.png",
+        "$mime": "image/png"
+      },
+      "body": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-d445ca43990e075c6b32.png",
+        "$mime": "image/png"
+      },
+      "back": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-6a02d02f6cfcacb71f3a.png",
+        "$mime": "image/png"
+      },
+      "front": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-952582341dee1639fd2e.png",
+        "$mime": "image/png"
+      },
+      "face": {
+        "$uri": "docs/danmaku/assets-lossless-v1/image-d48bef817c9976446597.png",
+        "$mime": "image/png"
+      }
+    }
+  },
+  "projectileAtlas": {
+    "$uri": "source/plugin/gamecenter/games/_danmaku_proto/assets/projectile-atlas-v1.png",
+    "$mime": "image/png"
+  }
+}

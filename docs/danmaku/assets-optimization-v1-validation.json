@@ -1,0 +1,78 @@
+{
+  "browser": {
+    "status": "PASS",
+    "baselineTitle": {
+      "bytes": 14846740,
+      "elapsedMs": 115.90000003576279
+    },
+    "optimizedTitle": {
+      "bytes": 4315853,
+      "elapsedMs": 75.5
+    },
+    "coldTransferReduction": 0.7093063527750874,
+    "firstNativeSoundReadyMs": 529,
+    "warmNormalSoundReadyMs": 218,
+    "warmSwitchNewAssetRequests": 0,
+    "warmSwitchStaticBytes": 22630,
+    "startOnlyDecodesCurrentBgm": true,
+    "originalMp3BytesKept": true,
+    "twoStageCombatSnapshotsMatchV8": true,
+    "renderDeltas": [
+      {
+        "max": 1,
+        "count": 147408
+      },
+      {
+        "max": 2,
+        "count": 86562
+      }
+    ],
+    "originalImageRgbaExactlyPreserved": true,
+    "unusedSecondStageAudioNotDecoded": true,
+    "handoffPreparedMusicStartsAndOldStageDisposed": true,
+    "secondStageBossPrefetchDoesNotInterruptStageMusic": true,
+    "noConsoleErrors": true,
+    "noHttp404": true,
+    "cacheHeadersTestedOnLocalServer": true,
+    "onlineDeploymentTested": false,
+    "naturalFullClearTested": false
+  },
+  "audioLogic": {
+    "status": "PASS",
+    "checks": [
+      "startup only decodes selected song; switching or resuming reuses prepared buffers",
+      "shared entry/sample-rate deduplication and explicit disposal",
+      "SFX-only setting never decodes BGM",
+      "second stage unlock does not load its bank until needed",
+      "original-byte URL fetch is cached across bank objects",
+      "disposed late decode cannot resurrect the previous stage",
+      "decode failures settle and preserve playable silent fallback",
+      "music clock, event policy, mixing and loop semantics reuse original code"
+    ]
+  },
+  "structural": {
+    "status": "PASS",
+    "imageCount": 29,
+    "allFinalImageRgbaMatchesOriginal": true,
+    "pngSamplingPreservedCount": 19,
+    "imageSourceBytes": 25508598,
+    "imageOptimizedBytes": 19732379,
+    "allForumJavaScriptSyntax": true,
+    "forumBaselineStillUnmodified": true,
+    "gameJsonContractAndVerifyPhpUnchanged": true,
+    "combatAndReplayCodeUnchanged": true,
+    "forumFileCount": 57,
+    "forumBytes": 11276848
+  },
+  "currentHtmlSha256": "082205fae9f90313a2f6dfea667adbc5498da73bd82725b8dc152a2d45c6e93c",
+  "currentHtmlBytes": 47666849,
+  "finalFiles": {
+    "status": "PASS",
+    "v9AndV8RollbackHashesMatch": true,
+    "retainedSpecialAndPeerFilesUnchanged": true,
+    "embeddedMusicAndAllNonImageGameDataMatchV8": true,
+    "forumSourceUnmodifiedAndPayloadHashesMatch": true,
+    "newPeerZipCreated": false,
+    "onlineDeployed": false
+  }
+}

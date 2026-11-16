@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-16",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-campaign-easy-v5-offline.html",
+    "bytes": 53918783,
+    "sha256": "8d0977ab68d59d2f111c5173cdd953f7098f5162b2bdc255a400c55696236fc8"
+  },
+  "rule": "danmaku-campaign-easy-v5",
+  "presentationRevision": 5,
+  "logic": {
+    "rebalancedWidthCases": 38,
+    "status": "PASS",
+    "checks": [
+      "authored text preserved, two-line measured pages and orphan endings balanced",
+      "post-fight dialogue, 100-step prayer, second opening; frozen reading and exact resource inheritance",
+      "story-off keeps a single original handoff and practice adds no prayer gate",
+      "both stages retain bomb stock, damage, clearing, protection and cooldown; view is read only"
+    ],
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "8d0977ab68d59d2f111c5173cdd953f7098f5162b2bdc255a400c55696236fc8",
+    "prayerCardAndRealStoryOrderVerified": true,
+    "prayerPauseFrozen": true,
+    "bothBombEffectsAndReducedMotionChecked": true,
+    "bombPreviewStopsAt89": true,
+    "originalDialogueFullyReadAtThreeWidths": [
+      {
+        "width": 1200,
+        "id": "s1-open",
+        "pages": 2
+      },
+      {
+        "width": 1200,
+        "id": "s1-before",
+        "pages": 5
+      },
+      {
+        "width": 1200,
+        "id": "s1-after",
+        "pages": 6
+      },
+      {
+        "width": 1200,
+        "id": "s2-open",
+        "pages": 2
+      },
+      {
+        "width": 1200,
+        "id": "s2-before",
+        "pages": 6
+      },
+      {
+        "width": 1200,
+        "id": "s2-after",
+        "pages": 9
+      },
+      {
+        "width": 390,
+        "id": "s1-open",
+        "pages": 3
+      },
+      {
+        "width": 390,
+        "id": "s1-before",
+        "pages": 7
+      },
+      {
+        "width": 390,
+        "id": "s1-after",
+        "pages": 6
+      },
+      {
+        "width": 390,
+        "id": "s2-open",
+        "pages": 3
+      },
+      {
+        "width": 390,
+        "id": "s2-before",
+        "pages": 8
+      },
+      {
+        "width": 390,
+        "id": "s2-after",
+        "pages": 9
+      },
+      {
+        "width": 320,
+        "id": "s1-open",
+        "pages": 3
+      },
+      {
+        "width": 320,
+        "id": "s1-before",
+        "pages": 8
+      },
+      {
+        "width": 320,
+        "id": "s1-after",
+        "pages": 7
+      },
+      {
+        "width": 320,
+        "id": "s2-open",
+        "pages": 3
+      },
+      {
+        "width": 320,
+        "id": "s2-before",
+        "pages": 10
+      },
+      {
+        "width": 320,
+        "id": "s2-after",
+        "pages": 10
+      }
+    ],
+    "dialoguePagesChecked": 107,
+    "orphanPagesRebalanced": 12,
+    "actualFontLinesFit": true,
+    "simulated320And390pxNoOverflow": true,
+    "bossActiveAndAllFourPhasePeakPixelsMatchV4": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "classifiedPathSmoke": {
+    "status": "PASS",
+    "sha256": "8d0977ab68d59d2f111c5173cdd953f7098f5162b2bdc255a400c55696236fc8",
+    "classifiedChinesePathOpenedOffline": true,
+    "storyOpeningSkipAndPause": true,
+    "initialResourcesCorrect": true,
+    "stageMusicStarted": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "sourceHashesMatched": 47,
+  "protectedOldFiles": {
+    "count": 350,
+    "unchangedAfterRelocation": true
+  },
+  "screenshotsInspected": [
+    "prayer-card.png",
+    "bomb-stage1-3.png",
+    "bomb-stage1-15.png",
+    "bomb-stage2-45.png",
+    "bomb-reduced.png",
+    "dialogue-balanced-mobile.png",
+    "prayer-mobile.png"
+  ],
+  "combatRulesChanged": false,
+  "storyWordingChanged": false,
+  "storyGateOrderChanged": true,
+  "newArtOrMusicGenerated": false,
+  "newPeerZipCreated": false,
+  "naturalFullClearTested": false,
+  "humanNewPresentationAccepted": false,
+  "realMobileOrLongRunPerformanceTested": false,
+  "uploadedOrDeployed": false,
+  "workspaceMaintenance": "E:/GPT工作区/.workspace-maintenance/2026-11-16/cleanup-result.json"
+}

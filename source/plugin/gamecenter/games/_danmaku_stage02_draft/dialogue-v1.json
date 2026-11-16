@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "status": "implemented-draft-awaiting-user-feedback",
+  "prologue": [
+    {"speaker":"小天使","text":"风向全乱了……连这里也被晨星的事波及了吗？"},
+    {"speaker":"小天使","text":"前辈，如果你经过这里，总会留下点什么。"}
+  ],
+  "bossTalk": [
+    {"speaker":"铃羽","text":"站住。前面的风路，正留给还没离开的人。"},
+    {"speaker":"小天使","text":"我在找带走晨星的那位天使。她来过这里，对不对？"},
+    {"speaker":"铃羽","text":"你只想着追上她？花庭现在这副样子，可不会替你让路。"},
+    {"speaker":"小天使","text":"……我不会把这里的人丢下。但我也不能一直等。"},
+    {"speaker":"铃羽","text":"那就看清风往哪里走。别只盯着你想去的方向。"}
+  ],
+  "epilogue": [
+    {"speaker":"铃羽","text":"风稳下来了。她离开时，转向了那条停用的旧航路。"},
+    {"speaker":"小天使","text":"我会追上她。沿路的人，我也会看着的。"},
+    {"speaker":"铃羽","text":"记住这句话。你要找的人，未必只需要你替她辩解。"},
+    {"speaker":"小天使","text":"嗯。这一次，我想亲自听她说。"}
+  ]
+}

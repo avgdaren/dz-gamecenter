@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "stage": 2,
+  "setting": "风铃花庭",
+  "boss": "司风天使·铃羽",
+  "created": "2026-11-13",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "conceptDirectionApproved": true,
+  "specificImageApproved": false,
+  "status": "concept-art-awaiting-visual-feedback",
+  "assetType": "character-and-environment-direction-board",
+  "tool": "image_gen.imagegen (built-in)",
+  "generationFile": "exec-3156a0ac-71db-4334-a88a-f4870ef3088f.png",
+  "inputImages": [],
+  "image": {
+    "file": "stage02-direction-v1.png",
+    "bytes": 2760961,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "sha256": "0633d1e1325dd419ccc50dfb73defa3daf19c9d1e008207989c02009fb9eded0",
+    "generatedPixelsPreserved": true
+  },
+  "runtimeIntegrated": false,
+  "musicProduced": false,
+  "bulletPatternsDesigned": false,
+  "firstStageRuntimeFilesUnchanged": 52,
+  "checks": {
+    "pngStructureCrcAndDeflate": "PASS",
+    "outputByteCopy": "PASS",
+    "visualInspection": "PASS — full character, same-character face, staff detail, garden mood and Chinese labels present; game readability not tested",
+    "runtimeProtection": "PASS"
+  }
+}

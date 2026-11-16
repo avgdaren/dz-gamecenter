@@ -1,0 +1,83 @@
+{
+  "fairyActions": {
+    "file": "garden-fairy-actions-v2.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 982586,
+    "sha256": "05dbf3beab7be4b4a55cb06c38c506f410e20a9f6248e517ab3fc17e7e6eef94",
+    "colorType": 6,
+    "transparentPixels": 1055628,
+    "partialAlphaPixels": 514868,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      130,
+      22,
+      1089,
+      1211
+    ],
+    "generatedPixelsPreserved": true
+  },
+  "attendantActions": {
+    "file": "bell-attendant-actions-v2.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 1181364,
+    "sha256": "2f1c91069a585717e0c08f69b8f07e658671a2858cc4271a81860c33f9235709",
+    "colorType": 6,
+    "transparentPixels": 961503,
+    "partialAlphaPixels": 609189,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      43,
+      10,
+      1153,
+      1242
+    ],
+    "generatedPixelsPreserved": true
+  },
+  "lingyuActions": {
+    "file": "lingyu-actions-v2.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 1397675,
+    "sha256": "2d53dccb08f9d7afc24e952292311abd845708cbe439adfe0d4bb71b2370052e",
+    "colorType": 6,
+    "transparentPixels": 934514,
+    "partialAlphaPixels": 636913,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      29,
+      15,
+      1144,
+      1231
+    ],
+    "generatedPixelsPreserved": true
+  }
+}

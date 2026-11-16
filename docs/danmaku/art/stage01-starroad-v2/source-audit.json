@@ -1,0 +1,12 @@
+{
+  "file": "stage01-starroad-source-v2.png",
+  "width": 724,
+  "height": 2172,
+  "mode": "RGB",
+  "sha256": "b947e39bbb9cb5b1de07658fcd4fa2d50d0c57dd9f88a2cf7b66b36727673992",
+  "generator": "image_gen.imagegen",
+  "operation": "edit",
+  "reference": "source/plugin/gamecenter/games/_danmaku_proto/assets/stage01-corridor-v1.png",
+  "originalBytesPreserved": true,
+  "runtimeResizeOnly": true
+}

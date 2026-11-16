@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "file": "Boss符卡演出短样.html",
+  "sha256": "9dc2f43f70b3f7e380921c16c92d7e1ba0b43106bf4ca4ec555bc85b702a47f3",
+  "bytes": 12130117,
+  "defaultPausedAtPeak": true,
+  "bothThemesAndSixSpellNames": true,
+  "introFits120Frames": true,
+  "portraitAndBandsGoneBy120": true,
+  "titleRemainsAfter120": true,
+  "transportPauseStepScrubReplayEnd": true,
+  "playbackFramesPer400ms": {
+    "1": 24.996000000000024,
+    "0.5": 12.002999999999984,
+    "0.25": 6.250499999999997
+  },
+  "blurEventPauses": true,
+  "pausePixelsFrozen": true,
+  "repeatedRenderingDeterministic": true,
+  "reducedMotion": true,
+  "widthsChecked": [
+    390,
+    320
+  ],
+  "embeddedFontLoadedOffline": true,
+  "externalRequests": 0,
+  "consoleErrors": 0,
+  "currentGameAndAcceptedBombSourcesUnchanged": true,
+  "battleIntegrated": false,
+  "realFullStageTested": false,
+  "snapshots": {
+    "observer": [
+      {
+        "frame": 12,
+        "sha256": "49a554aafd9325e016bad66b6514f248dbb65ba0ab63743b4f564990c5fb7d95"
+      },
+      {
+        "frame": 30,
+        "sha256": "b49299ea577d89fe9b632630f1c9dcf5537a4dd59d03c268ab683432e5a97a11"
+      },
+      {
+        "frame": 62,
+        "sha256": "77cf5b4bf07488e2b4e95bd5b945b4fa5614d8617f85bcd32c12162e62ed1a47"
+      },
+      {
+        "frame": 100,
+        "sha256": "0289105de76558d21759029047a81784adc58d6a8efd910006e56d708bbb013d"
+      },
+      {
+        "frame": 120,
+        "sha256": "7ef16656a38bfbd2f2778a982c01cfac9f552f79a8f5f14bbee92980bcba8c71"
+      },
+      {
+        "frame": 150,
+        "sha256": "1caf6f41a24ede7b75e17a91e39f5524714f0221cc1e05f355c195af6f08f5b5"
+      },
+      {
+        "frame": 240,
+        "sha256": "48d9e6d42547ea876781167f8f4561f42967516fe0fe050c3e95d9cfe3f63fd0"
+      }
+    ],
+    "lingyu": [
+      {
+        "frame": 12,
+        "sha256": "3c435d1595395dd54bb783d8202d147195c8e47706325cde99dd70f134f2874d"
+      },
+      {
+        "frame": 30,
+        "sha256": "7700b9b739b9385dfe1b5177b3f6a6d49975b479805ee03b981b14a5d8edd67e"
+      },
+      {
+        "frame": 62,
+        "sha256": "ade6806074e2184e6bb907598b8cbfcc9aaa981371e2260121fc3662d0e5c0a9"
+      },
+      {
+        "frame": 100,
+        "sha256": "11192279486905409fd023fe16100bcc6029f307408f95592f2ee7e7b5da3664"
+      },
+      {
+        "frame": 120,
+        "sha256": "2556d67c8927c2a4d472529a981d87504e1b182a2815d31e7d5f36131c22ebce"
+      },
+      {
+        "frame": 150,
+        "sha256": "3d41edb7916a47afc66ce9615a6895fab9231c5479eac8716367d17ad39dc66f"
+      },
+      {
+        "frame": 240,
+        "sha256": "f86bb455fcb120befc8a0401d2e7108cd41268c3e75689995487a9114ace851e"
+      }
+    ]
+  },
+  "protectedInputs": {
+    "../output/天使弹幕祭/当前试玩/danmaku-campaign-easy-v7-offline.html": "9ec0d3a08535be7387d363611a2739baa68aa83afa44cc5be137cb4ebc801758",
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/notice-frames-v7.js": "fbfb989f900e3773362061249e02cbb81a9cb111da0873afa65be2477b83f3f7",
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/bomb-view-v6.js": "0d4d5e4bc3a279e780453329e82c5198a3654b987b9892427d1062a79744b508"
+  }
+}

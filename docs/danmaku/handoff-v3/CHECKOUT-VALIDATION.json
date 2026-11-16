@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "date": "2026-11-16",
+  "portableCheckout": true,
+  "copiedManifestDependencies": 94,
+  "dependencyFiles": 97,
+  "requiresLocalHistoricalOutput": false,
+  "requiresLocalForum": false,
+  "requiresNpm": false,
+  "requiresFontTools": false,
+  "rebuiltBytes": 49809476,
+  "rebuiltSha256": "b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee",
+  "runtimeModuleCount": 53,
+  "logicChecks": 19,
+  "weakestProjectileCases": 60,
+  "syntax": {
+    "js": 224,
+    "json": 111,
+    "python": 82,
+    "php": 28
+  },
+  "commands": [
+    {
+      "command": "C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python312\\python.exe tests/danmaku/package_handoff_v3.py",
+      "status": "PASS",
+      "lastLine": "{\"status\": \"PASS\", \"filesVerified\": 94, \"bytes\": 49809476, \"sha256\": \"b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee\", \"file\": \"E:\\\\GPT������\\\\dz-gamecenter-handoff\\\\tmp\\\\danmaku\\\\handoff-v3\\\\portable-check\\\\tmp\\\\danmaku\\\\handoff-v3\\\\rebuilt\\\\danmaku-campaign-v11-offline.html\"}"
+    },
+    {
+      "command": "node tests/danmaku/test-campaign-difficulties-v10.cjs",
+      "status": "PASS",
+      "lastLine": "{\"status\":\"PASS\",\"checks\":13,\"emissionScans\":[{\"difficulty\":\"normal\",\"part\":\"mobs\",\"ticks\":5760,\"spawned\":934,\"peak\":133,\"mobPeak\":22,\"cap\":256},{\"difficulty\":\"normal\",\"part\":\"boss\",\"phase\":1,\"ticks\":13401,\"spawned\":4115,\"peak\":95,\"postCullPeak\":95,\"cap\":360,\"phaseBudget\":4200,\"maxPhaseBirths\":1351,\"phaseSpawnCap\":4096},{\"difficulty\":\"normal\",\"part\":\"boss\",\"phase\":2,\"ticks\":13401,\"spawned\":5831,\"peak\":91,\"postCullPeak\":91,\"cap\":360,\"phaseBudget\":4200,\"maxPhaseBirths\":1937,\"phaseSpawnCap\":4096},{\"difficulty\":\"normal\",\"part\":\"boss\",\"phase\":3,\"ticks\":13401,\"spawned\":2740,\"peak\":59,\"postCullPeak\":59,\"cap\":360,\"phaseBudget\":4200,\"maxPhaseBirths\":896,\"phaseSpawnCap\":4096},{\"difficulty\":\"hard\",\"part\":\"mobs\",\"ticks\":5760,\"spawned\":1094,\"peak\":174,\"mobPeak\":22,\"cap\":320},{\"difficulty\":\"hard\",\"part\":\"boss\",\"phase\":1,\"ticks\":13401,\"spawned\":2966,\"peak\":68,\"postCullPeak\":68,\"cap\":360,\"phaseBudget\":4200,\"maxPhaseBirths\":1006,\"phaseSpawnCap\":4096},{\"difficulty\":\"hard\",\"part\":\"boss\",\"phase\":2,\"ticks\":13401,\"spawned\":3440,\"peak\":74,\"postCullPeak\":73,\"cap\":360,\"phaseBudget\":4200,\"maxPhaseBirths\":1205,\"phaseSpawnCap\":4096},{\"difficulty\":\"hard\",\"part\":\"boss\",\"phase\":3,\"ticks\":13401,\"spawned\":2278,\"peak\":72,\"postCullPeak\":72,\"cap\":360,\"phaseBudget\":4200,\"maxPhaseBirths\":783,\"phaseSpawnCap\":4096}],\"naturalFullClearTested\":false}"
+    },
+    {
+      "command": "node tests/danmaku/test-campaign-mob-fix-v11.cjs",
+      "status": "PASS",
+      "lastLine": "{\"status\":\"PASS\",\"checks\":6,\"projectileCases\":60,\"naturalFullClearTested\":false}"
+    }
+  ],
+  "naturalFullClearTested": false,
+  "realDeviceTested": false,
+  "forumHttpTested": false,
+  "serverCampaignReplaySupported": false,
+  "databaseMigration": false,
+  "onlineDeployed": false
+}

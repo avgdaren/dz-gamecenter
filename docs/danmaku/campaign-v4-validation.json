@@ -1,0 +1,143 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-campaign-easy-v4-offline.html",
+    "bytes": 53908021,
+    "sha256": "5e44d8f38c84a6bae09d78f824314ca4a8446be3821f6bde1a42d796bcf5d584"
+  },
+  "rule": "danmaku-campaign-easy-v3",
+  "presentationRevision": 4,
+  "logic": {
+    "beats": [
+      {
+        "tick": 10,
+        "sequence": "收招",
+        "charge": 0,
+        "cutIn": 0,
+        "release": 0
+      },
+      {
+        "tick": 35,
+        "sequence": "蓄势",
+        "charge": 0.5878282108691227,
+        "cutIn": 0,
+        "release": 0
+      },
+      {
+        "tick": 65,
+        "sequence": "宣告",
+        "charge": 1,
+        "cutIn": 1,
+        "release": 0
+      },
+      {
+        "tick": 105,
+        "sequence": "释放",
+        "charge": 0.68359375,
+        "cutIn": 0.3005259203606311,
+        "release": 1
+      }
+    ],
+    "status": "PASS",
+    "checks": [
+      "all transition frames retain a visible Boss and bounded deterministic four-beat values",
+      "casting, portrait declaration and release occupy distinct parts of the existing window",
+      "opening, active, ending and final clear models remain exactly equal",
+      "render models never change actual resources, checkpoints, damage or transition duration"
+    ],
+    "gameplayRulesChanged": false,
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "5e44d8f38c84a6bae09d78f824314ca4a8446be3821f6bde1a42d796bcf5d584",
+    "fourTransitionsFourBeatsRendered": true,
+    "lingyuUsesExistingCastingPose": true,
+    "bossVisibleThroughout": true,
+    "portraitAndNextSpellDeclaration": true,
+    "previewStopsBeforeCombat": true,
+    "previewBlurFreezes": true,
+    "transitionPauseAndResumeFrozen": true,
+    "lowerFieldAndPlayerPixelsMatchV3AtAllFourPeaks": true,
+    "reducedMotionChecked": true,
+    "storyOpeningAndSkipPreserved": true,
+    "bossActiveCanvasMatchesStoryV3": true,
+    "simulated390pxNoOverflow": true,
+    "renderFixtureSamples": 16,
+    "renderFixtureP95Ms": 7.199999988079071,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "peerPackage": {
+    "status": "PASS",
+    "file": "天使弹幕祭-demo-两关Easy-网友试玩-v4.zip",
+    "zipBytes": 39885139,
+    "zipSha256": "4a886040f4f79a61cd8436fb6f9b162891f3ccad127d743d1ad914a6069543b5",
+    "files": [
+      "开始游戏.html",
+      "试玩说明.txt",
+      "试玩反馈模板.txt",
+      "版本说明.txt",
+      "FRIEND-DEMO-MANIFEST.json"
+    ],
+    "gameBytes": 53908021,
+    "gameSha256": "5e44d8f38c84a6bae09d78f824314ca4a8446be3821f6bde1a42d796bcf5d584",
+    "gameMatchesDeliveredCampaignV4": true,
+    "sourceHashesMatched": 44,
+    "zipCrcVerified": true,
+    "utf8FilenamesVerified": true,
+    "textEncoding": "UTF-8 BOM / CRLF",
+    "extractedHtmlByteIdentical": true,
+    "externalResources": 0,
+    "naturalFullClearTested": false
+  },
+  "unpackedSmoke": {
+    "status": "PASS",
+    "sha256": "5e44d8f38c84a6bae09d78f824314ca4a8446be3821f6bde1a42d796bcf5d584",
+    "extractedGameStartsOffline": true,
+    "openingStoryAndSkipVerified": true,
+    "chineseFilenameOpened": true,
+    "defaultEasyAndTestInvincibleOff": true,
+    "firstStageResources": {
+      "lives": 3,
+      "bombs": 2,
+      "power": 0
+    },
+    "musicStartsAtBeginning": true,
+    "bothSoundBanksDecoded": true,
+    "pauseFrozen": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "screenshotsInspected": [
+    "declaration-stage1-phase1.png",
+    "declaration-stage1-phase2.png",
+    "declaration-stage2-phase1.png",
+    "declaration-stage2-phase2.png",
+    "sequence-stage1-phase1.png",
+    "sequence-stage1-phase2.png",
+    "sequence-stage2-phase1.png",
+    "sequence-stage2-phase2.png",
+    "reduced-motion-declaration.png",
+    "declaration-mobile.png"
+  ],
+  "protectedOldFiles": {
+    "count": 301,
+    "unchanged": true
+  },
+  "sourceHashesMatched": 44,
+  "combatBaseline": "campaign-easy-v2",
+  "storyBaseline": "campaign-easy-v3",
+  "gameplayRulesChanged": false,
+  "storyChanged": false,
+  "newArtOrMusic": false,
+  "naturalFullClearTested": false,
+  "humanNewPresentationAccepted": false,
+  "allActualPlayerPositionsCompared": false,
+  "realMobileOrLongRunPerformanceTested": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

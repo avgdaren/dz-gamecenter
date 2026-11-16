@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "tool": "image_gen.imagegen (built-in)",
+  "status": "independent-art-and-preview-awaiting-visual-feedback",
+  "promptFile": "PROMPTS.md",
+  "references": {
+    "board": "../stage02-direction-v1/stage02-direction-v1.png",
+    "pixelStyle": "first-stage boss-body-atlas-v1.png; style only",
+    "backgroundLayout": "first-stage stage01-corridor-v1.png; layout only"
+  },
+  "assets": {
+    "portrait": {
+      "file": "lingyu-portrait-v1.png",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "bytes": 2169285,
+      "sha256": "fc5364259893baac8f4186bb8fb0a58442fc4b8c08643bc623a7e36909e4714d",
+      "colorType": 6,
+      "transparentPixels": 899246,
+      "partialAlphaPixels": 673618,
+      "alphaMin": 0,
+      "alphaMax": 254,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "visibleBoundsAlpha128": [
+        50,
+        30,
+        989,
+        1515
+      ],
+      "generatedPixelsPreserved": true,
+      "generationFile": "exec-de921daa-58b7-4936-9892-b108e3cdc782.png"
+    },
+    "battle": {
+      "file": "lingyu-battle-source-v1.png",
+      "dimensions": [
+        1049,
+        1499
+      ],
+      "bytes": 1286186,
+      "sha256": "76478d5463fcd38f7a9eaeda2e83bafdf2582638f859493f10558a6822214989",
+      "colorType": 6,
+      "transparentPixels": 871622,
+      "partialAlphaPixels": 699386,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "cornerAlpha": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "visibleBoundsAlpha128": [
+        34,
+        63,
+        963,
+        1433
+      ],
+      "generatedPixelsPreserved": true,
+      "generationFile": "exec-1115e553-4d8d-489d-88e1-ffe0bdf20480.png"
+    },
+    "garden": {
+      "file": "garden-scroll-source-v1.png",
+      "dimensions": [
+        724,
+        2172
+      ],
+      "bytes": 2134949,
+      "sha256": "c3ece8d6b33da304f270988550186c48cc7271476eec61276a5c0c94148c1158",
+      "colorType": 2,
+      "transparentPixels": 0,
+      "partialAlphaPixels": 0,
+      "alphaMin": 255,
+      "alphaMax": 255,
+      "cornerAlpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "visibleBoundsAlpha128": [
+        0,
+        0,
+        723,
+        2171
+      ],
+      "generatedPixelsPreserved": true,
+      "generationFile": "exec-d8add01f-bb3e-4dfd-a101-e0d3b7b1e0bc.png"
+    }
+  },
+  "generatedPixelsPreserved": true,
+  "nativeBattleAtlasProduced": false,
+  "firstStageRuntimeChanged": false,
+  "sourceCredit": "Original image generation, existing project references only"
+}

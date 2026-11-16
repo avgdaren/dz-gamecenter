@@ -10,7 +10,7 @@ GitHub 保存为 [Draft PR #77](https://github.com/avgdaren/dz-gamecenter/pull/7
 
 ## 试玩
 
-双击 `E:\GPT工作区\output\danmaku-stage01-normal-v1-offline.html`。顶部默认 **Normal · 进阶**，开局前可切回 **Easy · 初阶**，同一页面直接比较。开始／暂停／继续期间难度锁定，重新开局再切换；辅助练习独立保留。三种基础弹型练习沿用原规则，不假装已经升级为 Normal。
+双击 `E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-normal-v1-offline.html`。顶部默认 **Normal · 进阶**，开局前可切回 **Easy · 初阶**，同一页面直接比较。开始／暂停／继续期间难度锁定，重新开局再切换；辅助练习独立保留。三种基础弹型练习沿用原规则，不假装已经升级为 Normal。
 
 “关卡与练习”里的首领练习可以跳过道中，选择的难度同样生效。完整一关沿用 P/B 成长与大招，首领练习沿用原固定火力／清屏机制。判定点、移动、3 条命／2 枚大招、Boss HP、计分公式、72 秒道中与三阶段时长、音乐、美术和演出保持原值。
 
