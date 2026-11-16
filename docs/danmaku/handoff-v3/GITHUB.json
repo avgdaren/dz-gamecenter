@@ -6,8 +6,8 @@
   "branch": "feat/issue-80-danmaku-campaign-v11",
   "base": "feat/danmaku-title-power-v1",
   "baseCommit": "27b6500baf4071e2c4de72093d369efaf2006655",
-  "pullRequest": null,
-  "runtimeCommit": null,
+  "pullRequest": "https://github.com/avgdaren/dz-gamecenter/pull/81",
+  "runtimeCommit": "933694d66c2957bd9f2b5eabc7c9b2e435dfd5d0",
   "acceptedHtmlSha256": "b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee",
   "runtimeManifest": "RUNTIME-MANIFEST.json",
   "handoffGuide": "XIAOLAN-HANDOFF.md",
@@ -16,5 +16,8 @@
   "merged": false,
   "forumInstalled": false,
   "onlineDeployed": false,
-  "databaseUpgrade": false
+  "databaseUpgrade": false,
+  "draft": true,
+  "pushed": true,
+  "status": "github-handoff-delivered"
 }

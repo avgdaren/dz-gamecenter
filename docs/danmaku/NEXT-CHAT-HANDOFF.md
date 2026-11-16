@@ -2,7 +2,7 @@
 
 ## 用户验收与小蓝交接（2026-11-16）
 
-用户实际试玩当前v11后明确：“我试玩结束了，没什么问题，可以像之前那样交接给小蓝了”。现按既有GitHub流程整理独立Issue／分支／PR，接手入口为[handoff-v3/XIAOLAN-HANDOFF.md](handoff-v3/XIAOLAN-HANDOFF.md)，GitHub状态见[GITHUB.json](handoff-v3/GITHUB.json)。[用户反馈记录](handoff-v3/USER-ACCEPTANCE.json)与[完整checkout验证](handoff-v3/CHECKOUT-VALIDATION.json)分开保存，不把用户反馈推断为所有路线、真实手机或服务器已验收。
+用户实际试玩当前v11后明确：“我试玩结束了，没什么问题，可以像之前那样交接给小蓝了”。已按既有GitHub流程推送独立分支并建立[Draft PR #81](https://github.com/avgdaren/dz-gamecenter/pull/81)（Issue #80，运行提交933694d），接手入口为[handoff-v3/XIAOLAN-HANDOFF.md](handoff-v3/XIAOLAN-HANDOFF.md)，GitHub状态见[GITHUB.json](handoff-v3/GITHUB.json)。[用户反馈记录](handoff-v3/USER-ACCEPTANCE.json)与[完整checkout验证](handoff-v3/CHECKOUT-VALIDATION.json)分开保存，不把用户反馈推断为所有路线、真实手机或服务器已验收。
 
 94份依赖、53模块可从源码独立重建用户确认的v11，SHA仍为`b2a7a0...366d5ee`。19组Node／60个命中夹具、224JS／111JSON／82Python／28PHP语法通过。两关PHP回放／正式榜单仍未适配，小蓝负责论坛及线上包；小典本次不改站点／数据库、不合并、不部署。以下未推送等状态为先前制作时记录，以交接目录中的最新GitHub记录为准。
 

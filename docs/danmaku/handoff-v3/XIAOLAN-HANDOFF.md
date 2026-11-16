@@ -4,7 +4,7 @@
 
 avg达人已实际试玩当前v11，反馈“我试玩结束了，没什么问题，可以像之前那样交接给小蓝了”。本次沿用 **小典备齐源码与素材 → GitHub交接 → 小蓝负责论坛适配、本地验收与线上包**。本页取代handoff-v1／v2的当前内容说明；不代表两关已经接入论坛或榜单。
 
-对应[Issue #80](https://github.com/avgdaren/dz-gamecenter/issues/80)，分支`feat/issue-80-danmaku-campaign-v11`，基底`feat/danmaku-title-power-v1`（旧交接PR #79）。PR及固定运行提交见[GITHUB.json](GITHUB.json)。只移植本游戏与必要适配资料，平台以你维护的现行代码为准，不整分支覆盖gamecenter或旧`danmaku`。
+GitHub交接：[Draft PR #81](https://github.com/avgdaren/dz-gamecenter/pull/81)，运行内容固定提交`933694d66c2957bd9f2b5eabc7c9b2e435dfd5d0`。对应[Issue #80](https://github.com/avgdaren/dz-gamecenter/issues/80)，分支`feat/issue-80-danmaku-campaign-v11`，基底`feat/danmaku-title-power-v1`（旧交接PR #79）。PR及固定运行提交见[GITHUB.json](GITHUB.json)。只移植本游戏与必要适配资料，平台以你维护的现行代码为准，不整分支覆盖gamecenter或旧`danmaku`。
 
 ## 先核对这份成品
 
