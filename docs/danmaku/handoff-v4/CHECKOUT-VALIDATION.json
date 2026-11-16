@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "date": "2026-11-16",
+  "portableCheckout": true,
+  "copiedManifestDependencies": 100,
+  "dependencyFiles": 103,
+  "requiresLocalHistoricalOutput": false,
+  "requiresLocalForum": false,
+  "requiresNpm": false,
+  "requiresFontTools": false,
+  "rebuiltBytes": 49835404,
+  "rebuiltSha256": "3a182c47920d418bbf6e118f39e8afef6626a5afb74a73d8fd861790a87f47e6",
+  "runtimeModuleCount": 53,
+  "logicChecks": 15,
+  "weakestProjectileCases": 60,
+  "syntax": {
+    "js": 56,
+    "json": 6,
+    "python": 3,
+    "php": 0
+  },
+  "commands": [
+    {
+      "command": "C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python312\\python.exe tests/danmaku/package_handoff_v4.py",
+      "status": "PASS",
+      "lastLine": "{\"status\": \"PASS\", \"filesVerified\": 100, \"bytes\": 49835404, \"sha256\": \"3a182c47920d418bbf6e118f39e8afef6626a5afb74a73d8fd861790a87f47e6\", \"file\": \"E:\\\\GPT工作区\\\\dz-gamecenter-handoff\\\\tmp\\\\danmaku\\\\handoff-v4\\\\portable-check\\\\tmp\\\\danmaku\\\\handoff-v4\\\\rebuilt\\\\danmaku-campaign-v13-offline.html\"}"
+    },
+    {
+      "command": "node tests/danmaku/test-feedback-v12.cjs",
+      "status": "PASS",
+      "lastLine": "{\"status\":\"PASS\",\"checks\":9,\"recoveryCases\":6,\"eliteWindows\":[{\"d\":\"easy\",\"e\":\"stage1\",\"mobPeak\":7,\"bulletPeak\":35,\"guardLife\":900},{\"d\":\"easy\",\"e\":\"stage2\",\"mobPeak\":22,\"bulletPeak\":66,\"guardLife\":780},{\"d\":\"normal\",\"e\":\"stage1\",\"mobPeak\":7,\"bulletPeak\":65,\"guardLife\":900},{\"d\":\"normal\",\"e\":\"stage2\",\"mobPeak\":22,\"bulletPeak\":133,\"guardLife\":780},{\"d\":\"hard\",\"e\":\"stage1\",\"mobPeak\":7,\"bulletPeak\":80,\"guardLife\":900},{\"d\":\"hard\",\"e\":\"stage2\",\"mobPeak\":22,\"bulletPeak\":153,\"guardLife\":780}],\"naturalFullClearTested\":false}"
+    },
+    {
+      "command": "node tests/danmaku/test-campaign-mob-fix-v11.cjs",
+      "status": "PASS",
+      "lastLine": "{\"status\":\"PASS\",\"checks\":6,\"projectileCases\":60,\"naturalFullClearTested\":false}"
+    }
+  ],
+  "naturalFullClearTested": false,
+  "realDeviceTested": false,
+  "forumHttpTested": false,
+  "serverCampaignReplaySupported": false,
+  "databaseMigration": false,
+  "onlineDeployed": false
+}

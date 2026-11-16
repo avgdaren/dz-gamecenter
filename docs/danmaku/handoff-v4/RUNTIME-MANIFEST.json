@@ -1,0 +1,519 @@
+{
+  "version": 4,
+  "date": "2026-11-16",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "handoffHtml": {
+    "file": "danmaku-campaign-v13-offline.html",
+    "bytes": 49835404,
+    "sha256": "3a182c47920d418bbf6e118f39e8afef6626a5afb74a73d8fd861790a87f47e6"
+  },
+  "rules": {
+    "easy": "danmaku-campaign-easy-v6",
+    "normal": "danmaku-campaign-normal-v3",
+    "hard": "danmaku-campaign-hard-v3"
+  },
+  "textHashPolicy": "UTF-8 without BOM, CRLF/CR normalized to LF; binaries exact bytes",
+  "files": {
+    "docs/danmaku/assets-lossless-v1/image-0b7a81eb027f4a075eb9.png": {
+      "bytes": 688078,
+      "sha256": "0b7a81eb027f4a075eb9b8b130e6893e06ec7dfde434cd5a46b3cd7cbdeed3fd",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-15e681ea8f56c470b4c4.webp": {
+      "bytes": 777132,
+      "sha256": "15e681ea8f56c470b4c4acb53ddbf9465621c63c43aceb3c2e662ffe0cd96b1f",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-1f90f60c204a06915d23.webp": {
+      "bytes": 1387450,
+      "sha256": "1f90f60c204a06915d233b424502a055258665caa1473d05fc4f8716157ed4ad",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-2e3a7c58034a85bd537c.webp": {
+      "bytes": 1442278,
+      "sha256": "2e3a7c58034a85bd537c018b4ef91703e33956c9424ac68e13813c95f8f1d736",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-42585477c5fd418fcfbf.png": {
+      "bytes": 664358,
+      "sha256": "42585477c5fd418fcfbf8ffe0d96b1aed5bf5e1e02b0cd035f2c35e6196cce4b",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-43cb2706d05644e8c073.png": {
+      "bytes": 5690,
+      "sha256": "43cb2706d05644e8c073666eb1dd951abe320cf302d6a93c4ba7fbb4c7853321",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-4e87e063c23c644ce4c9.png": {
+      "bytes": 747019,
+      "sha256": "4e87e063c23c644ce4c977253bf8b0352369f65960b27f04351160cb1d30352d",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-587449ca0657cb954762.png": {
+      "bytes": 431900,
+      "sha256": "587449ca0657cb9547620a70bd0330be93419496df9163ac88cdd588e1140246",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-6a02d02f6cfcacb71f3a.png": {
+      "bytes": 3145,
+      "sha256": "6a02d02f6cfcacb71f3ad1f4b81021a3229ec8a44d7702942d3ae5cdafa1bed7",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-764754e5f7e234176639.png": {
+      "bytes": 738525,
+      "sha256": "764754e5f7e234176639efc0ab2c969f1c82a6594219b37a46344bf9b206cab2",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-7c554c13a234e8370e76.webp": {
+      "bytes": 1387716,
+      "sha256": "7c554c13a234e8370e76e58cb9002c889b69940feafd480d5aaad728acf93383",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-7e82c63fd1b2bf42a466.png": {
+      "bytes": 1120250,
+      "sha256": "7e82c63fd1b2bf42a4665febac5e22eb3820b8544ab82faa836c294cac9eede8",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-7ffdd206e13011e8acac.png": {
+      "bytes": 454109,
+      "sha256": "7ffdd206e13011e8acacde966753f99e022700feb8bff14cf15632308073019a",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-8007d4566229fba93841.webp": {
+      "bytes": 1324136,
+      "sha256": "8007d4566229fba93841289668be20db1f998899376e208b2eb6283ea4d7fdc5",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-82648bddd2867e9d1d30.png": {
+      "bytes": 420258,
+      "sha256": "82648bddd2867e9d1d3084216f3b46d13e2b851ddbde6d190e16b94949839e32",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-86bc5cbd040b29d0b547.webp": {
+      "bytes": 1401162,
+      "sha256": "86bc5cbd040b29d0b5479638bffa85628caadf5e1bdb2eea431b3fd7e43803ed",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-952582341dee1639fd2e.png": {
+      "bytes": 291,
+      "sha256": "952582341dee1639fd2e5e24e0498e675fab349b4677e73dfdf86ef8168ff698",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-9ddda72d0e33064c4821.png": {
+      "bytes": 8848,
+      "sha256": "9ddda72d0e33064c4821df1de12fb1a70ebb5143b1574f0498d933df8379b140",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-a51ac554f8f9841f783c.webp": {
+      "bytes": 1143566,
+      "sha256": "a51ac554f8f9841f783c3607dd47256a988531bada6999a9386cbea0c4f11682",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-a5228cb5e3894dcff8da.png": {
+      "bytes": 1329858,
+      "sha256": "a5228cb5e3894dcff8da5daecd0fd2b84ff4980b594fab86faa754b6d1f3ef6e",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-bb91567c4b9576e08e27.webp": {
+      "bytes": 1322244,
+      "sha256": "bb91567c4b9576e08e27f0f3e906362fda741809f9a8c3cd9b11abdb0a777c76",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-d445ca43990e075c6b32.png": {
+      "bytes": 59860,
+      "sha256": "d445ca43990e075c6b3253a324737d11d8b659e22c7fd88d20dc3b16bb995a63",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-d48bef817c9976446597.png": {
+      "bytes": 443122,
+      "sha256": "d48bef817c9976446597321d8c67eb66e4545c9c791b99cb56b52a017452faf4",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-da250c6cd15f83442af7.png": {
+      "bytes": 6386,
+      "sha256": "da250c6cd15f83442af704ebe24569c43e7dc631d447b0ac1854e85ca8bba627",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-e4c3563bffe7a427001c.png": {
+      "bytes": 781952,
+      "sha256": "e4c3563bffe7a427001c80fb89f44f6dde01f446b7a7ed17fdfc971c01915e34",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-f6e6bd7b183a5943b1e8.png": {
+      "bytes": 20882,
+      "sha256": "f6e6bd7b183a5943b1e85453134ea01b7c4070de9d0bd73c2125e2c1c2b29989",
+      "encoding": "binary"
+    },
+    "docs/danmaku/assets-lossless-v1/image-fbdc7656d190c94cfff9.png": {
+      "bytes": 4342,
+      "sha256": "fbdc7656d190c94cfff97bd77b26756e0546285da7fa67bf15abf365450a4d19",
+      "encoding": "binary"
+    },
+    "docs/danmaku/audio/stage02-user-v1/boss.mp3": {
+      "bytes": 5362206,
+      "sha256": "7a696c0ffb11aa38d1984bf0b8eb8e138371718d6781acc31b7052cda23af3ca",
+      "encoding": "binary"
+    },
+    "docs/danmaku/audio/stage02-user-v1/stage.mp3": {
+      "bytes": 5013628,
+      "sha256": "7c4fa19b3420cd27383dbc2d97738ffe10b00fbe67ffc7ef6e395b49df1b0c52",
+      "encoding": "binary"
+    },
+    "docs/danmaku/fonts/spell-serif-v10/danmaku-spell-serif-500.woff2": {
+      "bytes": 15336,
+      "sha256": "5a56774899010e8219bffcb9f511f5305b70ecbd21cd63fd14c482b2e0ce5ebb",
+      "encoding": "binary"
+    },
+    "docs/danmaku/fonts/spell-serif-v10/OFL.txt": {
+      "bytes": 4301,
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+      "encoding": "utf8-lf"
+    },
+    "docs/danmaku/fonts/spell-serif-v10/source-audit.json": {
+      "bytes": 1584,
+      "sha256": "d1940919375b1b14631b27e1b50d71eca4d055baf7ba19dd5999574700873618",
+      "encoding": "utf8-lf"
+    },
+    "docs/danmaku/handoff-v4/data-template.json": {
+      "bytes": 5918,
+      "sha256": "e7fc1f11f0bd122cce9cd020df7253017a2333f3d66624b8e0b5a77e9bf1019b",
+      "encoding": "utf8-lf"
+    },
+    "docs/danmaku/handoff-v4/runtime.json": {
+      "bytes": 8363,
+      "sha256": "adee688ca37cb592a2b651f237aa80f4d45db49adb7227f60cba271c9519465a",
+      "encoding": "utf8-lf"
+    },
+    "docs/danmaku/handoff-v4/template.html": {
+      "bytes": 41849,
+      "sha256": "a11f6274c3f9ca31c43f4fb6110a0449584ed04fcf20fb6599e5122e249bd916",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_assets_v1/audio-lazy-v1.js": {
+      "bytes": 8260,
+      "sha256": "668a965edf5ca5e857e131a03c063b2ec43a6088236ae9192dc8ca4d70ea94eb",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/app-v13.js": {
+      "bytes": 34304,
+      "sha256": "093956b4c726fb7218cb25ef2c8081fabd17acbb5d6ba3be4912810162a5a975",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/bomb-view-v6.js": {
+      "bytes": 2999,
+      "sha256": "0d4d5e4bc3a279e780453329e82c5198a3654b987b9892427d1062a79744b508",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/boss-gesture-v4.js": {
+      "bytes": 1107,
+      "sha256": "d275e6b9633ee0d6141dbd098eef144d38f0ab83de21eb8ee7a7c67861f4f137",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/dialogue-layout-v5.js": {
+      "bytes": 1775,
+      "sha256": "082c7bb219621cd02a25036e466f68894191c51f5d1d60f2156aa7c391e0d2fb",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/dialogue-view-v1.js": {
+      "bytes": 2893,
+      "sha256": "8275103f8536787e3d623b38fecfe3d8e4aed818c46a9e04f7a5065c8189078d",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/difficulty-flow-v10.js": {
+      "bytes": 4366,
+      "sha256": "1c5b7c02a8954f51619dc17f8df807038516db967d82c3faeb23185e8a5022a1",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/difficulty-flow-v11.js": {
+      "bytes": 1758,
+      "sha256": "dcca8ec7a2c56033a24c39c784702ec6b4135d9df4abd44d5df267b336298e16",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/elite-stay-v12.js": {
+      "bytes": 2741,
+      "sha256": "6cdd67d74c0f37bf26d2776f6d96d6879ef69d8f13842009ee8427240777b939",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/feedback-flow-v12.js": {
+      "bytes": 3195,
+      "sha256": "d2c397f601e34a77c3187dbd1a1316d4cddd3f535d53688c53a9b526f073e7bb",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/flow-v1.js": {
+      "bytes": 8292,
+      "sha256": "2b43a3301fcc6577e78ddbdec2e8a325e51c0d780927350b16400bc7b2d2571d",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/journey-view-v5.js": {
+      "bytes": 3677,
+      "sha256": "e3d8218a33870aded8bc4323438bc5626e29384161e8575195453a5970f7336e",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/mob-feedback-v2.js": {
+      "bytes": 1982,
+      "sha256": "abbc899fb442478d40258e7e5e06e966cf6320648100ccd4d67e3c28fd15f183",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/notice-frames-v8.js": {
+      "bytes": 5958,
+      "sha256": "c17d9b8b5f0634628a4c378f596a61a2d3857e665e260524bd141c28d15485c8",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/player-recovery-v12.js": {
+      "bytes": 1954,
+      "sha256": "c6ffe3f5f57984943a50f2a0bf91840d18255d051e0c6d1bb91f095f95961535",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/recovery-view-v12.js": {
+      "bytes": 2050,
+      "sha256": "6a49de5372f90893f08a308b79ce2be288cf857d31e970a3c83673b51d2df9f8",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-canvas-v10.js": {
+      "bytes": 9454,
+      "sha256": "a784fb190f8b31287aa83dcc2521b0abd6da593d84c9c3f1b7dac259637e9a62",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-change-v2.js": {
+      "bytes": 2339,
+      "sha256": "931cf4256c812edd6da97b19083115a06d6480fee48fa4400596f633742d1e3d",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-change-v4.js": {
+      "bytes": 6770,
+      "sha256": "b9b5ac6c72f69239f1120dced3729dc33dc888e85b6a3fb20fb93a73cc3e9a25",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-preview-v1.js": {
+      "bytes": 10281,
+      "sha256": "90bbccbeff7a786f1b742e1ff6c47b2e93fc2fed19a6e5eb1d51ab61f917cd2b",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-show-v10.js": {
+      "bytes": 1186,
+      "sha256": "35dadc614e01a5dd42a345a47416c15b15cd8a488f43d366d8dc24133e9d5a75",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/spell-show-v8.js": {
+      "bytes": 4067,
+      "sha256": "13d79e307248f1f32320abf43e69791c86ee31e8017da1775143babad822b70a",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/stage01-view-v12.js": {
+      "bytes": 3769,
+      "sha256": "c065c43f425666f3e54e714e8cd3af00614ebf371f51ee1ea83bdebaf8d7cdf6",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/stage02-view-v12.js": {
+      "bytes": 7901,
+      "sha256": "3f7ec583e950025049bb56d2ee5dea336d9f59b1b704fb468310e2508017f6d4",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/star-corridor-v2.js": {
+      "bytes": 740,
+      "sha256": "19e903d3738750f4788bedf8df403cde8a82e1c79f448ba9967e6426febea03c",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/story-data-v1.js": {
+      "bytes": 5895,
+      "sha256": "619f8eaf2b02b1d7b4f65ed0fb1ff8acab3a98ece780f1c0c1b2bc099bce6208",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/story-flow-v5.js": {
+      "bytes": 3120,
+      "sha256": "41277b2c07dc67df0a20ccbbb365bc6bc3750d6ea2f142cf62519d55fb07d4e8",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_campaign_draft/title-shell-v13.css": {
+      "bytes": 7839,
+      "sha256": "4ff10c6d43c7cdda28e3af533e8658cfe44244db33e6948ea8ea9f9e4519a87c",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/assets/projectile-atlas-v1.png": {
+      "bytes": 1579779,
+      "sha256": "7d8c9e9867129ebbf224e0d093c8a438ba996b97aa333cbe7380fd6d423204bb",
+      "encoding": "binary"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/audio-bank.js": {
+      "bytes": 390620,
+      "sha256": "661ef8b957536db6da1c9c63df47ab08e06ca843f14b997d9bf53db6dded808b",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/audio.js": {
+      "bytes": 19180,
+      "sha256": "8590d40eee1cddac9da633a812436b4b3d12c6f5c1bc9c8bd9e012a68f9ce8a5",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/battle.js": {
+      "bytes": 8383,
+      "sha256": "aa3ac2cad0680e68bc826f267131e25e91de6c077595a3846149bc31bbbdf890",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/bgm-bank.js": {
+      "bytes": 8859807,
+      "sha256": "b7edccc8460ab419573c6f77645b1acd8529db4a8acccc5e219a6adda388940a",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/boss-patterns.js": {
+      "bytes": 5324,
+      "sha256": "dc265795b13abcd95dd2820b5fd0c5cd75a2a97a324130793511b9c7e2abaed2",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/boss-view.js": {
+      "bytes": 4535,
+      "sha256": "7df1ca45105c27582c2d5b5c150a2f88fb8e962601a6ebf9934d7096ad8b0210",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/bullet-materials.js": {
+      "bytes": 981,
+      "sha256": "8ad3a50ba8269c689372062ef41441e18d99934fd5c2870c30d87294e6fd0445",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/controls.js": {
+      "bytes": 1098,
+      "sha256": "8a56193cff1ce6a4211aebaad89eaeafa545e711ccfa6832f90e45c6a3206589",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/engine.js": {
+      "bytes": 11220,
+      "sha256": "3d937a697ecdd87f0ce65815629ab0b380c3863f694b2b962162e4f3d52fc118",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/hard-choreography.js": {
+      "bytes": 5702,
+      "sha256": "75e9fba9eec8aad64e17e3653c1466a09d0dead0c3cbf2256817c54192830a75",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/hard-patterns.js": {
+      "bytes": 3091,
+      "sha256": "812088c2e9309cac7267c25bdef0445dbbeaeacf927063ed455ca3bac4d633ae",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/hard-rich-patterns.js": {
+      "bytes": 5527,
+      "sha256": "d1e2ad92bc9e3dcfdb036e8a80b097b62a4ba772e96414d3fe823da32ca3b964",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/player-view.js": {
+      "bytes": 1877,
+      "sha256": "969dd246bce76e50fb74e0059e7df7a02189073152cf5a75bbc9cb234ddcb47b",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/rules.json": {
+      "bytes": 236233,
+      "sha256": "86102b147a02e960af4685a579344c645f6b119fb74be484f9ddedf2be00131a",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/stage-art-view.js": {
+      "bytes": 4237,
+      "sha256": "0698354d61eb08b5a66df2401686e985628f7525afe2fe4635e86ebc78849c88",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/stage-show.js": {
+      "bytes": 4619,
+      "sha256": "9e7e60933ce398dca1a3009a749fd9c564f2375edd175bc04ec41b08ae18315b",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/stage-view.js": {
+      "bytes": 6708,
+      "sha256": "df8655cbf30772b8bb424cbc1b512ea3b752fd2265e95c1c4bbd84e8b9dd418f",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/stage.js": {
+      "bytes": 26050,
+      "sha256": "57dc6f076d1158475c2d95641381da3715e7fd8845ed77a02b2adf7b0bae5ca7",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_proto/weapons.js": {
+      "bytes": 2739,
+      "sha256": "4866ce0c6e7d67a051f3d736fa5318694f6b937bcea1e5ff00b7ab229f746dda",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/chart.json": {
+      "bytes": 40138,
+      "sha256": "4660e9c84fe7de42d159e6b0df8fd38532024188d4aee9a406ceea16b13ec116",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/difficulties-v10.js": {
+      "bytes": 3286,
+      "sha256": "35113ac4b268610a4233b1ffbb5df9221721b144c9656cc8bb0ee7a33f48d677",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/difficulty-hard-v1.js": {
+      "bytes": 8446,
+      "sha256": "4acdc9b9e950bb42e102427cb5ecb6a06b687df38050d16d2271c9038f4f0b3f",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/difficulty-normal-v1.js": {
+      "bytes": 7108,
+      "sha256": "1cb6eb005d41a432813cb1a2d50ac1155bf45caaf742813dc0389273e7afdb8b",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/garden-materials-v3.js": {
+      "bytes": 4973,
+      "sha256": "59b971dc0c7d0ec9f929b595f54f662a945ebd9d42cfb8b1ec352ecb409bd5c2",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/garden-original-patterns-v1.js": {
+      "bytes": 3990,
+      "sha256": "f01c4a99fcee8934807baa77a11701d1094525f4430edfe9075ff604de255f66",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-combat-v1.js": {
+      "bytes": 10917,
+      "sha256": "83b2b1a814e8f95baf96632ef777a5b1abc9bbb9a4c3bf32f09c9df9a1cab007",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-combat-v2.js": {
+      "bytes": 12816,
+      "sha256": "e830d5a24f1e096d58854202c4944c1cc915264a995ff8ca83c98f70e29ae6bf",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-easy-entry-v6.js": {
+      "bytes": 1979,
+      "sha256": "4ea1b1178ae4b2eed658225cbee36f96081ea4d55e6788574dd0ca14921ef820",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-easy-v5.js": {
+      "bytes": 2153,
+      "sha256": "9e84fb9e74be135173df71d26b707773ae1fa6d4e5e91ce3080134056dba55ca",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-formation-v4.js": {
+      "bytes": 5704,
+      "sha256": "ba1c19fd469af1718d1851ce56836371fb49342dd7e58ce673deab5b13aed9ee",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-garden-v2.js": {
+      "bytes": 7111,
+      "sha256": "5140ca99672f4e4f40d7bdbc6fd67630961ee2b96c73311469c70de139b62f32",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-intro-v1.js": {
+      "bytes": 2513,
+      "sha256": "d7de834b7e8daa51b54049a360fe58cc2b12f78b5b0f8f2cb630990694ec1079",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/refined-sprites-v1.js": {
+      "bytes": 4427,
+      "sha256": "31fee7c79fc71e8528a36ad0244509ad24d777895128251f4c00612aeb934a73",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/unity-show-v1.js": {
+      "bytes": 1511,
+      "sha256": "af67984cc863fb97167f30af9a14a6f30b2479c31d3d810574345187ffe5ddc0",
+      "encoding": "utf8-lf"
+    },
+    "source/plugin/gamecenter/games/_danmaku_stage02_draft/unity-sprites-v1.js": {
+      "bytes": 3283,
+      "sha256": "a6be5074d9d73196bcb14b33f960456bab855f4999a21dd5402ecca040f71eff",
+      "encoding": "utf8-lf"
+    },
+    "tests/danmaku/package_handoff_v4.py": {
+      "bytes": 3133,
+      "sha256": "41f5d90bdec591d214cbf9abd4d3b258d6ad85f9ff940486eee07fd34a157568",
+      "encoding": "utf8-lf"
+    }
+  }
+}

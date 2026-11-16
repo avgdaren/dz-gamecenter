@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-16",
+  "timezone": "Asia/Shanghai",
+  "user": "avg达人",
+  "feedback": [
+    "自机死亡没有特效，且回归后无敌时间太短，容易造成连续死亡",
+    "道中精英小怪停留时间太短"
+  ],
+  "handoffRequest": "交接给小蓝吧",
+  "handoffVersion": 13,
+  "handoffHtmlBytes": 49835404,
+  "handoffHtmlSha256": "3a182c47920d418bbf6e118f39e8afef6626a5afb74a73d8fd861790a87f47e6",
+  "handoffAuthorized": true,
+  "handoffRoute": "沿原流程经GitHub交小蓝，接现行论坛与本地验证及线上包",
+  "v12HumanPlaytestResultExplicitlyReported": false,
+  "scopeNote": "继续已授权GitHub交接，并补回之前上线版正式封面；没有推断v12/v13已真人逐档或真机验收",
+  "agentNaturalFullClearThisHandoff": false,
+  "onlineDeploymentAccepted": false,
+  "continuationRequest": "继续，顺便我想到一个事，目前给小蓝的版本，封面是这样的，但封面应该是之前打包上线的版本，需要重新修一下",
+  "v13HumanPlaytestResultExplicitlyReported": false
+}

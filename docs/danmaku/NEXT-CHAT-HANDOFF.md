@@ -1,4 +1,24 @@
-# 天使弹幕祭 · 当前交接 v11
+# 天使弹幕祭 · 当前交接 v13
+
+## v13正式封面与交接（2026-11-16）
+
+用户要求继续交小蓝，并恢复之前上线版封面。已完成[CAMPAIGN-v13](CAMPAIGN-v13.md)：星杖立绘／像素角色／星环、三档直选和开始游戏，设置、练习与回看折叠；保留v12死亡复归和大型守卫驻留。当前v13、回退v12。SHA256 `3a182c47920d418bbf6e118f39e8afef6626a5afb74a73d8fd861790a87f47e6`。100份依赖独立checkout重建，15组逻辑／60命中夹具通过，断网浏览器三档入口与6份v12战斗状态／画布对照通过；真机、论坛、整关自然通关未测。
+
+接手入口[handoff-v4](handoff-v4/XIAOLAN-HANDOFF.md)，Issue #82／`feat/issue-82-danmaku-feedback-v13`，PR与运行提交以[GITHUB.json](handoff-v4/GITHUB.json)为准。不要把旧审阅页直接嵌入论坛。下面保留制作阶段记录，“未推送／当前v12”不是当前交付状态。
+
+## v12交接授权（2026-11-16）
+
+用户明确“交接给小蓝吧”，本轮按Issue #82独立分支`feat/issue-82-danmaku-feedback-v12`，接续原PR #81。最新入口[handoff-v4/XIAOLAN-HANDOFF.md](handoff-v4/XIAOLAN-HANDOFF.md)，实际PR／运行提交与推送状态看[GITHUB.json](handoff-v4/GITHUB.json)。98份依赖可从独立checkout重建当前v12，SHA256 `6a8220cc13b106eed2bd89d0e4cf90b4ec12bce1bde4efaf0e25e6f2e47cd3fe`，新增9组与v11回归6组通过。
+
+此次为交接授权，没有用户再次逐档试玩结果，不冒称v12真人难度／真实设备已验收。小蓝接现行论坛与两关PHP／榜单校验及线上包；小典不改站点／数据库、不合并或部署。以下“本地候选／未推送”等为制作阶段记录，以v4目录最新状态为准。
+
+## v12当前本地反馈候选（2026-11-16）
+
+用户收到两项细节反馈，已实施[CAMPAIGN-v12](CAMPAIGN-v12.md)：两关三档死亡光羽／0.6秒后底部复归／回归后4秒保护／将结束提示；最后一命播完死亡再结算。大型掉B守卫均多驻留3秒，第一关生命周期15秒、第二关13秒；既有攻击、血量与奖励不加量。中型侍从及普通小怪保持。
+
+新入口`output/天使弹幕祭/当前试玩/danmaku-campaign-v12-offline.html`，唯一回退v11；三档整局规则为Easy v6、Normal／Hard v3。新增`player-recovery-v12.js`、`elite-stay-v12.js`、`feedback-flow-v12.js`、`recovery-view-v12.js`及v12入口／两关视图。9组定点与断网浏览器通过，具体见[campaign-v12-validation.json](campaign-v12-validation.json)。没有自动整关自然通关，观感与新手感待用户反馈。
+
+**尚未更新小蓝PR：** PR #81与运行提交933694d仍是已确认v11；本次只修改本地试玩与记录，无推送／部署／新网友包。旧交接94文件清单与SHA仍可独立重建原v11，不用v12规则覆盖历史记录。以下“当前v11”是此前记录，以本节为本地最新状态。
 
 ## 用户验收与小蓝交接（2026-11-16）
 
