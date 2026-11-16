@@ -13,7 +13,7 @@
 | 道中 | ヘクサフュージョン | 200.47秒 | 取开头72秒，起始20ms淡入，最后0.8秒淡出 |
 | Boss | 残响 | 204.71秒 | 从Boss登场起播放，三阶段持续同一时钟；曲尾1.5秒与开头做线性交叉淡化，循环回1.5秒 |
 
-两首原件分别保留在 `E:\GPT工作区\（道中bgm）用户7876 - ヘクサフュージョン.mp3`、`E:\GPT工作区\（boss bgm）用户7876 - 残响.mp3`，没有覆盖。SHA256见[制作清单](audio/stage01-happyshrimp-v1/manifest.json)。仓库和游戏包仅使用剪辑副本，移除原文件的封面、账号标识和追踪元数据，保留AI生成／HappyShrimp来源说明。
+两首原件分别保留在 `E:\GPT工作区\素材\天使弹幕祭\原始音乐\素材\天使弹幕祭\原始音乐\素材/天使弹幕祭/原始音乐/（道中bgm）用户7876 - ヘクサフュージョン.mp3`、`E:\GPT工作区\素材\天使弹幕祭\原始音乐\素材/天使弹幕祭/原始音乐/素材\天使弹幕祭\原始音乐\（boss bgm）用户7876 - 残响.mp3`，没有覆盖。SHA256见[制作清单](audio/stage01-happyshrimp-v1/manifest.json)。仓库和游戏包仅使用剪辑副本，移除原文件的封面、账号标识和追踪元数据，保留AI生成／HappyShrimp来源说明。
 
 运行副本仍为44.1kHz双声道、192kbps MP3；两首统一降低4dB，不变速、不变调。道中完整72秒，Boss首轮保留完整编排，最长战斗超出曲长时按循环点继续。整首混音没有独立分轨，因此没有虚构“第二／三阶段推进层”，阶段转场仅平滑降低总音量。暂停、失焦、后台、倒计时、静音、重来按已有声音生命周期处理，恢复依据逻辑时间定位，并按自定义循环区间计算偏移。
 
@@ -26,8 +26,8 @@
 - [独立试听页](audio/stage01-happyshrimp-v1/preview.html)：两份游戏MP3及Boss循环／道中转场短片段。
 - `audio/stage01-happyshrimp-v1/`：两份剪辑、制作清单、内嵌音库及试听页；原始两首文件留在工作区根目录。
 - `source/plugin/gamecenter/games/_danmaku_proto/bgm-bank.js`：与制作音库逐字节相同。
-- `E:\GPT工作区\output\danmaku-stage01-happyshrimp-v1-offline.html`：单文件离线试玩。
-- `E:\GPT工作区\output\danmaku-stage01-happyshrimp-v1.zip`：完整本地交付，根目录 `START.html`。
+- `E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-happyshrimp-v1-offline.html`：单文件离线试玩。
+- `E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-happyshrimp-v1.zip`：完整本地交付，根目录 `START.html`。
 
 制作工具FFmpeg仅用于本次剪辑，不是游戏运行依赖；没有引入npm、CDN或云端播放。
 

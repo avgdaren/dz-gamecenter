@@ -1,0 +1,25 @@
+{
+  "generator": "built-in imagegen",
+  "approvedByUser": "2026-11-13",
+  "texture": "source/plugin/gamecenter/games/_danmaku_proto/assets/projectile-atlas-v1.png",
+  "sha256": "7d8c9e9867129ebbf224e0d093c8a438ba996b97aa333cbe7380fd6d423204bb",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "grid": [
+    3,
+    2
+  ],
+  "rows": [
+    "blue-white",
+    "gold-yellow"
+  ],
+  "columns": [
+    "orb",
+    "rice",
+    "energy-orb"
+  ],
+  "originalPixelsPreserved": true,
+  "promptFile": "PROMPT.md"
+}

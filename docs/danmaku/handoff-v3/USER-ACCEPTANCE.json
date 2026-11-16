@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-16",
+  "timezone": "Asia/Shanghai",
+  "user": "avg达人",
+  "reportedFeedback": "我试玩结束了，没什么问题，可以像之前那样交接给小蓝了",
+  "acceptedVersion": 11,
+  "acceptedHtmlSha256": "b2a7a0c4e0420b65a15fa0c6bc7da0de87ffc3fd8bf956fa90f8490cd366d5ee",
+  "acceptedHtmlBytes": 49809476,
+  "handoffAuthorized": true,
+  "handoffRoute": "源码与素材经GitHub交小蓝，再由小蓝接论坛、本地验证及准备线上包",
+  "reportedScope": "用户对当前v11的试玩反馈；未据此推断每个档位或每条路线的独立验收数据",
+  "agentNaturalFullClearRunThisHandoff": false,
+  "serverReplayAccepted": false,
+  "onlineDeploymentAccepted": false
+}

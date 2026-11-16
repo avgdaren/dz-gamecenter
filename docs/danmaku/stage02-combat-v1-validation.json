@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "logic": {
+    "status": "PASS",
+    "checks": [
+      "new offline rule remains absent from first-stage ranked and supported registries",
+      "invalid input is rejected before clock mutation",
+      "boss hold lasts 390 ticks, player can move, then real fire and attacks start",
+      "all three sample shapes emit moving integer bullets below the live cap",
+      "all enemy types and authored stage sections have functional attacks and deterministic state",
+      "enemy hit, kill, P/point/B drops and pickup use existing player rules",
+      "swept collision takes a life, replenishes B and supports recovery power",
+      "bomb clears curved bullets and enemy kills do not create duplicate drops",
+      "phase defeat clears attacks, preserves player resources and keeps music clock continuous",
+      "terminal state and test marking are stable; stage-end gathers without entering the next scope"
+    ],
+    "firstStageRulesUnmodified": true,
+    "serverVerifierTested": false,
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "hashes": {
+      "danmaku-stage02-patterns-v1-offline.html": "9033e949c3e6470fd057e6e7c540aa0dc459f55044fb4fbc89cc52cc939be58d",
+      "danmaku-stage02-combat-v1-offline.html": "570985572d67daeae865782050d44fe3eccb01867c444fa58fb80bc5d60872e9"
+    },
+    "sampleCounts": [
+      26,
+      48,
+      25
+    ],
+    "observerSeekDeterministic": true,
+    "realKeyboardMovement": true,
+    "pauseFrozen": true,
+    "audioDecoded": 2,
+    "bossAudioErrorSeconds": -0.01666666666666572,
+    "stageEnemiesSpawn": true,
+    "guardianWindowRendered": true,
+    "playerAutoFire": true,
+    "bossHoldNoAttacks": true,
+    "bossActuallyTakesDamage": true,
+    "realBombClears": true,
+    "mutedVisualContinue": true,
+    "blurPaused": true,
+    "mobileNoOverflow": true,
+    "headlessMedianFrameMs": 16.699999999999818,
+    "frameSampleCount": 12,
+    "externalRequests": 0,
+    "consoleErrors": 0,
+    "naturalFullClearTested": false,
+    "serverVerifierTested": false
+  },
+  "protection": {
+    "unchangedFiles": 71,
+    "originalFirstStageRuntimeUnchanged": true,
+    "generatedEnemyPixelsPreserved": true
+  },
+  "naturalFullClearTested": false,
+  "serverVerifierIntegrated": false
+}

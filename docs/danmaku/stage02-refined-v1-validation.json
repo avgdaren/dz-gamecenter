@@ -1,0 +1,405 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-stage02-refined-v1-offline.html",
+    "bytes": 36080804,
+    "sha256": "5cd48732f510c0ba18e5e39ae6217e051fa5450da094d4056104a1e423bed7be"
+  },
+  "logic": {
+    "schedule": {
+      "seconds": 90,
+      "enemies": 50,
+      "types": [
+        42,
+        6,
+        2
+      ],
+      "staticLiveMobUpperBound": 8,
+      "staticLiveBulletUpperBound": 39,
+      "powerAvailable": 28,
+      "bombRewards": 2,
+      "lastBirth": 78.1
+    },
+    "opening": {
+      "mobPeak": 8,
+      "bulletPeak": 24,
+      "bullets": 60
+    },
+    "bossSamples": [
+      {
+        "index": 0,
+        "seconds": 12,
+        "first": {
+          "fired": 204,
+          "peak": 70
+        },
+        "second": {
+          "fired": 206,
+          "peak": 68
+        }
+      },
+      {
+        "index": 1,
+        "seconds": 12,
+        "first": {
+          "fired": 75,
+          "peak": 30
+        },
+        "second": {
+          "fired": 113,
+          "peak": 32
+        }
+      },
+      {
+        "index": 2,
+        "seconds": 12,
+        "first": {
+          "fired": 136,
+          "peak": 68
+        },
+        "second": {
+          "fired": 88,
+          "peak": 40
+        }
+      }
+    ],
+    "idealFireBudget": [
+      {
+        "level": 1,
+        "index": 0,
+        "first": 2695,
+        "second": 2695
+      },
+      {
+        "level": 1,
+        "index": 1,
+        "first": 2875,
+        "second": 2875
+      },
+      {
+        "level": 1,
+        "index": 2,
+        "first": 3055,
+        "second": 3055
+      },
+      {
+        "level": 3,
+        "index": 0,
+        "first": 1495,
+        "second": 1495
+      },
+      {
+        "level": 3,
+        "index": 1,
+        "first": 1597,
+        "second": 1597
+      },
+      {
+        "level": 3,
+        "index": 2,
+        "first": 1699,
+        "second": 1699
+      },
+      {
+        "level": 5,
+        "index": 0,
+        "first": 587,
+        "second": 587
+      },
+      {
+        "level": 5,
+        "index": 1,
+        "first": 625,
+        "second": 625
+      },
+      {
+        "level": 5,
+        "index": 2,
+        "first": 665,
+        "second": 665
+      }
+    ],
+    "status": "PASS",
+    "checks": [
+      "90-second authored formations preserve approved opening",
+      "shared movement weapons recovery and bomb behavior",
+      "local first-four-team pressure and determinism",
+      "stage boundary gathers once and preserves real arrival resources",
+      "phase carry transition and defeat clean boundaries",
+      "three bounded boss samples use finite common-speed attacks",
+      "HP and fire packets give same ideal damage budget at levels 1/3/5",
+      "cast cues and validation remain bounded"
+    ],
+    "fullNaturalClearTested": false,
+    "easyFeelAccepted": false
+  },
+  "browser": {
+    "status": "PASS",
+    "file": "danmaku-stage02-refined-v1-offline.html",
+    "sha256": "5cd48732f510c0ba18e5e39ae6217e051fa5450da094d4056104a1e423bed7be",
+    "acceptedIdleCachePreserved": true,
+    "fourDistinctPosesPerCharacter": true,
+    "nativeFramesAndBinaryAlpha": true,
+    "sharedIntroPhaseClear": true,
+    "realKeyboardMovement": true,
+    "realBombClears": true,
+    "pauseFrozen": true,
+    "blurPaused": true,
+    "lowResourcePreset": true,
+    "bossBoundaryGathersAndClears": true,
+    "gardenContinuousAt90Seconds": true,
+    "acceptedMotionPreserved": true,
+    "audioGestureDecodeAndTrackSwitch": true,
+    "audioOffsets": true,
+    "audioOff": true,
+    "reducedEffects": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "onlyBoundedFixtures": true,
+    "naturalFullClearTested": false,
+    "easyFeelAccepted": false
+  },
+  "sprites": {
+    "fairy": {
+      "size": [
+        48,
+        48
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "poses": 4,
+      "acceptedIdlePreserved": true,
+      "newFrames": [
+        {
+          "visibleBounds": [
+            12,
+            2,
+            35,
+            37
+          ],
+          "visibleSize": [
+            24,
+            36
+          ],
+          "colors": 24,
+          "alpha": [
+            0,
+            255
+          ]
+        },
+        {
+          "visibleBounds": [
+            12,
+            3,
+            35,
+            37
+          ],
+          "visibleSize": [
+            24,
+            35
+          ],
+          "colors": 22,
+          "alpha": [
+            0,
+            255
+          ]
+        },
+        {
+          "visibleBounds": [
+            12,
+            2,
+            36,
+            37
+          ],
+          "visibleSize": [
+            25,
+            36
+          ],
+          "colors": 24,
+          "alpha": [
+            0,
+            255
+          ]
+        }
+      ]
+    },
+    "attendant": {
+      "size": [
+        48,
+        64
+      ],
+      "pivot": [
+        24,
+        32
+      ],
+      "poses": 4,
+      "acceptedIdlePreserved": true,
+      "newFrames": [
+        {
+          "visibleBounds": [
+            9,
+            3,
+            33,
+            50
+          ],
+          "visibleSize": [
+            25,
+            48
+          ],
+          "colors": 22,
+          "alpha": [
+            0,
+            255
+          ]
+        },
+        {
+          "visibleBounds": [
+            9,
+            3,
+            33,
+            50
+          ],
+          "visibleSize": [
+            25,
+            48
+          ],
+          "colors": 20,
+          "alpha": [
+            0,
+            255
+          ]
+        },
+        {
+          "visibleBounds": [
+            10,
+            3,
+            34,
+            50
+          ],
+          "visibleSize": [
+            25,
+            48
+          ],
+          "colors": 21,
+          "alpha": [
+            0,
+            255
+          ]
+        }
+      ]
+    },
+    "lingyu": {
+      "size": [
+        96,
+        128
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "poses": 4,
+      "acceptedIdlePreserved": true,
+      "newFrames": [
+        {
+          "visibleBounds": [
+            12,
+            13,
+            71,
+            113
+          ],
+          "visibleSize": [
+            60,
+            101
+          ],
+          "colors": 24,
+          "alpha": [
+            0,
+            255
+          ]
+        },
+        {
+          "visibleBounds": [
+            13,
+            13,
+            69,
+            113
+          ],
+          "visibleSize": [
+            57,
+            101
+          ],
+          "colors": 24,
+          "alpha": [
+            0,
+            255
+          ]
+        },
+        {
+          "visibleBounds": [
+            14,
+            13,
+            78,
+            113
+          ],
+          "visibleSize": [
+            65,
+            101
+          ],
+          "colors": 25,
+          "alpha": [
+            0,
+            255
+          ]
+        }
+      ]
+    },
+    "guardian": {
+      "size": [
+        80,
+        80
+      ],
+      "pivot": [
+        40,
+        40
+      ],
+      "poses": 1,
+      "acceptedIdlePreserved": false,
+      "newFrames": [
+        {
+          "visibleBounds": [
+            10,
+            8,
+            70,
+            70
+          ],
+          "visibleSize": [
+            61,
+            63
+          ],
+          "colors": 23,
+          "alpha": [
+            0,
+            255
+          ]
+        }
+      ]
+    }
+  },
+  "protectedOldFiles": {
+    "count": 202,
+    "unchanged": true
+  },
+  "unmodifiedGeneratedPngs": 3,
+  "unityDirectionAccepted": true,
+  "newActionsAccepted": false,
+  "fullStageImplemented": true,
+  "stage01Connected": false,
+  "easyCalibrationComplete": false,
+  "naturalFullClearTested": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

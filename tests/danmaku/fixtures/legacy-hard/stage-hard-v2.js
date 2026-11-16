@@ -1,0 +1,366 @@
+/* (C) 2026 Carinoasd. One-stage growth simulation: 小典 / Codex. */
+(function(root,factory){
+  'use strict';
+  if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine.js'),require('./battle.js'),require('./weapons.js'),require('./hard-patterns.js'),require('./hard-rich-patterns.js'));
+  else root.DanmakuStage01=factory(root.DanmakuP0,root.DanmakuBattle,root.DanmakuWeapons,root.DanmakuHardPatterns,root.DanmakuHardRich);
+}(typeof globalThis!=='undefined'?globalThis:this,function(engine,battle,weapons,hard,rich){
+  'use strict';
+  var RULE='danmaku-stage01-r1',BOMB_RULE='danmaku-stage01-r2',PATTERN_RULE='danmaku-stage01-r3',NORMAL_RULE='danmaku-stage01-normal-r1',RESPAWN_RULE='danmaku-stage01-r4',NORMAL_V2_RULE='danmaku-stage01-normal-r2',Q=64;
+  var POWER_RULE='danmaku-stage01-r5',NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
+  var WEAPON_RULE='danmaku-stage01-r6',NORMAL_WEAPON_RULE='danmaku-stage01-normal-r4';
+  var WIDE_WEAPON_RULE='danmaku-stage01-r7',NORMAL_WIDE_WEAPON_RULE='danmaku-stage01-normal-r5';
+  var COLLECT_RULE='danmaku-stage01-r8',NORMAL_COLLECT_RULE='danmaku-stage01-normal-r6';
+  var CORNER_RULE='danmaku-stage01-r9',NORMAL_CORNER_RULE='danmaku-stage01-normal-r7';
+  var HARD_RULE='danmaku-stage01-hard-r1',HARD_V2_RULE='danmaku-stage01-hard-r2';
+  function isHardRule(rule){return rule===HARD_RULE||rule===HARD_V2_RULE;}
+  function isCollect(rule){return isHardRule(rule)||rule===COLLECT_RULE||rule===NORMAL_COLLECT_RULE||rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;}
+  var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE];
+  SUPPORTED.push(HARD_RULE,HARD_V2_RULE);
+  function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+  function level(power,rules){var a=rules.stage01.growth.thresholds;for(var i=a.length-1;i>0;i--)if(power>=a[i])return i+1;return 1;}
+  function effectiveRules(rules,rule){
+    if(!isHardRule(rule)&&[POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)<0)return rules;
+    var p=rules.power05;
+    var config=Object.assign({},rules.stage01,{shotCap:p.shotCap,growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})});
+    if(isCollect(rule)){
+      var c=rules.collect08;config.dropCap=c.dropCap;
+      config.schedule=rules.stage01.schedule.map(function(m){return Object.assign({},m,{reward:c.extraPowerIds.indexOf(m.id)>=0?c.extraPowerValue:m.reward});});
+    }
+    if(isHardRule(rule)){
+      config.enemyCap=rules.hard01.preludeEnemyCap;config.segments=rules.hard01.segments;
+      config.schedule=config.schedule.map(function(m,i){return Object.assign({},m,{at:rules.hard01.schedule[i].at});});
+      config.types=config.types.map(function(type,i){return Object.assign({},type,{speedQ:[168,184,160][i]});});
+      return Object.assign({},rules,{stage01:config,limits:Object.assign({},rules.limits,{enemySpawnCap:rules.hard01.enemySpawnCap})});
+    }
+    return Object.assign({},rules,{stage01:config});
+  }
+  function position(rules,mob,age){
+    var spec=rules.stage01.types[mob.type],v=rules.stage01.paths[mob.type][clamp(age,0,spec.life)];
+    return mob.type===0?{x:mob.mirror?480*Q-v[0]:v[0],y:v[1]}:{x:mob.baseX+v[0],y:v[1]};
+  }
+  function touches(a,b,radius){
+    var x0=a.px-b.px,y0=a.py-b.py,x1=a.x-b.x,y1=a.y-b.y;
+    if((x0>radius&&x1>radius)||(x0< -radius&&x1< -radius)||(y0>radius&&y1>radius)||(y0< -radius&&y1< -radius))return false;
+    return engine.sweptHit(x0,y0,x1,y1,radius);
+  }
+  function Sim(rules,index,assist,rule){
+    if(rule===undefined)rule=RULE;
+    if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
+    rules=effectiveRules(rules,rule);
+    battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE,COLLECT_RULE,CORNER_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,NORMAL_COLLECT_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,
+      {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
+    this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
+    this.hardMode=isHardRule(rule);this.richHardMode=rule===HARD_V2_RULE;this.musicTick=0;this.testInvincible=false;
+    if(this.hardMode){this.patternV3=true;this.respawnBombs=true;}
+    this.cornerMode=this.hardMode||rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;
+    this.collectMode=isCollect(rule);this.lastPointPickup=-999;this.lastPointValue=0;
+    this.wideWeaponMode=rule===WIDE_WEAPON_RULE||rule===NORMAL_WIDE_WEAPON_RULE||this.collectMode;
+    this.weaponMode=rule===WEAPON_RULE||rule===NORMAL_WEAPON_RULE||this.wideWeaponMode;
+    this.hp=index<0?0:rules.boss.phaseHP[index];
+    this.player.power=0;this.mobs=[];this.drops=[];this.cursor=0;this.nextDrop=1;
+    this.lastUpgrade=-999;this.lastDowngrade=-999;
+    Object.assign(this.stats,{mobDamage:0,mobKills:0,mobScore:0,powerCollected:0,powerRecovered:0,powerLost:0,
+      powerOverflow:0,overflowScoreUnits:0,mobSpawned:0,mobPeak:0,dropSpawned:0,dropPeak:0,upgrades:0});
+    if(this.collectMode)Object.assign(this.stats,{pointItemsSpawned:0,pointCollected:0,pointScore:0});
+    if(this.bombMode){
+      var config=rules.stage01.bomb;
+      this.player.bombs=assist?config.assistStart:config.standardStart;
+      this.bombActiveUntil=0;this.bombCooldownUntil=0;this.bombX=this.player.x;this.bombY=this.player.y;
+      this.lastBombPickup=-999;this.lastBombOverflow=-999;
+      Object.assign(this.stats,{bombDamage:0,bombKills:0,bombCleared:0,bombCollected:0,bombOverflowTokens:0,bombItemsSpawned:0});
+    }
+  }
+  Sim.prototype=Object.create(battle.Phase.prototype);Sim.prototype.constructor=Sim;
+  Sim.prototype.initialBombStock=function(){var b=this.rules.stage01.bomb;return this.bombMode?(this.assist?b.assistStart:b.standardStart):battle.Phase.prototype.initialBombStock.call(this);};
+  Sim.prototype.spawn=function(x,y,angle,speed,radius,ttl,kind){
+    var r=this.rules,v=r.directionVectors[(angle%512+512)%512];
+    if(this.assist)speed=Math.trunc(speed*r.assist.enemySpeedNumerator/r.assist.enemySpeedDenominator);
+    // +0 normalizes JS -0 so snapshots agree with PHP integer zero.
+    this.enemies.push({id:this.nextEnemy++,x:x,y:y,px:x,py:y,vx:Math.trunc(speed*v[0]/1024)+0,vy:Math.trunc(speed*v[1]/1024)+0,
+      radius:radius,born:this.tick,grazed:false,ttl:ttl===undefined?480:ttl,kind:kind===undefined?3:kind});
+    this.stats.enemySpawned++;
+    if(this.enemies.length>(this.index<0?r.stage01.enemyCap:r.limits.enemyLiveCap)||this.stats.enemySpawned>r.limits.enemySpawnCap)throw new Error('敌弹超过关卡上限');
+    this.stats.enemyPeak=Math.max(this.stats.enemyPeak,this.enemies.length);
+  };
+  Sim.prototype.capture=function(mob){
+    var dx=this.player.x-mob.x,dy=this.player.y-mob.y,best=-Infinity,angle=128;
+    this.rules.directionVectors.forEach(function(v,i){var dot=dx*v[0]+dy*v[1];if(dot>best){best=dot;angle=i;}});
+    mob.aim=angle;
+  };
+  Sim.prototype.pattern=function(){
+    if(this.index>=0){if(this.richHardMode)rich.pattern(this);else if(this.hardMode)hard.pattern(this);else battle.Phase.prototype.pattern.call(this);return;}
+    var t=this.tick,r=this.rules,s=r.stage01,sim=this;
+    while(this.cursor<s.schedule.length&&s.schedule[this.cursor].at<=t){
+      var birth=s.schedule[this.cursor++],type=s.types[birth.type];
+      var mob={id:birth.id,type:birth.type,born:birth.at,baseX:birth.x,mirror:birth.mirror,reward:birth.reward,hp:type.hp,
+        aim:128,warningUntil:0,warningKind:0};
+      Object.assign(mob,position(r,mob,0));mob.px=mob.x;mob.py=mob.y;this.mobs.push(mob);this.stats.mobSpawned++;
+    }
+    this.mobs=this.mobs.filter(function(m){return t-m.born<s.types[m.type].life&&m.hp>0;});
+    this.stats.mobPeak=Math.max(this.stats.mobPeak,this.mobs.length);
+    if(this.mobs.length>s.mobCap)throw new Error('小怪超过关卡上限');
+    this.mobs.forEach(function(m){
+      var age=t-m.born,type=s.types[m.type];m.px=m.x;m.py=m.y;Object.assign(m,position(r,m,age));
+      (sim.hardMode?r.hard01.attacks[m.id]:type.attacks).forEach(function(a){
+        if(age===a.warning){
+          if(a.capture)sim.capture(m);
+          m.warningUntil=Math.max(m.warningUntil,t+a.at-a.warning);m.warningKind=a.aimed?1:2;
+        }
+        if(age===a.at)a.offsets.forEach(function(offset){sim.spawn(m.x,m.y,(a.aimed?m.aim:128)+offset,type.speedQ,type.bulletRadius,type.ttl,m.type);});
+      });
+    });
+  };
+  Sim.prototype.drop=function(x,y,value,recovery,kind){
+    if(value<=0)return;
+    var g=this.rules.stage01.growth;
+    this.drops.push({id:this.nextDrop++,x:clamp(x,12*Q,468*Q),y:Math.max(0,y),px:x,py:y,born:this.tick,value:value,
+      recovery:recovery,unlock:this.tick+(recovery?g.recoveryUnlockTicks:g.rewardUnlockTicks),attracted:false});
+    if(this.bombMode){
+      this.drops[this.drops.length-1].kind=kind===1?1:this.collectMode&&kind===2?2:0;
+      if(this.collectMode&&kind===2)this.stats.pointItemsSpawned++;
+      if(kind===1)this.stats.bombItemsSpawned++;
+    }
+    this.stats.dropSpawned++;this.stats.dropPeak=Math.max(this.stats.dropPeak,this.drops.length);
+    if(this.drops.length>this.rules.stage01.dropCap)throw new Error('掉落超过关卡上限');
+  };
+  Sim.prototype.losePower=function(){
+    var p=this.player,g=this.rules.stage01.growth,before=level(p.power,this.rules);
+    if(before===1)return;
+    var next=g.thresholds[before-2],lost=p.power-next;p.power=next;this.stats.powerLost+=lost;this.lastDowngrade=this.tick;
+    if(p.lives>0)this.drop(p.x,p.y-48*Q,lost,true);
+  };
+  Sim.prototype.collect=function(item){
+    if(this.collectMode&&item.kind===2){
+      var value=item.value*this.rules.collect08.pointValue;this.stats.pointCollected+=item.value;this.stats.pointScore+=value;
+      this.lastPointValue=this.lastPointPickup===this.tick?this.lastPointValue+value:value;this.lastPointPickup=this.tick;return;
+    }
+    if(this.bombMode&&item.kind===1){
+      var config=this.rules.stage01.bomb;this.stats.bombCollected++;this.lastBombPickup=this.tick;
+      if(this.player.bombs<config.stockCap)this.player.bombs++;
+      else{this.stats.bombOverflowTokens++;this.lastBombOverflow=this.tick;}
+      return;
+    }
+    var p=this.player,g=this.rules.stage01.growth,prior=level(p.power,this.rules),raw=p.power+item.value;
+    var overflow=Math.max(0,raw-g.maxPower);p.power=Math.min(g.maxPower,raw);
+    this.stats[item.recovery?'powerRecovered':'powerCollected']+=item.value;
+    this.stats.powerOverflow+=overflow;
+    if(!item.recovery)this.stats.overflowScoreUnits+=overflow;
+    var after=level(p.power,this.rules);if(after>prior){this.lastUpgrade=this.tick;this.stats.upgrades+=after-prior;}
+  };
+  Sim.prototype.damageMob=function(m,damage,fromBomb){
+    if(m.hp<=0)return;
+    var applied=Math.min(m.hp,damage),type=this.rules.stage01.types[m.type];m.hp-=applied;this.stats.mobDamage+=applied;
+    if(fromBomb)this.stats.bombDamage+=applied;else this.stats.shotHits++;
+    if(m.hp===0){
+      this.stats.mobKills++;this.stats.mobScore+=type.killScore;
+      if(this.collectMode&&m.reward===0)this.drop(m.x,m.y,1,false,2);else this.drop(m.x,m.y,m.reward,false);
+      if(fromBomb)this.stats.bombKills++;
+      if(this.bombMode&&m.type===this.rules.stage01.bomb.rewardType)this.drop(m.x,m.y,this.rules.stage01.bomb.rewardValue,false,1);
+    }
+  };
+  Sim.prototype.bombDamage=function(){
+    var damage=this.rules.stage01.bomb.damage,sim=this;
+    if(this.index>=0){var applied=Math.min(this.hp,damage);this.hp-=applied;this.stats.damage+=applied;this.stats.bombDamage+=applied;}
+    else this.mobs.forEach(function(m){
+      var radius=sim.rules.stage01.types[m.type].radius*Q;
+      if(m.x>=-radius&&m.x<=480*Q+radius&&m.y>=-radius&&m.y<=640*Q+radius)sim.damageMob(m,damage,true);
+    });
+  };
+  Sim.prototype.items=function(input){
+    var p=this.player,g=this.rules.stage01.growth,t=this.tick,sim=this;
+    var radius=(input.flags&1?g.focusMagnetRadius:g.magnetRadius)*Q;
+    var c=this.rules.corner09,corner=this.cornerMode&&p.y<=c.topY*Q&&(p.x<=c.leftX*Q||p.x>=c.rightX*Q);
+    this.drops=this.drops.filter(function(item){
+      if(t-item.born>=g.dropTtl)return false;
+      item.px=item.x;item.py=item.y;
+      var dx=p.x-item.x,dy=p.y-item.y;
+      if(corner){item.attracted=true;item.unlock=Math.min(item.unlock,t);}
+      if(t>=item.unlock){
+        if(sim.index<0&&t>=sim.rules.stage01.gatherTick||dx*dx+dy*dy<=radius*radius)item.attracted=true;
+      }
+      if(item.attracted){
+        var distance=Math.max(Math.abs(dx),Math.abs(dy));
+        if(distance<=g.magnetStepQ){item.x=p.x;item.y=p.y;}
+        else{item.x+=Math.trunc(dx*g.magnetStepQ/distance);item.y+=Math.trunc(dy*g.magnetStepQ/distance);}
+      }else item.y+=t-item.born<g.hoverTicks?-24:g.fallStepQ;
+      if(t>=item.unlock&&touches(item,p,g.pickupRadius*Q)){sim.collect(item);return false;}
+      return item.y<=672*Q;
+    });
+  };
+  Sim.prototype.fire=function(input){
+    var r=this.rules,p=this.player,t=this.tick;
+    var powerLevel=level(p.power,r),focused=!!(input.flags&1);
+    var packet=this.weaponMode&&focused&&powerLevel>=4?r.weapons06.focused[powerLevel]:null;
+    var fireMain=(t-r.playerShot.firstPhaseTick)%(packet?packet.interval:r.playerShot.intervalTicks)===0;
+    var lanes=packet?packet.lanes:r.stage01.growth.levels[powerLevel-1][focused?'focused':'normal'];
+    if(fireMain)for(var i=0;i<lanes.length;i++){
+      var spec=lanes[i],x=p.x+spec.offsetX*Q,y=p.y-16*Q;
+      this.shots.push({id:this.nextShot++,x:x,y:y,px:x,py:y,born:t,vx:packet?0:spec.vxQ,vy:-(packet?packet.speedQ:r.playerShot.speedStepQ),damage:spec.damage,focused:focused,level:powerLevel});
+      if(this.weaponMode){var shot=this.shots[this.shots.length-1];shot.kind=packet?2:!focused&&powerLevel===5&&r.weapons06.tracking.lanes.indexOf(i)>=0?1:0;shot.target=-1;}
+    }
+    if(this.wideWeaponMode&&focused&&powerLevel>=r.weapons07.sideShots.minimumLevel){
+      var side=r.weapons07.sideShots;
+      if((t-r.playerShot.firstPhaseTick)%side.interval===0)for(var j=0;j<side.offsets.length;j++){
+        var sx=p.x+side.offsets[j]*Q,sy=p.y-16*Q;
+        this.shots.push({id:this.nextShot++,x:sx,y:sy,px:sx,py:sy,born:t,vx:0,vy:-side.speedQ,damage:side.damage,focused:true,level:powerLevel,kind:3,target:-1});
+      }
+    }
+    if(this.shots.length>r.stage01.shotCap)throw new Error('自机子弹超过关卡上限');
+  };
+  Sim.prototype.step=function(input,validated){
+    if(this.status!=='playing')throw new Error('终局后不能追加输入');
+    if(!validated)engine.validateInput(input,this.rules);
+    var t=++this.tick,r=this.rules,p=this.player,b=this.boss,sim=this,bounds=r.field.playerBounds;
+    if(this.hardMode)this.musicTick++;
+    p.px=p.x;p.py=p.y;b.px=b.x;b.py=b.y;
+    p.x=clamp(p.x+input.dx,bounds.minX*Q,bounds.maxX*Q);p.y=clamp(p.y+input.dy,bounds.minY*Q,bounds.maxY*Q);
+    if(this.index>=0)b.x=engine.bossX(t);
+    this.fire(input);this.pattern();
+    if(this.weaponMode)weapons.tracking(this);
+    this.enemies.forEach(function(e){e.px=e.x;e.py=e.y;e.x+=e.vx;e.y+=e.vy;});
+    this.shots.forEach(function(s){s.px=s.x;s.py=s.y;s.x+=s.vx;s.y+=s.vy;});
+    var activated=false;
+    if(this.bombMode){
+      var config=r.stage01.bomb;
+      if((input.flags&2)&&p.bombs>0&&t>=this.bombCooldownUntil){
+        p.bombs--;this.stats.bombsUsed++;this.lastBomb=t;activated=true;
+        this.bombActiveUntil=t+config.clearTicks;this.bombCooldownUntil=t+config.cooldownTicks;this.bombX=p.x;this.bombY=p.y;
+        p.invulUntil=Math.max(p.invulUntil,t+config.invulnerabilityTicks);
+      }
+      if(t<this.bombActiveUntil){this.stats.bombCleared+=this.enemies.length;this.enemies=[];}
+    }else if((input.flags&2)&&p.bombs>0){
+      p.bombs--;this.stats.bombsUsed++;this.lastBomb=t;this.enemies=[];
+      p.invulUntil=Math.max(p.invulUntil,t+r.player.bombInvulnerabilityTicks);
+    }
+    var collided=new Set(),bodyHit=false;
+    if(t>=p.invulUntil&&!this.testInvincible){
+      this.enemies.forEach(function(e){if(touches(e,p,(r.player.hitRadius+e.radius)*Q))collided.add(e.id);});
+      bodyHit=this.mobs.some(function(m){return touches(m,p,(r.player.hitRadius+r.stage01.types[m.type].radius)*Q);});
+      if(collided.size||bodyHit){
+        p.lives--;this.stats.hitsTaken++;this.lastHit=t;p.invulUntil=Math.max(p.invulUntil,t+r.player.hitInvulnerabilityTicks);
+        this.replenishOnRespawn();
+        var clear=r.player.hitClearRadius*Q;
+        this.enemies=this.enemies.filter(function(e){return!collided.has(e.id)&&(e.x-p.x)**2+(e.y-p.y)**2>clear*clear;});
+        this.losePower();
+      }
+    }
+    if(p.lives<=0)this.status='dead';
+    else{
+      if(activated)this.bombDamage();
+      this.shots=this.shots.filter(function(s){
+        if(sim.index>=0){
+          if(touches(s,b,(r.playerShot.radius+r.boss.hitRadius)*Q)){sim.damageBoss(s.damage);return false;}
+          return true;
+        }
+        for(var i=0;i<sim.mobs.length;i++){
+          var m=sim.mobs[i],type=r.stage01.types[m.type];
+          if(m.hp<=0||!touches(s,m,(r.playerShot.radius+type.radius)*Q))continue;
+          sim.damageMob(m,s.damage,false);
+          return false;
+        }
+        return true;
+      });
+      this.mobs=this.mobs.filter(function(m){return m.hp>0;});
+      this.items(input);
+      if(this.index<0){if(t>=r.stage01.preludeTicks)this.status='prelude_clear';}
+      else this.resolveEnd();
+      if(this.status==='playing'&&t>=p.invulUntil&&!this.testInvincible)this.enemies.forEach(function(e){
+        if(!e.grazed&&touches(e,p,(r.player.grazeCenterRadius+e.radius)*Q)){e.grazed=true;sim.stats.graze++;}
+      });
+    }
+    var margin=r.field.enemyCullMargin*Q;
+    function inside(e){return e.x>=-margin&&e.x<=480*Q+margin&&e.y>=-margin&&e.y<=640*Q+margin;}
+    this.enemies=this.enemies.filter(function(e){return t-e.born+1<e.ttl&&inside(e);});
+    this.shots=this.shots.filter(function(s){return t-s.born+1<r.playerShot.ttlTicks&&inside(s);});
+    return this.status;
+  };
+  Sim.prototype.snapshot=function(){
+    var result=engine.Sim.prototype.snapshot.call(this),s=this.stats;
+    result.power=[this.player.power,level(this.player.power,this.rules)];result.powerEvents=[this.lastUpgrade,this.lastDowngrade];
+    result.growth=[s.mobDamage,s.mobKills,s.mobScore,s.powerCollected,s.powerRecovered,s.powerLost,s.powerOverflow,s.overflowScoreUnits,s.mobSpawned,s.mobPeak,s.dropSpawned,s.dropPeak,s.upgrades];
+    result.nextIds=[this.nextEnemy,this.nextShot,this.nextDrop,this.cursor];
+    result.enemies=this.enemies.map(function(e){return[e.id,e.x,e.y,e.vx,e.vy,e.radius,e.born,e.grazed?1:0,e.ttl,e.kind];});
+    result.shots=this.shots.map(function(s){return[s.id,s.x,s.y,s.born,s.vx,s.vy,s.damage,s.focused?1:0,s.level];});
+    if(this.weaponMode)result.shots.forEach(function(row,i){row.push(this.shots[i].kind,this.shots[i].target);},this);
+    result.mobs=this.mobs.map(function(m){return[m.id,m.type,m.born,m.baseX,m.mirror?1:0,m.reward,m.x,m.y,m.hp,m.aim,m.warningUntil,m.warningKind];});
+    result.drops=this.drops.map(function(d){return[d.id,d.x,d.y,d.born,d.value,d.recovery?1:0,d.unlock,d.attracted?1:0];});
+    if(this.bombMode){
+      result.drops.forEach(function(row,i){row.push(this.drops[i].kind);},this);
+      result.bomb=[this.bombActiveUntil,this.bombCooldownUntil,this.lastBomb,this.bombX,this.bombY,
+        s.bombDamage,s.bombKills,s.bombCleared,s.bombCollected,s.bombOverflowTokens,s.bombItemsSpawned,this.lastBombPickup,this.lastBombOverflow];
+    }
+    if(this.collectMode)result.collect=[s.pointItemsSpawned,s.pointCollected,s.pointScore,this.lastPointPickup,this.lastPointValue];
+    if(this.hardMode)result.musicTick=this.musicTick;
+    return result;
+  };
+  function Stage(rules,assist,rule){
+    if(typeof assist!=='boolean')throw new Error('辅助模式参数无效');
+    if(rule===undefined)rule=RULE;
+    if(SUPPORTED.indexOf(rule)<0)throw new Error('未知的关卡规则版本');
+    rules=effectiveRules(rules,rule);
+    this.rule=rule;this.rules=rules;this.assist=assist;this.tick=0;this.activeTicks=0;this.phaseIndex=-1;this.phaseBreaks=0;
+    this.status='playing';this.stage='prelude';this.remaining=rules.stage01.preludeTicks;this.events=[];
+    this.sim=new Sim(rules,-1,assist,rule);this.stats=this.sim.stats;
+  }
+  Stage.prototype.replace=function(index){
+    var old=this.sim,next=new Sim(this.rules,index,this.assist,this.rule);
+    if(next.hardMode)next.musicTick=index===0?0:old.musicTick;
+    old.drops.forEach(function(item){old.collect(item);});old.drops=[];
+    next.player=Object.assign({},old.player,{px:old.player.x,py:old.player.y,invulUntil:Math.max(0,old.player.invulUntil-old.tick)});
+    next.stats=this.stats;next.nextEnemy=old.nextEnemy;next.nextShot=old.nextShot;next.nextDrop=old.nextDrop;
+    if(old.bombMode){
+      next.bombActiveUntil=Math.max(0,old.bombActiveUntil-old.tick);next.bombCooldownUntil=Math.max(0,old.bombCooldownUntil-old.tick);
+      next.lastBomb=Math.max(-999,old.lastBomb-old.tick);next.bombX=old.bombX;next.bombY=old.bombY;
+    }
+    this.sim=next;this.phaseIndex=index;
+  };
+  Stage.prototype.step=function(input){
+    if(this.status!=='playing')throw new Error('终局后不能追加输入');
+    engine.validateInput(input,this.rules);
+    if(this.tick>=this.rules.stage01.maxTicks)throw new Error('关卡超过逻辑上限');
+    this.tick++;
+    if(this.stage==='opening'||this.stage==='transition'){
+      if(this.sim.hardMode)this.sim.musicTick++;
+      var p=this.sim.player,bounds=this.rules.field.playerBounds;p.px=p.x;p.py=p.y;
+      p.x=clamp(p.x+input.dx,bounds.minX*Q,bounds.maxX*Q);p.y=clamp(p.y+input.dy,bounds.minY*Q,bounds.maxY*Q);
+      p.invulUntil=Math.max(0,p.invulUntil-1);
+      if(this.sim.bombMode){
+        this.sim.bombActiveUntil=Math.max(0,this.sim.bombActiveUntil-1);this.sim.bombCooldownUntil=Math.max(0,this.sim.bombCooldownUntil-1);
+        this.sim.lastBomb=Math.max(-999,this.sim.lastBomb-1);
+      }
+      if(--this.remaining===0)this.stage='active';
+      return this.status;
+    }
+    var prelude=this.stage==='prelude';if(!prelude)this.activeTicks++;
+    var result=this.sim.step(input,true);
+    if(prelude)this.remaining=Math.max(0,this.rules.stage01.preludeTicks-this.sim.tick);
+    if(result==='dead'||result==='timeout'){this.status=result;this.stage='over';}
+    else if(result==='prelude_clear'){
+      this.events.push({tick:this.tick,phase:-1,activeTicks:this.activeTicks,lives:this.sim.player.lives,bombs:this.sim.player.bombs});
+      this.replace(0);this.stage='opening';this.remaining=this.rules.clock.introTicks;
+    }else if(result==='phase_clear'){
+      this.phaseBreaks++;this.events.push({tick:this.tick,phase:this.phaseIndex,activeTicks:this.activeTicks,lives:this.sim.player.lives,bombs:this.sim.player.bombs});
+      if(this.phaseIndex===2){
+        var current=this.sim;current.drops.forEach(function(item){current.collect(item);});current.drops=[];
+        this.status='clear';this.stage='over';this.sim.enemies=[];this.sim.shots=[];
+      }
+      else{this.replace(this.phaseIndex+1);this.stage='transition';this.remaining=this.rules.clock.transitionTicks;}
+    }
+    return this.status;
+  };
+  Stage.prototype.score=function(){
+    var parts=battle.Battle.prototype.score.call(this);
+    parts.mobs=this.stats.mobScore;parts.overflow=this.stats.overflowScoreUnits*this.rules.stage01.growth.overflowPerUnit;
+    parts.total+=parts.mobs+parts.overflow;
+    if(this.sim.bombMode){parts.bombOverflow=this.stats.bombOverflowTokens*this.rules.stage01.bomb.overflowScore;parts.total+=parts.bombOverflow;}
+    if(this.sim.collectMode){parts.points=this.stats.pointScore;parts.total+=parts.points;}
+    return parts;
+  };
+  Stage.prototype.snapshot=function(){
+    return{rule:this.rule,tick:this.tick,activeTicks:this.activeTicks,assist:this.assist,phase:this.phaseIndex,phaseBreaks:this.phaseBreaks,
+      stage:this.stage,remaining:this.remaining,status:this.status,hp:this.sim.hp,score:this.score(),events:this.events.map(function(e){return Object.assign({},e);}),sim:this.sim.snapshot()};
+  };
+  function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
+  function scoreLimit(rules,rule){if(isCollect(rule))return rules.collect08.scoreUpperBound;return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
+  return{Stage:Stage,Sim:Sim,hardRule:HARD_RULE,hardV2Rule:HARD_V2_RULE,rankedRules:[CORNER_RULE,NORMAL_CORNER_RULE],rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,collectRule:COLLECT_RULE,normalCollectRule:NORMAL_COLLECT_RULE,cornerRule:CORNER_RULE,normalCornerRule:NORMAL_CORNER_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+}));

@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-16",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-campaign-easy-v6-offline.html",
+    "bytes": 53928694,
+    "sha256": "11f8e2543a1c6567c6320fea003ef443cb0c764868d946c343520e382f20966a"
+  },
+  "rule": "danmaku-campaign-easy-v5",
+  "presentationRevision": 6,
+  "browser": {
+    "status": "PASS",
+    "sha256": "11f8e2543a1c6567c6320fea003ef443cb0c764868d946c343520e382f20966a",
+    "fourBossPlaquesAndTwoBombRibbonsRendered": true,
+    "actualBombNameAndUsageRetained": true,
+    "allBossTitlesMeasuredAndFit": true,
+    "realBombKillsTriggerFourNonOverlappingTransitions": true,
+    "bombEffectsNeverPaintOverBossTitlePixels": true,
+    "contextResetAfterTransition": true,
+    "reducedMotionAnd320And390pxChecked": true,
+    "bothReplayButtonsStopCorrectly": true,
+    "pausedFramesFrozen": true,
+    "normalBattleCanvasMatchesV5": true,
+    "transitionModelsMatchV5": true,
+    "lowerPlayerAreaPixelsMatchV5": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "sourceHashesMatched": 50,
+  "protectedOldFiles": {
+    "count": 358,
+    "unchangedAfterV5Relocation": true
+  },
+  "previousDeliveryMove": {
+    "from": "E:\\GPT工作区\\output\\天使弹幕祭\\当前试玩",
+    "to": "E:\\GPT工作区\\output\\天使弹幕祭\\历史版本\\danmaku-campaign-easy-v5",
+    "files": [
+      {
+        "bytes": 15532,
+        "sha256": "37169f0da0456bfecfd68cf30a2f01e0e1f9ddae0b925f30c9ea62e9d7dda0bf",
+        "relative": "danmaku-campaign-easy-v5-MANIFEST.json"
+      },
+      {
+        "bytes": 53918783,
+        "sha256": "8d0977ab68d59d2f111c5173cdd953f7098f5162b2bdc255a400c55696236fc8",
+        "relative": "danmaku-campaign-easy-v5-offline.html"
+      },
+      {
+        "bytes": 608,
+        "sha256": "1b12741b639f36c102b62e0d952ddf3cb6e6fabd02b680a5581f456cbc028ddc",
+        "relative": "README.md"
+      },
+      {
+        "bytes": 359423,
+        "sha256": "5de21cef12acf5c7942bf52ce99bf13f196f7348ba1a95ed71ac6f2c7cdee33d",
+        "relative": "预览图\\bomb-stage2-45.png"
+      },
+      {
+        "bytes": 442584,
+        "sha256": "151925d14e635798e7f8bfc847bc7724b9f95cd7c1741a62085c0dfdf50fe341",
+        "relative": "预览图\\dialogue-balanced-mobile.png"
+      },
+      {
+        "bytes": 79813,
+        "sha256": "02c4c5b847f93504eb05e443e5aee80d4d223e939263ca07e3fc745fbc2ea69b",
+        "relative": "预览图\\prayer-card.png"
+      }
+    ]
+  },
+  "screenshotsInspected": [
+    "boss-stage1-phase1.png",
+    "boss-stage1-phase2.png",
+    "boss-stage2-phase1.png",
+    "boss-stage2-phase2.png",
+    "bomb-stage2.png",
+    "overlap-stage1.png",
+    "overlap-stage2.png",
+    "bomb-320px.png",
+    "overlap-320px.png",
+    "reduced-both-frames.png"
+  ],
+  "navigationMarkdownUpdated": [
+    "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\CAMPAIGN-v5.md",
+    "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\NEXT-CHAT-HANDOFF.md",
+    "E:\\GPT工作区\\output\\README.md",
+    "E:\\GPT工作区\\output\\天使弹幕祭\\历史版本\\danmaku-campaign-easy-v5\\README.md",
+    "E:\\GPT工作区\\工作区导航.md"
+  ],
+  "gameplayOrStoryRulesChanged": false,
+  "newArtOrMusicGenerated": false,
+  "newPeerZipCreated": false,
+  "naturalFullClearTested": false,
+  "humanNewPresentationAccepted": false,
+  "realMobileOrLongRunPerformanceTested": false,
+  "uploadedOrDeployed": false,
+  "generatedBuildCopiesAndCachesRemoved": {
+    "targets": 7,
+    "bytes": 244089025,
+    "finalHtmlPreserved": true,
+    "reportsScreenshotsManifestsAndBrowserStderrRetained": true
+  }
+}

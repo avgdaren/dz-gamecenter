@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "logic": {
+    "status": "PASS",
+    "checks": [
+      "opening dialogue gates the first encounter and consumes no battle time",
+      "stage finish carries life, power, bombs and settles last drops once",
+      "boss dialogue freezes resources and 390 active intro ticks keep the confirmed stop",
+      "presentation trace keeps the three legacy combat snapshots identical",
+      "three boss defeats advance into victory then epilogue, with a music fade",
+      "boss retry restores the entry checkpoint rather than full-power practice defaults",
+      "test flag stays marked across stage transition, retries and terminal screens",
+      "invalid movement cannot advance the flow or intro clock",
+      "whole-run restart resets the checkpoint and run resources"
+    ],
+    "naturalFullClearTested": false,
+    "serverVerifierTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "file": "danmaku-stage02-journey-v1-offline.html",
+    "sha256": "0c40e5243945120c726f8ffd02bd6aabd4810499b91edf470b9ee835fbae0f7d",
+    "titleAndPrologue": true,
+    "realDialogueAdvanceAndSkip": true,
+    "dialogueFreezesBattle": true,
+    "stageAndBossAudio": true,
+    "stageAudioErrorSeconds": -2.7755575615628914e-17,
+    "bossAudioErrorSeconds": -0.008000000000000007,
+    "resourceCarry": true,
+    "bossHoldNoAttack": true,
+    "realKeyboardMovement": true,
+    "bossActuallyTakesDamage": true,
+    "realBombClears": true,
+    "pauseFrozen": true,
+    "blurPaused": true,
+    "checkpointRetryRestoresResources": true,
+    "victoryMusicFades": true,
+    "epilogueAndComplete": true,
+    "wholeRestart": true,
+    "emissionSourceAndBirthRendered": true,
+    "newbornMaterialAgeChecked": 4,
+    "allThreePhasesRendered": true,
+    "mobileNoOverflow": true,
+    "headlessMedianFrameMs": 16.699999999999818,
+    "frameSampleCount": 12,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "usedBoundedFixtures": true,
+    "naturalFullClearTested": false,
+    "serverVerifierTested": false
+  },
+  "protection": {
+    "unchangedFiles": 94,
+    "oldGameplayAndPNGUnchanged": true
+  },
+  "naturalFullClearTested": false,
+  "serverVerifierIntegrated": false
+}

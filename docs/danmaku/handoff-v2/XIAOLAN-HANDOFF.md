@@ -1,5 +1,7 @@
 # 小蓝接手：当前完整单关版
 
+本页为旧单关交接。2026-11-16主人已试玩确认两关三难度v11，当前请从[最新交接v3](../handoff-v3/XIAOLAN-HANDOFF.md)接手；旧单关榜单／PHP规则不能直接用于两关，保留本页作历史记录。
+
 2026-11-12，小典 / Codex；原型 `(C) 2026 Carinoasd`。主人已授权本次通过现有公开仓库交接，由你接本地论坛、验证后准备线上包。这里是最新入口，覆盖旧 `handoff-v1` 的当前规则与UI说明。
 
 [PR #79](https://github.com/avgdaren/dz-gamecenter/pull/79)，分支 `feat/danmaku-title-power-v1`，基底 `feat/danmaku-normal-v1`。请从PR当前HEAD取 `source/plugin/gamecenter/games/_danmaku_proto/`，共43份运行文件，按 [RUNTIME-MANIFEST.json](RUNTIME-MANIFEST.json) 核对；文本按LF规范化、PNG按原字节。可对接时将PR的HEAD SHA固定在你的交接记录中。这个目录已经包含Normal分支内容，不要只拿最后一个顶角补丁或用main替代。

@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "tool": "image_gen.imagegen (built-in)",
+  "promptFile": "PROMPTS.md",
+  "reference": "../stage02-garden-v2/user-reference.png",
+  "status": "integrated-material-preview-awaiting-user-feedback",
+  "assets": {
+    "petal": {
+      "file": "garden-petal-v1.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 792624,
+      "sha256": "d766d6d2f8e19c7f45f409826ffc720906a6fde93b200efcd0e9e2ff1c44787e",
+      "colorType": 6,
+      "transparentPixels": 1084219,
+      "partialAlphaPixels": 488185,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "visibleBoundsAlpha128": [
+        202,
+        178,
+        1037,
+        1079
+      ],
+      "generatedPixelsPreserved": true,
+      "generationFile": "exec-0fa76fb3-a0ee-4e96-8e0c-e1462c2c06c6.png"
+    },
+    "leaf": {
+      "file": "garden-leaf-v1.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 438642,
+      "sha256": "3e5adaccfd9055189e76ac0ad08e8c996ad0ea05326046150c40ecb8f2ff2f41",
+      "colorType": 6,
+      "transparentPixels": 1317316,
+      "partialAlphaPixels": 254730,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "visibleBoundsAlpha128": [
+        384,
+        135,
+        845,
+        1119
+      ],
+      "generatedPixelsPreserved": true,
+      "generationFile": "exec-6de75645-734a-464c-90ef-5bbb2fa1892f.png"
+    },
+    "bud": {
+      "file": "garden-bud-v1.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 819562,
+      "sha256": "9ddad4accc367f8c1ffdc850b5501c5c2a0a200fa3cd2108b8efb9b4b1eeb682",
+      "colorType": 6,
+      "transparentPixels": 1067142,
+      "partialAlphaPixels": 504641,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "visibleBoundsAlpha128": [
+        181,
+        144,
+        1068,
+        1068
+      ],
+      "generatedPixelsPreserved": true,
+      "generationFile": "exec-c40f3a33-11dd-41ae-88cb-b50e27c049fe.png"
+    }
+  },
+  "sourcePixelsPreserved": true,
+  "display": "runtime crop/scale cache, thin contour and slight sway; no rewritten source PNG",
+  "gameplayChanged": false
+}

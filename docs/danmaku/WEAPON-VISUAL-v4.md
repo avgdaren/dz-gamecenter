@@ -6,7 +6,7 @@
 
 用户要求追踪弹使用短弹形，认可主角立绘但需要武器体现弹幕来源。本轮只修改绘制和标题图片，规则仍Easy r7／Normal normal-r5。
 
-最新试玩：`E:\GPT工作区\output\danmaku-stage01-weapons-v3-offline.html`；快速看追踪短弹：`E:\GPT工作区\output\danmaku-weapons-v3-review.html`。旧v2试玩与预览均保留。
+最新试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-weapons-v3-offline.html`；快速看追踪短弹：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-weapons-v3-review.html`。旧v2试玩与预览均保留。
 
 绿色追踪弹改为9px长的短菱形和小白芯，删除原来按速度延伸约45px的拖尾，仅保留直径10px的轻微光晕。低速绿色直射使用同一短弹外形；中央细长收束弹保持原绘制分支。速度、追踪转向、发射频率、伤害与碰撞完全沿用上一版。
 

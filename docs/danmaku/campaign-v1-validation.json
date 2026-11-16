@@ -1,0 +1,212 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-campaign-easy-v1-offline.html",
+    "bytes": 52485584,
+    "sha256": "fff52b524be139e341f1b226862d9d3cf040743ed3a0dc4549338bfde4594931"
+  },
+  "logic": {
+    "arrival": {
+      "resources": {
+        "lives": 2,
+        "bombs": 3,
+        "power": 13
+      },
+      "invulTicks": 79,
+      "cooldownTicks": 99,
+      "statisticsReset": true,
+      "firstStageArchivedExactlyOnce": true
+    },
+    "finalSummary": {
+      "rows": [
+        {
+          "stage": 1,
+          "name": "星穹回廊",
+          "status": "clear",
+          "ticks": 5001,
+          "phaseBreaks": 3,
+          "resources": {
+            "lives": 3,
+            "bombs": 2,
+            "power": 0
+          },
+          "stats": {
+            "damage": 14400,
+            "shotHits": 1,
+            "hitsTaken": 0,
+            "graze": 0,
+            "bombsUsed": 0,
+            "enemySpawned": 0,
+            "enemyPeak": 0,
+            "mobDamage": 0,
+            "mobKills": 0,
+            "mobScore": 0,
+            "powerCollected": 0,
+            "powerRecovered": 0,
+            "powerLost": 0,
+            "powerOverflow": 0,
+            "overflowScoreUnits": 0,
+            "mobSpawned": 0,
+            "mobPeak": 0,
+            "dropSpawned": 0,
+            "dropPeak": 0,
+            "upgrades": 0,
+            "pointItemsSpawned": 0,
+            "pointCollected": 0,
+            "pointScore": 0,
+            "bombDamage": 0,
+            "bombKills": 0,
+            "bombCleared": 0,
+            "bombCollected": 0,
+            "bombOverflowTokens": 0,
+            "bombItemsSpawned": 0
+          },
+          "score": {
+            "clear": 200000,
+            "phase": 60000,
+            "damage": 20000,
+            "graze": 0,
+            "resources": 8000,
+            "time": 10000,
+            "total": 298000,
+            "mobs": 0,
+            "overflow": 0,
+            "bombOverflow": 0,
+            "points": 0
+          }
+        },
+        {
+          "stage": 2,
+          "name": "风铃花庭",
+          "status": "clear",
+          "ticks": 5861,
+          "phaseBreaks": 3,
+          "resources": {
+            "lives": 3,
+            "bombs": 2,
+            "power": 2
+          },
+          "stats": {
+            "damage": 18900,
+            "shotHits": 1,
+            "hitsTaken": 0,
+            "graze": 0,
+            "bombsUsed": 0,
+            "enemySpawned": 0,
+            "enemyPeak": 0,
+            "mobDamage": 0,
+            "mobKills": 0,
+            "mobScore": 0,
+            "powerCollected": 2,
+            "powerRecovered": 0,
+            "powerLost": 0,
+            "powerOverflow": 0,
+            "overflowScoreUnits": 0,
+            "mobSpawned": 0,
+            "mobPeak": 0,
+            "dropSpawned": 1,
+            "dropPeak": 1,
+            "upgrades": 0,
+            "pointItemsSpawned": 0,
+            "pointCollected": 0,
+            "pointScore": 0,
+            "bombDamage": 0,
+            "bombKills": 0,
+            "bombCleared": 0,
+            "bombCollected": 0,
+            "bombOverflowTokens": 0,
+            "bombItemsSpawned": 0,
+            "castMobs": 0,
+            "gardenPhasePower": 2
+          },
+          "score": {
+            "mobs": 0,
+            "points": 0,
+            "overflow": 0,
+            "bombOverflow": 0,
+            "damage": 18900,
+            "phase": 60000,
+            "graze": 0,
+            "total": 78900
+          }
+        }
+      ],
+      "total": 376900,
+      "completedStages": 2,
+      "expectedStages": 2,
+      "ticksPlayed": 203,
+      "assisted": false,
+      "continuous": true,
+      "attempts": 1
+    },
+    "status": "PASS",
+    "checks": [
+      "campaign starts with genuine first-stage Easy resources and rules",
+      "first-stage 12-second snapshots remain identical to the existing simulation",
+      "final drops settle once, raw resources survive handoff and timers rebase",
+      "second-stage v6 local rules and snapshots remain identical after arrival",
+      "stage retry restores arrival and replaces its subtotal without repeating stage-one awards",
+      "first Boss checkpoint restores actual arrival resources, stats and IDs",
+      "garden Boss retries cannot farm phase power or preserve failed-attempt stats",
+      "both stages settle once and return immutable per-stage and cumulative results",
+      "single-stage and Boss practices remain separate from continuous clears"
+    ],
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "fff52b524be139e341f1b226862d9d3cf040743ed3a0dc4549338bfde4594931",
+    "easyUnifiedEntry": true,
+    "firstStageStartsAtPowerZero": true,
+    "bothMusicBanksPreparedByInitialGesture": true,
+    "firstToSecondAutomatic": true,
+    "actualArrival": {
+      "lives": 2,
+      "bombs": 1,
+      "power": 11
+    },
+    "gardenMusicStartsAtBeginning": true,
+    "oldStageMusicStops": true,
+    "focusAndVolumePreserved": true,
+    "stageRetryUsesActualArrival": true,
+    "bossRetryUsesActualArrival": true,
+    "stageOneAwardNotDuplicated": true,
+    "oneFinalResultWithTwoRows": true,
+    "returnTitleResetsWholeRun": true,
+    "fourPracticeEntries": true,
+    "bossCanvasMatchesAcceptedV4": true,
+    "bossIntroCanvasMatchesAcceptedV6": true,
+    "pauseFrozen": true,
+    "blurPaused": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "screenshotsInspected": [
+    "title-desktop.png",
+    "first-clear-to-garden.png",
+    "garden-actual-arrival.png",
+    "garden-boss-intro.png",
+    "two-stage-results.png",
+    "title-mobile.png"
+  ],
+  "protectedOldFiles": {
+    "count": 261,
+    "unchanged": true
+  },
+  "stage01Rule": "danmaku-stage01-r9",
+  "stage02Baseline": "refined-v6",
+  "bossBaseline": "refined-v4",
+  "stage01And02SimulationsChanged": false,
+  "artOrMusicChanged": false,
+  "ranked": false,
+  "boundaryResourceSamplesAreFixtures": true,
+  "naturalFullClearTested": false,
+  "easyCalibrationComplete": false,
+  "dialogueImplemented": false,
+  "normalHardSecondStageImplemented": false,
+  "serverReplayTested": false,
+  "uploadedCommittedMergedOrDeployed": false
+}

@@ -1,0 +1,30 @@
+{
+  "source": "C:\\Windows\\Fonts\\NotoSerifSC-VF.ttf",
+  "sourceSha256": "a4aed9985a5916fbf6690456f8732a9fccd517938e353165d4142b4f11a39280",
+  "sourceMetadata": {
+    "0": "© 2017-2023 Adobe (http://www.adobe.com/).",
+    "1": "Noto Serif SC",
+    "2": "Regular",
+    "13": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software.",
+    "14": "http://scripts.sil.org/OFL"
+  },
+  "upstream": "https://github.com/notofonts/noto-cjk",
+  "licenseUrl": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Serif/LICENSE",
+  "licenseFile": "OFL.txt",
+  "licenseSha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+  "derivativeFamily": "Danmaku Spell Serif",
+  "weight": 500,
+  "characters": " 0123456789·一三二交使光冠击卷双叶司告周响回声天夹奏宣展岸幕庭廊式引径悬放旋星河测环瓣祷移穹章第织终羽者舒花观轨迁连迟迹追重铃错隔雨顶风",
+  "titleData": [
+    "风廊 · 交叶迁径",
+    "花瓣舒展 · 错庭重瓣",
+    "铃声回响 · 隔庭追响",
+    "风廊 · 回卷双风",
+    "花瓣舒展 · 迟放回庭",
+    "铃声回响 · 三铃错奏"
+  ],
+  "file": "danmaku-spell-serif-500.woff2",
+  "bytes": 15336,
+  "sha256": "5a56774899010e8219bffcb9f511f5305b70ecbd21cd63fd14c482b2e0ce5ebb",
+  "revision": 10
+}

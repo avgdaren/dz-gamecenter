@@ -58,6 +58,6 @@ node tests/danmaku/check-export-stage01.cjs '回放绝对路径.json'
 
 ## 交付边界
 
-新单文件为`E:\GPT工作区\output\danmaku-stage01-art-v1-offline.html`，完整包`danmaku-stage01-art-v1.zip`根目录`START.html`可双击。旧成长版、大招版和全部原图保留。
+新单文件为`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-art-v1-offline.html`，完整包`danmaku-stage01-art-v1.zip`根目录`START.html`可双击。旧成长版、大招版和全部原图保留。
 
 本轮没有制作BGM／音效、整体UI重排或Boss人物战斗图，Boss仍用现有几何占位；此前的透明主立绘源图保持原样。下一项按第五步制作本关BGM与音效。真人完整难度、真实手机硬件、线上混合负载与下载保存界面未验。PHP模拟未改，本轮不重测或扩大上一版474.91ms合法长局预算结论。

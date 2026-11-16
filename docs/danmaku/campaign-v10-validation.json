@@ -1,0 +1,721 @@
+{
+  "status": "PASS",
+  "version": 10,
+  "date": "2026-11-16",
+  "artifact": "E:\\GPT工作区\\output\\天使弹幕祭\\当前试玩\\danmaku-campaign-v10-offline.html",
+  "bytes": 49807673,
+  "sha256": "8ee02c8220c9daa4c6f61c98dd947d660801ad0b7d7faf411b17185947076bf4",
+  "previous": "E:\\GPT工作区\\output\\天使弹幕祭\\历史版本\\danmaku-campaign-easy-v9\\danmaku-campaign-easy-v9-offline.html",
+  "previousSha256": "082205fae9f90313a2f6dfea667adbc5498da73bd82725b8dc152a2d45c6e93c",
+  "static": {
+    "scriptsCompiled": 2,
+    "domIdsAndReferencesChecked": true,
+    "inlineResourcesOnly": true,
+    "originalCampaignImageAndMusicDataIdentical": true,
+    "originalFirstStageSimulationAndAudioSourcesUnchanged": [
+      "engine.js",
+      "battle.js",
+      "weapons.js",
+      "boss-patterns.js",
+      "hard-patterns.js",
+      "hard-rich-patterns.js",
+      "hard-choreography.js",
+      "stage.js",
+      "audio.js",
+      "controls.js",
+      "player-view.js",
+      "audio-bank.js",
+      "bgm-bank.js"
+    ],
+    "lazyAudioSourceUnchanged": true,
+    "allManifestSourceHashesMatch": true
+  },
+  "logic": {
+    "naturalFullClearTested": false,
+    "humanDifficultyAccepted": false,
+    "serverReplayTested": false,
+    "stage01Rules": {
+      "normal": "danmaku-stage01-normal-r7",
+      "hard": "danmaku-stage01-hard-r3"
+    },
+    "inheritance": [
+      {
+        "difficulty": "normal",
+        "resources": {
+          "lives": 2,
+          "bombs": 1,
+          "power": 13
+        },
+        "invulnerability": 79,
+        "cooldown": 99,
+        "prayerTicks": 100
+      },
+      {
+        "difficulty": "hard",
+        "resources": {
+          "lives": 2,
+          "bombs": 1,
+          "power": 13
+        },
+        "invulnerability": 79,
+        "cooldown": 99,
+        "prayerTicks": 100
+      }
+    ],
+    "bossSlices": [
+      {
+        "difficulty": "normal",
+        "phase": 1,
+        "ticks": 720,
+        "firstRelease": 36,
+        "spawned": 243,
+        "peak": 93
+      },
+      {
+        "difficulty": "normal",
+        "phase": 2,
+        "ticks": 720,
+        "firstRelease": 46,
+        "spawned": 354,
+        "peak": 88
+      },
+      {
+        "difficulty": "normal",
+        "phase": 3,
+        "ticks": 720,
+        "firstRelease": 86,
+        "spawned": 140,
+        "peak": 59
+      },
+      {
+        "difficulty": "hard",
+        "phase": 1,
+        "ticks": 720,
+        "firstRelease": 50,
+        "spawned": 170,
+        "peak": 67
+      },
+      {
+        "difficulty": "hard",
+        "phase": 2,
+        "ticks": 720,
+        "firstRelease": 79,
+        "spawned": 200,
+        "peak": 64
+      },
+      {
+        "difficulty": "hard",
+        "phase": 3,
+        "ticks": 720,
+        "firstRelease": 111,
+        "spawned": 114,
+        "peak": 72
+      }
+    ],
+    "hardBellLock": {
+      "captureMusicTick": 1429,
+      "releaseMusicTick": 1465,
+      "node": 1,
+      "warningTicks": 36,
+      "lockedAngle": 155,
+      "playerAimBeforeRelease": 133,
+      "centerBulletRetained": true,
+      "warningSourceMatchesRelease": true,
+      "snapshotContainsIndependentLock": true,
+      "bombClearsCurrentCallButNextCallWorks": true,
+      "nextReleaseMusicTick": 1651,
+      "phaseAndRetryDiscardOldLock": true
+    },
+    "resourceWindows": [
+      {
+        "difficulty": "normal",
+        "startPower": 0,
+        "ticks": 1260,
+        "kills": 15,
+        "spawned": 25,
+        "castMobs": 12,
+        "visiblePeak": 10,
+        "enemyPeak": 46,
+        "endPower": 4
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 8,
+        "ticks": 1260,
+        "kills": 15,
+        "spawned": 25,
+        "castMobs": 11,
+        "visiblePeak": 9,
+        "enemyPeak": 46,
+        "endPower": 8
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 12,
+        "ticks": 1260,
+        "kills": 20,
+        "spawned": 25,
+        "castMobs": 6,
+        "visiblePeak": 7,
+        "enemyPeak": 29,
+        "endPower": 12
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 16,
+        "ticks": 1260,
+        "kills": 23,
+        "spawned": 25,
+        "castMobs": 3,
+        "visiblePeak": 5,
+        "enemyPeak": 30,
+        "endPower": 16
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 0,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 10,
+        "spawned": 15,
+        "castMobs": 2,
+        "visiblePeak": 7,
+        "enemyPeak": 25,
+        "endPower": 1
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 8,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 10,
+        "spawned": 15,
+        "castMobs": 2,
+        "visiblePeak": 7,
+        "enemyPeak": 25,
+        "endPower": 9
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 12,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 10,
+        "spawned": 15,
+        "castMobs": 2,
+        "visiblePeak": 7,
+        "enemyPeak": 25,
+        "endPower": 12
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 16,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 10,
+        "spawned": 15,
+        "castMobs": 2,
+        "visiblePeak": 7,
+        "enemyPeak": 25,
+        "endPower": 16
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 0,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 11,
+        "spawned": 16,
+        "castMobs": 9,
+        "visiblePeak": 8,
+        "enemyPeak": 55,
+        "endPower": 2
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 8,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 11,
+        "spawned": 16,
+        "castMobs": 7,
+        "visiblePeak": 7,
+        "enemyPeak": 42,
+        "endPower": 10
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 12,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 12,
+        "spawned": 16,
+        "castMobs": 6,
+        "visiblePeak": 5,
+        "enemyPeak": 32,
+        "endPower": 14
+      },
+      {
+        "difficulty": "normal",
+        "startPower": 16,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 14,
+        "spawned": 16,
+        "castMobs": 4,
+        "visiblePeak": 3,
+        "enemyPeak": 27,
+        "endPower": 16
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 0,
+        "ticks": 1260,
+        "kills": 20,
+        "spawned": 31,
+        "castMobs": 16,
+        "visiblePeak": 10,
+        "enemyPeak": 57,
+        "endPower": 4
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 8,
+        "ticks": 1260,
+        "kills": 20,
+        "spawned": 31,
+        "castMobs": 11,
+        "visiblePeak": 10,
+        "enemyPeak": 54,
+        "endPower": 8
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 12,
+        "ticks": 1260,
+        "kills": 27,
+        "spawned": 31,
+        "castMobs": 5,
+        "visiblePeak": 7,
+        "enemyPeak": 24,
+        "endPower": 12
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 16,
+        "ticks": 1260,
+        "kills": 29,
+        "spawned": 31,
+        "castMobs": 5,
+        "visiblePeak": 5,
+        "enemyPeak": 37,
+        "endPower": 16
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 0,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 13,
+        "spawned": 18,
+        "castMobs": 8,
+        "visiblePeak": 8,
+        "enemyPeak": 55,
+        "endPower": 1
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 8,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 14,
+        "spawned": 18,
+        "castMobs": 5,
+        "visiblePeak": 7,
+        "enemyPeak": 35,
+        "endPower": 9
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 12,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 14,
+        "spawned": 18,
+        "castMobs": 5,
+        "visiblePeak": 7,
+        "enemyPeak": 35,
+        "endPower": 12
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 16,
+        "isolatedWaveSlice": true,
+        "startTick": 2160,
+        "ticks": 720,
+        "kills": 16,
+        "spawned": 18,
+        "castMobs": 3,
+        "visiblePeak": 5,
+        "enemyPeak": 15,
+        "endPower": 16
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 0,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 17,
+        "spawned": 22,
+        "castMobs": 12,
+        "visiblePeak": 11,
+        "enemyPeak": 69,
+        "endPower": 2
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 8,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 17,
+        "spawned": 22,
+        "castMobs": 12,
+        "visiblePeak": 11,
+        "enemyPeak": 64,
+        "endPower": 10
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 12,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 17,
+        "spawned": 22,
+        "castMobs": 9,
+        "visiblePeak": 8,
+        "enemyPeak": 49,
+        "endPower": 14
+      },
+      {
+        "difficulty": "hard",
+        "startPower": 16,
+        "isolatedWaveSlice": true,
+        "startTick": 3600,
+        "ticks": 720,
+        "kills": 19,
+        "spawned": 22,
+        "castMobs": 4,
+        "visiblePeak": 7,
+        "enemyPeak": 32,
+        "endPower": 16
+      }
+    ],
+    "emissionScans": [
+      {
+        "difficulty": "normal",
+        "part": "mobs",
+        "ticks": 5760,
+        "spawned": 934,
+        "peak": 133,
+        "mobPeak": 22,
+        "cap": 256
+      },
+      {
+        "difficulty": "normal",
+        "part": "boss",
+        "phase": 1,
+        "ticks": 13401,
+        "spawned": 4115,
+        "peak": 95,
+        "postCullPeak": 95,
+        "cap": 360,
+        "phaseBudget": 4200,
+        "maxPhaseBirths": 1351,
+        "phaseSpawnCap": 4096
+      },
+      {
+        "difficulty": "normal",
+        "part": "boss",
+        "phase": 2,
+        "ticks": 13401,
+        "spawned": 5831,
+        "peak": 91,
+        "postCullPeak": 91,
+        "cap": 360,
+        "phaseBudget": 4200,
+        "maxPhaseBirths": 1937,
+        "phaseSpawnCap": 4096
+      },
+      {
+        "difficulty": "normal",
+        "part": "boss",
+        "phase": 3,
+        "ticks": 13401,
+        "spawned": 2740,
+        "peak": 59,
+        "postCullPeak": 59,
+        "cap": 360,
+        "phaseBudget": 4200,
+        "maxPhaseBirths": 896,
+        "phaseSpawnCap": 4096
+      },
+      {
+        "difficulty": "hard",
+        "part": "mobs",
+        "ticks": 5760,
+        "spawned": 1094,
+        "peak": 174,
+        "mobPeak": 22,
+        "cap": 320
+      },
+      {
+        "difficulty": "hard",
+        "part": "boss",
+        "phase": 1,
+        "ticks": 13401,
+        "spawned": 2966,
+        "peak": 68,
+        "postCullPeak": 68,
+        "cap": 360,
+        "phaseBudget": 4200,
+        "maxPhaseBirths": 1006,
+        "phaseSpawnCap": 4096
+      },
+      {
+        "difficulty": "hard",
+        "part": "boss",
+        "phase": 2,
+        "ticks": 13401,
+        "spawned": 3440,
+        "peak": 74,
+        "postCullPeak": 73,
+        "cap": 360,
+        "phaseBudget": 4200,
+        "maxPhaseBirths": 1205,
+        "phaseSpawnCap": 4096
+      },
+      {
+        "difficulty": "hard",
+        "part": "boss",
+        "phase": 3,
+        "ticks": 13401,
+        "spawned": 2278,
+        "peak": 72,
+        "postCullPeak": 72,
+        "cap": 360,
+        "phaseBudget": 4200,
+        "maxPhaseBirths": 783,
+        "phaseSpawnCap": 4096
+      }
+    ],
+    "status": "PASS",
+    "checks": [
+      "difficulty is validated and independent rules preserve current Easy",
+      "Normal and Hard first-stage snapshots match their existing accepted rule implementations",
+      "story freezes the complete session; prayer lasts exactly 100 steps before actual raw-resource inheritance",
+      "first Boss checkpoint retry retains each difficulty and the exact pre-Boss state",
+      "second-stage and Boss retries restore their checkpoints without repeating rewards or changing difficulty",
+      "second-stage three-phase completion archives each subtotal once and freezes after the final story",
+      "all six Boss attacks are deterministic integer simulations with a first-release recognition window",
+      "Hard bell warnings lock exactly once, retain their source and release toward the captured position",
+      "Hard bell locks recover after B and do not leak into replacement phases or checkpoint retries",
+      "clearing delayed motion with B leaves no ghosts; close births and transition state are bounded",
+      "Normal and Hard share one-life damage, bomb-stock reset and recoverable power rules",
+      "enemy warnings precede firing and light enemies retain one-hit defeat and useful recovery drops",
+      "separate no-kill emission scans stay within declared live caps throughout each authored budget"
+    ]
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "8ee02c8220c9daa4c6f61c98dd947d660801ad0b7d7faf411b17185947076bf4",
+    "file": "E:\\GPT工作区\\dz-gamecenter-handoff\\tmp\\danmaku\\campaign-v10\\candidate\\danmaku-campaign-v10-offline.html",
+    "referenceSha256": "082205fae9f90313a2f6dfea667adbc5498da73bd82725b8dc152a2d45c6e93c",
+    "defaultDifficulty": "normal",
+    "easySnapshotsAndCanvasMatchV9": true,
+    "acceptedNormalAndCompactRibbonCanvasMatchV9": true,
+    "nativeStartAndCurrentTrackAudio": true,
+    "threeDifficultySelection": true,
+    "difficultyLockedDuringPlay": true,
+    "openingStorySkipAndFreeze": true,
+    "pauseAndBlurFreeze": true,
+    "firstStageMaterials": {
+      "normal": {
+        "rule": "danmaku-stage01-normal-r7",
+        "bulletDrawCalls": 62
+      },
+      "hard": {
+        "rule": "danmaku-stage01-hard-r3",
+        "bulletDrawCalls": 65
+      }
+    },
+    "secondStageSpells": [
+      {
+        "difficulty": "normal",
+        "phase": 0,
+        "title": "风廊 · 交叶迁径"
+      },
+      {
+        "difficulty": "normal",
+        "phase": 1,
+        "title": "花瓣舒展 · 错庭重瓣"
+      },
+      {
+        "difficulty": "normal",
+        "phase": 2,
+        "title": "铃声回响 · 隔庭追响"
+      },
+      {
+        "difficulty": "hard",
+        "phase": 0,
+        "title": "风廊 · 回卷双风"
+      },
+      {
+        "difficulty": "hard",
+        "phase": 1,
+        "title": "花瓣舒展 · 迟放回庭"
+      },
+      {
+        "difficulty": "hard",
+        "phase": 2,
+        "title": "铃声回响 · 三铃错奏"
+      }
+    ],
+    "singlePhasePractices": [
+      {
+        "difficulty": "normal",
+        "phase": 0,
+        "presetChangeKeepsPhase": true,
+        "restartKeepsPhase": true,
+        "singlePhaseClear": true,
+        "checkpointRetryKeepsPhase": true
+      },
+      {
+        "difficulty": "normal",
+        "phase": 1,
+        "presetChangeKeepsPhase": true,
+        "restartKeepsPhase": true,
+        "singlePhaseClear": true,
+        "checkpointRetryKeepsPhase": true
+      },
+      {
+        "difficulty": "normal",
+        "phase": 2,
+        "presetChangeKeepsPhase": true,
+        "restartKeepsPhase": true,
+        "singlePhaseClear": true,
+        "checkpointRetryKeepsPhase": true
+      },
+      {
+        "difficulty": "hard",
+        "phase": 0,
+        "presetChangeKeepsPhase": true,
+        "restartKeepsPhase": true,
+        "singlePhaseClear": true,
+        "checkpointRetryKeepsPhase": true
+      },
+      {
+        "difficulty": "hard",
+        "phase": 1,
+        "presetChangeKeepsPhase": true,
+        "restartKeepsPhase": true,
+        "singlePhaseClear": true,
+        "checkpointRetryKeepsPhase": true
+      },
+      {
+        "difficulty": "hard",
+        "phase": 2,
+        "presetChangeKeepsPhase": true,
+        "restartKeepsPhase": true,
+        "singlePhaseClear": true,
+        "checkpointRetryKeepsPhase": true
+      }
+    ],
+    "nativeMovementAndBomb": true,
+    "delayedTurnWarningDrawCalls": 46,
+    "actualArrival": {
+      "lives": 2,
+      "bombs": 1,
+      "power": 11
+    },
+    "handoffMusicAndOldAudioReleased": true,
+    "mobile": [
+      {
+        "width": 390,
+        "noHorizontalOverflow": true,
+        "bossAndBombSeparate": true,
+        "bossBelowHud": true
+      },
+      {
+        "width": 320,
+        "noHorizontalOverflow": true,
+        "bossAndBombSeparate": true,
+        "bossBelowHud": true
+      }
+    ],
+    "externalRequests": 0,
+    "scriptErrors": 0,
+    "maximumFixtureSteps": 600,
+    "naturalFullClearTested": false,
+    "realDeviceTested": false,
+    "screenshots": [
+      "easy-stage1-v9-match.png",
+      "easy-stage2-v9-match.png",
+      "normal-opening-story.png",
+      "normal-stage1-material.png",
+      "normal-spell-0-declaration.png",
+      "normal-spell-0-battle.png",
+      "normal-practice-0-clear.png",
+      "normal-spell-1-declaration.png",
+      "normal-spell-1-battle.png",
+      "normal-practice-1-clear.png",
+      "normal-spell-2-declaration.png",
+      "normal-spell-2-battle.png",
+      "normal-practice-2-clear.png",
+      "hard-stage1-material.png",
+      "hard-spell-0-declaration.png",
+      "hard-spell-0-battle.png",
+      "hard-practice-0-clear.png",
+      "hard-spell-1-declaration.png",
+      "hard-spell-1-battle.png",
+      "hard-practice-1-clear.png",
+      "hard-spell-2-declaration.png",
+      "hard-spell-2-battle.png",
+      "hard-practice-2-clear.png",
+      "hard-native-bomb.png",
+      "hard-delayed-turn-warning.png",
+      "normal-stage2-arrival.png",
+      "mobile-390-boss-and-bomb.png",
+      "mobile-320-boss-and-bomb.png"
+    ]
+  },
+  "visualInspection": {
+    "inspectedBy": "小典 / Codex",
+    "sixSpellBattleFrames": true,
+    "declaration": true,
+    "hardDelayedTurnWarning": true,
+    "firstStageHardMaterial": true,
+    "mobile390And320BossBombHud": true,
+    "arrival": true
+  },
+  "naturalFullClearTested": false,
+  "humanDifficultyAccepted": false,
+  "realDeviceTested": false,
+  "serverReplaySupported": false,
+  "onlineDeploymentTested": false,
+  "gitPushed": false,
+  "friendPackageCreated": false
+}

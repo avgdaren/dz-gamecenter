@@ -51,7 +51,7 @@ node tests/danmaku/check-export-stage01.cjs '回放绝对路径.json'
 
 ## 交付与后续
 
-直接打开`E:\GPT工作区\output\danmaku-stage01-growth-r1-offline.html`，或解压`danmaku-stage01-growth-r1.zip`后双击根目录`START.html`。源码入口也可直接双击，HTTP预览仍可用。所有资源本地提供，不依赖npm、CDN或Python运行环境；Python只用于可选的规则表与离线打包。
+直接打开`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-growth-r1-offline.html`，或解压`danmaku-stage01-growth-r1.zip`后双击根目录`START.html`。源码入口也可直接双击，HTTP预览仍可用。所有资源本地提供，不依赖npm、CDN或Python运行环境；Python只用于可选的规则表与离线打包。
 
 第一版范围固定一关。小怪与场景目前采用代码占位，少女自机和正面图继续使用已确认素材；正式小怪、场景、BGM、音效和完整UI优化尚待后续步骤。下一步是清屏大招的正式效果、数量上限和资源规则，不自动扩到第二关或平台上架。
 

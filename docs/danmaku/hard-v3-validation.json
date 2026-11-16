@@ -1,0 +1,114 @@
+{
+  "rules": {
+    "status": "PASS",
+    "checks": [
+      "approved transparent atlas is byte-identical and six slots match blue/gold families",
+      "32 short weapon/movement/bomb/music slices match PHP including every motion word",
+      "seed decelerates, holds, warns once, locks prior position, splits and retires deterministically",
+      "curve reverses smoothly, point-blank births are suppressed, Bomb leaves no delayed offspring",
+      "authored motion across the whole music/loop stays within existing live caps without kills",
+      "three bounded 15-second legal low-speed routes need no hits, Bombs or invincibility",
+      "Hard v2 snapshots and fixed delivery remain intact",
+      "ordinary v3 replay is accepted, unknown behavior fields and altered scores rejected"
+    ],
+    "caps": [
+      {
+        "index": 0,
+        "assist": false,
+        "peak": 151,
+        "spawned": 12776
+      },
+      {
+        "index": 0,
+        "assist": true,
+        "peak": 194,
+        "spawned": 12776
+      },
+      {
+        "index": 1,
+        "assist": false,
+        "peak": 91,
+        "spawned": 5071
+      },
+      {
+        "index": 1,
+        "assist": true,
+        "peak": 117,
+        "spawned": 5071
+      },
+      {
+        "index": 2,
+        "assist": false,
+        "peak": 210,
+        "spawned": 8420
+      },
+      {
+        "index": 2,
+        "assist": true,
+        "peak": 265,
+        "spawned": 8420
+      }
+    ],
+    "routes": [
+      {
+        "phase": 1,
+        "ticks": 900,
+        "hits": 0,
+        "bombs": 0,
+        "invincible": false
+      },
+      {
+        "phase": 2,
+        "ticks": 900,
+        "hits": 0,
+        "bombs": 0,
+        "invincible": false
+      },
+      {
+        "phase": 3,
+        "ticks": 900,
+        "hits": 0,
+        "bombs": 0,
+        "invincible": false
+      }
+    ],
+    "naturalClearRun": false,
+    "humanPlaytest": false,
+    "forumInstalled": false
+  },
+  "browser": {
+    "status": "PASS",
+    "mainRule": "danmaku-stage01-hard-r3",
+    "materialLoaded": true,
+    "mainTestSwitchAndPause": true,
+    "observerThreePhases": [
+      {
+        "phase": 1,
+        "tick": 660,
+        "count": 124
+      },
+      {
+        "phase": 2,
+        "tick": 480,
+        "count": 49
+      },
+      {
+        "phase": 3,
+        "tick": 660,
+        "count": 182
+      }
+    ],
+    "observerLivePlayPause": true,
+    "audioDecodeAndClock": true,
+    "audioClockErrorSeconds": 0.011333333333332973,
+    "mobileNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalClearRun": false,
+    "subjectiveAudioNotVerified": true,
+    "artifactHashes": {
+      "danmaku-stage01-hard-v3-offline.html": "103e594193fad2281231e4e5a7cc7e176f8029f56fcb3d0360b0225f1659683a",
+      "danmaku-hard-v3-observer.html": "28a40934bfef99f05fedc4da5402737fa0c63f2e654280135bbe6774c848e072"
+    }
+  }
+}

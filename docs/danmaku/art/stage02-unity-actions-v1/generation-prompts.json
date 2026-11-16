@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-15",
+  "author": "小典 / Codex",
+  "method": "built-in image_gen",
+  "sourcePngsUnmodified": true,
+  "requests": [
+    {
+      "asset": "fairy",
+      "prompt": "Use case: identity-preserve. Asset: transparent 2 by 2 sprite sheet of FOUR consistent game animation key poses. Image 1 is the APPROVED garden fairy standard battle pose; preserve her exact mint bob, tiny pink temple flower, small wings, sage capelet and ivory petal dress, pink ribbons, boots and compact proportions. Image 2 is the SAME GAME's actual first-stage fairy atlas: strict pixel cluster, outline and tiny-scale reference. Each pose must render like the same artist as image 2, with the identity and head/body dimensions of image 1, not a new illustration. Layout equal square cells, two rows two columns, one whole character centered in each cell with generous transparent margin, no marks or labels. Top-left: neutral front hover identical to reference1. Top-right: moving gently toward viewer-left, torso only 8 degrees left lean, hair/ribbons trailing right, legs together and wings restrained. Bottom-left: moving gently toward viewer-right, 8 degree right lean, hair/ribbons trailing left. Bottom-right: casting a leaf volley, face still forward, both small hands lifted to chest level and open downward, wings slightly open. Keep hair/head and pelvis center registered at the same heights across cells; same body height in all four. Visible target 36 game pixels high in a48x48 frame; clean tiny hard pixel groups, thin dark sage/navy contours and quiet 2-tone cloth. No large facial drawing, painted smoothing, thick outline, giant wings, new clothing, glows, projectiles, rings, shadows, text or checkerboard. Real alpha transparent background. Four discrete key poses with small differences, not four different designs.",
+      "referenceImages": [
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\art\\stage02-unity-v1\\garden-fairy-idle-source-v1.png",
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\source\\plugin\\gamecenter\\games\\_danmaku_proto\\assets\\stage01-fairy-v1.png"
+      ]
+    },
+    {
+      "asset": "attendant",
+      "prompt": "Use case: identity-preserve. Asset: transparent 2x2 equal-cell game sprite sheet with FOUR full-body consistent animation key poses. Image 1 is the approved bell attendant identity/standard sprite, image 2 is the first-stage actual attendant atlas and strict SAME GAME pixel/outline/proportion reference. Keep cream bob, small pink flower on viewer-right, tiny white wings, long sage-green cape over ivory dress, gold clasps, boots, slender wooden bell staff at viewer-left. Match image1's compact narrow body and small face. Equal rectangular cells arranged2x2. Top-left neutral hover same as image1. Top-right gentle leftward movement, torso 7 degrees left, cloak shifts right, staff remains thin and upright. Bottom-left gentle rightward movement, cloak shifts left, staff remains viewer-left (do not simply mirror flower/staff). Bottom-right cast: free hand lifted to shoulder and palm angled down, staff raised only a little, one bell clearly hangs from staff. Body height, head center, torso and boot baseline registered across frames. Tiny final display49px high within48x64 cells; strict fine square pixel clusters and delicate thin broken contours from image2, no bold chibi/vector treatment, no enlarged head or weapons. Genuine alpha with generous gutters, entire staff/wings/boots visible in each cell. Do not add VFX, rings, projectile ornaments, labels, borders, text, checkerboard or shadows. Four poses of ONE model, small controlled changes only.",
+      "referenceImages": [
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\art\\stage02-unity-v1\\bell-attendant-idle-source-v1.png",
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\source\\plugin\\gamecenter\\games\\_danmaku_proto\\assets\\stage01-attendant-v1.png"
+      ]
+    },
+    {
+      "asset": "lingyu",
+      "prompt": "Use case: identity-preserve. Asset: transparent 2x2 equal-cell sheet with four carefully registered full-body battle poses of Lingyu. Image1 is her newly APPROVED standard sprite: preserve EXACT same young adult/slender 6-head proportions, small face, coral wavy shoulder-length hair, feather/bell pin at viewer-right, small white shoulder wings, sage cape, gold-trim ivory petal dress, slim white ankle boots, curved wooden staff with three small bells at viewer-left. Image2 is the SAME GAME first-stage boss atlas and defines fine pixel clusters, thin contours, detail density, narrow silhouette. Keep image1 identity in image2 style, never large-headed/flat cartoon. Each equal portrait cell holds whole staff/wings/feet, ample alpha margins. Top-left neutral hover same as approved image1. Top-right gentle movement toward viewer-left: only 6-degree torso lean, cape/hair drift right, relaxed legs, staff at same side. Bottom-left gentle movement toward viewer-right, cape/hair drift left, do not mirror pin/staff positions. Bottom-right casting: free right hand raised outward at shoulder height, palm down, bell staff slightly lifted and tilted inward; face confident and calm. Keep head size, body height and hip center identical, no spreading gown wider or oversizing wings. Intended native visible body102 game pixels high within96x128 cell; subtle hard pixel clusters, 2-3 shade fabric groups, very small facial features. Do not paint smooth gradients or thick dark outlines. No magic circle, projectile, glow, shadow, extra character, text, cell border or checkerboard. Genuine alpha background. Four small pose variations of same person. Keep adult slim proportions strictly.",
+      "referenceImages": [
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\art\\stage02-unity-v1\\lingyu-idle-source-v1.png",
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\source\\plugin\\gamecenter\\games\\_danmaku_proto\\assets\\boss-body-atlas-v1.png"
+      ]
+    }
+  ]
+}

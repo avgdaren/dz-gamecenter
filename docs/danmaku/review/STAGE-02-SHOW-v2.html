@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- (C) 2026 Carinoasd. Wind-bell garden art and music preview: 小典 / Codex. -->
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天使弹幕祭 · 风铃花庭演出预览</title>
+<style>
+:root{color-scheme:dark;--bg:#101f24;--panel:#172d31;--line:#365050;--ink:#f6f0de;--soft:#afc5ba;--gold:#e2c28b;--green:#abd0bc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#27433e,var(--bg) 70%);color:var(--ink);font:15px/1.65 system-ui,"Microsoft YaHei",sans-serif}
+button,input{font:inherit}button{cursor:pointer;border:1px solid #526b60;border-radius:8px;padding:8px 15px;background:#233d39;color:var(--ink)}button:hover{background:#345249}button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+button.active{background:#d5c092;border-color:#e7d5a8;color:#25342d}button:disabled{opacity:.55;cursor:wait}input[type=range]{width:100%;accent-color:#c9bd8e}input[type=checkbox]{accent-color:#b5cfaf}
+header{max-width:1040px;margin:26px auto 18px;padding:0 20px}header p{margin:6px 0;color:var(--soft)}h1{font-size:26px;margin:0;letter-spacing:.1em}h2{font-size:18px;margin:0 0 10px}.tag{font-size:12px;letter-spacing:.15em;color:var(--gold);margin-bottom:6px}
+main{max-width:1040px;margin:auto;padding:0 20px 32px;display:grid;grid-template-columns:minmax(0,480px) minmax(0,1fr);gap:22px;align-items:start}
+.field-wrap{position:relative;border:1px solid #567064;border-radius:14px;overflow:hidden;background:#122e31;box-shadow:0 16px 60px #0005}canvas{display:block;width:100%;height:auto;aspect-ratio:3/4}#loading{position:absolute;inset:0;display:grid;place-content:center;background:#173136e8;text-align:center;padding:20px;color:var(--ink)}#loading[hidden]{display:none}
+.under{color:var(--soft);font-size:13px;margin:10px 3px}.card{background:#172d31e8;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}.tabs,.buttons{display:flex;gap:8px;flex-wrap:wrap}.tabs button{flex:1;padding:8px 12px;white-space:nowrap}.time{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 3px;font-variant-numeric:tabular-nums}.time span{font-size:13px;color:var(--soft)}.switches{display:grid;gap:9px;margin:12px 0}.switches label{display:flex;align-items:center;gap:8px}.hint{font-size:13px;color:var(--soft);margin:12px 0 0}#status{min-height:24px;color:var(--gold);margin:10px 0 0}.volume{display:grid;grid-template-columns:3em minmax(0,1fr);gap:10px;align-items:center;margin-top:10px}.portrait-box{height:280px;background:radial-gradient(ellipse,#54635b66,#0c1e25);border:1px solid #526659;border-radius:10px;overflow:hidden}.portrait-box img{width:100%;height:100%;object-fit:contain;display:block}.meta{font-size:13px;color:var(--soft);margin:10px 0 0}.meta strong{color:var(--ink);font-weight:500}footer{max-width:1040px;margin:0 auto 28px;padding:0 20px;font-size:12px;color:var(--soft)}
+@media(max-width:850px){header{margin-top:18px}main{grid-template-columns:minmax(0,1fr);max-width:540px;padding:0 14px 20px;gap:15px}header,footer{max-width:540px;padding:0 14px}h1{font-size:23px}.portrait-box{height:340px}.card{padding:16px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style></head>
+<body><header><div class="tag">第二关 · 花庭飞行预览 v2</div><h1>风铃花庭</h1><p>沿明亮的悬空步道前进，穿过风铃花架。切换铃羽登场，或拖动进度看沿途景色。</p></header>
+<main><section><div class="field-wrap"><canvas id="field" width="480" height="640" aria-label="风铃花庭与铃羽演出预览"></canvas><div id="loading">正在载入花庭与铃羽……</div></div><p class="under">当前为演出观察页。播放范围用于看图听曲，正式关卡时长与弹幕尚待编排。</p></section>
+<aside><section class="card"><div class="tabs"><button id="tour" type="button" class="active" aria-pressed="true">巡游花庭</button><button id="boss" type="button" aria-pressed="false">铃羽登场</button></div>
+<div class="time"><strong id="clock">0:00 / 3:29</strong><span id="track-name">道中 · Majestic Bullet Storm</span></div><input id="seek" type="range" min="0" max="208.84" step="0.1" value="0" aria-label="音乐与演出进度">
+<div class="buttons"><button id="play" type="button" disabled>播放</button><button id="restart" type="button" disabled>回到开头</button></div>
+<div class="switches"><label><input id="music" type="checkbox" checked>播放BGM</label><label><input id="reduced" type="checkbox">静态场景／简化动态</label><label><input id="shade" type="checkbox" checked>轻压明暗</label><label><input id="samples" type="checkbox">叠加弹体样张</label></div>
+<div class="volume"><label for="volume">音量</label><input id="volume" type="range" min="0" max="1" value="0.5" step="0.05"></div>
+<p id="status" role="status" aria-live="polite">素材载入后即可播放。</p><p class="hint">拖动进度会暂停。空格播放／暂停，离开页面自动暂停。弹体样张用于观察颜色与大小，尚不是第二关弹幕。</p></section>
+<section class="card"><h2>司风天使 · 铃羽</h2><div class="portrait-box"><img id="portrait" alt="铃羽独立透明立绘"></div><p class="meta"><strong>珊瑚粉发 · 青绿披肩 · 弯枝铃杖</strong><br>立绘与战斗源图沿用同一人设。战斗图以单姿态加轻微变形观察衣摆与悬浮，尚非完整动作图集。</p></section>
+</aside></main><footer>音乐由 avg达人提供；原创美术生成与预览制作：小典 / Codex。原型 (C) 2026 Carinoasd。全程本地运行。</footer>
+<script>/* __RUNTIME__ */</script>
+<script>/* __DATA__ */
+/* __PREVIEW__ */</script>
+</body></html>

@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "method": "built-in image_gen",
+  "sourcePngsUnmodified": true,
+  "requests": [
+    {
+      "asset": "fairy",
+      "prompt": "Use case: identity-preserve with style reference. Asset: ONE front-facing neutral battle sprite, transparent RGBA, for a later stage of THE SAME pixel-art bullet-hell game. Image 1 is the established game's ACTUAL sprite atlas: it defines the required proportions, tiny pixel clusters, thin contour and shading treatment. Image 2 contains three character designs: use ONLY the left mint-haired garden fairy as identity reference. Translate her into image 1's sprite language. Preserve mint/sage bob hair, a small pink flower at viewer-right temple, compact white angel wings, short ivory petal dress with dark green underskirt, gold clasp, two short dusty pink ribbons, small boots. Match image 1's fairy scale and silhouette: around three heads tall, small face with restrained 1-2 pixel eye marks at final game scale, fine broken dark-green pixel contours, soft grouped highlights, no heavy cartoon outline. Intended visible size 39x36 game pixels inside a 48x48 frame, so wings are spread horizontally, arms low, legs compact. Do not make her taller, larger-headed or bolder-outlined than the blue fairy in image 1. ONE full-body hovering idle pose, facing viewer, hands low, modest closed smile, symmetric compact wings. All extremities visible and separated; no long ornaments, no VFX or ground shadow. Render as a deliberately low-resolution sprite enlarged with crisp square pixel clusters to fill the middle of a square transparent image, leaving ample alpha margin. Keep the character's high detail reduced to the same visual density as image 1; this is not a painted or vector chibi illustration. No text, no labels, no atlas, no multiple copies, no checkerboard or background.",
+      "referenceImages": [
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\source\\plugin\\gamecenter\\games\\_danmaku_proto\\assets\\stage01-fairy-v1.png",
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\art\\stage02-enemies-v1\\garden-enemies-source-v1.png"
+      ]
+    },
+    {
+      "asset": "attendant",
+      "prompt": "Use case: identity-preserve with style reference. Asset: ONE front-facing neutral battle sprite on true transparent RGBA, for a later stage of the SAME anime pixel bullet-hell game. Image 1 is the first stage's actual attendant sprite atlas. It is the strict style/proportion reference: tiny fine pixel clusters, restrained thin dark contours, compact 3.5 to 4 head body, narrow vertical silhouette, small face, subtly shaded cloth. Image 2 is identity reference, use ONLY the middle cream-haired bell attendant. Preserve cream/blond bob, tiny pink flower at viewer-right temple, small white wings, forest/sage-green long cloak over ivory petal dress, small gold fastener, white boots, slender wooden staff to viewer-left with one small gold bell and simple curved top. Translate this design into image 1's game sprite language. Final intended visible size about 30x49 game pixels inside a 48x64 cell, like image 1; don't enlarge her head, shoulder width or wing span relative to that reference. Full body front-facing calm hovering neutral stance; arms down, one hand holds staff, other hand low; legs together. Staff clear of face and torso, approximately one game pixel thick, no big ornate circular staff head. Two shades per fabric plus small highlights; no thick brown/green cartoon outline, no large facial illustration, no embroidery, no long ribbons. Render this ONE low-resolution sprite sharply enlarged in the middle of a transparent portrait image with ample margins. No multiple poses, atlas, text, border, glow, shadow, checkerboard or background. Match the first-stage figure's style, not the detailed rendering of image 2.",
+      "referenceImages": [
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\source\\plugin\\gamecenter\\games\\_danmaku_proto\\assets\\stage01-attendant-v1.png",
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\art\\stage02-enemies-v1\\garden-enemies-source-v1.png"
+      ]
+    },
+    {
+      "asset": "lingyu",
+      "prompt": "Use case: identity-preserve with strict game-style matching. Asset: ONE neutral full-body battle sprite of Lingyu for the SAME game as image 1, on genuine transparent RGBA. Image 1 is the first-stage Boss's actual 96x128-per-cell pixel sprite atlas and is the visual standard: a slender young adult woman with about six heads of body height, small face, fine pixel clusters and thin light/dark contours, detailed but quiet cloth shading, visible body height102px and width65px. Image 2 defines Lingyu's identity and costume ONLY: salmon-coral shoulder-length wavy hair, green eyes, one white feather and tiny bell hair ornament, small white wings behind shoulders, sage-green short cape, ivory layered petal dress with gold trim, white ankle boots, curved wooden bell staff at viewer-left, confident warm/playful young-adult demeanor. Make Lingyu exactly as slender, mature-proportioned and fine-pixelled as image 1's Boss. Do NOT make a chibi, oversized head, sticker or flat thick-outlined cartoon. At final size the head including hair should occupy roughly 15-19px of a102px body height. Staff and extended low hand may make the overall visible width around75px inside a96x128 cell, but torso/legs remain narrow. Neutral steady front-facing hover, feet pointed down with one leg slightly relaxed, one hand holds simple curved leaf staff with three tiny gold bells, free hand low/open near waist. Wing size restrained. Dress has three readable petal panels; cape tails kept close, no enormous skirt fan or long looping streamers. No ornate embroidery, painted gradients, noisy feather hatching or bold brown outline. Render ONE whole sprite as fine pixel art with hard consistent square pixel clusters enlarged in a transparent portrait composition, full staff, wings and boots inside with ample margin. No atlas, alternate poses, text, scenery, ground shadow, glow or checkerboard. Keep outfit colors from image 2 while strictly matching the first game's sprite proportions and pixel-art rendering from image 1.",
+      "referenceImages": [
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\source\\plugin\\gamecenter\\games\\_danmaku_proto\\assets\\boss-body-atlas-v1.png",
+        "E:\\GPT工作区\\dz-gamecenter-handoff\\docs\\danmaku\\art\\stage02-production-v1\\lingyu-portrait-v1.png"
+      ]
+    }
+  ]
+}

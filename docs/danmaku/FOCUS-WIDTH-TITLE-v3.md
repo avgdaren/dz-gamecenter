@@ -6,7 +6,7 @@
 
 用户认可收束样式，反馈4／5级低速太窄难命中，要求保留绿色弹但取消其追踪；同时要求标题使用主角，有高清立绘则复用，没有则补做。本次保留已认可的中央弹束，加两侧直射补覆盖，并换主角标题。
 
-最新试玩：`E:\GPT工作区\output\danmaku-stage01-weapons-v2-offline.html`。定点看4／5级火力：`E:\GPT工作区\output\danmaku-weapons-v2-review.html`，无需打到高等级或通关。旧 `weapons-v1` 两个文件原样保留。
+最新试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-weapons-v2-offline.html`。定点看4／5级火力：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-weapons-v2-review.html`，无需打到高等级或通关。旧 `weapons-v1` 两个文件原样保留。
 
 ## 低速火力
 

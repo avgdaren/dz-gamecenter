@@ -1,0 +1,381 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-stage02-refined-v2-offline.html",
+    "bytes": 36095373,
+    "sha256": "0efe57ff214d220c44cd716710b407b58a729f5080cb78839ab6ebfc0b27e596"
+  },
+  "logic": {
+    "arrival": {
+      "sourceRule": "danmaku-stage01-r9",
+      "availableMarkedPower": 26,
+      "thresholds": [
+        0,
+        3,
+        8,
+        12,
+        16
+      ],
+      "states": [
+        {
+          "name": "all marked power collected",
+          "power": 16,
+          "level": 5,
+          "lives": 3
+        },
+        {
+          "name": "one unrecovered loss",
+          "power": 12,
+          "level": 4,
+          "lives": 2,
+          "bombsBeforeFurtherUse": 2
+        },
+        {
+          "name": "two unrecovered losses",
+          "power": 8,
+          "level": 3,
+          "lives": 1
+        }
+      ],
+      "recoveredLossPower": 16,
+      "observedFullClear": false,
+      "note": "Rule-derived representative models; lives/B presets are explicit practice choices, not measured arrival statistics."
+    },
+    "formations": {
+      "enemies": 102,
+      "types": [
+        88,
+        12,
+        2
+      ],
+      "routes": [
+        "sweep",
+        "hold",
+        "column"
+      ],
+      "staticMobUpperBound": 17,
+      "staticBulletUpperBound": 75,
+      "powerAvailable": 43,
+      "bombRewards": 2,
+      "lastBirth": 78.1,
+      "wholeStagePlayed": false
+    },
+    "tail": {
+      "fixtureStartSeconds": 77.48333333333333,
+      "seconds": 6.5,
+      "spawned": 6,
+      "remainingMobs": 0,
+      "remainingBullets": 0,
+      "gatherAt": 84
+    },
+    "waveSamples": [
+      {
+        "seconds": 12,
+        "power": 0,
+        "focused": false,
+        "spawned": 18,
+        "killed": 2,
+        "fired": 70,
+        "peak": 36,
+        "castersUsed": 16,
+        "remaining": 4,
+        "endPower": 0
+      },
+      {
+        "seconds": 12,
+        "power": 0,
+        "focused": true,
+        "spawned": 18,
+        "killed": 2,
+        "fired": 70,
+        "peak": 36,
+        "castersUsed": 16,
+        "remaining": 4,
+        "endPower": 0
+      },
+      {
+        "seconds": 12,
+        "power": 8,
+        "focused": false,
+        "spawned": 18,
+        "killed": 2,
+        "fired": 70,
+        "peak": 36,
+        "castersUsed": 16,
+        "remaining": 4,
+        "endPower": 8
+      },
+      {
+        "seconds": 12,
+        "power": 8,
+        "focused": true,
+        "spawned": 18,
+        "killed": 2,
+        "fired": 70,
+        "peak": 36,
+        "castersUsed": 16,
+        "remaining": 4,
+        "endPower": 8
+      },
+      {
+        "seconds": 12,
+        "power": 12,
+        "focused": false,
+        "spawned": 18,
+        "killed": 2,
+        "fired": 70,
+        "peak": 36,
+        "castersUsed": 16,
+        "remaining": 4,
+        "endPower": 12
+      },
+      {
+        "seconds": 12,
+        "power": 12,
+        "focused": true,
+        "spawned": 18,
+        "killed": 2,
+        "fired": 70,
+        "peak": 36,
+        "castersUsed": 16,
+        "remaining": 4,
+        "endPower": 12
+      },
+      {
+        "seconds": 12,
+        "power": 16,
+        "focused": false,
+        "spawned": 18,
+        "killed": 13,
+        "fired": 67,
+        "peak": 36,
+        "castersUsed": 15,
+        "remaining": 3,
+        "endPower": 16
+      },
+      {
+        "seconds": 12,
+        "power": 16,
+        "focused": true,
+        "spawned": 18,
+        "killed": 2,
+        "fired": 70,
+        "peak": 36,
+        "castersUsed": 16,
+        "remaining": 4,
+        "endPower": 16
+      },
+      {
+        "at": 29.983333333333334,
+        "seconds": 10,
+        "power": 16,
+        "focused": false,
+        "spawned": 11,
+        "killed": 10,
+        "fired": 35,
+        "peak": 30,
+        "castersUsed": 11,
+        "remaining": 1,
+        "endPower": 16
+      }
+    ],
+    "previousOpening": {
+      "seconds": 12,
+      "power": 16,
+      "spawned": 10,
+      "killed": 8,
+      "fired": 18
+    },
+    "bossSamples": [
+      {
+        "index": 0,
+        "seconds": 12,
+        "fired": 73,
+        "peak": 42,
+        "distinctActualSources": 20
+      },
+      {
+        "index": 1,
+        "seconds": 12,
+        "fired": 79,
+        "peak": 34,
+        "distinctActualSources": 3
+      },
+      {
+        "index": 2,
+        "seconds": 12,
+        "fired": 93,
+        "peak": 43,
+        "distinctActualSources": 3
+      }
+    ],
+    "priorityTarget": [
+      {
+        "power": 0,
+        "killTick": 112,
+        "firstAttackTick": 66,
+        "attackSuppressed": false
+      },
+      {
+        "power": 8,
+        "killTick": 88,
+        "firstAttackTick": 66,
+        "attackSuppressed": false
+      },
+      {
+        "power": 12,
+        "killTick": 51,
+        "firstAttackTick": 66,
+        "attackSuppressed": true
+      },
+      {
+        "power": 16,
+        "killTick": 39,
+        "firstAttackTick": 66,
+        "attackSuppressed": true
+      }
+    ],
+    "idealFireBudget": [
+      {
+        "power": 0,
+        "index": 0,
+        "ticks": 3415,
+        "seconds": 56.916666666666664
+      },
+      {
+        "power": 0,
+        "index": 1,
+        "ticks": 3775,
+        "seconds": 62.916666666666664
+      },
+      {
+        "power": 0,
+        "index": 2,
+        "ticks": 4135,
+        "seconds": 68.91666666666667
+      },
+      {
+        "power": 8,
+        "index": 0,
+        "ticks": 1897,
+        "seconds": 31.616666666666667
+      },
+      {
+        "power": 8,
+        "index": 1,
+        "ticks": 2095,
+        "seconds": 34.916666666666664
+      },
+      {
+        "power": 8,
+        "index": 2,
+        "ticks": 2299,
+        "seconds": 38.31666666666667
+      },
+      {
+        "power": 12,
+        "index": 0,
+        "ticks": 1005,
+        "seconds": 16.75
+      },
+      {
+        "power": 12,
+        "index": 1,
+        "ticks": 1109,
+        "seconds": 18.483333333333334
+      },
+      {
+        "power": 12,
+        "index": 2,
+        "ticks": 1217,
+        "seconds": 20.283333333333335
+      },
+      {
+        "power": 16,
+        "index": 0,
+        "ticks": 743,
+        "seconds": 12.383333333333333
+      },
+      {
+        "power": 16,
+        "index": 1,
+        "ticks": 821,
+        "seconds": 13.683333333333334
+      },
+      {
+        "power": 16,
+        "index": 2,
+        "ticks": 899,
+        "seconds": 14.983333333333333
+      }
+    ],
+    "status": "PASS",
+    "checks": [
+      "arrival models use actual first-stage growth and death rules",
+      "independent formations and static resource/capacity budget",
+      "new paths end off-field and warnings precede role-specific attacks",
+      "growth keeps shared movement weapons bombs and recovery",
+      "late formation stays active later and clears before final gathering",
+      "bounded high-power and recovery wave fixtures retain growth benefit",
+      "three independent boss mechanisms and integer motion are deterministic",
+      "aligned focus can suppress a caster before it fires",
+      "boss phases support recovery and retry cannot farm rewards",
+      "stage boundary carries actual resources cooldown and one-time collection",
+      "ideal damage budget allows growth benefits without dynamic HP scaling",
+      "cue forecasts correspond to actual sources and no close-range births"
+    ],
+    "fullNaturalClearTested": false,
+    "easyFeelAccepted": false
+  },
+  "browser": {
+    "status": "PASS",
+    "file": "danmaku-stage02-refined-v2-offline.html",
+    "sha256": "0efe57ff214d220c44cd716710b407b58a729f5080cb78839ab6ebfc0b27e596",
+    "acceptedIdleCachePreserved": true,
+    "fourDistinctPosesPerCharacter": true,
+    "nativeFramesAndBinaryAlpha": true,
+    "sharedIntroPhaseClear": true,
+    "newWindFlowerBellPatternsRendered": true,
+    "flowerForecastMatchesActualBirth": true,
+    "bellEchoForecast": true,
+    "fiveFourThreeOnePowerPresets": true,
+    "realKeyboardMovement": true,
+    "realBombClears": true,
+    "pauseFrozen": true,
+    "blurPaused": true,
+    "lowResourcePreset": true,
+    "bossBoundaryGathersAndClears": true,
+    "gardenContinuousAt90Seconds": true,
+    "acceptedMotionPreserved": true,
+    "audioGestureDecodeAndTrackSwitch": true,
+    "audioOffsets": true,
+    "audioOff": true,
+    "reducedEffects": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "onlyBoundedFixtures": true,
+    "naturalFullClearTested": false,
+    "easyFeelAccepted": false
+  },
+  "arrivalModelSources": {
+    "rules.json": "86102b147a02e960af4685a579344c645f6b119fb74be484f9ddedf2be00131a",
+    "stage.js": "57dc6f076d1158475c2d95641381da3715e7fd8845ed77a02b2adf7b0bae5ca7",
+    "engine.js": "3d937a697ecdd87f0ce65815629ab0b380c3863f694b2b962162e4f3d52fc118",
+    "weapons.js": "4866ce0c6e7d67a051f3d736fa5318694f6b937bcea1e5ff00b7ab229f746dda"
+  },
+  "arrivalModelsAreObservedPlayerStatistics": false,
+  "artChanged": false,
+  "protectedOldFiles": {
+    "count": 221,
+    "unchanged": true
+  },
+  "fullStageImplemented": true,
+  "stage01Connected": false,
+  "easyCalibrationComplete": false,
+  "newPatternsAccepted": false,
+  "naturalFullClearTested": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

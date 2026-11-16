@@ -1,0 +1,21 @@
+# 风铃花庭 · 美术方向稿 v1
+
+2026-11-13，小典 / Codex；原型 `(C) 2026 Carinoasd`。
+
+工具：内置 `image_gen.imagegen`。新图生成，无输入图片；不透明方向板。本轮具体图像细节待用户反馈。
+
+## 实际提示词
+
+```text
+Use case: stylized-concept.
+Asset type: ONE original art direction board for stage 2 of the Chinese anime bullet-hell game “天使弹幕祭”. This is character and environment concept art for review, not a gameplay screenshot or a finished sprite sheet.
+Primary request: Show the approved setting “风铃花庭” and its boss “司风天使 · 铃羽” as one coherent, memorable visual world. Landscape board, about 3:2 aspect ratio, high-resolution polished 2D anime illustration. Airy and refined, believable fabric, crisp controlled linework, softly painted environments, no 3D appearance.
+Composition: On the left roughly 42%, present ONE large full-body character on a warm ivory quiet background, fully visible from head to boots, staff tip and ribbons not cropped. On the right roughly 58%, present a substantial environment painting, with enough room to understand floating garden architecture and a clear vertical route. Beneath the environment, include two small concept-detail insets: the SAME character’s smiling face and the SAME bell staff head with its material details. Include five restrained color swatches, no numeric color codes. Elegant editorial arrangement, generous space, thin botanical divider lines, no busy ornamental border.
+Character identity: An original young ADULT female angel, lively, a little teasing, self-assured, smiling as if inviting a visitor to follow the wind. Shoulder-length coral-pink hair with lightly flipped ends, one small feather-and-brass-bell hair ornament, clear expressive teal eyes. Human facial features, refined anatomy, about six-and-a-half heads tall, approachable but recognizably a boss.
+Costume and silhouette: An ivory dress with a closed fitted bodice, petal-shaped layered knee-length hem, a short muted jade-green shoulder cape, sparse warm brass-gold edging, two light trailing fabric ribbons, practical ivory ankle boots. TWO small folded ivory feathered wings close to her upper back, clearly angel wings. Readable coral hair / green cape / ivory skirt color blocks; little micro-decoration. Natural gently floating pose, one hand comfortably holding the staff and the other slightly raised to feel the breeze.
+Signature prop: A slender curved flowering-branch bell staff about her height, warm natural wood, a graceful open hooked branch at the top, THREE small antique brass bells hanging on separate short cords, one jade ribbon. Bells have plausible clappers and attachment points. This bell-staff silhouette must remain easy to recognize at small size. No giant circular halo, astronomical rings, swords, or extra weapons.
+Environment: A suspended garden outside a celestial temple, floating stone walks and planting terraces over a distant sea of clouds. Ivory weathered stone arches, hanging tiny brass wind bells, curved trellises with pale pink and white flowering vines, jade and blue-green leaves. Gentle morning sunlight on the outer edges; cooler muted teal shadows and quiet open space along the central route. High oblique overhead view suited to later adaptation into a vertically scrolling stage. Plants, bells, cape, and ribbons all respond to one light breeze. Distinct shapes and restrained flowers, no dense floral wallpaper. Emphasize wind, air, distance, and graceful curved silhouettes. Keep the central area lower contrast for future gameplay readability.
+Palette: ivory, muted jade green, coral pink, antique brass, distant blue-green cloud shadows.
+Text (verbatim, Chinese typography): main title “风铃花庭”; subtitle “第二关 · 美术方向稿”; character caption “司风天使 · 铃羽”; small environment caption “空中庭园”. No extra body text.
+Constraints: This is a brand-new original character. Keep her design consistent across full-body and face inset. Show clear hands with sensible fingers, one coherent staff, exactly two compact feathered wings. Tasteful practical fantasy costume. No chibi body, no butterfly wings, no oversized wings, no religious cross, no huge halo, no existing franchise characters, no copied Touhou character design, no game HUD, no bullets, no player sprite, no fake pixel sprite atlas, no watermark or logo.
+```

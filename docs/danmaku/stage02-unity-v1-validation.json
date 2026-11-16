@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "status": "PASS",
+  "scope": "shared-style-and-24-second-sample-not-complete-stage",
+  "output": {
+    "file": "danmaku-stage02-unity-v1-offline.html",
+    "bytes": 44441824,
+    "sha256": "3e6187c7a35ada42b7e3cdd0056d2bb3d6ef7259692ec44f0d961de2d200793f"
+  },
+  "logic": {
+    "status": "PASS",
+    "checks": [
+      "same intro/card, phase and defeat equations come from the unmodified first-stage presenter",
+      "Stage 2 retains the 6.5s scene hold while its title card uses the shared 3s core",
+      "18 enemies form four compact teams and one two-attendant section in the 24s sample",
+      "bounded no-kill pressure sample stays within first-stage mob/bullet budgets and ends with residual bullets gone",
+      "same resource/weapon static-target kill times remain close at levels 1, 3 and 5",
+      "the left-hand first-stage simulation is unchanged for the same input and resources",
+      "new sample configuration never rewrites shared rules"
+    ],
+    "sampleSeconds": 24,
+    "enemyCount": 18,
+    "mobPeak": 8,
+    "enemyPeak": 24,
+    "totalBullets": 60,
+    "targetKillTimes": [
+      {
+        "level": 1,
+        "firstTicks": 80,
+        "secondTicks": 86
+      },
+      {
+        "level": 3,
+        "firstTicks": 57,
+        "secondTicks": 62
+      },
+      {
+        "level": 5,
+        "firstTicks": 28,
+        "secondTicks": 28
+      }
+    ],
+    "fullStageTested": false,
+    "easyCalibrationComplete": false,
+    "serverVerifierTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "file": "danmaku-stage02-unity-v1-offline.html",
+    "sha256": "3e6187c7a35ada42b7e3cdd0056d2bb3d6ef7259692ec44f0d961de2d200793f",
+    "sameFrameSizesAnd32ColorBinaryAlpha": true,
+    "onlyOneStandardPosePerNewCharacter": true,
+    "actualReferenceCharactersRendered": true,
+    "sharedFirstStageModelAndCss": true,
+    "titleCardFontAndPositionMatch": true,
+    "secondCardEndsWithinExistingSceneHold": true,
+    "phaseAndClearCoreMatch": true,
+    "allFiveSelectorsWork": true,
+    "sampleContainsTeamsAndCombinedRoles": true,
+    "sameInputAndResources": true,
+    "realKeyboardMovement": true,
+    "realBombClears": true,
+    "pauseFrozen": true,
+    "blurPaused": true,
+    "lowResourceSelector": true,
+    "reducedEffects": true,
+    "audioGestureDecodeAndOffsets": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "usedOnlyBoundedSamples": true,
+    "naturalFullClearTested": false,
+    "fullStageCompleted": false,
+    "easyCalibrationComplete": false
+  },
+  "firstMusic": {
+    "status": "PASS",
+    "sha256": "3e6187c7a35ada42b7e3cdd0056d2bb3d6ef7259692ec44f0d961de2d200793f",
+    "firstMusicSelectionDecoded": true,
+    "onlySelectedLanePlays": true,
+    "offStopsBoth": true
+  },
+  "protection": {
+    "status": "PASS",
+    "protectedFiles": 241,
+    "changed": [],
+    "generatedPngsCopiedByteForByte": 3
+  },
+  "spriteCaches": {
+    "fairy": {
+      "size": [
+        48,
+        48
+      ],
+      "visibleBounds": [
+        10,
+        2,
+        37,
+        37
+      ],
+      "visibleSize": [
+        28,
+        36
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "opaqueColors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaquePixels": 488,
+      "standardPoses": 1,
+      "sourceUnmodified": true
+    },
+    "attendant": {
+      "size": [
+        48,
+        64
+      ],
+      "visibleBounds": [
+        9,
+        3,
+        33,
+        51
+      ],
+      "visibleSize": [
+        25,
+        49
+      ],
+      "pivot": [
+        24,
+        32
+      ],
+      "opaqueColors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaquePixels": 656,
+      "standardPoses": 1,
+      "sourceUnmodified": true
+    },
+    "lingyu": {
+      "size": [
+        96,
+        128
+      ],
+      "visibleBounds": [
+        12,
+        12,
+        70,
+        113
+      ],
+      "visibleSize": [
+        59,
+        102
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "opaqueColors": 26,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaquePixels": 2350,
+      "standardPoses": 1,
+      "sourceUnmodified": true
+    }
+  },
+  "visualAcceptance": false,
+  "fullStageCompleted": false,
+  "easyCalibrationComplete": false,
+  "naturalFullClearTested": false,
+  "serverVerifierIntegrated": false,
+  "stage01Connected": false
+}

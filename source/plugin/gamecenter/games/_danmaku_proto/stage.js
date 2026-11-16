@@ -1,9 +1,9 @@
 /* (C) 2026 Carinoasd. One-stage growth simulation: 小典 / Codex. */
 (function(root,factory){
   'use strict';
-  if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine.js'),require('./battle.js'),require('./weapons.js'));
-  else root.DanmakuStage01=factory(root.DanmakuP0,root.DanmakuBattle,root.DanmakuWeapons);
-}(typeof globalThis!=='undefined'?globalThis:this,function(engine,battle,weapons){
+  if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine.js'),require('./battle.js'),require('./weapons.js'),require('./hard-patterns.js'),require('./hard-rich-patterns.js'),require('./hard-choreography.js'));
+  else root.DanmakuStage01=factory(root.DanmakuP0,root.DanmakuBattle,root.DanmakuWeapons,root.DanmakuHardPatterns,root.DanmakuHardRich,root.DanmakuChoreography);
+}(typeof globalThis!=='undefined'?globalThis:this,function(engine,battle,weapons,hard,rich,choreography){
   'use strict';
   var RULE='danmaku-stage01-r1',BOMB_RULE='danmaku-stage01-r2',PATTERN_RULE='danmaku-stage01-r3',NORMAL_RULE='danmaku-stage01-normal-r1',RESPAWN_RULE='danmaku-stage01-r4',NORMAL_V2_RULE='danmaku-stage01-normal-r2',Q=64;
   var POWER_RULE='danmaku-stage01-r5',NORMAL_POWER_RULE='danmaku-stage01-normal-r3';
@@ -11,17 +11,26 @@
   var WIDE_WEAPON_RULE='danmaku-stage01-r7',NORMAL_WIDE_WEAPON_RULE='danmaku-stage01-normal-r5';
   var COLLECT_RULE='danmaku-stage01-r8',NORMAL_COLLECT_RULE='danmaku-stage01-normal-r6';
   var CORNER_RULE='danmaku-stage01-r9',NORMAL_CORNER_RULE='danmaku-stage01-normal-r7';
-  function isCollect(rule){return rule===COLLECT_RULE||rule===NORMAL_COLLECT_RULE||rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;}
+  var HARD_RULE='danmaku-stage01-hard-r1',HARD_V2_RULE='danmaku-stage01-hard-r2',HARD_V3_RULE='danmaku-stage01-hard-r3';
+  function isHardRule(rule){return rule===HARD_RULE||rule===HARD_V2_RULE||rule===HARD_V3_RULE;}
+  function isCollect(rule){return isHardRule(rule)||rule===COLLECT_RULE||rule===NORMAL_COLLECT_RULE||rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;}
   var SUPPORTED=[RULE,BOMB_RULE,PATTERN_RULE,NORMAL_RULE,RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE];
+  SUPPORTED.push(HARD_RULE,HARD_V2_RULE,HARD_V3_RULE);
   function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
   function level(power,rules){var a=rules.stage01.growth.thresholds;for(var i=a.length-1;i>0;i--)if(power>=a[i])return i+1;return 1;}
   function effectiveRules(rules,rule){
-    if([POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)<0)return rules;
+    if(!isHardRule(rule)&&[POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)<0)return rules;
     var p=rules.power05;
     var config=Object.assign({},rules.stage01,{shotCap:p.shotCap,growth:Object.assign({},rules.stage01.growth,{thresholds:p.thresholds,maxPower:p.maxPower,levels:p.levels})});
     if(isCollect(rule)){
       var c=rules.collect08;config.dropCap=c.dropCap;
       config.schedule=rules.stage01.schedule.map(function(m){return Object.assign({},m,{reward:c.extraPowerIds.indexOf(m.id)>=0?c.extraPowerValue:m.reward});});
+    }
+    if(isHardRule(rule)){
+      config.enemyCap=rules.hard01.preludeEnemyCap;config.segments=rules.hard01.segments;
+      config.schedule=config.schedule.map(function(m,i){return Object.assign({},m,{at:rules.hard01.schedule[i].at});});
+      config.types=config.types.map(function(type,i){return Object.assign({},type,{speedQ:[168,184,160][i]});});
+      return Object.assign({},rules,{stage01:config,limits:Object.assign({},rules.limits,{enemySpawnCap:rules.hard01.enemySpawnCap})});
     }
     return Object.assign({},rules,{stage01:config});
   }
@@ -41,7 +50,9 @@
     battle.Phase.call(this,rules,Math.max(0,index),assist,true,[PATTERN_RULE,RESPAWN_RULE,POWER_RULE,WEAPON_RULE,WIDE_WEAPON_RULE,COLLECT_RULE,CORNER_RULE].indexOf(rule)>=0,[NORMAL_RULE,NORMAL_V2_RULE,NORMAL_POWER_RULE,NORMAL_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,NORMAL_COLLECT_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,
       {respawnBombs:[RESPAWN_RULE,NORMAL_V2_RULE,POWER_RULE,NORMAL_POWER_RULE,WEAPON_RULE,NORMAL_WEAPON_RULE,WIDE_WEAPON_RULE,NORMAL_WIDE_WEAPON_RULE,COLLECT_RULE,NORMAL_COLLECT_RULE,CORNER_RULE,NORMAL_CORNER_RULE].indexOf(rule)>=0,normalRevision:rule===NORMAL_RULE?1:2});
     this.index=index;this.rule=rule;this.bombMode=rule!==RULE;this.scene=index<0?'corridor':index===1?'aim':'flower';
-    this.cornerMode=rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;
+    this.hardMode=isHardRule(rule);this.richHardMode=rule===HARD_V2_RULE;this.choreographyMode=rule===HARD_V3_RULE;this.musicTick=0;this.testInvincible=false;
+    if(this.hardMode){this.patternV3=true;this.respawnBombs=true;}
+    this.cornerMode=this.hardMode||rule===CORNER_RULE||rule===NORMAL_CORNER_RULE;
     this.collectMode=isCollect(rule);this.lastPointPickup=-999;this.lastPointValue=0;
     this.wideWeaponMode=rule===WIDE_WEAPON_RULE||rule===NORMAL_WIDE_WEAPON_RULE||this.collectMode;
     this.weaponMode=rule===WEAPON_RULE||rule===NORMAL_WEAPON_RULE||this.wideWeaponMode;
@@ -77,7 +88,7 @@
     mob.aim=angle;
   };
   Sim.prototype.pattern=function(){
-    if(this.index>=0){battle.Phase.prototype.pattern.call(this);return;}
+    if(this.index>=0){if(this.choreographyMode)choreography.pattern(this);else if(this.richHardMode)rich.pattern(this);else if(this.hardMode)hard.pattern(this);else battle.Phase.prototype.pattern.call(this);return;}
     var t=this.tick,r=this.rules,s=r.stage01,sim=this;
     while(this.cursor<s.schedule.length&&s.schedule[this.cursor].at<=t){
       var birth=s.schedule[this.cursor++],type=s.types[birth.type];
@@ -90,7 +101,7 @@
     if(this.mobs.length>s.mobCap)throw new Error('小怪超过关卡上限');
     this.mobs.forEach(function(m){
       var age=t-m.born,type=s.types[m.type];m.px=m.x;m.py=m.y;Object.assign(m,position(r,m,age));
-      type.attacks.forEach(function(a){
+      (sim.hardMode?r.hard01.attacks[m.id]:type.attacks).forEach(function(a){
         if(age===a.warning){
           if(a.capture)sim.capture(m);
           m.warningUntil=Math.max(m.warningUntil,t+a.at-a.warning);m.warningKind=a.aimed?1:2;
@@ -200,11 +211,13 @@
     if(this.status!=='playing')throw new Error('终局后不能追加输入');
     if(!validated)engine.validateInput(input,this.rules);
     var t=++this.tick,r=this.rules,p=this.player,b=this.boss,sim=this,bounds=r.field.playerBounds;
+    if(this.hardMode)this.musicTick++;
     p.px=p.x;p.py=p.y;b.px=b.x;b.py=b.y;
     p.x=clamp(p.x+input.dx,bounds.minX*Q,bounds.maxX*Q);p.y=clamp(p.y+input.dy,bounds.minY*Q,bounds.maxY*Q);
     if(this.index>=0)b.x=engine.bossX(t);
     this.fire(input);this.pattern();
     if(this.weaponMode)weapons.tracking(this);
+    if(this.choreographyMode)choreography.motion(this);
     this.enemies.forEach(function(e){e.px=e.x;e.py=e.y;e.x+=e.vx;e.y+=e.vy;});
     this.shots.forEach(function(s){s.px=s.x;s.py=s.y;s.x+=s.vx;s.y+=s.vy;});
     var activated=false;
@@ -221,7 +234,7 @@
       p.invulUntil=Math.max(p.invulUntil,t+r.player.bombInvulnerabilityTicks);
     }
     var collided=new Set(),bodyHit=false;
-    if(t>=p.invulUntil){
+    if(t>=p.invulUntil&&!this.testInvincible){
       this.enemies.forEach(function(e){if(touches(e,p,(r.player.hitRadius+e.radius)*Q))collided.add(e.id);});
       bodyHit=this.mobs.some(function(m){return touches(m,p,(r.player.hitRadius+r.stage01.types[m.type].radius)*Q);});
       if(collided.size||bodyHit){
@@ -252,7 +265,7 @@
       this.items(input);
       if(this.index<0){if(t>=r.stage01.preludeTicks)this.status='prelude_clear';}
       else this.resolveEnd();
-      if(this.status==='playing'&&t>=p.invulUntil)this.enemies.forEach(function(e){
+      if(this.status==='playing'&&t>=p.invulUntil&&!this.testInvincible)this.enemies.forEach(function(e){
         if(!e.grazed&&touches(e,p,(r.player.grazeCenterRadius+e.radius)*Q)){e.grazed=true;sim.stats.graze++;}
       });
     }
@@ -268,6 +281,7 @@
     result.growth=[s.mobDamage,s.mobKills,s.mobScore,s.powerCollected,s.powerRecovered,s.powerLost,s.powerOverflow,s.overflowScoreUnits,s.mobSpawned,s.mobPeak,s.dropSpawned,s.dropPeak,s.upgrades];
     result.nextIds=[this.nextEnemy,this.nextShot,this.nextDrop,this.cursor];
     result.enemies=this.enemies.map(function(e){return[e.id,e.x,e.y,e.vx,e.vy,e.radius,e.born,e.grazed?1:0,e.ttl,e.kind];});
+    if(this.choreographyMode)result.enemies.forEach(function(row,i){row.push(this.enemies[i].motion?this.enemies[i].motion.slice():null);},this);
     result.shots=this.shots.map(function(s){return[s.id,s.x,s.y,s.born,s.vx,s.vy,s.damage,s.focused?1:0,s.level];});
     if(this.weaponMode)result.shots.forEach(function(row,i){row.push(this.shots[i].kind,this.shots[i].target);},this);
     result.mobs=this.mobs.map(function(m){return[m.id,m.type,m.born,m.baseX,m.mirror?1:0,m.reward,m.x,m.y,m.hp,m.aim,m.warningUntil,m.warningKind];});
@@ -278,6 +292,7 @@
         s.bombDamage,s.bombKills,s.bombCleared,s.bombCollected,s.bombOverflowTokens,s.bombItemsSpawned,this.lastBombPickup,this.lastBombOverflow];
     }
     if(this.collectMode)result.collect=[s.pointItemsSpawned,s.pointCollected,s.pointScore,this.lastPointPickup,this.lastPointValue];
+    if(this.hardMode)result.musicTick=this.musicTick;
     return result;
   };
   function Stage(rules,assist,rule){
@@ -291,6 +306,7 @@
   }
   Stage.prototype.replace=function(index){
     var old=this.sim,next=new Sim(this.rules,index,this.assist,this.rule);
+    if(next.hardMode)next.musicTick=index===0?0:old.musicTick;
     old.drops.forEach(function(item){old.collect(item);});old.drops=[];
     next.player=Object.assign({},old.player,{px:old.player.x,py:old.player.y,invulUntil:Math.max(0,old.player.invulUntil-old.tick)});
     next.stats=this.stats;next.nextEnemy=old.nextEnemy;next.nextShot=old.nextShot;next.nextDrop=old.nextDrop;
@@ -306,6 +322,7 @@
     if(this.tick>=this.rules.stage01.maxTicks)throw new Error('关卡超过逻辑上限');
     this.tick++;
     if(this.stage==='opening'||this.stage==='transition'){
+      if(this.sim.hardMode)this.sim.musicTick++;
       var p=this.sim.player,bounds=this.rules.field.playerBounds;p.px=p.x;p.py=p.y;
       p.x=clamp(p.x+input.dx,bounds.minX*Q,bounds.maxX*Q);p.y=clamp(p.y+input.dy,bounds.minY*Q,bounds.maxY*Q);
       p.invulUntil=Math.max(0,p.invulUntil-1);
@@ -347,5 +364,5 @@
   };
   function segment(rules,tick){var list=rules.stage01.segments,found=list[0];for(var i=1;i<list.length;i++)if(tick>=list[i].at)found=list[i];return found.name;}
   function scoreLimit(rules,rule){if(isCollect(rule))return rules.collect08.scoreUpperBound;return rule!==RULE?rules.stage01.bombScoreUpperBound:rules.stage01.scoreUpperBound;}
-  return{Stage:Stage,Sim:Sim,rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,collectRule:COLLECT_RULE,normalCollectRule:NORMAL_COLLECT_RULE,cornerRule:CORNER_RULE,normalCornerRule:NORMAL_CORNER_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
+  return{Stage:Stage,Sim:Sim,hardRule:HARD_RULE,hardV2Rule:HARD_V2_RULE,hardV3Rule:HARD_V3_RULE,rankedRules:[CORNER_RULE,NORMAL_CORNER_RULE],rule:RULE,bombRule:BOMB_RULE,patternRule:PATTERN_RULE,normalRule:NORMAL_RULE,respawnRule:RESPAWN_RULE,normalV2Rule:NORMAL_V2_RULE,powerRule:POWER_RULE,normalPowerRule:NORMAL_POWER_RULE,weaponRule:WEAPON_RULE,normalWeaponRule:NORMAL_WEAPON_RULE,wideWeaponRule:WIDE_WEAPON_RULE,normalWideWeaponRule:NORMAL_WIDE_WEAPON_RULE,collectRule:COLLECT_RULE,normalCollectRule:NORMAL_COLLECT_RULE,cornerRule:CORNER_RULE,normalCornerRule:NORMAL_CORNER_RULE,supportedRules:SUPPORTED,scoreLimit:scoreLimit,level:level,position:position,segment:segment};
 }));

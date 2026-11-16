@@ -1,0 +1,153 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-campaign-easy-v3-offline.html",
+    "bytes": 53897460,
+    "sha256": "f4ca83a8a6dbe8508535bbe71a88f657da4f5ea6647b8d0424e22380db47a4d4"
+  },
+  "logic": {
+    "sceneLineCounts": [
+      {
+        "id": "s1-open",
+        "lines": 2
+      },
+      {
+        "id": "s1-before",
+        "lines": 5
+      },
+      {
+        "id": "s1-after",
+        "lines": 6
+      },
+      {
+        "id": "s2-open",
+        "lines": 2
+      },
+      {
+        "id": "s2-before",
+        "lines": 6
+      },
+      {
+        "id": "s2-after",
+        "lines": 7
+      }
+    ],
+    "actualGateOrder": [
+      "s1-open",
+      "s1-before",
+      "s1-after",
+      "s2-open"
+    ],
+    "fullGateOrder": [
+      "s1-open",
+      "s1-before",
+      "s1-after",
+      "s2-open",
+      "s2-before",
+      "s2-after"
+    ],
+    "status": "PASS",
+    "checks": [
+      "six authored scenes retain 28 lines, known speakers and both new clues",
+      "two-line pagination preserves every authored character at narrow and wide widths",
+      "reading and skipping initial dialogue never advance clocks, resources or score",
+      "before-Boss gate preserves complete arrival and waits before intro timing",
+      "post-stage dialogue precedes second-stage opening and inherits raw resources once",
+      "garden pre/post dialogue defers final results; no repeated reward or ending scene",
+      "checkpoint retries skip already-read scenes and do not farm power",
+      "practice and disabled-story combat remain equivalent to v2"
+    ],
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "f4ca83a8a6dbe8508535bbe71a88f657da4f5ea6647b8d0424e22380db47a4d4",
+    "sixScenesReadDesktopAnd390px": true,
+    "all28UtterancesReconstructedVerbatimAtBothWidths": true,
+    "checkedPages": 66,
+    "portraitAndSpeakerSynchronized": true,
+    "maximumTwoLinesAndNoOverflow": true,
+    "dialogueFreezesCombatAndAudio": true,
+    "heldSpaceDoesNotSkipRepeatedlyOrTriggerBomb": true,
+    "blurPausesDialogue": true,
+    "readingResumesSamePosition": true,
+    "beforeBossResumesOriginalIntroAndMusic": true,
+    "postStageBeforeHandoff": true,
+    "actualArrival": {
+      "lives": 2,
+      "bombs": 1,
+      "power": 11
+    },
+    "secondStageMusicFromStart": true,
+    "postBossBeforeUnifiedResults": true,
+    "storyToggleAndPracticeBypass": true,
+    "bossCanvasMatchesAcceptedV4": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "peerPackage": {
+    "status": "PASS",
+    "file": "天使弹幕祭-demo-两关Easy-网友试玩-v3.zip",
+    "zipBytes": 39881796,
+    "zipSha256": "2ddbbef7822d03675b0c247ba2e06b3f6f19150f0600da2f4691738f8ed051c4",
+    "files": [
+      "开始游戏.html",
+      "试玩说明.txt",
+      "试玩反馈模板.txt",
+      "版本说明.txt",
+      "FRIEND-DEMO-MANIFEST.json"
+    ],
+    "gameBytes": 53897460,
+    "gameSha256": "f4ca83a8a6dbe8508535bbe71a88f657da4f5ea6647b8d0424e22380db47a4d4",
+    "gameMatchesDeliveredCampaignV3": true,
+    "sourceHashesMatched": 42,
+    "zipCrcVerified": true,
+    "utf8FilenamesVerified": true,
+    "textEncoding": "UTF-8 BOM / CRLF",
+    "extractedHtmlByteIdentical": true,
+    "externalResources": 0,
+    "naturalFullClearTested": false
+  },
+  "unpackedSmoke": {
+    "status": "PASS",
+    "sha256": "f4ca83a8a6dbe8508535bbe71a88f657da4f5ea6647b8d0424e22380db47a4d4",
+    "extractedGameStartsOffline": true,
+    "openingStoryAndSkipVerified": true,
+    "chineseFilenameOpened": true,
+    "defaultEasyAndTestInvincibleOff": true,
+    "firstStageResources": {
+      "lives": 3,
+      "bombs": 2,
+      "power": 0
+    },
+    "musicStartsAtBeginning": true,
+    "bothSoundBanksDecoded": true,
+    "pauseFrozen": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "screenshotsInspected": [
+    "opening-dialogue.png",
+    "story-s1-before.png",
+    "story-s2-before.png",
+    "story-s2-after.png",
+    "stopwind-clue-mobile.png",
+    "between-stage-dialogue.png",
+    "story-complete-results.png"
+  ],
+  "sourceDialogue": "avg达人 supplied all 28 utterances",
+  "maximumOriginalUtteranceCharacters": 56,
+  "protectedOldFiles": {
+    "count": 294,
+    "unchanged": true
+  },
+  "combatBaseline": "campaign-easy-v2",
+  "newArtOrMusic": false,
+  "naturalFullClearTested": false,
+  "humanStoryPacingAccepted": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

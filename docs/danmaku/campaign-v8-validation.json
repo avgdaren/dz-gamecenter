@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "browser": {
+    "status": "PASS",
+    "sha256": "d5922ad24144e5faa3e45b3b3a4aa03f4110cae20eee0657c72a3b9d987a7a44",
+    "twoEntrancesAndFourTransitions": true,
+    "bothFinalClosures": true,
+    "originalWaitsAndCombatSnapshotsMatchV7": true,
+    "acceptedNormalAndCompactRibbonPixelsMatchV7": true,
+    "bulletAndPlayerLayersAboveCutIn": true,
+    "persistentTitleSurvivesActualBomb": true,
+    "repeatedDrawAndPausePixelsFrozen": true,
+    "previewPausesAndHoldsAfterBattleLanding": true,
+    "dialogueAndPrayerFlowRetained": true,
+    "offlineFontLoaded": true,
+    "externalRequests": 0,
+    "consoleErrors": 0,
+    "reducedMotion": true,
+    "widthsChecked": [
+      390,
+      320
+    ],
+    "naturalFullClearTested": false
+  },
+  "logic": {
+    "status": "PASS",
+    "checks": [
+      "pure deterministic scenes retain original intro windows and complete declarations before attacks",
+      "all four real phase breaks keep the entity visible and never change simulation while drawing models",
+      "persistent fields follow the actual Boss and do not restart cut-ins on ordinary casts",
+      "final clearing differs from switching and retires all spell layers before the existing ending completes",
+      "title target adapts to HUD height while accepted bomb drawing functions stay byte-identical"
+    ],
+    "gameplayChanged": false,
+    "naturalFullClearTested": false
+  },
+  "baseline": {
+    "status": "PASS",
+    "allV7SourceHashesUnchanged": true,
+    "embeddedArtAndMusicAndFontIdenticalToV7": true,
+    "v8SourcesMatchManifest": true,
+    "outputSha256": "d5922ad24144e5faa3e45b3b3a4aa03f4110cae20eee0657c72a3b9d987a7a44"
+  },
+  "naturalFullClearTested": false,
+  "newPeerZipCreated": false,
+  "publishedPathChecked": true
+}

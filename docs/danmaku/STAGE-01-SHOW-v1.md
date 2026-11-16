@@ -6,7 +6,7 @@
 
 后续反馈：用户已答复“没问题”，要求继续，并说明后续真人试玩由用户负责，不必每轮由小典自动通关。现已形成[固定试玩基线与收版资料](PLAYTEST-v1.md)，沿用本版动作、名牌和收尾；以下“待评审／本轮通关”保留为本版制作时的状态和历史结果，不代表每次接续重新执行。
 
-最新试玩：`E:\GPT工作区\output\danmaku-stage01-show-v1-offline.html`；精简包：`E:\GPT工作区\output\danmaku-stage01-show-v1.zip`，根目录START。设置中的“首领练习”可直接查看登场，不必先玩72秒道中。旧Boss素材版与已确认的UI版均保留。
+最新试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-show-v1-offline.html`；精简包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-show-v1.zip`，根目录START。设置中的“首领练习”可直接查看登场，不必先玩72秒道中。旧Boss素材版与已确认的UI版均保留。
 
 ## 实际表现
 

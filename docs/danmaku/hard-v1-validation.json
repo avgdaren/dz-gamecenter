@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Hard is a separate unranked version; only hard01 is appended; assets and music are identical",
+    "stage enemy births and every shot follow measured beat cues; warnings precede fire",
+    "32 focused/moving/weapon/assist and late-music slices agree exactly in JS and PHP",
+    "Hard prelude emits only on music beats and remains within its live cap without kills",
+    "all music sections and loop stay inside existing 360 boss live cap; no off-cue boss fire",
+    "music clock matches the audio plan through opening and transitions",
+    "all sixteen existing rule versions retain pre-change snapshots and scores",
+    "Hard uses the same respawn stock rules for every phase and assist mode",
+    "legal Hard replay passes, tampered rule/score/fields fail; forum bridge rejects Hard"
+  ],
+  "phaseCases": 32,
+  "caps": [
+    {
+      "index": -1,
+      "assist": false,
+      "peak": 130,
+      "spawned": 800
+    },
+    {
+      "index": 0,
+      "assist": false,
+      "peak": 224,
+      "spawned": 16074
+    },
+    {
+      "index": 0,
+      "assist": true,
+      "peak": 294,
+      "spawned": 16074
+    },
+    {
+      "index": 1,
+      "assist": false,
+      "peak": 86,
+      "spawned": 3861
+    },
+    {
+      "index": 1,
+      "assist": true,
+      "peak": 104,
+      "spawned": 3861
+    },
+    {
+      "index": 2,
+      "assist": false,
+      "peak": 168,
+      "spawned": 8964
+    },
+    {
+      "index": 2,
+      "assist": true,
+      "peak": 226,
+      "spawned": 8964
+    }
+  ],
+  "naturalClearRun": false,
+  "forumInstalled": false
+}

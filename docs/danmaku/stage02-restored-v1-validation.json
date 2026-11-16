@@ -1,0 +1,121 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-stage02-refined-v4-offline.html",
+    "bytes": 36117169,
+    "sha256": "a7374e7bb9c0e20e73905ba2f133e441497a84a41cc506fa4305765b4fd10780"
+  },
+  "logic": {
+    "schedule": {
+      "enemies": 120,
+      "firstEnemySeconds": 8,
+      "threeImmediateSideLanes": true,
+      "sixWideReinforcements": [
+        9.6,
+        49.5,
+        72.5
+      ],
+      "staticMobUpperBound": 22,
+      "powerAvailable": 43,
+      "bombRewards": 2
+    },
+    "visibleComparison": {
+      "before": {
+        "seconds": 18,
+        "power": 16,
+        "normalShooting": true,
+        "spawned": 18,
+        "killed": 13,
+        "visiblePeak": 6,
+        "visibleAt8_4": 0,
+        "bullets": 67,
+        "bulletPeak": 36
+      },
+      "after": {
+        "seconds": 18,
+        "power": 16,
+        "normalShooting": true,
+        "spawned": 24,
+        "killed": 18,
+        "visiblePeak": 11,
+        "visibleAt8_4": 3,
+        "bullets": 97,
+        "bulletPeak": 57
+      }
+    },
+    "originalAttackBlockSha256": "75260a3515d3f264049084bacfcb272174408a44939fcd9a41d3aba9b7aa28bc",
+    "originalPatternEquivalence": [
+      {
+        "index": 0,
+        "startSeconds": 12,
+        "seconds": 12,
+        "fired": 86,
+        "peak": 36,
+        "exactBulletsAndMotion": true
+      },
+      {
+        "index": 1,
+        "startSeconds": 112,
+        "seconds": 12,
+        "fired": 175,
+        "peak": 48,
+        "exactBulletsAndMotion": true
+      },
+      {
+        "index": 2,
+        "startSeconds": 172,
+        "seconds": 12,
+        "fired": 96,
+        "peak": 33,
+        "exactBulletsAndMotion": true
+      }
+    ],
+    "status": "PASS",
+    "checks": [
+      "intro and resource plan remain; visible formations contain 120 targets",
+      "actual on-screen population rises under the same level-five shooting input",
+      "attack code block is copied verbatim from the first garden version",
+      "all three original patterns produce identical bullets and motion",
+      "music stays continuous through intro phase breaks and checkpoint retry",
+      "96s boundary still collects once and boss resource rules stay intact"
+    ],
+    "naturalFullClearTested": false,
+    "easyFeelAccepted": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "a7374e7bb9c0e20e73905ba2f133e441497a84a41cc506fa4305765b4fd10780",
+    "introPreserved8Seconds": true,
+    "threeVisibleLanesUnderNormalLevel5Shooting": true,
+    "originalThreePatternsRendered": true,
+    "originalCurvedMotionVisible": true,
+    "commonIntroAndPhasePresentation": true,
+    "pauseFrozen": true,
+    "reducedEffects": true,
+    "stage96SecondBoundary": true,
+    "bossMusicContinuous": true,
+    "resourceSelector": true,
+    "realBombClears": true,
+    "blurPaused": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "usedOnlyBoundedFixtures": true,
+    "naturalFullClearTested": false
+  },
+  "protectedOldFiles": {
+    "count": 225,
+    "unchanged": true
+  },
+  "artOrMusicChanged": false,
+  "naturalFullClearTested": false,
+  "easyCalibrationComplete": false,
+  "stage01Connected": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false,
+  "originalAttackSource": "combat.js",
+  "originalPatternChartSha256": "4660e9c84fe7de42d159e6b0df8fd38532024188d4aee9a406ceea16b13ec116",
+  "previewV3UnchangedSha256": "e8698599dc1e776db494a4a0c4cca415ee0682516c1bf97be2ad9770bd3624ed",
+  "currentPatternsAccepted": false
+}

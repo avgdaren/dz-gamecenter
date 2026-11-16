@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-stage02-refined-v6-offline.html",
+    "bytes": 36121291,
+    "sha256": "3407573e70c0c53fa3f14bf81825176f214cbb6c56c19fb5c2377bf861b4ed7a"
+  },
+  "logic": {
+    "attackAges": [
+      {
+        "name": "风庭精灵",
+        "before": [
+          60,
+          132
+        ],
+        "after": [
+          120,
+          192
+        ],
+        "warnings": [
+          90,
+          162
+        ]
+      },
+      {
+        "name": "司铃风侍",
+        "before": [
+          66,
+          156
+        ],
+        "after": [
+          120,
+          210
+        ],
+        "warnings": [
+          84,
+          174
+        ]
+      },
+      {
+        "name": "花铃守卫",
+        "before": [
+          120,
+          228,
+          336,
+          444
+        ],
+        "after": [
+          120,
+          228,
+          336,
+          444
+        ],
+        "warnings": [
+          84,
+          192,
+          300,
+          408
+        ]
+      }
+    ],
+    "singleEnemy": [
+      {
+        "type": 0,
+        "route": "sideArc",
+        "actual": [
+          {
+            "age": 120,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "type": 0,
+        "route": "column",
+        "actual": [
+          {
+            "age": 120,
+            "count": 2
+          },
+          {
+            "age": 192,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "route": "hold",
+        "actual": [
+          {
+            "age": 120,
+            "count": 3
+          },
+          {
+            "age": 210,
+            "count": 3
+          }
+        ]
+      },
+      {
+        "type": 2,
+        "route": "hold",
+        "actual": [
+          {
+            "age": 120,
+            "count": 5
+          },
+          {
+            "age": 228,
+            "count": 3
+          },
+          {
+            "age": 336,
+            "count": 5
+          },
+          {
+            "age": 444,
+            "count": 3
+          }
+        ]
+      }
+    ],
+    "local18s": {
+      "power": 16,
+      "normalShooting": true,
+      "before": {
+        "fired": 66,
+        "peak": 38,
+        "kills": 18
+      },
+      "after": {
+        "fired": 38,
+        "peak": 24,
+        "kills": 18
+      }
+    },
+    "status": "PASS",
+    "checks": [
+      "only mob attack and warning times change; formations, counts and player rules stay",
+      "every route has no bullets until age 120, then fires with the full warning",
+      "normal level-five local play keeps the same mob and player states",
+      "all three accepted Boss snapshots including player shots stay identical",
+      "Flow applies the same grace once, keeps eight-second entry and Boss retry"
+    ],
+    "bossEasyPatternsUnchanged": true,
+    "naturalFullClearTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "3407573e70c0c53fa3f14bf81825176f214cbb6c56c19fb5c2377bf861b4ed7a",
+    "musicStartsAtBeginningBeforeAnyEnemy": true,
+    "firstMusicOffsetSeconds": 0.016666666666666666,
+    "noInsertedAudioSilence": true,
+    "firstEnemiesAt8Seconds": true,
+    "formationsKept": true,
+    "noBulletsThroughFirstEnemyAge119": true,
+    "firstVolleyAtEnemyAge120": true,
+    "firstVolleyTick": 600,
+    "firstVolleyBulletCount": 6,
+    "bossCanvasMatchesAcceptedV4": true,
+    "pauseFrozen": true,
+    "boss96SecondBoundary": true,
+    "bossMusicSwitch": true,
+    "blurPaused": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "naturalFullClearTested": false
+  },
+  "screenshotsInspected": [
+    "entry-warning-before-fire.png",
+    "entry-first-volley.png"
+  ],
+  "bossEasyPatternsAccepted": true,
+  "bossAcceptedBaseline": "refined-v4",
+  "bossBaselineUnchanged": true,
+  "protectedOldFiles": {
+    "count": 236,
+    "unchanged": true
+  },
+  "artOrMusicChanged": false,
+  "naturalFullClearTested": false,
+  "easyCalibrationComplete": false,
+  "stage01Connected": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

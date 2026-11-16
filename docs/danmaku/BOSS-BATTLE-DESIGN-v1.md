@@ -10,7 +10,7 @@
 
 | 已有文件 | 实际状态 | 本次用途 |
 |---|---|---|
-| [旧透明主体立绘](art/production-candidates/boss-body-v1.png) | 1134×1387 RGBA，SHA256 `79fbf9c029691bfa41e9745e2dabd21add27d93e184fe3a8f4c25f98a0862cce`，与 `output/danmaku-p1-art/boss-body-v1.png` 副本一致 | 继续作为人物身份、服装、配色和登场主体层依据 |
+| [旧透明主体立绘](art/production-candidates/boss-body-v1.png) | 1134×1387 RGBA，SHA256 `79fbf9c029691bfa41e9745e2dabd21add27d93e184fe3a8f4c25f98a0862cce`，与 `output/天使弹幕祭/历史版本/danmaku-p1-art/boss-body-v1.png` 副本一致 | 继续作为人物身份、服装、配色和登场主体层依据 |
 | [旧方向板](art/art-direction-v1.png) | 含人物、巨型金色星仪和战场氛围；属于设计方向板 | 提取星仪造型与整体配色参考 |
 
 之前完成的是主体立绘候选与方向板，独立星仪、头像和正式战斗图集没有完成，也没有接进战场。旧主体含256级alpha及大量精细色彩，适合立绘；战斗用的原生像素图需要另外整理。既有素材不需要用户重新上传。

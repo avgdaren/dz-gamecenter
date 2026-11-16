@@ -72,4 +72,4 @@ python tests/danmaku/package_preview.py --check
 
 ## 交付与下一步
 
-单文件`E:\GPT工作区\output\danmaku-stage01-audio-v1-offline.html`；完整包`danmaku-stage01-audio-v1.zip`根目录`START.html`可双击。旧美术版、大招版、成长版和源图保留。下一步是第六步页面UI整体优化；不自动扩关或平台上架。
+单文件`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-audio-v1-offline.html`；完整包`danmaku-stage01-audio-v1.zip`根目录`START.html`可双击。旧美术版、大招版、成长版和源图保留。下一步是第六步页面UI整体优化；不自动扩关或平台上架。

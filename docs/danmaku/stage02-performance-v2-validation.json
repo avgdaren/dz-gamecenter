@@ -1,0 +1,111 @@
+{
+  "version": 2,
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "status": "PASS",
+  "type": "bounded-technical-validation-not-visual-acceptance",
+  "output": {
+    "file": "danmaku-stage02-performance-v2-offline.html",
+    "bytes": 37046471,
+    "sha256": "670eef8e5ea32b123600461762d74c90924cd5205e59bca9d2d4eee83523ff6e"
+  },
+  "logic": {
+    "status": "PASS",
+    "checks": [
+      {
+        "name": "phase 0 acting leaves 720-step combat snapshot unchanged and anticipates actual casts",
+        "casts": 8,
+        "predictions": 192
+      },
+      {
+        "name": "phase 1 acting leaves 720-step combat snapshot unchanged and anticipates actual casts",
+        "casts": 8,
+        "predictions": 192
+      },
+      {
+        "name": "phase 2 acting leaves 720-step combat snapshot unchanged and anticipates actual casts",
+        "casts": 8,
+        "predictions": 192
+      },
+      {
+        "name": "entry descent fits the existing 390-tick hold and meets the first combat position"
+      },
+      {
+        "name": "casting, transition and departure models do not mutate simulation or extend ending time"
+      },
+      {
+        "name": "mob anticipation and pose selection leave mob state untouched"
+      }
+    ],
+    "presentationOnly": true,
+    "naturalFullClearTested": false,
+    "serverVerifierTested": false
+  },
+  "browser": {
+    "status": "PASS",
+    "file": "danmaku-stage02-performance-v2-offline.html",
+    "sha256": "670eef8e5ea32b123600461762d74c90924cd5205e59bca9d2d4eee83523ff6e",
+    "titleAndPrologue": true,
+    "realDialogueAdvanceAndSkip": true,
+    "dialogueFreezesBattle": true,
+    "stageAndBossAudio": true,
+    "stageAudioErrorSeconds": -0.00466666666666668,
+    "bossAudioErrorSeconds": 0,
+    "resourceCarry": true,
+    "bossHoldNoAttack": true,
+    "realKeyboardMovement": true,
+    "bossActuallyTakesDamage": true,
+    "realBombClears": true,
+    "pauseFrozen": true,
+    "blurPaused": true,
+    "checkpointRetryRestoresResources": true,
+    "victoryMusicFades": true,
+    "epilogueAndComplete": true,
+    "wholeRestart": true,
+    "emissionSourceAndBirthRendered": true,
+    "newbornMaterialAgeChecked": 4,
+    "allThreePhasesRendered": true,
+    "fourRegisteredPosesPerCharacter": true,
+    "noMeshDeformation": true,
+    "entryFlightAndCardRendered": true,
+    "anticipationBeforeActualCast": true,
+    "poseFollowsCastFamily": true,
+    "phaseChangeAndDepartureRendered": true,
+    "reducedEffectsRendered": true,
+    "bossComparisonRendered": true,
+    "mobileNoOverflow": true,
+    "headlessMedianFrameMs": 16.699999999999818,
+    "frameSampleCount": 12,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "usedBoundedFixtures": true,
+    "naturalFullClearTested": false,
+    "serverVerifierTested": false
+  },
+  "realPreviewButtons": {
+    "status": "PASS",
+    "sha256": "670eef8e5ea32b123600461762d74c90924cd5205e59bca9d2d4eee83523ff6e",
+    "realPreviewButtons": [
+      "mob-pair",
+      "boss-entry",
+      "wind-window",
+      "petal-window",
+      "bell-window",
+      "phase-change",
+      "victory"
+    ],
+    "testFlagAlwaysSet": true,
+    "naturalFullClearTested": false
+  },
+  "protection": {
+    "status": "PASS",
+    "protectedFiles": 185,
+    "changed": [],
+    "generatedSourcesCopiedByteForByte": 3
+  },
+  "visualAcceptance": false,
+  "naturalFullClearTested": false,
+  "firstStageIntegrated": false,
+  "finalDialogueChanged": false,
+  "serverVerifierTested": false
+}

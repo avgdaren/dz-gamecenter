@@ -1,0 +1,16 @@
+[
+  {
+    "originalFile": "E:\\GPT工作区\\output\\天使弹幕祭\\历史版本\\danmaku-stage01-hard-v1-offline.html",
+    "originalSha256": "ad7906862b9b53acbbde99cfa36aad15107ce15969eb0b0b358ee96c4ed1158a",
+    "runtime": "stage-hard-v1.js",
+    "runtimeSha256": "b57df5f6226574edbde663ebc5e944e24254d04daee56463259163d2c2179281",
+    "bytes": 25214
+  },
+  {
+    "originalFile": "E:\\GPT工作区\\output\\天使弹幕祭\\历史版本\\danmaku-stage01-hard-v2-offline.html",
+    "originalSha256": "79c866ae7aa12403137e1ebc343de08602a4b5795ee338e136df9269e1353b02",
+    "runtime": "stage-hard-v2.js",
+    "runtimeSha256": "fd4764c3134e19593145fdb6b0617d3d609cd39ea0a7f302629d41c241d8c9d2",
+    "bytes": 25580
+  }
+]

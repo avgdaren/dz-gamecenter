@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-15",
+  "status": "PASS",
+  "output": {
+    "file": "danmaku-stage02-refined-v3-offline.html",
+    "bytes": 36097966,
+    "sha256": "e8698599dc1e776db494a4a0c4cca415ee0682516c1bf97be2ad9770bd3624ed"
+  },
+  "logic": {
+    "status": "PASS",
+    "checks": [
+      "all formations shift six seconds with identical composition and spacing",
+      "first 479 steps have no enemies and movement remains available",
+      "bounded relative-time mob states remain identical",
+      "ninety seconds is no longer the end and 96s carries resources once",
+      "three boss simulations and rule data are unchanged"
+    ],
+    "firstEnemySeconds": 8,
+    "scheduleShiftSeconds": 6,
+    "preludeSeconds": 96,
+    "gatherSeconds": 90,
+    "enemies": 102,
+    "naturalFullClearTested": false,
+    "bossRetestedOnlyBoundedEquivalence": true
+  },
+  "browser": {
+    "status": "PASS",
+    "sha256": "e8698599dc1e776db494a4a0c4cca415ee0682516c1bf97be2ad9770bd3624ed",
+    "firstEnemyTick": 480,
+    "noEnemiesBefore8Seconds": true,
+    "musicStartsAtZero": true,
+    "musicOffsetsMatch": true,
+    "introMovement": true,
+    "pauseFrozen": true,
+    "stageClock96Seconds": true,
+    "bossBoundaryAt96Seconds": true,
+    "gardenBoundaryContinuous": true,
+    "acceptedSpeedsAndBossHoldPreserved": true,
+    "bossMusicSwitch": true,
+    "blurPaused": true,
+    "simulated390pxNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "onlyIntroAndBoundaryFixtures": true,
+    "naturalFullClearTested": false
+  },
+  "protectedOldFiles": {
+    "count": 225,
+    "unchanged": true
+  },
+  "artOrMusicChanged": false,
+  "naturalFullClearTested": false,
+  "easyCalibrationComplete": false,
+  "stage01Connected": false,
+  "serverReplayTested": false,
+  "uploadedOrDeployed": false
+}

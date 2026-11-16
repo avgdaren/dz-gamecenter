@@ -12,7 +12,7 @@
 
 - [初始草图](art/player-candidates/player-concept-v1-raw.png)。
 - [修正后草图](art/player-candidates/player-concept-v1.png)：当前供用户评审的版本。
-- 导出副本：`E:\GPT工作区\output\danmaku-p1-art\player-concept-v1.png`。
+- 导出副本：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-p1-art\player-concept-v1.png`。
 - 内置工具原件文件名：`exec-7bdb5b8a-d74b-4f08-87af-850813731d50.png`、`exec-f82b3468-1adf-4780-8f95-f1c99fb71d39.png`；原件保留在本对话的默认generated_images目录。
 
 ## 目视评审与边界

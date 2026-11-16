@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "date": "2026-11-14",
+  "author": "小典 / Codex",
+  "prototypeCopyright": "(C) 2026 Carinoasd",
+  "protection": {
+    "unchangedFiles": 82,
+    "gameplaySourceUnchanged": true,
+    "sourceImagesPreserved": 3
+  },
+  "browser": {
+    "status": "PASS",
+    "hashes": {
+      "danmaku-stage02-patterns-v2-offline.html": "d2e29bc1be92542f17a564a945b7febf05fee4ffa33da278415215694c4cac1b",
+      "danmaku-stage02-combat-v2-offline.html": "1c89b6cef9c289717884fd7e179105e3f55d6eba0b9006d37dcf8885c40705df"
+    },
+    "materials": {
+      "ready": true,
+      "assets": {
+        "petal": {
+          "width": 97,
+          "height": 104,
+          "centerAlpha": 255,
+          "displayOutline": true
+        },
+        "leaf": {
+          "width": 53,
+          "height": 104,
+          "centerAlpha": 255,
+          "displayOutline": true
+        },
+        "bud": {
+          "width": 100,
+          "height": 104,
+          "centerAlpha": 255,
+          "displayOutline": true
+        }
+      },
+      "drawCounts": {
+        "petal": 0,
+        "leaf": 0,
+        "bud": 0
+      }
+    },
+    "renderCounts": {
+      "petal": 63,
+      "leaf": 9,
+      "bud": 27
+    },
+    "identicalSimulationSnapshotsVsV1": 3,
+    "framesPerSnippet": 720,
+    "pauseFrozen": true,
+    "seekDeterministic": true,
+    "audioDecoded": 2,
+    "headlessMedianFrameMs": 16.699999999999818,
+    "frameSampleCount": 12,
+    "mobileNoOverflow": true,
+    "consoleErrors": 0,
+    "externalRequests": 0,
+    "gameplayChanged": false,
+    "fullGameTested": false
+  },
+  "gameplayChanged": false,
+  "fullGameTested": false
+}

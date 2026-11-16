@@ -30,9 +30,9 @@
 ## 交付与验证
 
 - [16秒道中／Boss试听页](audio/stage01-midi-v3/preview.html)：由游戏同款合成器渲染的WAV，提供原始MIDI下载。游戏BGM仍直接演奏MIDI。
-- 单文件：`E:\GPT工作区\output\danmaku-stage01-midi-v3-offline.html`。
-- 完整制作包：`E:\GPT工作区\output\danmaku-stage01-midi-v3.zip`，根目录`START.html`。
-- 7份原曲包：`E:\GPT工作区\output\danmaku-stage01-midi-v3-midi.zip`。
+- 单文件：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-midi-v3-offline.html`。
+- 完整制作包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-midi-v3.zip`，根目录`START.html`。
+- 7份原曲包：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-midi-v3-midi.zip`。
 
 9项MIDI检查、14项音频生命周期检查通过：SMF逐音符／时间／力度／GM程序往返、损坏输入拒绝、分层循环与跳转、32声部上限、暂停清理短音符、原音效与规则／美术不变。自动检查按当前音库版本选择原曲，不会拿v2事件误核对v3。
 

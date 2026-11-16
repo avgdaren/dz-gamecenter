@@ -1,0 +1,83 @@
+{
+  "fairySource": {
+    "file": "garden-fairy-idle-source-v1.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 420258,
+    "sha256": "82648bddd2867e9d1d3084216f3b46d13e2b851ddbde6d190e16b94949839e32",
+    "colorType": 6,
+    "transparentPixels": 1321740,
+    "partialAlphaPixels": 249672,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      326,
+      208,
+      924,
+      968
+    ],
+    "generatedPixelsPreserved": true
+  },
+  "attendantSource": {
+    "file": "bell-attendant-idle-source-v1.png",
+    "dimensions": [
+      1086,
+      1448
+    ],
+    "bytes": 457405,
+    "sha256": "3ed4ee3d828938a1377d60ed4cb1562b8a44f8ddb4002a9c2c32264f7180539f",
+    "colorType": 6,
+    "transparentPixels": 1277845,
+    "partialAlphaPixels": 293170,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      245,
+      232,
+      754,
+      1202
+    ],
+    "generatedPixelsPreserved": true
+  },
+  "lingyuSource": {
+    "file": "lingyu-idle-source-v1.png",
+    "dimensions": [
+      1086,
+      1448
+    ],
+    "bytes": 664358,
+    "sha256": "42585477c5fd418fcfbf8ffe0d96b1aed5bf5e1e02b0cd035f2c35e6196cce4b",
+    "colorType": 6,
+    "transparentPixels": 1235326,
+    "partialAlphaPixels": 336666,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "visibleBoundsAlpha128": [
+      178,
+      195,
+      791,
+      1230
+    ],
+    "generatedPixelsPreserved": true
+  }
+}

@@ -6,7 +6,7 @@
 
 用户已确认“标题界面没问题”，要求低速弹样式恢复前版，并新增道中火力收集、让不掉火力的敌人掉增加积分的收集物。标题立绘／星杖／布局继续采用，不再记为待标题验收；此反馈不扩展为所有设备或新掉落平衡已验收。
 
-最新试玩：`E:\GPT工作区\output\danmaku-stage01-collect-v1-offline.html`；独立快速查看：`E:\GPT工作区\output\danmaku-collect-v1-review.html`。旧weapons-v3文件保留。
+最新试玩：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-stage01-collect-v1-offline.html`；独立快速查看：`E:\GPT工作区\output\天使弹幕祭\历史版本\danmaku-collect-v1-review.html`。旧weapons-v3文件保留。
 
 ## 当前行为
 
